@@ -1,0 +1,25 @@
+<head>
+  <title>fleetr</title>
+</head>
+
+<body>
+  {{> insertBookForm}}
+  {{> bookList}}
+  {{> updateBookForm}}
+</body>
+
+<template name="insertBookForm">
+  {{> quickForm collection="Books" id="insertBookForm" type="insert"}}
+</template>
+
+<template name="updateBookForm">
+  {{> quickForm collection="Books" doc=editingDoc id="updateBookForm" type="update"}}
+</template>
+
+<template name="bookList">
+  <ul>
+     {{# each books}}
+	<li>{{title}}</li>
+     {{/each}}
+  </ul>
+</template>
