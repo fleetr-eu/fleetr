@@ -4,9 +4,8 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
 insecure
 aldeed:collection2
 aldeed:autoform
 mizzao:bootstrap-3
-
+coffeescript
