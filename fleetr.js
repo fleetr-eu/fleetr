@@ -37,8 +37,11 @@ if (Meteor.isClient) {
 
     Template.bookList.books = Books.find();
     Template.bookList.events({
-        'click li': function (e) {
+        'click .item': function (e) {
             Session.set("selectedDocId", this._id);
+        },
+        'click .deleteItem': function (e) {
+            Books.remove({_id: this._id});
         }
     });
 }
