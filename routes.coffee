@@ -1,4 +1,4 @@
 Meteor.startup ->
   Router.map ->
-    @route 'fleetr',
-      path: '/'
+    @route 'fleetr', path: '/'
+    @route 'driver'

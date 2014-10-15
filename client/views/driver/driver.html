@@ -1,0 +1,61 @@
+<template name="driver">
+  <div class="container">
+    {{#autoForm schema=driverSchema id="driverForm" type="method" meteormethod="submitDriver"}}
+      <div class="row">
+        <fieldset>
+            <legend>Personal information</legend>
+            <div class="col-md-4">
+                {{> afQuickField name="name"}}
+                {{> afQuickField name="firstName"}}
+                {{> afQuickField name="ssn"}}
+                {{> afQuickField name="birthDate"}}
+                {{> afQuickField name="sex" radio="true" trueLabel="Male" falseLabel="Female"}}
+                {{> afQuickField name="title"}}
+            </div>
+            <div class="col-md-4">
+                {{> afQuickField name="idSerial"}}
+                {{> afQuickField name="idNo"}}
+                {{> afQuickField name="validFrom"}}
+                {{> afQuickField name="validTo"}}
+                {{> afQuickField name="issuedBy"}}
+                {{> afQuickField name="birthPlace"}}
+                {{> afQuickField name="bloodGroup"}}
+            </div>
+            <div class="col-md-4">
+                <img src="" alt="" />
+            </div>
+        </fieldset>
+      </div>
+      <div class="row">
+          <div class="col-md-4">
+            <fieldset>
+                <legend>Personal information</legend>
+                {{> afQuickField name="name"}}
+                {{> afQuickField name="firstName"}}
+                {{> afQuickField name="ssn"}}
+            </fieldset>
+          </div>
+          <div class="col-md-4">
+              <fieldset>
+                <legend>Contact information</legend>
+                {{> afQuickField name="name"}}
+                {{> afQuickField name="firstName"}}
+                {{> afQuickField name="ssn"}}
+              </fieldset>
+          </div>
+          <div class="col-md-4">
+              <fieldset>
+                <legend>Contact information</legend>
+                {{> afQuickField name="name"}}
+                {{> afQuickField name="firstName"}}
+                {{> afQuickField name="ssn"}}
+              </fieldset>
+          </div>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-default">Reset</button>
+      </div>
+    {{/autoForm}}
+  </div>
+</template>
