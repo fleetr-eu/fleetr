@@ -102,20 +102,14 @@ Schema.driver = new SimpleSchema
     type: Date
     label: "License Expiery Date"
     optional: true
-  'categories':
-    type: Object
-    label: 'Categories'
+  'categories.$.license':
+    type: String
     optional: true
-    maxCount: 5
-  # 'category.$.license':
-  #   type: String
-  #   optional: true
-  #   allowedValues: ['A', 'B', 'C', 'D', 'E']
-  # 'category.$.issueDate':
-  #   type: Date
-  #   optional: true
-  #   autoform:
-  #     label: false
+    allowedValues: ['A', 'B', 'C', 'D', 'E']
+  'categories.$.issueDate':
+    type: Date
+    optional: true
+    label: 'Issue Date'
   medEvalExpieryDate:
     type: Date
     label: "Medical Evaluation Expiery Date"

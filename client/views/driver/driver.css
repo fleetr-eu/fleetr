@@ -1,3 +1,7 @@
 div.radio {
   display: inline-block;
 }
+
+h3.panel-title {
+  display: none;
+}
