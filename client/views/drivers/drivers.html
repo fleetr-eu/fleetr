@@ -1,0 +1,13 @@
+<template name="drivers">
+  <ul>
+  {{#each drivers}}
+    <li>
+    {{> driverListItem}}
+    </li>
+  {{/each}}
+  </ul>
+</template>
+
+<template name="driverListItem">
+  {{name}} <a href="#" class='deleteDriver'>X</a>
+</template>
