@@ -2,9 +2,6 @@
     <title>fleetr</title>
 </head>
 
-<body>
-</body>
-
 <template name="header">
   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
@@ -49,37 +46,18 @@
   <div class="container">
       <div class="row">
           <div class="col-md-4">
-              <h4>Add a book</h4>
-              {{> insertBookForm}}
+              <h2><a href="{{pathFor 'driver'}}">Add a driver</a></h2>
+              {{fakeParagraph}}
           </div>
           <div class="col-md-4">
-              {{> bookList}}
+            <h2>Add a vehicle</h2>
+              {{fakeParagraph}}
           </div>
           <div class="col-md-4">
-              <h4>Edit the book</h4>
-              {{> updateBookForm}}
+            <h2>Add something else</h2>
+            {{fakeParagraph}}
           </div>
       </div>
   </div>
   {{> footer}}
-</template>
-
-<template name="insertBookForm">
-    {{> quickForm collection="Books" id="insertBookForm" type="insert"}}
-</template>
-
-<template name="updateBookForm">
-    {{> quickForm collection="Books" doc=editingDoc id="updateBookForm" type="update"}}
-</template>
-
-<template name="bookList">
-    <h4>Books</h4>
-    <ul class="list-group">
-        {{# each books}}
-        <li class="list-group-item pointable">
-            <span class="badge pointable deleteItem">X</span>
-            {{title}}
-        </li>
-        {{/each}}
-    </ul>
 </template>

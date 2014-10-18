@@ -3,13 +3,13 @@
     {{#autoForm schema=driverSchema id="driverForm" type="method" meteormethod="submitDriver"}}
       <div class="row">
         <fieldset>
-            <legend>Personal information</legend>
+            <legend>Personal Information</legend>
             <div class="col-md-4">
                 {{> afQuickField name="name"}}
                 {{> afQuickField name="firstName"}}
                 {{> afQuickField name="ssn"}}
                 {{> afQuickField name="birthDate"}}
-                {{> afQuickField name="sex" radio="true" trueLabel="Male" falseLabel="Female"}}
+                {{> afQuickField name="sex" options="allowed" noselect="true"}}
                 {{> afQuickField name="title"}}
             </div>
             <div class="col-md-4">
@@ -19,43 +19,55 @@
                 {{> afQuickField name="validTo"}}
                 {{> afQuickField name="issuedBy"}}
                 {{> afQuickField name="birthPlace"}}
-                {{> afQuickField name="bloodGroup"}}
+                {{> afQuickField name="bloodGroup" options="allowed"}}
             </div>
             <div class="col-md-4">
-                <img src="" alt="" />
+                <img src="images/200x200.jpg" alt="Driver Photo" />
             </div>
         </fieldset>
       </div>
+
       <div class="row">
-          <div class="col-md-4">
-            <fieldset>
-                <legend>Personal information</legend>
-                {{> afQuickField name="name"}}
-                {{> afQuickField name="firstName"}}
-                {{> afQuickField name="ssn"}}
-            </fieldset>
-          </div>
-          <div class="col-md-4">
-              <fieldset>
-                <legend>Contact information</legend>
-                {{> afQuickField name="name"}}
-                {{> afQuickField name="firstName"}}
-                {{> afQuickField name="ssn"}}
-              </fieldset>
-          </div>
-          <div class="col-md-4">
-              <fieldset>
-                <legend>Contact information</legend>
-                {{> afQuickField name="name"}}
-                {{> afQuickField name="firstName"}}
-                {{> afQuickField name="ssn"}}
-              </fieldset>
-          </div>
+        <fieldset>
+            <div class="col-md-4">
+                <legend>Contact Information</legend>
+                {{> afQuickField name="city"}}
+                {{> afQuickField name="address"}}
+                {{> afQuickField name="county"}}
+                {{> afQuickField name="country"}}
+                {{> afQuickField name="email"}}
+                {{> afQuickField name="mobile"}}
+                {{> afQuickField name="phone"}}
+                {{> afQuickField name="officePhone"}}
+            </div>
+            <div class="col-md-4">
+                <legend>Driving License Information</legend>
+                {{> afQuickField name="licenseIssueDate"}}
+                {{> afQuickField name="licenseExpieryDate"}}
+                {{> afQuickField name="categories" template='categories'}}
+            </div>
+            <div class="col-md-4">
+                <legend>Driver Information</legend>
+                {{> afQuickField name="medEvalExpieryDate"}}
+                {{> afQuickField name="profCertExpieryDate"}}
+                {{> afQuickField name="psychApprovalExpieryDate"}}
+                {{> afQuickField name="transportLicense"}}
+                {{> afQuickField name="education"}}
+                {{> afQuickField name="ownsPersonalLicense" radio="true" trueLabel="Yes" falseLabel="No"}}
+                {{> afQuickField name="ownVehicle"}}
+                {{> afQuickField name="active"}}
+            </div>
+        </fieldset>
       </div>
+
       <div>
         <button type="submit" class="btn btn-primary">Submit</button>
         <button type="reset" class="btn btn-default">Reset</button>
       </div>
     {{/autoForm}}
   </div>
+</template>
+
+<template name="autoForm_categories">
+  some shit here
 </template>

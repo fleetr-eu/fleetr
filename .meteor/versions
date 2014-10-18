@@ -6,6 +6,7 @@ alanning:roles@1.2.13
 aldeed:autoform@3.2.0
 aldeed:collection2@2.2.0
 aldeed:simple-schema@1.0.3
+anti:fake@0.4.1
 application-configuration@1.0.3
 autoupdate@1.1.2
 base64@1.0.1
@@ -30,11 +31,10 @@ html-tools@1.0.2
 htmljs@1.0.2
 http@1.0.7
 id-map@1.0.1
-insecure@1.0.1
 iron:core@0.3.4
 iron:dynamic-template@0.4.1
 iron:layout@0.4.1
-iron:router@0.9.3
+iron:router@0.9.4
 jquery@1.0.1
 json@1.0.1
 less@1.0.10
