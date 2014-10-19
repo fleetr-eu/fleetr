@@ -1,7 +1,7 @@
 <template name="drivers">
-  <ul>
+  <ul class="list-group">
   {{#each drivers}}
-    <li>
+    <li class="list-group-item">
     {{> driverListItem}}
     </li>
   {{/each}}
@@ -9,5 +9,5 @@
 </template>
 
 <template name="driverListItem">
-  {{name}} <a href="#" class='deleteDriver'>X</a>
+  {{name}} <a href="#" class='deleteDriver pull-right'><span class="glyphicon glyphicon-remove"></span></a>
 </template>
