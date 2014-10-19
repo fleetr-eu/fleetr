@@ -20,3 +20,7 @@ body {
 .alert {
     margin: 1em 2em 1em 2em;
 }
+
+#filter-input {
+    padding-top: 1em;
+}

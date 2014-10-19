@@ -1,5 +1,8 @@
 <template name="drivers">
     <section class="content">
+        {{#contentFor "filter"}}
+            {{> filter sessionVar='driverFilter' placeholder='Type here to filter drivers by name'}}
+        {{/contentFor}}
         <table class="table table-striped">
 
             <thead>
@@ -10,9 +13,7 @@
             </thead>
 
             <tbody>
-                {{#each drivers}}
-                    {{>driverTableRow}}
-                {{/each}}
+                {{#each drivers}} {{>driverTableRow}} {{/each}}
             </tbody>
         </table>
     </section>
