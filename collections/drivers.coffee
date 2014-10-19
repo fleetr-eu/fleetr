@@ -1,4 +1,3 @@
 @Drivers = new Mongo.Collection 'drivers'
 
-Drivers.allow
-  remove: -> true
+Drivers.attachSchema Schema.driver

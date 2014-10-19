@@ -24,3 +24,7 @@ body {
 #filter-input {
     padding-top: 1em;
 }
+
+#login-buttons {
+  padding-right: 20em;
+}
