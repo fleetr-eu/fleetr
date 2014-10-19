@@ -4,7 +4,7 @@ Template.drivers.events
 Template.drivers.helpers
   drivers: ->
     filter =
-      $regex: "#{Session.get('driverFilter').trim()}"
+      $regex: "#{Session.get('driverFilter').trim()}".replace ' ', '|'
       $options: 'i'
     Drivers.find $or: [{name: filter}, {firstName: filter}]
 
