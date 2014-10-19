@@ -5,3 +5,7 @@ div.radio {
 h3.panel-title {
   display: none;
 }
+
+.tab-content .row {
+  margin-top: 1em;
+}

@@ -1,69 +1,80 @@
 <template name="driver">
   <div class="container">
     {{#autoForm schema=driverSchema id="driverForm" type="method" meteormethod="submitDriver"}}
-      <div class="row">
-        <fieldset>
-            <legend>Personal Information</legend>
-            <div class="col-md-4">
-                {{> afQuickField name="name"}}
-                {{> afQuickField name="firstName"}}
-                {{> afQuickField name="ssn"}}
-                {{> afQuickField name="birthDate"}}
-                {{> afQuickField name="sex" options="allowed" noselect="true"}}
-                {{> afQuickField name="title"}}
-            </div>
-            <div class="col-md-4">
-                {{> afQuickField name="idSerial"}}
-                {{> afQuickField name="idNo"}}
-                {{> afQuickField name="validFrom"}}
-                {{> afQuickField name="validTo"}}
-                {{> afQuickField name="issuedBy"}}
-                {{> afQuickField name="birthPlace"}}
-                {{> afQuickField name="bloodGroup" options="allowed"}}
-            </div>
-            <div class="col-md-4">
-                <img src="images/200x200.jpg" alt="Driver Photo" />
-            </div>
-        </fieldset>
-      </div>
 
-      <div class="row">
-        <fieldset>
-            <div class="col-md-4">
-                <legend>Contact Information</legend>
-                {{> afQuickField name="city"}}
-                {{> afQuickField name="address"}}
-                {{> afQuickField name="county"}}
-                {{> afQuickField name="country"}}
-                {{> afQuickField name="email"}}
-                {{> afQuickField name="mobile"}}
-                {{> afQuickField name="phone"}}
-                {{> afQuickField name="officePhone"}}
-            </div>
-            <div class="col-md-4">
-                <legend>Driving License Information</legend>
-                {{> afQuickField name="licenseIssueDate"}}
-                {{> afQuickField name="licenseExpieryDate"}}
-                {{> afQuickField name="categories"}}
-            </div>
-            <div class="col-md-4">
-                <legend>Driver Information</legend>
-                {{> afQuickField name="medEvalExpieryDate"}}
-                {{> afQuickField name="profCertExpieryDate"}}
-                {{> afQuickField name="psychApprovalExpieryDate"}}
-                {{> afQuickField name="transportLicense"}}
-                {{> afQuickField name="education"}}
-                {{> afQuickField name="ownsPersonalLicense" radio="true" trueLabel="Yes" falseLabel="No"}}
-                {{> afQuickField name="ownVehicle"}}
-                {{> afQuickField name="active"}}
-            </div>
-        </fieldset>
-      </div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-pills" role="tablist">
+            <li class="active"><a href="#pers-info" role="tab" data-toggle="tab">Personal Information</a></li>
+            <li><a href="#prof-info" role="tab" data-toggle="tab">Professional Information</a></li>
+        </ul>
 
-      <div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-default">Reset</button>
-      </div>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="pers-info">
+                <div class="row">
+                  <fieldset>
+                      <div class="col-md-4">
+                          {{> afQuickField name="name"}}
+                          {{> afQuickField name="firstName"}}
+                          {{> afQuickField name="ssn"}}
+                          {{> afQuickField name="birthDate"}}
+                          {{> afQuickField name="sex" options="allowed" noselect="true"}}
+                          {{> afQuickField name="title"}}
+                      </div>
+                      <div class="col-md-4">
+                          {{> afQuickField name="idSerial"}}
+                          {{> afQuickField name="idNo"}}
+                          {{> afQuickField name="validFrom"}}
+                          {{> afQuickField name="validTo"}}
+                          {{> afQuickField name="issuedBy"}}
+                          {{> afQuickField name="birthPlace"}}
+                          {{> afQuickField name="bloodGroup" options="allowed"}}
+                      </div>
+                      <div class="col-md-4">
+                          <img src="images/200x200.jpg" alt="Driver Photo" />
+                      </div>
+                  </fieldset>
+                </div>
+            </div>
+            <div class="tab-pane" id="prof-info">
+                <div class="row">
+                  <fieldset>
+                      <div class="col-md-4">
+                          <legend>Contact Information</legend>
+                          {{> afQuickField name="city"}}
+                          {{> afQuickField name="address"}}
+                          {{> afQuickField name="county"}}
+                          {{> afQuickField name="country"}}
+                          {{> afQuickField name="email"}}
+                          {{> afQuickField name="mobile"}}
+                          {{> afQuickField name="phone"}}
+                          {{> afQuickField name="officePhone"}}
+                      </div>
+                      <div class="col-md-4">
+                          <legend>Driving License Information</legend>
+                          {{> afQuickField name="licenseIssueDate"}}
+                          {{> afQuickField name="licenseExpieryDate"}}
+                          {{> afQuickField name="categories"}}
+                      </div>
+                      <div class="col-md-4">
+                          <legend>Driver Information</legend>
+                          {{> afQuickField name="medEvalExpieryDate"}}
+                          {{> afQuickField name="profCertExpieryDate"}}
+                          {{> afQuickField name="psychApprovalExpieryDate"}}
+                          {{> afQuickField name="transportLicense"}}
+                          {{> afQuickField name="education"}}
+                          {{> afQuickField name="ownsPersonalLicense" radio="true" trueLabel="Yes" falseLabel="No"}}
+                          {{> afQuickField name="ownVehicle"}}
+                          {{> afQuickField name="active"}}
+                      </div>
+                  </fieldset>
+                </div>
+            </div>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="reset" class="btn btn-default">Reset</button>
+        </div>
     {{/autoForm}}
   </div>
 </template>
