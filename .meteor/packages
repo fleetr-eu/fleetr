@@ -15,4 +15,5 @@ iron:router
 chrismbeckett:fontawesome4
 accounts-ui
 anti:fake
+mrt:flash-messages
 
