@@ -1,0 +1,52 @@
+body, html {
+    height:100%;
+}
+body {
+    padding-top:3.6em;
+}
+.page {
+    padding:2em;
+    padding-top:.5em;
+}
+.tag {
+    display:inline-block;
+    padding:0.2em;
+}
+
+.container {
+    padding:0.2em;
+}
+
+.alert {
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+.navbar-right {
+    padding-right:1.5em;
+}
+
+.nav-submenu {
+    margin-left:5.5em;
+}
+
+.nav-submenu li a {
+    background-color: #fff;
+}
+.nav-submenu li a:hover {
+    color: #777;
+    background-color: #fff;
+    text-decoration: underline;
+}
+
+.nav-submenu li.active a {
+    background-color: #fff;
+    color: #555;
+}
+.nav-submenu li.active a::before {
+    content:"> ";
+}
+.nav-submenu li.active a:hover {
+    color: #777;
+    background-color: #fff;
+}
