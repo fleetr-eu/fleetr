@@ -1,13 +1,26 @@
 <template name="drivers">
-  <ul class="list-group">
-  {{#each drivers}}
-    <li class="list-group-item">
-    {{> driverListItem}}
-    </li>
-  {{/each}}
-  </ul>
+    <section class="content">
+        <table class="table table-striped">
+
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>License Categories</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {{#each drivers}}
+                    {{>driverTableRow}}
+                {{/each}}
+            </tbody>
+        </table>
+    </section>
 </template>
 
-<template name="driverListItem">
-  {{name}} <a href="#" class='deleteDriver pull-right'><span class="glyphicon glyphicon-remove"></span></a>
+<template name="driverTableRow">
+    <tr>
+        <td>{{fullName}}</td>
+        <td>{{licenseCats}}</td>
+    </tr>
 </template>
