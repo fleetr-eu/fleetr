@@ -1,9 +1,7 @@
 body, html {
     height:100%;
 }
-body {
-    padding-top:3.6em;
-}
+
 .page {
     padding:2em;
     padding-top:.5em;
@@ -26,5 +24,9 @@ body {
 }
 
 #login-buttons {
-  padding-right: 20em;
+  padding-right: 15em;
+}
+
+#login-buttons a.login-close-text {
+  color: black;
 }
