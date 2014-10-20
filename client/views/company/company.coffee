@@ -1,2 +1,2 @@
-Template.vehicle.helpers
+Template.company.helpers
   companySchema: -> Schema.company

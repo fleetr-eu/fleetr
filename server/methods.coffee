@@ -23,7 +23,14 @@ Meteor.methods
     @unblock()
     Companies.remove _id : doc
 
-  addLocation: (location) ->
-    console.log location
+  addLocation: (doc) ->
     @unblock
-    Locations.insert location
+    Locations.insert doc
+
+  submitFleet: (doc) ->
+    @unblock()
+    Fleets.insert doc
+
+  removeFleet: (doc) ->
+    @unblock()
+    Fleets.remove _id : doc

@@ -1,0 +1,27 @@
+<template name="companies">
+    <section class="content">
+        {{#contentFor "filter"}}
+            {{> filter sessionVar='companyFilter' placeholder='Type here to filter companies'}}
+        {{/contentFor}}
+        <ul id="companiesTree">
+                {{#each companies}} {{>companyNode}} {{/each}}
+        </ul>
+    </section>
+</template>
+
+<template name="companyNode">
+    <li>
+    	
+        <div id='_id'>{{name}} <a href='/fleet/{{_id}}'>Add fleet</a> 
+	        <ul>
+	        	{{#each fleets _id}} {{>fleetNode}} {{/each}}
+			</ul>
+        </div>
+    </li>
+</template>
+
+<template name="fleetNode">
+    <li>
+        <div id='_id'>{{name}}</div>
+    </li>
+</template>
