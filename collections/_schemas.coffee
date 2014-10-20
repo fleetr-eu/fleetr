@@ -142,3 +142,23 @@ Schema.driver = new SimpleSchema
     type: Boolean
     label: "Active"
     optional: true
+
+Schema.vehicle = new SimpleSchema
+  licensePlate:
+    type: String
+    label: 'License Plate'
+    
+  identificationNumber:
+    type: String
+    label: "Identification Number (VIN)"
+    optional: true
+    
+  allocatedToFleet:
+    type: String
+    label: "Allocated to Fleet"
+    autoform:
+      options: -> Fleets.find().map (fleet) -> label: fleet.name, value: fleet._id
+    
+  allocatedToFleetFromDate:
+    type: Date
+    label: "Allocated from"

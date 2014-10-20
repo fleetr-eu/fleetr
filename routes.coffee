@@ -6,3 +6,4 @@ Meteor.startup ->
     @route 'fleetr', path: '/'
     @route 'driver'
     @route 'drivers'
+    @route 'vehicle'
