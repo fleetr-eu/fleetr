@@ -10,6 +10,5 @@ Template.vehicles.helpers
 
 Template.vehicleTableRow.helpers
   fleetName: ->
-    if @fleets
-      (@fleets.map (fleet) -> fleet.name).toString()
-    else ''
+     console.log(@allocatedToFleet)
+     Fleets.findOne(_id : @allocatedToFleet).name

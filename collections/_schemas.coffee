@@ -163,8 +163,15 @@ Schema.vehicle = new SimpleSchema
     type: Date
     label: "Allocated from"
     
+Schema.company = new SimpleSchema
+  name:
+    type: String
+    label: 'Company'
+    
 Schema.fleet = new SimpleSchema
   name:
     type: String
     label: 'Fleet'
     
+  parent:
+     type:String

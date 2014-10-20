@@ -1,0 +1,24 @@
+<template name="company">
+  <div class="container">
+    {{#autoForm schema=companySchema id="companyForm" type="method" meteormethod="submitCompany"}}
+            <div class="form" id="company-info">
+                <div class="row">
+                  <fieldset>
+                      <div class="col-md-4">
+                      	  <legend>Company Information</legend>
+                          {{> afQuickField name="name"}}
+                      </div>
+                  </fieldset>
+               </div>
+            </div>
+        <div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="reset" class="btn btn-default">Reset</button>
+        </div>
+    {{/autoForm}}
+  </div>
+</template>
+
+<template name="autoForm_companies">
+  some shit here
+</template>

@@ -14,3 +14,11 @@ Meteor.methods
   removeVehicle: (doc) ->
     @unblock()
     Vehicles.remove _id : doc
+    
+  submitCompany: (doc) ->
+    @unblock()
+    Companies.insert doc
+    
+  removeCompany: (doc) ->
+    @unblock()
+    Companies.remove _id : doc
