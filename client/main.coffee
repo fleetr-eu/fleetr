@@ -3,6 +3,7 @@ Meteor.subscribe 'companies'
 Meteor.subscribe 'fleets'
 Meteor.subscribe 'vehicles'
 Meteor.subscribe 'countries'
+Meteor.subscribe 'locations'
 
 Session.setDefault 'driverFilter', ''
 Session.setDefault 'vehicleFilter', ''

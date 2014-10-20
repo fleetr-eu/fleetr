@@ -9,3 +9,4 @@ Meteor.startup ->
     @route 'vehicle'
     @route 'vehicles'
     @route 'company'
+    @route 'map'
