@@ -27,6 +27,6 @@ body, html {
   padding-right: 15em;
 }
 
-#login-buttons a.login-close-text {
+#login-buttons a {
   color: black;
 }
