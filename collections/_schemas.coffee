@@ -166,12 +166,11 @@ Schema.vehicle = new SimpleSchema
 Schema.company = new SimpleSchema
   name:
     type: String
-    label: 'Company'
+    label: 'Company name'
     
 Schema.fleet = new SimpleSchema
   name:
     type: String
-    label: 'Fleet'
-    
+    label: 'Fleet name'
   parent:
      type:String

@@ -22,3 +22,11 @@ Meteor.methods
   removeCompany: (doc) ->
     @unblock()
     Companies.remove _id : doc
+    
+  submitFleet: (doc) ->
+    @unblock()
+    Fleets.insert doc
+    
+  removeFleet: (doc) ->
+    @unblock()
+    Fleets.remove _id : doc
