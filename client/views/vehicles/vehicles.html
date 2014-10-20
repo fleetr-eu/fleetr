@@ -1,0 +1,31 @@
+<template name="vehicles">
+    <section class="content">
+        {{#contentFor "filter"}}
+            {{> filter sessionVar='vehicleFilter' placeholder='Type here to filter vehicles'}}
+        {{/contentFor}}
+        <table class="table table-striped">
+
+            <thead>
+                <tr>
+                    <th>License Plate</th>
+                    <th>Identification Number</th>
+                    <th>Allocated to Fleet</th>
+                    <th>Allocated from Date</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {{#each vehicles}} {{>vehicleTableRow}} {{/each}}
+            </tbody>
+        </table>
+    </section>
+</template>
+
+<template name="vehicleTableRow">
+    <tr>
+        <td>{{licensePlate}}</td>
+        <td>{{identificationNumber}}</td>
+        <td>{{fleetName}}</td>
+        <td>{{allocatedToFleetFrom}}</td>
+    </tr>
+</template>

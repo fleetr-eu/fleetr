@@ -1,4 +1,6 @@
 @Vehicles = new Mongo.Collection 'vehicles'
 
-Countries.allow
+Vehicles.attachSchema Schema.vehicle
+
+Vehicles.allow
   insert: -> true

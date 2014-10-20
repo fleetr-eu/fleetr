@@ -162,3 +162,9 @@ Schema.vehicle = new SimpleSchema
   allocatedToFleetFromDate:
     type: Date
     label: "Allocated from"
+    
+Schema.fleet = new SimpleSchema
+  name:
+    type: String
+    label: 'Fleet'
+    

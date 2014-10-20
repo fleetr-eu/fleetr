@@ -7,6 +7,10 @@ Meteor.methods
     @unblock()
     Drivers.remove _id: doc
 
-submitVehicle: (doc) ->
+  submitVehicle: (doc) ->
     @unblock()
     Vehicles.insert doc
+    
+  removeVehicle: (doc) ->
+    @unblock()
+    Vehicles.remove _id : doc

@@ -7,3 +7,4 @@ Meteor.startup ->
     @route 'driver'
     @route 'drivers'
     @route 'vehicle'
+    @route 'vehicles'
