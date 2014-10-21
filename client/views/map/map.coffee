@@ -41,8 +41,10 @@ Meteor.startup ->
 
 Template.map.rendered = ->
   Map.init()
-  Deps.autorun ->
-    Meteor.subscribe 'locations', Session.get('mapArea'), ->
+  Deps.autorun -> Meteor.subscribe 'locations', Session.get('mapArea'), Template.map.helpers.renderMarkers
+
+Template.map.helpers
+  renderMarkers: ->
       Map.deleteMarkers()
       Locations.find().forEach (location) ->
         [lng, lat] = location.loc
