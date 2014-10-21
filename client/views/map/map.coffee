@@ -41,7 +41,7 @@ Meteor.startup ->
 
 Template.map.rendered = ->
   Map.init()
-  Deps.autorun -> Meteor.subscribe 'locations', Session.get('mapArea'), Template.map.helpers.renderMarkers
+  Deps.autorun -> Meteor.subscribe 'locations', Session.get('mapArea')?.box, Template.map.helpers.renderMarkers
 
 Template.map.helpers
   renderMarkers: ->
