@@ -1,6 +1,6 @@
 <template name="driver">
   <div class="container">
-    {{#autoForm schema=driverSchema id="driverForm" type="method" meteormethod="submitDriver"}}
+    {{#autoForm schema=driverSchema id="driverForm"}}
 
         <!-- Nav tabs -->
         <ul class="nav nav-pills" role="tablist">
@@ -31,7 +31,8 @@
                           {{> afQuickField name="bloodGroup" options="allowed"}}
                       </div>
                       <div class="col-md-4">
-                          <img src="images/200x200.jpg" alt="Driver Photo" />
+                          <img id="driverImage" src="{{driverImage}}" alt="Driver Photo" />
+                          <input id="picture" name="picture" type="file"/>
                       </div>
                   </fieldset>
                 </div>
