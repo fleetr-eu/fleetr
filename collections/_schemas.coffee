@@ -3,6 +3,10 @@ SimpleSchema.messages
   validToBeforeValidFrom: 'Valid to date must be after valid from date!'
 
 Schema.driver = new SimpleSchema
+  picture:
+    type: String
+    label: 'Picture'
+    optional: true
   name:
     type: String
     label: 'Name'
@@ -15,7 +19,7 @@ Schema.driver = new SimpleSchema
   ssn:
     type: Number
     label: "SSN"
-    # optional: true
+    optional: true
   birthDate:
     type: Date
     label: "Birth Date"
@@ -133,7 +137,7 @@ Schema.driver = new SimpleSchema
   ownsPersonalLicense:
     type: Boolean
     label: "Owns Personal License"
-    # optional: true
+    optional: true
   ownVehicle:
     type: String
     label: "Own Vehicle"
@@ -147,27 +151,27 @@ Schema.vehicle = new SimpleSchema
   licensePlate:
     type: String
     label: 'License Plate'
-    
+
   identificationNumber:
     type: String
     label: "Identification Number (VIN)"
     optional: true
-    
+
   allocatedToFleet:
     type: String
     label: "Allocated to Fleet"
     autoform:
       options: -> Fleets.find().map (fleet) -> label: fleet.name, value: fleet._id
-    
+
   allocatedToFleetFromDate:
     type: Date
     label: "Allocated from"
-    
+
 Schema.company = new SimpleSchema
   name:
     type: String
     label: 'Company name'
-    
+
 Schema.fleet = new SimpleSchema
   name:
     type: String
