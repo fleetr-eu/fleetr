@@ -11,6 +11,9 @@ Meteor.startup ->
     @route 'company', onBeforeAction: -> Session.set 'activeCategory', 'fleet'
     @route 'companies', onBeforeAction: -> Session.set 'activeCategory', 'fleet'
     @route 'fleet', path: '/fleet/:companyId', 
-            data: -> {'companyId' : @params.companyId}, 
-            onBeforeAction: -> Session.set 'activeCategory', 'fleet'
-    @route 'map'
+      data: -> {'companyId' : @params.companyId}, 
+      onBeforeAction: -> Session.set 'activeCategory', 'fleet'
+    @route 'map', path: '/mapFleets', onBeforeAction: -> Session.set 'activeCategory', 'fleet'
+    @route 'map', path: '/mapVehicles', onBeforeAction: -> Session.set 'activeCategory', 'vehicle'
+    @route 'map', path: '/mapDrivers', onBeforeAction: -> Session.set 'activeCategory', 'driver' 
+    
