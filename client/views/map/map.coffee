@@ -1,6 +1,6 @@
 Meteor.startup ->
   @Map =
-    markers: []
+    clusterer: null
     options:
       zoom: 12
       mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -9,26 +9,24 @@ Meteor.startup ->
       zoomControlOptions:
           style: google.maps.ZoomControlStyle.SMALL
 
-    init: -> navigator.geolocation.getCurrentPosition Map.setup, Map.setup
+    init: (cb) -> navigator.geolocation.getCurrentPosition Map.setup(cb), Map.setup(cb)
 
-    setup: (position) ->
+    setup: (cb) -> (position) ->
       position ?= {coords: {latitude: 42.6959214, longitude: 23.3198662}}
       Map.options.center = lat: position.coords.latitude, lng: position.coords.longitude
       Map.map = new google.maps.Map document.getElementById("map-canvas"), Map.options
+      Map.clusterer = Map.createClusterer Map.map
       Map.addListener 'idle', -> Session.set 'mapArea', Map.getSearchArea()
       Map.addListener 'click', (e) ->
         Meteor.call 'addLocation', {loc: [e.latLng.lng(), e.latLng.lat()]}
+      cb && cb()
 
     addListener: (event, listener) ->
       google.maps.event.addListener Map.map, event, listener
 
-    addMarker: (location) ->
-      Map.markers.push(new google.maps.Marker(position: location, map: Map.map))
+    addMarkers: (markers) -> Map.clusterer?.addMarkers markers
 
-    setMarkersMap: (map) -> m.setMap(map) for m in Map.markers
-    deleteMarkers: ->
-      Map.setMarkersMap null
-      Map.markers = []
+    deleteMarkers: -> Map.clusterer?.clearMarkers()
 
     getSearchArea: ->
       try
@@ -39,13 +37,22 @@ Meteor.startup ->
           center = bounds.getCenter()
           center: center, box: [[sw.lng(), sw.lat()], [ne.lng(), ne.lat()]]
 
+    createClusterer: (map)->
+      clustererOptions =
+          zoomOnClick:false
+          averageCenter:true
+          gridSize:40
+      new MarkerClusterer(map, [], clustererOptions)
+
 Template.map.rendered = ->
-  Map.init()
-  Deps.autorun -> Meteor.subscribe 'locations', Session.get('mapArea')?.box, Template.map.helpers.renderMarkers
+  Map.init ->
+    Deps.autorun ->
+      Meteor.subscribe 'locations', Session.get('mapArea')?.box, Template.map.helpers.renderMarkers
 
 Template.map.helpers
   renderMarkers: ->
       Map.deleteMarkers()
-      Locations.find().forEach (location) ->
+      markers = Locations.find().map (location) ->
         [lng, lat] = location.loc
-        Map.addMarker new google.maps.LatLng(lat, lng)
+        new google.maps.Marker(position: new google.maps.LatLng(lat, lng))
+      Map.addMarkers markers
