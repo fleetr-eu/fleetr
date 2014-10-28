@@ -1,22 +1,57 @@
 <template name="drivers">
-    <section class="content">
-        {{#contentFor "filter"}}
-            {{> filter sessionVar='driverFilter' placeholder='Type here to filter drivers by name'}}
-        {{/contentFor}}
-        <table class="table table-striped">
-
-            <thead>
-                <tr>
-                    <th>Full Name</th>
-                    <th>License Categories</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {{#each drivers}} {{>driverTableRow}} {{/each}}
-            </tbody>
-        </table>
-    </section>
+	
+		<!-- BEGIN PAGE HEADER-->
+		
+		<h3 class="page-title">
+		Шофьори
+		</h3>
+		<div class="page-bar">
+			<ul class="page-breadcrumb">
+				<li>
+					<i class="fa fa-home"></i>
+					<a href="/">Начало</a>
+					<i class="fa fa-angle-right"></i>
+				</li>
+				<li>
+					<a href="#">Шофьори</a>
+				</li>
+			</ul>
+		</div>
+		<!-- END PAGE HEADER-->
+		
+		<div class="row">
+			<div class="col-md-12">
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<form>
+								<input type="text" id="filterDrivers" class="form-control search-query" placeholder="Търсене...">
+							</form>
+						</div>	
+					</div>
+			
+					<div class="portlet-body">
+						 <section class="content">
+				      	  	{{#contentFor "filter"}}
+				            	{{> filter sessionVar='driverFilter' placeholder='Type here to filter drivers'}}
+				        	{{/contentFor}}
+							<table class="table table-bordered table-striped table-condensed flip-content">
+								<thead class="flip-content">
+		        					<tr>
+		            					<th>Full Name</th>
+		            					<th>License Categories</th>
+		        					</tr>
+		    					</thead>
+		
+		    					<tbody>
+		        					{{#each drivers}} {{>driverTableRow}} {{/each}}
+		    					</tbody>
+							</table>
+						</section>
+					</div>
+				</div>
+			</div>
+    	</div>
 </template>
 
 <template name="driverTableRow">

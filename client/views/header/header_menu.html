@@ -1,0 +1,213 @@
+<template name="headerMenu">
+	<!-- BEGIN TOP NAVIGATION MENU -->
+	<div class="top-menu">
+		<ul class="nav navbar-nav pull-right">
+			<!-- BEGIN NOTIFICATION DROPDOWN -->
+			<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+				<i class="icon-bell"></i>
+				<span class="badge badge-default">
+				3 </span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<p>
+							 Имате 3 нови аларми
+						</p>
+					</li>
+					<li>
+						<ul class="dropdown-menu-list scroller" style="height: 250px;">
+							<li>
+								<a href="#">
+								<span class="label label-sm label-icon label-success">
+								<i class="fa fa-plus"></i>
+								</span>
+								Превишена скорост<br> СН 1520 - Иван Петров <br><span class="time">
+								преди 5 минути</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+								<span class="label label-sm label-icon label-danger">
+								<i class="fa fa-bolt"></i>
+								</span>
+								Отклоление от маршрута<br>В 1012 - Герги Иванов<br><span class="time">
+								преди 12 минути
+								</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+								<span class="label label-sm label-icon label-warning">
+								<i class="fa fa-bell-o"></i>
+								</span>
+								Продължителен престой<br>30 мин <br>А 2345 - Драган Петров<br><span class="time">
+								преди 20 минути </span>
+								</a>
+							</li>
+							
+						</ul>
+					</li>
+					<li class="external">
+						<a href="#">
+						Вижте всички аларми<i class="m-icon-swapright"></i>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<!-- END NOTIFICATION DROPDOWN -->
+			<!-- BEGIN INBOX DROPDOWN -->
+			<li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+				<i class="icon-envelope-open"></i>
+				<span class="badge badge-default">
+				4 </span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<p>
+							 Имате 4 нови съобщения
+						</p>
+					</li>
+					<li>
+						<ul class="dropdown-menu-list scroller" style="height: 250px;">
+							<li>
+								<a href="inbox.html?a=view">
+								<span class="photo">
+								<img src="img/avatar2.jpg" alt=""/>
+								</span>
+								<span class="subject">
+								<span class="from">
+								Дияна Найденова </span>
+								<span class="time">
+								1 мин </span>
+								</span>
+								<span class="message">
+								Добре е да има възможност да се конфигурират маршрути и да се попълва автоматино пътен лист и тир карнет</span>
+								</a>
+							</li>
+							<li>
+								<a href="inbox.html?a=view">
+								<span class="photo">
+								<img src="img/avatar3.jpg" alt=""/>
+								</span>
+								<span class="subject">
+								<span class="from">
+								Манолис Карагунис </span>
+								<span class="time">
+								16 mins </span>
+								</span>
+								<span class="message">
+								Пристигах у Дмитрувград, сичку е 6</span>
+								</a>
+							</li>
+							<li>
+								<a href="inbox.html?a=view">
+								<span class="photo">
+								<img src="img/avatar1.jpg" alt=""/>
+								</span>
+								<span class="subject">
+								<span class="from">
+								Марула Петрова </span>
+								<span class="time">
+								2 hrs </span>
+								</span>
+								<span class="message">
+								Пенчо още го няма. Нали щеше да дойде в 3 часа... </span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="external">
+						<a href="#">
+						Вижте всички съобщения <i class="m-icon-swapright"></i>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<!-- END INBOX DROPDOWN -->
+			<!-- BEGIN EVENTS DROPDOWN -->
+			<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+				<i class="icon-calendar"></i>
+				<span class="badge badge-default">
+				3 </span>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<p>
+							 Имате 5 нови напомняния
+						</p>
+					</li>
+					<li>
+						<ul class="dropdown-menu-list scroller" style="height: 250px;">
+							<li>
+								<a href="#">
+								<span class="label label-sm label-icon label-success">
+								<i class="fa fa-plus"></i>
+								</span>
+								Смяна на масло<br> СН 1520 <br><span class="time">
+								след 1200 км</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+								<span class="label label-sm label-icon label-danger">
+								<i class="fa fa-bolt"></i>
+								</span>
+								Подновяване на застраховка<br> E 1872 <br><span class="time">
+								след 7 дни
+								</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+								<span class="label label-sm label-icon label-warning">
+								<i class="fa fa-bell-o"></i>
+								</span>
+								Смяна на гуми<br>А 2345<br><span class="time">
+								след 1000 км</span>
+								</a>
+							</li>
+							
+						</ul>
+					</li>
+					<li class="external">
+						<a href="#">
+						Вижте всички напоняния<i class="m-icon-swapright"></i>
+						</a>
+					</li>
+				</ul>
+			</li>
+			<!-- END EVENTS DROPDOWN -->
+							
+			<!-- BEGIN USER LOGIN DROPDOWN -->
+			<li class="dropdown dropdown-user">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+				<img alt="" class="img-circle hide1" src="img/avatar3_small.jpg"/>
+				<span class="username username-hide-on-mobile">
+				Nick </span>
+				<i class="fa fa-angle-down"></i>
+				</a>
+				<ul class="dropdown-menu">
+					<li>
+						<a href="extra_profile.html">
+						<i class="icon-user"></i>Настройки</a>
+					</li>
+					<li>
+						<a href="page_calendar.html">
+						<i class="icon-calendar"></i>Календар</a>
+					</li>
+					
+					<li class="divider">
+					</li>
+					<li>
+						<a href="login.html">
+						<i class="icon-key"></i> Излизане от системата </a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<!-- END TOP NAVIGATION MENU -->
+</template>

@@ -1,12 +1,47 @@
 <template name="companies">
-    <section class="content">
-        {{#contentFor "filter"}}
-            {{> filter sessionVar='companyFilter' placeholder='Type here to filter companies'}}
-        {{/contentFor}}
-        <ul id="companiesTree">
-                {{#each companies}} {{>companyNode}} {{/each}}
-        </ul>
-    </section>
+	
+	<h3 class="page-title">
+		Автопаркове
+	</h3>
+	<div class="page-bar">
+		<ul class="page-breadcrumb">
+			<li>
+				<i class="fa fa-home"></i>
+				<a href="/">Начало</a>
+				<i class="fa fa-angle-right"></i>
+			</li>
+			<li>
+				<a href="#">Автопаркове</a>
+			</li>
+		</ul>
+	</div>
+	<!-- END PAGE HEADER-->
+	
+	<div class="row">
+			<div class="col-md-12">
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption">
+							<form>
+								<input type="text" id="filterFleets" class="form-control search-query" placeholder="Търсене...">
+							</form>
+						</div>	
+					</div>
+			
+					<div class="portlet-body">
+	
+				    <section class="content">
+				        {{#contentFor "filter"}}
+				            {{> filter sessionVar='companyFilter' placeholder='Type here to filter companies'}}
+				        {{/contentFor}}
+				        <ul id="companiesTree">
+				                {{#each companies}} {{>companyNode}} {{/each}}
+				        </ul>
+				    </section>
+			    </div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <template name="companyNode">
