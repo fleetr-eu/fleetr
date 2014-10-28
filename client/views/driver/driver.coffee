@@ -20,3 +20,7 @@ AutoForm.hooks
       @resetForm()
       Session.set 'driverImage', 'images/200x200.jpg'
       @done()
+    onError: (operation, error, template) ->
+      Meteor.defer ->
+        id = template.$('.has-error').closest('div.tab-pane').attr('id')
+        template.$("a[href=##{id}]").tab('show')
