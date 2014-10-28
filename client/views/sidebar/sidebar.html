@@ -35,14 +35,20 @@
 					</form>
 					<!-- END RESPONSIVE QUICK SEARCH FORM -->
 				</li>
-				<li class="start active">
+				<li class="start {{dashboardActive}}">
 					<a href="javascript:;">
 					<i class="icon-bar-chart"></i>
 					<span class="title">Статистики</span>
 					<span class="selected"></span>
 					</a>
+					<ul class="sub-menu">
+						<li class="active">
+							<a href="/">
+							Статистики</a>
+						</li>
+					</ul>
 				</li>
-				<li>
+				<li class='{{fleetActive}}'>
 					<a href="javascript:;">
 					<i class="fa fa-sitemap"></i>
 					<span class="title">Автопаркове</span>
@@ -63,7 +69,7 @@
 						</li>
 					</ul>
 				</li>
-				<li>
+				<li class='{{vehicleActive}}'>
 					<a href="javascript:;">
 					<i class="fa fa-bus"></i>
 					<span class="title">Автомобили</span>
@@ -84,7 +90,7 @@
 						</li>
 					</ul>
 				</li>
-				<li>
+				<li class='{{driverActive}}'>
 					<a href="javascript:;">
 					<i class="icon-user"></i>
 					<span class="title">Шофьори</span>
