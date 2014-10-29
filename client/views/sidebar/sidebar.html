@@ -35,7 +35,7 @@
 					</form>
 					<!-- END RESPONSIVE QUICK SEARCH FORM -->
 				</li>
-				<li class="start {{dashboardActive}}">
+				<li class='start {{activeCategory "dashboard"}}'>
 					<a href="javascript:;">
 					<i class="icon-bar-chart"></i>
 					<span class="title">Статистики</span>
@@ -43,12 +43,12 @@
 					</a>
 					<ul class="sub-menu">
 						<li class="active">
-							<a href="/">
+							<a href="{{pathFor 'dashboard'}}">
 							Статистики</a>
 						</li>
 					</ul>
 				</li>
-				<li class='{{fleetActive}}'>
+				<li class='{{activeCategory "fleet"}}'>
 					<a href="javascript:;">
 					<i class="fa fa-sitemap"></i>
 					<span class="title">Автопаркове</span>
@@ -56,20 +56,20 @@
 					</a>
 					<ul class="sub-menu">
 						<li class="active">
-							<a href="/mapFleets">
+							<a href="{{pathFor 'mapFleets'}}">
 							Карта</a>
 						</li>
 						<li>
-							<a href="/companies">
+							<a href="{{pathFor 'listGroups'}}">
 							Списък</a>
 						</li>
 						<li>
-							<a href="/company">
+							<a href="{{pathFor 'addGroup'}}">
 							Добавяне</a>
 						</li>
 					</ul>
 				</li>
-				<li class='{{vehicleActive}}'>
+				<li class='{{activeCategory "vehicle"}}'>
 					<a href="javascript:;">
 					<i class="fa fa-car"></i>
 					<span class="title">Автомобили</span>
@@ -77,20 +77,20 @@
 					</a>
 					<ul class="sub-menu">
 						<li class="active">
-							<a href="/mapVehicles">
+							<a href="{{pathFor 'mapVehicles'}}">
 							Карта</a>
 						</li>
 						<li>
-							<a href="/vehicles">
+							<a href="{{pathFor 'listVehicles'}}">
 							Списък</a>
 						</li>
 						<li>
-							<a href="/vehicle">
+							<a href="{{pathFor 'addVehicle'}}">
 							Добавяне </a>
 						</li>
 					</ul>
 				</li>
-				<li class='{{driverActive}}'>
+				<li class='{{activeCategory "driver"}}'>
 					<a href="javascript:;">
 					<i class="icon-user"></i>
 					<span class="title">Шофьори</span>
@@ -98,20 +98,20 @@
 					</a>
 					<ul class="sub-menu">
 						<li class="active">
-							<a href="/mapDrivers">
+							<a href="{{pathFor 'mapDrivers'}}">
 							Карта</a>
 						</li>
 						<li>
-							<a href="/drivers">
+							<a href="{{pathFor 'listDrivers'}}">
 							Списък</a>
 						</li>
 						<li>
-							<a href="/driver">
+							<a href="{{pathFor 'addDriver'}}">
 							Добавяне</a>
 						</li>
 					</ul>
 				</li>
-				<li>
+				<li class="{{activeCategory 'expenses'}}">
 					<a href="javascript:;">
 					<i class="fa fa-eur"></i>
 					<span class="title">Разходи</span>
@@ -156,7 +156,7 @@
 						</li>
 					</ul>
 				</li>
-				<li>
+				<li class="{{activeCategory 'reports'}}">
 					<a href="javascript:;">
 					<i class="icon-docs"></i>
 					<span class="title">Отчети</span>

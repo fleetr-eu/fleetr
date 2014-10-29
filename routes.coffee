@@ -1,19 +1,53 @@
 Meteor.startup ->
   Router.configure
     layoutTemplate: 'layout'
-  
+
   Router.map ->
-    @route 'dashboard', path: '/', onBeforeAction: -> Session.set 'activeCategory', 'dashboard'
-    @route 'driver', onBeforeAction: -> Session.set 'activeCategory', 'driver'
-    @route 'drivers', onBeforeAction: -> Session.set 'activeCategory', 'driver'
-    @route 'vehicle', onBeforeAction: -> Session.set 'activeCategory', 'vehicle'
-    @route 'vehicles', onBeforeAction: -> Session.set 'activeCategory', 'vehicle'
-    @route 'company', onBeforeAction: -> Session.set 'activeCategory', 'fleet'
-    @route 'companies', onBeforeAction: -> Session.set 'activeCategory', 'fleet'
-    @route 'fleet', path: '/fleet/:companyId', 
-      data: -> {'companyId' : @params.companyId}, 
+    @route 'dashboard',
+      path: '/'
+      template: 'dashboard'
+      onBeforeAction: -> Session.set 'activeCategory', 'dashboard'
+    @route 'addDriver',
+      path: '/drivers/add'
+      template: 'driver'
+      onBeforeAction: -> Session.set 'activeCategory', 'driver'
+    @route 'listDrivers',
+      path: '/drivers/list'
+      template: 'drivers'
+      onBeforeAction: -> Session.set 'activeCategory', 'driver'
+    @route 'addVehicle',
+      path: '/vehicles/add'
+      template: 'vehicle'
+      onBeforeAction: -> Session.set 'activeCategory', 'vehicle'
+    @route 'listVehicles',
+      path: '/vehicles/list'
+      template: 'vehicle'
+      onBeforeAction: -> Session.set 'activeCategory', 'vehicle'
+    @route 'addGroup',
+      path: '/groups/add'
+      template: 'company'
       onBeforeAction: -> Session.set 'activeCategory', 'fleet'
-    @route 'map', path: '/mapFleets', onBeforeAction: -> Session.set 'activeCategory', 'fleet'
-    @route 'map', path: '/mapVehicles', onBeforeAction: -> Session.set 'activeCategory', 'vehicle'
-    @route 'map', path: '/mapDrivers', onBeforeAction: -> Session.set 'activeCategory', 'driver' 
-    
+    @route 'listGroups',
+      path: '/groups/list'
+      template: 'companies'
+      onBeforeAction: -> Session.set 'activeCategory', 'fleet'
+    @route 'fleet',
+      path: '/fleet/:companyId'
+      template: 'fleet'
+      onBeforeAction: -> Session.set 'activeCategory', 'fleet'
+      data: -> {'companyId' : @params.companyId}
+    @route 'mapFleets',
+      path: '/fleets/map'
+      template: 'map'
+      onBeforeAction: -> Session.set 'activeCategory', 'fleet'
+    @route 'mapVehicles',
+      path: '/vehicles/map'
+      template: 'map'
+      onBeforeAction: -> Session.set 'activeCategory', 'vehicle'
+    @route 'mapDrivers',
+      path: '/drivers/map'
+      template: 'map'
+      onBeforeAction: -> Session.set 'activeCategory', 'driver'
+    @route 'drilldownReport',
+      path: '/reports/drilldown'
+      onBeforeAction: -> Session.set 'activeCategory', 'reports'
