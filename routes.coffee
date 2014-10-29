@@ -31,7 +31,7 @@ Meteor.startup ->
       path: '/groups/list'
       template: 'companies'
       onBeforeAction: -> Session.set 'activeCategory', 'fleet'
-    @route 'fleet',
+    @route 'addFleet',
       path: '/fleet/:companyId'
       template: 'fleet'
       onBeforeAction: -> Session.set 'activeCategory', 'fleet'

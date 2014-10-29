@@ -1,3 +1,29 @@
 <template name="drilldownReport">
+    <div class="table-scrollable">
+        <table id="fleets" class="table table-hover">
+            <tbody>
+                {{#each groups}}
+                <tr data-tt-id="{{_id}}">
+                    <td>{{name}}</td>
+                </tr>
+                {{> fleetRows}}
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</template>
 
+
+<template name="groupRow">
+    <tr data-tt-id="{{_id}}" data-tt-parent-id="1">
+        <td>{{name}}</td>
+    </tr>
+</template>
+
+<template name="fleetRows">
+    {{#each fleets}}
+    <tr data-tt-id="{{_id}}" data-tt-parent-id="{{../_id}}">
+        <td>{{name}}</td>
+    </tr>
+    {{/each}}
 </template>
