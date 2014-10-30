@@ -3,15 +3,9 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>
-                        Group
-                    </th>
-                    <th>
-                        Fleet
-                    </th>
-                    <th>
-                        ID (aggregated data)
-                    </th>
+                    <th>Group</th>
+                    <th>Fleet</th>
+                    <th>ID (aggregated data)</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,7 +21,7 @@
 
 <template name="groupRow">
     <tr id="{{_id}}">
-        <td>{{name}}</td><td></td><td>{{_id}}</td>
+        <td><a class="excol-group"><i class="fa fa-{{excolIcon}}"></i></a>{{name}}</td><td></td><td>{{_id}}</td>
     </tr>
 </template>
 
