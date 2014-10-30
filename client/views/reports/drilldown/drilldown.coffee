@@ -1,5 +1,3 @@
-Template.drilldownReport.rendered = -> @$("#fleets").treetable(expandable: true)
-
 Template.drilldownReport.helpers
   groups: -> Companies.find()
 
