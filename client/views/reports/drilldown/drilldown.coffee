@@ -1,8 +1,12 @@
+Template.drilldownReport.created = ->
+  Session.setDefault 'drilldownReport.includedGroups', _.pluck(Companies.find().fetch(), '_id')
+
 Template.drilldownReport.helpers
   groups: -> Companies.find()
 
 Template.fleetRows.helpers
-  fleets: -> Fleets.find $and: [{parent: @_id}, {parent: {$in: Session.get('drilldownReport.includedGroups')}}]
+  fleets: ->
+    Fleets.find $and: [{parent: @_id}, {parent: {$in: Session.get('drilldownReport.includedGroups')}}]
 
 Template.groupRow.events
   'click .excol-group': (e, tpl) ->
