@@ -1,7 +1,7 @@
 <template name="drivers">
-	
+
 		<!-- BEGIN PAGE HEADER-->
-		
+
 		<h3 class="page-title">
 		Шофьори
 		</h3>
@@ -18,7 +18,7 @@
 			</ul>
 		</div>
 		<!-- END PAGE HEADER-->
-		
+
 		<div class="row">
 			<div class="col-md-12">
 				<div class="portlet box blue">
@@ -27,9 +27,9 @@
 							<form>
 								<input type="text" id="filterDrivers" class="form-control search-query" placeholder="Търсене...">
 							</form>
-						</div>	
+						</div>
 					</div>
-			
+
 					<div class="portlet-body">
 						 <section class="content">
 				      	  	{{#contentFor "filter"}}
@@ -38,11 +38,11 @@
 							<table class="table table-bordered table-striped table-condensed flip-content">
 								<thead class="flip-content">
 		        					<tr>
-		            					<th>Full Name</th>
-		            					<th>License Categories</th>
+		            					<th>Имена и Фамилия</th>
+		            					<th>Мобилен телефон</th>
 		        					</tr>
 		    					</thead>
-		
+
 		    					<tbody>
 		        					{{#each drivers}} {{>driverTableRow}} {{/each}}
 		    					</tbody>
@@ -57,6 +57,6 @@
 <template name="driverTableRow">
     <tr>
         <td>{{fullName}}</td>
-        <td>{{licenseCats}}</td>
+        <td>{{mobile}}</td>
     </tr>
 </template>

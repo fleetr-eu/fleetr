@@ -52,3 +52,7 @@ Meteor.startup ->
     @route 'drilldownReport',
       path: '/reports/drilldown'
       onBeforeAction: -> Session.set 'activeCategory', 'reports'
+    @route 'addExpensesFuel',
+      path: '/expenses/fuel/add'
+      template: 'expensesFuel'
+      onBeforeAction: -> Session.set 'activeCategory', 'expenses'

@@ -34,3 +34,11 @@ Meteor.methods
   removeFleet: (doc) ->
     @unblock()
     Fleets.remove _id : doc
+
+  submitExpensesFuel: (doc) ->
+    @unblock()
+    ExpensesFuel.insert doc
+
+  removeExpensesFuel: (doc) ->
+    @unblock()
+    ExpensesFuel.remove _id : doc

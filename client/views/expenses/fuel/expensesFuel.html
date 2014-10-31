@@ -1,0 +1,26 @@
+<template name="expensesFuel">
+  <div class="container">
+    {{#autoForm schema=expensesFuelSchema id="expensesFuelForm" type="method" meteormethod="submitExpensesFuel"}}
+            <div class="form" id="expensesFuel-info">
+                <div class="row">
+                  <fieldset>
+                      <div class="col-md-4">
+                      	  <legend>Разход за гориво</legend>
+                          {{> afQuickField name="driver"}}
+                          {{> afQuickField name="date"}}
+                          {{> afQuickField name="fuelType"}}
+                          {{> afQuickField name="liters"}}
+                          {{> afQuickField name="pricePerLitre"}}
+                          {{> afQuickField name="mileage"}}
+                          {{> afQuickField name="gasStationName"}}
+                      </div>
+                  </fieldset>
+               </div>
+            </div>
+        <div>
+          <button type="submit" class="btn btn-primary">Запиши</button>
+          <button type="reset" class="btn btn-default">Анулирай</button>
+        </div>
+    {{/autoForm}}
+  </div>
+</template>

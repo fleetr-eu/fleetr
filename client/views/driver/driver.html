@@ -4,8 +4,8 @@
 
         <!-- Nav tabs -->
         <ul class="nav nav-pills" role="tablist">
-            <li class="active"><a href="#pers-info" role="tab" data-toggle="tab">Personal Information</a></li>
-            <li><a href="#prof-info" role="tab" data-toggle="tab">Professional Information</a></li>
+            <li class="active"><a href="#pers-info" role="tab" data-toggle="tab">Лични данни</a></li>
+            <li><a href="#prof-info" role="tab" data-toggle="tab">Професионални данни</a></li>
         </ul>
 
         <!-- Tab panes -->
@@ -14,14 +14,15 @@
                 <div class="row">
                   <fieldset>
                       <div class="col-md-4">
+                        <legend>Основни данни</legend>
                           {{> afQuickField name="name"}}
                           {{> afQuickField name="firstName"}}
                           {{> afQuickField name="ssn"}}
                           {{> afQuickField name="birthDate"}}
                           {{> afQuickField name="sex" options="allowed" noselect="true"}}
-                          {{> afQuickField name="title"}}
                       </div>
                       <div class="col-md-4">
+                        <legend>Документ за самоличност</legend>
                           {{> afQuickField name="idSerial"}}
                           {{> afQuickField name="idNo"}}
                           {{> afQuickField name="validFrom"}}
@@ -41,7 +42,7 @@
                 <div class="row">
                   <fieldset>
                       <div class="col-md-4">
-                          <legend>Contact Information</legend>
+                          <legend>Информация за контакт</legend>
                           {{> afQuickField name="city"}}
                           {{> afQuickField name="address"}}
                           {{> afQuickField name="county"}}
@@ -52,13 +53,13 @@
                           {{> afQuickField name="officePhone"}}
                       </div>
                       <div class="col-md-4">
-                          <legend>Driving License Information</legend>
+                          <legend>Свидетелство за управление</legend>
                           {{> afQuickField name="licenseIssueDate"}}
                           {{> afQuickField name="licenseExpieryDate"}}
                           {{> afQuickField name="categories"}}
                       </div>
                       <div class="col-md-4">
-                          <legend>Driver Information</legend>
+                          <legend>Информация за шофьора</legend>
                           {{> afQuickField name="medEvalExpieryDate"}}
                           {{> afQuickField name="profCertExpieryDate"}}
                           {{> afQuickField name="psychApprovalExpieryDate"}}
@@ -73,8 +74,8 @@
             </div>
         </div>
         <div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-          <button type="reset" class="btn btn-default">Reset</button>
+          <button type="submit" class="btn btn-primary">Запиши</button>
+          <button type="reset" class="btn btn-default">Анулирай</button>
         </div>
     {{/autoForm}}
   </div>

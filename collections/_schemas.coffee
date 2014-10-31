@@ -5,176 +5,199 @@ SimpleSchema.messages
 Schema.driver = new SimpleSchema
   picture:
     type: String
-    label: 'Picture'
+    label: 'Снимка'
     optional: true
   name:
     type: String
-    label: 'Name'
-    autoform:
-      placeholder: "Family Name"
+    label: 'Фамилия'
   firstName:
     type: String
-    label: "First Name"
+    label: "Имена"
     optional: true
   ssn:
     type: Number
-    label: "SSN"
+    label: "ЕГН / Личен номер"
     optional: true
   birthDate:
     type: Date
-    label: "Birth Date"
+    label: "Дата на раждане"
     optional: true
   sex:
     type: String
-    label: "Sex"
+    label: "Пол"
     optional: true
-    allowedValues: ['Male', 'Female']
-  title:
-    type: String
-    label: "Title"
-    optional: true
+    allowedValues: ['Мъж', 'Жена']
+
   idSerial:
     type: String
-    label: "ID Serial"
+    label: "Серия"
     optional: true
   idNo:
     type: Number
-    label: "ID No."
+    label: "Номер"
     optional: true
   validFrom:
     type: Date
-    label: "Valid From"
+    label: "Валиден от"
     optional: true
   validTo:
     type: Date
-    label: "Valid To"
+    label: "Валиден до"
     optional: true
     custom: -> if @value < @field('validFrom').value then 'validToBeforeValidFrom'
   issuedBy:
     type: String
-    label: "Issued By"
+    label: "Издаден от"
     optional: true
   birthPlace:
     type: String
-    label: "Birth Place"
+    label: "Място на раждане"
     optional: true
   bloodGroup:
     type: String
-    label: "Blood Type"
+    label: "Кръвна група"
     optional: true
     allowedValues: ['A', 'B', '0', 'AB']
   city:
     type: String
-    label: "City"
+    label: "Град"
     optional: true
   address:
     type: String
-    label: "Address"
+    label: "Адрес"
     optional: true
   county:
     type: String
-    label: "County"
+    label: "Област"
     optional: true
   country:
     type: String
-    label: "Country"
+    label: "Държава"
     optional: true
     autoform:
       options: -> Countries.find().map (country) -> label: country.name, value: country._id
   email:
     type: String
     regEx: SimpleSchema.RegEx.Email
-    label: "Email"
+    label: "е-мейл"
     optional: true
   mobile:
     type: String
-    label: "Mobile"
+    label: "Мобилен телефон"
     optional: true
   phone:
     type: String
-    label: "Phone"
+    label: "Домашен телефон"
     optional: true
   officePhone:
     type: String
-    label: "Office Phone"
+    label: "Офис телефон"
     optional: true
   licenseIssueDate:
     type: Date
-    label: "License Issue Date"
+    label: "Дата на издаване"
     optional: true
   licenseExpieryDate:
     type: Date
-    label: "License Expiery Date"
+    label: "Валидно до"
     optional: true
   'categories.$.license':
+    label:'Категория'
     type: String
     optional: true
     allowedValues: ['A', 'B', 'C', 'D', 'E']
   'categories.$.issueDate':
     type: Date
     optional: true
-    label: 'Issue Date'
+    label: 'Дата на издаване'
   medEvalExpieryDate:
     type: Date
-    label: "Medical Evaluation Expiery Date"
+    label: "Медицинско свидетелство: Валидно до"
     optional: true
   profCertExpieryDate:
     type: Date
-    label: "Professional Certificate Expiery Date"
+    label: "Професионален сертификат: Валиден до"
     optional: true
   psychApprovalExpieryDate:
     type: Date
-    label: "Psychological Approval Expiery Date"
+    label: "Психо удостоверение: Валидно до"
     optional: true
   transportLicense:
     type: String
-    label: "Transposrt License"
+    label: "Транспортен лиценз"
     optional: true
   education:
     type: String
-    label: "Education"
+    label: "Образование"
     optional: true
   ownsPersonalLicense:
     type: Boolean
-    label: "Owns Personal License"
+    label: "Притежева личен лиценз"
     optional: true
   ownVehicle:
     type: String
-    label: "Own Vehicle"
+    label: "Собствено МПС"
     optional: true
   active:
     type: Boolean
-    label: "Active"
+    label: "Активен"
     optional: true
 
 Schema.vehicle = new SimpleSchema
   licensePlate:
     type: String
-    label: 'License Plate'
+    label: 'Регистрационен номер'
 
   identificationNumber:
     type: String
-    label: "Identification Number (VIN)"
+    label: "Идентификационен номер (VIN)"
     optional: true
 
   allocatedToFleet:
     type: String
-    label: "Allocated to Fleet"
+    label: "Автопарк"
     autoform:
       options: -> Fleets.find().map (fleet) -> label: fleet.name, value: fleet._id
 
   allocatedToFleetFromDate:
     type: Date
-    label: "Allocated from"
+    label: "В автопарка от"
 
 Schema.company = new SimpleSchema
   name:
     type: String
-    label: 'Company name'
+    label: 'Група'
 
 Schema.fleet = new SimpleSchema
   name:
     type: String
-    label: 'Fleet name'
+    label: 'Автопарк'
   parent:
      type:String
+
+Schema.expensesFuel = new SimpleSchema
+       driver:
+         type: String
+         label: 'Шофьор'
+         autoform:
+           options: -> Drivers.find().map (driver) -> label: driver.name, value: driver._id
+       date:
+           type:Date
+           label: "Дата"
+       fuelType:
+          type:String
+          label: "Вид гориво"
+          allowedValues:  ['Бензин', 'Дизел', 'Газ пропан бутан', 'Метан']
+       litres:
+          type: Number
+          label: "Литри"
+       pricePerLitre:
+          type: Number
+          decimal:true
+          label: "Цена за литър"
+       mileage:
+           type:Number
+           label: "Километраж"
+       gasStationName:
+           type:String
+           label:"Бензиностанция"
