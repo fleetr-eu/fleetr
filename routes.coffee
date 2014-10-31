@@ -21,7 +21,7 @@ Meteor.startup ->
       onBeforeAction: -> Session.set 'activeCategory', 'vehicle'
     @route 'listVehicles',
       path: '/vehicles/list'
-      template: 'vehicle'
+      template: 'vehicles'
       onBeforeAction: -> Session.set 'activeCategory', 'vehicle'
     @route 'addGroup',
       path: '/groups/add'
@@ -30,6 +30,7 @@ Meteor.startup ->
     @route 'listGroups',
       path: '/groups/list'
       template: 'companies'
+      data: -> {pageTitle: 'Автопаркове'}
       onBeforeAction: -> Session.set 'activeCategory', 'fleet'
     @route 'addFleet',
       path: '/fleet/:companyId'

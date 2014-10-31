@@ -1,0 +1,64 @@
+<template name="companies">
+		{{> pageHeader}}
+    <div class="row">
+        <div class="col-md-4">
+						<ul class="list-group">
+								{{#each companies}}
+								<li class="list-group-item">
+									<i class="fa fa-times deleteCompany pull-right" title="Delete this group"></i>
+									<h3>
+											<i class="excol-group fa fa-{{excolIcon}}"></i>
+											<a href="#" class="group">{{name}}</a>
+									</h3>
+									{{#if fleets.count}}
+									<hr>
+									<ul class="list-group">
+									{{#each fleets}}
+									<li class="list-group-item"><a href="#" class="fleet">{{name}}</a></li>
+									{{/each}}
+									</ul>
+									{{else}}
+									<p class="text-muted">Expand the group to view {{fleetCount}} fleets.</p>
+									{{/if}}
+								</li>
+								{{/each}}
+						</ul>
+        </div>
+        <div class="col-md-8">
+						{{> detailsForm}}
+        </div>
+    </div>
+</template>
+
+<template name="detailsForm">
+		{{#autoForm schema=companySchema id="companyForm" type="method" meteormethod="submitCompany"}}
+	      <div class="form" id="company-info">
+	          <fieldset>
+	          	  <legend>Group Information</legend>
+	              {{> afQuickField name="name"}}
+	          </fieldset>
+	      </div>
+	      <div>
+	          <button type="submit" class="btn btn-primary">Submit</button>
+	          <button type="reset" class="btn btn-default">Reset</button>
+	      </div>
+		{{/autoForm}}
+</template>
+
+<template name="pageHeader">
+		<h3 class="page-title">
+			{{pageTitle}}
+		</h3>
+		<div class="page-bar">
+			<ul class="page-breadcrumb">
+				<li>
+					<i class="fa fa-home"></i>
+					<a href="/">Начало</a>
+					<i class="fa fa-angle-right"></i>
+				</li>
+				<li>
+					<a href="#">{{pageTitle}}</a>
+				</li>
+			</ul>
+		</div>
+</template>

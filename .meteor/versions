@@ -27,6 +27,7 @@ email@1.0.4
 fastclick@1.0.1
 follower-livedata@1.0.2
 geojson-utils@1.0.1
+handlebars@1.0.1
 html-tools@1.0.2
 htmljs@1.0.2
 http@1.0.8
@@ -35,6 +36,8 @@ iron:core@0.3.4
 iron:dynamic-template@0.4.1
 iron:layout@0.4.1
 iron:router@0.9.4
+joshowens:accounts-entry@0.9.0
+joshowens:simple-form@0.1.8
 jquery@1.0.1
 json@1.0.1
 launch-screen@1.0.0
@@ -51,8 +54,10 @@ mizzao:bootstrap-3@3.2.0_1
 mobile-status-bar@1.0.1
 mongo-livedata@1.0.6
 mongo@1.0.8
+mrt:accounts-t9n@0.0.13
 mrt:flash-messages@0.2.4
 mrt:moment@2.6.0
+mrt:underscore-string-latest@2.3.3
 npm-bcrypt@0.7.7
 observe-sequence@1.0.3
 ordered-dict@1.0.1
