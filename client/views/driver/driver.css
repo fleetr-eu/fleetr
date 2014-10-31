@@ -14,3 +14,7 @@ h3.panel-title {
   width: 200px;
   height: 200px;
 }
+
+.form-group {
+  font-size: 80%;
+}

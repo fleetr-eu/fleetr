@@ -1,5 +1,5 @@
 <template name="vehicles">
-	
+
 	<h3 class="page-title">
 		Автомобили
 	</h3>
@@ -16,7 +16,7 @@
 		</ul>
 	</div>
 	<!-- END PAGE HEADER-->
-	
+
 	<div class="row">
 			<div class="col-md-12">
 				<div class="portlet box blue">
@@ -25,25 +25,25 @@
 							<form>
 								<input type="text" id="filterVehicles" class="form-control search-query" placeholder="Търсене...">
 							</form>
-						</div>	
+						</div>
 					</div>
-			
+
 					<div class="portlet-body">
 				    <section class="content">
 				        {{#contentFor "filter"}}
 				            {{> filter sessionVar='vehicleFilter' placeholder='Type here to filter vehicles'}}
 				        {{/contentFor}}
 				        <table class="table table-striped">
-				
+
 				            <thead>
 				                <tr>
-				                    <th>License Plate</th>
-				                    <th>Identification Number</th>
-				                    <th>Allocated to Fleet</th>
-				                    <th>Allocated from Date</th>
+				                    <th>Номер</th>
+				                    <th>VIN</th>
+				                    <th>Автопарк</th>
+				                    <th>От дата</th>
 				                </tr>
 				            </thead>
-				
+
 				            <tbody>
 				                {{#each vehicles}} {{>vehicleTableRow}} {{/each}}
 				            </tbody>

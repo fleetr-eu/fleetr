@@ -21,7 +21,7 @@ Meteor.startup ->
       onBeforeAction: -> Session.set 'activeCategory', 'vehicle'
     @route 'listVehicles',
       path: '/vehicles/list'
-      template: 'vehicle'
+      template: 'vehicles'
       onBeforeAction: -> Session.set 'activeCategory', 'vehicle'
     @route 'addGroup',
       path: '/groups/add'
@@ -51,3 +51,7 @@ Meteor.startup ->
     @route 'drilldownReport',
       path: '/reports/drilldown'
       onBeforeAction: -> Session.set 'activeCategory', 'reports'
+    @route 'addExpensesFuel',
+      path: '/expenses/fuel/add'
+      template: 'expensesFuel'
+      onBeforeAction: -> Session.set 'activeCategory', 'expenses'
