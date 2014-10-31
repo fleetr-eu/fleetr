@@ -164,16 +164,25 @@ Schema.vehicle = new SimpleSchema
     label: "В автопарка от"
 
 Schema.company = new SimpleSchema
+  _id:
+    type: String
+    optional: true
   name:
     type: String
     label: 'Група'
 
 Schema.fleet = new SimpleSchema
+  _id:
+    type: String
+    optional: true
   name:
     type: String
     label: 'Автопарк'
   parent:
-     type:String
+    type:String
+    label: 'Група'
+    autoform:
+      options: -> Companies.find().map (group) -> label: group.name, value: group._id
 
 Schema.expensesFuel = new SimpleSchema
        driver:

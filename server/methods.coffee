@@ -17,7 +17,7 @@ Meteor.methods
 
   submitCompany: (doc) ->
     @unblock()
-    Companies.insert doc
+    Companies.upsert {_id: doc._id}, {$set: _.omit(doc, '_id')}
 
   removeCompany: (doc) ->
     @unblock()
@@ -29,7 +29,7 @@ Meteor.methods
 
   submitFleet: (doc) ->
     @unblock()
-    Fleets.insert doc
+    Fleets.upsert {_id: doc._id}, {$set: _.omit(doc, '_id')}
 
   removeFleet: (doc) ->
     @unblock()

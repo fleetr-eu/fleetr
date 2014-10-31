@@ -1,24 +1,38 @@
 Template.companies.created = ->
-  Session.setDefault 'companies.includedGroups', _.pluck(Companies.find().fetch(), '_id')
+  Session.setDefault 'groups.expandedGroups', _.pluck(Companies.find().fetch(), '_id')
 
 Template.companies.events
-  'click .deleteCompany': -> Meteor.call 'removeCompany', @_id
-  'click .group': -> Session.set 'companies.selectedGroupId', @_id
+  'click .deleteGroup': -> Meteor.call 'removeCompany', @_id
+  'click .group': -> Session.set 'groups.selectedGroupId', @_id
   'click .excol-group': (e, tpl) ->
-    groups = Session.get 'companies.includedGroups'
+    groups = Session.get 'groups.expandedGroups'
     if @_id in groups
       groups = groups.filter (id) => id isnt @_id
     else
       groups.push @_id
-    Session.set 'companies.includedGroups', groups
+    Session.set 'groups.expandedGroups', groups
 
 Template.companies.helpers
-  companies: -> Companies.find()
+  companies: -> Companies.find {}, {$sort: {name: 1}}
   fleets: ->
-    Fleets.find $and: [{parent: @_id}, {parent: {$in: Session.get('companies.includedGroups')}}]
+    Fleets.find $and: [{parent: @_id}, {parent: {$in: Session.get('groups.expandedGroups')}}]
   fleetCount: -> Fleets.find(parent: @_id).count()
-  excolIcon: -> if @_id in Session.get('companies.includedGroups') then 'minus' else 'plus'
-  editingGroup: -> Companies.findOne _id: Session.get('companies.selectedGroupId')
+  excolIcon: -> if @_id in Session.get('groups.expandedGroups') then 'minus' else 'plus'
+
+Template.fleetsPerGroup.events
+  'click .deleteFleet': -> Meteor.call 'removeFleet', @_id
+  'click .fleet': -> Session.set 'groups.selectedFleetId', @_id
 
 Template.detailsForm.helpers
+  editingGroup: -> Companies.findOne _id: Session.get('groups.selectedGroupId')
   companySchema: -> Schema.company
+
+Template.detailsForm.events
+  'click .reset': -> Session.set 'groups.selectedGroupId', null
+
+Template.fleetForm.helpers
+  editingFleet: -> Fleets.findOne _id: Session.get('groups.selectedFleetId')
+  fleetSchema: -> Schema.fleet
+
+Template.fleetForm.events
+  'click .reset': -> Session.set 'groups.selectedFleetId', null
