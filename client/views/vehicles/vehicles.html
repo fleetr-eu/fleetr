@@ -22,17 +22,18 @@
 				<div class="portlet box blue">
 					<div class="portlet-title">
 						<div class="caption">
-							<form>
-								<input type="text" id="filterVehicles" class="form-control search-query" placeholder="Търсене...">
-							</form>
+		            {{> filter sessionVar='vehicleFilter' placeholder='Търсене...'}}
+						</div>
+						<div class="tools">
+							<a href="{{pathFor 'addVehicle'}}"><span class="glyphicon glyphicon-plus"></span></a>
+							<a href="{{pathFor 'editVehicle' vehicleId=selectedVehicleId}}"><span class="glyphicon glyphicon-pencil"></span></a>
+							<a href="#" class="deleteVehicle"><span class="glyphicon glyphicon-trash"></span></a>
 						</div>
 					</div>
 
 					<div class="portlet-body">
 				    <section class="content">
-				        {{#contentFor "filter"}}
-				            {{> filter sessionVar='vehicleFilter' placeholder='Type here to filter vehicles'}}
-				        {{/contentFor}}
+
 				        <table class="table table-striped">
 
 				            <thead>
@@ -56,7 +57,7 @@
 </template>
 
 <template name="vehicleTableRow">
-    <tr>
+    <tr class="{{active}}">
         <td>{{licensePlate}}</td>
         <td>{{identificationNumber}}</td>
         <td>{{fleetName}}</td>

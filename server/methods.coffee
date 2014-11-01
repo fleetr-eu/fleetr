@@ -9,7 +9,7 @@ Meteor.methods
 
   submitVehicle: (doc) ->
     @unblock()
-    Vehicles.insert doc
+    Vehicles.upsert {_id: doc._id}, {$set: _.omit(doc, '_id')}
 
   removeVehicle: (doc) ->
     @unblock()

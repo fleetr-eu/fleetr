@@ -1,11 +1,12 @@
 <template name="vehicle">
   <div class="container">
-    {{#autoForm schema=vehicleSchema id="vehicleForm" type="method" meteormethod="submitVehicle"}}
+    {{#autoForm schema=vehicleSchema doc=vehicle id="vehicleForm" type="method" meteormethod="submitVehicle"}}
             <div class="form" id="vehicle-info">
                 <div class="row">
                   <fieldset>
                       <div class="col-md-4">
                       	  <legend>Превозно средство</legend>
+	                        {{> afFieldInput type="hidden" name="_id" value=_id}}
                           {{> afQuickField name="licensePlate"}}
                           {{> afQuickField name="identificationNumber"}}
                           {{> afQuickField name="allocatedToFleet"}}
@@ -16,7 +17,9 @@
             </div>
         <div>
           <button type="submit" class="btn btn-primary">Запиши</button>
+          {{#unless vehicle}}
           <button type="reset" class="btn btn-default">Анулирай</button>
+          {{/unless}}
         </div>
     {{/autoForm}}
   </div>

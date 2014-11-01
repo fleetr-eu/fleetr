@@ -15,14 +15,21 @@ Meteor.startup ->
       path: '/drivers/list'
       template: 'drivers'
       onBeforeAction: -> Session.set 'activeCategory', 'driver'
+
     @route 'addVehicle',
       path: '/vehicles/add'
       template: 'vehicle'
+      onBeforeAction: -> Session.set 'activeCategory', 'vehicle'
+    @route 'editVehicle',
+      path: '/vehicles/edit/:vehicleId'
+      template: 'vehicle'
+      data: -> {'vehicleId' : @params.vehicleId}
       onBeforeAction: -> Session.set 'activeCategory', 'vehicle'
     @route 'listVehicles',
       path: '/vehicles/list'
       template: 'vehicles'
       onBeforeAction: -> Session.set 'activeCategory', 'vehicle'
+
     @route 'addGroup',
       path: '/groups/add'
       template: 'company'
