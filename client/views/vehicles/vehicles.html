@@ -26,8 +26,10 @@
 						</div>
 						<div class="tools">
 							<a href="{{pathFor 'addVehicle'}}"><span class="glyphicon glyphicon-plus"></span></a>
+							{{#if selectedVehicleId}}
 							<a href="{{pathFor 'editVehicle' vehicleId=selectedVehicleId}}"><span class="glyphicon glyphicon-pencil"></span></a>
 							<a href="#" class="deleteVehicle"><span class="glyphicon glyphicon-trash"></span></a>
+							{{/if}}
 						</div>
 					</div>
 

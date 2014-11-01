@@ -1,11 +1,12 @@
 Template.vehicles.events
-  'click .deleteVehicle': -> Meteor.call 'removeVehicle', Session.get('selectedVehicleId')
-  'keyup input.search-query': -> Session.set 'filterVehicles', $('#filterVehicles').val()
+  'click .deleteVehicle': ->
+    Meteor.call 'removeVehicle', Session.get('selectedVehicleId')
+    Session.set 'selectedVehicleId', null
 
 Template.vehicles.helpers
   vehicles: ->
     filter =
-      $regex: "#{Session.get('filterVehicles').trim()}".replace ' ', '|'
+      $regex: "#{Session.get('vehicleFilter').trim()}".replace ' ', '|'
       $options: 'i'
     Vehicles.find $or: [{licensePlate: filter}, {identificationNumber: filter}]
   selectedVehicleId: -> Session.get('selectedVehicleId')
