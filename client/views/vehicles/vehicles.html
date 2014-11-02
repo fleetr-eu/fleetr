@@ -21,7 +21,7 @@
 			<div class="col-md-12">
 				<div class="portlet box blue">
 					<div class="portlet-title">
-						<div class="caption">
+						<div class="caption" id="vehicles">
 		            {{> filter sessionVar='vehicleFilter' placeholder='Търсене...'}}
 						</div>
 						<div class="tools">
@@ -44,6 +44,7 @@
 				                    <th>VIN</th>
 				                    <th>Автопарк</th>
 				                    <th>От дата</th>
+														<th>Етикети</th>
 				                </tr>
 				            </thead>
 
@@ -64,5 +65,10 @@
         <td>{{identificationNumber}}</td>
         <td>{{fleetName}}</td>
         <td>{{allocatedToFleetFromDate}}</td>
+				<td>
+					{{#each tags}}
+					<span class="label label-danger filter-tag">{{this}}</span>
+					{{/each}}
+				</td>
     </tr>
 </template>

@@ -9,3 +9,7 @@ h3.panel-title {
 .tab-content .row {
   margin-top: 1em;
 }
+
+.filter-tag {
+  cursor: pointer;
+}

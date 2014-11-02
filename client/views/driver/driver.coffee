@@ -1,4 +1,4 @@
-Session.setDefault 'driverImage', 'images/200x200.jpg'
+Session.setDefault 'driverImage', '/images/200x200.jpg'
 
 Template.driver.helpers
   driverSchema: -> Schema.driver

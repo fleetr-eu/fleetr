@@ -148,6 +148,11 @@ Schema.vehicle = new SimpleSchema
     type: String
     optional: true
 
+  tags:
+    type: [String]
+    optional: true
+    label: 'Етикети'
+
   licensePlate:
     type: String
     label: 'Регистрационен номер'
@@ -180,7 +185,7 @@ Schema.fleet = new SimpleSchema
   _id:
     type: String
     optional: true
-    
+
   name:
     type: String
     label: 'Автопарк'
