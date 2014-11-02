@@ -1,0 +1,45 @@
+<template name="notifications">
+  <!-- BEGIN EVENTS DROPDOWN -->
+  <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+    <i class="icon-calendar"></i>
+    {{#if unseenNotificationsExist }}
+      <span class="badge badge-default">{{unseenNotificationsCount}}</span>
+    {{/if}}
+    </a>
+      <ul class="dropdown-menu">
+        <li>
+          <p>
+             Имате {{unseenNotificationsCount}} нови напомняния
+          </p>
+        </li>
+        <li>
+          <ul class="dropdown-menu-list scroller" style="height: 250px;">
+            {{#each unseenNotifications}}
+              {{> notification}}
+            {{/each}}
+          </ul>
+        </li>
+        <li class="external">
+          <a href="{{pathFor 'listNotifications'}}">Вижте всички напомняния<i class="m-icon-swapright"></i>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+  <!-- END EVENTS DROPDOWN -->
+</template>
+
+<template name="notification">
+  <li>
+    <a href="#">
+    <span class="label label-sm label-icon label-danger">
+    <i class="icon-calendar"></i>
+    </span>
+    {{notificationText}}
+    <span class="time">
+    {{formatedExpieryDate}}
+    </span>
+    </a>
+  </li>
+</template>

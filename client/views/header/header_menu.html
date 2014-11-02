@@ -45,7 +45,7 @@
 								преди 20 минути </span>
 								</a>
 							</li>
-							
+
 						</ul>
 					</li>
 					<li class="external">
@@ -126,61 +126,9 @@
 				</ul>
 			</li>
 			<!-- END INBOX DROPDOWN -->
-			<!-- BEGIN EVENTS DROPDOWN -->
-			<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-				<i class="icon-calendar"></i>
-				<span class="badge badge-default">
-				3 </span>
-				</a>
-				<ul class="dropdown-menu">
-					<li>
-						<p>
-							 Имате 5 нови напомняния
-						</p>
-					</li>
-					<li>
-						<ul class="dropdown-menu-list scroller" style="height: 250px;">
-							<li>
-								<a href="#">
-								<span class="label label-sm label-icon label-success">
-								<i class="fa fa-plus"></i>
-								</span>
-								Смяна на масло<br> СН 1520 <br><span class="time">
-								след 1200 км</span>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-								<span class="label label-sm label-icon label-danger">
-								<i class="fa fa-bolt"></i>
-								</span>
-								Подновяване на застраховка<br> E 1872 <br><span class="time">
-								след 7 дни
-								</span>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-								<span class="label label-sm label-icon label-warning">
-								<i class="fa fa-bell-o"></i>
-								</span>
-								Смяна на гуми<br>А 2345<br><span class="time">
-								след 1000 км</span>
-								</a>
-							</li>
-							
-						</ul>
-					</li>
-					<li class="external">
-						<a href="#">
-						Вижте всички напоняния<i class="m-icon-swapright"></i>
-						</a>
-					</li>
-				</ul>
-			</li>
-			<!-- END EVENTS DROPDOWN -->
-							
+
+			{{> notifications}}
+
 			<!-- BEGIN USER LOGIN DROPDOWN -->
 			<li class="dropdown dropdown-user">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
@@ -198,7 +146,7 @@
 						<a href="page_calendar.html">
 						<i class="icon-calendar"></i>Календар</a>
 					</li>
-					
+
 					<li class="divider">
 					</li>
 					<li>
