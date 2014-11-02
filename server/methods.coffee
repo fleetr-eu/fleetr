@@ -42,3 +42,8 @@ Meteor.methods
   removeExpensesFuel: (doc) ->
     @unblock()
     ExpensesFuel.remove _id : doc
+
+  toggleNotificationSeen: (id, oldSeenState) ->
+    @unblock()
+    newSeenState = !oldSeenState
+    Notifications.update {_id: id}, {$set: {seen: newSeenState}}

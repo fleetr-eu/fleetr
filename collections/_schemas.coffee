@@ -120,7 +120,7 @@ Schema.driver = new SimpleSchema
     optional: true
   psychApprovalExpieryDate:
     type: Date
-    label: "Психо удостоверение: Валидно до"
+    label: "Удостоверението за психологическа годност: Валидно до"
     optional: true
   transportLicense:
     type: String

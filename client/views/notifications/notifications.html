@@ -21,7 +21,7 @@
 			<div class="col-md-12">
 				<div class="portlet box blue">
 					<div class="portlet-title">
-						<div class="caption">
+						<div class="caption" id="notifications">
 		            {{> filter sessionVar='filterNotifications' placeholder='Търсене...'}}
 						</div>
 					</div>
@@ -34,6 +34,8 @@
 				            <thead>
 				                <tr>
 				                    <th>Напомняне</th>
+														<th>Етикети</th>
+														<th><i class="fa {{toggleSeenIcon}} toggleSeen"></i></th>
 				         				</tr>
 				            </thead>
 
@@ -51,5 +53,11 @@
 <template name="notificationTableRow">
     <tr>
         <td>{{notificationMessage}}</td>
+				<td>
+					{{#each tags}}
+						<span class="label label-danger filter-tag">{{this}}</span>
+					{{/each}}
+				</td>
+				<td><i class="fa {{seenIcon}} markSeen"></i></td>
     </tr>
 </template>

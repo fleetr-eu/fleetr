@@ -8,6 +8,7 @@ Meteor.subscribe 'expensesFuel'
 Meteor.subscribe 'notifications'
 
 Session.setDefault 'filterNotifications', ''
+Session.setDefault 'showSeenNotifications', false
 Session.setDefault 'filterFleets', ''
 Session.setDefault 'filterVehicles', ''
 Session.setDefault 'filterDrivers', ''

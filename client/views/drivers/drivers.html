@@ -38,7 +38,7 @@
 							<table class="table table-bordered table-striped table-condensed flip-content">
 								<thead class="flip-content">
 		        					<tr>
-		            					<th>Имена и Фамилия</th>
+													<th>Имена и Фамилия</th>
 		            					<th>Мобилен телефон</th>
 		        					</tr>
 		    					</thead>
@@ -56,7 +56,12 @@
 
 <template name="driverTableRow">
     <tr>
-        <td>{{fullName}}</td>
-        <td>{{mobile}}</td>
-    </tr>
+			<td>
+					{{#if hasUnseenNotifications}}
+						<i class="icon-bell" title="{{unseenNotificationsMessage}}"></i>
+					{{/if}}
+					{{fullName}}
+			</td>
+			<td>{{mobile}}</td>
+  	</tr>
 </template>
