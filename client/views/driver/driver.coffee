@@ -12,8 +12,8 @@ Template.driver.events
     reader.readAsDataURL(file)
   "click .btn-sm" : (e) ->
     $("#driverForm").submit()
-  "click .btn-rs" : (e) ->
-    $("#driverForm").reset()
+  "click .btn-reset" : (e) ->
+    AutoForm.resetForm("driverForm")
 
 AutoForm.hooks
   driverForm:
