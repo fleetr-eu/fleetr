@@ -1,5 +1,7 @@
 Session.setDefault 'driverImage', '/images/200x200.jpg'
 
+Template.driver.rendered = -> Metronic.initSlimScroll '.scroller'
+
 Template.driver.helpers
   driverSchema: -> Schema.driver
   driverImage: -> Session.get 'driverImage'
