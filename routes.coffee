@@ -1,4 +1,29 @@
 Meteor.startup ->
+  AccountsEntry.config
+    privacyUrl: '/privacy-policy',
+    termsUrl: '/terms-of-use',
+    homeRoute: '/',
+    dashboardRoute: '/',
+    emailToLower: true,
+    profileRoute: 'profile',
+    showSignupCode: false
+
+  openRoutes = [
+    "notFound",
+    "entrySignIn",
+    "entrySignOut",
+    "entrySignUp",
+    "entryForgotPassword",
+    "entryResetPassword"
+  ]
+
+  RouterBeforeHooks =
+    openLayout: -> @router.layout("open")
+    requireLogin: (pause) -> AccountsEntry.signInRequired @, pause
+
+  Router.onBeforeAction RouterBeforeHooks.requireLogin, {except: openRoutes}
+  Router.onBeforeAction RouterBeforeHooks.openLayout, {only: openRoutes}
+
   Router.configure
     layoutTemplate: 'layout'
 
