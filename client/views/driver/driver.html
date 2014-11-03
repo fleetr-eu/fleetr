@@ -12,7 +12,7 @@
         <i class="fa fa-close"></i> Анулирай </a>
       </div>
     </div>
-    <div class="portlet-body" style="height:520px" >
+    <div class="portlet-body">
         <!-- Nav tabs -->
         <div class="tabbable-custom">
           <ul class="nav nav-tabs">
@@ -29,7 +29,7 @@
           <div class="tab-content">
             <div class="tab-pane active" id="tab_1">
               <div class="row">
-                <div class="scroller" style="height:430px" data-always-visible="1" data-rail-visible="1" data-rail-color="blue" data-handle-color="#b1c2bd">
+                <div class="scroller" data-always-visible="1" data-rail-visible="1" data-rail-color="blue" data-handle-color="#b1c2bd">
                   <fieldset>
                     <div class="col-md-4">
                       <legend>Основни данни</legend>
@@ -37,7 +37,7 @@
                         {{> afQuickField name="firstName"}}
                         {{> afQuickField name="ssn"}}
                         {{> afQuickField name="birthDate"}}
-                        {{> afQuickField name="sex" radio="true" options="allowed" noselect="true"}}
+                        {{> afQuickField name="sex" options="allowed"}}
                     </div>
                     <div class="col-md-4">
                       <legend>Документ за самоличност</legend>
@@ -59,7 +59,7 @@
             </div>
           <div class="tab-pane" id="tab_2">
               <div class="row">
-                <div class="scroller" style="height:410px" data-always-visible="1" data-rail-visible="1" data-rail-color="blue" data-handle-color="#b1c2bd">
+                <div class="scroller" data-always-visible="1" data-rail-visible="1" data-rail-color="blue" data-handle-color="#b1c2bd">
                   <fieldset>
                     <div class="col-md-4">
                         <legend>Информация за контакт</legend>
