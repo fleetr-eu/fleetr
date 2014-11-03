@@ -35,7 +35,7 @@
 					</form>
 					<!-- END RESPONSIVE QUICK SEARCH FORM -->
 				</li>
-				<li class='start {{activeCategory "dashboard"}}'>
+				<li  class="{{isActiveRoute regex='dashboard'}}">
 					<a href="javascript:;">
 					<i class="icon-bar-chart"></i>
 					<span class="title">Статистики</span>
@@ -48,70 +48,70 @@
 						</li>
 					</ul>
 				</li>
-				<li class='{{activeCategory "fleet"}}'>
+				<li class="{{isActiveRoute regex='Fleet'}}">
 					<a href="javascript:;">
 					<i class="fa fa-sitemap"></i>
 					<span class="title">Автопаркове</span>
 					<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
-						<li class="active">
+						<li class="{{isActiveRoute regex='mapFleets'}}">
 							<a href="{{pathFor 'mapFleets'}}">
 							Карта</a>
 						</li>
-						<li>
-							<a href="{{pathFor 'listGroups'}}">
+						<li class="{{isActiveRoute regex='listFleets'}}">
+							<a href="{{pathFor 'listFleets'}}">
 							Списък</a>
 						</li>
-						<li>
-							<a href="{{pathFor 'addGroup'}}">
+						<li class="{{isActiveRoute regex='addFleet'}}">
+							<a href="{{pathFor 'addFleet'}}">
 							Добавяне</a>
 						</li>
 					</ul>
 				</li>
-				<li class='{{activeCategory "vehicle"}}'>
+				<li class="{{isActiveRoute regex='Vehicle'}}">
 					<a href="javascript:;">
 					<i class="fa fa-car"></i>
 					<span class="title">Автомобили</span>
 					<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
-						<li class="active">
+						<li class="{{isActiveRoute regex='mapVehicles'}}">
 							<a href="{{pathFor 'mapVehicles'}}">
 							Карта</a>
 						</li>
-						<li>
+						<li class="{{isActiveRoute regex='listVehicles'}}">
 							<a href="{{pathFor 'listVehicles'}}">
 							Списък</a>
 						</li>
-						<li>
+						<li class="{{isActiveRoute regex='addVehicle'}}">
 							<a href="{{pathFor 'addVehicle'}}">
 							Добавяне </a>
 						</li>
 					</ul>
 				</li>
-				<li class='{{activeCategory "driver"}}'>
+				<li class="{{isActiveRoute regex='Driver'}}">
 					<a href="javascript:;">
 					<i class="icon-user"></i>
 					<span class="title">Шофьори</span>
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
-						<li class="active">
+						<li class="{{isActiveRoute regex='mapDrivers'}}">
 							<a href="{{pathFor 'mapDrivers'}}">
 							Карта</a>
 						</li>
-						<li>
+						<li class="{{isActiveRoute regex='listDrivers'}}">
 							<a href="{{pathFor 'listDrivers'}}">
 							Списък</a>
 						</li>
-						<li>
+						<li class="{{isActiveRoute regex='addDriver'}}">
 							<a href="{{pathFor 'addDriver'}}">
 							Добавяне</a>
 						</li>
 					</ul>
 				</li>
-				<li class="{{activeCategory 'expenses'}}">
+				<li class="{{isActiveRoute regex='Expenses'}}">
 					<a href="javascript:;">
 					<i class="fa fa-eur"></i>
 					<span class="title">Разходи</span>
@@ -156,18 +156,18 @@
 						</li>
 					</ul>
 				</li>
-				<li class="{{activeCategory 'reports'}}">
+				<li class="{{isActiveRoute regex='Report'}}">
 					<a href="javascript:;">
 					<i class="icon-docs"></i>
 					<span class="title">Отчети</span>
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
-						<li class="active">
+						<li class="{{isActiveRoute regex='drilldownReport'}}">
 							<a href="{{pathFor 'drilldownReport'}}">
 							Структура на автопаркa</a>
 						</li>
-						<li>
+						<li class="{{isActiveRoute regex='anotherReport'}}">
 							<a href="/">
 							Друг отчет</a>
 						</li>

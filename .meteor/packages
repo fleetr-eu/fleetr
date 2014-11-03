@@ -17,5 +17,6 @@ accounts-ui
 anti:fake
 mrt:flash-messages
 matb33:collection-hooks
-joshowens:accounts-entry
+mrt:moment
+zimme:iron-router-active
 
