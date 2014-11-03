@@ -10,6 +10,10 @@ Template.driver.events
     reader = new FileReader();
     reader.onload = (e) -> Session.set 'driverImage', e.target.result
     reader.readAsDataURL(file)
+  "click .btn-sm" : (e) ->
+    $("#driverForm").submit()
+  "click .btn-rs" : (e) ->
+    $("#driverForm").reset()
 
 AutoForm.hooks
   driverForm:

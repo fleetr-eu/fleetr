@@ -1,82 +1,100 @@
 <template name="driver">
-  <div class="container">
-    {{#autoForm schema=driverSchema id="driverForm"}}
-
+  {{#autoForm schema=driverSchema id="driverForm"}}
+  <div class="portlet box blue-hoki">
+    <div class="portlet-title">
+      <div class="caption">
+        <i class="icon-user"></i>Шофьор
+      </div>
+      <div class="actions">
+        <a href="#" class="btn btn-default btn-primary btn-sm">
+        <i class="fa fa-check"></i> Запиши </a>
+        <a href="#" class="btn btn-default btn-rs">
+        <i class="fa fa-close"></i> Анулирай </a>
+      </div>
+    </div>
+    <div class="portlet-body">
+      <div class="scroller" style="height:500px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
         <!-- Nav tabs -->
-        <ul class="nav nav-pills" role="tablist">
-            <li class="active"><a href="#pers-info" role="tab" data-toggle="tab">Лични данни</a></li>
-            <li><a href="#prof-info" role="tab" data-toggle="tab">Професионални данни</a></li>
-        </ul>
+        <div class="tabbable-custom ">
+          <ul class="nav nav-tabs ">
+            <li class="active">
+              <a href="#tab_1" data-toggle="tab">
+              Лични данни </a>
+            </li>
+            <li>
+              <a href="#tab_2" data-toggle="tab">
+              Професионални данни </a>
+            </li>
+          </ul>
 
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div class="tab-pane active" id="pers-info" name="">
-                <div class="row">
-                  <fieldset>
-                      <div class="col-md-4">
-                        <legend>Основни данни</legend>
-                          {{> afQuickField name="name"}}
-                          {{> afQuickField name="firstName"}}
-                          {{> afQuickField name="ssn"}}
-                          {{> afQuickField name="birthDate"}}
-                          {{> afQuickField name="sex" options="allowed" noselect="true"}}
-                      </div>
-                      <div class="col-md-4">
-                        <legend>Документ за самоличност</legend>
-                          {{> afQuickField name="idSerial"}}
-                          {{> afQuickField name="idNo"}}
-                          {{> afQuickField name="validFrom"}}
-                          {{> afQuickField name="validTo"}}
-                          {{> afQuickField name="issuedBy"}}
-                          {{> afQuickField name="birthPlace"}}
-                          {{> afQuickField name="bloodGroup" options="allowed"}}
-                      </div>
-                      <div class="col-md-4">
-                          <img id="driverImage" src="{{driverImage}}" alt="Driver Photo" />
-                          <input id="picture" name="picture" type="file"/>
-                      </div>
-                  </fieldset>
-                </div>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab_1">
+              <div class="row">
+                <fieldset>
+                    <div class="col-md-4">
+                      <legend>Основни данни</legend>
+                        {{> afQuickField name="name"}}
+                        {{> afQuickField name="firstName"}}
+                        {{> afQuickField name="ssn"}}
+                        {{> afQuickField name="birthDate"}}
+                        {{> afQuickField name="sex" radio="true" options="allowed" noselect="true"}}
+                    </div>
+                    <div class="col-md-4">
+                      <legend>Документ за самоличност</legend>
+                        {{> afQuickField name="idSerial"}}
+                        {{> afQuickField name="idNo"}}
+                        {{> afQuickField name="validFrom"}}
+                        {{> afQuickField name="validTo"}}
+                        {{> afQuickField name="issuedBy"}}
+                        {{> afQuickField name="birthPlace"}}
+                        {{> afQuickField name="bloodGroup" options="allowed"}}
+                    </div>
+                    <div class="col-md-4">
+                        <img id="driverImage" src="{{driverImage}}" alt="Driver Photo" />
+                        <input id="picture" name="picture" type="file"/>
+                    </div>
+                </fieldset>
+              </div>
+              </div>
+            <div class="tab-pane" id="tab_2">
+              <div class="row">
+                <fieldset>
+                    <div class="col-md-4">
+                        <legend>Информация за контакт</legend>
+                        {{> afQuickField name="city"}}
+                        {{> afQuickField name="address"}}
+                        {{> afQuickField name="county"}}
+                        {{> afQuickField name="country"}}
+                        {{> afQuickField name="email"}}
+                        {{> afQuickField name="mobile"}}
+                        {{> afQuickField name="phone"}}
+                        {{> afQuickField name="officePhone"}}
+                    </div>
+                    <div class="col-md-4">
+                        <legend>Свидетелство за управление</legend>
+                        {{> afQuickField name="licenseIssueDate"}}
+                        {{> afQuickField name="licenseExpieryDate"}}
+                        {{> afQuickField name="categories"}}
+                    </div>
+                    <div class="col-md-4">
+                        <legend>Информация за шофьора</legend>
+                        {{> afQuickField name="medEvalExpieryDate"}}
+                        {{> afQuickField name="profCertExpieryDate"}}
+                        {{> afQuickField name="psychApprovalExpieryDate"}}
+                        {{> afQuickField name="transportLicense"}}
+                        {{> afQuickField name="education"}}
+                        {{> afQuickField name="ownsPersonalLicense" radio="true" trueLabel="Yes" falseLabel="No"}}
+                        {{> afQuickField name="ownVehicle"}}
+                        {{> afQuickField name="active"}}
+                    </div>
+                </fieldset>
+              </div>
             </div>
-            <div class="tab-pane" id="prof-info">
-                <div class="row">
-                  <fieldset>
-                      <div class="col-md-4">
-                          <legend>Информация за контакт</legend>
-                          {{> afQuickField name="city"}}
-                          {{> afQuickField name="address"}}
-                          {{> afQuickField name="county"}}
-                          {{> afQuickField name="country"}}
-                          {{> afQuickField name="email"}}
-                          {{> afQuickField name="mobile"}}
-                          {{> afQuickField name="phone"}}
-                          {{> afQuickField name="officePhone"}}
-                      </div>
-                      <div class="col-md-4">
-                          <legend>Свидетелство за управление</legend>
-                          {{> afQuickField name="licenseIssueDate"}}
-                          {{> afQuickField name="licenseExpieryDate"}}
-                          {{> afQuickField name="categories"}}
-                      </div>
-                      <div class="col-md-4">
-                          <legend>Информация за шофьора</legend>
-                          {{> afQuickField name="medEvalExpieryDate"}}
-                          {{> afQuickField name="profCertExpieryDate"}}
-                          {{> afQuickField name="psychApprovalExpieryDate"}}
-                          {{> afQuickField name="transportLicense"}}
-                          {{> afQuickField name="education"}}
-                          {{> afQuickField name="ownsPersonalLicense" radio="true" trueLabel="Yes" falseLabel="No"}}
-                          {{> afQuickField name="ownVehicle"}}
-                          {{> afQuickField name="active"}}
-                      </div>
-                  </fieldset>
-                </div>
-            </div>
+          </div>
         </div>
-        <div>
-          <button type="submit" class="btn btn-primary">Запиши</button>
-          <button type="reset" class="btn btn-default">Анулирай</button>
-        </div>
-    {{/autoForm}}
+      </div>
+    </div>
   </div>
+{{/autoForm}}
+
 </template>
