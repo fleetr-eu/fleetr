@@ -12,11 +12,10 @@
         <i class="fa fa-close"></i> Анулирай </a>
       </div>
     </div>
-    <div class="portlet-body">
-      <div class="scroller" style="height:500px" data-rail-visible="1" data-rail-color="yellow" data-handle-color="#a1b2bd">
+    <div class="portlet-body" style="height:520px" >
         <!-- Nav tabs -->
-        <div class="tabbable-custom ">
-          <ul class="nav nav-tabs ">
+        <div class="tabbable-custom">
+          <ul class="nav nav-tabs">
             <li class="active">
               <a href="#tab_1" data-toggle="tab">
               Лични данни </a>
@@ -30,7 +29,8 @@
           <div class="tab-content">
             <div class="tab-pane active" id="tab_1">
               <div class="row">
-                <fieldset>
+                <div class="scroller" style="height:430px" data-always-visible="1" data-rail-visible="1" data-rail-color="blue" data-handle-color="#b1c2bd">
+                  <fieldset>
                     <div class="col-md-4">
                       <legend>Основни данни</legend>
                         {{> afQuickField name="name"}}
@@ -50,15 +50,17 @@
                         {{> afQuickField name="bloodGroup" options="allowed"}}
                     </div>
                     <div class="col-md-4">
-                        <img id="driverImage" src="{{driverImage}}" alt="Driver Photo" />
-                        <input id="picture" name="picture" type="file"/>
+                      <img id="driverImage" src="{{driverImage}}" alt="Driver Photo" />
+                      <input id="picture" name="picture" type="file"/>
                     </div>
-                </fieldset>
+                  </fieldset>
+                </div>
               </div>
-              </div>
-            <div class="tab-pane" id="tab_2">
+            </div>
+          <div class="tab-pane" id="tab_2">
               <div class="row">
-                <fieldset>
+                <div class="scroller" style="height:410px" data-always-visible="1" data-rail-visible="1" data-rail-color="blue" data-handle-color="#b1c2bd">
+                  <fieldset>
                     <div class="col-md-4">
                         <legend>Информация за контакт</legend>
                         {{> afQuickField name="city"}}
@@ -87,10 +89,10 @@
                         {{> afQuickField name="ownVehicle"}}
                         {{> afQuickField name="active"}}
                     </div>
-                </fieldset>
+                  </fieldset>
+                </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </div>
