@@ -1,7 +1,11 @@
 Meteor.methods
   submitDriver: (doc) ->
     @unblock()
-    Drivers.upsert {_id: doc._id}, {$set: _.omit(doc, '_id')}
+    # after.insert is not triggered. revome after issues is fixed: https://github.com/matb33/meteor-collection-hooks/issues/16
+    if Drivers.findOne {_id: doc._id}
+      Drivers.upsert {_id: doc._id}, {$set: _.omit(doc, '_id')}
+    else
+      Drivers.insert doc
 
   removeDriver: (doc) ->
     @unblock()
