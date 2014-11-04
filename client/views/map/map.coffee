@@ -115,10 +115,12 @@ Template.map.helpers
         icon: truckIcon
         data: location
       google.maps.event.addListener marker, 'click', ->
+        vehicle = Vehicles.findOne(_id: marker.data.vehicleId)
         infowindow = new google.maps.InfoWindow
           content: """
             <div style='width:10em;'>
-              <p>ВИН: #{Vehicles.findOne(_id: marker.data.vehicleId).identificationNumber}</p>
+              <p>ВИН: #{vehicle.identificationNumber}</p>
+              <p>Номер: #{vehicle.licensePlate}</p>
               <p>Скорост: #{marker.data.speed}</p>
               <p>Престой: #{marker.data.stay}</p>
               <p><a href="/location/remove/#{marker.data._id}">Изтрий</a></p>
