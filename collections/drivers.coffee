@@ -2,6 +2,9 @@
 
 Drivers.attachSchema Schema.driver
 
+Drivers.allow
+  insert: -> true
+
 Drivers.before.insert (userId, doc) ->
   doc.timestamp ?= Date.now()
 

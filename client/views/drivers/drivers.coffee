@@ -1,28 +1,26 @@
+Template.drivers.created = ->Session.setDefault 'driverFilter', ''
 
 Template.drivers.events
-  'click .deleteDriver': -> Meteor.call 'removeDriver', @_id
-  'keyup input.search-query': -> Session.set 'filterDrivers', $('#filterDrivers').val()
+  'click .deleteDriver': ->
+    Meteor.call 'removeDriver', Session.get('selectedDriverId')
+    Session.set 'selectedDriverId', null
 
 Template.drivers.helpers
   drivers: ->
+    q = Session.get('driverFilter').trim()
     filter =
-      $regex: "#{Session.get('filterDrivers').trim()}".replace ' ', '|'
+      $regex: q.replace ' ', '|'
       $options: 'i'
-    Drivers.find $or: [{name: filter}, {firstName: filter}]
-  search: -> Session.get('filterDrivers')
+    Drivers.find $or: [{firstName: filter}, {name: filter}, {tags: {$elemMatch: filter}}]
+  selectedDriverId: -> Session.get('selectedDriverId')
 
 Template.driverTableRow.helpers
-  fullName: -> "#{@firstName || ''} #{@name || ''}"
-  licenseCats: ->
-    if @categories
-      (@categories.map (cat) -> cat.license).toString()
-    else ''
-  unseenNotificationsMessage: ->
-    count = Notifications.find({source:@_id, seen:false}).count()
-    if count == 1
-      "Има 1 невидяно напомняне свързано с този шофьор"
-    else
-      "Има #{count} невидяни напомняния свързано с този шофьор"
+  fullName: -> @firstName + ' '+@name
+  active: -> if @_id == Session.get('selectedDriverId') then 'active' else ''
 
-  hasUnseenNotifications: ->
-    Notifications.find({source:@_id, seen:false}).count() > 0
+Template.driverTableRow.events
+  'click tr': -> Session.set 'selectedDriverId', @_id
+  'click .filter-tag': (e) ->
+    tag = e.target.innerText
+    $('#drivers #filter').val(tag)
+    Session.set 'driverFilter', tag

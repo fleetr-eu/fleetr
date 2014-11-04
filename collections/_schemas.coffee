@@ -3,16 +3,23 @@ SimpleSchema.messages
   validToBeforeValidFrom: 'Valid to date must be after valid from date!'
 
 Schema.driver = new SimpleSchema
+  _id:
+    type: String
+    optional: true
   picture:
     type: String
     label: 'Снимка'
     optional: true
+  tags:
+    type: [String]
+    optional: true
+    label: 'Етикети'
   name:
     type: String
     label: 'Фамилия'
   firstName:
     type: String
-    label: "Имена"
+    label: "Име"
     optional: true
   ssn:
     type: Number
@@ -27,7 +34,11 @@ Schema.driver = new SimpleSchema
     label: "Пол"
     optional: true
     allowedValues: ['Мъж', 'Жена']
-
+  idType:
+    type: String
+    label: "Вид"
+    optional: true
+    allowedValues: ['Лична карта', 'Паспорт']
   idSerial:
     type: String
     label: "Серия"

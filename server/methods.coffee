@@ -1,7 +1,7 @@
 Meteor.methods
   submitDriver: (doc) ->
     @unblock()
-    Drivers.insert doc
+    Drivers.upsert {_id: doc._id}, {$set: _.omit(doc, '_id')}
 
   removeDriver: (doc) ->
     @unblock()

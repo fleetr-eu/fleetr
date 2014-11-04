@@ -31,9 +31,14 @@ Meteor.startup ->
     @route 'dashboard',
       path: '/'
       template: 'dashboard'
+
     @route 'addDriver',
       path: '/drivers/add'
       template: 'driver'
+    @route 'editDriver',
+      path: '/drivers/edit/:driverId'
+      template: 'driver'
+      data: -> {'driverId' : @params.driverId}
     @route 'listDrivers',
       path: '/drivers/list'
       template: 'drivers'

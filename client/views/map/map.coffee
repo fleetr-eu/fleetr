@@ -74,9 +74,9 @@ Template.map.helpers
         infowindow = new google.maps.InfoWindow
           content: """
             <div style='width:10em;'>
-              <p>vin: #{Vehicles.findOne(_id: marker.data.vehicleId).identificationNumber}</p>
-              <p>speed: #{marker.data.speed}</p>
-              <p>stay: #{marker.data.stay}</p>
+              <p>ВИН: #{Vehicles.findOne(_id: marker.data.vehicleId).identificationNumber}</p>
+              <p>Скорост: #{marker.data.speed}</p>
+              <p>Престой: #{marker.data.stay}</p>
             </div>"""
         infowindow.open Map.map, marker
       marker
