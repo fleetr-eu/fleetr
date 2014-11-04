@@ -120,6 +120,7 @@ Template.map.helpers
               <p>ВИН: #{Vehicles.findOne(_id: marker.data.vehicleId).identificationNumber}</p>
               <p>Скорост: #{marker.data.speed}</p>
               <p>Престой: #{marker.data.stay}</p>
+              <p><a href="/location/remove/#{marker.data._id}">Изтрий</a></p>
             </div>"""
         infowindow.open Map.map, marker
       marker

@@ -84,3 +84,9 @@ Meteor.startup ->
     @route 'listNotifications',
       path: '/notifications/list'
       template: 'notificationsList'
+
+    @route 'removeVehicle',
+      path: '/location/remove/:locationId'
+      template: 'map'
+      onRun: ->
+        Meteor.call 'removeLocation', @params.locationId

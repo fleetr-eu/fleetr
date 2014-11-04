@@ -51,3 +51,7 @@ Meteor.methods
     @unblock()
     newSeenState = !oldSeenState
     Notifications.update {_id: id}, {$set: {seen: newSeenState}}
+
+  removeLocation: (locationId) ->
+    @unblock()
+    Locations.remove _id: locationId
