@@ -104,8 +104,9 @@ Template.map.rendered = ->
 
 Template.map.helpers
   renderMarkers: ->
+    vehicles = _.pluck(Template.vehiclesMapTable.__helpers[' vehicles']().fetch(), '_id')
     Map.deleteMarkers()
-    markers = Locations.find().map (location) ->
+    markers = Locations.find(vehicleId: {$in: vehicles}).map (location) ->
       [lng, lat] = location.loc
       truckIcon = if location.speed then '/images/truck-green.png' else '/images/truck-red.png'
       marker = new google.maps.Marker
@@ -126,15 +127,15 @@ Template.map.helpers
     Map.addMarkers markers
 
 
-Template.map.created = ->Session.setDefault 'vehicleFilter', ''
+Template.map.created = -> Session.setDefault 'vehicleFilter', ''
 
 Template.vehiclesMapTable.helpers
   vehicles: ->
-    q = Session.get('vehicleFilter').trim()
     filter =
-      $regex: q.replace ' ', '|'
+      $regex: Session.get('vehicleFilter').trim().replace ' ', '|'
       $options: 'i'
     Vehicles.find $or: [{licensePlate: filter}, {identificationNumber: filter}, {tags: {$elemMatch: filter}}]
+
   selectedVehicleId: -> Session.get('selectedVehicleId')
 
 Template.vehicleMapTableRow.helpers
