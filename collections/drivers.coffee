@@ -4,11 +4,14 @@ Drivers.attachSchema Schema.driver
 
 Drivers.allow
   insert: -> true
+  update: -> true
+  remove: -> true
 
 Drivers.before.insert (userId, doc) ->
   doc.timestamp ?= Date.now()
 
-Drivers.after.insert (userId, doc) ->
+Drivers.after.update (userId, doc, fieldNames, modifier, options) ->
+  Notifications.remove {source:@_id}
   if doc.validTo
     Notifications.insert {
       source:@_id,

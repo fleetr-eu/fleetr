@@ -120,7 +120,7 @@ Schema.driver = new SimpleSchema
   'categories.$.issueDate':
     type: Date
     optional: true
-    label: 'Дата на издаване'
+    label: 'От дата'
   medEvalExpieryDate:
     type: Date
     label: "Медицинско свидетелство: Валидно до"
@@ -141,6 +141,7 @@ Schema.driver = new SimpleSchema
     type: String
     label: "Образование"
     optional: true
+    allowedValues: ['', 'Предучилищно', 'Основно', 'Средно', 'Висше']
   ownsPersonalLicense:
     type: Boolean
     label: "Притежева личен лиценз"
