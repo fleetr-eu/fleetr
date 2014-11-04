@@ -55,3 +55,8 @@ Meteor.methods
   removeLocation: (locationId) ->
     @unblock()
     Locations.remove _id: locationId
+
+  reset: () ->
+    @unblock()
+    Locations.remove {}
+    Notifications.remove {}

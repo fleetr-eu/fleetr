@@ -90,3 +90,9 @@ Meteor.startup ->
       template: 'map'
       onRun: ->
         Meteor.call 'removeLocation', @params.locationId
+
+    @route 'resetAll',
+      path: '/reset'
+      template: 'dashboard'
+      onRun: ->
+        Meteor.call 'reset'
