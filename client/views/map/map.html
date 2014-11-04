@@ -1,3 +1,61 @@
 <template name="map">
-    <div id="map-canvas">{{renderMarkers}}</div>
+
+    <h3 class="page-title">
+    Карта на автомобили
+    </h3>
+
+    <div class="row">
+        <div class="col-md-12">
+          <div class="portlet box blue">
+            <div class="portlet-title">
+              <div class="caption" id="mapVehicles">
+                  {{> filter sessionVar='vehicleFilter' placeholder='Търсене...'}}
+              </div>
+              <div class="tools">
+                <a href="" class="fullscreen"></a>
+              </div>
+            </div>
+            <div class="portlet-body">
+            <div class="row">
+               <div class="col-md-4">
+                 <section class="content">
+                   {{> vehiclesMapTable }}
+                </section>
+               </div>
+               <div class="col-md-8">
+                 <section class="content">
+                   <input id="pac-input" class="controls" type="text" placeholder="Enter a location">
+                   <div id="map-canvas">{{renderMarkers}}</div>
+                 </section>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+</template>
+
+<template name="vehiclesMapTable">
+  <table class="table table-striped">
+    <thead>
+        <tr>
+          <th>Номер</th>
+          <th>Етикети</th>
+        </tr>
+      </thead>
+      <tbody>
+          {{#each vehicles}} {{>vehicleMapTableRow}} {{/each}}
+      </tbody>
+  </table>
+</template>
+
+<template name="vehicleMapTableRow">
+    <tr class="{{active}}">
+        <td>{{licensePlate}}</td>
+        <td>
+          {{#each tags}}
+          <span class="label label-danger filter-tag">{{this}}</span>
+          {{/each}}
+        </td>
+    </tr>
 </template>
