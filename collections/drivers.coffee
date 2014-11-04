@@ -11,7 +11,9 @@ Drivers.before.insert (userId, doc) ->
   doc.timestamp ?= Date.now()
 
 Drivers.after.update (userId, doc, fieldNames, modifier, options) ->
-  Notifications.remove {source:@_id}
+  if doc._id
+    Notifications.remove {source:doc._id}
+
   if doc.validTo
     Notifications.insert {
       source:@_id,
