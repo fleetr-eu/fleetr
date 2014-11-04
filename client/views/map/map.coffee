@@ -18,7 +18,17 @@ Meteor.startup ->
       Map.clusterer = Map.createClusterer Map.map
       Map.addListener 'idle', -> Session.set 'mapArea', Map.getSearchArea()
       Map.addListener 'click', (e) ->
-        Meteor.call 'addLocation', {loc: [e.latLng.lng(), e.latLng.lat()]}
+        Meteor.call 'addLocation',
+          loc: [e.latLng.lng(), e.latLng.lat()]
+          speed: 50
+          stay: 0
+          vehicleId: Random.choice _.pluck(Vehicles.find().fetch(), '_id')
+      Map.addListener 'rightclick', (e) ->
+        Meteor.call 'addLocation',
+          loc: [e.latLng.lng(), e.latLng.lat()]
+          speed: 0
+          stay: 30
+          vehicleId: Random.choice _.pluck(Vehicles.find().fetch(), '_id')
       cb && cb()
 
     addListener: (event, listener) ->
@@ -51,8 +61,23 @@ Template.map.rendered = ->
 
 Template.map.helpers
   renderMarkers: ->
-      Map.deleteMarkers()
-      markers = Locations.find().map (location) ->
-        [lng, lat] = location.loc
-        new google.maps.Marker(position: new google.maps.LatLng(lat, lng))
-      Map.addMarkers markers
+    Map.deleteMarkers()
+    markers = Locations.find().map (location) ->
+      [lng, lat] = location.loc
+      truckIcon = if location.speed then '/images/truck-green.png' else '/images/truck-red.png'
+      marker = new google.maps.Marker
+        position: new google.maps.LatLng(lat, lng)
+        title: Vehicles.findOne(_id: location.vehicleId).identificationNumber
+        icon: truckIcon
+        data: location
+      google.maps.event.addListener marker, 'click', ->
+        infowindow = new google.maps.InfoWindow
+          content: """
+            <div style='width:10em;'>
+              <p>vin: #{Vehicles.findOne(_id: marker.data.vehicleId).identificationNumber}</p>
+              <p>speed: #{marker.data.speed}</p>
+              <p>stay: #{marker.data.stay}</p>
+            </div>"""
+        infowindow.open Map.map, marker
+      marker
+    Map.addMarkers markers
