@@ -1,8 +1,16 @@
 Template.notifications.helpers
-  unseenNotifications: -> Notifications.find({seen:false})
-  unseenNotificationsCount: -> Notifications.find({seen:false}).count()
-  unseenNotificationsExist: -> Notifications.find({seen:false}).count() > 0
+  unseenNotifications: ->
+    Notifications.utils.getExpiringNotications(moment().add(10, 'days').toDate())
+
+  unseenNotificationsCount: ->
+    Notifications.utils.getExpiringNotications(moment().add(10, 'days').toDate()).count()
+
+  unseenNotificationsExist: ->
+    Notifications.utils.getExpiringNotications(moment().add(10, 'days').toDate()).count() > 0
 
 Template.notification.helpers
   formatedExpieryDate: ->
     @expieryDate.toLocaleDateString()
+
+  daysToExpire: ->
+    moment(@expieryDate).lang("bg").from(moment())
