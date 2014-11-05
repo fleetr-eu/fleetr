@@ -38,10 +38,12 @@ Meteor.startup ->
       autocomplete = new google.maps.places.Autocomplete(input)
       autocomplete.bindTo "bounds", Map.map
       infowindow = new google.maps.InfoWindow()
-      searchMarker = new google.maps.Marker(
+      searchMarker = new google.maps.Marker
         map: Map.map
         anchorPoint: new google.maps.Point(0, -29)
-      )
+
+      Map.clusterer?.setZoomOnClick true
+
       google.maps.event.addListener autocomplete, "place_changed", ->
         infowindow.close()
         searchMarker.setVisible false
@@ -101,7 +103,7 @@ Meteor.startup ->
 Template.map.rendered = ->
   @autorun ->
     selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
-    location = selectedVehicle.lastLocation()
+    location = selectedVehicle?.lastLocation()
     if location
         [lng, lat] = location.loc
         Map.map.setCenter {lat: lat, lng: lng}
