@@ -3,18 +3,18 @@
 Notifications.utils =
   getUnseenNotications: (filter) ->
     if filter
-      Notifications.find {seen: false, $or: [{notificationText: filter}, {tags: {$elemMatch: filter}}]}, {sort: {expieryDate: 1}}
+      Notifications.find {seen: false, $or: [{notificationText: filter}, {tags: {$elemMatch: filter}}]}
     else
-      Notifications.find {seen: false}, {sort: {expieryDate: 1}}
+      Notifications.find {seen: false}
 
   getAllNotications: (filter) ->
     if filter
-      Notifications.find {$or: [{notificationText: filter}, {tags: {$elemMatch: filter}}]}, {sort: {expieryDate: 1}}
+      Notifications.find {$or: [{notificationText: filter}, {tags: {$elemMatch: filter}}]}
     else
-      Notifications.find {}, {sort: {expieryDate: 1}}
+      Notifications.find {},
 
   getExpiringNotications: (afterDate) ->
     if afterDate
-      Notifications.find {seen:false, expieryDate: {"$lte": afterDate}}, {sort: {expieryDate: 1}}
+      Notifications.find {seen: false, expieryDate: {"$lte": afterDate}}, {sort: {expieryDate: 1, notificationText: -1}}
     else
-      Notifications.find {seen: false}, {sort: {expieryDate: 1}}
+      Notifications.find {seen: false}, {sort: {expieryDate: 1, notificationText: -1}}
