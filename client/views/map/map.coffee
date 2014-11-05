@@ -32,7 +32,8 @@ Meteor.startup ->
           vehicleId: Random.choice _.pluck(Vehicles.find().fetch(), '_id')
 
       input = document.getElementById("pac-input")
-      Map.map.controls[google.maps.ControlPosition.TOP_LEFT].push input
+      pacSearch = document.getElementById("pac-search")
+      Map.map.controls[google.maps.ControlPosition.TOP_LEFT].push pacSearch
 
       autocomplete = new google.maps.places.Autocomplete(input)
       autocomplete.bindTo "bounds", Map.map
@@ -152,3 +153,7 @@ Template.vehicleMapTableRow.events
     tag = e.target.innerText
     $('#vehicles #filter').val(tag)
     Session.set 'vehicleFilter', tag
+
+Template.map.events
+  'click #pac-input-clear': ->
+    $('#pac-input').val('')
