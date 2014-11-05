@@ -22,21 +22,25 @@ Template.notificationsList.events
 Template.notificationTableRow.helpers
   notificationMessage: ->
     moment.lang("bg")
-    @notificationText+" на "+ moment(@expieryDate).lang("bg").format('DD-MM-YYYY')+" "
+    @notificationText+" на "+ moment(@expieryDate).format('DD-MM-YYYY')+" "
   seenIcon: ->
     if @seen
       'fa-bell-slash-o'
     else
       'fa-bell-o'
   daysToExpire: ->
-    moment.lang("bg")
-    moment(@expieryDate).lang("bg").from(moment())
+    moment(@expieryDate).from(moment())
 
   style: ->
       if @expieryDate < moment().add(10, 'days').toDate()
         "color:red;"
       else
         ""
+  tagsArray: ->
+    if @tags
+      @tags.split(",")
+    else
+      []
 
 Template.notificationTableRow.events
   'click .filter-tag': (e) ->

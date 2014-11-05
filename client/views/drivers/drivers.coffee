@@ -11,12 +11,18 @@ Template.drivers.helpers
     filter =
       $regex: q.replace ' ', '|'
       $options: 'i'
-    Drivers.find $or: [{firstName: filter}, {name: filter}, {tags: {$elemMatch: filter}}]
+    Drivers.find $or: [{firstName: filter}, {name: filter}, {tags: {$regex : ".*"+filter+".*"}}]
   selectedDriverId: -> Session.get('selectedDriverId')
 
 Template.driverTableRow.helpers
   fullName: -> "#{@firstName} #{@name}"
   active: -> if @_id == Session.get('selectedDriverId') then 'active' else ''
+  tagsArray: ->
+    if @tags
+      @tags.split(",")
+    else
+      []
+
 
 Template.driverTableRow.events
   'click tr': -> Session.set 'selectedDriverId', @_id

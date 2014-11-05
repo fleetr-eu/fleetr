@@ -11,7 +11,7 @@ Schema.driver = new SimpleSchema
     label: 'Снимка'
     optional: true
   tags:
-    type: [String]
+    type: String
     optional: true
     label: 'Етикети'
   name:
@@ -112,15 +112,46 @@ Schema.driver = new SimpleSchema
     type: Date
     label: "Валидно до"
     optional: true
-  'categories.$.license':
-    label:'Категория'
-    type: String
+  categoryA:
+    type: Boolean
     optional: true
-    allowedValues: ['A', 'B', 'C', 'D', 'E']
-  'categories.$.issueDate':
+    label: 'Категории: A'
+  categoryAIssueDate:
     type: Date
     optional: true
-    label: 'От дата'
+    label: 'от дата'
+  categoryB:
+    type: Boolean
+    optional: true
+    label: 'B'
+  categoryBIssueDate:
+    type: Date
+    optional: true
+    label: 'от дата'
+  categoryC:
+    type: Boolean
+    optional: true
+    label: 'C'
+  categoryCIssueDate:
+    type: Date
+    optional: true
+    label: 'от дата'
+  categoryD:
+    type: Boolean
+    optional: true
+    label: 'D'
+  categoryDIssueDate:
+    type: Date
+    optional: true
+    label: 'от дата'
+  categoryE:
+    type: Boolean
+    optional: true
+    label: 'E'
+  categoryEIssueDate:
+    type: Date
+    optional: true
+    label: 'от дата'
   medEvalExpieryDate:
     type: Date
     label: "Медицинско свидетелство: Валидно до"
@@ -161,7 +192,7 @@ Schema.vehicle = new SimpleSchema
     optional: true
 
   tags:
-    type: [String]
+    type: String
     optional: true
     label: 'Етикети'
 

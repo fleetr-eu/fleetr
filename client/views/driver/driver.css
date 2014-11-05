@@ -18,3 +18,11 @@ h3.panel-title {
 #driverForm div.scroller {
   height: 430px;
 }
+
+div.form-group {
+    margin: 0 auto;
+}
+
+.checkbox {
+  margin-top: 2px;
+}

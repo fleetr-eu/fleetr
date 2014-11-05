@@ -7,7 +7,7 @@ Drivers.utils =
         source:id,
         notificationText:"Документът за самоличност на #{doc.firstName} #{doc.name} изтича ",
         expieryDate: doc.validTo,
-        tags:['документ', 'шофьор'],
+        tags:'документ,шофьор',
         seen:false
       }
     if doc.licenseExpieryDate
@@ -15,7 +15,7 @@ Drivers.utils =
         source:id,
         notificationText:"Свидетелството за управление на #{doc.firstName} #{doc.name} изтича ",
         expieryDate: doc.licenseExpieryDate,
-        tags:['свидетелство', 'шофьор'],
+        tags:'свидетелство,шофьор',
         seen:false
       }
     if doc.medEvalExpieryDate
@@ -23,7 +23,7 @@ Drivers.utils =
         source:id,
         notificationText:"Медицинското свидетелство на #{doc.firstName} #{doc.name} изтича ",
         expieryDate: doc.medEvalExpieryDate,
-        tags:['свидетелство', 'шофьор'],
+        tags:'свидетелство,шофьор',
         seen:false
       }
     if doc.profCertExpieryDate
@@ -31,7 +31,7 @@ Drivers.utils =
         source:id,
         notificationText:"Професионаленият сертификат на #{doc.firstName} #{doc.name} изтича ",
         expieryDate: doc.profCertExpieryDate,
-        tags:['сертификат', 'шофьор'],
+        tags:'сертификат,шофьор',
         seen:false
       }
     if doc.psychApprovalExpieryDate
@@ -39,7 +39,7 @@ Drivers.utils =
         source:id,
         notificationText:"Удостоверението за психологическа годност на #{doc.firstName} #{doc.name} изтича ",
         expieryDate: doc.psychApprovalExpieryDate,
-        tags:['удостоверение', 'шофьор'],
+        tags:'удостоверение,шофьор',
         seen:false
       }
 

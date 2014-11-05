@@ -13,7 +13,7 @@ Vehicles.findFiltered = (filterVar, fieldsToFilter) ->
   fields = fieldsToFilter.reduce (acc, field) ->
     term = {}
     if field == 'tags'
-      term.tags = {$elemMatch: filter}
+      term.tags = {$regex : ".*"+filter+".*"}
     else
       term[field] = filter
     acc.push term

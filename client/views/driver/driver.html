@@ -56,7 +56,7 @@
                     {{> afQuickField leftLabel="true" template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="active"}}
                 </div>
                 <div class="col-md-4">
-                    {{> afQuickField name="tags"}}
+                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-3" input-col-class="col-sm-9" name="tags"}}
                 </div>
                 <div class="col-md-3">
                   <img id="driverImage" src="{{driverImage}}" alt="Driver Photo" />
@@ -99,14 +99,26 @@
           <div class="tab-pane" id="tab_4">
             <div class="row">
               <fieldset>
-                  <div class="col-md-5">
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6" name="licenseIssueDate"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6" name="licenseExpieryDate"}}
-                  </div>
-                  <div class="col-md-7">
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-3" input-col-class="col-sm-9" name="categories"}}
-                  </div>
-                </fieldset>
+                <div class="col-md-5">
+                  {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6" name="licenseIssueDate"}}
+                  {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6" name="licenseExpieryDate"}}
+                </div>
+
+                <div class="col-md-6">
+
+                    {{> afQuickField leftLabel="true" template="bootstrap3-horizontal" label-class="col-sm-3 text-right" input-col-class="col-sm-1 pull-left" name="categoryA"}}
+                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-2" input-col-class="col-sm-6" name="categoryAIssueDate"}}
+                    {{> afQuickField leftLabel="true" template="bootstrap3-horizontal" label-class="col-sm-3 text-right" input-col-class="col-sm-1 pull-left" name="categoryB"}}
+                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-2" input-col-class="col-sm-6" name="categoryBIssueDate"}}
+                    {{> afQuickField leftLabel="true" template="bootstrap3-horizontal" label-class="col-sm-3 text-right" input-col-class="col-sm-1 pull-left" name="categoryC"}}
+                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-2" input-col-class="col-sm-6" name="categoryCIssueDate"}}
+                    {{> afQuickField leftLabel="true" template="bootstrap3-horizontal" label-class="col-sm-3 text-right" input-col-class="col-sm-1 pull-left" name="categoryD"}}
+                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-2" input-col-class="col-sm-6" name="categoryDIssueDate"}}
+                    {{> afQuickField leftLabel="true" template="bootstrap3-horizontal" label-class="col-sm-3 text-right" input-col-class="col-sm-1 pull-left" name="categoryE"}}
+                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-2" input-col-class="col-sm-6" name="categoryEIssueDate"}}
+
+                </div>
+              </fieldset>
             </div>
           </div>
           <div class="tab-pane" id="tab_5">

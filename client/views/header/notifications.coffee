@@ -13,4 +13,4 @@ Template.notification.helpers
     @expieryDate.toLocaleDateString()
 
   daysToExpire: ->
-    moment(@expieryDate).lang("bg").from(moment())
+    moment(@expieryDate).from(moment())

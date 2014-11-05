@@ -151,6 +151,12 @@ Template.vehicleMapTableRow.helpers
   fleetName: -> Fleets.findOne(_id : @allocatedToFleet).name
   active: -> if @_id == Session.get('selectedVehicleId') then 'active' else ''
   allocatedToFleetFromDate: -> @allocatedToFleetFromDate.toLocaleDateString()
+  tagsArray: ->
+    if @tags
+      @tags.split(",")
+    else
+      []
+
 
 Template.vehicleMapTableRow.events
   'click tr': -> Session.set 'selectedVehicleId', @_id
