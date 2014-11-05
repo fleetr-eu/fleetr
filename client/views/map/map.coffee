@@ -99,6 +99,12 @@ Meteor.startup ->
       new MarkerClusterer(map, [], clustererOptions)
 
 Template.map.rendered = ->
+  @autorun ->
+    selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
+    location = selectedVehicle.lastLocation()
+    if location
+        [lng, lat] = location.loc
+        Map.map.setCenter {lat: lat, lng: lng}
   Map.init ->
     Deps.autorun ->
       Meteor.subscribe 'locations', Session.get('mapArea')?.box, Template.map.helpers.renderMarkers
