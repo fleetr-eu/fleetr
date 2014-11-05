@@ -1,4 +1,4 @@
-Template.drivers.created = ->Session.setDefault 'driverFilter', ''
+Template.drivers.created = -> Session.set 'driverFilter', ''
 
 Template.drivers.events
   'click .deleteDriver': ->
@@ -15,7 +15,7 @@ Template.drivers.helpers
   selectedDriverId: -> Session.get('selectedDriverId')
 
 Template.driverTableRow.helpers
-  fullName: -> @firstName + ' '+@name
+  fullName: -> "#{@firstName} #{@name}"
   active: -> if @_id == Session.get('selectedDriverId') then 'active' else ''
 
 Template.driverTableRow.events

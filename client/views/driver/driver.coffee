@@ -4,7 +4,8 @@ Template.driver.rendered = -> Metronic.initSlimScroll '.scroller'
 
 Template.driver.helpers
   driverSchema: -> Schema.driver
-  driverImage: -> Session.get 'driverImage'
+  driverImage: ->
+    if @driverId then Drivers.findOne(_id: @driverId)?.picture else Session.get 'driverImage'
   driver: -> Drivers.findOne _id: @driverId
 
 Template.driver.events

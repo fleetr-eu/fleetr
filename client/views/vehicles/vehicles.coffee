@@ -15,7 +15,7 @@ Template.vehicles.helpers
   selectedVehicleId: -> Session.get('selectedVehicleId')
 
 Template.vehicleTableRow.helpers
-  fleetName: -> Fleets.findOne(_id : @allocatedToFleet).name
+  fleetName: -> Fleets.findOne(_id : @allocatedToFleet)?.name
   active: -> if @_id == Session.get('selectedVehicleId') then 'active' else ''
   allocatedToFleetFromDate: -> @allocatedToFleetFromDate.toLocaleDateString()
 
