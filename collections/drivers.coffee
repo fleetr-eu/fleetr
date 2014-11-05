@@ -45,11 +45,6 @@ Drivers.utils =
 
 Drivers.attachSchema Schema.driver
 
-Drivers.allow
-  insert: -> true
-  update: -> true
-  remove: -> true
-
 Drivers.before.insert (userId, doc) ->
   doc.timestamp ?= Date.now()
 

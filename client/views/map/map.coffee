@@ -105,41 +105,38 @@ Template.map.rendered = ->
 
 Template.map.helpers
   renderMarkers: ->
-    vehicles = _.pluck(Template.vehiclesMapTable.__helpers[' vehicles']().fetch(), '_id')
     Map.deleteMarkers()
-    markers = Locations.find(vehicleId: {$in: vehicles}).map (location) ->
-      [lng, lat] = location.loc
-      truckIcon = if location.speed then '/images/truck-green.png' else '/images/truck-red.png'
-      marker = new google.maps.Marker
-        position: new google.maps.LatLng(lat, lng)
-        title: Vehicles.findOne(_id: location.vehicleId).identificationNumber
-        icon: truckIcon
-        data: location
-      google.maps.event.addListener marker, 'click', ->
-        vehicle = Vehicles.findOne(_id: marker.data.vehicleId)
-        infowindow = new google.maps.InfoWindow
-          content: """
-            <div style='width:10em;'>
-              <p>ВИН: #{vehicle.identificationNumber}</p>
-              <p>Номер: #{vehicle.licensePlate}</p>
-              <p>Скорост: #{marker.data.speed}</p>
-              <p>Престой: #{marker.data.stay}</p>
-              <p><a href="/location/remove/#{marker.data._id}">Изтрий</a></p>
-            </div>"""
-        infowindow.open Map.map, marker
-      marker
-    Map.addMarkers markers
+    vehicles = Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'identificationNumber', 'tags']
+    markers = vehicles.map (vehicle) ->
+      location = vehicle.lastLocation()
+      if location
+        [lng, lat] = location.loc
+        truckIcon = if location.speed then '/images/truck-green.png' else '/images/truck-red.png'
+        marker = new google.maps.Marker
+          position: new google.maps.LatLng(lat, lng)
+          title: Vehicles.findOne(_id: location.vehicleId).identificationNumber
+          icon: truckIcon
+          data: location
+        google.maps.event.addListener marker, 'click', ->
+          vehicle = Vehicles.findOne(_id: marker.data.vehicleId)
+          infowindow = new google.maps.InfoWindow
+            content: """
+              <div style='width:10em;'>
+                <p>ВИН: #{vehicle.identificationNumber}</p>
+                <p>Номер: #{vehicle.licensePlate}</p>
+                <p>Скорост: #{marker.data.speed}</p>
+                <p>Престой: #{marker.data.stay}</p>
+                <p><a href="/location/remove/#{marker.data._id}">Изтрий</a></p>
+              </div>"""
+          infowindow.open Map.map, marker
+        marker
+    Map.addMarkers markers.filter (m) -> m if m
 
 
 Template.map.created = -> Session.setDefault 'vehicleFilter', ''
 
 Template.vehiclesMapTable.helpers
-  vehicles: ->
-    filter =
-      $regex: Session.get('vehicleFilter').trim().replace ' ', '|'
-      $options: 'i'
-    Vehicles.find $or: [{licensePlate: filter}, {identificationNumber: filter}, {tags: {$elemMatch: filter}}]
-
+  vehicles: -> Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'identificationNumber', 'tags']
   selectedVehicleId: -> Session.get('selectedVehicleId')
 
 Template.vehicleMapTableRow.helpers
