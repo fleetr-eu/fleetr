@@ -52,7 +52,7 @@
 
 <template name="notificationTableRow">
     <tr>
-        <td>{{notificationMessage}}</td>
+        <td>{{notificationMessage}}<small style="{{style}}">{{daysToExpire}}</small></td>
 				<td>
 					{{#each tags}}
 						<span class="label label-danger filter-tag">{{this}}</span>

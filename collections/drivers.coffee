@@ -5,7 +5,7 @@ Drivers.utils =
     if doc.validTo
       Notifications.insert {
         source:id,
-        notificationText:"Документът за самоличност на #{doc.firstName} #{doc.name} изтича на ",
+        notificationText:"Документът за самоличност на #{doc.firstName} #{doc.name} изтича ",
         expieryDate: doc.validTo,
         tags:['документ', 'шофьор'],
         seen:false
@@ -13,7 +13,7 @@ Drivers.utils =
     if doc.licenseExpieryDate
       Notifications.insert {
         source:id,
-        notificationText:"Свидетелството за управление на #{doc.firstName} #{doc.name} изтича на ",
+        notificationText:"Свидетелството за управление на #{doc.firstName} #{doc.name} изтича ",
         expieryDate: doc.licenseExpieryDate,
         tags:['свидетелство', 'шофьор'],
         seen:false
@@ -21,7 +21,7 @@ Drivers.utils =
     if doc.medEvalExpieryDate
       Notifications.insert {
         source:id,
-        notificationText:"Медицинското свидетелство на #{doc.firstName} #{doc.name} изтича на ",
+        notificationText:"Медицинското свидетелство на #{doc.firstName} #{doc.name} изтича ",
         expieryDate: doc.medEvalExpieryDate,
         tags:['свидетелство', 'шофьор'],
         seen:false
@@ -29,7 +29,7 @@ Drivers.utils =
     if doc.profCertExpieryDate
       Notifications.insert {
         source:id,
-        notificationText:"Професионаленият сертификат на #{doc.firstName} #{doc.name} изтича на ",
+        notificationText:"Професионаленият сертификат на #{doc.firstName} #{doc.name} изтича ",
         expieryDate: doc.profCertExpieryDate,
         tags:['сертификат', 'шофьор'],
         seen:false
@@ -37,7 +37,7 @@ Drivers.utils =
     if doc.psychApprovalExpieryDate
       Notifications.insert {
         source:id,
-        notificationText:"Удостоверението за психологическа годност на #{doc.firstName} #{doc.name} изтича на ",
+        notificationText:"Удостоверението за психологическа годност на #{doc.firstName} #{doc.name} изтича ",
         expieryDate: doc.psychApprovalExpieryDate,
         tags:['удостоверение', 'шофьор'],
         seen:false

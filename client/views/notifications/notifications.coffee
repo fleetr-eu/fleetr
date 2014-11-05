@@ -10,23 +10,33 @@ Template.notificationsList.helpers
     filter =
       $regex: q.replace ' ', '|'
       $options: 'i'
-    if !onlyUnseen
-      Notifications.find {$and: [{seen:false}, $or: [{notificationText: filter}, {tags: {$elemMatch: filter}}]]}
+    if onlyUnseen
+      Notifications.utils.getUnseenNotications(filter)
     else
-      Notifications.find { $or: [{notificationText: filter}, {tags: {$elemMatch: filter}}]}
-
+      Notifications.utils.getAllNotications(filter)
 
 Template.notificationsList.events
   'click .toggleSeen': (e) ->
       Session.set 'showSeenNotifications', ! Session.get('showSeenNotifications')
 
 Template.notificationTableRow.helpers
-  notificationMessage: -> @notificationText+" "+ @expieryDate.toLocaleDateString()
+  notificationMessage: ->
+    moment.lang("bg")
+    @notificationText+" на "+ moment(@expieryDate).lang("bg").format('DD-MM-YYYY')+" "
   seenIcon: ->
     if @seen
       'fa-bell-slash-o'
     else
       'fa-bell-o'
+  daysToExpire: ->
+    moment.lang("bg")
+    moment(@expieryDate).lang("bg").from(moment())
+
+  style: ->
+      if @expieryDate < moment().add(10, 'days').toDate()
+        "color:red;"
+      else
+        ""
 
 Template.notificationTableRow.events
   'click .filter-tag': (e) ->
