@@ -106,12 +106,12 @@ Template.map.rendered = ->
     location = selectedVehicle?.lastLocation()
     if location
         [lng, lat] = location.loc
-        Map.map.setCenter {lat: lat, lng: lng}
+        Map.map?.setCenter {lat: lat, lng: lng}
   Map.init -> console.log 'map ready'
 
 rerenderMarkers = ->
     Map.deleteMarkers()
-    vehicles = Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'identificationNumber', 'tags']
+    vehicles = Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'tags']
     markers = vehicles.map (vehicle) ->
       location = vehicle.lastLocation()
       if location
@@ -143,19 +143,14 @@ Template.map.helpers
 Template.map.created = -> Session.setDefault 'vehicleFilter', ''
 
 Template.vehiclesMapTable.helpers
-  vehicles: -> Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'identificationNumber', 'tags']
+  vehicles: -> Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'tags']
   selectedVehicleId: -> Session.get('selectedVehicleId')
 
 Template.vehicleMapTableRow.helpers
   fleetName: -> Fleets.findOne(_id : @allocatedToFleet).name
   active: -> if @_id == Session.get('selectedVehicleId') then 'active' else ''
   allocatedToFleetFromDate: -> @allocatedToFleetFromDate.toLocaleDateString()
-  tagsArray: ->
-    if @tags
-      @tags.split(",")
-    else
-      []
-
+  tagsArray: -> if @tags then @tags.split(",") else []
 
 Template.vehicleMapTableRow.events
   'click tr': -> Session.set 'selectedVehicleId', @_id

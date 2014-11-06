@@ -7,18 +7,19 @@ Vehicles.after.remove (userId, doc) ->
     Locations.remove {vehicleId:doc._id}
 
 Vehicles.findFiltered = (filterVar, fieldsToFilter) ->
-  filter =
-    $regex: Session.get(filterVar).trim().replace ' ', '|'
-    $options: 'i'
+  query = Session.get(filterVar).trim().replace ' ', '|'
   fields = fieldsToFilter.reduce (acc, field) ->
     term = {}
     if field == 'tags'
-      term.tags = {$regex : ".*"+filter+".*"}
+      term.tags = {$regex : ".*#{query}.*"}
     else
-      term[field] = filter
+      term[field] =
+        $regex: query
+        $options: 'i'
     acc.push term
     acc
   , []
+  console.log fields
   Vehicles.find $or: fields
 
 Vehicles.helpers
