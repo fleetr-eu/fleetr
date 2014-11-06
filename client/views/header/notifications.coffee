@@ -1,12 +1,12 @@
 Template.notifications.helpers
   unseenNotifications: ->
-    Notifications.utils.getExpiringNotications(moment().add(10, 'days').toDate())
+    Notifications.getExpiringNotications(moment().add(10, 'days').toDate())
 
   unseenNotificationsCount: ->
-    Notifications.utils.getExpiringNotications(moment().add(10, 'days').toDate()).count()
+    Notifications.getExpiringNotications(moment().add(10, 'days').toDate()).count()
 
   unseenNotificationsExist: ->
-    Notifications.utils.getExpiringNotications(moment().add(10, 'days').toDate()).count() > 0
+    Notifications.getExpiringNotications(moment().add(10, 'days').toDate()).count() > 0
 
 Template.notification.helpers
   formatedExpieryDate: ->

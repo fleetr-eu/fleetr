@@ -5,15 +5,7 @@ Template.notificationsList.helpers
     else
       'fa-bell-slash'
   notifications: ->
-    onlyUnseen = Session.get('showSeenNotifications')
-    q = Session.get('filterNotifications').trim()
-    filter =
-      $regex: q.replace ' ', '|'
-      $options: 'i'
-    if onlyUnseen
-      Notifications.utils.getUnseenNotications(filter)
-    else
-      Notifications.utils.getAllNotications(filter)
+    Notifications.findFiltered(Session.get('filterNotifications').trim(), Session.get('showSeenNotifications'))
 
 Template.notificationsList.events
   'click .toggleSeen': (e) ->
