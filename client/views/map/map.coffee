@@ -108,8 +108,6 @@ Template.map.rendered = ->
         [lng, lat] = location.loc
         Map.map.setCenter {lat: lat, lng: lng}
   Map.init -> console.log 'map ready'
-    # Deps.autorun -> rerenderMarkers()
-      # Meteor.subscribe 'locations', Session.get('mapArea')?.box, Template.map.helpers.renderMarkers
 
 rerenderMarkers = ->
     Map.deleteMarkers()
