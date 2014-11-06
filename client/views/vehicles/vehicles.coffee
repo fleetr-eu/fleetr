@@ -7,22 +7,14 @@ Template.vehicles.events
 
 Template.vehicles.helpers
   vehicles: ->
-    q = Session.get('vehicleFilter').trim()
-    filter =
-      $regex: q.replace ' ', '|'
-      $options: 'i'
-    Vehicles.find $or: [{licensePlate: filter}, {identificationNumber: filter}, {tags: {$regex : ".*"+filter+".*"}}]
+    Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'identificationNumber', 'tags']
   selectedVehicleId: -> Session.get('selectedVehicleId')
 
 Template.vehicleTableRow.helpers
   fleetName: -> Fleets.findOne(_id : @allocatedToFleet)?.name
   active: -> if @_id == Session.get('selectedVehicleId') then 'active' else ''
   allocatedToFleetFromDate: -> @allocatedToFleetFromDate.toLocaleDateString()
-  tagsArray: ->
-    if @tags
-      @tags.split(",")
-    else
-      []
+  tagsArray: -> tagsArray.call @
 
 Template.vehicleTableRow.events
   'click tr': -> Session.set 'selectedVehicleId', @_id

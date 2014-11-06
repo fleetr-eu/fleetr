@@ -6,23 +6,13 @@ Template.drivers.events
     Session.set 'selectedDriverId', null
 
 Template.drivers.helpers
-  drivers: ->
-    q = Session.get('driverFilter').trim()
-    filter =
-      $regex: q.replace ' ', '|'
-      $options: 'i'
-    Drivers.find $or: [{firstName: filter}, {name: filter}, {tags: {$regex : ".*"+filter+".*"}}]
+  drivers: -> Drivers.findFiltered 'driverFilter', ['firstName', 'name', 'tags']
   selectedDriverId: -> Session.get('selectedDriverId')
 
 Template.driverTableRow.helpers
   fullName: -> "#{@firstName} #{@name}"
   active: -> if @_id == Session.get('selectedDriverId') then 'active' else ''
-  tagsArray: ->
-    if @tags
-      @tags.split(",")
-    else
-      []
-
+  tagsArray: -> tagsArray.call @
 
 Template.driverTableRow.events
   'click tr': -> Session.set 'selectedDriverId', @_id

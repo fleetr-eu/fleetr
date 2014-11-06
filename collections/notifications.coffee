@@ -4,8 +4,10 @@ Notifications.findFiltered = (term, unseenOnly) ->
   filter = {}
   if term
     query = term.replace ' ', '|'
-    rx = $options: 'i'
-    filter['$or'] = [{notificationText: _.extend(rx, {$regex: query})}, {tags: _.extend(rx, {$regex: ".*#{query}.*"})}]
+    rx =
+      $options: 'i'
+      $regex: query
+    filter['$or'] = [{notificationText: rx}, {tags: rx}]
   if unseenOnly then filter.seen = false
   Notifications.find filter
 
