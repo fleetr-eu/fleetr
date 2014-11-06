@@ -17,7 +17,7 @@ Meteor.startup ->
       Map.options.center = lat: position.coords.latitude, lng: position.coords.longitude
       Map.map = new google.maps.Map document.getElementById("map-canvas"), Map.options
       Map.clusterer = Map.createClusterer Map.map
-      Map.addListener 'idle', -> Session.set 'mapArea', Map.getSearchArea()
+      Map.addListener 'idle', -> rerenderMarkers()
       Map.addListener 'click', (e) ->
         Meteor.call 'addLocation',
           loc: [e.latLng.lng(), e.latLng.lat()]
@@ -107,12 +107,11 @@ Template.map.rendered = ->
     if location
         [lng, lat] = location.loc
         Map.map.setCenter {lat: lat, lng: lng}
-  Map.init ->
-    Deps.autorun ->
-      Meteor.subscribe 'locations', Session.get('mapArea')?.box, Template.map.helpers.renderMarkers
+  Map.init -> console.log 'map ready'
+    # Deps.autorun -> rerenderMarkers()
+      # Meteor.subscribe 'locations', Session.get('mapArea')?.box, Template.map.helpers.renderMarkers
 
-Template.map.helpers
-  renderMarkers: ->
+rerenderMarkers = ->
     Map.deleteMarkers()
     vehicles = Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'identificationNumber', 'tags']
     markers = vehicles.map (vehicle) ->
@@ -140,6 +139,8 @@ Template.map.helpers
         marker
     Map.addMarkers markers.filter (m) -> m if m
 
+Template.map.helpers
+  renderMarkers: -> rerenderMarkers()
 
 Template.map.created = -> Session.setDefault 'vehicleFilter', ''
 
