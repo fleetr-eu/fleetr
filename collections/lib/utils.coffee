@@ -9,3 +9,6 @@ Mongo.Collection.prototype.findFiltered = (filterVar, fieldsToFilter) ->
     acc
   , []
   @find $or: fields
+
+Mongo.Collection.prototype.submit = (doc, diff) ->
+  @upsert {_id: doc._id}, {$set: _.omit(diff.$set, '_id'), $unset: _.omit(diff.$unset, '_id')}

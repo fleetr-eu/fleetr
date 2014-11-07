@@ -23,8 +23,8 @@ AutoForm.hooks
   driverForm:
     onSubmit: (insertDoc, updateDoc, currentDoc) ->
       @event.preventDefault()
-      insertDoc.picture = Session.get 'driverImage'
-      Meteor.call 'submitDriver', insertDoc
+      insertDoc.picture = updateDoc.$set.picture = Session.get 'driverImage'
+      Meteor.call 'submitDriver', insertDoc, updateDoc
       @resetForm()
       Session.set 'driverImage', 'images/200x200.jpg'
       @done()
