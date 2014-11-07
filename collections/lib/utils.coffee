@@ -9,9 +9,3 @@ Mongo.Collection.prototype.findFiltered = (filterVar, fieldsToFilter) ->
     acc
   , []
   @find $or: fields
-
-@tagsArray = ->
-  if @tags
-    @tags.split(",")
-  else
-    []

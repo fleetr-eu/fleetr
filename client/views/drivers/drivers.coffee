@@ -12,7 +12,7 @@ Template.drivers.helpers
 Template.driverTableRow.helpers
   fullName: -> "#{@firstName} #{@name}"
   active: -> if @_id == Session.get('selectedDriverId') then 'active' else ''
-  tagsArray: -> tagsArray.call @
+  tagsArray: -> tagsAsArray.call @
 
 Template.driverTableRow.events
   'click tr': -> Session.set 'selectedDriverId', @_id

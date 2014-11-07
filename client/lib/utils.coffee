@@ -1,0 +1,2 @@
+@tagsAsArray = ->
+  @tags?.split(",") || []
