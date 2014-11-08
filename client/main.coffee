@@ -4,7 +4,7 @@ Meteor.subscribe 'fleets'
 Meteor.subscribe 'vehicles'
 Meteor.subscribe 'countries'
 Meteor.subscribe 'locations'
-Meteor.subscribe 'expensesFuel'
+Meteor.subscribe 'expenses'
 Meteor.subscribe 'notifications'
 
 Session.setDefault 'filterNotifications', ''

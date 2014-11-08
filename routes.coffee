@@ -32,6 +32,9 @@ Meteor.startup ->
       path: '/'
       template: 'dashboard'
 
+    @route 'listDrivers',
+      path: '/drivers/list'
+      template: 'drivers'
     @route 'addDriver',
       path: '/drivers/add'
       template: 'driver'
@@ -39,10 +42,11 @@ Meteor.startup ->
       path: '/drivers/edit/:driverId'
       template: 'driver'
       data: -> {'driverId' : @params.driverId}
-    @route 'listDrivers',
-      path: '/drivers/list'
-      template: 'drivers'
+    
 
+    @route 'listVehicles',
+      path: '/vehicles/list'
+      template: 'vehicles'
     @route 'addVehicle',
       path: '/vehicles/add'
       template: 'vehicle'
@@ -50,9 +54,11 @@ Meteor.startup ->
       path: '/vehicles/edit/:vehicleId'
       template: 'vehicle'
       data: -> {'vehicleId' : @params.vehicleId}
-    @route 'listVehicles',
-      path: '/vehicles/list'
-      template: 'vehicles'
+    @route 'removeVehicle',
+      path: '/location/remove/:locationId'
+      template: 'map'
+      onRun: ->
+        Meteor.call 'removeLocation', @params.locationId
 
     @route 'addFleet',
       path: '/fleets/add'
@@ -74,6 +80,7 @@ Meteor.startup ->
     @route 'mapDrivers',
       path: '/drivers/map'
       template: 'map'
+
     @route 'drilldownReport',
       path: '/reports/drilldown'
 
@@ -84,12 +91,6 @@ Meteor.startup ->
     @route 'listNotifications',
       path: '/notifications/list'
       template: 'notificationsList'
-
-    @route 'removeVehicle',
-      path: '/location/remove/:locationId'
-      template: 'map'
-      onRun: ->
-        Meteor.call 'removeLocation', @params.locationId
 
     @route 'resetAll',
       path: '/reset'

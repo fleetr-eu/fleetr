@@ -115,7 +115,7 @@ Schema.driver = new SimpleSchema
   categoryA:
     type: Boolean
     optional: true
-    label: 'Категории: A'
+    label: 'A'
   categoryAIssueDate:
     type: Date
     optional: true
@@ -238,15 +238,23 @@ Schema.fleet = new SimpleSchema
     autoform:
       options: -> Companies.find().map (group) -> label: group.name, value: group._id
 
-Schema.expensesFuel = new SimpleSchema
+Schema.expenses = new SimpleSchema
        driver:
-         type: String
-         label: 'Шофьор'
-         autoform:
-           options: -> Drivers.find().map (driver) -> label: driver.name, value: driver._id
+          type: String
+          label: 'Шофьор'
+          autoform:
+            options: -> Drivers.find().map (driver) -> label: driver.name, value: driver._id
+       vehicle:
+          type:String
+          label: "Автомобил"
+          autoform:
+            options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
+       invoiceNr:
+          type:String
+          label: "Фактура/Касова бележка №"
        date:
-           type:Date
-           label: "Дата"
+          type:Date
+          label: "Дата"
        fuelType:
           type:String
           label: "Вид гориво"
@@ -258,9 +266,35 @@ Schema.expensesFuel = new SimpleSchema
           type: Number
           decimal:true
           label: "Цена за литър"
+       vatIncluded:
+          type: Boolean
+          label: "Цената е с ДДС?"
+          optional: true
+       totalVATIncluded:
+          type: Number
+          decimal:true
+          label: "Общо сума"
        mileage:
-           type:Number
-           label: "Километраж"
+          type:Number
+          label: "Километраж"
        gasStationName:
+          type:String
+          label: "Бензиностанция"
+
+Schema.driverEvents = new SimpleSchema
+       driver:
+         type: String
+         label: 'Шофьор'
+         autoform:
+           options: -> Drivers.find().map (driver) -> label: driver.name, value: driver._id
+       eventType:
            type:String
-           label:"Бензиностанция"
+           label: "Събитие"
+           autoform:
+             options: -> EventTypes.find().map (event) -> label: event.name, value: event._id
+       date:
+           type:Date
+           label: "Дата"
+       description:
+          type:String
+          label: "Описание"
