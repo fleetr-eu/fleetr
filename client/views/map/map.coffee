@@ -1,6 +1,7 @@
 Meteor.startup ->
   @Map =
     clusterer: null
+    path: null
     options:
       zoom: 12
       mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -23,13 +24,13 @@ Meteor.startup ->
           loc: [e.latLng.lng(), e.latLng.lat()]
           speed: 50
           stay: 0
-          vehicleId: Random.choice _.pluck(Vehicles.find().fetch(), '_id')
+          vehicleId: Session.get('selectedVehicleId') || Random.choice _.pluck(Vehicles.find().fetch(), '_id')
       Map.addListener 'rightclick', (e) ->
         Meteor.call 'addLocation',
           loc: [e.latLng.lng(), e.latLng.lat()]
           speed: 0
           stay: 30
-          vehicleId: Random.choice _.pluck(Vehicles.find().fetch(), '_id')
+          vehicleId: Session.get('selectedVehicleId') || Random.choice _.pluck(Vehicles.find().fetch(), '_id')
 
       input = document.getElementById("pac-input")
       pacSearch = document.getElementById("pac-search")
@@ -82,6 +83,21 @@ Meteor.startup ->
 
     addMarkers: (markers) -> Map.clusterer?.addMarkers markers
 
+    addPath: (locations) ->
+      Map.deletePath()
+      if locations
+        path = locations.map (location) ->
+          [lng, lat] = location.loc
+          new google.maps.LatLng(lat, lng)
+        Map.path = new google.maps.Polyline
+          map: Map.map,
+          path: path,
+          strokeColor: 'grey',
+          strokeOpacity: 0.6,
+          strokeWeight: 5
+
+    deletePath: -> Map.path?.setMap null
+
     deleteMarkers: -> Map.clusterer?.clearMarkers()
 
     getSearchArea: ->
@@ -95,19 +111,20 @@ Meteor.startup ->
 
     createClusterer: (map)->
       clustererOptions =
-          zoomOnClick:false
-          averageCenter:true
-          gridSize:40
+        zoomOnClick:false
+        averageCenter:true
+        gridSize:40
       new MarkerClusterer(map, [], clustererOptions)
 
 Template.map.rendered = ->
-  @autorun ->
-    selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
-    location = selectedVehicle?.lastLocation()
-    if location
-        [lng, lat] = location.loc
-        Map.map?.setCenter {lat: lat, lng: lng}
-  Map.init -> console.log 'map ready'
+  Map.init =>
+    @autorun ->
+      selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
+      location = selectedVehicle?.lastLocation()
+      if location
+          [lng, lat] = location.loc
+          Map.map?.setCenter {lat: lat, lng: lng}
+      Map.addPath selectedVehicle?.lastLocations().fetch()
 
 rerenderMarkers = ->
     Map.deleteMarkers()

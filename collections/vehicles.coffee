@@ -9,3 +9,8 @@ Vehicles.after.remove (userId, doc) ->
 Vehicles.helpers
   lastLocation: ->
     Locations.findOne {vehicleId: @_id}, {sort: {timestamp: -1}}
+  lastLocations: (limit) ->
+    if limit
+      Locations.find {vehicleId: @_id}, {sort: {timestamp: -1}, limit: limit}
+    else
+      Locations.find {vehicleId: @_id}, {sort: {timestamp: -1}}

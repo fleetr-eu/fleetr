@@ -1,11 +1,16 @@
 Session.setDefault 'driverImage', '/images/200x200.jpg'
 
-Template.driver.rendered = -> Metronic.initSlimScroll '.scroller'
+Template.driver.rendered = ->
+  Metronic.initSlimScroll '.scroller'
+  if @driverId
+    Session.set 'driverImage', Drivers.findOne(_id: @driverId)?.picture
+  else
+    Session.set 'driverImage', '/images/200x200.jpg'
 
 Template.driver.helpers
   driverSchema: -> Schema.driver
   driverImage: ->
-    if @driverId then Drivers.findOne(_id: @driverId)?.picture else Session.get 'driverImage'
+     Session.get 'driverImage'
   driver: -> Drivers.findOne _id: @driverId
 
 Template.driver.events
@@ -26,7 +31,7 @@ AutoForm.hooks
       insertDoc.picture = updateDoc.$set.picture = Session.get 'driverImage'
       Meteor.call 'submitDriver', insertDoc, updateDoc
       @resetForm()
-      Session.set 'driverImage', 'images/200x200.jpg'
+      # Session.set 'driverImage', '/images/200x200.jpg'
       @done()
     onError: (operation, error, template) ->
       Meteor.defer ->
