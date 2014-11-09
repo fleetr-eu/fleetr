@@ -37,6 +37,5 @@ Meteor.methods
     @unblock()
     Locations.remove {}
     Notifications.remove {}
-    Drivers.find().forEach( (doc)->
+    Drivers.find().forEach (doc)->
       Drivers.utils.processNotifications(doc, doc._id)
-    )
