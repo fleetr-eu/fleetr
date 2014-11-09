@@ -1,0 +1,68 @@
+<template name="driverVehicleAssignments">
+
+	<h3 class="page-title">
+		Асоциирани шофьори и автомобили
+	</h3>
+	<div class="page-bar">
+		<ul class="page-breadcrumb">
+			<li>
+				<i class="fa fa-home"></i>
+				<a href="/">Начало</a>
+				<i class="fa fa-angle-right"></i>
+			</li>
+			<li>
+				<a href="#">Асоциирани шофьори и автомобили</a>
+			</li>
+		</ul>
+	</div>
+	<!-- END PAGE HEADER-->
+
+	<div class="row">
+			<div class="col-md-12">
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption" id="driverVehicleAssignments">
+		            {{> filter sessionVar='driverVehicleAssignmentFilter' placeholder='Търсене...'}}
+						</div>
+						<div class="tools">
+							<a href="{{pathFor 'addDriverVehicleAssignment'}}"><span class="glyphicon glyphicon-plus"></span></a>
+							{{#if selectedDriverVehicleAssignmentId}}
+								<a href="{{pathFor 'editDriverVehicleAssignment' driverVehicleAssignmentId=selectedDriverVehicleAssignmentId}}"><span class="glyphicon glyphicon-pencil"></span></a>
+								<a href="#" class="deleteDriverVehicleAssignment"><span class="glyphicon glyphicon-trash"></span></a>
+							{{/if}}
+						</div>
+					</div>
+
+					<div class="portlet-body">
+				    <section class="content">
+
+				        <table class="table table-striped">
+
+				            <thead>
+				                <tr>
+				                    <th>Шофьор</th>
+				                    <th>Автомобил</th>
+				                    <th>От</th>
+				                    <th>До</th>
+				                </tr>
+				            </thead>
+
+				            <tbody>
+				                {{#each driverVehicleAssignments}} {{> driverVehicleAssignmentTableRow}} {{/each}}
+				            </tbody>
+				        </table>
+				    </section>
+				 </div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="driverVehicleAssignmentTableRow">
+    <tr class="{{active}}">
+        <td>{{driverName}}</td>
+        <td>{{vehicleLicensePlate}}</td>
+        <td>{{beginTime}}</td>
+        <td>{{endTime}}</td>
+    </tr>
+</template>

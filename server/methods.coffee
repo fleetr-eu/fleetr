@@ -46,3 +46,7 @@ Meteor.methods
     Drivers.find().forEach( (doc)->
       Drivers.utils.processNotifications(doc, doc._id)
     )
+
+  submitDriverVehicleAssignment: (doc, diff) -> DriverVehicleAssignments.submit(doc, diff)
+
+  removeDriverVehicleAssignment: (doc) -> DriverVehicleAssignments.remove _id : doc

@@ -42,7 +42,7 @@ Meteor.startup ->
       path: '/drivers/edit/:driverId'
       template: 'driver'
       data: -> {'driverId' : @params.driverId}
-    
+
 
     @route 'listVehicles',
       path: '/vehicles/list'
@@ -91,6 +91,17 @@ Meteor.startup ->
     @route 'listNotifications',
       path: '/notifications/list'
       template: 'notificationsList'
+
+    @route 'listDriverVehicleAssignments',
+      path: '/assignments/driver/vehicle/list'
+      template: 'driverVehicleAssignments'
+    @route 'addDriverVehicleAssignment',
+      path: '/assignments/driver/vehicle/add'
+      template: 'driverVehicleAssignment'
+    @route 'editDriverVehicleAssignment',
+      path: '/assignments/driver/vehicle/:driverVehicleAssignmentId'
+      template: 'driverVehicleAssignment'
+      data: -> {'driverVehicleAssignmentId' : @params.driverVehicleAssignmentId}
 
     @route 'resetAll',
       path: '/reset'

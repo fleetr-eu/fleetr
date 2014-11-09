@@ -69,7 +69,7 @@
 						</li>
 					</ul>
 				</li>
-				<li class="{{isActiveRoute regex='Vehicle'}}">
+				<li class="{{isActiveRoute regex='mapVehicle|listVehicles|addVehicle'}}">
 					<a href="javascript:;">
 					<i class="fa fa-car"></i>
 					<span class="title">Автомобили</span>
@@ -100,6 +100,10 @@
 						<li class="{{isActiveRoute regex='mapDrivers'}}">
 							<a href="{{pathFor 'mapDrivers'}}">
 							Карта</a>
+						</li>
+						<li class="{{isActiveRoute regex='listDriverVehicleAssignments'}}">
+							<a href="{{pathFor 'listDriverVehicleAssignments'}}">
+							Шофьори и автомобили</a>
 						</li>
 						<li class="{{isActiveRoute regex='listDrivers'}}">
 							<a href="{{pathFor 'listDrivers'}}">
@@ -156,18 +160,18 @@
 						</li>
 					</ul>
 				</li>
-				<li class="{{isActiveRoute regex='Report'}}">
+				<li class="{{isActiveRoute regex='\bReport\b'}}">
 					<a href="javascript:;">
 					<i class="icon-docs"></i>
 					<span class="title">Отчети</span>
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
-						<li class="{{isActiveRoute regex='drilldownReport'}}">
+						<li class="{{isActiveRoute regex='\bdrilldownReport\b'}}">
 							<a href="{{pathFor 'drilldownReport'}}">
 							Структура на автопаркa</a>
 						</li>
-						<li class="{{isActiveRoute regex='anotherReport'}}">
+						<li class="{{isActiveRoute regex='\banotherReport\b'}}">
 							<a href="/">
 							Друг отчет</a>
 						</li>
