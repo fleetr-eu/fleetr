@@ -23,9 +23,15 @@ Meteor.methods
 
   removeFleet: (doc) -> Fleets.remove _id : doc
 
-  submitExpensesFuel: (doc) -> ExpensesFuel.insert doc
+  submitExpenses: (doc, diff) ->
+    @unblock()
+    # after.insert is not triggered. revome after issues is fixed: https://github.com/matb33/meteor-collection-hooks/issues/16
+    if Expenses.find({_id: doc._id}, {limit: 1}).count()
+      Expenses.submit doc, diff
+    else
+      Expenses.insert doc
 
-  removeExpensesFuel: (doc) -> ExpensesFuel.remove _id : doc
+  removeExpenses: (doc) -> Expenses.remove _id : doc
 
   toggleNotificationSeen: (id, oldSeenState) ->
     newSeenState = !oldSeenState

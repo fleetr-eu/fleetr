@@ -1,0 +1,7 @@
+input.form-control[type='checkbox'] {
+  display: block;
+  box-sizing: content-box;
+  width: 18px;
+  height: 30px;
+  margin-top: 0px;
+}
