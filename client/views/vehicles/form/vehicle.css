@@ -13,3 +13,9 @@ h3.panel-title {
 .filter-tag {
   cursor: pointer;
 }
+
+td {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-right: 10px;
+}

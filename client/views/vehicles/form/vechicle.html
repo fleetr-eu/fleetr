@@ -35,6 +35,10 @@
             <a href="#tab_1" data-toggle="tab">
             Основни данни </a>
           </li>
+          <li>
+            <a href="#tab_2" data-toggle="tab">
+            График </a>
+          </li>
         </ul>
 
         <div class="tab-content">
@@ -53,6 +57,57 @@
                   </div>
               </fieldset>
             </div>
+          </div>
+          <div class="tab-pane" id="tab_2">
+            <fieldset>
+              <div class="table-responsive">
+                <table class="table table-striped" cellpadding="10">
+                  <thead>
+                      <tr>
+                          <th>Ден</th>
+                          <th>От</th>
+                          <th>До</th>
+                      </tr>
+                  </thead>
+
+                  <tr>
+                    <td> Понеделник </td>
+                    <td>{{> afFieldInput name="workingSchedule.0.from"}}</td>
+                    <td>{{> afFieldInput name="workingSchedule.0.to"}}</td>
+                  </tr>
+                  <tr>
+                    <td> Вторник </td>
+                    <td>{{> afFieldInput name="workingSchedule.1.from"}}</td>
+                    <td>{{> afFieldInput name="workingSchedule.1.to"}}</td>
+                  </tr>
+                  <tr>
+                    <td> Срядя </td>
+                    <td>{{> afFieldInput name="workingSchedule.2.from"}}</td>
+                    <td>{{> afFieldInput name="workingSchedule.2.to"}}</td>
+                  </tr>
+                  <tr>
+                    <td> Четвъртък </td>
+                    <td>{{> afFieldInput name="workingSchedule.3.from"}}</td>
+                    <td>{{> afFieldInput name="workingSchedule.3.to"}}</td>
+                  </tr>
+                  <tr>
+                    <td> Петък </td>
+                    <td>{{> afFieldInput name="workingSchedule.4.from"}}</td>
+                    <td>{{> afFieldInput name="workingSchedule.4.to"}}</td>
+                  </tr>
+                  <tr>
+                    <td> Събота </td>
+                    <td>{{> afFieldInput name="workingSchedule.5.from"}}</td>
+                    <td>{{> afFieldInput name="workingSchedule.5.to"}}</td>
+                  </tr>
+                  <tr>
+                    <td> Неделя </td>
+                    <td>{{> afFieldInput name="workingSchedule.6.from"}}</td>
+                    <td>{{> afFieldInput name="workingSchedule.6.to"}}</td>
+                  </tr>
+                </table>
+              </div>
+            </fieldset>
           </div>
         </div>
 

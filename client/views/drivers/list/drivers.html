@@ -27,6 +27,7 @@
 						<div class="tools">
 							<a href="{{pathFor 'addDriver'}}"><span class="glyphicon glyphicon-plus"></span></a>
 							{{#if selectedDriverId}}
+							<a href="{{pathFor 'addDriverVehicleAssignment'}}"><span class="fa fa-sign-in"></span></a>
 							<a href="{{pathFor 'editDriver' driverId=selectedDriverId}}"><span class="glyphicon glyphicon-pencil"></span></a>
 							<a href="#" class="deleteDriver"><span class="glyphicon glyphicon-trash"></span></a>
 							{{/if}}

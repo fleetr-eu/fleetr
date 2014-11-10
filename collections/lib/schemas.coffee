@@ -215,6 +215,17 @@ Schema.vehicle = new SimpleSchema
     type: Date
     label: "В автопарка от"
 
+  workingSchedule:
+    type: [Object]
+
+  "workingSchedule.$.from":
+    type: Date,
+    optional:true
+    
+  "workingSchedule.$.to":
+    type: Date,
+    optional:true
+
 Schema.company = new SimpleSchema
   _id:
     type: String

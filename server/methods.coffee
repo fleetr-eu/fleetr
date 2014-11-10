@@ -19,6 +19,9 @@ Meteor.methods
 
   addLocation: (doc) -> Locations.insert doc
 
+  updateLocation: (id, stay) ->
+    Locations.update {_id: id}, {$set: {stay: stay}}
+
   submitFleet: (doc, diff) -> Fleets.submit(doc, diff)
 
   removeFleet: (doc) -> Fleets.remove _id : doc

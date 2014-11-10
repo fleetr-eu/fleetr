@@ -24,9 +24,14 @@
 						<div class="caption" id="vehicles">
 		            {{> filter sessionVar='vehicleFilter' placeholder='Търсене...'}}
 						</div>
+						<div>
+								<span style="font-color:red;">{{logging}}</span>
+						</div>
 						<div class="tools">
 							<a href="{{pathFor 'addVehicle'}}"><span class="glyphicon glyphicon-plus"></span></a>
 							{{#if selectedVehicleId}}
+							<a href="#" class="startLocationLogging"><span class="fa fa-play"></span></a>
+							<a href="#" class="stopLocationLogging"><span class="fa fa-stop"></span></a>
 							<a href="{{pathFor 'editVehicle' vehicleId=selectedVehicleId}}"><span class="glyphicon glyphicon-pencil"></span></a>
 							<a href="#" class="deleteVehicle"><span class="glyphicon glyphicon-trash"></span></a>
 							{{/if}}
@@ -61,7 +66,9 @@
 
 <template name="vehicleTableRow">
     <tr class="{{active}}">
-        <td>{{licensePlate}}</td>
+        <td>
+					{{logging}}
+					{{licensePlate}}</td>
         <td>{{identificationNumber}}</td>
         <td>{{fleetName}}</td>
         <td>{{allocatedToFleetFromDate}}</td>

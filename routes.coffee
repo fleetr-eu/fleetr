@@ -108,3 +108,13 @@ Meteor.startup ->
       template: 'dashboard'
       onRun: ->
         Meteor.call 'reset'
+
+    @route 'addLoctionEx',
+      path: '/location/add/:vehicle/:speed/:long/:lat'
+      onRun: ->
+        Meteor.call 'addLocation', {
+          loc: [Number(@params.long), Number(@params.lat)],
+          speed: Number(@params.speed),
+          stay: 0,
+          vehicleId: @params.vehicle
+        }
