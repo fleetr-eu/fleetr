@@ -89,9 +89,11 @@ Meteor.startup ->
         path = locations.map (location) ->
           [lng, lat] = location.loc
           new google.maps.LatLng(lat, lng)
+        optimzedPath = GDouglasPeucker(path, 5)
+
         Map.path = new google.maps.Polyline
           map: Map.map,
-          path: path,
+          path: optimzedPath,
           strokeColor: 'blue',
           strokeOpacity: 0.6,
           strokeWeight: 7
