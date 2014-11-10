@@ -1,0 +1,61 @@
+<template name="driverVehicleAssignment">
+  {{#autoForm schema=driverVehicleAssignmentsSchema doc=driverVehicleAssignment id="driverVehicleAssignmentForm" type="method" meteormethod="submitDriverVehicleAssignment"}}
+  <div class="page-bar">
+    <ul class="page-breadcrumb">
+      <li>
+        <i class="fa fa-home"></i>
+        <a href="/">Начало</a>
+        <i class="fa fa-angle-right"></i>
+      </li>
+      <li>
+        <a href="#">Асоцииране на кола с шофьор</a>
+      </li>
+    </ul>
+  </div>
+  <div class="portlet box blue-hoki">
+    <div class="portlet-title">
+      <div class="caption">
+        <i class="icon-car"></i>Асоцииране на кола с шофьор
+      </div>
+      <div class="tools">
+        <a href="" class="fullscreen"></a>
+      </div>
+      <div class="actions">
+        <a href="#" class="btn btn-default btn-primary btn-sm">
+        <i class="fa fa-check"></i> Запиши </a>
+        <a href="#" class="btn btn-default btn-reset">
+        <i class="fa fa-close"></i> Анулирай </a>
+      </div>
+    </div>
+    <div class="portlet-body">
+      <!-- Nav tabs -->
+      <div class="tabbable-custom">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#tab_1" data-toggle="tab">
+            Основни данни </a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane active" id="tab_1">
+            <div class="row">
+              <fieldset>
+                  <div class="col-md-7">
+                  	  {{> afFieldInput type="hidden" name="_id" value=_id}}
+                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-4" input-col-class="col-sm-8" name="driver"}}
+                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-4" input-col-class="col-sm-8" name="vehicle"}}
+                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-4" input-col-class="col-sm-8" name="beginAssignmentTime" type="datetime-local"}}
+                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-4" input-col-class="col-sm-8" name="endAssignmentTime" type="datetime-local"}}
+                  </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+
+      </div>
+   </div>
+ </div>
+{{/autoForm}}
+
+</template>

@@ -1,20 +1,34 @@
-Template.vehicles.created = ->Session.setDefault 'vehicleFilter', ''
+Template.vehicles.created = ->
+  Session.setDefault 'vehicleFilter', ''
+  Session.setDefault 'loggedVehicle', ''
+
+Template.vehicles.destroyed = ->
+  Meteor.clearInterval(Session.get('loggingLocationInterval'))
 
 Template.vehicles.events
   'click .deleteVehicle': ->
     Meteor.call 'removeVehicle', Session.get('selectedVehicleId')
     Session.set 'selectedVehicleId', null
+  "click .startLocationLogging" : (e) ->
+      Session.set "loggedVehicle", Session.get('selectedVehicleId')
+      Session.set 'loggingLocationInterval', Meteor.setInterval(Locations.utils.logLocation, 10000)
+  "click .stopLocationLogging" : (e) ->
+      Session.set "loggedVehicle", ''
+      Meteor.clearInterval(Session.get('loggingLocationInterval'))
+      Session.set 'loggingLocationInterval', ''
 
 Template.vehicles.helpers
   vehicles: ->
     Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'identificationNumber', 'tags']
-  selectedVehicleId: -> Session.get('selectedVehicleId')
+  selectedVehicleId: ->
+    Session.get('selectedVehicleId')
 
 Template.vehicleTableRow.helpers
   fleetName: -> Fleets.findOne(_id : @allocatedToFleet)?.name
   active: -> if @_id == Session.get('selectedVehicleId') then 'active' else ''
   allocatedToFleetFromDate: -> @allocatedToFleetFromDate.toLocaleDateString()
   tagsArray: -> tagsAsArray.call @
+  logging: -> if @_id == Session.get('loggedVehicle') then "[L]" else ""
 
 Template.vehicleTableRow.events
   'click tr': -> Session.set 'selectedVehicleId', @_id

@@ -42,7 +42,7 @@ Meteor.startup ->
       path: '/drivers/edit/:driverId'
       template: 'driver'
       data: -> {'driverId' : @params.driverId}
-    
+
 
     @route 'listVehicles',
       path: '/vehicles/list'
@@ -92,8 +92,29 @@ Meteor.startup ->
       path: '/notifications/list'
       template: 'notificationsList'
 
+    @route 'listDriverVehicleAssignments',
+      path: '/assignments/driver/vehicle/list'
+      template: 'driverVehicleAssignments'
+    @route 'addDriverVehicleAssignment',
+      path: '/assignments/driver/vehicle/add'
+      template: 'driverVehicleAssignment'
+    @route 'editDriverVehicleAssignment',
+      path: '/assignments/driver/vehicle/:driverVehicleAssignmentId'
+      template: 'driverVehicleAssignment'
+      data: -> {'driverVehicleAssignmentId' : @params.driverVehicleAssignmentId}
+
     @route 'resetAll',
       path: '/reset'
       template: 'dashboard'
       onRun: ->
         Meteor.call 'reset'
+
+    @route 'addLoctionEx',
+      path: '/location/add/:vehicle/:speed/:long/:lat'
+      onRun: ->
+        Meteor.call 'addLocation', {
+          loc: [Number(@params.long), Number(@params.lat)],
+          speed: Number(@params.speed),
+          stay: 0,
+          vehicleId: @params.vehicle
+        }

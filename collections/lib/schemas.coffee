@@ -215,6 +215,18 @@ Schema.vehicle = new SimpleSchema
     type: Date
     label: "В автопарка от"
 
+  workingSchedule:
+    type: [Object]
+    optional:true
+    
+  "workingSchedule.$.from":
+    type: Date,
+    optional:true
+
+  "workingSchedule.$.to":
+    type: Date,
+    optional:true
+
 Schema.company = new SimpleSchema
   _id:
     type: String
@@ -282,19 +294,46 @@ Schema.expenses = new SimpleSchema
           label: "Бензиностанция"
 
 Schema.driverEvents = new SimpleSchema
-       driver:
-         type: String
-         label: 'Шофьор'
-         autoform:
-           options: -> Drivers.find().map (driver) -> label: driver.name, value: driver._id
-       eventType:
-           type:String
-           label: "Събитие"
-           autoform:
-             options: -> EventTypes.find().map (event) -> label: event.name, value: event._id
-       date:
-           type:Date
-           label: "Дата"
-       description:
-          type:String
-          label: "Описание"
+  driver:
+    type: String
+    label: 'Шофьор'
+    autoform:
+      options: -> Drivers.find().map (driver) ->
+        { label: driver.firstName+" "+driver.name, value: driver._id}
+  eventType:
+    type:String
+    label: "Събитие"
+    autoform:
+      options: -> EventTypes.find().map (event) -> label: event.name, value: event._id
+  date:
+    type:Date
+    label: "Дата"
+  description:
+    type:String
+    label: "Описание"
+
+Schema.driverVehicleAssignments = new SimpleSchema
+   _id:
+      type: String
+      optional: true
+   driver:
+      type: String
+      label: 'Шофьор'
+      optional: true
+      autoform:
+        options: -> Drivers.find().map (driver) ->
+          { label: driver.firstName+" "+driver.name, value: driver._id}
+   vehicle:
+      type:String
+      label: "Автомобил"
+      optional: true
+      autoform:
+        options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
+   beginAssignmentTime:
+      type:Date
+      label: "От"
+      optional: true
+   endAssignmentTime:
+      type:Date
+      label: "До"
+      optional: true
