@@ -217,11 +217,12 @@ Schema.vehicle = new SimpleSchema
 
   workingSchedule:
     type: [Object]
-
+    optional:true
+    
   "workingSchedule.$.from":
     type: Date,
     optional:true
-    
+
   "workingSchedule.$.to":
     type: Date,
     optional:true
