@@ -150,11 +150,14 @@ rerenderMarkers = ->
         [lng, lat] = location.loc
         truckIcon =
           if location.speed == 0
+            if location.stay < 60
               '/images/truck-blue.png'
             else
-              if location.speed > 100
-                '/images/truck-red.png'
-              else '/images/truck-green.png'
+              '/images/truck-gray.png'
+          else
+            if location.speed > 100
+              '/images/truck-red.png'
+            else '/images/truck-green.png'
         marker = new google.maps.Marker
           position: new google.maps.LatLng(lat, lng)
           title: Vehicles.findOne(_id: location.vehicleId).identificationNumber
