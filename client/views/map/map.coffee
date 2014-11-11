@@ -161,8 +161,8 @@ rerenderMarkers = ->
               <div style='width:11em;'>
                 <p>ВИН: #{vehicle.identificationNumber}</p>
                 <p>Номер: #{vehicle.licensePlate}</p>
-                <p>Скорост: #{parseFloat(Math.round(marker.data.speed * 100) / 100).toFixed(2)} км/ч</p>
-                <p>Километраж: #{parseFloat(Math.round(marker.data.distance / 1000 * 100) / 100).toFixed(3)} км</p>
+                <p>Скорост: #{parseFloat(Math.round(marker.data.speed * 100) / 100).toFixed(0)} км/ч</p>
+                <p>Километраж: #{parseFloat(Math.round(marker.data.distance / 1000 * 100) / 100).toFixed(0)} км</p>
                 <p>Престой: #{marker.data.stay}</p>
                 <p><a href="/location/remove/#{marker.data._id}">Изтрий</a></p>
               </div>"""
