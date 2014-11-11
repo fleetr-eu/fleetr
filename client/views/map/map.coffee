@@ -172,9 +172,10 @@ rerenderMarkers = ->
 
 Template.map.helpers
   renderMarkers: -> rerenderMarkers()
+  selectedVehicleId: -> Session.get('selectedVehicleId')
 
 Template.map.created = -> Session.setDefault 'vehicleFilter', ''
-
+selectedVehicleId: -> Session.get('selectedVehicleId')
 Template.vehiclesMapTable.helpers
   vehicles: -> Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'tags']
   selectedVehicleId: -> Session.get('selectedVehicleId')
@@ -195,3 +196,12 @@ Template.vehicleMapTableRow.events
 Template.map.events
   'click #pac-input-clear': ->
     $('#pac-input').val('')
+  'click .addStay': ->
+    lastLocation = Locations.findOne {vehicleId: Session.get('selectedVehicleId')}, {sort: {timestamp: -1}}
+    if lastLocation
+      pos = coords: 
+        longitude: lastLocation.loc[0]
+        latitude: lastLocation.loc[1]
+      Session.set("loggedVehicle", Session.get('selectedVehicleId'))
+      Locations.save(pos)
+      Session.set("loggedVehicle", "")
