@@ -1,3 +1,5 @@
+Template.notificationsList.created = -> Session.set 'filterNotifications', ''
+
 Template.notificationsList.helpers
   toggleSeenIcon: ->
     if Session.get('showSeenNotifications')

@@ -88,6 +88,10 @@ Meteor.startup ->
       path: '/expenses/fuel/add'
       template: 'expensesFuel'
 
+    @route 'listAlarms',
+      path: '/alarms/list'
+      template: 'alarmsList'
+
     @route 'listNotifications',
       path: '/notifications/list'
       template: 'notificationsList'

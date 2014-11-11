@@ -6,8 +6,10 @@ Meteor.subscribe 'countries'
 # Meteor.subscribe 'locations'
 Meteor.subscribe 'expenses'
 Meteor.subscribe 'notifications'
+Meteor.subscribe 'alarms'
 Meteor.subscribe 'driverVehicleAssignments'
 
+Session.setDefault 'filterAlarms', ''
 Session.setDefault 'filterNotifications', ''
 Session.setDefault 'showSeenNotifications', false
 Session.setDefault 'filterFleets', ''

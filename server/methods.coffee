@@ -40,11 +40,16 @@ Meteor.methods
     newSeenState = !oldSeenState
     Notifications.update {_id: id}, {$set: {seen: newSeenState}}
 
+  toggleAlarmSeen: (id, oldSeenState) ->
+    newSeenState = !oldSeenState
+    Alarms.update {_id: id}, {$set: {seen: newSeenState}}
+
   removeLocation: (locationId) -> Locations.remove _id: locationId
 
   reset: () ->
     @unblock()
     Locations.remove {}
+    Alarms.remove {}
     Notifications.remove {}
     Drivers.find().forEach (doc) ->
       Drivers.utils.processNotifications(doc, doc._id)

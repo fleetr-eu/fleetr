@@ -3,7 +3,7 @@
 Locations.before.insert (userId, doc) ->
   doc.timestamp ?= Date.now()
   Vehicles.update {_id: doc.vehicleId}, {$set: {lastLocation: doc}}
-  
+
 Locations.findForVehicles = (vehicleIds) ->
     Locations.find {vehicleId: {$in: vehicleIds}}, {sort: {timestamp: -1}}
 
@@ -24,7 +24,6 @@ Locations.getDistance = (lat1, lon1, lat2, lon2) ->
 Locations.getSpeed = (distance, timestamp1, timestamp2) ->
   time_s = (timestamp2 - timestamp1) / 1000.0
   speed_mps = distance / time_s
-  console.log "#{distance} м / #{time_s} м/с= #{speed_mps * 3.6} км/ч"
   speed_mps * 3.6
 
 Locations.saveToDatabase = (loc, speed, stay, distance, vehicleId )->
@@ -43,13 +42,13 @@ Locations.save = (pos)->
       lastDistance = parseFloat(lastLocation.distance) || 0
       if (lastLocation.loc[0] != newLocation[0]) or (lastLocation.loc[1] != newLocation[1])
         distance = Locations.getDistance(lastLocation.loc[1], lastLocation.loc[0], newLocation[1], newLocation[0])
-        speed = Locations.getSpeed(distance, lastLocation.timestamp, moment())
+        speed = Locations.getSpeed(distance, lastLocation.timestamp, Date.now())
         Locations.saveToDatabase newLocation, speed, 0, lastDistance + distance, Session.get("loggedVehicle")
-        console.log "move: speed = #{speed}"
       else
         stay = lastLocation.stay + Math.round(moment().diff(lastLocation.timestamp)/1000)
         Locations.saveToDatabase newLocation, 0, stay, lastLocation.distance, Session.get("loggedVehicle")
-        console.log "stay: time=#{stay}"
     else
       Locations.saveToDatabase newLocation, 0, 0, 0, Session.get("loggedVehicle")
-      console.log "start logging: "+Session.get("loggedVehicle")
+
+Locations.after.insert (userId, doc) ->
+  Alarms.addAlarms(doc)
