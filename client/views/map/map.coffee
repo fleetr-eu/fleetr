@@ -20,18 +20,10 @@ Meteor.startup ->
       Map.clusterer = Map.createClusterer Map.map
       Map.addListener 'idle', -> rerenderMarkers()
       Map.addListener 'click', (e) ->
-        Meteor.call 'addLocation',
-          loc: [e.latLng.lng(), e.latLng.lat()]
-          speed: 50
-          stay: 0
-          vehicleId: Session.get('selectedVehicleId') || Random.choice _.pluck(Vehicles.find().fetch(), '_id')
-      Map.addListener 'rightclick', (e) ->
-        Meteor.call 'addLocation',
-          loc: [e.latLng.lng(), e.latLng.lat()]
-          speed: 0
-          stay: 30
-          vehicleId: Session.get('selectedVehicleId') || Random.choice _.pluck(Vehicles.find().fetch(), '_id')
-
+        pos = {coords: {longitude: e.latLng.lng(), latitude: e.latLng.lat()}}
+        Session.set("loggedVehicle", Session.get('selectedVehicleId'))
+        Locations.save(pos)
+        Session.set("loggedVehicle", "")
       input = document.getElementById("pac-input")
       pacSearch = document.getElementById("pac-search")
       Map.map.controls[google.maps.ControlPosition.TOP_LEFT].push pacSearch
@@ -148,7 +140,8 @@ rerenderMarkers = ->
               <div style='width:10em;'>
                 <p>ВИН: #{vehicle.identificationNumber}</p>
                 <p>Номер: #{vehicle.licensePlate}</p>
-                <p>Скорост: #{marker.data.speed}</p>
+                <p>Скорост: #{parseFloat(Math.round(marker.data.speed * 100) / 100).toFixed(2)} км/ч</p>
+                <p>Километраж: #{parseFloat(Math.round(marker.data.distance / 1000 * 100) / 100).toFixed(3)} км</p>
                 <p>Престой: #{marker.data.stay}</p>
                 <p><a href="/location/remove/#{marker.data._id}">Изтрий</a></p>
               </div>"""

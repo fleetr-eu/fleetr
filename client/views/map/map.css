@@ -46,3 +46,8 @@
   font-size: 13px;
   font-weight: 300;
 }
+
+.gm-style-iw{
+    height: 100% !important;
+    overflow: hidden !important;
+}

@@ -11,7 +11,7 @@ Template.vehicles.events
     Session.set 'selectedVehicleId', null
   "click .startLocationLogging" : (e) ->
       Session.set "loggedVehicle", Session.get('selectedVehicleId')
-      Session.set 'loggingLocationInterval', Meteor.setInterval(Locations.utils.logLocation, 10000)
+      Session.set 'loggingLocationInterval', Meteor.setInterval(Locations.log, 5000)
   "click .stopLocationLogging" : (e) ->
       Session.set "loggedVehicle", ''
       Meteor.clearInterval(Session.get('loggingLocationInterval'))
