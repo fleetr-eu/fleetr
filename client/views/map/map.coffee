@@ -158,7 +158,7 @@ rerenderMarkers = ->
           vehicle = Vehicles.findOne(_id: marker.data.vehicleId)
           infowindow = new google.maps.InfoWindow
             content: """
-              <div style='width:10em;'>
+              <div style='width:11em;'>
                 <p>ВИН: #{vehicle.identificationNumber}</p>
                 <p>Номер: #{vehicle.licensePlate}</p>
                 <p>Скорост: #{parseFloat(Math.round(marker.data.speed * 100) / 100).toFixed(2)} км/ч</p>
