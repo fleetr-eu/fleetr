@@ -13,24 +13,21 @@ Meteor.startup ->
     init: (cb) ->
       navigator.geolocation.getCurrentPosition Map.setup(cb), Map.setup(cb)
 
+    addLocation: (lat, lng, speed, stay) ->
+        Meteor.call 'addLocation',
+          loc: [lng, lat]
+          speed: speed
+          stay: stay
+          vehicleId: Session.get('selectedVehicleId') || Random.choice _.pluck(Vehicles.find().fetch(), '_id')
+
     setup: (cb) -> (position) ->
       position ?= {coords: {latitude: 42.6959214, longitude: 23.3198662}}
       Map.options.center = lat: position.coords.latitude, lng: position.coords.longitude
       Map.map = new google.maps.Map document.getElementById("map-canvas"), Map.options
       Map.clusterer = Map.createClusterer Map.map
       Map.addListener 'idle', -> rerenderMarkers()
-      Map.addListener 'click', (e) ->
-        Meteor.call 'addLocation',
-          loc: [e.latLng.lng(), e.latLng.lat()]
-          speed: 50
-          stay: 0
-          vehicleId: Session.get('selectedVehicleId') || Random.choice _.pluck(Vehicles.find().fetch(), '_id')
-      Map.addListener 'rightclick', (e) ->
-        Meteor.call 'addLocation',
-          loc: [e.latLng.lng(), e.latLng.lat()]
-          speed: 0
-          stay: 30
-          vehicleId: Session.get('selectedVehicleId') || Random.choice _.pluck(Vehicles.find().fetch(), '_id')
+      Map.addListener 'click', (e) -> Map.addLocation e.latLng.lat(), e.latLng.lng(), 50, 0
+      Map.addListener 'rightclick', (e) -> Map.addLocation e.latLng.lat(), e.latLng.lng(), 0, 30
 
       input = document.getElementById("pac-input")
       pacSearch = document.getElementById("pac-search")
@@ -121,8 +118,10 @@ Meteor.startup ->
 Template.map.rendered = ->
   Map.init =>
     @autorun ->
+      Meteor.subscribe 'locations', Session.get('selectedVehicleId')
+    @autorun ->
       selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
-      location = selectedVehicle?.lastLocation()
+      location = selectedVehicle?.lastLocation
       if location
           [lng, lat] = location.loc
           Map.map?.setCenter {lat: lat, lng: lng}
@@ -132,7 +131,7 @@ rerenderMarkers = ->
     Map.deleteMarkers()
     vehicles = Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'tags']
     markers = vehicles.map (vehicle) ->
-      location = vehicle.lastLocation()
+      location = vehicle.lastLocation
       if location
         [lng, lat] = location.loc
         truckIcon = if location.speed then '/images/truck-green.png' else '/images/truck-red.png'
