@@ -94,12 +94,13 @@ Meteor.startup ->
 
         lineSymbol =
             path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW
-            scale: 4
+            strokeWeight: 2
+            scale: 3
 
         Map.path = new google.maps.Polyline
           icons: [
             icon: lineSymbol
-            offset: '0'
+            offset: '100px'
             repeat: '100px'
           ]
           map: Map.map,
