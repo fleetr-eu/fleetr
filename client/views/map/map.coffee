@@ -32,7 +32,7 @@ Meteor.startup ->
         Session.set("loggedVehicle", Session.get('selectedVehicleId'))
         Locations.save(pos)
         Session.set("loggedVehicle", "")
-        
+
       input = document.getElementById("pac-input")
       pacSearch = document.getElementById("pac-search")
       Map.map.controls[google.maps.ControlPosition.TOP_LEFT].push pacSearch
@@ -92,7 +92,16 @@ Meteor.startup ->
           new google.maps.LatLng(lat, lng)
         optimzedPath = GDouglasPeucker(path, 5)
 
+        lineSymbol =
+            path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW
+            scale: 4
+
         Map.path = new google.maps.Polyline
+          icons: [
+            icon: lineSymbol
+            offset: '0'
+            repeat: '100px'
+          ]
           map: Map.map,
           path: optimzedPath,
           strokeColor: 'blue',
