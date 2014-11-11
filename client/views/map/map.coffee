@@ -13,17 +13,26 @@ Meteor.startup ->
     init: (cb) ->
       navigator.geolocation.getCurrentPosition Map.setup(cb), Map.setup(cb)
 
+    addLocation: (lat, lng, speed, stay) ->
+        Meteor.call 'addLocation',
+          loc: [lng, lat]
+          speed: speed
+          stay: stay
+          vehicleId: Session.get('selectedVehicleId') || Random.choice _.pluck(Vehicles.find().fetch(), '_id')
+
     setup: (cb) -> (position) ->
       position ?= {coords: {latitude: 42.6959214, longitude: 23.3198662}}
       Map.options.center = lat: position.coords.latitude, lng: position.coords.longitude
       Map.map = new google.maps.Map document.getElementById("map-canvas"), Map.options
       Map.clusterer = Map.createClusterer Map.map
       Map.addListener 'idle', -> rerenderMarkers()
+
       Map.addListener 'click', (e) ->
         pos = {coords: {longitude: e.latLng.lng(), latitude: e.latLng.lat()}}
         Session.set("loggedVehicle", Session.get('selectedVehicleId'))
         Locations.save(pos)
         Session.set("loggedVehicle", "")
+        
       input = document.getElementById("pac-input")
       pacSearch = document.getElementById("pac-search")
       Map.map.controls[google.maps.ControlPosition.TOP_LEFT].push pacSearch
@@ -113,8 +122,10 @@ Meteor.startup ->
 Template.map.rendered = ->
   Map.init =>
     @autorun ->
+      Meteor.subscribe 'locations', Session.get('selectedVehicleId')
+    @autorun ->
       selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
-      location = selectedVehicle?.lastLocation()
+      location = selectedVehicle?.lastLocation
       if location
           [lng, lat] = location.loc
           Map.map?.setCenter {lat: lat, lng: lng}
@@ -124,7 +135,7 @@ rerenderMarkers = ->
     Map.deleteMarkers()
     vehicles = Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'tags']
     markers = vehicles.map (vehicle) ->
-      location = vehicle.lastLocation()
+      location = vehicle.lastLocation
       if location
         [lng, lat] = location.loc
         truckIcon = if location.speed then '/images/truck-green.png' else '/images/truck-red.png'

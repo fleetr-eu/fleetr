@@ -46,10 +46,17 @@ Meteor.methods
     @unblock()
     Locations.remove {}
     Notifications.remove {}
-    Drivers.find().forEach( (doc)->
+    Drivers.find().forEach (doc) ->
       Drivers.utils.processNotifications(doc, doc._id)
-    )
 
   submitDriverVehicleAssignment: (doc, diff) -> DriverVehicleAssignments.submit(doc, diff)
 
   removeDriverVehicleAssignment: (doc) -> DriverVehicleAssignments.remove _id : doc
+
+  addLocations: (vehicleId, lat, lng, n) ->
+    [1..n].map (i) =>
+      Meteor.call 'addLocation',
+          loc: [lng + Random.fraction(), lat + Random.fraction()]
+          speed: Random.fraction() * 100
+          stay: 0
+          vehicleId: vehicleId

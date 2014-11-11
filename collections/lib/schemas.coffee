@@ -211,6 +211,11 @@ Schema.vehicle = new SimpleSchema
     autoform:
       options: -> Fleets.find().map (fleet) -> label: fleet.name, value: fleet._id
 
+  lastLocation:
+    type: Object
+    optional: true
+    blackbox: true
+
   allocatedToFleetFromDate:
     type: Date
     label: "В автопарка от"

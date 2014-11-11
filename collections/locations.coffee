@@ -1,7 +1,9 @@
 @Locations = new Mongo.Collection 'locations'
 
-Locations.before.insert (userId, doc) -> doc.timestamp ?= Date.now()
-
+Locations.before.insert (userId, doc) ->
+  doc.timestamp ?= Date.now()
+  Vehicles.update {_id: doc.vehicleId}, {$set: {lastLocation: doc}}
+  
 Locations.findForVehicles = (vehicleIds) ->
     Locations.find {vehicleId: {$in: vehicleIds}}, {sort: {timestamp: -1}}
 
