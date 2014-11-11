@@ -51,7 +51,7 @@
                       {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6" name="identificationNumber"}}
                       {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6" name="allocatedToFleet"}}
                       {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6" name="allocatedToFleetFromDate"}}
-                  </div>
+                    </div>
                   <div class="col-md-5">
                     {{> afQuickField name="tags"}}
                   </div>
@@ -61,59 +61,46 @@
           <div class="tab-pane" id="tab_2">
             <fieldset>
               <div class="table-responsive">
-                <table class="table table-striped" cellpadding="10">
+                <table class="table table-striped vehicle-schedule-table" cellpadding="10">
                   <thead>
                       <tr>
-                          <th>Ден</th>
-                          <th>От</th>
-                          <th>До</th>
+                        <th>Ден</th><th>От</th><th>До</th>
                       </tr>
                   </thead>
-
-                  <tr>
-                    <td> Понеделник </td>
-                    <td>{{> afFieldInput name="workingSchedule.0.from"}}</td>
-                    <td>{{> afFieldInput name="workingSchedule.0.to"}}</td>
-                  </tr>
-                  <tr>
-                    <td> Вторник </td>
-                    <td>{{> afFieldInput name="workingSchedule.1.from"}}</td>
-                    <td>{{> afFieldInput name="workingSchedule.1.to"}}</td>
-                  </tr>
-                  <tr>
-                    <td> Срядя </td>
-                    <td>{{> afFieldInput name="workingSchedule.2.from"}}</td>
-                    <td>{{> afFieldInput name="workingSchedule.2.to"}}</td>
-                  </tr>
-                  <tr>
-                    <td> Четвъртък </td>
-                    <td>{{> afFieldInput name="workingSchedule.3.from"}}</td>
-                    <td>{{> afFieldInput name="workingSchedule.3.to"}}</td>
-                  </tr>
-                  <tr>
-                    <td> Петък </td>
-                    <td>{{> afFieldInput name="workingSchedule.4.from"}}</td>
-                    <td>{{> afFieldInput name="workingSchedule.4.to"}}</td>
-                  </tr>
-                  <tr>
-                    <td> Събота </td>
-                    <td>{{> afFieldInput name="workingSchedule.5.from"}}</td>
-                    <td>{{> afFieldInput name="workingSchedule.5.to"}}</td>
-                  </tr>
-                  <tr>
-                    <td> Неделя </td>
-                    <td>{{> afFieldInput name="workingSchedule.6.from"}}</td>
-                    <td>{{> afFieldInput name="workingSchedule.6.to"}}</td>
-                  </tr>
+                  {{#each days}}
+                    {{> timePickersForDay}}
+                  {{/each}}
                 </table>
               </div>
             </fieldset>
           </div>
         </div>
-
       </div>
    </div>
  </div>
 {{/autoForm}}
+</template>
 
+<template name="timePickersForDay">
+  <tr>
+    <td> {{day}} </td>
+    <td>
+      <div class="input-group date" id="timepicker{{seq}}From">
+        {{> afFieldInput name=fromField type="text"}}
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-time"></span>
+        </span>
+        <span class="help-block"></span>
+      </div>
+    </td>
+    <td>
+      <div class="input-group date" id="timepicker{{seq}}To">
+        {{> afFieldInput name=toField type="text"}}
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-time"></span>
+        </span>
+        <span class="help-block"></span>
+      </div>
+    </td>
+  </tr>
 </template>
