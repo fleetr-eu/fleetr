@@ -1,7 +1,7 @@
 Meteor.startup ->
   @Map =
     clusterer: null
-    path: null
+    path: {infoMarkers: []}
     options:
       zoom: 12
       mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -85,29 +85,62 @@ Meteor.startup ->
     addPath: (locations) ->
       Map.deletePath()
       if locations
-        path = locations.map (location) ->
+        path = locations.map (location, index) ->
           [lng, lat] = location.loc
-          new google.maps.LatLng(lat, lng)
-        optimzedPath = GDouglasPeucker(path, 5)
+          _.extend(new google.maps.LatLng(lat, lng), {i: index})
+        optimizedPath = GDouglasPeucker(path, 5)
 
         lineSymbol =
             path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW
             strokeWeight: 2
             scale: 3
 
-        Map.path = new google.maps.Polyline
+        Map.path.polyline = new google.maps.Polyline
           icons: [
             icon: lineSymbol
             offset: '100px'
             repeat: '100px'
           ]
           map: Map.map,
-          path: optimzedPath,
+          path: optimizedPath,
           strokeColor: 'blue',
           strokeOpacity: 0.6,
           strokeWeight: 7
 
-    deletePath: -> Map.path?.setMap null
+        google.maps.event.addListener Map.path.polyline, 'click', (h) ->
+          latlng = h.latLng
+          needle =
+            minDistance: 9999999999
+            index: -1
+            latlng: null
+
+          Map.path.polyline.getPath().forEach (routePoint, index) ->
+            dist = google.maps.geometry.spherical.computeDistanceBetween(latlng, routePoint)
+            if dist < needle.minDistance
+              needle.minDistance = dist
+              needle.index = index
+              needle.latlng = routePoint
+
+          loc = locations[optimizedPath[needle.index].i]
+          infowindow = new google.maps.InfoWindow
+            content: """
+              <div style='width:11em;'>
+                <p>Скорост: #{parseFloat(Math.round(loc.speed * 100) / 100).toFixed(0)} км/ч</p>
+                <p>Километраж: #{parseFloat(Math.round(loc.distance / 1000 * 100) / 100).toFixed(0)} км</p>
+                <p>Престой: #{loc.stay}</p>
+                <p><a href="/location/remove/#{loc._id}">Изтрий</a></p>
+              </div>"""
+          m = new google.maps.Marker
+            position: needle.latlng
+            icon: 'none'
+            map: Map.map
+          Map.path.infoMarkers.push m
+          infowindow.open Map.map, m
+
+    deletePath: ->
+      Map.path?.polyline?.setMap null
+      Map.path?.infoMarkers?.forEach (m) -> m.setMap null
+      Map.path = {infoMarkers: []}
 
     deleteMarkers: -> Map.clusterer?.clearMarkers()
 
@@ -135,8 +168,8 @@ Template.map.rendered = ->
       selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
       location = selectedVehicle?.lastLocation
       if location
-          [lng, lat] = location.loc
-          Map.map?.setCenter {lat: lat, lng: lng}
+        [lng, lat] = location.loc
+        Map.map?.setCenter {lat: lat, lng: lng}
       Map.addPath selectedVehicle?.lastLocations().fetch()
 
 rerenderMarkers = ->
