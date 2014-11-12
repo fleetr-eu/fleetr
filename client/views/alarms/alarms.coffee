@@ -32,10 +32,10 @@ Template.alarmTableRow.helpers
       []
 
   style: ->
-      if @timestamp > moment().add(60, 'm').toDate()
+      if moment()-moment(@timestamp) > 3600000
         "color:red;"
       else
-        if @timestamp > moment().add(30, 'm').toDate()
+        if moment()-moment(@timestamp) > 900000
           "color:orange;"
         else
           "color:navy;"

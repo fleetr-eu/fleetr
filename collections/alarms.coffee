@@ -21,7 +21,7 @@ Alarms.alarmText = (alarm) ->
     when "overspeeding"
       "Превишена скорост: #{licensePlate} скорост: #{Math.round(alarm.speed)} км/ч"
     when "longStay"
-      "Продължителен престой: #{licensePlate} скорост: #{stay*60} минути"
+      "Продължителен престой: #{licensePlate} скорост: #{alarm.stay} секунди"
     when "unasignedDriver"
       "Без асоцииран шофьор: #{licensePlate}"
 
@@ -35,7 +35,7 @@ Alarms.addAlarms = (doc) ->
       seen: false
       timestamp: Date.now()
 
-  if doc.stay > 1800
+  if doc.stay > 60
     Alarms.insert
       type: "longStay"
       vehicle: doc.vehicleId
@@ -52,7 +52,7 @@ Alarms.addAlarms = (doc) ->
       $gte: new Date(doc.timestamp)
   )
 
-  if !dvAssignment
+  if (doc.speed > 0) and !dvAssignment
     alarm = Alarms.findOne {type: "unasignedDriver", vehicle: doc.vehicleId}, {sort: {timestamp: -1}}
     if alarm and Date.now() < moment(alarm.timestamp).add(1, 'minutes').toDate()
 

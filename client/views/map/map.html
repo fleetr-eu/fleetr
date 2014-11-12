@@ -12,7 +12,10 @@
                   {{> filter sessionVar='vehicleFilter' placeholder='Търсене...'}}
               </div>
               <div class="tools">
-                <a href="" class="fullscreen"></a>
+                {{#if selectedVehicleId}}
+                <a href="#" class="addStay fa fa-clock-o"></a>
+                {{/if}}
+                <a href="#" class="fullscreen"></a>
               </div>
             </div>
             <div class="portlet-body">

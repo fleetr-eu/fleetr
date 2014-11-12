@@ -181,7 +181,16 @@ rerenderMarkers = ->
       location = vehicle.lastLocation
       if location
         [lng, lat] = location.loc
-        truckIcon = if location.speed then '/images/truck-green.png' else '/images/truck-red.png'
+        truckIcon =
+          if location.speed == 0
+            if location.stay < 60
+              '/images/truck-blue.png'
+            else
+              '/images/truck-gray.png'
+          else
+            if location.speed > 100
+              '/images/truck-red.png'
+            else '/images/truck-green.png'
         marker = new google.maps.Marker
           position: new google.maps.LatLng(lat, lng)
           title: Vehicles.findOne(_id: location.vehicleId).identificationNumber
@@ -205,9 +214,10 @@ rerenderMarkers = ->
 
 Template.map.helpers
   renderMarkers: -> rerenderMarkers()
+  selectedVehicleId: -> Session.get('selectedVehicleId')
 
 Template.map.created = -> Session.setDefault 'vehicleFilter', ''
-
+selectedVehicleId: -> Session.get('selectedVehicleId')
 Template.vehiclesMapTable.helpers
   vehicles: -> Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'tags']
   selectedVehicleId: -> Session.get('selectedVehicleId')
@@ -228,3 +238,12 @@ Template.vehicleMapTableRow.events
 Template.map.events
   'click #pac-input-clear': ->
     $('#pac-input').val('')
+  'click .addStay': ->
+    lastLocation = Locations.findOne {vehicleId: Session.get('selectedVehicleId')}, {sort: {timestamp: -1}}
+    if lastLocation
+      pos = coords:
+        longitude: lastLocation.loc[0]
+        latitude: lastLocation.loc[1]
+      Session.set("loggedVehicle", Session.get('selectedVehicleId'))
+      Locations.save(pos)
+      Session.set("loggedVehicle", "")
