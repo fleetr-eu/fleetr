@@ -1,6 +1,7 @@
 Meteor.startup ->
   @Map =
     clusterer: null
+    speedClusterer: null
     path: {infoMarkers: []}
     options:
       zoom: 12
@@ -25,6 +26,7 @@ Meteor.startup ->
       Map.options.center = lat: position.coords.latitude, lng: position.coords.longitude
       Map.map = new google.maps.Map document.getElementById("map-canvas"), Map.options
       Map.clusterer = Map.createClusterer Map.map
+      Map.speedClusterer = Map.createClusterer Map.map, '/images/m'
       Map.addListener 'idle', -> rerenderMarkers()
 
       Map.addListener 'click', (e) ->
@@ -41,8 +43,6 @@ Meteor.startup ->
       searchMarker = new google.maps.Marker
         map: Map.map
         anchorPoint: new google.maps.Point(0, -29)
-
-      Map.clusterer?.setZoomOnClick true
 
       google.maps.event.addListener autocomplete, "place_changed", ->
         infowindow.close()
@@ -82,82 +82,71 @@ Meteor.startup ->
 
     addMarkers: (markers) -> Map.clusterer?.addMarkers markers
 
-    createDefaultPolyline: (color) ->
+    createDefaultPolyline: (path) ->
       new google.maps.Polyline
-          icons: [
-            icon:
-              path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW
-              strokeWeight: 2
-              scale: 3
-            offset: '100px'
-            repeat: '100px'
-          ]
-          map: Map.map
-          strokeColor: color || 'blue'
-          strokeOpacity: 0.6
-          strokeWeight: 7
-
+        icons: [
+          icon:
+            path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW
+            strokeWeight: 2
+            strokeColor: 'white'
+            scale: 1
+          offset: '100px'
+          repeat: '100px'
+        ]
+        map: Map.map
+        path: path
+        strokeColor: 'blue'
+        strokeOpacity: 0.6
+        strokeWeight: 7
 
     addPath: (locations) ->
-      colorPaths = (acc, point, index) ->
-        color = if point.speed > 100 then 'red' else 'blue'
-        unless acc.length then acc.push Map.createDefaultPolyline(color)
-        lastPoly = acc[-1..][0]
-        if lastPoly?.strokeColor == color
-          lastPoly.getPath().push point
-        else
-          p = Map.createDefaultPolyline(color)
-          p.getPath().push point
-          acc.push p
-        acc
-
-      connectPaths = (polyline, index, allPolylines) ->
-        unless index == allPolylines.length - 1
-          polyline.getPath().push allPolylines[index + 1].getPath().getAt(0)
-
       Map.deletePath()
       if locations
         path = locations.map (location, index) ->
           [lng, lat] = location.loc
-          _.extend(new google.maps.LatLng(lat, lng), {i: index, speed: location.speed, stay: location.stay})
-        optimizedPath = path # GDouglasPeucker(path, 5)
+          _.extend(new google.maps.LatLng(lat, lng), {location: location})
+        optimizedPath = GDouglasPeucker(path, 5)
 
-        Map.path.polylines = optimizedPath.reduce colorPaths, []
-        Map.path.polylines.forEach (polyline, index, allPolylines) ->
-          connectPaths(polyline, index, allPolylines)
+        Map.speedClusterer?.addMarkers path.filter((p) -> p.location.speed >= 100).map (l) ->
+          new google.maps.Marker
+            position: l
+            icon: '/images/speed_90.png'
+            map: Map.map
 
-          google.maps.event.addListener polyline, 'click', (h) ->
-            latlng = h.latLng
-            needle =
-              minDistance: 9999999999
-              index: -1
-              latlng: null
+        Map.path.polyline = Map.createDefaultPolyline path
 
-            polyline.getPath().forEach (routePoint, index) ->
-              dist = google.maps.geometry.spherical.computeDistanceBetween(latlng, routePoint)
-              if dist < needle.minDistance
-                needle.minDistance = dist
-                needle.index = index
-                needle.latlng = routePoint
+        google.maps.event.addListener Map.path.polyline, 'click', (h) ->
+          latlng = h.latLng
+          needle =
+            minDistance: 9999999999
+            index: -1
+            latlng: null
 
-            loc = locations[optimizedPath[needle.index].i]
-            infowindow = new google.maps.InfoWindow
-              content: """
-                <div style='width:11em;'>
-                  <p>Скорост: #{parseFloat(Math.round(loc.speed * 100) / 100).toFixed(0)} км/ч</p>
-                  <p>Километраж: #{parseFloat(Math.round(loc.distance / 1000 * 100) / 100).toFixed(0)} км</p>
-                  <p>Престой: #{loc.stay}</p>
-                  <p><a href="/location/remove/#{loc._id}">Изтрий</a></p>
-                </div>"""
-            m = new google.maps.Marker
-              position: needle.latlng
-              icon: 'none'
-              map: Map.map
-            Map.path.infoMarkers.push m
-            infowindow.open Map.map, m
+          Map.path.polyline.getPath().forEach (routePoint, index) ->
+            dist = google.maps.geometry.spherical.computeDistanceBetween(latlng, routePoint)
+            if dist < needle.minDistance
+              needle.minDistance = dist
+              needle.index = index
+              needle.latlng = routePoint
+
+          loc = Map.path.polyline.getPath().getAt(needle.index).location
+          infowindow = new google.maps.InfoWindow
+            content: """
+              <div style='width:11em;'>
+                <p>Скорост: #{parseFloat(Math.round(loc.speed * 100) / 100).toFixed(0)} км/ч</p>
+                <p>Километраж: #{parseFloat(Math.round(loc.distance / 1000 * 100) / 100).toFixed(0)} км</p>
+                <p>Престой: #{loc.stay}</p>
+                <p><a href="/location/remove/#{loc._id}">Изтрий</a></p>
+              </div>"""
+          m = new google.maps.Marker
+            position: needle.latlng
+            icon: 'none'
+            map: Map.map
+          Map.path.infoMarkers.push m
+          infowindow.open Map.map, m
 
     deletePath: ->
-      Map.path?.polylines?.forEach (p) -> p.setMap null
+      Map.path?.polyline?.setMap null
       Map.path?.infoMarkers?.forEach (m) -> m.setMap null
       Map.path = {infoMarkers: []}
 
@@ -172,17 +161,19 @@ Meteor.startup ->
           center = bounds.getCenter()
           center: center, box: [[sw.lng(), sw.lat()], [ne.lng(), ne.lat()]]
 
-    createClusterer: (map)->
+    createClusterer: (map, imagePath)->
       clustererOptions =
-        zoomOnClick:false
+        zoomOnClick:true
         averageCenter:true
         gridSize:40
+
+      clustererOptions.imagePath ?= imagePath
       new MarkerClusterer(map, [], clustererOptions)
 
 Template.map.rendered = ->
   Map.init =>
     @autorun ->
-      Meteor.subscribe 'locations', Session.get('selectedVehicleId')
+      Meteor.subscribe 'locations', Session.get('selectedVehicleId'), Session.get("mapDateRangeFrom"), Session.get("mapDateRangeTo")
     @autorun ->
       selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
       location = selectedVehicle?.lastLocation
