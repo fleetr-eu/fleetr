@@ -172,6 +172,23 @@ Template.map.rendered = ->
         Map.map?.setCenter {lat: lat, lng: lng}
       Map.addPath selectedVehicle?.lastLocations().fetch()
 
+  $("#hours_range").ionRangeSlider
+    type : "double"
+    min: +moment().subtract(24, "hours").format("X")
+    max: +moment().add(1, "hours").format("X")
+    from: +moment().subtract(2, "hours").format("X")
+    to: +moment().format("X")
+    grid: true
+    keyboard: true
+    keyboard_step: 1
+    force_edges: true
+    prettify: (num) ->
+        m = moment(num, "X")
+        m.format("Do MMMM, HH:mm")
+    onFinish: (data) ->
+      Session.set "mapDateRangeFrom", data.from
+      Session.set "mapDateRangeTo", data.to
+
 rerenderMarkers = ->
     Map.deleteMarkers()
     vehicles = Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'tags']
