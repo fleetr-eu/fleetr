@@ -100,7 +100,7 @@ Meteor.startup ->
 
     addPath: (locations) ->
       colorPaths = (acc, point, index) ->
-        color = if point.speed > 100 then 'red' else 'blue'
+        color = if point.location.speed > 100 then 'red' else 'blue'
         unless acc.length then acc.push Map.createDefaultPolyline(color)
         lastPoly = acc[-1..][0]
         if lastPoly?.strokeColor == color
@@ -119,8 +119,8 @@ Meteor.startup ->
       if locations
         path = locations.map (location, index) ->
           [lng, lat] = location.loc
-          _.extend(new google.maps.LatLng(lat, lng), {i: index, speed: location.speed, stay: location.stay})
-        optimizedPath = path # GDouglasPeucker(path, 5)
+          _.extend(new google.maps.LatLng(lat, lng), {location: location})
+        optimizedPath = GDouglasPeucker(path, 5)
 
         Map.path.polylines = optimizedPath.reduce colorPaths, []
         Map.path.polylines.forEach (polyline, index, allPolylines) ->
@@ -140,7 +140,7 @@ Meteor.startup ->
                 needle.index = index
                 needle.latlng = routePoint
 
-            loc = locations[optimizedPath[needle.index].i]
+            loc = polyline.getPath().getAt(needle.index).location
             infowindow = new google.maps.InfoWindow
               content: """
                 <div style='width:11em;'>
@@ -182,7 +182,7 @@ Meteor.startup ->
 Template.map.rendered = ->
   Map.init =>
     @autorun ->
-      Meteor.subscribe 'locations', Session.get('selectedVehicleId')
+      Meteor.subscribe 'locations', Session.get('selectedVehicleId'), Session.get("mapDateRangeFrom"), Session.get("mapDateRangeTo")
     @autorun ->
       selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
       location = selectedVehicle?.lastLocation

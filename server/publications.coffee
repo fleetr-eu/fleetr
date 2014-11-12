@@ -9,5 +9,6 @@ Meteor.publish 'notifications', () -> Notifications.find {}
 # Meteor.publish 'locations', () -> Locations.find {}
 Meteor.publish 'driverVehicleAssignments', () -> DriverVehicleAssignments.find {}
 
-Meteor.publish 'locations', (vehicleId) ->
-  Locations.find {vehicleId: vehicleId}, {sort: {timestamp: -1}} #, loc: {$within : {$box : area}}
+Meteor.publish 'locations', (vehicleId, dtFrom, dtTo) ->
+  Locations.find {vehicleId: vehicleId} # , $gte: {timestamp: dtFrom*1000}, $lte: {timestamp: dtTo*1000}
+  , {sort: {timestamp: -1}}
