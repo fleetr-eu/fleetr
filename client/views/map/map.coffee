@@ -110,7 +110,7 @@ Meteor.startup ->
         Map.speedClusterer?.addMarkers path.filter((p) -> p.location.speed >= 100).map (l) ->
           new google.maps.Marker
             position: l
-            icon: '/images/speed_90.png'
+            icon: '/images/speed_100.png'
             map: Map.map
 
         Map.path.polyline = Map.createDefaultPolyline path
