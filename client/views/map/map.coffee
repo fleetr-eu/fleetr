@@ -29,9 +29,7 @@ Meteor.startup ->
 
       Map.addListener 'click', (e) ->
         pos = {coords: {longitude: e.latLng.lng(), latitude: e.latLng.lat()}}
-        Session.set("loggedVehicle", Session.get('selectedVehicleId'))
-        Locations.save(pos)
-        Session.set("loggedVehicle", "")
+        Locations.save(Session.get('selectedVehicleId'), pos)
 
       input = document.getElementById("pac-input")
       pacSearch = document.getElementById("pac-search")
@@ -208,9 +206,5 @@ Template.map.events
   'click .addStay': ->
     lastLocation = Locations.findOne {vehicleId: Session.get('selectedVehicleId')}, {sort: {timestamp: -1}}
     if lastLocation
-      pos = coords:
-        longitude: lastLocation.loc[0]
-        latitude: lastLocation.loc[1]
-      Session.set("loggedVehicle", Session.get('selectedVehicleId'))
-      Locations.save(pos)
-      Session.set("loggedVehicle", "")
+      pos = {coords: {longitude: lastLocation.loc[0], latitude: lastLocation.loc[1]}}
+      Locations.save(Session.get('selectedVehicleId'), pos)
