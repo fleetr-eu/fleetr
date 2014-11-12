@@ -26,7 +26,7 @@ Meteor.startup ->
       Map.options.center = lat: position.coords.latitude, lng: position.coords.longitude
       Map.map = new google.maps.Map document.getElementById("map-canvas"), Map.options
       Map.clusterer = Map.createClusterer Map.map
-      Map.speedClusterer = Map.createClusterer Map.map
+      Map.speedClusterer = Map.createClusterer Map.map, '/images/m'
       Map.addListener 'idle', -> rerenderMarkers()
 
       Map.addListener 'click', (e) ->
@@ -107,7 +107,7 @@ Meteor.startup ->
           _.extend(new google.maps.LatLng(lat, lng), {location: location})
         optimizedPath = GDouglasPeucker(path, 5)
 
-        Map.speedClusterer?.addMarkers (path.filter (p) -> p.location.speed >= 100).forEach (l) ->
+        Map.speedClusterer?.addMarkers path.filter((p) -> p.location.speed >= 100).map (l) ->
           new google.maps.Marker
             position: l
             icon: '/images/speed_90.png'
@@ -161,13 +161,14 @@ Meteor.startup ->
           center = bounds.getCenter()
           center: center, box: [[sw.lng(), sw.lat()], [ne.lng(), ne.lat()]]
 
-    createClusterer: (map)->
+    createClusterer: (map, imagePath)->
       clustererOptions =
-        zoomOnClick:false
+        zoomOnClick:true
         averageCenter:true
         gridSize:40
-      c = new MarkerClusterer(map, [], clustererOptions)
-      c.setZoomOnClick true; c
+
+      clustererOptions.imagePath ?= imagePath
+      new MarkerClusterer(map, [], clustererOptions)
 
 Template.map.rendered = ->
   Map.init =>
