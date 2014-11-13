@@ -7,10 +7,6 @@ Locations.before.insert (userId, doc) ->
 Locations.findForVehicles = (vehicleIds) ->
     Locations.find {vehicleId: {$in: vehicleIds}}, {sort: {timestamp: -1}}
 
-Locations.log = ->
-    if (navigator.geolocation)
-      navigator.geolocation.getCurrentPosition(Locations.logLocations)
-
 Locations.getDistance = (lat1, lon1, lat2, lon2) ->
   R = 6371 # km
   f1 = lat1 * 0.0174532925
@@ -56,10 +52,6 @@ Locations.saveToDatabase = (loc, speed, stay, distance, vehicleId )->
     stay: stay
     distance: distance
     vehicleId: vehicleId
-
-
-
-
 
 Locations.after.insert (userId, doc) ->
   Alarms.addAlarms(doc)

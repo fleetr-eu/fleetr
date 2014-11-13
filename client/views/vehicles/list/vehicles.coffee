@@ -1,6 +1,11 @@
 Template.vehicles.created = ->
   Session.setDefault 'vehicleFilter', ''
   Session.setDefault 'loggedVehicle', ''
+  Meteor.subscribe 'locations', Session.get('selectedVehicleId'), Session.get("mapDateRangeFrom"), Session.get("mapDateRangeTo")
+
+Template.vehicles.rendered = ->
+  @autorun ->
+    Meteor.subscribe 'locations', Session.get('selectedVehicleId')
 
 Template.vehicles.destroyed = ->
   Meteor.clearInterval(Session.get('loggingLocationInterval'))
