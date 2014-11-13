@@ -173,6 +173,8 @@ Meteor.startup ->
       new MarkerClusterer(map, [], clustererOptions)
 
 Template.map.rendered = ->
+  Session.set "mapDateRangeFrom", +moment().subtract(2, "hours").format("X")
+  Session.set "mapDateRangeTo", +moment().format("X")
   Map.init =>
     @autorun ->
       Meteor.subscribe 'locations', Session.get('selectedVehicleId'), Session.get("mapDateRangeFrom"), Session.get("mapDateRangeTo")
@@ -197,7 +199,7 @@ Template.map.rendered = ->
     prettify: (num) ->
         m = moment(num, "X")
         m.format("Do MMMM, HH:mm")
-    onFinish: (data) ->
+    onChange: (data) ->
       Session.set "mapDateRangeFrom", data.from
       Session.set "mapDateRangeTo", data.to
 
