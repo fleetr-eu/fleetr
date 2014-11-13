@@ -26,7 +26,8 @@ Meteor.startup ->
       Map.options.center = lat: position.coords.latitude, lng: position.coords.longitude
       Map.map = new google.maps.Map document.getElementById("map-canvas"), Map.options
       Map.clusterer = Map.createClusterer Map.map
-      Map.speedClusterer = Map.createClusterer Map.map, '/images/m'
+      Map.speedClusterer = Map.createClusterer Map.map, '/images/m', -> {index: 1, text: ''}
+
       Map.addListener 'idle', -> rerenderMarkers()
 
       Map.addListener 'click', (e) ->
@@ -161,13 +162,14 @@ Meteor.startup ->
           center = bounds.getCenter()
           center: center, box: [[sw.lng(), sw.lat()], [ne.lng(), ne.lat()]]
 
-    createClusterer: (map, imagePath)->
+    createClusterer: (map, imagePath, calculator)->
       clustererOptions =
         zoomOnClick:true
         averageCenter:true
         gridSize:40
 
       clustererOptions.imagePath ?= imagePath
+      clustererOptions.calculator ?= calculator
       new MarkerClusterer(map, [], clustererOptions)
 
 Template.map.rendered = ->
