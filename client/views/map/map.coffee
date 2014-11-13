@@ -26,7 +26,10 @@ Meteor.startup ->
       Map.options.center = lat: position.coords.latitude, lng: position.coords.longitude
       Map.map = new google.maps.Map document.getElementById("map-canvas"), Map.options
       Map.clusterer = Map.createClusterer Map.map
-      Map.speedClusterer = Map.createClusterer Map.map, '/images/m', -> {index: 1, text: ''}
+      Map.speedClusterer = Map.createClusterer Map.map,
+        imagePath: '/images/m'
+        calculator: -> {index: 1, text: ''}
+        zIndex: 20
 
       Map.addListener 'idle', -> rerenderMarkers()
 
@@ -113,6 +116,7 @@ Meteor.startup ->
             position: l
             icon: '/images/speed_100.png'
             map: Map.map
+            zIndex: 10
 
         Map.path.polyline = Map.createDefaultPolyline path
 
@@ -162,14 +166,14 @@ Meteor.startup ->
           center = bounds.getCenter()
           center: center, box: [[sw.lng(), sw.lat()], [ne.lng(), ne.lat()]]
 
-    createClusterer: (map, imagePath, calculator)->
+    createClusterer: (map, options)->
       clustererOptions =
         zoomOnClick:true
         averageCenter:true
         gridSize:40
+        zIndex: 90
 
-      clustererOptions.imagePath ?= imagePath
-      clustererOptions.calculator ?= calculator
+      clustererOptions = _.extend(clustererOptions, options)
       new MarkerClusterer(map, [], clustererOptions)
 
 Template.map.rendered = ->
@@ -225,6 +229,7 @@ rerenderMarkers = ->
           title: Vehicles.findOne(_id: location.vehicleId).identificationNumber
           icon: truckIcon
           data: location
+          zIndex: 100
         google.maps.event.addListener marker, 'click', ->
           vehicle = Vehicles.findOne(_id: marker.data.vehicleId)
           infowindow = new google.maps.InfoWindow
