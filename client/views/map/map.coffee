@@ -113,6 +113,7 @@ Meteor.startup ->
             position: l
             icon: '/images/speed_100.png'
             map: Map.map
+            zIndex: 10
 
         Map.path.polyline = Map.createDefaultPolyline path
 
@@ -223,6 +224,7 @@ rerenderMarkers = ->
           title: Vehicles.findOne(_id: location.vehicleId).identificationNumber
           icon: truckIcon
           data: location
+          zIndex: 100
         google.maps.event.addListener marker, 'click', ->
           vehicle = Vehicles.findOne(_id: marker.data.vehicleId)
           infowindow = new google.maps.InfoWindow
