@@ -387,7 +387,7 @@ Schema.driverVehicleAssignments = new SimpleSchema
         datetimePickerOptions: '''{
           "timePick": "false",
           "language": "bg",
-          "format": "Do MMMM YYYY, HH:mm"}'''
+          "format": "Do MMMM YYYY"}'''
 
    endAssignmentTime:
       type:Date
@@ -397,4 +397,4 @@ Schema.driverVehicleAssignments = new SimpleSchema
         datetimePickerOptions: '''{
           "timePick": false,
           "language": "bg",
-          "format": "Do MMMM"}'''
+          "format": "Do MMMM YYYY"}'''
