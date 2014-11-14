@@ -29,9 +29,9 @@ Alarms.alarmText = (alarm) ->
     when "overspeeding"
       "Превишена скорост: #{licensePlate} скорост: #{Math.round(alarm.speed)} км/ч"
     when "longStay"
-      "Продължителен престой: #{licensePlate} скорост: #{alarm.stay} секунди"
+      "Продължителен престой: #{licensePlate} време: #{moment.duration(alarm.stay,'seconds').humanize()}"
     when "unasignedDriver"
-      "Без асоцииран шофьор: #{licensePlate}"
+      "Кола без асоцииран шофьор: #{licensePlate}"
 
 Alarms.addAlarms = (doc) ->
   if doc.speed > 100
