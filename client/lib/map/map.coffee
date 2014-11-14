@@ -64,22 +64,30 @@ Meteor.startup ->
       Map.speedClusterer = createSpeedClusterer Map.map
       Map.vehicleClusterer = createVehicleClusterer Map.map
 
-      Map.addListener 'idle', ->
-        markers = Vehicles.findFiltered('vehicleFilter', ['licensePlate', 'tags']).map (vehicle) ->
-          location = vehicle.lastLocation
-          if location
-            m = new VehicleMarker vehicle, location
-            m.addListener 'click', ->
-              new FleetrInfoWindow(vehicle, @location).open Map.map, m
-            m
-        Map.deleteVehicleMarkers()
-        Map.showVehicleMarkers markers
+      google.maps.event.addListenerOnce Map.map, 'idle', Map.renderMarkers
       Map.addListener 'click', (e) ->
         pos = {coords: {longitude: e.latLng.lng(), latitude: e.latLng.lat()}}
         Locations.save(Session.get('selectedVehicleId'), pos)
 
       Autocomplete.init Map.map
       cb && cb()
+
+    renderMarkers: ->
+      markers = Vehicles.findFiltered('vehicleFilter', ['licensePlate', 'tags']).map (vehicle) ->
+        location = vehicle.lastLocation
+        if location
+          m = new VehicleMarker vehicle, location
+          m.addListener 'click', ->
+            new FleetrInfoWindow(vehicle, @location).open Map.map, m
+          m
+      Map.deleteVehicleMarkers()
+      Map.showVehicleMarkers markers
+
+      selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
+      Map.setCenter selectedVehicle?.lastLocation
+      locations = selectedVehicle?.lastLocations()
+      Map.showPath locations
+      Map.showSpeedMarkers locations
 
     addLocation: (lat, lng, speed, stay) ->
       Meteor.call 'addLocation',
@@ -92,11 +100,11 @@ Meteor.startup ->
       google.maps.event.addListener Map.map, event, listener
 
     showVehicleMarkers: (markers) ->
-      Map.vehicleClusterer?.addMarkers(markers.filter (m) -> m if m)
+      Map.vehicleClusterer?.addMarkers(markers?.filter (m) -> m if m)
 
     showSpeedMarkers: (speedLocations) ->
       speedMarkers = speedLocations?.map (location) -> new SpeedMarker(location)
-      Map.speedClusterer?.addMarkers(speedMarkers.filter (m) -> m if m)
+      Map.speedClusterer?.addMarkers(speedMarkers?.filter (m) -> m if m)
 
     setCenter: (location) ->
       if location

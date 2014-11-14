@@ -5,12 +5,7 @@ Template.map.rendered = ->
   Map.init =>
     @autorun ->
       Meteor.subscribe 'locations', Session.get('selectedVehicleId')
-      , Session.get("mapDateRangeFrom"), Session.get("mapDateRangeTo"), ->
-        selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
-        Map.setCenter selectedVehicle?.lastLocation
-        locations = selectedVehicle?.lastLocations()
-        Map.showPath locations
-        Map.showSpeedMarkers locations
+      , Session.get("mapDateRangeFrom"), Session.get("mapDateRangeTo"), Map.renderMarkers
 
   $("#hours_range").ionRangeSlider
     type : "double"
@@ -31,6 +26,7 @@ Template.map.rendered = ->
 
 Template.map.helpers
   selectedVehicleId: -> Session.get('selectedVehicleId')
+  renderMarkers: -> Map.renderMarkers()
 
 Template.map.created = -> Session.setDefault 'vehicleFilter', ''
 
