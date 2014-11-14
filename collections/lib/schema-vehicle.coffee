@@ -47,7 +47,7 @@ Schema.vehicle = new SimpleSchema
     type: String,
     optional:true
 
-  categoty:
+  category:
     type: String
     label: 'Категория'
     optional: true
@@ -63,12 +63,14 @@ Schema.vehicle = new SimpleSchema
     optional: true
     autoform:
       firstOption: "(Изберете)"
-      options: -> VehiclesInfo.find().map (vInfo) -> label: vInfo.name, value: vInfo._id
+      options: -> VehiclesMakes.find().map (make) -> label: make.name, value: make._id
 
   model:
     type: String
     label: 'Модел'
     optional: true
+    autoform:
+      firstOption: "(Изберете)"
 
   type:
     type: String

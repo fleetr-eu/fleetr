@@ -17,6 +17,9 @@ Template.vehicle.helpers
       {day:'Събота', seq:5}
       {day:'Неделя', seq:6}
     ]
+  modelOptions:->
+    VehiclesModels.find(makeId:@make).map (model) -> label: model.name, value: model._id
+
 
 Template.vehicle.events
   "click .btn-sm" : (e) ->

@@ -71,10 +71,10 @@
             <div class="row">
               <fieldset>
                   <div class="col-md-7">
-                    {{> afQuickField name="categoty" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="category" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
                     {{> afQuickField name="body" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
                     {{> afQuickField name="make" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6" allowOptions="true"}}
-                    {{> afQuickField name="model" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="model" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6" options=modelOptions allowOptions="true"}}
                     {{> afQuickField name="type" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
                     {{> afQuickField name="mass" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
                     {{> afQuickField name="maxSpeed" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
@@ -101,10 +101,7 @@
                     <legend>Налягане на спирачките</legend>
                     {{> afQuickField name="brakeAirPressure.singlePipes" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
                     {{> afQuickField name="brakeAirPressure.twoPipes" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
-                    <legend>Други данни</legend>
-                    {{> afQuickField name="maxSpeed" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
-
-              </div>
+                  </div>
               </fieldset>
             </div>
           </div>

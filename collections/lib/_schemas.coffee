@@ -219,8 +219,6 @@ Schema.driver = new SimpleSchema
     label: "Активен"
     optional: true
 
-
-
 Schema.company = new SimpleSchema
   _id:
     type: String
