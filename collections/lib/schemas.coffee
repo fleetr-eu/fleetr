@@ -384,9 +384,17 @@ Schema.driverVehicleAssignments = new SimpleSchema
       label: "От"
       autoform:
         type: "datetimepicker"
+        datetimePickerOptions: '''{
+          "timePick": "false",
+          "language": "bg",
+          "format": "Do MMMM YYYY, HH:mm"}'''
 
    endAssignmentTime:
       type:Date
       label: "До"
       autoform:
         type: "datetimepicker"
+        datetimePickerOptions: '''{
+          "timePick": false,
+          "language": "bg",
+          "format": "Do MMMM"}'''
