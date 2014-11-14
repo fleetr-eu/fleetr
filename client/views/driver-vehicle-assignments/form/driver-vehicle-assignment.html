@@ -1,5 +1,4 @@
 <template name="driverVehicleAssignment">
-  {{#autoForm schema=driverVehicleAssignmentsSchema doc=driverVehicleAssignment id="driverVehicleAssignmentForm" type="method" meteormethod="submitDriverVehicleAssignment"}}
   <div class="page-bar">
     <ul class="page-breadcrumb">
       <li>
@@ -39,23 +38,22 @@
 
         <div class="tab-content">
           <div class="tab-pane active" id="tab_1">
+          {{#autoForm schema=driverVehicleAssignmentsSchema doc=driverVehicleAssignment id="driverVehicleAssignmentForm" type="method" meteormethod="submitDriverVehicleAssignment"}}
             <div class="row">
               <fieldset>
-                  <div class="col-md-7">
-                  	  {{> afFieldInput type="hidden" name="_id" value=_id}}
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-4" input-col-class="col-sm-8" name="driver"}}
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-4" input-col-class="col-sm-8" name="vehicle"}}
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-4" input-col-class="col-sm-8" name="beginAssignmentTime" type="datetime-local"}}
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-4" input-col-class="col-sm-8" name="endAssignmentTime" type="datetime-local"}}
+                <div class="col-md-6">
+                	  {{> afFieldInput type="hidden" name="_id" value=_id}}
+                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-4" input-col-class="col-sm-8" name="driver"}}
+                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-4" input-col-class="col-sm-8" name="vehicle" }}
+                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-4" input-col-class="col-sm-8" name="beginAssignmentTime" }}
+                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-4" input-col-class="col-sm-8" name="endAssignmentTime" }}
                   </div>
               </fieldset>
             </div>
+            {{/autoForm}}
           </div>
         </div>
-
       </div>
    </div>
  </div>
-{{/autoForm}}
-
 </template>

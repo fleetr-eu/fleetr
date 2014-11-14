@@ -202,7 +202,7 @@ Template.map.rendered = ->
     force_edges: true
     prettify: (num) ->
         m = moment(num, "X")
-        m.format("Do MMMM, HH:mm")
+        m.locale(Settings.locale).format("Do MMMM, HH:mm")
     onChange: (data) ->
       Session.set "mapDateRangeFrom", data.from
       Session.set "mapDateRangeTo", data.to

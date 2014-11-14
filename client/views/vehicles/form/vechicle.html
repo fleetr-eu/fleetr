@@ -84,21 +84,22 @@
 <template name="timePickersForDay">
   <tr>
     <td> {{day}} </td>
+
     <td>
       <div class="input-group date" id="timepicker{{seq}}From">
-        {{> afFieldInput name=fromField type="text"}}
-        <span class="input-group-addon">
-          <span class="glyphicon glyphicon-time"></span>
+        <span class="input-group-addon datepickerbutton">
+            <span class="glyphicon glyphicon-time"></span>
         </span>
+        {{> afFieldInput name=fromField type="text"}}
         <span class="help-block"></span>
       </div>
     </td>
     <td>
       <div class="input-group date" id="timepicker{{seq}}To">
-        {{> afFieldInput name=toField type="text"}}
-        <span class="input-group-addon">
-          <span class="glyphicon glyphicon-time"></span>
+        <span class="input-group-addon datepickerbutton">
+            <span class="glyphicon glyphicon-time"></span>
         </span>
+        {{> afFieldInput name=toField type="text"}}
         <span class="help-block"></span>
       </div>
     </td>

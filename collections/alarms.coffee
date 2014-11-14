@@ -1,5 +1,14 @@
 @Alarms = new Mongo.Collection 'alarms'
 
+Alarms.timeAgoStyle = (timestamp) ->
+  if moment(timestamp).add(1, "hours").toDate() < moment()
+    "color:red;"
+  else
+    if moment(timestamp).add(30, "minutes").toDate() < moment()
+      "color:orange;"
+    else
+      "color:navy;"
+
 Alarms.findFiltered = (term, unseenOnly) ->
   filter = {}
   if term
@@ -10,7 +19,6 @@ Alarms.findFiltered = (term, unseenOnly) ->
     filter['$or'] = [{tags: rx}]
   if unseenOnly then filter.seen = false
   Alarms.find filter
-
 
 Alarms.alarmText = (alarm) ->
   vehicle = Vehicles.findOne _id: alarm.vehicle

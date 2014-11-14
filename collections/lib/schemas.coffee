@@ -29,16 +29,22 @@ Schema.driver = new SimpleSchema
     type: Date
     label: "Дата на раждане"
     optional: true
+    autoform:
+      type: "bootstrap-datepicker"
   sex:
     type: String
     label: "Пол"
     optional: true
     allowedValues: ['Мъж', 'Жена']
+    autoform:
+      firstOption: "(Изберете)"
   idType:
     type: String
     label: "Вид"
     optional: true
     allowedValues: ['Лична карта', 'Паспорт']
+    autoform:
+      firstOption: "(Изберете)"
   idSerial:
     type: String
     label: "Серия"
@@ -51,11 +57,15 @@ Schema.driver = new SimpleSchema
     type: Date
     label: "Валиден от"
     optional: true
+    autoform:
+      type: "bootstrap-datepicker"
   validTo:
     type: Date
     label: "Валиден до"
     optional: true
     custom: -> if @value < @field('validFrom').value then 'validToBeforeValidFrom'
+    autoform:
+      type: "bootstrap-datepicker"
   issuedBy:
     type: String
     label: "Издаден от"
@@ -69,6 +79,8 @@ Schema.driver = new SimpleSchema
     label: "Кръвна група"
     optional: true
     allowedValues: ['A', 'B', '0', 'AB']
+    autoform:
+      firstOption: "(Изберете)"
   city:
     type: String
     label: "Град"
@@ -86,6 +98,7 @@ Schema.driver = new SimpleSchema
     label: "Държава"
     optional: true
     autoform:
+      firstOption: "(Изберете)"
       options: -> Countries.find().map (country) -> label: country.name, value: country._id
   email:
     type: String
@@ -108,10 +121,14 @@ Schema.driver = new SimpleSchema
     type: Date
     label: "Дата на издаване"
     optional: true
+    autoform:
+      type: "bootstrap-datepicker"
   licenseExpieryDate:
     type: Date
     label: "Валидно до"
     optional: true
+    autoform:
+      type: "bootstrap-datepicker"
   categoryA:
     type: Boolean
     optional: true
@@ -120,6 +137,8 @@ Schema.driver = new SimpleSchema
     type: Date
     optional: true
     label: 'от дата'
+    autoform:
+      type: "bootstrap-datepicker"
   categoryB:
     type: Boolean
     optional: true
@@ -128,6 +147,8 @@ Schema.driver = new SimpleSchema
     type: Date
     optional: true
     label: 'от дата'
+    autoform:
+      type: "bootstrap-datepicker"
   categoryC:
     type: Boolean
     optional: true
@@ -136,6 +157,8 @@ Schema.driver = new SimpleSchema
     type: Date
     optional: true
     label: 'от дата'
+    autoform:
+      type: "bootstrap-datepicker"
   categoryD:
     type: Boolean
     optional: true
@@ -144,6 +167,8 @@ Schema.driver = new SimpleSchema
     type: Date
     optional: true
     label: 'от дата'
+    autoform:
+      type: "bootstrap-datepicker"
   categoryE:
     type: Boolean
     optional: true
@@ -152,18 +177,26 @@ Schema.driver = new SimpleSchema
     type: Date
     optional: true
     label: 'от дата'
+    autoform:
+      type: "bootstrap-datepicker"
   medEvalExpieryDate:
     type: Date
     label: "Медицинско свидетелство: Валидно до"
     optional: true
+    autoform:
+      type: "bootstrap-datepicker"
   profCertExpieryDate:
     type: Date
     label: "Професионален сертификат: Валиден до"
     optional: true
+    autoform:
+      type: "bootstrap-datepicker"
   psychApprovalExpieryDate:
     type: Date
     label: "Удостоверението за психологическа годност: Валидно до"
     optional: true
+    autoform:
+      type: "bootstrap-datepicker"
   transportLicense:
     type: String
     label: "Транспортен лиценз"
@@ -209,6 +242,7 @@ Schema.vehicle = new SimpleSchema
     type: String
     label: "Автопарк"
     autoform:
+      firstOption: "(Изберете)"
       options: -> Fleets.find().map (fleet) -> label: fleet.name, value: fleet._id
 
   lastLocation:
@@ -219,6 +253,8 @@ Schema.vehicle = new SimpleSchema
   allocatedToFleetFromDate:
     type: Date
     label: "В автопарка от"
+    autoform:
+      type: "bootstrap-datepicker"
 
   workingSchedule:
     type: [Object]
@@ -253,6 +289,7 @@ Schema.fleet = new SimpleSchema
     type:String
     label: 'Група'
     autoform:
+      firstOption: "(Изберете)"
       options: -> Companies.find().map (group) -> label: group.name, value: group._id
 
 Schema.expenses = new SimpleSchema
@@ -260,11 +297,13 @@ Schema.expenses = new SimpleSchema
           type: String
           label: 'Шофьор'
           autoform:
+            firstOption: "(Изберете)"
             options: -> Drivers.find().map (driver) -> label: driver.name, value: driver._id
        vehicle:
           type:String
           label: "Автомобил"
           autoform:
+            firstOption: "(Изберете)"
             options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
        invoiceNr:
           type:String
@@ -272,6 +311,8 @@ Schema.expenses = new SimpleSchema
        date:
           type:Date
           label: "Дата"
+          autoform:
+            type: "bootstrap-datepicker"
        fuelType:
           type:String
           label: "Вид гориво"
@@ -303,16 +344,20 @@ Schema.driverEvents = new SimpleSchema
     type: String
     label: 'Шофьор'
     autoform:
+      firstOption: "(Изберете)"
       options: -> Drivers.find().map (driver) ->
         { label: driver.firstName+" "+driver.name, value: driver._id}
   eventType:
     type:String
     label: "Събитие"
     autoform:
+      firstOption: "(Изберете)"
       options: -> EventTypes.find().map (event) -> label: event.name, value: event._id
   date:
     type:Date
     label: "Дата"
+    autoform:
+      type: "bootstrap-datepicker"
   description:
     type:String
     label: "Описание"
@@ -324,21 +369,24 @@ Schema.driverVehicleAssignments = new SimpleSchema
    driver:
       type: String
       label: 'Шофьор'
-      optional: true
       autoform:
+        firstOption: "(Изберете)"
         options: -> Drivers.find().map (driver) ->
           { label: driver.firstName+" "+driver.name, value: driver._id}
    vehicle:
       type:String
       label: "Автомобил"
-      optional: true
       autoform:
+        firstOption: "(Изберете)"
         options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
    beginAssignmentTime:
       type:Date
       label: "От"
-      optional: true
+      autoform:
+        type: "datetimepicker"
+
    endAssignmentTime:
       type:Date
       label: "До"
-      optional: true
+      autoform:
+        type: "datetimepicker"

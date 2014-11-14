@@ -16,15 +16,15 @@ Template.driverVehicleAssignmentTableRow.helpers
       "#{foundDriver.firstName} #{foundDriver.name}"
     else
       ""
-  vehicleLicensePlate:-> 
+  vehicleLicensePlate:->
     foundVehicle = Vehicles.findOne {_id: @vehicle}
     if foundVehicle
       foundVehicle.licensePlate
     else
       ""
   active: -> if @_id == Session.get('selectedDriverVehicleAssignmentId') then 'active' else ''
-  beginTime: -> moment(@beginAssignmentTime).format('Do MMMM YYYY, h:mm:ss a')
-  endTime: -> moment(@endAssignmentTime).format('Do MMMM YYYY, h:mm:ss a')
+  beginTime: -> moment(@beginAssignmentTime).locale(Settings.locale).format(Settings.longDateTimeFormat)
+  endTime: -> moment(@endAssignmentTime).locale(Settings.locale).format(Settings.longDateTimeFormat)
 
 Template.driverVehicleAssignmentTableRow.events
   'click tr': -> Session.set 'selectedDriverVehicleAssignmentId', @_id

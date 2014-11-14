@@ -1,19 +1,9 @@
 Template.vehicle.rendered = ->
-  $('#timepicker0From').datetimepicker pickDate: false
-  $('#timepicker0To').datetimepicker pickDate: false
-  $('#timepicker1From').datetimepicker pickDate: false
-  $('#timepicker1To').datetimepicker pickDate: false
-  $('#timepicker2From').datetimepicker pickDate: false
-  $('#timepicker2To').datetimepicker pickDate: false
-  $('#timepicker3From').datetimepicker pickDate: false
-  $('#timepicker3To').datetimepicker pickDate: false
-  $('#timepicker4From').datetimepicker pickDate: false
-  $('#timepicker4To').datetimepicker pickDate: false
-  $('#timepicker5From').datetimepicker pickDate: false
-  $('#timepicker5To').datetimepicker pickDate: false
-  $('#timepicker6From').datetimepicker pickDate: false
-  $('#timepicker6To').datetimepicker pickDate: false
-  $('#datepicker').datetimepicker
+  i = 0
+  while i < 7
+    $("#timepicker#{i}From").datetimepicker pickDate: false, language:Settings.locale
+    $("#timepicker#{i}To").datetimepicker pickDate: false, language:Settings.locale
+    i++
 
 Template.vehicle.helpers
   vehicleSchema: -> Schema.vehicle

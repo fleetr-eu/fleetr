@@ -23,7 +23,7 @@ Template.alarmTableRow.helpers
 
   alarmText: -> Alarms.alarmText(@) + " "
 
-  timeElapsed: -> moment(@timestamp).from(moment())
+  timeAgo: -> moment(@timestamp).locale(Settings.locale).from(moment())
 
   tagsArray: ->
     if @tags
@@ -31,14 +31,7 @@ Template.alarmTableRow.helpers
     else
       []
 
-  style: ->
-      if moment()-moment(@timestamp) > 3600000
-        "color:red;"
-      else
-        if moment()-moment(@timestamp) > 900000
-          "color:orange;"
-        else
-          "color:navy;"
+  style: -> Alarms.timeAgoStyle(@timestamp)
 
 Template.alarmTableRow.events
   'click .filter-tag': (e) ->

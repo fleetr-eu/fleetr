@@ -21,4 +21,7 @@ mrt:moment
 zimme:iron-router-active
 joshowens:accounts-entry
 dburles:collection-helpers
+aldeed:autoform-bs-datepicker
+rajit:bootstrap3-datepicker
+tsega:bootstrap3-datetimepicker
 

@@ -1,5 +1,15 @@
 @Notifications = new Mongo.Collection 'notifications'
 
+Notifications.daysToExpireStyle = (expieryDate) ->
+
+  if expieryDate < moment().add(2, 'days').toDate()
+    "color:red;"
+  else
+    if expieryDate < moment().add(5, 'days').toDate()
+      "color:orange;"
+    else
+      "color:navy;"
+
 Notifications.findFiltered = (term, unseenOnly) ->
   filter = {}
   if term
@@ -12,7 +22,5 @@ Notifications.findFiltered = (term, unseenOnly) ->
   Notifications.find filter
 
 Notifications.getExpiringNotications = (afterDate) ->
-  if afterDate
-    Notifications.find {seen: false, expieryDate: {"$lte": afterDate}}, {sort: {expieryDate: 1}}
-  else
-    Notifications.find {seen: false}, {sort: {expieryDate: 1}}
+  afterDate = moment().add(10, 'days').toDate()
+  Notifications.find {seen: false, expieryDate: {$lte: new Date(afterDate)}}, {sort: {expieryDate: 1}, }

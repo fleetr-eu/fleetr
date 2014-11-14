@@ -15,26 +15,18 @@ Template.notificationsList.events
 
 Template.notificationTableRow.helpers
   notificationMessage: ->
-    moment.lang("bg")
-    @notificationText+" на "+ moment(@expieryDate).format('DD-MM-YYYY')+" "
+    @notificationText+" на "+ moment(@expieryDate).locale(Settings.locale).format(Settings.longDateFormat)+" "
   seenIcon: ->
     if @seen
       'fa-bell-slash-o'
     else
       'fa-bell-o'
   daysToExpire: ->
-    moment(@expieryDate).from(moment())
+    moment(@expieryDate).locale(Settings.locale).from(moment())
 
-  style: ->
-      if @expieryDate < moment().add(10, 'days').toDate()
-        "color:red;"
-      else
-        ""
-  tagsArray: ->
-    if @tags
-      @tags.split(",")
-    else
-      []
+  style: -> Notifications.daysToExpireStyle(@expieryDate)
+  tagsArray: -> @tags?.split(",") || []
+
 
 Template.notificationTableRow.events
   'click .filter-tag': (e) ->
