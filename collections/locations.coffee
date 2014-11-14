@@ -1,8 +1,13 @@
 @Locations = new Mongo.Collection 'locations'
 
+Locations.helpers
+  vehicle: -> Vehicles.findOne _id: location.vehicleId
+
 Locations.before.insert (userId, doc) ->
   doc.timestamp ?= Date.now()
   Vehicles.update {_id: doc.vehicleId}, {$set: {lastLocation: doc}}
+
+Locations.after.insert (userId, doc) -> Alarms.addAlarms(doc)
 
 Locations.findForVehicles = (vehicleIds) ->
     Locations.find {vehicleId: {$in: vehicleIds}}, {sort: {timestamp: -1}}
@@ -23,8 +28,8 @@ Locations.getSpeed = (distance, timestamp1, timestamp2) ->
   speed_mps * 3.6
 
 Locations.log = ->
-    if (navigator.geolocation)
-      navigator.geolocation.getCurrentPosition(Locations.processLocation)
+  if (navigator.geolocation)
+    navigator.geolocation.getCurrentPosition(Locations.processLocation)
 
 Locations.processLocation = (pos)->
   if Session.get("loggedVehicle")
@@ -52,6 +57,3 @@ Locations.saveToDatabase = (loc, speed, stay, distance, vehicleId )->
     stay: stay
     distance: distance
     vehicleId: vehicleId
-
-Locations.after.insert (userId, doc) ->
-  Alarms.addAlarms(doc)
