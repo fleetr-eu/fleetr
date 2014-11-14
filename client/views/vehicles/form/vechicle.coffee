@@ -4,6 +4,7 @@ Template.vehicle.rendered = ->
     $("#timepicker#{i}From").datetimepicker pickDate: false, language:Settings.locale
     $("#timepicker#{i}To").datetimepicker pickDate: false, language:Settings.locale
     i++
+  Session.set "selectedMake", ""
 
 Template.vehicle.helpers
   vehicleSchema: -> Schema.vehicle
@@ -18,7 +19,7 @@ Template.vehicle.helpers
       {day:'Неделя', seq:6}
     ]
   modelOptions:->
-    VehiclesModels.find(makeId:@make).map (model) -> label: model.name, value: model._id
+    VehiclesModels.find(makeId:Session.get("selectedMake")).map (model) -> label: model.name, value: model._id
 
 
 Template.vehicle.events
@@ -26,6 +27,7 @@ Template.vehicle.events
     $("#vehicleForm").submit()
   "click .btn-reset" : (e) ->
     AutoForm.resetForm("vehicleForm")
+  'change select[name="make"]': (e, tpl) -> Session.set "selectedMake", tpl.$('select[name="make"]').val()
 
 Template.timePickersForDay.helpers
   fromField:->
