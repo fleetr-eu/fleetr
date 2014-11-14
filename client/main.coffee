@@ -8,6 +8,7 @@ Meteor.subscribe 'expenses'
 Meteor.subscribe 'notifications'
 Meteor.subscribe 'alarms'
 Meteor.subscribe 'driverVehicleAssignments'
+Meteor.subscribe 'vehiclesInfo'
 
 Session.setDefault 'filterAlarms', ''
 Session.setDefault 'filterNotifications', ''

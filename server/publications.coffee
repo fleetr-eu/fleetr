@@ -1,6 +1,7 @@
 Meteor.publish 'drivers', () -> Drivers.find {}
 Meteor.publish 'countries', () -> Countries.find {}
 Meteor.publish 'vehicles', () -> Vehicles.find {}
+Meteor.publish 'vehiclesInfo', () -> VehiclesInfo.find {}
 Meteor.publish 'companies', () -> Companies.find {}, {$sort: {name: 1}}
 Meteor.publish 'fleets', () -> Fleets.find {}
 Meteor.publish 'expenses', () -> Expenses.find {}

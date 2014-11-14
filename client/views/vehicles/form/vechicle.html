@@ -37,6 +37,14 @@
           </li>
           <li>
             <a href="#tab_2" data-toggle="tab">
+            Модел </a>
+          </li>
+          <li>
+            <a href="#tab_3" data-toggle="tab">
+            Двигател </a>
+          </li>
+          <li>
+            <a href="#tab_4" data-toggle="tab">
             График </a>
           </li>
         </ul>
@@ -58,7 +66,49 @@
               </fieldset>
             </div>
           </div>
+
           <div class="tab-pane" id="tab_2">
+            <div class="row">
+              <fieldset>
+                  <div class="col-md-7">
+                    {{> afQuickField name="categoty" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="body" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="make" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6" allowOptions="true"}}
+                    {{> afQuickField name="model" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="type" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="mass" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="maxSpeed" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                </div>
+              </fieldset>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="tab_3">
+            <div class="row">
+              <fieldset>
+                  <div class="col-md-6">
+                    <legend>Двигател</legend>
+                    {{> afQuickField name="engine.type" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="engine.powerSource" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="engine.cylinder" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="engine.maxPower" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="еngine.traction" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="engine.axes" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="engine.noiseLevelTravelling" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="engine.noiseLevelIdling" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                  </div>
+                  <div class="col-md-6">
+                    <legend>Налягане на спирачките</legend>
+                    {{> afQuickField name="brakeAirPressure.singlePipes" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="brakeAirPressure.twoPipes" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    <legend>Други данни</legend>
+                    {{> afQuickField name="maxSpeed" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+
+              </div>
+              </fieldset>
+            </div>
+          </div>
+          <div class="tab-pane" id="tab_4">
             <fieldset>
               <div class="table-responsive">
                 <table class="table table-striped vehicle-schedule-table" cellpadding="10">
