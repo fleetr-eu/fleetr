@@ -35,4 +35,4 @@ AutoForm.hooks
     onError: (operation, error, template) ->
       Meteor.defer ->
         id = template.$('.has-error').closest('div.tab-pane').attr('id')
-        template.$("a[href=##{id}]").tab('show')
+        @$("a[href=##{id}]").tab('show')
