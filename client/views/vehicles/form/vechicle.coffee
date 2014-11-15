@@ -7,7 +7,6 @@ Template.vehicle.rendered = ->
   Session.set "selectedMake", ""
 
 Template.vehicle.helpers
-  vehicleSchema: -> Schema.vehicle
   vehicle: -> Vehicles.findOne _id: @vehicleId
   days:-> [
       {day:'Понеделник', seq:0}

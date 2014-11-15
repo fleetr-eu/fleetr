@@ -1,9 +1,9 @@
-<template name="companies">
+<template name="fleetGroups">
 		{{> pageHeader}}
     <div class="row">
         <div class="col-md-5">
 						<ul class="list-group">
-								{{#each companies}}
+								{{#each fleetGroups}}
 								<li class="list-group-item">
 									<h4>
 											<i class="excol-group fa fa-{{excolIcon}}"></i>
@@ -42,8 +42,8 @@
 </template>
 
 <template name="detailsForm">
-		{{#autoForm schema=companySchema id="companyForm" doc=editingGroup type="method" meteormethod="submitCompany"}}
-	      <div class="form" id="company-info">
+		{{#autoForm collection="FleetGroups" id="fleetGroupForm" doc=editingGroup type="method" meteormethod="submitFleetGroup"}}
+	      <div class="form" id="fleetGroup-info">
 	          <fieldset>
 	          	  <legend>Иформация за групата</legend>
 	              {{> afFieldInput type="hidden" name="_id" value=_id}}
@@ -58,7 +58,7 @@
 </template>
 
 <template name="fleetForm">
-    {{#autoForm schema=fleetSchema id="fleetForm" doc=editingFleet type="method" meteormethod="submitFleet"}}
+    {{#autoForm collection="Fleets" id="fleetForm" doc=editingFleet type="method" meteormethod="submitFleet"}}
         <div class="form" id="fleet-info">
             <fieldset>
             	  <legend>Иформация за автопарка</legend>

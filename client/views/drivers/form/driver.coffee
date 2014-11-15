@@ -8,7 +8,6 @@ Template.driver.rendered = ->
     Session.set 'driverImage', '/images/200x200.jpg'
 
 Template.driver.helpers
-  driverSchema: -> Schema.driver
   driverImage: ->
      Session.get 'driverImage'
   driver: -> Drivers.findOne _id: @driverId

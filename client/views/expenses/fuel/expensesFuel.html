@@ -26,7 +26,7 @@
         <div class="tab-content">
           <div class="tab-pane active" id="tab_1">
             <div class="row">
-              {{#autoForm doc=expensesFuel schema=expensesFuelSchema id="expensesFuelForm"}}
+              {{#autoForm doc=expensesFuel collection="Expenses" id="expensesFuelForm"}}
                   <fieldset>
                     <div class="col-md-7">
                       {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="driver"}}
@@ -36,10 +36,10 @@
                       {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="fuelType" options="allowed"}}
                       {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="litres"}}
                       {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="pricePerLitre"}}
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="vatIncluded" leftLabel="true"}}
                       {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="totalVATIncluded"}}
                       {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="mileage"}}
                       {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="gasStationName"}}
+                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="vatIncluded" leftLabel="true"}}
                     </div>
                 </fieldset>
                 {{/autoForm}}
@@ -49,5 +49,4 @@
       </div>
     </div>
   </div>
-
 </template>
