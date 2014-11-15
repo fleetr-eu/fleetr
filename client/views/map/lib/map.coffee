@@ -39,6 +39,7 @@ Meteor.startup ->
       Map.setCenter selectedVehicle?.lastLocation
       locations = selectedVehicle?.lastLocations()
       Map.showPath locations
+      console.log locations
       Map.showSpeedMarkers selectedVehicle, locations
 
     addLocation: (lat, lng, speed, stay) ->
@@ -55,8 +56,10 @@ Meteor.startup ->
       Map.vehicleClusterer?.addMarkers(markers?.filter (m) -> m if m)
 
     showSpeedMarkers: (vehicle, speedLocations) ->
+      console.log speedLocations
       speedMarkers = speedLocations?.map (location) ->
-        new SpeedMarker(location).withInfo(vehicle, location, Map.map)
+        if location?.speed >= Settings.maxSpeed
+          new SpeedMarker(location).withInfo(vehicle, location, Map.map)
       Map.speedClusterer?.addMarkers(speedMarkers?.filter (m) -> m if m)
 
     setCenter: (location) ->
