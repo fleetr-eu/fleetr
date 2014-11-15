@@ -24,8 +24,15 @@ Meteor.startup ->
     constructor: (@location) ->
       super
         position: new FleetrLatLng location
-        icon: '/images/speed_100.png'
+        icon: '/images/speed/100.png'
         zIndex: 10
+
+  class @LongStayMarker extends FleetrMarker
+    constructor: (@location) ->
+      super
+        position: new FleetrLatLng location
+        icon: '/images/stay/clock-red.png'
+        zIndex: 15
 
   class @VehicleMarker extends FleetrMarker
     constructor: (vehicle, @location) ->

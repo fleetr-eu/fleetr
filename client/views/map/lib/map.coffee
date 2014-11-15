@@ -17,6 +17,7 @@ Meteor.startup ->
       Map.options.center = lat: position.coords.latitude, lng: position.coords.longitude
       Map.map = new google.maps.Map document.getElementById("map-canvas"), Map.options
       Map.speedClusterer = createSpeedClusterer Map.map
+      Map.stayClusterer = createStayClusterer Map.map
       Map.vehicleClusterer = createVehicleClusterer Map.map
 
       google.maps.event.addListenerOnce Map.map, 'idle', Map.renderMarkers
@@ -39,7 +40,7 @@ Meteor.startup ->
       Map.setCenter selectedVehicle?.lastLocation
       locations = selectedVehicle?.lastLocations()
       Map.showPath locations
-      Map.showSpeedMarkers selectedVehicle, locations
+      Map.showPathMarkers selectedVehicle, locations
 
     addLocation: (lat, lng, speed, stay) ->
       Meteor.call 'addLocation',
@@ -54,11 +55,14 @@ Meteor.startup ->
     showVehicleMarkers: (markers) ->
       Map.vehicleClusterer?.addMarkers(markers?.filter (m) -> m if m)
 
-    showSpeedMarkers: (vehicle, speedLocations) ->
-      speedMarkers = speedLocations?.map (location) ->
+    showPathMarkers: (vehicle, locations) ->
+      locations?.forEach (location) ->
         if location?.speed >= Settings.maxSpeed
-          new SpeedMarker(location).withInfo(vehicle, location, Map.map)
-      Map.speedClusterer?.addMarkers(speedMarkers?.filter (m) -> m if m)
+          m = new SpeedMarker(location).withInfo(vehicle, location, Map.map)
+          Map.speedClusterer?.addMarker m
+        if location?.stay >= Settings.maxStay
+          m = new LongStayMarker(location).withInfo(vehicle, location, Map.map)
+          Map.stayClusterer?.addMarker m
 
     setCenter: (location) ->
       if location
@@ -84,6 +88,7 @@ Meteor.startup ->
       Map.path?.infoMarkers?.forEach (m) -> m.setMap null
       Map.path = {infoMarkers: []}
       Map.speedClusterer?.clearMarkers()
+      Map.stayClusterer?.clearMarkers()
 
     deleteVehicleMarkers: -> Map.vehicleClusterer?.clearMarkers()
 
