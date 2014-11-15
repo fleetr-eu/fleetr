@@ -63,10 +63,10 @@ Meteor.startup ->
 
     @route 'addFleet',
       path: '/fleets/add'
-      template: 'company'
+      template: 'fleetGroup'
     @route 'listFleets',
       path: '/fleets/list'
-      template: 'companies'
+      template: 'fleetGroups'
       data: -> {pageTitle: 'Автопаркове'}
     @route 'mapFleets',
       path: '/fleets/map'

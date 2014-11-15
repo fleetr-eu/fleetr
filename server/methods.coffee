@@ -13,9 +13,9 @@ Meteor.methods
 
   removeVehicle: (doc) -> Vehicles.remove _id : doc
 
-  submitCompany: (doc, diff) -> Companies.submit(doc, diff)
+  submitFleetGroup: (doc, diff) -> FleetGroups.submit(doc, diff)
 
-  removeCompany: (doc) -> Companies.remove _id : doc
+  removeFleetGroup: (doc) -> FleetGroups.remove _id : doc
 
   addLocation: (doc) -> Locations.insert doc
 

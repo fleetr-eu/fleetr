@@ -24,73 +24,85 @@
           </li>
           <li>
             <a href="#tab_2" data-toggle="tab">
-            Документ за самоличност </a>
+            Информация за контакт</a>
           </li>
           <li>
             <a href="#tab_3" data-toggle="tab">
-            Информация за контакт </a>
+            Документи</a>
           </li>
           <li>
             <a href="#tab_4" data-toggle="tab">
-            Свидетелство за управление</a>
-          </li>
-          <li>
-            <a href="#tab_5" data-toggle="tab">
-            Професионални данни </a>
+            Допълнителни данни </a>
           </li>
         </ul>
-        {{#autoForm doc=driver schema=driverSchema id="driverForm"}}
+        {{#autoForm doc=driver collection="Drivers" id="driverForm"}}
         <div class="tab-content">
           <div class="tab-pane active" id="tab_1">
             <div class="row">
               <fieldset>
-                <div class="col-md-5">
+                <div class="col-md-6">
                     {{> afFieldInput type="hidden" name="_id" value=_id}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="firstName"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="name"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="ssn"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="birthDate"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="sex" options="allowed"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="education" options="allowed"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="active" leftLabel="true"}}
+                    {{> afQuickField name="firstName"}}
+                    {{> afQuickField name="name"}}
+                    {{> afQuickField name="ssn"}}
+                    {{> afQuickField name="birthDate"}}
+                    {{> afQuickField name="sex"}}
+                    {{> afQuickField name="education"}}
+                    {{> afQuickField name="active"}}
                 </div>
-                <div class="col-md-4">
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-3" input-col-class="col-sm-9" name="tags"}}
-                </div>
-                <div class="col-md-3">
-                  <img id="driverImage" src="{{driverImage}}" alt="Driver Photo" />
+                <div class="col-md-6">
+                  {{> afQuickField name="tags"}}
+                  <img id="driverImage" src="{{driverImage}}" alt="Снимка на щофьора" />
                   <input id="picture" name="picture" type="file"/>
                 </div>
               </fieldset>
             </div>
           </div>
           <div class="tab-pane" id="tab_2">
-            <div class="row">  <fieldset>
+            <div class="row">
+                <fieldset>
                   <div class="col-md-6">
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="idType" options="allowed"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="idSerial"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="idNo"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="validFrom"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="validTo"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="issuedBy"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="birthPlace"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="bloodGroup" options="allowed"}}
+                      {{> afQuickField name="city"}}
+                      {{> afQuickField name="address"}}
+                      {{> afQuickField name="county"}}
+                      {{> afQuickField name="country"}}
+                      {{> afQuickField name="email"}}
+                      {{> afQuickField name="mobile"}}
+                      {{> afQuickField name="officePhone"}}
+                      {{> afQuickField name="phone"}}
                   </div>
                 </fieldset>
             </div>
           </div>
           <div class="tab-pane" id="tab_3">
             <div class="row">
-                <fieldset>
+              <fieldset>
                   <div class="col-md-6">
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="city"}}
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="address"}}
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="county"}}
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="country"}}
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="email"}}
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="mobile"}}
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="officePhone"}}
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="phone"}}
+                    <legend>Документ за самоличност</legend>
+                    {{> afQuickField name="idType"}}
+                    {{> afQuickField name="idSerial"}}
+                    {{> afQuickField name="idNo"}}
+                    {{> afQuickField name="validFrom"}}
+                    {{> afQuickField name="validTo"}}
+                    {{> afQuickField name="issuedBy"}}
+                    {{> afQuickField name="birthPlace"}}
+                    {{> afQuickField name="bloodGroup" }}
+                  </div>
+                  <div class="col-md-6">
+                    <legend>Документ за управление на МПС</legend>
+                    {{> afQuickField name="licenseIssueDate"}}
+                    {{> afQuickField name="licenseExpieryDate"}}
+                    <legend>Категории</legend>
+                    {{> afQuickField name="categoryA" }}
+                    {{> afQuickField name="categoryAIssueDate"}}
+                    {{> afQuickField name="categoryB" }}
+                    {{> afQuickField name="categoryBIssueDate"}}
+                    {{> afQuickField name="categoryC" }}
+                    {{> afQuickField name="categoryCIssueDate"}}
+                    {{> afQuickField name="categoryD" }}
+                    {{> afQuickField name="categoryDIssueDate"}}
+                    {{> afQuickField name="categoryE" }}
+                    {{> afQuickField name="categoryEIssueDate"}}
                   </div>
                 </fieldset>
             </div>
@@ -98,34 +110,13 @@
           <div class="tab-pane" id="tab_4">
             <div class="row">
               <fieldset>
-                <div class="col-md-6">
-                  {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="licenseIssueDate"}}
-                  {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-5" input-col-class="col-sm-7" name="licenseExpieryDate"}}
-                  <legend>Категории</legend>
-                  {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-1" input-col-class="col-sm-1" name="categoryA" leftLabel="true"}}
-                  {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-2" input-col-class="col-sm-8" name="categoryAIssueDate"}}
-                  {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-1" input-col-class="col-sm-1" name="categoryB" leftLabel="true"}}
-                  {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-2" input-col-class="col-sm-8" name="categoryBIssueDate"}}
-                  {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-1" input-col-class="col-sm-1" name="categoryC" leftLabel="true"}}
-                  {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-2" input-col-class="col-sm-8" name="categoryCIssueDate"}}
-                  {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-1" input-col-class="col-sm-1" name="categoryD" leftLabel="true"}}
-                  {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-2" input-col-class="col-sm-8" name="categoryDIssueDate"}}
-                  {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-1" input-col-class="col-sm-1" name="categoryE" leftLabel="true"}}
-                  {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-2" input-col-class="col-sm-8" name="categoryEIssueDate"}}
-                </div>
-              </fieldset>
-            </div>
-          </div>
-          <div class="tab-pane" id="tab_5">
-            <div class="row">
-              <fieldset>
                   <div class="col-md-8">
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-8" input-col-class="col-sm-4" name="medEvalExpieryDate"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-8" input-col-class="col-sm-4" name="profCertExpieryDate"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-8" input-col-class="col-sm-4" name="psychApprovalExpieryDate"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-8" input-col-class="col-sm-4" name="transportLicense"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-8" input-col-class="col-sm-4" name="ownsPersonalLicense" leftLabel="true"}}
-                    {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-8" input-col-class="col-sm-4" name="ownVehicle" }}
+                    {{> afQuickField name="medEvalExpieryDate"}}
+                    {{> afQuickField name="profCertExpieryDate"}}
+                    {{> afQuickField name="psychApprovalExpieryDate"}}
+                    {{> afQuickField name="transportLicense"}}
+                    {{> afQuickField name="ownsPersonalLicense"}}
+                    {{> afQuickField name="ownVehicle" }}
                   </div>
                 </fieldset>
             </div>

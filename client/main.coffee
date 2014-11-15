@@ -1,5 +1,5 @@
 Meteor.subscribe 'drivers'
-Meteor.subscribe 'companies'
+Meteor.subscribe 'fleetGroups'
 Meteor.subscribe 'fleets'
 Meteor.subscribe 'vehicles'
 Meteor.subscribe 'countries'

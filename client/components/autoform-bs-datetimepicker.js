@@ -44,8 +44,11 @@ Template.afBootstrapDatetimepicker.rendered = function () {
   var $input = this.$('input');
   var data = this.data;
 
+  console.log(data.atts.datetimePickerOptions);
   if (data.atts.datetimePickerOptions)  {
     $input.datetimepicker(JSON.parse(data.atts.datetimePickerOptions));
+  } else {
+    $input.datetimepicker({format:Settings.longDateTimeFormat, locale:Settings.locale});
   }
 // set and reactively update values
   this.autorun(function () {

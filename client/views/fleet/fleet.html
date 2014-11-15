@@ -1,6 +1,6 @@
 <template name="fleet">
   <div class="container">
-    {{#autoForm schema=fleetSchema id="fleetForm" type="method" meteormethod="submitFleet"}}
+    {{#autoForm collection="Fleets" id="fleetForm" type="method" meteormethod="submitFleet"}}
             <div class="form" id="fleet-info">
                 <div class="row">
                   <fieldset>

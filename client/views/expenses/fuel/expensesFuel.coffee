@@ -1,5 +1,4 @@
 Template.expensesFuel.helpers
-  expensesFuelSchema: -> Schema.expenses
   expensesFuel: -> Expenses.findOne _id: @expenseId
 
 Template.expensesFuel.events

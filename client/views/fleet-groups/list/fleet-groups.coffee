@@ -1,8 +1,8 @@
-Template.companies.created = ->
-  Session.setDefault 'groups.expandedGroups', _.pluck(Companies.find().fetch(), '_id')
+Template.fleetGroups.created = ->
+  Session.setDefault 'groups.expandedGroups', _.pluck(FleetGroups.find().fetch(), '_id')
 
-Template.companies.events
-  'click .deleteGroup': -> Meteor.call 'removeCompany', @_id
+Template.fleetGroups.events
+  'click .deleteGroup': -> Meteor.call 'removeFleetGroup', @_id
   'click .group': -> Session.set 'groups.selectedGroupId', @_id
   'click .excol-group': (e, tpl) ->
     groups = Session.get 'groups.expandedGroups'
@@ -12,8 +12,8 @@ Template.companies.events
       groups.push @_id
     Session.set 'groups.expandedGroups', groups
 
-Template.companies.helpers
-  companies: -> Companies.find {}, {$sort: {name: 1}}
+Template.fleetGroups.helpers
+  fleetGroups: -> FleetGroups.find {}, {$sort: {name: 1}}
   fleets: ->
     Fleets.find $and: [{parent: @_id}, {parent: {$in: Session.get('groups.expandedGroups')}}]
   fleetCount: -> Fleets.find(parent: @_id).count()
@@ -24,8 +24,7 @@ Template.fleetsPerGroup.events
   'click .fleet': -> Session.set 'groups.selectedFleetId', @_id
 
 Template.detailsForm.helpers
-  editingGroup: -> Companies.findOne _id: Session.get('groups.selectedGroupId')
-  companySchema: -> Schema.company
+  editingGroup: -> FleetGroups.findOne _id: Session.get('groups.selectedGroupId')
 
 Template.detailsForm.events
   'click .reset': -> Session.set 'groups.selectedGroupId', null

@@ -1,8 +1,8 @@
 Template.drilldownReport.created = ->
-  Session.setDefault 'drilldownReport.includedGroups', _.pluck(Companies.find().fetch(), '_id')
+  Session.setDefault 'drilldownReport.includedGroups', _.pluck(FleetGroups.find().fetch(), '_id')
 
 Template.drilldownReport.helpers
-  groups: -> Companies.find()
+  groups: -> FleetGroups.find()
 
 Template.fleetRows.helpers
   fleets: ->

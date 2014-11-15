@@ -1,18 +1,5 @@
 <template name="vehicle">
-  {{#autoForm schema=vehicleSchema doc=vehicle id="vehicleForm" type="method" meteormethod="submitVehicle"}}
-  <div class="page-bar">
-    <ul class="page-breadcrumb">
-      <li>
-        <i class="fa fa-home"></i>
-        <a href="/">Начало</a>
-        <i class="fa fa-angle-right"></i>
-      </li>
-      <li>
-        <a href="#">Автомобил</a>
-      </li>
-    </ul>
-  </div>
-  <div class="portlet box blue-hoki">
+<div class="portlet box blue-hoki">
     <div class="portlet-title">
       <div class="caption">
         <i class="icon-car"></i>Автомобил
@@ -28,7 +15,7 @@
       </div>
     </div>
     <div class="portlet-body">
-      <!-- Nav tabs -->
+      {{#autoForm collection="Vehicles" doc=vehicle id="vehicleForm" type="method" meteormethod="submitVehicle"}}
       <div class="tabbable-custom">
         <ul class="nav nav-tabs">
           <li class="active">
@@ -41,7 +28,7 @@
           </li>
           <li>
             <a href="#tab_3" data-toggle="tab">
-            Двигател </a>
+            Двигател и спирачки</a>
           </li>
           <li>
             <a href="#tab_4" data-toggle="tab">
@@ -53,14 +40,14 @@
           <div class="tab-pane active" id="tab_1">
             <div class="row">
               <fieldset>
-                  <div class="col-md-7">
+                  <div class="col-md-6">
                   	  {{> afFieldInput type="hidden" name="_id" value=_id}}
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6" name="licensePlate"}}
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6" name="identificationNumber"}}
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6" name="allocatedToFleet"}}
-                      {{> afQuickField template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6" name="allocatedToFleetFromDate"}}
+                      {{> afQuickField name="licensePlate"}}
+                      {{> afQuickField name="identificationNumber"}}
+                      {{> afQuickField name="allocatedToFleet"}}
+                      {{> afQuickField name="allocatedToFleetFromDate"}}
                     </div>
-                  <div class="col-md-5">
+                  <div class="col-md-6">
                     {{> afQuickField name="tags"}}
                   </div>
               </fieldset>
@@ -71,13 +58,13 @@
             <div class="row">
               <fieldset>
                   <div class="col-md-7">
-                    {{> afQuickField name="category" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
-                    {{> afQuickField name="body" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
-                    {{> afQuickField name="make" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6" allowOptions="true"}}
-                    {{> afQuickField name="model" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6" options=modelOptions allowOptions="true"}}
-                    {{> afQuickField name="type" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
-                    {{> afQuickField name="mass" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
-                    {{> afQuickField name="maxSpeed" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="category"}}
+                    {{> afQuickField name="body"}}
+                    {{> afQuickField name="make"}}
+                    {{> afQuickField name="model" options=modelOptions}}
+                    {{> afQuickField name="type"}}
+                    {{> afQuickField name="mass"}}
+                    {{> afQuickField name="maxSpeed"}}
                 </div>
               </fieldset>
             </div>
@@ -88,19 +75,19 @@
               <fieldset>
                   <div class="col-md-6">
                     <legend>Двигател</legend>
-                    {{> afQuickField name="engine.type" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
-                    {{> afQuickField name="engine.powerSource" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
-                    {{> afQuickField name="engine.cylinder" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
-                    {{> afQuickField name="engine.maxPower" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
-                    {{> afQuickField name="еngine.traction" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
-                    {{> afQuickField name="engine.axes" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
-                    {{> afQuickField name="engine.noiseLevelTravelling" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
-                    {{> afQuickField name="engine.noiseLevelIdling" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="engine.type"}}
+                    {{> afQuickField name="engine.powerSource"}}
+                    {{> afQuickField name="engine.cylinder"}}
+                    {{> afQuickField name="engine.maxPower"}}
+                    {{> afQuickField name="еngine.traction"}}
+                    {{> afQuickField name="engine.axes"}}
+                    {{> afQuickField name="engine.noiseLevelTravelling"}}
+                    {{> afQuickField name="engine.noiseLevelIdling"}}
                   </div>
                   <div class="col-md-6">
                     <legend>Налягане на спирачките</legend>
-                    {{> afQuickField name="brakeAirPressure.singlePipes" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
-                    {{> afQuickField name="brakeAirPressure.twoPipes" template="bootstrap3-horizontal" label-class="col-sm-6" input-col-class="col-sm-6"}}
+                    {{> afQuickField name="brakeAirPressure.singlePipes"}}
+                    {{> afQuickField name="brakeAirPressure.twoPipes"}}
                   </div>
               </fieldset>
             </div>
@@ -123,9 +110,9 @@
           </div>
         </div>
       </div>
+      {{/autoForm}}
    </div>
  </div>
-{{/autoForm}}
 </template>
 
 <template name="timePickersForDay">
