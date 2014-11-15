@@ -1,49 +1,4 @@
 Meteor.startup ->
-  Autocomplete =
-    init: (map) ->
-      input = document.getElementById("pac-input")
-      pacSearch = document.getElementById("pac-search")
-      map.controls[google.maps.ControlPosition.TOP_LEFT].push pacSearch
-
-      autocomplete = new google.maps.places.Autocomplete(input)
-      autocomplete.bindTo "bounds", Map.map
-      infowindow = new google.maps.InfoWindow()
-      searchMarker = new google.maps.Marker
-        map: map
-        anchorPoint: new google.maps.Point(0, -29)
-
-      google.maps.event.addListener autocomplete, "place_changed", ->
-        infowindow.close()
-        searchMarker.setVisible false
-        place = autocomplete.getPlace()
-        return  unless place.geometry
-
-        # If the place has a geometry, then present it on a map.
-        if place.geometry.viewport
-          map.fitBounds place.geometry.viewport
-        else
-          map.setCenter place.geometry.location
-          map.setZoom 17 # Why 17? Because it looks good.
-
-        searchMarker.setIcon (
-          url: place.icon
-          size: new google.maps.Size(71, 71)
-          origin: new google.maps.Point(0, 0)
-          anchor: new google.maps.Point(17, 34)
-          scaledSize: new google.maps.Size(35, 35)
-        )
-        searchMarker.setPosition place.geometry.location
-        searchMarker.setVisible true
-        address = ""
-        if place.address_components
-          address = [
-            place.address_components[0] and place.address_components[0].short_name or ""
-            place.address_components[1] and place.address_components[1].short_name or ""
-            place.address_components[2] and place.address_components[2].short_name or ""
-          ].join(" ")
-        infowindow.setContent "<div><strong>" + place.name + "</strong><br>" + address
-        infowindow.open Map.map, searchMarker
-
   @Map =
     path: {infoMarkers: []}
     options:
@@ -76,10 +31,7 @@ Meteor.startup ->
       markers = Vehicles.findFiltered('vehicleFilter', ['licensePlate', 'tags']).map (vehicle) ->
         location = vehicle.lastLocation
         if location
-          m = new VehicleMarker vehicle, location
-          m.addListener 'click', ->
-            new FleetrInfoWindow(vehicle, @location).open Map.map, m
-          m
+          new VehicleMarker(vehicle, location).withInfo(vehicle, @location, Map.map)
       Map.deleteVehicleMarkers()
       Map.showVehicleMarkers markers
 
@@ -87,7 +39,7 @@ Meteor.startup ->
       Map.setCenter selectedVehicle?.lastLocation
       locations = selectedVehicle?.lastLocations()
       Map.showPath locations
-      Map.showSpeedMarkers locations
+      Map.showSpeedMarkers selectedVehicle, locations
 
     addLocation: (lat, lng, speed, stay) ->
       Meteor.call 'addLocation',
@@ -102,8 +54,9 @@ Meteor.startup ->
     showVehicleMarkers: (markers) ->
       Map.vehicleClusterer?.addMarkers(markers?.filter (m) -> m if m)
 
-    showSpeedMarkers: (speedLocations) ->
-      speedMarkers = speedLocations?.map (location) -> new SpeedMarker(location)
+    showSpeedMarkers: (vehicle, speedLocations) ->
+      speedMarkers = speedLocations?.map (location) ->
+        new SpeedMarker(location).withInfo(vehicle, location, Map.map)
       Map.speedClusterer?.addMarkers(speedMarkers?.filter (m) -> m if m)
 
     setCenter: (location) ->
@@ -120,8 +73,8 @@ Meteor.startup ->
 
         Map.path.polyline.addListener 'click', (e) ->
           loc = Map.path.polyline.findNearestPoint(e.latLng).location
-          infowindow = new FleetrInfoWindow loc.vehicle, loc
-          m = new EmptyMarker loc, Map.map
+          infowindow = new FleetrInfoWindow loc.vehicle(), loc
+          m = new EmptyMarker(loc, Map.map)
           Map.path.infoMarkers.push m
           infowindow.open Map.map, m
 

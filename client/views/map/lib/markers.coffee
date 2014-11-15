@@ -4,21 +4,30 @@ Meteor.startup ->
       [lng, lat] = @location?.loc
       super lat, lng
 
-  class @EmptyMarker extends google.maps.Marker
+  class FleetrMarker extends google.maps.Marker
+    addListener: (event, handler) ->
+      google.maps.event.addListener @, event, handler
+      @
+
+    withInfo: (vehicle, location, map) ->
+      @addListener 'click', ->
+            new FleetrInfoWindow(vehicle, @location).open map, @
+
+  class @EmptyMarker extends FleetrMarker
     constructor: (location, map) ->
       super
         position: new FleetrLatLng location
         icon: 'none'
         map: map
 
-  class @SpeedMarker extends google.maps.Marker
-    constructor: (location) ->
+  class @SpeedMarker extends FleetrMarker
+    constructor: (@location) ->
       super
         position: new FleetrLatLng location
         icon: '/images/speed_100.png'
         zIndex: 10
 
-  class @VehicleMarker extends google.maps.Marker
+  class @VehicleMarker extends FleetrMarker
     constructor: (vehicle, @location) ->
       truckIcon =
         if @location.speed == 0
@@ -32,15 +41,13 @@ Meteor.startup ->
           else '/images/truck-green.png'
       super
         position: new FleetrLatLng @location
-        title: vehicle?.identificationNumber || @location.vehicle?.identificationNumber
+        title: vehicle?.identificationNumber || @location.vehicle()?.identificationNumber
         icon: truckIcon
         zIndex: 100
 
-    addListener: (event, handler) -> google.maps.event.addListener @, event, handler
-
   class @FleetrInfoWindow extends google.maps.InfoWindow
     constructor: (vehicle, location) ->
-      vehicle = vehicle || location.vehicle
+      vehicle = vehicle || location.vehicle() || Vehicles.findOne(_id: Session.get('selectedVehicleId'))
       super
         content: """
                 <div style='width:11em;'>
