@@ -48,6 +48,6 @@ Meteor.startup ->
                   <p>Номер: #{vehicle.licensePlate}</p>
                   <p>Скорост: #{parseFloat(Math.round(location.speed * 100) / 100).toFixed(0)} км/ч</p>
                   <p>Километраж: #{parseFloat(Math.round(location.distance / 1000 * 100) / 100).toFixed(0)} км</p>
-                  <p>Престой: #{location.stay}</p>
+                  <p>Престой: #{moment.duration(location.stay,'seconds').humanize()}</p>
                   <p><a href="/location/remove/#{location._id}">Изтрий</a></p>
                 </div>"""
