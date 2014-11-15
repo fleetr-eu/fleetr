@@ -17,12 +17,13 @@ Meteor.startup ->
     "entryResetPassword"
   ]
 
-  RouterBeforeHooks =
-    openLayout: -> @router.layout("open")
-    requireLogin: (pause) -> AccountsEntry.signInRequired @, pause
-
-  Router.onBeforeAction RouterBeforeHooks.requireLogin, {except: openRoutes}
-  Router.onBeforeAction RouterBeforeHooks.openLayout, {only: openRoutes}
+  Router.onBeforeAction ->
+    AccountsEntry.signInRequired @
+  , {except: openRoutes}
+  Router.onBeforeAction ->
+    @layout("open")
+    @next()
+  , {only: openRoutes}
 
   Router.configure
     layoutTemplate: 'layout'
@@ -43,7 +44,6 @@ Meteor.startup ->
       template: 'driver'
       data: -> {'driverId' : @params.driverId}
 
-
     @route 'listVehicles',
       path: '/vehicles/list'
       template: 'vehicles'
@@ -59,6 +59,7 @@ Meteor.startup ->
       template: 'map'
       onRun: ->
         Meteor.call 'removeLocation', @params.locationId
+        @next()
 
     @route 'addFleet',
       path: '/fleets/add'
@@ -67,9 +68,6 @@ Meteor.startup ->
       path: '/fleets/list'
       template: 'companies'
       data: -> {pageTitle: 'Автопаркове'}
-    @route 'addFleet',
-      path: '/fleet/add'
-      template: 'fleet'
     @route 'mapFleets',
       path: '/fleets/map'
       template: 'map'
@@ -112,3 +110,4 @@ Meteor.startup ->
       template: 'dashboard'
       onRun: ->
         Meteor.call 'reset'
+        @next()
