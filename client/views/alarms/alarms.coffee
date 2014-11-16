@@ -21,8 +21,6 @@ Template.alarmTableRow.helpers
     else
       'fa-bell-o'
 
-  alarmText: -> Alarms.alarmText(@) + " "
-
   timeAgo: -> moment(@timestamp).locale(Settings.locale).from(moment())
 
   tagsArray: ->

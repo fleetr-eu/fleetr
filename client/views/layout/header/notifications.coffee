@@ -1,5 +1,5 @@
 Template.notifications.helpers
-  unseenNotifications: -> Notifications.getExpiringNotications()
+  unseenNotifications: -> Notifications.getExpiringNotications(4)
   unseenNotificationsCount: -> Notifications.getExpiringNotications().count()
   unseenNotificationsExist: -> Notifications.getExpiringNotications().count() > 0
 

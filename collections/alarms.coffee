@@ -16,7 +16,7 @@ Alarms.findFiltered = (term, unseenOnly) ->
     rx =
       $options: 'i'
       $regex: query
-    filter['$or'] = [{tags: rx}]
+    filter['$or'] = [{alarmText: rx}, {tags: rx}]
   if unseenOnly then filter.seen = false
   Alarms.find filter
 
@@ -34,8 +34,8 @@ Alarms.alarmText = (alarm) ->
       "Кола без асоцииран шофьор: #{licensePlate}"
 
 Alarms.addAlarms = (doc) ->
-  if doc.speed > 100
-    Alarms.insert
+  if doc.speed > Settings.maxSpeed
+    alarm =
       type: "overspeeding"
       vehicle: doc.vehicleId
       driver: doc.driverId
@@ -43,9 +43,11 @@ Alarms.addAlarms = (doc) ->
       loc: doc.loc
       seen: false
       timestamp: Date.now()
+    alarm.alarmText = Alarms.alarmText (alarm)
+    Alarms.insert alarm
 
-  if doc.stay > 60
-    Alarms.insert
+  if doc.stay > Settings.maxStay
+    alarm =
       type: "longStay"
       vehicle: doc.vehicleId
       driver: doc.driverId
@@ -53,11 +55,15 @@ Alarms.addAlarms = (doc) ->
       loc: doc.loc
       seen: false
       timestamp: Date.now()
+    alarm.alarmText = Alarms.alarmText (alarm)
+    Alarms.insert alarm
 
   if (!doc.driver) and (doc.speed > 0)
-    Alarms.insert
+    alarm =
       type: "unasignedDriver"
       vehicle: doc.vehicleId
       driver: doc.driverId
       seen: false
       timestamp: Date.now()
+    alarm.alarmText = Alarms.alarmText (alarm)
+    Alarms.insert alarm

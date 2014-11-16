@@ -25,12 +25,9 @@
 		            {{> filter sessionVar='filterAlarms' placeholder='Търсене...'}}
 						</div>
 					</div>
-
 					<div class="portlet-body">
 				    <section class="content">
-
 				        <table class="table table-striped">
-
 				            <thead>
 				                <tr>
 				                    <th>Аларми</th>
@@ -38,7 +35,6 @@
 														<th><i class="fa {{toggleSeenIcon}} toggleSeen"></i></th>
 				         				</tr>
 				            </thead>
-
 				            <tbody>
 				                {{#each alarms}} {{>alarmTableRow}} {{/each}}
 				            </tbody>
@@ -52,7 +48,7 @@
 
 <template name="alarmTableRow">
     <tr>
-        <td>{{alarmText}}<small style="{{style}}">{{timeAgo}}</small></td>
+        <td>{{alarmText}}&nbsp;<small style="{{style}}">{{timeAgo}}</small></td>
 				<td>
 					{{#each tagsArray}}
 						<span class="label label-danger filter-tag">{{this}}</span>
