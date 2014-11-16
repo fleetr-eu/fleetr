@@ -50,10 +50,12 @@ Locations.save = (vehicleId, pos)->
   else
     Locations.saveToDatabase newLocation, 0, 0, 0, vehicleId
 
-Locations.saveToDatabase = (loc, speed, stay, distance, vehicleId )->
+Locations.saveToDatabase = (loc, speed, stay, distance, vehicleId)->
+  timestamp = Date.now()
   Meteor.call 'addLocation',
     loc: loc
     speed: speed
     stay: stay
-    distance: distance
     vehicleId: vehicleId
+    driverId: Vehicles.getAssignedDriver(vehicleId, timestamp)
+    timestamp: timestamp

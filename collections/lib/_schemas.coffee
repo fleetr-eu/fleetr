@@ -108,20 +108,35 @@ Schema.driverVehicleAssignments = new SimpleSchema
         options: -> Drivers.find().map (driver) ->
           label: driver.firstName+" "+driver.name
           value: driver._id
+        template: "bootstrap3-horizontal"
+        "label-class":"col-sm-4"
+        "input-col-class": "col-sm-8"
    vehicle:
       type:String
       label: "Автомобил"
       autoform:
         firstOption: "(Изберете)"
         options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
-   beginAssignmentTime:
+        template: "bootstrap3-horizontal"
+        "label-class":"col-sm-4"
+        "input-col-class": "col-sm-8"
+   moment:
       type:Date
       label: "От"
       autoform:
         type: "datetimepicker"
-
-   endAssignmentTime:
-      type:Date
-      label: "До"
+        template: "bootstrap3-horizontal"
+        "label-class":"col-sm-4"
+        "input-col-class": "col-sm-8"
+   event:
+      type:String
+      label:"Асоцииране"
       autoform:
-        type: "datetimepicker"
+        type: "select-radio-inline"
+        template: "bootstrap3-horizontal"
+        "label-class":"col-sm-4"
+        "input-col-class": "col-sm-8"
+        options: () -> [
+          {label: "асоцииране", value: "begin"},
+          {label: "деасоцииране", value: "end"}
+        ]
