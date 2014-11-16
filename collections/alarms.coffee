@@ -38,6 +38,7 @@ Alarms.addAlarms = (doc) ->
     Alarms.insert
       type: "overspeeding"
       vehicle: doc.vehicleId
+      driver: doc.driverId
       speed: doc.speed
       loc: doc.loc
       seen: false
@@ -47,26 +48,16 @@ Alarms.addAlarms = (doc) ->
     Alarms.insert
       type: "longStay"
       vehicle: doc.vehicleId
+      driver: doc.driverId
       stay: doc.stay
       loc: doc.loc
       seen: false
       timestamp: Date.now()
 
-  dvAssignment = DriverVehicleAssignments.findOne(
-    vehicle: doc.vehicleId
-    beginAssignmentTime:
-      $lte: new Date(doc.timestamp)
-    endAssignmentTime:
-      $gte: new Date(doc.timestamp)
-  )
-
-  if (doc.speed > 0) and !dvAssignment
-    alarm = Alarms.findOne {type: "unasignedDriver", vehicle: doc.vehicleId}, {sort: {timestamp: -1}}
-    if alarm and Date.now() < moment(alarm.timestamp).add(1, 'minutes').toDate()
-
-    else
-      Alarms.insert
-        type: "unasignedDriver"
-        vehicle: doc.vehicleId
-        seen: false
-        timestamp: Date.now()
+  if (!doc.driver) and (doc.speed > 0)
+    Alarms.insert
+      type: "unasignedDriver"
+      vehicle: doc.vehicleId
+      driver: doc.driverId
+      seen: false
+      timestamp: Date.now()
