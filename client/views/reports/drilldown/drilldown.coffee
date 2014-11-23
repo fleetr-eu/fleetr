@@ -18,4 +18,4 @@ Template.groupRow.events
     Session.set 'drilldownReport.includedGroups', groups
 
 Template.groupRow.helpers
-  excolIcon: -> if @_id in Session.get('drilldownReport.includedGroups') then 'minus' else 'plus'
+  excolIcon: -> if @_id in Session.get('drilldownReport.includedGroups') then 'caret-down' else 'caret-right'

@@ -10,9 +10,9 @@ Template.map.rendered = ->
   $("#hours_range").ionRangeSlider
     type : "double"
     min: +moment().subtract(24, "hours").format("X")
-    max: +moment().add(1, "hours").format("X")
+    max: +moment().add(2, "hours").format("X")
     from: +moment().subtract(2, "hours").format("X")
-    to: +moment().format("X")
+    to: +moment().add(1, "hours").format("X")
     grid: true
     keyboard: true
     keyboard_step: 1

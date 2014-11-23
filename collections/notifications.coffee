@@ -21,6 +21,9 @@ Notifications.findFiltered = (term, unseenOnly) ->
   if unseenOnly then filter.seen = false
   Notifications.find filter
 
-Notifications.getExpiringNotications = (afterDate) ->
+Notifications.getExpiringNotications = (limit) ->
   afterDate = moment().add(10, 'days').toDate()
-  Notifications.find {seen: false, expieryDate: {$lte: new Date(afterDate)}}, {sort: {expieryDate: 1}, }
+  if (limit)
+    Notifications.find {seen: false, expieryDate: {$lte: new Date(afterDate)}}, {sort: {expieryDate: 1}, limit:4}
+  else
+    Notifications.find {seen: false, expieryDate: {$lte: new Date(afterDate)}}, {sort: {expieryDate: 1}}

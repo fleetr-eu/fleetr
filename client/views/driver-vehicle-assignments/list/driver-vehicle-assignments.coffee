@@ -1,10 +1,5 @@
 Template.driverVehicleAssignments.created = ->Session.setDefault 'driverVehicleAssignmentFilter', ''
 
-Template.driverVehicleAssignments.events
-  'click .deleteDriverVehicleAssignment': ->
-    Meteor.call 'removeDriverVehicleAssignment', Session.get('selectedDriverVehicleAssignmentId')
-    Session.set 'selectedDriverVehicleAssignmentId', null
-
 Template.driverVehicleAssignments.helpers
   driverVehicleAssignments: -> DriverVehicleAssignments.find {}
   selectedDriverVehicleAssignmentId: -> Session.get('selectedDriverVehicleAssignmentId')
@@ -23,8 +18,17 @@ Template.driverVehicleAssignmentTableRow.helpers
     else
       ""
   active: -> if @_id == Session.get('selectedDriverVehicleAssignmentId') then 'active' else ''
-  beginTime: -> moment(@beginAssignmentTime).locale(Settings.locale).format(Settings.longDateTimeFormat)
-  endTime: -> moment(@endAssignmentTime).locale(Settings.locale).format(Settings.longDateTimeFormat)
+  formatedMoment: -> moment(@moment).locale(Settings.locale).format(Settings.longDateTimeFormat)
+  formatedEvent: ->
+    if @event == 'begin'
+      "асоцииране"
+    else
+      "деасоцииране"
+  styleEvent: ->
+    if @event == 'begin'
+      "color:navy;"
+    else
+      "color:red;"
 
 Template.driverVehicleAssignmentTableRow.events
   'click tr': -> Session.set 'selectedDriverVehicleAssignmentId', @_id

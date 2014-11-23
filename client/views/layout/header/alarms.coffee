@@ -1,5 +1,5 @@
 Template.alarms.helpers
-  unseenAlarms: -> Alarms.find({seen:false}, {$sort: {timestamp: -1}})
+  unseenAlarms: -> Alarms.find({seen:false}, {$sort: {timestamp: -1}, limit:4})
 
   unseenAlarmsCount: ->
     alarms = Alarms.find({seen:false})

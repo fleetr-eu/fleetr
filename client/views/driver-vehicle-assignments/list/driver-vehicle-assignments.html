@@ -27,9 +27,7 @@
 						<div class="tools">
 							<a href="{{pathFor 'addDriverVehicleAssignment'}}"><span class="glyphicon glyphicon-plus"></span></a>
 							{{#if selectedDriverVehicleAssignmentId}}
-								<a href="{{pathFor 'editDriverVehicleAssignment' driverVehicleAssignmentId=selectedDriverVehicleAssignmentId}}"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#" class="deleteDriverVehicleAssignment"><span class="glyphicon glyphicon-trash"></span></a>
-							{{/if}}
+								{{/if}}
 						</div>
 					</div>
 
@@ -42,8 +40,8 @@
 				                <tr>
 				                    <th>Шофьор</th>
 				                    <th>Автомобил</th>
-				                    <th>От</th>
-				                    <th>До</th>
+				                    <th>От момент</th>
+				                    <th>Събитие</th>
 				                </tr>
 				            </thead>
 
@@ -62,7 +60,7 @@
     <tr class="{{active}}">
         <td>{{driverName}}</td>
         <td>{{vehicleLicensePlate}}</td>
-        <td>{{beginTime}}</td>
-        <td>{{endTime}}</td>
+        <td>{{formatedMoment}}</td>
+        <td><span style={{styleEvent}}>{{formatedEvent}}</span></td>
     </tr>
 </template>

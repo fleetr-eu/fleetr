@@ -43,11 +43,9 @@ Meteor.startup ->
       Map.showPathMarkers selectedVehicle, locations
 
     addLocation: (lat, lng, speed, stay) ->
-      Meteor.call 'addLocation',
-        loc: [lng, lat]
-        speed: speed
-        stay: stay
-        vehicleId: Session.get('selectedVehicleId') || Random.choice _.pluck(Vehicles.find().fetch(), '_id')
+      if Session.get('selectedVehicleId')
+        loc = [lng, lat]
+        Locations.saveToDatabase loc, speed, stay, Session.get('selectedVehicleId')
 
     addListener: (event, listener) ->
       google.maps.event.addListener Map.map, event, listener

@@ -32,4 +32,11 @@ Template.timePickersForDay.helpers
   fromField:->
       "workingSchedule.#{@.seq}.from"
   toField:->
-      "workingSchedule.#{@.seq}.to"
+      "workingSchedule.#{@.seq}.to"  
+
+AutoForm.hooks
+  vehicleForm:
+    onError: (operation, error, template) ->
+      Meteor.defer ->
+        id = template.$('.has-error').closest('div.tab-pane').attr('id')
+        @$("a[href=##{id}]").tab('show')
