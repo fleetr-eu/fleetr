@@ -94,6 +94,10 @@ Meteor.startup ->
       path: '/notifications/list'
       template: 'notificationsList'
 
+    @route 'geofences',
+      path: '/geofences'
+      template: 'geofences'
+
     @route 'listDriverVehicleAssignments',
       path: '/assignments/driver/vehicle/list'
       template: 'driverVehicleAssignments'
