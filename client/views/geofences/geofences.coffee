@@ -19,19 +19,22 @@ Template.geofences.events
 
 Template.editGeofence.helpers
   editGeofence: -> Session.get('addGeofence') || Session.get('editGeofence')
+  doc: -> Geofences.findOne _id: Session.get('selectedGeofenceId')
 
 Template.editGeofence.events
-  'click .geofence-cancel': ->
-    Session.set('addGeofence', false)
-    Session.get('editGeofence', false)
-  'click .geofence-submit': (e, template) ->
-    Session.set 'addGeofence', false
+  'click .btn-sm': (e, template) ->
     circle = GeofenceMap.circle
-    Meteor.call 'addGeofence',
-      name: template.$('#geofence-name').val()
+    insertDoc =
+      name: template.$('#geofenceForm input[name=name]').val()
+      tags: template.$('#geofenceForm input[name=tags]').val()
       center: [circle?.getCenter().lng(), circle?.getCenter().lat()]
       radius: circle?.getRadius()
-      tags: template.$('#geofence-tags').val()
+    Meteor.call 'addGeofence', insertDoc
+    Session.set 'addGeofence', false
+  'click .btn-reset' : (e) ->
+    Session.set('addGeofence', false)
+    Session.get('editGeofence', false)
+    AutoForm.resetForm('geofenceForm')
 
 Template.geofencesTable.created = ->
   Meteor.subscribe 'geofences'
