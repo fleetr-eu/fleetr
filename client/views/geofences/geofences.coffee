@@ -1,18 +1,20 @@
 Template.geofences.helpers
   selectedGeofenceId: -> Session.get('selectedGeofenceId')
-  renderGeofences: ->
-    # GeofenceMap?.clear()
-    Geofences.find().forEach (geo) ->
-      [lng, lat] = geo.center
-      circle = GeofenceMap.drawCircle new google.maps.LatLng(lat, lng), geo.radius, {editable: false, id: geo._id}
-      google.maps.event.addListener circle, 'click', -> Session.set 'selectedGeofenceId', geo._id
+  renderGeofences: -> renderGeofences()
 
 Template.geofences.created = ->
-  GeofenceMap.init ->
-    console.log 'map rendered'
+  GeofenceMap.init -> renderGeofences()
   @autorun ->
     unless Session.get('addGeofence') || Session.get('editGeofence')
       GeofenceMap?.circle?.setMap(null)
+      GeofenceMap?.circle = null
+
+renderGeofences = ->
+  # GeofenceMap?.clear()
+  Geofences.find().forEach (geo) ->
+    [lng, lat] = geo.center
+    circle = GeofenceMap.drawCircle new google.maps.LatLng(lat, lng), geo.radius, {editable: false, id: geo._id}
+    google.maps.event.addListener circle, 'click', -> Session.set 'selectedGeofenceId', geo._id
 
 Template.geofences.events
   'click .addGeofence': -> Session.set 'addGeofence', true
