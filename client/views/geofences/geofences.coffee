@@ -18,7 +18,9 @@ renderGeofences = ->
 
 Template.geofences.events
   'click .addGeofence': -> Session.set 'addGeofence', true
-  'click .deleteGeofence': -> Meteor.call 'removeGeofence', Session.get('selectedGeofenceId')
+  'click .deleteGeofence': ->
+    Meteor.call 'removeGeofence', Session.get('selectedGeofenceId')
+    Session.set 'selectedGeofenceId', null
 
 Template.editGeofence.helpers
   editGeofence: -> Session.get('addGeofence') || Session.get('editGeofence')
