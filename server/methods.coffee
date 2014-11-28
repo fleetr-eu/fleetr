@@ -1,7 +1,8 @@
 Meteor.methods
-  addGeofence: (doc) ->
-    Geofences.insert doc
-    
+  addGeofence: (doc) -> Geofences.insert doc
+
+  removeGeofence: (gfId) -> Geofences.remove _id: gfId
+
   submitDriver: (doc, diff) ->
     @unblock()
     # after.insert is not triggered. revome after issues is fixed: https://github.com/matb33/meteor-collection-hooks/issues/16
