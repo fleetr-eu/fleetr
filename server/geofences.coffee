@@ -10,7 +10,12 @@ findLocationsInGeofence = =>
           $center: [ gf.center, gf.radius ]
       timestamp:
         $gte: Date.now() - 60000
-    .forEach (l) ->
-      # l is a location created in the last minute that is within a geofence gf
-      # add a notification or something
-      console.log l
+    .forEach (loc) ->
+      if loc.stay
+        vehicle = Vehicles.findOne _id: loc.vehicleId
+        Alarms.insert
+          type: "arrival"
+          vehicle: loc.vehicleId
+          timestamp: loc.timestamp
+          alarmText: "Автомобил с регистрационен номер #{vehicle.licensePlate} пристигна на обект #{gf.name}."
+          seen: false

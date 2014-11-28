@@ -1,15 +1,10 @@
 Template.alarms.helpers
   unseenAlarms: -> Alarms.find({seen:false}, {$sort: {timestamp: -1}, limit:4})
 
-  unseenAlarmsCount: ->
-    alarms = Alarms.find({seen:false})
-    alarms?.count()
+  unseenAlarmsCount: -> Alarms.find({seen:false}).count()
 
-  unseenAlarmsExist: ->
-    alarms = Alarms.find({seen:false})
-    alarms?.count() > 0
+  unseenAlarmsExist: -> Alarms.find({seen:false}).count() > 0
 
 Template.alarm.helpers
-  alarmText: -> Alarms.alarmText(@)
   timeAgo: -> moment(@timestamp).from(moment())
   style: -> Alarms.timeAgoStyle(@timestamp)
