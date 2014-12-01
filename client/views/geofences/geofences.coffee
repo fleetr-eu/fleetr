@@ -10,7 +10,7 @@ Template.geofences.created = ->
       GeofenceMap?.circle = null
 
 renderGeofences = ->
-  # GeofenceMap?.clear()
+  GeofenceMap?.clear()
   Geofences.find().forEach (geo) ->
     [lng, lat] = geo.center
     circle = GeofenceMap.drawCircle new google.maps.LatLng(lat, lng), geo.radius, {editable: false, id: geo._id}
@@ -18,6 +18,9 @@ renderGeofences = ->
 
 Template.geofences.events
   'click .addGeofence': -> Session.set 'addGeofence', true
+  'click .deleteGeofence': ->
+    Meteor.call 'removeGeofence', Session.get('selectedGeofenceId')
+    Session.set 'selectedGeofenceId', null
 
 Template.editGeofence.helpers
   editGeofence: -> Session.get('addGeofence') || Session.get('editGeofence')
