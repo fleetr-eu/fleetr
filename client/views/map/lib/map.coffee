@@ -25,6 +25,8 @@ Meteor.startup ->
         pos = {coords: {longitude: e.latLng.lng(), latitude: e.latLng.lat()}}
         Locations.save(Session.get('selectedVehicleId'), pos)
 
+      Map.addListener 'zoom_changed', -> Session.set('zoomLevel', Map.map.getZoom())
+
       Autocomplete.init Map.map
       cb && cb()
 
@@ -71,8 +73,8 @@ Meteor.startup ->
       Map.deletePath()
       if locations?.count() > 0
         path = locations.map (location) -> new FleetrLatLng location
-        optimizedPath = GDouglasPeucker(path, 5)
-        Map.path.polyline = new FleetrPolyline Map.map, path
+        optimizedPath = GDouglasPeucker(path, (22 - Session.get('zoomLevel')) * 10)
+        Map.path.polyline = new FleetrPolyline Map.map, optimizedPath
 
         Map.path.polyline.addListener 'click', (e) ->
           loc = Map.path.polyline.findNearestPoint(e.latLng).location
