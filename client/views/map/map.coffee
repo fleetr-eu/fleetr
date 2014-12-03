@@ -1,7 +1,4 @@
 Template.map.rendered = ->
-  Session.set "mapDateRangeFrom", +moment().subtract(2, "hours").format("X")
-  Session.set "mapDateRangeTo", +moment().format("X")
-
   Map.init =>
     @autorun ->
       Meteor.subscribe 'locations', Session.get('selectedVehicleId')
@@ -23,6 +20,9 @@ Template.map.rendered = ->
     onChange: (data) ->
       Session.set "mapDateRangeFrom", data.from
       Session.set "mapDateRangeTo", data.to
+
+    Session.set "mapDateRangeFrom", +moment().subtract(2, "hours").format("X")
+    Session.set +moment().add(1, "hours").format("X")
 
 Template.map.helpers
   selectedVehicleId: -> Session.get('selectedVehicleId')
