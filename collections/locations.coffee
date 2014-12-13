@@ -1,5 +1,5 @@
 @Locations = new Mongo.Collection 'locations'
-
+Partitioner.partitionCollection Locations
 Locations.helpers
   vehicle: -> Vehicles.findOne _id: location.vehicleId
 

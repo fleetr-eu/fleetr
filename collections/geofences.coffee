@@ -1,5 +1,5 @@
 @Geofences = new Mongo.Collection 'geofences'
-
+Partitioner.partitionCollection Geofences
 Schema.geofences = new SimpleSchema
   _id:
     type: String

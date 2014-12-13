@@ -1,3 +1,3 @@
 @DriverVehicleAssignments = new Mongo.Collection 'driverVehicleAssignments'
-
+Partitioner.partitionCollection DriverVehicleAssignments
 DriverVehicleAssignments.attachSchema Schema.driverVehicleAssignments

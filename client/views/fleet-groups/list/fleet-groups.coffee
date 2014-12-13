@@ -1,4 +1,6 @@
 Template.fleetGroups.created = ->
+  Meteor.subscribe 'fleets'
+  Meteor.subscribe 'fleetGroups'
   Session.setDefault 'groups.expandedGroups', _.pluck(FleetGroups.find().fetch(), '_id')
 
 Template.fleetGroups.events

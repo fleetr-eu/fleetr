@@ -1,4 +1,5 @@
 @Alarms = new Mongo.Collection 'alarms'
+Partitioner.partitionCollection Alarms
 
 Alarms.timeAgoStyle = (timestamp) ->
   if moment(timestamp).add(1, "hours").toDate() < moment()

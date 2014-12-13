@@ -5,35 +5,43 @@ Meteor.methods
 
   submitDriver: (doc, diff) ->
     @unblock()
-    # after.insert is not triggered. revome after issues is fixed: https://github.com/matb33/meteor-collection-hooks/issues/16
-    if Drivers.find({_id: doc._id}, {limit: 1}).count()
-      Drivers.submit doc, diff
-    else
-      Drivers.insert doc
+    Drivers.submit doc, diff
 
-  removeDriver: (doc) -> Drivers.remove _id: doc
+  removeDriver: (doc) ->
+    @unblock()
+    Drivers.remove _id: doc
 
-  submitVehicle: (doc, diff) -> Vehicles.submit(doc, diff)
+  submitVehicle: (doc, diff) ->
+    @unblock()
+    Vehicles.submit(doc, diff)
 
-  removeVehicle: (doc) -> Vehicles.remove _id : doc
+  removeVehicle: (doc) ->
+    @unblock()
+    Vehicles.remove _id : doc
 
-  submitFleetGroup: (doc, diff) -> FleetGroups.submit(doc, diff)
+  submitFleetGroup: (doc, diff) ->
+    @unblock()
+    FleetGroups.submit(doc, diff)
 
-  removeFleetGroup: (doc) -> FleetGroups.remove _id : doc
+  removeFleetGroup: (doc) ->
+    @unblock()
+    FleetGroups.remove _id : doc
 
-  addLocation: (doc) -> Locations.insert doc
+  addLocation: (doc) ->
+    @unblock()
+    Locations.insert doc
 
-  submitFleet: (doc, diff) -> Fleets.submit(doc, diff)
+  submitFleet: (doc, diff) ->
+    @unblock()
+    Fleets.submit(doc, diff)
 
-  removeFleet: (doc) -> Fleets.remove _id : doc
+  removeFleet: (doc) ->
+    @unblock()
+    Fleets.remove _id : doc
 
   submitExpenses: (doc, diff) ->
     @unblock()
-    # after.insert is not triggered. revome after issues is fixed: https://github.com/matb33/meteor-collection-hooks/issues/16
-    if Expenses.find({_id: doc._id}, {limit: 1}).count()
-      Expenses.submit doc, diff
-    else
-      Expenses.insert doc
+    Expenses.submit doc, diff
 
   removeExpenses: (doc) -> Expenses.remove _id : doc
 
