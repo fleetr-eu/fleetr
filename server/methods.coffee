@@ -1,4 +1,6 @@
 Meteor.methods
+  getUser: -> Meteor.user()
+
   addGeofence: (doc) -> Geofences.insert doc
 
   removeGeofence: (gfId) -> Geofences.remove _id: gfId
