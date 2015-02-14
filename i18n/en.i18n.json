@@ -6,6 +6,10 @@
     "drivers": "Drivers",
     "objects": "Objects",
     "expenses": "Expenses",
-    "reports": "Reports"
+    "reports": "Reports",
+    "map": "Map",
+    "list": "List",
+    "add": "Add new",
+    "drivers_vehicles": "Drivers and vehicles"
   }
 }
