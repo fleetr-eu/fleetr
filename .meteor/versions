@@ -9,6 +9,7 @@ aldeed:collection2@2.3.2
 aldeed:simple-schema@1.3.0
 aldeed:template-extension@3.1.1
 alethes:pages@1.7.2
+amplify@1.0.0
 anti:fake@0.4.1
 application-configuration@1.0.4
 autoupdate@1.1.5
@@ -18,6 +19,7 @@ blaze@2.0.4
 blaze-tools@1.0.2
 boilerplate-generator@1.0.2
 callback-hook@1.0.2
+cfs:http-methods@0.0.27
 check@1.0.4
 chrismbeckett:fontawesome4@4.2.2
 coffeescript@1.0.5
@@ -87,6 +89,8 @@ softwarerero:accounts-t9n@1.0.3
 spacebars@1.0.5
 spacebars-compiler@1.0.4
 srp@1.0.2
+tap:i18n@1.4.0
+tap:i18n-ui@0.5.0
 templating@1.0.11
 tracker@1.0.5
 tsega:bootstrap3-datetimepicker@3.1.3_3

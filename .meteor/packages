@@ -27,3 +27,5 @@ tsega:bootstrap3-datetimepicker
 meteorhacks:kadira
 mizzao:partitioner
 
+tap:i18n
+tap:i18n-ui

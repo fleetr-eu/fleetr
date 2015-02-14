@@ -1,0 +1,11 @@
+{
+  "menu": {
+    "dashboard": "Статистики",
+    "fleets": "Автопаркове",
+    "vehicles": "Автомобили",
+    "drivers": "Шофьори",
+    "objects": "Обекти",
+    "expenses": "Разходи",
+    "reports": "Отчети"
+  }
+}

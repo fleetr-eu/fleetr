@@ -1,0 +1,11 @@
+{
+  "menu": {
+    "dashboard": "Dashboard",
+    "fleets": "Fleets",
+    "vehicles": "Vehicles",
+    "drivers": "Drivers",
+    "objects": "Objects",
+    "expenses": "Expenses",
+    "reports": "Reports"
+  }
+}
