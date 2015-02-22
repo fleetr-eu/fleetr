@@ -119,3 +119,12 @@ Meteor.startup ->
     @route 'test',
       path: '/testdata'
       template: 'testData'
+
+@Pages = new Meteor.Pagination Items,
+  router: "iron-router"
+  homeRoute: "/logbook"
+  route: "/logbook/"
+  routerTemplate: "logbook"
+  routerLayout: "layout"
+  #sort: id: 1
+

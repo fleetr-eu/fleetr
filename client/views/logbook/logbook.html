@@ -1,0 +1,38 @@
+<head>
+  <title>xPages Test</title>
+</head>
+
+<template name="logbook-layout">
+  <h1>LOGBOOK</h1>
+  {{> yield}}
+</template>
+
+<template name="logbook">
+  <h1>LogBook</h1>
+  {{> pagesNav}}
+  {{> pages}}
+</template>
+
+<!-- 
+<template name="items2">
+  <h1>View 2</h1>
+  <b>Descending sort, 5 items per page</b>
+  {{> pagesNav}}
+  {{> pages}}
+</template>
+
+<template name="items3">
+  <h1>View 3</h1>
+  <b>Ascending sort, 5 items per page</b>
+  <a href="/items3/">All</a>
+  <a href="/items3/0/1">Group 0</a>
+  <a href="/items3/1/1">Group 1</a>
+  {{> pagesNav}}
+  {{> pages}}
+</template>
+
+<template name="noPages">
+  <h1>View without Pager</h1>
+  <b>Pages subscriptions are stopped.</b>
+</template>
+-->
