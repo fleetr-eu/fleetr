@@ -115,3 +115,7 @@ Meteor.startup ->
       onRun: ->
         Meteor.call 'reset'
         @next()
+
+    @route 'test',
+      path: '/testdata'
+      template: 'testData'
