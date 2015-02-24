@@ -1,6 +1,7 @@
 {
   "menu": {
     "dashboard": "Статистики",
+    "logbook": "LogBook",
     "fleets": "Автопаркове",
     "vehicles": "Автомобили",
     "drivers": "Шофьори",

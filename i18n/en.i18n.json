@@ -1,6 +1,7 @@
 {
   "menu": {
     "dashboard": "Dashboard",
+    "logbook": "LogBook",
     "fleets": "Fleets",
     "vehicles": "Vehicles",
     "drivers": "Drivers",
