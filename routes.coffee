@@ -123,23 +123,3 @@ Meteor.startup ->
     @route 'logbook',
       path: '/logbook'
       template: 'logbook'
-
-# fields = ['deviceId', 'time', 'type', 'lat', 'lon', 'course']
-
-# @Pages = new Meteor.Pagination Logbook,
-#   router: "iron-router"
-#   homeRoute: "/logbook"
-#   route: "/logbook/"
-#   routerTemplate: "logbook"
-#   # itemTemplate: "logitem"
-#   routerLayout: "layout"
-#   #sort: id: 1
-#   # dataMargin: 5
-#   # fastRender: true
-#   # perPage: 20
-#   table:
-#     class: "table"
-#     fields: fields
-#     headers: _.map fields, (f) -> f[0].toUpperCase() + f.slice 1 
-#     wrapper: "table-wrapper"
-
