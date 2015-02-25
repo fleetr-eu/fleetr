@@ -1,12 +1,8 @@
-Meteor.subscribe('logbook')
+Template.logbook.created = ->
+  Meteor.subscribe 'logbook'
 
-columns = ['type', 'lat', 'lon', 'speed', 'course']
-
-settings = {
-	collection: Logbook, rowsPerPage: 15, fields: columns
-}
-
-Template.logbook.helpers({
-    collection: () ->  Logbook
-	mysettings: () -> settings
-});
+Template.logbook.helpers
+  mysettings: () ->
+   collection: Logbook
+   rowsPerPage: 15
+   fields: ['type', 'lat', 'lon', 'speed', 'course']
