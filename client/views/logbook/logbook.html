@@ -6,15 +6,15 @@
   {{> logbook}}
 </body>
  -->
-<template name="logbook-layout">
+<!-- <template name="logbook-layout">
   <h1>LOGBOOK</h1>
   {{> yield}}
 </template>
-
+ -->
 <template name="logbook">
   <h1>LogBook</h1>
-  {{> pagesNav}}
-  {{> pages}}
+  <!-- {{> reactiveTable collection=collection}} -->
+  {{> reactiveTable settings=mysettings}}
 </template>
 
 <!-- <template name="logitem">
