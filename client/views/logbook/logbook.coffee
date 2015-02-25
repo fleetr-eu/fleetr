@@ -1,8 +1,11 @@
-Template.logbook.created = ->
-  Meteor.subscribe 'logbook'
-
 Template.logbook.helpers
-  mysettings: () ->
+  opts: ->
    collection: Logbook
    rowsPerPage: 15
-   fields: ['type', 'lat', 'lon', 'speed', 'course']
+   fields: [
+     { key: 'type', label: 'Type' }
+     { key: 'lat', label: 'Latitude' }
+     { key: 'lon', label: 'Longitude' }
+     { key: 'speed', label: 'Speed' }
+     { key: 'course', label: 'Course' }
+   ]

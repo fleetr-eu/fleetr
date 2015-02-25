@@ -116,10 +116,7 @@ Meteor.startup ->
         Meteor.call 'reset'
         @next()
 
-    @route 'test',
-      path: '/testdata'
-      template: 'testData'
-
     @route 'logbook',
       path: '/logbook'
       template: 'logbook'
+      subscriptions: -> Meteor.subscribe 'logbook'
