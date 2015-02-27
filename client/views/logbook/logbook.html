@@ -1,8 +1,8 @@
 <template name="logbook">
-  
+
 	<div>
-		<span><input type="text" id="start-datepicker" placeholder="Start date"></span>
-		<span><input type="text" id="end-datepicker" placeholder="End date"></span>
+		<span><input type="text" class="datepicker" id="start-datepicker" placeholder="Start date"></span>
+		<span><input type="text" class="datepicker" id="end-datepicker" placeholder="End date"></span>
 	</div>
 
   {{> reactiveTable settings=opts}}
