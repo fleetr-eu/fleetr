@@ -22,8 +22,9 @@ filter = () ->
     args = {}
     args['$gte'] = startDate if startDate
     args['$lte'] = endDate if endDate
-    sub.stop() if sub
+    oldsub = sub
     sub = Meteor.subscribe 'logbook', {time: args} 
+    oldsub.stop() if oldsub
 
 Template.logbook.events
   # event.preventDefault();
