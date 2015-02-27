@@ -13,9 +13,10 @@ Template.logbook.helpers
    showColumnToggles: true
    class: "table table-bordered table-hover"
 
-Template.logbook.events({
-  'click .reactive-table tr': (event) ->
-    # event.preventDefault();
-    alert('Click!')
-});
+Template.logbook.events
+  # event.preventDefault();
+  'click .reactive-table tr': (event) -> alert('Click!')
+  'changeDate #my-datepicker' : (event)-> console.log '!!! Date Changed: ' + event.date
 
+
+Template.logbook.rendered=() -> $('#my-datepicker').datepicker();
