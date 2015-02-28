@@ -1,9 +1,11 @@
 <template name="logbook">
 
-	<div>
-		<span><input type="text" class="datepicker" id="start-datepicker" placeholder="Start date"></span>
-		<span><input type="text" class="datepicker" id="end-datepicker" placeholder="End date"></span>
-	</div>
+  <div class="input-daterange input-group" id="datepicker" style="width:400px;">
+    <span class="input-group-addon">From</span>
+    <input type="text" class="input-sm form-control" name="start" />
+    <span class="input-group-addon">To</span>
+    <input type="text" class="input-sm form-control" name="end" />
+  </div>
 
   {{> reactiveTable settings=opts}}
 </template>
