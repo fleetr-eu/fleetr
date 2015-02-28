@@ -119,4 +119,4 @@ Meteor.startup ->
     @route 'logbook',
       path: '/logbook'
       template: 'logbook'
-      subscriptions: -> Meteor.subscribe 'logbook'
+      # subscriptions: -> Meteor.subscribe 'logbook'
