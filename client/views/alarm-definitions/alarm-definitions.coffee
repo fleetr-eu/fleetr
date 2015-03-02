@@ -1,10 +1,5 @@
 Meteor.subscribe 'alarm-definitions'
 
-Template.alarmDefinitionsList.created = () -> 
-	#Session.set('show-add-alarm-definition', false)
-  this.showAddAlarmDefinition = new ReactiveVar();
-  this.showAddAlarmDefinition.set(false);
-
 Template.alarmDefinitionsList.helpers
   opts: ->
    collection: AlarmDefinitions
@@ -20,17 +15,5 @@ Template.alarmDefinitionsList.helpers
    showColumnToggles: true
    class: "table table-bordered table-hover"
 
-
-Template.alarmDefinitionsList.helpers({  
-  showAddAlarmDefinition: () -> Template.instance().showAddAlarmDefinition.get()
-});
-
-Template.alarmDefinitionsList.events
-  'click #addAlarmDefinition': (event,template) ->
-    template.showAddAlarmDefinition.set(true)
-    #Session.set('show-add-alarm-definition', true)
-    console.log 'ADD'
-  'click #popupDialog': (event) ->
-    #Session.set('show-add-alarm-definition', true)
-    console.log 'Popup! ' + $('.mypopup')
-    $('.mypopup').fadeOut()
+Template.addAlarmDefModal.events
+  'shown.bs.modal': -> $('#addAlarmDef').focus()
