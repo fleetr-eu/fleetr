@@ -45,25 +45,4 @@ Schema.alarmDefinitions = new SimpleSchema
     label: 'Distance After'
 
 
-  # date:
-  #   type: Date
-  #   label: "В автопарка от"
-  #   autoform:
-  #     type: "bootstrap-datepicker"
-  #     template: "bootstrap3-horizontal"
-  #     "label-class": "col-sm-6"
-  #     "input-col-class": "col-sm-6"
-
-  # lastLocation:
-  #   type: Object
-  #   optional: true
-  #   blackbox: true
-
-
 AlarmDefinitions.attachSchema Schema.alarmDefinitions
-
-AlarmDefinitions.permit(['insert', 'update', 'remove']).apply();
-
-
-
-

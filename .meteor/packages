@@ -24,7 +24,6 @@ dburles:collection-helpers
 aldeed:autoform-bs-datepicker
 rajit:bootstrap3-datepicker
 tsega:bootstrap3-datetimepicker
-meteorhacks:kadira
 mizzao:partitioner
 
 tap:i18n
@@ -33,5 +32,4 @@ alethes:pages
 msavin:mongol
 aslagle:reactive-table
 meteorhacks:fast-render
-ongoworks:security
 reactive-var
