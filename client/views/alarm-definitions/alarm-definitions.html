@@ -1,6 +1,13 @@
 <template name="alarmDefinitionsList">
   {{> reactiveTable settings=opts}}
   <button id="addAlarmDefinition" class="btn btn-default" type="button">Add</button>
+  <button id="popupDialog" class="btn btn-default" type="button">Popup</button>
+  <div class="mypopup">
+  	Hello from popup!
+  </div>
+  {{#if showAddAlarmDefinition}}
+    {{> alarmDefinitionsAdd}}
+  {{/if}}
 </template>
 
 <template name="alarmDefinitionsAdd">
