@@ -17,5 +17,8 @@ Meteor.publish 'logbook', (args) ->
   else
     Logbook.find()
 
+
+Meteor.publish 'alarm-definitions', -> AlarmDefinitions.find {}
+
 Meteor.publish 'locations', (vehicleId, dtFrom, dtTo) ->
   Locations.find {vehicleId: vehicleId, timestamp: {$gte: dtFrom*1000, $lte: dtTo*1000}}, {sort: {timestamp: -1}}

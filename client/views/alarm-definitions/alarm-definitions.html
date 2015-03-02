@@ -1,0 +1,8 @@
+<template name="alarmDefinitionsList">
+  {{> reactiveTable settings=opts}}
+  <button id="addAlarmDefinition" class="btn btn-default" type="button">Add</button>
+</template>
+
+<template name="alarmDefinitionsAdd">
+  {{> quickForm collection="AlarmDefinitions" id="insertAlarmDefinition" type="insert"}}
+</template>
