@@ -20,3 +20,5 @@ Meteor.startup ->
 
   Meteor.publish 'locations', (vehicleId, dtFrom, dtTo) ->
     Locations.find {vehicleId: vehicleId, timestamp: {$gte: dtFrom*1000, $lte: dtTo*1000}}, {sort: {timestamp: -1}}
+
+  Meteor.publish 'alarm-definitions', -> AlarmDefinitions.find {}

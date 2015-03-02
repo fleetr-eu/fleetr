@@ -29,6 +29,9 @@ mizzao:partitioner
 
 tap:i18n
 tap:i18n-ui
+alethes:pages
 msavin:mongol
 aslagle:reactive-table
 meteorhacks:fast-render
+ongoworks:security
+reactive-var
