@@ -32,6 +32,7 @@ Meteor.startup ->
     @route 'dashboard',
       path: '/'
       template: 'dashboard'
+      fastRender: true
 
     @route 'listDrivers',
       path: '/drivers/list'
@@ -119,4 +120,3 @@ Meteor.startup ->
     @route 'logbook',
       path: '/logbook'
       template: 'logbook'
-      # subscriptions: -> Meteor.subscribe 'logbook'

@@ -31,5 +31,4 @@ tap:i18n
 tap:i18n-ui
 msavin:mongol
 aslagle:reactive-table
-sanjo:jasmine
-velocity:html-reporter
+meteorhacks:fast-render

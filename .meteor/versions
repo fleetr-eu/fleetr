@@ -2,7 +2,6 @@ accounts-base@1.1.3
 accounts-password@1.0.6
 accounts-ui@1.1.4
 accounts-ui-unstyled@1.1.6
-alanning:package-stubber@0.0.9
 alanning:roles@1.2.13
 aldeed:autoform@4.2.2
 aldeed:autoform-bs-datepicker@1.1.0
@@ -25,6 +24,7 @@ callback-hook@1.0.2
 cfs:http-methods@0.0.27
 check@1.0.4
 chrismbeckett:fontawesome4@4.2.2
+chuangbo:cookie@1.1.0
 coffeescript@1.0.5
 dburles:collection-helpers@1.0.2
 dburles:mongo-collection-instances@0.3.1
@@ -60,8 +60,11 @@ logging@1.0.6
 matb33:collection-hooks@0.7.11
 meteor@1.1.4
 meteor-platform@1.2.1
+meteorhacks:fast-render@2.3.1
+meteorhacks:inject-data@1.2.2
 meteorhacks:kadira@2.19.6
 meteorhacks:meteorx@1.3.1
+meteorhacks:picker@1.0.1
 minifiers@1.1.3
 minimongo@1.0.6
 mizzao:bootstrap-3@3.3.1_1
@@ -77,8 +80,6 @@ msavin:mongol@0.5.3
 npm-bcrypt@0.7.7
 observe-sequence@1.0.4
 ordered-dict@1.0.2
-practicalmeteor:chai@1.9.2_3
-practicalmeteor:loglevel@1.1.0_3
 raix:handlebar-helpers@0.2.4
 rajit:bootstrap3-datepicker@1.4.1
 random@1.0.2
@@ -88,8 +89,6 @@ reload@1.1.2
 retry@1.0.2
 reywood:publish-composite@1.3.5
 routepolicy@1.0.4
-sanjo:jasmine@0.12.4
-sanjo:karma@1.4.1
 schnie:uploader@2.0.3
 service-configuration@1.0.3
 session@1.0.5
@@ -106,12 +105,6 @@ tsega:bootstrap3-datetimepicker@4.0.0_4
 ui@1.0.5
 underscore@1.0.2
 url@1.0.3
-velocity:core@0.4.5
-velocity:html-reporter@0.4.2
-velocity:meteor-stubs@1.0.0_2
-velocity:node-soft-mirror@0.3.1
-velocity:shim@0.1.0
-velocity:test-proxy@0.0.4
 webapp@1.1.6
 webapp-hashing@1.0.2
 wizonesolutions:underscore-string@1.0.0
