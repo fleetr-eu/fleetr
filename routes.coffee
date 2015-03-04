@@ -120,6 +120,7 @@ Meteor.startup ->
     @route 'logbook',
       path: '/logbook'
       template: 'logbook'
+      subscriptions: -> Meteor.subscribe 'mycodes'
 
     @route 'alarm-definitions-add',
       path: '/alarm-definitions/add'
