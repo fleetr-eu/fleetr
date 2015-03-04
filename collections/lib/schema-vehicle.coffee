@@ -3,14 +3,29 @@ Schema.vehicle = new SimpleSchema
     type: String
     optional: true
 
+  lastLocation:
+    type: Object
+    optional: true
+    blackbox: true
+
   tags:
     type: String
     optional: true
-    label: 'Етикети'
+    label: 'Tags'
+
+  active:
+    type: Boolean
+    label: "Active"
+    optional: true
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-6"
+      "input-col-class": "col-sm-6"
+      "leftLabel": "true"
 
   licensePlate:
     type: String
-    label: 'Регистрационен номер'
+    label: 'Regitration No'
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-6"
@@ -18,7 +33,16 @@ Schema.vehicle = new SimpleSchema
 
   identificationNumber:
     type: String
-    label: "Идентификационен номер (VIN)"
+    label: "Identification No (VIN)"
+    optional: true
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-6"
+      "input-col-class": "col-sm-6"
+
+  engineNumber:
+    type: String
+    label: "Engine No"
     optional: true
     autoform:
       template: "bootstrap3-horizontal"
@@ -27,9 +51,9 @@ Schema.vehicle = new SimpleSchema
 
   allocatedToFleet:
     type: String
-    label: "Автопарк"
+    label: "Fleet"
     autoform:
-      firstOption: "(Изберете)"
+      firstOption: "(Select)"
       options: -> Fleets.find().map (fleet) -> label: fleet.name, value: fleet._id
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-6"
@@ -37,30 +61,34 @@ Schema.vehicle = new SimpleSchema
 
   allocatedToFleetFromDate:
     type: Date
-    label: "В автопарка от"
+    label: "In the fleet since"
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-6"
       "input-col-class": "col-sm-6"
 
-  lastLocation:
-    type: Object
-    optional: true
-    blackbox: true
-
-  category:
+  color:
     type: String
-    label: 'Категория'
+    label: "Color"
     optional: true
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-6"
       "input-col-class": "col-sm-6"
 
-  body:
+  nextTechnicalCheck:
+    type: Date
+    label: "Next technical check"
+    autoform:
+      type: "bootstrap-datepicker"
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-6"
+      "input-col-class": "col-sm-6"
+
+  category:
     type: String
-    label: 'Каросерия'
+    label: 'Category'
     optional: true
     autoform:
       template: "bootstrap3-horizontal"
@@ -69,10 +97,10 @@ Schema.vehicle = new SimpleSchema
 
   make:
     type: String
-    label: 'Марка'
+    label: 'Make'
     optional: true
     autoform:
-      firstOption: "(Изберете)"
+      firstOption: "(Select)"
       options: -> VehiclesMakes.find().map (make) -> label: make.name, value: make._id
       allowOptions: "true"
       template: "bootstrap3-horizontal"
@@ -81,27 +109,81 @@ Schema.vehicle = new SimpleSchema
 
   model:
     type: String
-    label: 'Модел'
+    label: 'Model'
     optional: true
     autoform:
-      firstOption: "(Изберете)"
+      firstOption: "(Select)"
       allowOptions: "true"
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-6"
       "input-col-class": "col-sm-6"
 
-  type:
+  kind:
     type: String
-    label: 'Тип'
+    label: 'Kind'
     optional: true
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-6"
       "input-col-class": "col-sm-6"
 
-  mass:
+  maxPower:
+    type: Number
+    label: "Max power (kW)"
+    optional: true
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-6"
+      "input-col-class": "col-sm-6"
+
+  fuelType:
     type: String
-    label: 'Маса (кг)'
+    label: "Fuel type"
+    optional: true
+    allowedValues: ['Gas', 'Gasoline', 'Diesel', 'Electric', 'Hybrid']
+    autoform:
+      firstOption: "(Select)"
+      options: [
+        { label:'Gas' , value: 'Gas'},
+        { label:'Gasoline' , value: 'Gasoline'},
+        { label:'Diesel' , value: 'Diesel'},
+        { label:'Electric' , value: 'Electric'},
+        { label:'Hybrid' , value: 'Hybrid'}
+      ]
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-6"
+      "input-col-class": "col-sm-6"
+
+  productionYear:
+    type: Number
+    label: "Production Year"
+    optional: true
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-6"
+      "input-col-class": "col-sm-6"
+
+  body:
+    type: String
+    label: 'Body'
+    optional: true
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-6"
+      "input-col-class": "col-sm-6"
+
+  engineDisplacement:
+    type: Number
+    label: "Engine Displacement (cc)"
+    optional: true
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-6"
+      "input-col-class": "col-sm-6"
+
+  maxFuelCapacity:
+    type: Number
+    label: "Max fuel capacity (l)"
     optional: true
     autoform:
       template: "bootstrap3-horizontal"
@@ -110,121 +192,16 @@ Schema.vehicle = new SimpleSchema
 
   maxSpeed:
     type: Number
-    label: "Максимална скорост (KM/h)"
+    label: "Max speed (Km/h)"
     optional: true
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-6"
       "input-col-class": "col-sm-6"
 
-  engine:
-    type: Object
-    optional: true;
-    autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-6"
-      "input-col-class": "col-sm-6"
-
-  "engine.type":
-    type: String
-    label: "Тип"
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-6"
-      "input-col-class": "col-sm-6"
-
-  "engine.powerSource":
-    type: String
-    label: "Силов агрегат"
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-6"
-      "input-col-class": "col-sm-6"
-
-  "engine.cylinder":
+  mass:
     type: Number
-    label: "Цилиндър (cm3)"
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-6"
-      "input-col-class": "col-sm-6"
-
-  "engine.maxPower":
-    type: Number
-    label: "Максимална мощност (Kw)"
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-6"
-      "input-col-class": "col-sm-6"
-
-  "еngine.traction":
-    type: Number
-    label: "Тягово усилие"
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-6"
-      "input-col-class": "col-sm-6"
-
-  "engine.axes":
-    type: Number
-    label: "Брой оси"
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-6"
-      "input-col-class": "col-sm-6"
-
-  "engine.noiseLevel":
-    type: Object
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-6"
-      "input-col-class": "col-sm-6"
-
-  "engine.noiseLevelTravelling":
-    type: Number
-    label: "Шум при пътуване (dB(A))"
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-6"
-      "input-col-class": "col-sm-6"
-
-  "engine.noiseLevelIdling":
-    type: Number
-    label: "Шум на празен ход (dB(A))"
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-6"
-      "input-col-class": "col-sm-6"
-
-  brakeAirPressure:
-    type: Object
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-6"
-      "input-col-class": "col-sm-6"
-
-  "brakeAirPressure.singlePipes":
-    type: Number
-    label: "Единични тръби (bar)"
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-6"
-      "input-col-class": "col-sm-6"
-
-  "brakeAirPressure.twoPipes":
-    type: Number
-    label: "Двойни тръби (bar)"
+    label: 'Mass (kg)'
     optional: true
     autoform:
       template: "bootstrap3-horizontal"

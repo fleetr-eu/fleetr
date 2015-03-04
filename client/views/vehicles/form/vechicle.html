@@ -2,16 +2,16 @@
 <div class="portlet box blue-hoki">
     <div class="portlet-title">
       <div class="caption">
-        <i class="icon-car"></i>Автомобил
+        <i class="icon-car"></i>Vehicle
       </div>
       <div class="tools">
         <a href="" class="fullscreen"></a>
       </div>
       <div class="actions">
         <a href="#" class="btn btn-default btn-primary btn-sm">
-        <i class="fa fa-check"></i> Запиши </a>
+        <i class="fa fa-check"></i> Save </a>
         <a href="#" class="btn btn-default btn-reset">
-        <i class="fa fa-close"></i> Анулирай </a>
+        <i class="fa fa-close"></i> Cancel </a>
       </div>
     </div>
     <div class="portlet-body">
@@ -20,19 +20,15 @@
         <ul class="nav nav-tabs">
           <li class="active">
             <a href="#tab_1" data-toggle="tab">
-            Основни данни </a>
+            Basic data</a>
           </li>
           <li>
             <a href="#tab_2" data-toggle="tab">
-            Модел </a>
-          </li>
-          <li>
-            <a href="#tab_3" data-toggle="tab">
-            Двигател и спирачки</a>
+            VIN info </a>
           </li>
           <li>
             <a href="#tab_4" data-toggle="tab">
-            График </a>
+            Working Schedule </a>
           </li>
         </ul>
 
@@ -44,8 +40,12 @@
                   	  {{> afFieldInput type="hidden" name="_id" value=_id}}
                       {{> afQuickField name="licensePlate"}}
                       {{> afQuickField name="identificationNumber"}}
+                      {{> afQuickField name="engineNumber"}}
+                      {{> afQuickField name="color"}}
                       {{> afQuickField name="allocatedToFleet"}}
                       {{> afQuickField name="allocatedToFleetFromDate"}}
+                      {{> afQuickField name="nextTechnicalCheck"}}
+                      {{> afQuickField name="active"}}
                     </div>
                   <div class="col-md-6">
                     {{> afQuickField name="tags"}}
@@ -57,41 +57,26 @@
           <div class="tab-pane" id="tab_2">
             <div class="row">
               <fieldset>
-                  <div class="col-md-7">
+                  <div class="col-md-6">
                     {{> afQuickField name="category"}}
-                    {{> afQuickField name="body"}}
                     {{> afQuickField name="make"}}
                     {{> afQuickField name="model" options=modelOptions}}
-                    {{> afQuickField name="type"}}
-                    {{> afQuickField name="mass"}}
-                    {{> afQuickField name="maxSpeed"}}
+                    {{> afQuickField name="kind"}}
+                    {{> afQuickField name="productionYear"}}
+                    {{> afQuickField name="body"}}
+                </div>
+                <div class="col-md-6">
+                  {{> afQuickField name="maxPower"}}
+                  {{> afQuickField name="fuelType"}}
+                  {{> afQuickField name="engineDisplacement"}}
+                  {{> afQuickField name="maxFuelCapacity"}}
+                  {{> afQuickField name="maxSpeed"}}
+                  {{> afQuickField name="mass"}}
                 </div>
               </fieldset>
             </div>
           </div>
 
-          <div class="tab-pane" id="tab_3">
-            <div class="row">
-              <fieldset>
-                  <div class="col-md-6">
-                    <legend>Двигател</legend>
-                    {{> afQuickField name="engine.type"}}
-                    {{> afQuickField name="engine.powerSource"}}
-                    {{> afQuickField name="engine.cylinder"}}
-                    {{> afQuickField name="engine.maxPower"}}
-                    {{> afQuickField name="еngine.traction"}}
-                    {{> afQuickField name="engine.axes"}}
-                    {{> afQuickField name="engine.noiseLevelTravelling"}}
-                    {{> afQuickField name="engine.noiseLevelIdling"}}
-                  </div>
-                  <div class="col-md-6">
-                    <legend>Налягане на спирачките</legend>
-                    {{> afQuickField name="brakeAirPressure.singlePipes"}}
-                    {{> afQuickField name="brakeAirPressure.twoPipes"}}
-                  </div>
-              </fieldset>
-            </div>
-          </div>
           <div class="tab-pane" id="tab_4">
             <fieldset>
               <div class="table-responsive">
