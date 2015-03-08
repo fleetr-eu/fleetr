@@ -1,0 +1,18 @@
+.ping-row {
+ 	color: #aaaaaa;
+}
+
+.regular-row {
+}
+  
+.start-row {
+  	color: #00ff00;
+}
+
+.stop-row {
+  	color: #0000ff;
+}
+
+.event-row {
+  	color: #ff0000;
+}

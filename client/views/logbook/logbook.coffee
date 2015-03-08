@@ -5,6 +5,7 @@ rowStyles =
   15        : 'regular-row'
   29        : 'start-row'
   30        : 'stop-row'
+  35        : 'event-row'
   'unknown' : 'unknown-row'
 
 Template.logbook.created = ->
@@ -60,7 +61,7 @@ Template.logbook.helpers
    collection: Logbook
    rowsPerPage: 15
    fields: [
-     { key: 'time', label: 'Time', fn: (val,obj) -> moment(val).format('DD/MM/YYYY HH:mm:ss') }
+     { key: 'recordTime', label: 'Time', fn: (val,obj) -> moment(val).format('DD/MM/YYYY HH:mm:ss') }
      { key: 'address', label: 'Address', fn: (val,obj) -> geocode2(obj.lat,obj.lon) }
      # { key: 'type', label: 'Type' }
      { key: 'lat', label: 'Latitude' }
@@ -70,13 +71,17 @@ Template.logbook.helpers
    ]
    showColumnToggles: true
    class: "table table-bordered table-hover"
+   rowClass: (item) ->
+      style = rowStyles[item.type]
+      style = rowStyles['unknown'] if not style
+      style
 
 
 Template.logbook.events
   'changeDate #datepicker': (event) ->
-    args = Session.get('logbook date filter')?.time || {}
+    args = Session.get('logbook date filter')?.recordTime || {}
     args['$gte'] = event.date if event.target.name == 'start'
     args['$lte'] = moment(event.date).add(1, 'days').toDate() if event.target.name == 'end'
-    Session.set 'logbook date filter', {time: args}
+    Session.set 'logbook date filter', {recordTime: args}
   'click #geocode': (event) ->
     console.log geocode2(55,83)
