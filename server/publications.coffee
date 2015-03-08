@@ -23,3 +23,44 @@ Meteor.startup ->
 
   Meteor.publish 'alarm-definitions', -> AlarmDefinitions.find {}
   Meteor.publish 'mycodes', -> MyCodes.find {}
+
+
+  Meteor.publish 'dateRangeAggregation', ()->
+    sub = this
+    db = MongoInternals.defaultRemoteCollectionDriver().mongo.db
+    pipeline = [ 
+      {$match: {type: 15}} 
+      {$project : { 
+          type: "$type", 
+          speed: "$speed", 
+          year: { $substr: ["$time",0,4] }, 
+          month: { $substr: ["$time",5,2] }, 
+          day: { $substr: ["$time",8,2] }, 
+        }
+      },
+      {$project : { 
+          type: "$type", 
+          speed: "$speed", 
+          date: { $concat: ["$year","-","$month","-","$day"] }, 
+        }
+      },
+      { $group : {
+            _id: "$date"
+            total: { $sum: 1 }
+            minSpeed: { $min: "$speed" }
+            maxSpeed: { $max: "$speed" }
+            avgSpeed: { $avg: "$speed" }
+        }}
+    ]
+    db.collection('logbook').aggregate pipeline, Meteor.bindEnvironment(
+      (err, result) ->
+        _.each result, (e) ->
+          sub.added "dateRangeAggregation", e._id, e   
+        sub.ready()
+              
+      (error) ->
+        Meteor._debug( "Error doing aggregation: " + error)
+    )
+            
+    
+  

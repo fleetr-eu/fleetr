@@ -1,6 +1,15 @@
+@DateRangeAggregation = new Mongo.Collection 'dateRangeAggregation'
+
+rowStyles =
+  0         : 'ping-row'
+  15        : 'regular-row'
+  29        : 'start-row'
+  30        : 'stop-row'
+  'unknown' : 'unknown-row'
+
 Template.logbook.created = ->
   @autorun -> Meteor.subscribe 'logbook', Session.get('logbook date filter')
-  # Meteor.subscribe 'mycodes'
+  Meteor.subscribe 'dateRangeAggregation'
 
 Template.logbook.rendered = ->
   $('#datepicker').datepicker
@@ -14,8 +23,6 @@ geocode2 = (lat,lon) ->
 
   code = MyCodes.findCachedLocationName lat, lon
   
-  # console.log 'Found in cache: ' + lat + ':' + lon + ' found: ' + code
-  
   if code
     return code.address
   
@@ -24,7 +31,6 @@ geocode2 = (lat,lon) ->
 
 
   geocoder.geocode { 'latLng': latlon}, (results, status) ->
-    # console.log 'Location not found: ' + lat + ':' + lon
     if status isnt google.maps.GeocoderStatus.OK
       console.log 'Geocode error: ' + lat + ':' + lon + ': ' +  status
       return
@@ -38,6 +44,18 @@ geocode2 = (lat,lon) ->
   'loading...'
 
 Template.logbook.helpers
+  aggopts: ->
+    collection: DateRangeAggregation
+    rowsPerPage: 15
+    fields: [
+      { key: '_id', label: 'Date'}
+      { key: 'total', label: 'Amount' }
+      { key: 'minSpeed', label: 'Max speed'}
+      { key: 'maxSpeed', label: 'Min speed'}
+      { key: 'avgSpeed', label: 'Avg speed'}
+    ]
+    showColumnToggles: true
+    class: "table table-bordered table-hover"
   opts: ->
    collection: Logbook
    rowsPerPage: 15
@@ -52,6 +70,7 @@ Template.logbook.helpers
    ]
    showColumnToggles: true
    class: "table table-bordered table-hover"
+
 
 Template.logbook.events
   'changeDate #datepicker': (event) ->
