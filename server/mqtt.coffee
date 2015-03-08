@@ -1,7 +1,6 @@
 Meteor.startup ->
-  client = mqtt.connect 'mqtt://localhost'
-  client.subscribe 'presence'
+  client = mqtt.connect 'mqtt://144.76.40.200'
+  client.subscribe 'xxx'
   client.on 'message', (topic, message) ->
-    console.log message.toString()
-  client.publish 'presence', 'Hello mqtt'
-  client.end()
+    console.log 'MQTT: ' + message.toString()
+  
