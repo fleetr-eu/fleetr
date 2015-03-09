@@ -72,6 +72,7 @@ Template.logbook.helpers
      { key: 'type', label: 'Type' }
      # { key: 'lat', label: 'Latitude' }
      # { key: 'lon', label: 'Longitude' }
+     { key: 'speed2', label: 'Speed2' }
      { key: 'speed', label: 'Speed' }
      { key: 'course', label: 'Course' }
    ]
