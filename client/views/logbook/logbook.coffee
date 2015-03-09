@@ -1,23 +1,28 @@
 @DateRangeAggregation = new Mongo.Collection 'dateRangeAggregation'
 
+MESSAGE_ROW_TYPE  = 0
+REGULAR_ROW_TYPE  = 30
+EVENT_ROW_TYPE    = 35
+
 rowStyles =
-  0         : 'ping-row'
-  15        : 'regular-row'
-  29        : 'start-row'
-  30        : 'stop-row'
-  35        : 'event-row'
+  MESSAGE_ROW_TYPE: 'message-row'
+  REGULAR_ROW_TYPE: 'regular-row'
+  29              : 'start-row'
+  EVENT_ROW_TYPE  : 'event-row'
   'unknown' : 'unknown-row'
 
 Template.logbook.created = ->
-  @autorun -> Meteor.subscribe 'logbook', Session.get('logbook date filter')
-  Meteor.subscribe 'dateRangeAggregation'
+  @autorun -> 
+    Meteor.subscribe 'logbook', Session.get('logbook date filter')
+    Meteor.subscribe 'dateRangeAggregation', Session.get('logbook date filter')
 
 Template.logbook.rendered = ->
   $('#datepicker').datepicker
     autoclose: true
     todayHighlight: true
 
-geocode2 = (lat,lon) ->
+geocode2 = (type, lat,lon) ->
+  return "" if type == MESSAGE_ROW_TYPE
   scale = 1000
   lat = Math.round(lat*scale)
   lon = Math.round(lon*scale)
@@ -44,6 +49,7 @@ geocode2 = (lat,lon) ->
 
   'loading...'
 
+
 Template.logbook.helpers
   aggopts: ->
     collection: DateRangeAggregation
@@ -51,8 +57,8 @@ Template.logbook.helpers
     fields: [
       { key: '_id', label: 'Date'}
       { key: 'total', label: 'Amount' }
-      { key: 'minSpeed', label: 'Max speed'}
-      { key: 'maxSpeed', label: 'Min speed'}
+      { key: 'minSpeed', label: 'Min speed'}
+      { key: 'maxSpeed', label: 'Max speed'}
       { key: 'avgSpeed', label: 'Avg speed'}
     ]
     showColumnToggles: true
@@ -62,10 +68,10 @@ Template.logbook.helpers
    rowsPerPage: 15
    fields: [
      { key: 'recordTime', label: 'Time', fn: (val,obj) -> moment(val).format('DD/MM/YYYY HH:mm:ss') }
-     { key: 'address', label: 'Address', fn: (val,obj) -> geocode2(obj.lat,obj.lon) }
-     # { key: 'type', label: 'Type' }
-     { key: 'lat', label: 'Latitude' }
-     { key: 'lon', label: 'Longitude' }
+     { key: 'address', label: 'Address', fn: (val,obj) -> geocode2(obj.type, obj.lat,obj.lon) }
+     { key: 'type', label: 'Type' }
+     # { key: 'lat', label: 'Latitude' }
+     # { key: 'lon', label: 'Longitude' }
      { key: 'speed', label: 'Speed' }
      { key: 'course', label: 'Course' }
    ]

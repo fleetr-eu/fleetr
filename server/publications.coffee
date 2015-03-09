@@ -25,17 +25,21 @@ Meteor.startup ->
   Meteor.publish 'mycodes', -> MyCodes.find {}
 
 
-  Meteor.publish 'dateRangeAggregation', ()->
+  Meteor.publish 'dateRangeAggregation', (args)->
     sub = this
     db = MongoInternals.defaultRemoteCollectionDriver().mongo.db
+    rangeMatch = {$match: {}}
+    if args
+      rangeMatch = {$match: args}
     pipeline = [ 
-      {$match: {type: 15}} 
+      {$match: {type: 30}} 
+      rangeMatch
       {$project : { 
           type: "$type", 
           speed: "$speed", 
-          year: { $substr: ["$time",0,4] }, 
-          month: { $substr: ["$time",5,2] }, 
-          day: { $substr: ["$time",8,2] }, 
+          year: { $substr: ["$recordTime",0,4] }, 
+          month: { $substr: ["$recordTime",5,2] }, 
+          day: { $substr: ["$recordTime",8,2] }, 
         }
       },
       {$project : { 
