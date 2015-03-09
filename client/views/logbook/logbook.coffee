@@ -89,5 +89,6 @@ Template.logbook.events
     args['$gte'] = event.date if event.target.name == 'start'
     args['$lte'] = moment(event.date).add(1, 'days').toDate() if event.target.name == 'end'
     Session.set 'logbook date filter', {recordTime: args}
+    console.log 'logbook date filter: ' + JSON.stringify({recordTime: args})
   'click #geocode': (event) ->
     console.log geocode2(55,83)

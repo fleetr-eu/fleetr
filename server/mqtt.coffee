@@ -7,8 +7,17 @@ Meteor.startup ->
     console.log 'MQTT: ' + data
     record = JSON.parse(data)
     Fiber(() -> 
-      console.log 'inserting record...'	
+      #if typeof record.recordTime is 'string'
+      #  date = new Date(record.recordTime)
+      #  console.log '  date: ' + date + ' ' + (typeof date)
+      if typeof record.recordTime is 'string'
+        date = new Date(record.recordTime)
+        console.log '  convert date: ' + date
+        record.recordTime = date
+      console.log 'inserting record: ' + JSON.stringify(record)	
       Logbook.insert record
     ).run()
 
+
+  
   
