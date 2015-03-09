@@ -5,10 +5,10 @@ REGULAR_ROW_TYPE  = 30
 EVENT_ROW_TYPE    = 35
 
 rowStyles =
-  MESSAGE_ROW_TYPE: 'message-row'
-  REGULAR_ROW_TYPE: 'regular-row'
-  29              : 'start-row'
-  EVENT_ROW_TYPE  : 'event-row'
+  0: 'message-row'
+  30: 'regular-row'
+  29: 'start-row'
+  35: 'event-row'
   'unknown' : 'unknown-row'
 
 Template.logbook.created = ->
