@@ -17,9 +17,10 @@ Template.logbook.created = ->
     Meteor.subscribe 'dateRangeAggregation', Session.get('logbook date filter')
 
 Template.logbook.rendered = ->
-  $('#datepicker').datepicker
-    autoclose: true
-    todayHighlight: true
+  $('#daterange').daterangepicker()
+  # $('#datepicker').datepicker
+  #   autoclose: true
+  #   todayHighlight: true
 
 geocode2 = (type, lat,lon) ->
   return "" if type == MESSAGE_ROW_TYPE
@@ -85,11 +86,19 @@ Template.logbook.helpers
 
 
 Template.logbook.events
-  'changeDate #datepicker': (event) ->
+  # 'changeDate #datepicker': (event) ->
+  #   args = Session.get('logbook date filter')?.recordTime || {}
+  #   args['$gte'] = event.date if event.target.name == 'start'
+  #   args['$lte'] = moment(event.date).add(1, 'days').toDate() if event.target.name == 'end'
+  #   Session.set 'logbook date filter', {recordTime: args}
+  #   console.log 'logbook date filter: ' + JSON.stringify({recordTime: args})
+  'apply.daterangepicker #daterange': (event,p) ->
+    startDate = $('#daterange').data('daterangepicker').startDate
+    endDate = $('#daterange').data('daterangepicker').endDate
+    # console.log startDate.format('YYYY-MM-DD') + ' - ' + endDate.format('YYYY-MM-DD')
     args = Session.get('logbook date filter')?.recordTime || {}
-    args['$gte'] = event.date if event.target.name == 'start'
-    args['$lte'] = moment(event.date).add(1, 'days').toDate() if event.target.name == 'end'
+    args['$gte'] = startDate.toDate() 
+    # args['$lte'] = endDate.add(1, 'days').toDate()
+    args['$lte'] = endDate.toDate()
+    #console.log 'logbook date filter: ' + JSON.stringify(args)
     Session.set 'logbook date filter', {recordTime: args}
-    console.log 'logbook date filter: ' + JSON.stringify({recordTime: args})
-  'click #geocode': (event) ->
-    console.log geocode2(55,83)
