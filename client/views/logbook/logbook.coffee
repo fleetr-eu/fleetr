@@ -68,13 +68,16 @@ Template.logbook.helpers
    rowsPerPage: 15
    fields: [
      { key: 'recordTime', label: 'Time', fn: (val,obj) -> moment(val).format('DD/MM/YYYY HH:mm:ss') }
-     { key: 'address', label: 'Address', fn: (val,obj) -> geocode2(obj.type, obj.lat,obj.lon) }
      { key: 'type', label: 'Type' }
+     { key: 'address', label: 'Location', fn: (val,obj) -> geocode2(obj.type, obj.lat,obj.lon) }
      # { key: 'lat', label: 'Latitude' }
      # { key: 'lon', label: 'Longitude' }
-     { key: 'speed2', label: 'Speed2' }
+     # { key: 'speed2', label: 'Speed2' }
      { key: 'speed', label: 'Speed' }
-     { key: 'course', label: 'Course' }
+     { key: 'tacho', label: 'Odometer(km)', fn: (val,obj) -> val/1000 } 
+     { key: 'fuell', label: 'Fuel'}  #, fn: (val,obj) -> val/1000 } }
+     { key: 'fuelc', label: 'Fuel Consumed(l)', fn: (val,obj) -> val/1000 }
+     # { key: 'course', label: 'Course' }
    ]
    showColumnToggles: true
    class: "table table-bordered table-hover"
