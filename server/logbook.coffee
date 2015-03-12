@@ -3,12 +3,20 @@ Meteor.publish 'startstoppub', ()->
 
   state = false
 
+  start = null
+
   subHandle = Logbook.find({type:29}).observeChanges
     added: (id, fields) ->
-      console.log('Add: ' + JSON.stringify(fields))
+      # console.log('Add: ' + JSON.stringify(fields))
       started = fields.io %2 == 1
-      if(started != state) 
-        self.added("startstop", id, fields)
+      return if started == state
+ 
+      if started 
+        start = fields
+      else
+        self.added("startstop", id, {start: start, stop: fields})
+        start = null
+ 
       state = started
 
     changed: (id, fields) ->
@@ -17,7 +25,7 @@ Meteor.publish 'startstoppub', ()->
     removed: (id) ->
       #self.removed("testdata", id);
 
-  self.ready();
+  self.ready()
   self.onStop ()->  subHandle.stop()
   
 

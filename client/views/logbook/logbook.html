@@ -2,24 +2,22 @@
 
 <div class="input-prepend input-group">
 	<span class="add-on input-group-addon">
- 	<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+ 		<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
  	</span>
  	<input type="text" style="width: 200px" id="daterange" class="form-control"/> 
 </div>
+<div class="input-prepend input-group">
+	<span class="add-on input-group-addon">
+ 		<i class="glyphicon glyphicon-dashboard fa fa-dashboard"></i>
+ 	</span>
+ 	<input type="text" style="width: 200px" id="speed" class="form-control"/> 
+</div>
 
-<!--
-   <div class="input-daterange input-group" id="datepicker" style="width:400px;">
-    <span class="input-group-addon">From</span>
-    <input type="text" class="input-sm form-control" name="start" />
-    <span class="input-group-addon">To</span>
-    <input type="text" class="input-sm form-control" name="end" />
-  </div>
- -->  
-
-  {{> reactiveTable settings=aggopts}}
+{{> reactiveTable settings=aggopts}}
+{{> reactiveTable settings=startstopopts}}
 
   <!-- {{> reactiveTable settings=opts}} -->
 
-{{> tabular table=TabularTables.Logbook selector=selector class="table table-striped table-bordered table-condensed"}}
+<!-- {{> tabular table=TabularTables.Logbook selector=selector class="table table-striped table-bordered table-condensed"}} -->
 
 </template>
