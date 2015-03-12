@@ -1,7 +1,9 @@
 @DateRangeAggregation = new Mongo.Collection 'dateRangeAggregation'
+# @TestData = new Mongo.Collection 'testdata'
 
 
 MESSAGE_ROW_TYPE  = 0
+START_STOP_ROW_TYPE  = 29
 REGULAR_ROW_TYPE  = 30
 EVENT_ROW_TYPE    = 35
 
@@ -16,6 +18,7 @@ rowStyles =
 Template.logbook.created = ->
   @TabularTables = {}
   Template.registerHelper('TabularTables', @TabularTables)
+  
 
   # Meteor.isClient && Template.registerHelper('TabularTables', TabularTables)
 
@@ -23,12 +26,18 @@ Template.logbook.created = ->
     name: "Logbook"
     collection: Logbook
     columns: [
+      {data: 'recordTime', label: 'Time', render: (val,type,obj) -> moment(val).format('DD/MM/YYYY HH:mm:ss') }
+      {data: 'io', label: 'Start/Stop', render: (val,type,obj) -> 
+        return '' if obj.type != START_STOP_ROW_TYPE
+        if val%2==0 then 'stop' else 'start'
+        #val + ' ' + mark 
+      }
       {data: "type", title: "Type"}
       {data: 'address', title: 'Location', render: (val,type,obj) -> geocode2(obj.type, obj.lat,obj.lon) }
-      {data: "speed", title: "Speed"}
-      {data: 'tacho', title: 'Odometer(km)', render: (val,type,obj) -> val/1000 } 
-      {data: 'fuell', title: 'Fuel'}  #, fn: (val,obj) -> val/1000 } }
-      {data: 'fuelc', title: 'Fuel Consumed(l)', render: (val,type,obj) -> val/1000 }
+      {data: "speed", title: "Speed (km/h)", render: (val,type,obj) -> val }
+      {data: 'distance', title: 'Distance (m)', render: (val,type,obj) -> val} 
+      {data: 'fuelUsed', title: 'Fuel (ml)', render: (val,type,obj) -> val }
+      {data: 'fuell', title: 'Fuel (l)'}  #, fn: (val,obj) -> val/1000 } }
       {title: 'Driver', render: (val,type,obj) -> '&lt;driver&gt;' }
       {title: 'License', render: (val,type,obj) -> '&lt;license&gt;' }
       {title: 'Map', render: (val,type,obj) -> '&lt;map link&gt;' }
@@ -42,9 +51,10 @@ Template.logbook.created = ->
 
 
   @autorun -> 
+    #Session.set('logbook date filter', {type:29})
     Meteor.subscribe 'logbook', Session.get('logbook date filter')
     Meteor.subscribe 'dateRangeAggregation', Session.get('logbook date filter')
-
+    # Meteor.subscribe 'testdatapub'
 
 
 Template.logbook.rendered = ->
@@ -84,15 +94,21 @@ geocode2 = (type, lat,lon) ->
 
 Template.logbook.helpers
   selector: ()-> Session.get('logbook date filter')
+  #filter: ()-> JSON.stringify(Session.get('logbook date filter'))
   aggopts: ->
     collection: DateRangeAggregation
     rowsPerPage: 15
     fields: [
       { key: '_id', label: 'Date'}
-      { key: 'total', label: 'Amount' }
-      { key: 'minSpeed', label: 'Min speed'}
-      { key: 'maxSpeed', label: 'Max speed'}
-      { key: 'avgSpeed', label: 'Avg speed'}
+      # { key: 'total', label: 'Amount' }
+      # { key: 'minSpeed', label: 'Min speed'}
+      { key: 'maxSpeed', label: 'Max speed (km/h)', fn: (val)->(val).toFixed(0) }
+      { key: 'avgSpeed', label: 'Avg speed (km/h)', fn: (val)->(val).toFixed(0) }
+      { key: 'sumDistance', label: 'Distance (km)', fn: (val)->(val/1000).toFixed(0) }
+      { key: 'sumFuel', label: 'Fuel (l)', fn: (val)-> (val/1000).toFixed(2) }
+      { key:'litersPer100', label: 'Fuel (l/100km)', fn: (val,obj)->(obj.sumFuel/obj.sumDistance*100).toFixed(2) }
+      { key:'kmPerLiter', label: 'Fuel (km/l)', fn: (val,obj)->(obj.sumDistance/obj.sumFuel).toFixed(2) }
+      # { key:'test', label: 'Test', fn: (val,obj)-> 1000.toFixed(2) }
     ]
     showColumnToggles: true
     class: "table table-bordered table-hover"
@@ -139,5 +155,5 @@ Template.logbook.events
     args['$gte'] = startDate.toDate() 
     # args['$lte'] = endDate.add(1, 'days').toDate()
     args['$lte'] = endDate.toDate()
-    #console.log 'logbook date filter: ' + JSON.stringify(args)
-    Session.set 'logbook date filter', {recordTime: args}
+    Session.set 'logbook date filter', {recordTime: args, type:29}
+    console.log 'logbook date filter: ' + JSON.stringify(Session.get('logbook date filter'))
