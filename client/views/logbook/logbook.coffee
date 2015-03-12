@@ -1,5 +1,5 @@
 @DateRangeAggregation = new Mongo.Collection 'dateRangeAggregation'
-# @TestData = new Mongo.Collection 'testdata'
+@StartStop = new Mongo.Collection 'startstop'
 
 
 MESSAGE_ROW_TYPE  = 0
@@ -54,7 +54,7 @@ Template.logbook.created = ->
     #Session.set('logbook date filter', {type:29})
     Meteor.subscribe 'logbook', Session.get('logbook date filter')
     Meteor.subscribe 'dateRangeAggregation', Session.get('logbook date filter')
-    # Meteor.subscribe 'testdatapub'
+    Meteor.subscribe 'startstoppub' 
 
 
 Template.logbook.rendered = ->
