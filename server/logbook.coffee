@@ -9,14 +9,14 @@
 #     {data: "speed", title: "Speed"}
 #   ]
 
-Meteor.publish 'startstoppub', ()->
+Meteor.publish 'startstoppub', (args)->
   self = this
-
   state = false
-
   start = null
-
-  subHandle = Logbook.find({type:29}).observeChanges
+  args = {} if not args
+  args.type = 29
+  console.log 'FILTER: ' + JSON.stringify(args)
+  subHandle = Logbook.find(args).observeChanges
     added: (id, fields) ->
       # console.log('Add: ' + JSON.stringify(fields))
       started = fields.io %2 == 1

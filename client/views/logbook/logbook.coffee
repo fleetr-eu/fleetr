@@ -36,7 +36,7 @@ createAggregationTableOptions = ->
     # { key:'test', label: 'Test', fn: (val,obj)-> 1000.toFixed(2) }
   ]
   showColumnToggles: true
-  class: "table table-bordered table-hover"
+  class: "table table-bordered table-hover aggregation-table"
 
 createStartStopOptions = ->
   collection: StartStop
@@ -71,7 +71,7 @@ createStartStopOptions = ->
     {key: 'map', label: 'Map', fn: (val)->'<map link>' }
   ]
   showColumnToggles: true
-  class: "table table-bordered table-hover"
+  class: "table table-bordered table-hover start-stop-table"
 
 
 # createLogbookTable = () ->
@@ -170,3 +170,11 @@ Template.logbook.events
     args = Session.get(LOGBOOK_FILTER_NAME)?.speed || {}   
     args['speed'] = event.target.value
     # console.log 'Filter: ' + JSON.stringify(args)
+  'click .aggregation-table tr': (event)->
+    startDate = moment(this._id)
+    endDate = moment(this._id).add(1, 'days')
+    args = Session.get(LOGBOOK_FILTER_NAME)?.recordTime || {}
+    args['$gte'] = startDate.toDate()
+    args['$lte'] = endDate.toDate()
+    # console.log 'Filter: ' + JSON.stringify(args)
+    Session.set LOGBOOK_FILTER_NAME, {recordTime: args}
