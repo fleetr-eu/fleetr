@@ -5,15 +5,16 @@
                 <div class="row">
                   <fieldset>
                       <div class="col-md-4">
-                      	  <legend>Група</legend>
+                      	  <legend>Fleet Group</legend>
                           {{> afQuickField name="name"}}
+                          {{> afQuickField name="description"}}
                       </div>
                   </fieldset>
                </div>
             </div>
         <div>
-          <button type="submit" class="btn btn-primary">Запиши</button>
-          <button type="reset" class="btn btn-default">Анулирай</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="reset" class="btn btn-default">Cancel</button>
         </div>
     {{/autoForm}}
   </div>

@@ -83,9 +83,17 @@ Meteor.startup ->
     @route 'drilldownReport',
       path: '/reports/drilldown'
 
-    @route 'addExpensesFuel',
-      path: '/expenses/fuel/add'
-      template: 'expensesFuel'
+    @route 'addExpenseGroup',
+      path: '/expenses/groups/add'
+      template: 'expenseGroup'
+
+    @route 'addExpenseType',
+      path: '/expenses/types/add'
+      template: 'expenseType'
+
+    @route 'addExpense',
+      path: '/expenses/add'
+      template: 'expense'
 
     @route 'listAlarms',
       path: '/alarms/list'

@@ -7,7 +7,34 @@ Schema.fleetGroups = new SimpleSchema
 
   name:
     type: String
-    label: 'Група'
+    label: 'Group name'
+  description:
+    type: String
+    label: 'Description'
+
+Schema.expenseGroups = new SimpleSchema
+  _id:
+    type: String
+    optional: true
+
+  name:
+    type: String
+    label: 'Name'
+  description:
+    type: String
+    label: 'Description'
+
+Schema.expenseTypes = new SimpleSchema
+  _id:
+    type: String
+    optional: true
+
+  name:
+    type: String
+    label: 'Name'
+  description:
+    type: String
+    label: 'Description'
 
 Schema.fleet = new SimpleSchema
   _id:
@@ -16,61 +43,139 @@ Schema.fleet = new SimpleSchema
 
   name:
     type: String
-    label: 'Автопарк'
+    label: 'Name'
   parent:
     type:String
-    label: 'Група'
+    label: 'Group'
     autoform:
-      firstOption: "(Изберете)"
+      firstOption: "(Select)"
       options: -> FleetGroups.find().map (group) -> label: group.name, value: group._id
 
 Schema.expenses = new SimpleSchema
-   driver:
+
+  expenseType:
+     type: String
+     label: 'Expense Type'
+     autoform:
+       firstOption: "(Select)"
+       options: -> ExpenseTypes.find().map (expenseType) -> label: expenseType.name, value: expenseType._id
+       allowOptions: "true"
+       template: "bootstrap3-horizontal"
+       "label-class": "col-sm-5"
+       "input-col-class": "col-sm-7"
+
+   expenseGroup:
       type: String
-      label: 'Шофьор'
+      label: 'Expense Group'
       autoform:
-        firstOption: "(Изберете)"
-        options: -> Drivers.find().map (driver) ->
-          label: driver.firstName+" "+driver.name, value: driver._id
-   vehicle:
-      type:String
-      label: "Автомобил"
-      autoform:
-        firstOption: "(Изберете)"
-        options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
-   invoiceNr:
-      type:String
-      label: "Фактура/Касова бележка №"
-   date:
-      type:Date
-      label: "Дата"
-      autoform:
-        type: "datetimepicker"
-   fuelType:
-      type:String
-      label: "Вид гориво"
-      allowedValues:  ['Бензин', 'Дизел', 'Газ пропан бутан', 'Метан']
-   litres:
-      type: Number
-      label: "Литри"
-   pricePerLitre:
+        firstOption: "(Select)"
+        options: -> ExpenseGroups.find().map (expenseGroup) -> label: expenseGroup.name, value: expenseGroup._id
+        allowOptions: "true"
+        template: "bootstrap3-horizontal"
+        "label-class": "col-sm-5"
+        "input-col-class": "col-sm-7"
+
+    vehicle:
+       type:String
+       label: "Vehicle"
+       autoform:
+         firstOption: "(Select)"
+         options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
+         allowOptions: "true"
+         template: "bootstrap3-horizontal"
+         "label-class": "col-sm-5"
+         "input-col-class": "col-sm-7"
+
+    odometer:
       type: Number
       decimal:true
-      label: "Цена за литър"
-   vatIncluded:
-      type: Boolean
-      label: "Цената е с ДДС?"
-      optional: true
+      label: "Odometer"
+      autoform:
+        template: "bootstrap3-horizontal"
+        "label-class": "col-sm-5"
+        "input-col-class": "col-sm-7"
+
+   driver:
+      type: String
+      label: 'Driver'
+      autoform:
+        firstOption: "(Select)"
+        options: -> Drivers.find().map (driver) -> label: driver.firstName+" "+driver.name, value: driver._id
+        allowOptions: "true"
+        template: "bootstrap3-horizontal"
+        "label-class": "col-sm-5"
+        "input-col-class": "col-sm-7"
+
+   invoiceNr:
+      type:String
+      label: "Invoce №"
+      autoform:
+        template: "bootstrap3-horizontal"
+        "label-class": "col-sm-5"
+        "input-col-class": "col-sm-7"
+
+   date:
+      type:Date
+      label: "Date"
+      autoform:
+        type: "bootstrap-datepicker"
+        template: "bootstrap3-horizontal"
+        "label-class": "col-sm-5"
+        "input-col-class": "col-sm-7"
+
+   quantity:
+      type: Number
+      label: "Quantity"
+      autoform:
+        template: "bootstrap3-horizontal"
+        "label-class": "col-sm-5"
+        "input-col-class": "col-sm-7"
+
    totalVATIncluded:
       type: Number
       decimal:true
-      label: "Общо сума"
-   mileage:
+      label: "Amount (VAT included)"
+      autoform:
+        template: "bootstrap3-horizontal"
+        "label-class": "col-sm-5"
+        "input-col-class": "col-sm-7"
+
+   vat:
+     type: Number
+     decimal:true
+     label: "VAT"
+     autoform:
+       template: "bootstrap3-horizontal"
+       "label-class": "col-sm-5"
+       "input-col-class": "col-sm-7"
+
+
+   VATIncluded:
+      type: Boolean
+      label: "VAT included"
+      optional: true
+      autoform:
+        template: "bootstrap3-horizontal"
+        "label-class": "col-sm-5"
+        "input-col-class": "col-sm-7"
+        "leftLabel": "true"
+
+   discount:
+      type: Number
+      decimal:true
+      label: "Discount"
+      autoform:
+        template: "bootstrap3-horizontal"
+        "label-class": "col-sm-5"
+        "input-col-class": "col-sm-7"
+
+   totalNet:
       type:Number
-      label: "Километраж"
-   gasStationName:
-      type:String
-      label: "Бензиностанция"
+      label: "Amount (net)"
+      autoform:
+        template: "bootstrap3-horizontal"
+        "label-class": "col-sm-5"
+        "input-col-class": "col-sm-7"
 
 Schema.driverEvents = new SimpleSchema
   driver:

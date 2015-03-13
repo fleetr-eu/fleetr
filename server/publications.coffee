@@ -6,6 +6,8 @@ Meteor.startup ->
   Meteor.publish 'vehiclesModels', -> VehiclesModels.find {}
   Meteor.publish 'fleetGroups', -> FleetGroups.find {}, {$sort: {name: 1}}
   Meteor.publish 'fleets', -> Fleets.find {}
+  Meteor.publish 'expenseGroups', -> ExpenseGroups.find {}
+  Meteor.publish 'expenseTypes', -> ExpenseTypes.find {}
   Meteor.publish 'expenses', -> Expenses.find {}
   Meteor.publish 'alarms', -> Alarms.find {}
   Meteor.publish 'notifications', -> Notifications.find {}
@@ -31,21 +33,21 @@ Meteor.startup ->
     rangeMatch = {$match: {}}
     if args
       rangeMatch = {$match: args}
-    pipeline = [ 
-      {$match: {type: 30}} 
+    pipeline = [
+      {$match: {type: 30}}
       rangeMatch
-      {$project : { 
-          type: "$type", 
-          speed: "$speed", 
-          year: { $substr: ["$recordTime",0,4] }, 
-          month: { $substr: ["$recordTime",5,2] }, 
-          day: { $substr: ["$recordTime",8,2] }, 
+      {$project : {
+          type: "$type",
+          speed: "$speed",
+          year: { $substr: ["$recordTime",0,4] },
+          month: { $substr: ["$recordTime",5,2] },
+          day: { $substr: ["$recordTime",8,2] },
         }
       },
-      {$project : { 
-          type: "$type", 
-          speed: "$speed", 
-          date: { $concat: ["$year","-","$month","-","$day"] }, 
+      {$project : {
+          type: "$type",
+          speed: "$speed",
+          date: { $concat: ["$year","-","$month","-","$day"] },
         }
       },
       { $group : {
@@ -59,12 +61,9 @@ Meteor.startup ->
     db.collection('logbook').aggregate pipeline, Meteor.bindEnvironment(
       (err, result) ->
         _.each result, (e) ->
-          sub.added "dateRangeAggregation", e._id, e   
+          sub.added "dateRangeAggregation", e._id, e
         sub.ready()
-              
+
       (error) ->
         Meteor._debug( "Error doing aggregation: " + error)
     )
-            
-    
-  

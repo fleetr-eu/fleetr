@@ -128,51 +128,30 @@
 						</li>
 					</ul>
 				</li>
-				<li class="{{isActiveRoute regex='Expenses'}}">
+
+				<li class="{{isActiveRoute regex='Expense'}}">
 					<a href="javascript:;">
-					<i class="fa fa-eur"></i>
-					<span class="title">{{_ "menu.expenses"}}</span>
-					<span class="arrow "></span>
+						<i class="fa fa-dollar"></i>
+						<span class="title">Expenses</span>
+						<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
-						<li class="active">
-							<a href="{{pathFor 'addExpensesFuel'}}">
-							Гориво</a>
+						<li class="{{isActiveRoute regex='expenses/add'}}">
+							<a href="{{pathFor 'addExpense'}}">
+								Add Expense</a>
 						</li>
-						<li>
-							<a href="/">
-							Масло</a>
+						<li class="{{isActiveRoute regex='expenses/types'}}">
+							<a href="{{pathFor 'addExpenseType'}}">
+								Add Expense Type</a>
 						</li>
-						<li>
-							<a href="/">
-							Гуми</a>
+						<li class="{{isActiveRoute regex='expenses/groups'}}">
+							<a href="{{pathFor 'addExpenseGroup'}}">
+								Add Expense Group</a>
 						</li>
-						<li>
-							<a href="/">
-							Лизингови вноски</a>
-						</li>
-						<li>
-							<a href="/">
-							Застраховки</a>
-						</li>
-						<li>
-							<a href="/">
-							Винетки</a>
-						</li>
-						<li>
-							<a href="/">
-							Данъци</a>
-						</li>
-						<li>
-							<a href="/">
-							Глоби</a>
-						</li>
-						<li>
-							<a href="/">
-							Други</a>
-						</li>
-					</ul>
-				</li>
+
+						</ul>
+					</li>
+
 				<li class="{{isActiveRoute regex='\bReport\b'}}">
 					<a href="javascript:;">
 					<i class="icon-docs"></i>

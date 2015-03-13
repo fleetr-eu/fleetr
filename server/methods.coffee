@@ -41,7 +41,15 @@ Meteor.methods
     @unblock()
     Fleets.remove _id : doc
 
-  submitExpenses: (doc, diff) ->
+  submitExpenseGroup: (doc, diff) ->
+    @unblock()
+    ExpenseGroups.submit(doc, diff)
+
+  submitExpenseType: (doc, diff) ->
+    @unblock()
+    ExpenseTypes.submit(doc, diff)
+
+  submitExpense: (doc, diff) ->
     @unblock()
     Expenses.submit doc, diff
 
@@ -69,10 +77,10 @@ Meteor.methods
 
   removeDriverVehicleAssignment: (doc) -> DriverVehicleAssignments.remove _id : doc
 
-  removeDriverVehicleAssignment: (doc) -> 
+  removeDriverVehicleAssignment: (doc) ->
     DriverVehicleAssignments.remove _id : doc
 
-  # findCachedLocationName: (lat,lon) -> 
+  # findCachedLocationName: (lat,lon) ->
   #   console.log 'MyCodes: ' + MyCodes.find().count()
   #   doc = MyCodes.findOne {lat: lat, lon: lon}
   #   console.log '  : ' + lat + ':' + lon + ' found: ' + doc
