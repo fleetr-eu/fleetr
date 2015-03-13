@@ -1,7 +1,8 @@
 @DateRangeAggregation = new Mongo.Collection 'dateRangeAggregation'
 @StartStop = new Mongo.Collection 'startstop'
 
-LOGBOOK_FILTER_NAME = 'logbook-filter'
+LOGBOOK_FILTER_NAME   = 'logbook-filter'
+STARTSTOP_FILTER_NAME = 'logbook-startstop-filter'
 
 MESSAGE_ROW_TYPE  = 0
 START_STOP_ROW_TYPE  = 29
@@ -22,7 +23,7 @@ twin = (str1,str2) ->
 
 createAggregationTableOptions = ->
   collection: DateRangeAggregation
-  rowsPerPage: 15
+  rowsPerPage: 10
   fields: [
     { key: '_id', label: 'Date'}
     # { key: 'total', label: 'Amount' }
@@ -40,7 +41,7 @@ createAggregationTableOptions = ->
 
 createStartStopOptions = ->
   collection: StartStop
-  rowsPerPage: 15
+  rowsPerPage: 10
   fields: [
     # { key: '_id', label: 'Date'}
     # { key: 'total', label: 'Amount' }
@@ -104,9 +105,9 @@ createStartStopOptions = ->
 Template.logbook.created = ->
   @TabularTables = {}
   @autorun -> 
-    Meteor.subscribe 'logbook', Session.get(LOGBOOK_FILTER_NAME)
+    # Meteor.subscribe 'logbook', Session.get(LOGBOOK_FILTER_NAME)
     Meteor.subscribe 'dateRangeAggregation', Session.get(LOGBOOK_FILTER_NAME)
-    Meteor.subscribe 'startstoppub', Session.get(LOGBOOK_FILTER_NAME)
+    Meteor.subscribe 'startstoppub', Session.get(STARTSTOP_FILTER_NAME)
   Template.registerHelper('TabularTables', @TabularTables)
   # @TabularTables.Logbook = createLogbookTable()
 
@@ -148,12 +149,22 @@ Template.logbook.helpers
   aggopts: createAggregationTableOptions
   startstopopts: createStartStopOptions
 
+show = (obj) ->
+  str = ''
+  for p of obj
+    if obj.hasOwnProperty(p)
+      str += p + '::' + obj[p] + '\n'
+  return str
+
+
 Template.logbook.events
   'cancel.daterangepicker #daterange': (event,p) ->
     $('#daterange').val('')
     filter = Session.get(LOGBOOK_FILTER_NAME) || {}
     delete filter.recordTime 
+    $(".aggregation-table tr").removeClass('selected')
     Session.set LOGBOOK_FILTER_NAME, filter
+    Session.set STARTSTOP_FILTER_NAME, filter
     # console.log 'Filter: ' + JSON.stringify(filter)
   'apply.daterangepicker #daterange': (event,p) ->
     startDate = $('#daterange').data('daterangepicker').startDate
@@ -164,17 +175,22 @@ Template.logbook.events
     # args['$lte'] = endDate.add(1, 'days').toDate()
     args['$lte'] = endDate.toDate()
     Session.set LOGBOOK_FILTER_NAME, {recordTime: args}
+    Session.set STARTSTOP_FILTER_NAME, {recordTime: args}
     # console.log 'logbook date filter: ' + JSON.stringify(Session.get(LOGBOOK_FILTER_NAME))
   'change #speed': (event,p) ->
     console.log 'Speed: ' + event.target.value
-    args = Session.get(LOGBOOK_FILTER_NAME)?.speed || {}   
-    args['speed'] = event.target.value
+    args = Session.get(STARTSTOP_FILTER_NAME)?.speed || {}   
+    args.speed = event.target.value
+    # Session.set STARTSTOP_FILTER_NAME, {recordTime: args}
     # console.log 'Filter: ' + JSON.stringify(args)
-  'click .aggregation-table tr': (event)->
+  'click .aggregation-table tr': (event,p)->
     startDate = moment(this._id)
     endDate = moment(this._id).add(1, 'days')
     args = Session.get(LOGBOOK_FILTER_NAME)?.recordTime || {}
     args['$gte'] = startDate.toDate()
     args['$lte'] = endDate.toDate()
     # console.log 'Filter: ' + JSON.stringify(args)
-    Session.set LOGBOOK_FILTER_NAME, {recordTime: args}
+    Session.set STARTSTOP_FILTER_NAME, {recordTime: args}
+    $(".aggregation-table tr").removeClass('selected')
+    event.currentTarget.setAttribute('class', 'selected')
+    
