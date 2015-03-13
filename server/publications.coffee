@@ -48,6 +48,7 @@ Meteor.startup ->
           type: "$type",
           speed: "$speed",
           date: { $concat: ["$year","-","$month","-","$day"] },
+
         }
       },
       { $group : {
@@ -56,6 +57,10 @@ Meteor.startup ->
             minSpeed: { $min: "$speed" }
             maxSpeed: { $max: "$speed" }
             avgSpeed: { $avg: "$speed" }
+
+            sumDistance: { $sum: "$distance" }
+            sumFuel: { $sum: "$fuelUsed" }
+            # avgFuelUsed: { $avg: "$speed" }
         }}
     ]
     db.collection('logbook').aggregate pipeline, Meteor.bindEnvironment(
