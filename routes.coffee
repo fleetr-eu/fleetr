@@ -7,6 +7,8 @@ Meteor.startup ->
     emailToLower: true,
     profileRoute: 'profile',
     showSignupCode: false
+    sendVerificationEmail: true
+    forbidClientAccountCreation: false
 
   openRoutes = [
     "notFound",
