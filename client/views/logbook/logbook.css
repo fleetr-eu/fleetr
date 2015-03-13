@@ -6,13 +6,17 @@
 }
   
 .start-row {
-  	color: #00ff00;
+  color: #00ff00;
 }
 
 .stop-row {
-  	color: #0000ff;
+  color: #0000ff;
 }
 
 .event-row {
-  	color: #ff0000;
+  color: #ff0000;
+}
+
+.selected {
+	color: #ff0000;	
 }
