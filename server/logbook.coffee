@@ -1,3 +1,14 @@
+@TabularTables = {}
+
+# TabularTables.Logbook = new Tabular.Table 
+#   name: "Logbook"
+#   collection: Logbook
+#   columns: [
+#     {data: "lat", title: "Lat"}
+#     {data: "lon", title: "Lon"}
+#     {data: "speed", title: "Speed"}
+#   ]
+
 Meteor.publish 'startstoppub', ()->
   self = this
 
