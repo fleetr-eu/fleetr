@@ -17,12 +17,15 @@
 	</div>
 	<!-- END PAGE HEADER-->
 
-	<div class="row">
+
+
+
+ 	<div class="row">
 			<div class="col-md-12">
 				<div class="portlet box blue">
 					<div class="portlet-title">
 						<div class="caption" id="drivers">
-		            {{> filter sessionVar='driverFilter' placeholder='Търсене...'}}
+		            <!-- {{> filter sessionVar='driverFilter' placeholder='Търсене...'}} -->
 						</div>
 						<div class="tools">
 							<a href="{{pathFor 'addDriver'}}"><span class="glyphicon glyphicon-plus"></span></a>
@@ -36,28 +39,16 @@
 
 					<div class="portlet-body">
 				    <section class="content">
-
-				        <table class="table table-striped">
-
-				            <thead>
-				                <tr>
-				                    <th>Име и фамилия</th>
-				          					<th>Етикети</th>
-				                </tr>
-				            </thead>
-
-				            <tbody>
-				                {{#each drivers}} {{>driverTableRow}} {{/each}}
-				            </tbody>
-				        </table>
+							{{> reactiveTable collection=driversCollection fields=driversFields }}
 				    </section>
 				 </div>
 			</div>
 		</div>
 	</div>
-</template>
+ 
+ </template>
 
-<template name="driverTableRow">
+<!-- <template name="driverTableRow">
     <tr class="{{active}}">
         <td>{{fullName}}</td>
 				<td>
@@ -67,3 +58,4 @@
 				</td>
     </tr>
 </template>
+ -->
