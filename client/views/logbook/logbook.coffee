@@ -76,12 +76,16 @@ createStartStopOptions = ->
 
 Template.mapCellTemplate.helpers
   opts: -> encodeURIComponent EJSON.stringify
+    deviceId: @start.deviceId
     start:
+      time: @start.recordTime
       position:
         lat: @start.lat
         lng: @start.lon
       title: 'Start'
+      icon: '/images/icons/start.png'
     stop:
+      time: @stop.recordTime
       position:
         lat: @stop.lat
         lng: @stop.lon
