@@ -7,8 +7,13 @@ Template.simpleMap.rendered = ->
     bounds.extend new google.maps.LatLng(point.position.lat, point.position.lng)
   map.fitBounds bounds
 
-  Meteor.subscribe 'logbook', {recordTime: { $gte: data.start.time, $lte: data.stop.time }, deviceId: data.deviceId}, ->
-    path = Logbook.find({}, {sort: recordTime: -1}).map (point) ->
+  searchArgs =
+    recordTime:
+      $gte: data.start.time
+      $lte: data.stop.time
+    deviceId: data.deviceId
+  Meteor.subscribe 'logbook', searchArgs, ->
+    path = Logbook.find(searchArgs, {sort: recordTime: -1}).map (point) ->
       lat: point.lat, lng: point.lon
 
     line = new google.maps.Polyline
