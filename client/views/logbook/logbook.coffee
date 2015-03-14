@@ -82,15 +82,11 @@ Template.mapCellTemplate.helpers
       position:
         lat: @start.lat
         lng: @start.lon
-      title: 'Start'
-      icon: '/images/icons/start.png'
     stop:
       time: @stop.recordTime
       position:
         lat: @stop.lat
         lng: @stop.lon
-      title: 'Stop'
-      icon: '/images/icons/finish.png'
 
 # createLogbookTable = () ->
 #   new Tabular.Table
