@@ -75,15 +75,18 @@ createStartStopOptions = ->
   class: "table table-bordered table-hover start-stop-table"
 
 Template.mapCellTemplate.helpers
-  opts: -> EJSON.stringify
+  opts: -> encodeURIComponent EJSON.stringify
     start:
-      lat: @start.lat
-      lng: @start.lon
+      position:
+        lat: @start.lat
+        lng: @start.lon
       title: 'Start'
     stop:
-      lat: @stop.lat
-      lng: @stop.lon
+      position:
+        lat: @stop.lat
+        lng: @stop.lon
       title: 'Stop'
+      icon: '/images/icons/finish.png'
 
 # createLogbookTable = () ->
 #   new Tabular.Table
