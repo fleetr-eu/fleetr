@@ -141,3 +141,8 @@ Meteor.startup ->
       path: '/alarm-definitions/list'
       template: 'alarmDefinitionsList'
       # subscriptions: -> Meteor.subscribe 'alarm-definitions'
+
+    @route 'simple-map',
+      path: '/map/:data?'
+      template: 'simpleMap'
+      data: -> @params?.data
