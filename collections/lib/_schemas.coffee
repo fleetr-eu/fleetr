@@ -11,6 +11,7 @@ Schema.fleetGroups = new SimpleSchema
   description:
     type: String
     label: 'Description'
+    optional: true
 
 Schema.expenseGroups = new SimpleSchema
   _id:
@@ -23,6 +24,7 @@ Schema.expenseGroups = new SimpleSchema
   description:
     type: String
     label: 'Description'
+    optional: true
 
 Schema.expenseTypes = new SimpleSchema
   _id:
@@ -35,6 +37,7 @@ Schema.expenseTypes = new SimpleSchema
   description:
     type: String
     label: 'Description'
+    optional: true
 
 Schema.fleet = new SimpleSchema
   _id:
@@ -144,6 +147,7 @@ Schema.expenses = new SimpleSchema
      type: Number
      decimal:true
      label: "VAT"
+     optional: true
      autoform:
        template: "bootstrap3-horizontal"
        "label-class": "col-sm-5"
@@ -164,6 +168,7 @@ Schema.expenses = new SimpleSchema
       type: Number
       decimal:true
       label: "Discount"
+      optional: true
       autoform:
         template: "bootstrap3-horizontal"
         "label-class": "col-sm-5"
