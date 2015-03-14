@@ -1,4 +1,15 @@
 Meteor.startup ->
+  Accounts.config
+    sendVerificationEmail: true
+
+  Accounts.emailTemplates =
+    from: 'no-reply@fleetr.eu'
+    siteName: 'Fleetr'
+    verifyEmail:
+      subject: (user) -> 'Confirm your email address to activate your Fleetr account'
+      text: (user, url) ->
+        "Click on the following link to verify your email address: #{url}"
+
   AccountsEntry.config
     privacyUrl: '/privacy-policy',
     termsUrl: '/terms-of-use',
@@ -7,7 +18,6 @@ Meteor.startup ->
     emailToLower: true,
     profileRoute: 'profile',
     showSignupCode: false
-    sendVerificationEmail: true
     forbidClientAccountCreation: false
 
   openRoutes = [
