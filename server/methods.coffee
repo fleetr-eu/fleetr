@@ -1,7 +1,11 @@
 Meteor.methods
   getUser: -> Meteor.user()
 
-  addGeofence: (doc) -> Geofences.insert doc
+  submitGeofence: (doc) ->
+    if Geofences.findOne(_id: doc._id)
+      Geofences.update {_id: doc._id}, {$set: _.omit(doc, '_id')}
+    else
+      Geofences.insert doc
 
   removeGeofence: (gfId) -> Geofences.remove _id: gfId
 
