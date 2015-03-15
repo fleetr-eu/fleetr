@@ -48,17 +48,30 @@
 						</li>
 					</ul>
 				</li>
-				<li class="{{isActiveRoute regex='Fleet'}}">
+				<li class="{{isActivePath regex='groups'}}">
 					<a href="javascript:;">
 					<i class="fa fa-sitemap"></i>
+					<span class="title">{{_ "menu.groups"}}</span>
+					<span class="arrow"></span>
+					</a>
+					<ul class="sub-menu">
+						<li class="{{isActiveRoute regex='listFleetGroups'}}">
+							<a href="{{pathFor 'listFleetGroups'}}">
+								{{_ "menu.list"}}</a>
+						</li>
+						<li class="{{isActiveRoute regex='addFleetGroup'}}">
+							<a href="{{pathFor 'addFleetGroup'}}">
+								{{_ "menu.add"}}</a>
+						</li>
+					</ul>
+				</li>
+				<li class="{{isActivePath regex='fleets'}}">
+					<a href="javascript:;">
+					<i class="fa fa-cubes"></i>
 					<span class="title">{{_ "menu.fleets"}}</span>
 					<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
-						<li class="{{isActiveRoute regex='mapFleets'}}">
-							<a href="{{pathFor 'mapFleets'}}">
-								{{_ "menu.map"}}</a>
-						</li>
 						<li class="{{isActiveRoute regex='listFleets'}}">
 							<a href="{{pathFor 'listFleets'}}">
 								{{_ "menu.list"}}</a>

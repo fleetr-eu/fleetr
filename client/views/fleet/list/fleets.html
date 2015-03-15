@@ -1,6 +1,6 @@
-<template name="fleetGroups">
+<template name="fleets">
 	<h3 class="page-title">
-		Групи автопаркове
+		Автопаркове
 	</h3>
 	<div class="page-bar">
 		<ul class="page-breadcrumb">
@@ -10,7 +10,7 @@
 				<i class="fa fa-angle-right"></i>
 			</li>
 			<li>
-				<a href="#">Групи автопаркове</a>
+				<a href="#">Автопаркове</a>
 			</li>
 		</ul>
 	</div>
@@ -20,14 +20,14 @@
 			<div class="col-md-12">
 				<div class="portlet box blue">
 					<div class="portlet-title">
-						<div class="caption" id="fleetGroups">
-		            {{> filter sessionVar='fleetGroupFilter' placeholder='Търсене...'}}
+						<div class="caption" id="fleets">
+		            {{> filter sessionVar='fleetFilter' placeholder='Търсене...'}}
 						</div>
 						<div class="tools">
-							<a href="{{pathFor 'addFleetGroup'}}"><span class="glyphicon glyphicon-plus"></span></a>
-							{{#if selectedFleetGroupId}}
-							<a href="{{pathFor 'editFleetGroup' groupId=selectedFleetGroupId}}"><span class="glyphicon glyphicon-pencil"></span></a>
-							<a href="#" class="deleteFleetGroup"><span class="glyphicon glyphicon-trash"></span></a>
+							<a href="{{pathFor 'addFleet'}}"><span class="glyphicon glyphicon-plus"></span></a>
+							{{#if selectedFleetId}}
+							<a href="{{pathFor 'editFleet' fleetId=selectedFleetId}}"><span class="glyphicon glyphicon-pencil"></span></a>
+							<a href="#" class="deleteFleet"><span class="glyphicon glyphicon-trash"></span></a>
 							{{/if}}
 						</div>
 					</div>
@@ -41,11 +41,12 @@
 				                <tr>
 				                    <th>Име</th>
 				                    <th>Описание</th>
+														<th>Група</th>
 				                </tr>
 				            </thead>
 
 				            <tbody>
-				                {{#each fleetGroups}} {{>fleetGroupTableRow}} {{/each}}
+				                {{#each fleets}} {{>fleetTableRow}} {{/each}}
 				            </tbody>
 				        </table>
 				    </section>
@@ -55,9 +56,10 @@
 	</div>
 </template>
 
-<template name="fleetGroupTableRow">
+<template name="fleetTableRow">
     <tr class="{{active}}">
         <td>{{name}}</td>
-        <td>{{description}}</td>
+				<td>{{description}}</td>
+				<td>{{group}}</td>
     </tr>
 </template>

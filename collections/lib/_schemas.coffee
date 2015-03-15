@@ -47,6 +47,10 @@ Schema.fleet = new SimpleSchema
   name:
     type: String
     label: 'Name'
+  description:
+    type: String
+    label: 'Description'
+    optional: true
   parent:
     type:String
     label: 'Group'

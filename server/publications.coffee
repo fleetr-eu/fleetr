@@ -5,7 +5,9 @@ Meteor.startup ->
   Meteor.publish 'vehiclesMakes', -> VehiclesMakes.find {}
   Meteor.publish 'vehiclesModels', -> VehiclesModels.find {}
   Meteor.publish 'fleetGroups', -> FleetGroups.find {}, {$sort: {name: 1}}
+  Meteor.publish 'fleetGroup', (gid) -> FleetGroups.find {_id: gid}
   Meteor.publish 'fleets', -> Fleets.find {}
+  Meteor.publish 'fleet', (fid) -> Fleets.find {_id: fid}
   Meteor.publish 'expenseGroups', -> ExpenseGroups.find {}
   Meteor.publish 'expenseTypes', -> ExpenseTypes.find {}
   Meteor.publish 'expenses', -> Expenses.find {}

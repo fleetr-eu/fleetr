@@ -2,6 +2,7 @@
   "menu": {
     "dashboard": "Dashboard",
     "logbook": "LogBook",
+    "groups": "Fleet groups",
     "fleets": "Fleets",
     "vehicles": "Vehicles",
     "drivers": "Drivers",
