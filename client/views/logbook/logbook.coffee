@@ -47,48 +47,61 @@ createStartStopOptions = ->
     # { key: 'total', label: 'Amount' }
     # { key: 'minSpeed', label: 'Min speed'}
     {key: 'startStopTime', label: 'Time', fn: (val,obj)-> twin(moment(obj.start.recordTime).format('DD/MM/YYYY HH:mm'), moment(obj.stop.recordTime).format('DD/MM/YYYY HH:mm'))}
-    {key: 'startStopLocation', label: 'Location', fn: (val,obj)-> 
+    {key: 'startStopLocation', label: 'Location', fn: (val,obj)->
       startLocation = geocode2(obj.start.type, obj.start.lat, obj.start.lon).split(',')[-3..]
       stopLocation = geocode2(obj.stop.type, obj.stop.lat, obj.stop.lon).split(',')[-3..]
       twin(startLocation,stopLocation)
     }
     {key: 'startStopDistance', label: 'Distance (km)', fn: (val,obj)-> ((obj.stop.tacho-obj.start.tacho)/1000).toFixed(2)}
-    {key: 'startStopTravelTime', label: 'Travel time', fn: (val,obj)-> 
+    {key: 'startStopTravelTime', label: 'Travel time', fn: (val,obj)->
       diff = moment(obj.stop.recordTime).diff(moment(obj.start.recordTime), 'seconds')
       moment.duration(diff, "seconds").format('HH:mm:ss', {trim: false})
     }
-    {key: 'startStopSpeed', label: 'Speed (km/h)', fn: (val,obj)-> 
+    {key: 'startStopSpeed', label: 'Speed (km/h)', fn: (val,obj)->
       distance = (obj.stop.tacho-obj.start.tacho)/1000
       seconds = moment(obj.stop.recordTime).diff(moment(obj.start.recordTime), 'seconds')
       (distance*3600/seconds).toFixed(0)
     }
-    {key: 'startStopFuel', label: 'Fuel', fn: (val,obj)-> 
+    {key: 'startStopFuel', label: 'Fuel', fn: (val,obj)->
       distance = (obj.stop.tacho-obj.start.tacho)/1000
       fuel = (obj.stop.fuelc-obj.start.fuelc)/1000
       twin(fuel.toFixed(2) + ' (l)', (fuel/distance*100).toFixed(2) + ' (l/100km)')
     }
     {key: 'driver', label: 'Driver', fn: (val)->twin('&lt;driver&gt;','&lt;license&gt;') }
     {key: 'vehicle', label: 'Vehicle', fn: (val)->'<vehicle>' }
-    {key: 'map', label: 'Map', fn: (val)->'<map link>' }
+    {key: 'map', label: 'Map', tmpl: Template.mapCellTemplate}
   ]
   showColumnToggles: true
   class: "table table-bordered table-hover start-stop-table"
 
+Template.mapCellTemplate.helpers
+  opts: -> encodeURIComponent EJSON.stringify
+    deviceId: @start.deviceId
+    start:
+      time: @start.recordTime
+      position:
+        lat: @start.lat
+        lng: @start.lon
+    stop:
+      time: @stop.recordTime
+      position:
+        lat: @stop.lat
+        lng: @stop.lon
 
 # createLogbookTable = () ->
-#   new Tabular.Table 
+#   new Tabular.Table
 #     name: "Logbook"
 #     collection: Logbook
 #     columns: [
 #       {data: 'recordTime', label: 'Time', render: (val,type,obj) -> moment(val).format('DD/MM/YYYY HH:mm:ss') }
-#       {data: 'io', label: 'Start/Stop', render: (val,type,obj) -> 
+#       {data: 'io', label: 'Start/Stop', render: (val,type,obj) ->
 #         return '' if obj.type != START_STOP_ROW_TYPE
 #         if val%2==0 then 'stop' else 'start'
 #       }
 #       {data: "type", title: "Type"}
 #       {data: 'address', title: 'Location', render: (val,type,obj) -> geocode2(obj.type, obj.lat,obj.lon) }
 #       {data: "speed", title: "Speed (km/h)", render: (val,type,obj) -> val }
-#       {data: 'distance', title: 'Distance (m)', render: (val,type,obj) -> val} 
+#       {data: 'distance', title: 'Distance (m)', render: (val,type,obj) -> val}
 #       {data: 'fuelUsed', title: 'Fuel (ml)', render: (val,type,obj) -> val }
 #       {data: 'fuell', title: 'Fuel (l)'}  #, fn: (val,obj) -> val/1000 } }
 #       {title: 'Driver', render: (val,type,obj) -> '&lt;driver&gt;' }
@@ -104,7 +117,7 @@ createStartStopOptions = ->
 
 Template.logbook.created = ->
   @TabularTables = {}
-  @autorun -> 
+  @autorun ->
     # Meteor.subscribe 'logbook', Session.get(LOGBOOK_FILTER_NAME)
     Meteor.subscribe 'dateRangeAggregation', Session.get(LOGBOOK_FILTER_NAME)
     Meteor.subscribe 'startstoppub', Session.get(STARTSTOP_FILTER_NAME)
@@ -121,10 +134,10 @@ geocode2 = (type, lat,lon) ->
   lon = Math.round(lon*scale)
 
   code = MyCodes.findCachedLocationName lat, lon
-  
+
   if code
     return code.address
-  
+
   geocoder = new google.maps.Geocoder();
   latlon = new google.maps.LatLng(lat/scale,lon/scale);
 
@@ -161,7 +174,7 @@ Template.logbook.events
   'cancel.daterangepicker #daterange': (event,p) ->
     $('#daterange').val('')
     filter = Session.get(LOGBOOK_FILTER_NAME) || {}
-    delete filter.recordTime 
+    delete filter.recordTime
     $(".aggregation-table tr").removeClass('selected')
     Session.set LOGBOOK_FILTER_NAME, filter
     Session.set STARTSTOP_FILTER_NAME, filter
@@ -171,7 +184,7 @@ Template.logbook.events
     endDate = $('#daterange').data('daterangepicker').endDate
     console.log startDate.format('YYYY-MM-DD') + ' - ' + endDate.format('YYYY-MM-DD')
     args = Session.get(LOGBOOK_FILTER_NAME)?.recordTime || {}
-    args['$gte'] = startDate.toDate() 
+    args['$gte'] = startDate.toDate()
     # args['$lte'] = endDate.add(1, 'days').toDate()
     args['$lte'] = endDate.toDate()
     Session.set LOGBOOK_FILTER_NAME, {recordTime: args}
@@ -179,7 +192,7 @@ Template.logbook.events
     # console.log 'logbook date filter: ' + JSON.stringify(Session.get(LOGBOOK_FILTER_NAME))
   'change #speed': (event,p) ->
     console.log 'Speed: ' + event.target.value
-    args = Session.get(STARTSTOP_FILTER_NAME)?.speed || {}   
+    args = Session.get(STARTSTOP_FILTER_NAME)?.speed || {}
     args.speed = event.target.value
     # Session.set STARTSTOP_FILTER_NAME, {recordTime: args}
     # console.log 'Filter: ' + JSON.stringify(args)
@@ -193,4 +206,3 @@ Template.logbook.events
     Session.set STARTSTOP_FILTER_NAME, {recordTime: args}
     $(".aggregation-table tr").removeClass('selected')
     event.currentTarget.setAttribute('class', 'selected')
-    

@@ -12,9 +12,11 @@
                         {{> filter sessionVar='geofenceFilter' placeholder='Търсене...'}}
                     </div>
                     <div class="tools">
-                        <a href="#" class="addGeofence"><span class="glyphicon glyphicon-plus"></span></a> {{#if selectedGeofenceId}}
-                        <!-- <a href="#" class="editGeofence"><span class="glyphicon glyphicon-pencil"></span></a> -->
-                        <a href="#" class="deleteGeofence"><span class="glyphicon glyphicon-trash"></span></a> {{/if}}
+                        <a href="#" class="addGeofence"><span class="glyphicon glyphicon-plus"></span></a>
+                        {{#if selectedGeofenceId}}
+                        <a href="#" class="editGeofence"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="#" class="deleteGeofence"><span class="glyphicon glyphicon-trash"></span></a>
+                        {{/if}}
                         <a href="#" class="fullscreen"></a>
                     </div>
                 </div>
@@ -22,7 +24,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <section class="content">
-                                {{> geofencesTable}} {{> editGeofence}}
+                                {{> geofencesTable}}
+                                {{> editGeofence}}
                             </section>
                         </div>
                         <div class="col-md-8">
@@ -40,7 +43,7 @@
 <template name="editGeofence">
     {{#if editGeofence}}
     <hr>
-    {{#autoForm collection="Geofences" id="geofenceForm"}}
+    {{#autoForm collection="Geofences" id="geofenceForm" doc=doc}}
         {{> afFieldInput type="hidden" name="_id" value=_id}}
         {{> afQuickField name="name"}}
         {{> afQuickField name="tags"}}

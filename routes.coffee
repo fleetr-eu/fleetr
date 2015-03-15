@@ -1,4 +1,14 @@
 Meteor.startup ->
+  Accounts.config
+    sendVerificationEmail: true
+
+  # Accounts.emailTemplates.from = 'no-reply@fleetr.eu'
+  # Accounts.emailTemplates.siteName = 'Fleetr'
+  # Accounts.emailTemplates.verifyEmail.subject = (user) ->
+  #   'Confirm your email address to activate your Fleetr account'
+  # Accounts.emailTemplates.verifyEmail.text = (user, url) ->
+  #   "Click on the following link to verify your email address: #{url}"
+
   AccountsEntry.config
     privacyUrl: '/privacy-policy',
     termsUrl: '/terms-of-use',
@@ -7,7 +17,6 @@ Meteor.startup ->
     emailToLower: true,
     profileRoute: 'profile',
     showSignupCode: false
-    sendVerificationEmail: true
     forbidClientAccountCreation: false
 
   openRoutes = [
@@ -141,3 +150,8 @@ Meteor.startup ->
       path: '/alarm-definitions/list'
       template: 'alarmDefinitionsList'
       # subscriptions: -> Meteor.subscribe 'alarm-definitions'
+
+    @route 'simple-map',
+      path: '/map/:data?'
+      template: 'simpleMap'
+      data: -> @params?.data

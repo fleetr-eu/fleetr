@@ -8,6 +8,22 @@ Template.geofences.created = ->
     unless Session.get('addGeofence') || Session.get('editGeofence')
       GeofenceMap?.circle?.setMap(null)
       GeofenceMap?.circle = null
+  @autorun ->
+    if Session.get('addGeofence')
+      GeofenceMap?.clear()
+    else
+      renderGeofences()
+  @autorun ->
+    if Session.get('editGeofence')
+      GeofenceMap?.clear()
+      renderGeofence Session.get('selectedGeofenceId')
+    else
+      renderGeofences()
+
+renderGeofence = (id) ->
+  geo = Geofences.findOne(_id: id)
+  [lng, lat] = geo.center
+  GeofenceMap.circle = GeofenceMap.drawCircle new google.maps.LatLng(lat, lng), geo.radius, {editable: true, id: geo._id}
 
 renderGeofences = ->
   GeofenceMap?.clear()
@@ -17,7 +33,13 @@ renderGeofences = ->
     google.maps.event.addListener circle, 'click', -> Session.set 'selectedGeofenceId', geo._id
 
 Template.geofences.events
-  'click .addGeofence': -> Session.set 'addGeofence', true
+  'click .addGeofence': ->
+    Session.set 'selectedGeofenceId', null
+    Session.set 'editGeofence', false
+    Session.set 'addGeofence', true
+  'click .editGeofence': ->
+    Session.set 'addGeofence', false
+    Session.set 'editGeofence', true
   'click .deleteGeofence': ->
     Meteor.call 'removeGeofence', Session.get('selectedGeofenceId')
     Session.set 'selectedGeofenceId', null
@@ -29,17 +51,18 @@ Template.editGeofence.helpers
 Template.editGeofence.events
   'click .btn-sm': (e, template) ->
     circle = GeofenceMap.circle
-    insertDoc =
+    doc =
       name: template.$('#geofenceForm input[name=name]').val()
       tags: template.$('#geofenceForm input[name=tags]').val()
       center: [circle?.getCenter().lng(), circle?.getCenter().lat()]
       radius: circle?.getRadius()
-    Meteor.call 'addGeofence', insertDoc
+    doc._id = Session.get('selectedGeofenceId') if Session.get('selectedGeofenceId')
+    Meteor.call 'submitGeofence', doc
     Session.set 'addGeofence', false
+    Session.set 'editGeofence', false
   'click .btn-reset' : (e) ->
     Session.set('addGeofence', false)
-    Session.get('editGeofence', false)
-    AutoForm.resetForm('geofenceForm')
+    Session.set('editGeofence', false)
 
 Template.geofencesTable.created = ->
   Meteor.subscribe 'geofences'
