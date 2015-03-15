@@ -52,16 +52,12 @@ createStartStopOptions = ->
       stopLocation = geocode2(obj.stop.type, obj.stop.lat, obj.stop.lon).split(',')[-3..]
       twin(startLocation,stopLocation)
     }
-    {key: 'startStopDistance', label: 'Distance (km)', fn: (val,obj)-> ((obj.stop.tacho-obj.start.tacho)/1000).toFixed(2)}
+    {key: 'startStopDistance', label: 'Distance (km)', fn: (val,obj)-> val.toFixed(2)}
     {key: 'startStopTravelTime', label: 'Travel time', fn: (val,obj)->
       diff = moment(obj.stop.recordTime).diff(moment(obj.start.recordTime), 'seconds')
       moment.duration(diff, "seconds").format('HH:mm:ss', {trim: false})
     }
-    {key: 'startStopSpeed', label: 'Speed (km/h)', fn: (val,obj)->
-      distance = (obj.stop.tacho-obj.start.tacho)/1000
-      seconds = moment(obj.stop.recordTime).diff(moment(obj.start.recordTime), 'seconds')
-      (distance*3600/seconds).toFixed(0)
-    }
+    {key: 'startStopSpeed', label: 'Speed (km/h)', fn: (val,obj)-> val }
     {key: 'startStopFuel', label: 'Fuel', fn: (val,obj)->
       distance = (obj.stop.tacho-obj.start.tacho)/1000
       fuel = (obj.stop.fuelc-obj.start.fuelc)/1000
@@ -175,6 +171,7 @@ Template.logbook.events
     $('#daterange').val('')
     filter = Session.get(LOGBOOK_FILTER_NAME) || {}
     delete filter.recordTime
+    $("#speed").val('')
     $(".aggregation-table tr").removeClass('selected')
     Session.set LOGBOOK_FILTER_NAME, filter
     Session.set STARTSTOP_FILTER_NAME, filter
@@ -185,6 +182,7 @@ Template.logbook.events
     console.log startDate.format('YYYY-MM-DD') + ' - ' + endDate.format('YYYY-MM-DD')
     args = Session.get(LOGBOOK_FILTER_NAME)?.recordTime || {}
     args['$gte'] = startDate.toDate()
+    $("#speed").val('')
     # args['$lte'] = endDate.add(1, 'days').toDate()
     args['$lte'] = endDate.toDate()
     Session.set LOGBOOK_FILTER_NAME, {recordTime: args}
@@ -192,9 +190,10 @@ Template.logbook.events
     # console.log 'logbook date filter: ' + JSON.stringify(Session.get(LOGBOOK_FILTER_NAME))
   'change #speed': (event,p) ->
     console.log 'Speed: ' + event.target.value
-    args = Session.get(STARTSTOP_FILTER_NAME)?.speed || {}
-    args.speed = event.target.value
-    # Session.set STARTSTOP_FILTER_NAME, {recordTime: args}
+    filter = Session.get(STARTSTOP_FILTER_NAME) || {}
+    speed = Number(event.target.value)
+    filter.speed = speed
+    Session.set STARTSTOP_FILTER_NAME, filter
     # console.log 'Filter: ' + JSON.stringify(args)
   'click .aggregation-table tr': (event,p)->
     startDate = moment(this._id)
@@ -202,6 +201,7 @@ Template.logbook.events
     args = Session.get(LOGBOOK_FILTER_NAME)?.recordTime || {}
     args['$gte'] = startDate.toDate()
     args['$lte'] = endDate.toDate()
+    $("#speed").val('')
     # console.log 'Filter: ' + JSON.stringify(args)
     Session.set STARTSTOP_FILTER_NAME, {recordTime: args}
     $(".aggregation-table tr").removeClass('selected')

@@ -14,9 +14,11 @@ Meteor.publish 'startstoppub', (args)->
   state = false
   start = null
   args = {} if not args
-  args.type = 29
+  query = {type:29}
+  query.recordTime = args.recordTime if args.recordTime  
   console.log 'FILTER: ' + JSON.stringify(args)
-  subHandle = Logbook.find(args).observeChanges
+  console.log 'QUERY: ' + JSON.stringify(query)
+  subHandle = Logbook.find(query).observeChanges
     added: (id, fields) ->
       # console.log('Add: ' + JSON.stringify(fields))
       started = fields.io %2 == 1
@@ -25,7 +27,16 @@ Meteor.publish 'startstoppub', (args)->
       if started 
         start = fields
       else
-        self.added("startstop", id, {start: start, stop: fields})
+        stop = fields
+        record = {start: start, stop: stop}
+        distance = (stop.tacho-start.tacho)/1000
+        seconds = moment(stop.recordTime).diff(moment(start.recordTime), 'seconds')
+        
+        record.startStopDistance = distance
+        record.startStopSpeed =  (distance*3600/seconds)
+
+        if not args.speed or record.startStopSpeed >= args.speed
+          self.added("startstop", id, record)
         start = null
  
       state = started
