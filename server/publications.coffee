@@ -35,6 +35,8 @@ Meteor.startup ->
       {$project : {
           type: "$type",
           speed: "$speed",
+          distance: "$distance", 
+          fuelUsed: "$fuelUsed", 
           year: { $substr: ["$recordTime",0,4] },
           month: { $substr: ["$recordTime",5,2] },
           day: { $substr: ["$recordTime",8,2] },
@@ -43,6 +45,8 @@ Meteor.startup ->
       {$project : {
           type: "$type",
           speed: "$speed",
+          distance: "$distance", 
+          fuelUsed: "$fuelUsed", 
           date: { $concat: ["$year","-","$month","-","$day"] },
 
         }
