@@ -66,7 +66,7 @@ Meteor.startup ->
     db.collection('logbook').aggregate pipeline, Meteor.bindEnvironment(
       (err, result) ->
         _.each result, (e) ->
-          sub.added "dateRangeAggregation", e._id, e
+          sub.added "dateRangeAggregation", e._id, e if sumDistance > 0
         sub.ready()
 
       (error) ->
