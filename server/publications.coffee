@@ -37,6 +37,8 @@ Meteor.startup ->
       {$project : {
           type: "$type",
           speed: "$speed",
+          distance: "$distance", 
+          fuelUsed: "$fuelUsed", 
           year: { $substr: ["$recordTime",0,4] },
           month: { $substr: ["$recordTime",5,2] },
           day: { $substr: ["$recordTime",8,2] },
@@ -45,6 +47,8 @@ Meteor.startup ->
       {$project : {
           type: "$type",
           speed: "$speed",
+          distance: "$distance", 
+          fuelUsed: "$fuelUsed", 
           date: { $concat: ["$year","-","$month","-","$day"] },
 
         }
@@ -64,7 +68,8 @@ Meteor.startup ->
     db.collection('logbook').aggregate pipeline, Meteor.bindEnvironment(
       (err, result) ->
         _.each result, (e) ->
-          sub.added "dateRangeAggregation", e._id, e
+          # console.log 'Record: ' + JSON.stringify(e) if e.sumDistance > 0
+          sub.added "dateRangeAggregation", e._id, e if e.sumDistance > 0
         sub.ready()
 
       (error) ->
