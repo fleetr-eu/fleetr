@@ -67,7 +67,7 @@ Meteor.startup ->
       (err, result) ->
         _.each result, (e) ->
           # console.log 'Record: ' + JSON.stringify(e) if e.sumDistance > 0
-          sub.added "dateRangeAggregation", e._id, e 
+          sub.added "dateRangeAggregation", e._id, e if e.sumDistance > 0
         sub.ready()
 
       (error) ->
