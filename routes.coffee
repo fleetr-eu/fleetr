@@ -73,16 +73,34 @@ Meteor.startup ->
         Meteor.call 'removeLocation', @params.locationId
         @next()
 
-    @route 'addFleet',
-      path: '/fleets/add'
+    @route 'listFleetGroups',
+      path: '/groups/list'
+      template: 'fleetGroups'
+      data: -> {pageTitle: 'Групи автопаркове'}
+      waitOn: -> Meteor.subscribe 'fleetGroups'
+    @route 'addFleetGroup',
+      path: '/groups/add'
       template: 'fleetGroup'
+    @route 'editFleetGroup',
+      path: '/groups/edit/:groupId'
+      template: 'fleetGroup'
+      data: -> {'groupId' : @params.groupId}
+      waitOn: -> Meteor.subscribe 'fleetGroup', @params.groupId
+
     @route 'listFleets',
       path: '/fleets/list'
-      template: 'fleetGroups'
+      template: 'fleets'
       data: -> {pageTitle: 'Автопаркове'}
-    @route 'mapFleets',
-      path: '/fleets/map'
-      template: 'map'
+      waitOn: -> [Meteor.subscribe('fleets'), Meteor.subscribe('fleetGroups')]
+    @route 'addFleet',
+      path: '/fleets/add'
+      template: 'fleet'
+      waitOn: -> Meteor.subscribe 'fleetGroups'
+    @route 'editFleet',
+      path: '/fleets/edit/:fleetId'
+      template: 'fleet'
+      data: -> {'fleetId' : @params.fleetId}
+      waitOn: -> [Meteor.subscribe('fleet', @params.fleetId), Meteor.subscribe('fleetGroups')]
 
     @route 'mapVehicles',
       path: '/vehicles/map'

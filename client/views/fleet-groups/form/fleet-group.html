@@ -1,21 +1,32 @@
 <template name="fleetGroup">
-  <div class="container">
-     {{#autoForm collection="FleetGroups" id="fleetGroupForm" type="method" meteormethod="submitFleetGroup"}}
-            <div class="form" id="fleetGroup-info">
-                <div class="row">
-                  <fieldset>
-                      <div class="col-md-4">
-                      	  <legend>Fleet Group</legend>
-                          {{> afQuickField name="name"}}
-                          {{> afQuickField name="description"}}
-                      </div>
-                  </fieldset>
-               </div>
+  <div class="portlet box blue-hoki">
+    <div class="portlet-title">
+      <div class="caption">
+        <i class="icon-car"></i>Fleet group
+      </div>
+      <div class="tools">
+        <a href="" class="fullscreen"></a>
+      </div>
+      <div class="actions">
+        <a href="#" class="btn btn-default btn-primary btn-sm">
+        <i class="fa fa-check"></i> Save </a>
+        <a href="#" class="btn btn-default btn-reset">
+        <i class="fa fa-close"></i> Cancel </a>
+      </div>
+    </div>
+    <div class="portlet-body">
+      {{#autoForm collection="FleetGroups" doc=fleetGroup id="fleetGroupForm" type="method" meteormethod="submitFleetGroup"}}
+
+            <div class="row">
+              <fieldset>
+                  <div class="col-md-12">
+                  	  {{> afFieldInput type="hidden" name="_id" value=_id}}
+                      {{> afQuickField name="name"}}
+                      {{> afQuickField name="description"}}
+                  </div>
+              </fieldset>
             </div>
-        <div>
-          <button type="submit" class="btn btn-primary">Save</button>
-          <button type="reset" class="btn btn-default">Cancel</button>
-        </div>
-    {{/autoForm}}
-  </div>
+      {{/autoForm}}
+   </div>
+ </div>
 </template>

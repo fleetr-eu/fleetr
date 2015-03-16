@@ -29,9 +29,9 @@ Meteor.methods
     @unblock()
     FleetGroups.submit(doc, diff)
 
-  removeFleetGroup: (doc) ->
+  removeFleetGroup: (gid) ->
     @unblock()
-    FleetGroups.remove _id : doc
+    FleetGroups.remove _id : gid
 
   addLocation: (doc) ->
     @unblock()

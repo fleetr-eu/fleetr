@@ -2,6 +2,7 @@
   "menu": {
     "dashboard": "Статистики",
     "logbook": "LogBook",
+    "groups": "Групи автопаркове",
     "fleets": "Автопаркове",
     "vehicles": "Автомобили",
     "drivers": "Шофьори",
