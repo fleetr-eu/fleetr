@@ -1,4 +1,4 @@
-@Logbook = new Mongo.Collection 'logbook'
+# @Logbook = new Mongo.Collection 'logbook'
 
 MESSAGE_ROW_TYPE  = 0
 START_STOP_ROW_TYPE  = 29
