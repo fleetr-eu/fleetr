@@ -47,7 +47,15 @@ Meteor.startup ->
           year: { $substr: ["$recordTime",0,4] },
           month: { $substr: ["$recordTime",5,2] },
           day: { $substr: ["$recordTime",8,2] },
-          timestamp: "$interval",
+          interval: "$interval",
+          
+          # moveInterval: {$cond: [true, 1, 0]}
+          
+          moveInterval: {$cond: [{$gte:["$distance", 0.01]}, "$interval", 0]}
+          idleInterval: {$cond: [{$lt:["$distance", 0.01]}, "$interval", 0]}
+          
+          # moveInterval: {$cond: { if: { $gte: [ "$distance", 0.01 ] }, then: "$interval", else: 0 }}
+          # idleInterval: {$cond: { if: { $lte: [ "$distance", 0.01 ] }, then: "$interval", else: 0 }}
         }
       },
       {$project : {
@@ -60,7 +68,9 @@ Meteor.startup ->
           lat: "$lat",
           lon: "$lon",
           date: { $concat: ["$year","-","$month","-","$day"] },
-          timestamp: "$interval",
+          interval: "$interval",
+          moveInterval: "$moveInterval",
+          idleInterval: "$idleInterval",
         }
       },
       { $group : {
@@ -83,7 +93,11 @@ Meteor.startup ->
             startLon: { $first: "$lon" }
             stopLon: { $last: "$lon" }
 
-            # avgFuelUsed: { $avg: "$speed" }
+            minInterval: {$min: "$interval"}
+            maxInterval: {$max: "$interval"}
+
+            sumMoveInterval: {$sum: "$moveInterval"}
+            sumIdleInterval: {$sum: "$idleInterval"}
         }}
     ]
     time = new Date().getTime()
