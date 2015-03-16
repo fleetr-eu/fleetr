@@ -65,7 +65,9 @@ Meteor.startup ->
             # avgFuelUsed: { $avg: "$speed" }
         }}
     ]
-    db.collection('logbook').aggregate pipeline, Meteor.bindEnvironment(
+    time = new Date().getTime()
+
+    res = db.collection('logbook').aggregate pipeline, Meteor.bindEnvironment(
       (err, result) ->
         _.each result, (e) ->
           sub.added "dateRangeAggregation", e._id, e if e.sumDistance > 0
@@ -74,3 +76,6 @@ Meteor.startup ->
       (error) ->
         Meteor._debug( "Error doing aggregation: " + error)
     )
+    time = new Date().getTime() - time
+    console.log 'Aggregated in: ' + time + 'ms'
+    return res
