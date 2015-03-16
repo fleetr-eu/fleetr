@@ -77,6 +77,24 @@ Schema.vehicle = new SimpleSchema
       "label-class": "col-sm-6"
       "input-col-class": "col-sm-6"
 
+  odometer:
+    type: Number
+    label: "Odometer (km)"
+    optional: true
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-6"
+      "input-col-class": "col-sm-6"
+
+  unitId:
+    type: String
+    label: "Unit Id"
+    optional: true
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-6"
+      "input-col-class": "col-sm-6"
+
   nextTechnicalCheck:
     type: Date
     label: "Next technical check"
@@ -192,7 +210,7 @@ Schema.vehicle = new SimpleSchema
 
   maxSpeed:
     type: Number
-    label: "Max speed (Km/h)"
+    label: "Max speed (km/h)"
     optional: true
     autoform:
       template: "bootstrap3-horizontal"

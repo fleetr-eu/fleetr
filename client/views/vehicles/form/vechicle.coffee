@@ -1,9 +1,9 @@
 Template.vehicle.rendered = ->
-  i = 0
-  while i < 7
-    $("#timepicker#{i}From").datetimepicker pickDate: false, language:Settings.locale
-    $("#timepicker#{i}To").datetimepicker pickDate: false, language:Settings.locale
-    i++
+  # i = 0
+  # while i < 7
+  #   $("#timepicker#{i}From").datetimepicker pickDate: false, language:Settings.locale
+  #   $("#timepicker#{i}To").datetimepicker pickDate: false, language:Settings.locale
+  #   i++
   Session.set "selectedMake", ""
 
 Template.vehicle.helpers
@@ -32,7 +32,7 @@ Template.timePickersForDay.helpers
   fromField:->
       "workingSchedule.#{@.seq}.from"
   toField:->
-      "workingSchedule.#{@.seq}.to"  
+      "workingSchedule.#{@.seq}.to"
 
 AutoForm.hooks
   vehicleForm:
