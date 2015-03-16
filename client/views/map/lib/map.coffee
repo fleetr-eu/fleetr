@@ -77,7 +77,7 @@ Meteor.startup ->
         Map.path.polyline = new FleetrPolyline Map.map, optimizedPath
 
         Map.path.polyline.addListener 'click', (e) ->
-          loc = Map.path.polyline.findNearestPoint(e.latLng).location
+          loc = Map.path.polyline.findNearestPoint(e.latLng).latLng.location
           infowindow = new FleetrInfoWindow loc.vehicle(), loc
           m = new EmptyMarker(loc, Map.map)
           Map.path.infoMarkers.push m

@@ -65,3 +65,12 @@ Meteor.startup ->
                   <p>Престой: #{moment.duration(location.stay,'seconds').humanize()}</p>
                   <p><a href="/location/remove/#{location._id}">Изтрий</a></p>
                 </div>"""
+
+  class @SimpleInfoWindow extends google.maps.InfoWindow
+    constructor: (data) ->
+      super
+        content: """
+                <div style='width:11em;'>
+                  <p>Скорост: #{data.speed} км/ч</p>
+                  <p>Километраж: #{data.distance} км</p>
+                </div>"""

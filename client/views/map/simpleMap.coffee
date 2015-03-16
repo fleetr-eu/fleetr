@@ -13,8 +13,20 @@ Template.simpleMap.rendered = ->
       $gte: start.time
       $lte: stop.time
     deviceId: deviceId
+    type: $ne: 35
   Meteor.subscribe 'logbook', searchArgs, ->
     path = Logbook.find(searchArgs, {sort: recordTime: -1}).map (point) ->
-      lat: point.lat, lng: point.lon
+      lat: point.lat, lng: point.lon, id: point._id
 
-    new FleetrPolyline map, path
+    poly = new FleetrPolyline map, path
+    poly.infoWindows = {}
+    poly.addListener 'click', (e) ->
+      nearest = @findNearestPoint(e.latLng)
+      point = Logbook.findOne _id: path[nearest.index].id
+      nearest.loc = [point.lon, point.lat]
+      infoWindow = @infoWindows[nearest.index]
+      unless infoWindow
+        infoWindow = new SimpleInfoWindow point
+        infoWindow.marker = new EmptyMarker(nearest, map)
+        @infoWindows[nearest.index] = infoWindow
+      infoWindow.open map, infoWindow.marker

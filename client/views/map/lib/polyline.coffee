@@ -33,4 +33,4 @@ Meteor.startup ->
           needle.index = index
           needle.latlng = routePoint
 
-      @getPath().getAt(needle.index)
+      latLng: @getPath().getAt(needle.index), index: needle.index
