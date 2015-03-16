@@ -18,5 +18,11 @@
 }
 
 .selected {
-	color: #ff0000;	
+	background-color: #4b8df8;
+	color: #ffffff;	
 }
+
+/*.selected:hover {
+	background-color: #4b8df8;
+	color: #ffffff;	
+}*/

@@ -37,7 +37,7 @@ createAggregationTableOptions = ->
     # { key:'test', label: 'Test', fn: (val,obj)-> 1000.toFixed(2) }
   ]
   showColumnToggles: true
-  class: "table table-bordered table-hover aggregation-table"
+  class: "table table-stripped aggregation-table"
 
 createStartStopOptions = ->
   collection: StartStop
@@ -46,7 +46,7 @@ createStartStopOptions = ->
     # { key: '_id', label: 'Date'}
     # { key: 'total', label: 'Amount' }
     # { key: 'minSpeed', label: 'Min speed'}
-    {key: 'startStopTime', label: 'Time', fn: (val,obj)-> twin(moment(obj.start.recordTime).format('DD/MM/YYYY HH:mm'), moment(obj.stop.recordTime).format('DD/MM/YYYY HH:mm'))}
+    {key: 'startStopTime', label: 'Time', fn: (val,obj)-> twin(moment(obj.start.recordTime).format('HH:mm'), moment(obj.stop.recordTime).format('HH:mm'))}
     {key: 'startStopLocation', label: 'Location', fn: (val,obj)->
       startLocation = geocode2(obj.start.type, obj.start.lat, obj.start.lon).split(',')[-3..]
       stopLocation = geocode2(obj.stop.type, obj.stop.lat, obj.stop.lon).split(',')[-3..]
@@ -57,18 +57,19 @@ createStartStopOptions = ->
       diff = moment(obj.stop.recordTime).diff(moment(obj.start.recordTime), 'seconds')
       moment.duration(diff, "seconds").format('HH:mm:ss', {trim: false})
     }
-    {key: 'startStopSpeed', label: 'Speed (km/h)', fn: (val,obj)-> val }
+    {key: 'startStopSpeed', label: 'Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
+    {key: 'maxSpeed', label: 'Max Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
     {key: 'startStopFuel', label: 'Fuel', fn: (val,obj)->
       distance = (obj.stop.tacho-obj.start.tacho)/1000
       fuel = (obj.stop.fuelc-obj.start.fuelc)/1000
       twin(fuel.toFixed(2) + ' (l)', (fuel/distance*100).toFixed(2) + ' (l/100km)')
     }
     {key: 'driver', label: 'Driver', fn: (val)->twin('&lt;driver&gt;','&lt;license&gt;') }
-    {key: 'vehicle', label: 'Vehicle', fn: (val)->'<vehicle>' }
+    # {key: 'vehicle', label: 'Vehicle', fn: (val)->'<vehicle>' }
     {key: 'map', label: 'Map', tmpl: Template.mapCellTemplate}
   ]
   showColumnToggles: true
-  class: "table table-bordered table-hover start-stop-table"
+  class: "table table-stripped table-hover start-stop-table"
 
 Template.mapCellTemplate.helpers
   opts: -> encodeURIComponent EJSON.stringify
@@ -121,7 +122,16 @@ Template.logbook.created = ->
   # @TabularTables.Logbook = createLogbookTable()
 
 Template.logbook.rendered = ->
-  $('#daterange').daterangepicker {locale: {cancelLabel: 'Clear'}}
+  $('#daterange').daterangepicker 
+    locale: {cancelLabel: 'Clear'}
+    ranges: 
+      'Today': [moment(), moment()]
+      'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')]
+      'Last 7 Days': [moment().subtract(6, 'days'), moment()]
+      'Last 30 Days': [moment().subtract(29, 'days'), moment()]
+      'This Month': [moment().startOf('month'), moment().endOf('month')]
+      'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+
 
 geocode2 = (type, lat,lon) ->
   return "" if type == MESSAGE_ROW_TYPE

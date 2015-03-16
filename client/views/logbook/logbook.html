@@ -1,5 +1,6 @@
 <template name="logbook">
 
+{{#portlet}}
 <div class="input-prepend input-group">
 	<span class="add-on input-group-addon">
  		<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
@@ -7,7 +8,9 @@
  	<input type="text" style="width: 200px" id="daterange" class="form-control"/>
 </div>
 {{> reactiveTable settings=aggopts}}
+<!-- {{/portlet}} -->
 
+<!-- {{#portlet}} -->
 <div class="input-prepend input-group">
 	<span class="add-on input-group-addon">
  		<i class="glyphicon glyphicon-dashboard fa fa-dashboard"></i>
@@ -15,6 +18,8 @@
  	<input type="text" style="width: 200px" id="speed" class="form-control"/>
 </div>
 {{> reactiveTable settings=startstopopts}}
+{{/portlet}}
+
 
   <!-- {{> reactiveTable settings=opts}} -->
 
@@ -23,5 +28,7 @@
 </template>
 
 <template name="mapCellTemplate">
-	<a href="{{pathFor 'simple-map' data=opts}}">Show on the map</a>
+	<a href="{{pathFor 'simple-map' data=opts}}">
+		<img src="/images/Google-Maps-icon.png" title="Show on the map" />
+	</a>
 </template>
