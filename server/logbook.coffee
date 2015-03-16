@@ -19,6 +19,9 @@ Meteor.publish 'startstoppub', (args)->
   query.recordTime = args.recordTime if args.recordTime  
   console.log 'FILTER: ' + JSON.stringify(args)
   console.log 'QUERY: ' + JSON.stringify(query)
+  time = new Date().getTime()
+  console.log 'Time: ' + time
+
   subHandle = Logbook.find(query).observeChanges
     added: (id, fields) ->
       # console.log('Add: ' + JSON.stringify(fields))
@@ -49,7 +52,7 @@ Meteor.publish 'startstoppub', (args)->
           else if args.speed and record.maxSpeed < args.speed
             # console.log 'Filter out: ' + args.speed + ' ' + record.startStopSpeed + ' ' + record.maxSpeed
           else
-            # console.log 'Accepted: ' + args.speed + ' ' + record.startStopSpeed  + ' ' + record.maxSpeed
+            console.log 'Accepted: ' + args.speed + ' ' + record.startStopSpeed  + ' ' + record.maxSpeed + ' ' + (new Date().getTime() - time)
             self.added("startstop", id, record)
           start = null
           maxSpeed = null
@@ -66,6 +69,7 @@ Meteor.publish 'startstoppub', (args)->
       #self.removed("testdata", id);
 
   self.ready()
+  console.log 'Find: ' + (new Date().getTime() - time) + 'ms'
   self.onStop ()->  subHandle.stop()
   
 

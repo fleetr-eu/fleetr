@@ -28,13 +28,24 @@ createAggregationTableOptions = ->
     { key: '_id', label: 'Date'}
     # { key: 'total', label: 'Amount' }
     # { key: 'minSpeed', label: 'Min speed'}
-    { key: 'maxSpeed', label: 'Max speed (km/h)', fn: (val)->(val).toFixed(0) }
-    { key: 'avgSpeed', label: 'Avg speed (km/h)', fn: (val)->(val).toFixed(0) }
-    { key: 'sumDistance', label: 'Distance (km)', fn: (val)->(val/1000).toFixed(0) }
-    { key: 'sumFuel', label: 'Fuel (l)', fn: (val)-> (val/1000).toFixed(2) }
-    { key:'litersPer100', label: 'Fuel (l/100km)', fn: (val,obj)->(obj.sumFuel/obj.sumDistance*100).toFixed(2) }
-    { key:'kmPerLiter', label: 'Fuel (km/l)', fn: (val,obj)->(obj.sumDistance/obj.sumFuel).toFixed(2) }
+    { key: 'loc', label: 'From/To', fn: (val,obj)-> '' }
+    { key: 'sumDistance', label: 'Distance/Odo', fn: (val)->(val/1000).toFixed(0) }
+
+    # { key: 'maxSpeed', label: 'Max speed (km/h)', fn: (val)->(val).toFixed(0) }
+    # { key: 'avgSpeed', label: 'Avg speed (km/h)', fn: (val)->(val).toFixed(0) }
+    { key: 'speed', label: 'Speed/Max', fn: (val,obj)-> twin(obj.avgSpeed.toFixed(0),obj.maxSpeed.toFixed(0)) }
+    { key: 'time', label: 'Time/Idel', fn: (val,obj)-> '' }
+
+    # { key: 'sumFuel', label: 'Fuel (l)', fn: (val)-> (val/1000).toFixed(2) }
+    # { key:'litersPer100', label: 'Fuel (l/100km)', fn: (val,obj)->(obj.sumFuel/obj.sumDistance*100).toFixed(2) }
+    { key:'litersPer100', label: 'Fuel/Per 100', fn: (val,obj)->
+      f = (obj.sumFuel/1000).toFixed(2)
+      fl = (obj.sumFuel/obj.sumDistance*100).toFixed(2)
+      twin(f,fl)}
+
+    # { key:'kmPerLiter', label: 'Fuel (km/l)', fn: (val,obj)->(obj.sumDistance/obj.sumFuel).toFixed(2) }
     # { key:'test', label: 'Test', fn: (val,obj)-> 1000.toFixed(2) }
+    {key: 'map', label: 'Map', tmpl: Template.aggMapCellTemplate}
   ]
   showColumnToggles: true
   class: "table table-stripped aggregation-table"
@@ -46,20 +57,23 @@ createStartStopOptions = ->
     # { key: '_id', label: 'Date'}
     # { key: 'total', label: 'Amount' }
     # { key: 'minSpeed', label: 'Min speed'}
-    {key: 'startStopTime', label: 'Time', fn: (val,obj)-> twin(moment(obj.start.recordTime).format('HH:mm'), moment(obj.stop.recordTime).format('HH:mm'))}
-    {key: 'startStopLocation', label: 'Location', fn: (val,obj)->
+    {key: 'startStopTime', label: 'Start/Finish' , fn: (val,obj)-> twin(moment(obj.start.recordTime).format('HH:mm'), moment(obj.stop.recordTime).format('HH:mm'))}
+    {key: 'startStopLocation', label: 'From/To', fn: (val,obj)->
       startLocation = geocode2(obj.start.type, obj.start.lat, obj.start.lon).split(',')[-3..]
       stopLocation = geocode2(obj.stop.type, obj.stop.lat, obj.stop.lon).split(',')[-3..]
       twin(startLocation,stopLocation)
     }
-    {key: 'startStopDistance', label: 'Distance (km)', fn: (val,obj)-> val.toFixed(2)}
+    {key: 'startStopDistance', label: 'Distance/Odo', fn: (val,obj)-> twin(val.toFixed(2), obj.stop.tacho)}
+    
+    # {key: 'startStopSpeed', label: 'Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
+    # {key: 'maxSpeed', label: 'Max Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
+    {key: 'startStopSpeed', label: 'Speed/Max', fn: (val,obj)-> twin(obj.startStopSpeed.toFixed(0),obj.maxSpeed.toFixed(0)) }
     {key: 'startStopTravelTime', label: 'Travel time', fn: (val,obj)->
       diff = moment(obj.stop.recordTime).diff(moment(obj.start.recordTime), 'seconds')
       moment.duration(diff, "seconds").format('HH:mm:ss', {trim: false})
     }
-    {key: 'startStopSpeed', label: 'Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
-    {key: 'maxSpeed', label: 'Max Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
-    {key: 'startStopFuel', label: 'Fuel', fn: (val,obj)->
+    
+    {key: 'startStopFuel', label: 'Fuel/Per 100', fn: (val,obj)->
       distance = (obj.stop.tacho-obj.start.tacho)/1000
       fuel = (obj.stop.fuelc-obj.start.fuelc)/1000
       twin(fuel.toFixed(2) + ' (l)', (fuel/distance*100).toFixed(2) + ' (l/100km)')
