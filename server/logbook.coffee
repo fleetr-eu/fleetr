@@ -1,13 +1,6 @@
 @TabularTables = {}
 
-# TabularTables.Logbook = new Tabular.Table 
-#   name: "Logbook"
-#   collection: Logbook
-#   columns: [
-#     {data: "lat", title: "Lat"}
-#     {data: "lon", title: "Lon"}
-#     {data: "speed", title: "Speed"}
-#   ]
+IDLE_DISTANCE_LIMIT = 0.01
 
 Meteor.publish 'startstoppub', (args)->
   self = this
@@ -22,17 +15,21 @@ Meteor.publish 'startstoppub', (args)->
   time = new Date().getTime()
   console.log 'Time: ' + time
 
+  trackpoints = 0
+
   subHandle = Logbook.find(query).observeChanges
     added: (id, fields) ->
       # console.log('Add: ' + JSON.stringify(fields))
       if fields.type == 30
         old = maxSpeed
         maxSpeed = fields.speed if not maxSpeed or fields.speed > maxSpeed
+        trackpoints++
         # console.log '  max speed: ' + old + ' ' + fields.speed + ' ==> ' + maxSpeed
       else if fields.type == 29  
         started = fields.io %2 == 1
         if started == state
           maxSpeed = null
+          trackpoints = 0
           # console.log 'Start'
           return
  
@@ -49,14 +46,19 @@ Meteor.publish 'startstoppub', (args)->
           record.maxSpeed = maxSpeed
           if record.startStopDistance == 0
             # console.log 'Filter out: zero distance: ' + JSON.stringify(record)
+          else if trackpoints == 0
+            # console.log 'Filter out: ' + args.speed + ' ' + record.startStopSpeed + ' ' + record.maxSpeed
+          else if args.hideIdle and record.startStopDistance < IDLE_DISTANCE_LIMIT
+            # console.log 'Filter out: ' + args.speed + ' ' + record.startStopSpeed + ' ' + record.maxSpeed
           else if args.speed and record.maxSpeed < args.speed
             # console.log 'Filter out: ' + args.speed + ' ' + record.startStopSpeed + ' ' + record.maxSpeed
           else
-            console.log 'Accepted: ' + args.speed + ' ' + record.startStopSpeed  + ' ' + record.maxSpeed + ' ' + (new Date().getTime() - time)
+            # console.log 'Accepted: ' + args.speed + ' ' + record.startStopSpeed  + ' ' + record.maxSpeed + ' ' + (new Date().getTime() - time)
             self.added("startstop", id, record)
           start = null
+          # console.log 'Stop: trackpoints: ' + trackpoints + "; max speed: " + maxSpeed
           maxSpeed = null
-          # console.log 'Stop: ' + maxSpeed
+          trackpoints = 0
 
  
         state = started

@@ -73,13 +73,18 @@ createStartStopOptions = ->
     # { key: '_id', label: 'Date'}
     # { key: 'total', label: 'Amount' }
     # { key: 'minSpeed', label: 'Min speed'}
-    {key: 'startStopTime', label: 'Start/Finish' , fn: (val,obj)-> twin(moment(obj.start.recordTime).format('HH:mm'), moment(obj.stop.recordTime).format('HH:mm'))}
+    {key: 'startStopTime', label: 'Start/Finish' , fn: (val,obj)-> twin(moment(obj.start.recordTime).format('HH:mm:ss'), moment(obj.stop.recordTime).format('HH:mm:ss'))}
     {key: 'startStopLocation', label: 'From/To', fn: (val,obj)->
       startLocation = geocode2(obj.start.type, obj.start.lat, obj.start.lon).split(',')[-3..]
       stopLocation = geocode2(obj.stop.type, obj.stop.lat, obj.stop.lon).split(',')[-3..]
       twin(startLocation,stopLocation)
     }
-    {key: 'startStopDistance', label: 'Distance/Odo', fn: (val,obj)-> twin(val.toFixed(2), obj.stop.tacho)}
+    {key: 'startStopDistance', label: 'Distance/Odo', fn: (val,obj)-> 
+      km = Math.floor(obj.stop.tacho/1000)
+      m = obj.stop.tacho%1000
+      odo = km + ',' + m
+      twin(val.toFixed(2), odo)
+    }
     
     # {key: 'startStopSpeed', label: 'Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
     # {key: 'maxSpeed', label: 'Max Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
@@ -197,6 +202,7 @@ Template.logbook.helpers
   #filter: ()-> JSON.stringify(Session.get(LOGBOOK_FILTER_NAME))
   aggopts: createAggregationTableOptions
   startstopopts: createStartStopOptions
+  hideIdle: () -> Session.get(STARTSTOP_FILTER_NAME)?.hideIdle
 
 show = (obj) ->
   str = ''
@@ -246,3 +252,10 @@ Template.logbook.events
     Session.set STARTSTOP_FILTER_NAME, {recordTime: args}
     $(".aggregation-table tr").removeClass('selected')
     event.currentTarget.setAttribute('class', 'selected')
+
+  'click #hideIdleCheckbox': (event,p)->
+    filter = Session.get(STARTSTOP_FILTER_NAME) || {}
+    console.log 'Clicked: ' + event.target.checked
+    filter.hideIdle = event.target.checked
+    Session.set STARTSTOP_FILTER_NAME, filter
+    # console.log 'Filter: ' + JSON.stringify(args)
