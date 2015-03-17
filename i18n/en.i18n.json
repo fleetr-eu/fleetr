@@ -8,6 +8,7 @@
     "drivers": "Drivers",
     "objects": "Objects",
     "expenses": "Expenses",
+    "maintenance" : "Maintenance",
     "reports": "Reports",
     "map": "Map",
     "list": "List",

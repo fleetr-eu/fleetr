@@ -124,15 +124,24 @@ Meteor.startup ->
       path: '/expenses/add'
       template: 'expense'
 
-    @route 'addMaintainanceType',
-      path: '/maintainance/types/add'
-      template: 'maintainanceType'
+    @route 'addMaintenanceType',
+      path: '/maintenance/types/add'
+      template: 'maintenanceType'
 
-    @route 'addMaintainance',
-      path: '/vechile/:vehicleId/maintainances/add'
-      template: 'addMaintainance'
+    @route 'editMaintenanceType',
+      path: '/maintenance/types/edit/:maintenanceTypeId'
+      template: 'maintenanceType'
+      data: -> {'maintenanceTypeId' : @params.maintenanceTypeId}
+
+    @route 'listMaintenanceType',
+      path: '/maintenance/types/list'
+      template: 'maintenanceTypes'
+
+    @route 'addMaintenance',
+      path: '/vechile/:vehicleId/maintenances/add'
+      template: 'addMaintenance'
       data: -> {':vehicleId' : @params.vehicleId}
-      waitOn: -> Meteor.subscribe 'vechileMaintainances', @params.vehicleId
+      waitOn: -> Meteor.subscribe 'vechileMaintenances', @params.vehicleId
 
     @route 'listAlarms',
       path: '/alarms/list'

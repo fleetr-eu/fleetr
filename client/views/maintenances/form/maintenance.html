@@ -1,8 +1,8 @@
-<template name="maintainance">
+<template name="maintenance">
   <div class="portlet box blue-hoki">
     <div class="portlet-title">
       <div class="caption">
-        <i class="fa da-dollar"></i>Maintainance
+        <i class="fa da-wrench"></i>Maintenance for {{licensePlate}}
       </div>
       <div class="tools">
         <a href="" class="fullscreen"></a>
@@ -16,16 +16,15 @@
     </div>
     <div class="portlet-body">
       <div class="container">
-        <div> {{vechicle.licensePlate}} </div>
-        {{#autoForm doc=maintainance collection="Maintainances" id="maintainancesForm" type="method" meteormethod="submitMaintainance"}}
+        {{#autoForm doc=maintenance collection="Maintenances" id="maintenancesForm" type="method" meteormethod="submitMaintenance"}}
             <fieldset>
               <div class="col-md-7">
-                {{> afQuickField template="bootstrap3-horizontal" name="maintainanceType"}}
+                {{> afQuickField template="bootstrap3-horizontal" name="maintenanceType"}}
                 {{> afQuickField template="bootstrap3-horizontal" name="odometer"}}
                 {{> afQuickField template="bootstrap3-horizontal" name="date"}}
-                {{> afQuickField template="bootstrap3-horizontal" name="nextMaintainanceDate"}}
-                {{> afQuickField template="bootstrap3-horizontal" name="nextMaintainanceOdometer"}}
-                {{> afQuickField template="bootstrap3-horizontal" name="nextMaintainanceEngineHours"}}
+                {{> afQuickField template="bootstrap3-horizontal" name="nextMaintenanceDate"}}
+                {{> afQuickField template="bootstrap3-horizontal" name="nextMaintenanceOdometer"}}
+                {{> afQuickField template="bootstrap3-horizontal" name="nextMaintenanceEngineHours"}}
               </div>
           </fieldset>
         {{/autoForm}}

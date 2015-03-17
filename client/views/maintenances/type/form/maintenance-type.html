@@ -1,0 +1,35 @@
+<template name="maintenanceType">
+  <div class="portlet box blue-hoki">
+    <div class="portlet-title">
+      <div class="caption">
+        <i class="fa fa-wrench"></i>Maintenance Type
+      </div>
+      <div class="tools">
+        <a href="" class="fullscreen"></a>
+      </div>
+      <div class="actions">
+        <a href="#" class="btn btn-default btn-primary btn-sm">
+        <i class="fa fa-check"></i> Save </a>
+        <a href="#" class="btn btn-default btn-reset">
+        <i class="fa fa-close"></i> Cancel </a>
+      </div>
+    </div>
+    <div class="portlet-body">
+      {{#autoForm collection="MaintenanceTypes" doc=maintenanceType id="maintenanceTypeForm" type="method" meteormethod="submitMaintenanceType"}}
+
+            <div class="row">
+              <fieldset>
+                  <div class="col-md-12">
+                  	  {{> afFieldInput type="hidden" name="_id" value=_id}}
+                      {{> afQuickField name="name"}}
+                      {{> afQuickField name="description"}}
+                      {{> afQuickField name="nextMaintenanceMonths"}}
+                      {{> afQuickField name="nextMaintenanceKMs"}}
+                      {{> afQuickField name="nextMaintenanceEngineHours"}}
+                  </div>
+              </fieldset>
+            </div>
+      {{/autoForm}}
+   </div>
+ </div>
+</template>

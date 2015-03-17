@@ -3,27 +3,11 @@
 	<h3 class="page-title">
 		Шофьори
 	</h3>
-	<div class="page-bar">
-		<ul class="page-breadcrumb">
-			<li>
-				<i class="fa fa-home"></i>
-				<a href="/">Начало</a>
-				<i class="fa fa-angle-right"></i>
-			</li>
-			<li>
-				<a href="#">Шофьори</a>
-			</li>
-		</ul>
-	</div>
-	<!-- END PAGE HEADER-->
-
 
 	{{#portlet}}
-		{{> reactiveTable collection=driversCollection fields=driversFields }}	
+		{{> reactiveTable collection=driversCollection fields=driversFields }}
   {{/portlet}}
-
-						
- 
+	 
  </template>
 
 <!-- <template name="driverTableRow">
@@ -37,5 +21,3 @@
     </tr>
 </template>
  -->
-
-

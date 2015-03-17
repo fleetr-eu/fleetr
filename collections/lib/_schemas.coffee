@@ -185,7 +185,7 @@ Schema.expenses = new SimpleSchema
         "label-class": "col-sm-5"
         "input-col-class": "col-sm-7"
 
-Schema.maintainanceTypes = new SimpleSchema
+Schema.maintenanceTypes = new SimpleSchema
   _id:
     type: String
     optional: true
@@ -207,7 +207,7 @@ Schema.maintainanceTypes = new SimpleSchema
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7"
 
-  nextMaintainanceMonths:
+  nextMaintenanceMonths:
     type: Number
     label: "Next after (months)"
     optional: true
@@ -216,7 +216,7 @@ Schema.maintainanceTypes = new SimpleSchema
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-4"
 
-  nextMaintainanceKMs:
+  nextMaintenanceKMs:
     type: Number
     decimal:true
     label: "Next after (km)"
@@ -226,7 +226,7 @@ Schema.maintainanceTypes = new SimpleSchema
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-4"
 
-  nextMaintainanceEngineHours:
+  nextMaintenanceEngineHours:
     type: Number
     decimal:true
     label: "Next after (engine hours)"
@@ -236,14 +236,14 @@ Schema.maintainanceTypes = new SimpleSchema
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-4"
 
-Schema.maintainance = new SimpleSchema
+Schema.maintenance = new SimpleSchema
 
-  maintainanceType:
+  maintenanceType:
      type: String
-     label: 'Maintainance Type'
+     label: 'Maintenance Type'
      autoform:
        firstOption: "(Select)"
-       options: -> MaintainanceTypes.find().map (maintainanceType) -> label: maintainanceType.name, value: maintainanceType._id
+       options: -> MaintenanceTypes.find().map (maintenanceType) -> label: maintenanceType.name, value: maintenanceType._id
        allowOptions: "true"
        template: "bootstrap3-horizontal"
        "label-class": "col-sm-5"
@@ -278,18 +278,18 @@ Schema.maintainance = new SimpleSchema
         "label-class": "col-sm-5"
         "input-col-class": "col-sm-7"
 
-    nextMaintainanceDate:
+    nextMaintenanceDate:
       type: Date
-      label: "Next maintainance (date)"
+      label: "Next maintenance (date)"
       optional: true
       autoform:
         template: "bootstrap3-horizontal"
         "label-class": "col-sm-5"
         "input-col-class": "col-sm-7"
 
-    nextMaintainanceOdometer:
+    nextMaintenanceOdometer:
       type: Date
-      label: "Next maintainance (km)"
+      label: "Next maintenance (km)"
       optional: true
       autoform:
         template: "bootstrap3-horizontal"

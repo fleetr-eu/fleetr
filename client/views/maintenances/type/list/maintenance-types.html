@@ -1,0 +1,56 @@
+<template name="maintenanceTypes">
+	<h3 class="page-title">
+		Maintenance Types
+	</h3>
+	
+	<div class="row">
+			<div class="col-md-12">
+				<div class="portlet box blue">
+					<div class="portlet-title">
+						<div class="caption" id="maintenanceTypes">
+		            {{> filter sessionVar='maintenanceTypeFilter' placeholder='Търсене...'}}
+						</div>
+						<div class="tools">
+							<a href="{{pathFor 'addMaintenanceType'}}"><span class="glyphicon glyphicon-plus"></span></a>
+							{{#if selectedMaintenanceTypeId}}
+							<a href="{{pathFor 'editMaintenanceType' maintenanceTypeId=selectedMaintenanceTypeId}}"><span class="glyphicon glyphicon-pencil"></span></a>
+							<a href="#" class="deleteMaintenanceType"><span class="glyphicon glyphicon-trash"></span></a>
+							{{/if}}
+						</div>
+					</div>
+
+					<div class="portlet-body">
+				    <section class="content">
+
+				        <table class="table table-striped">
+
+				            <thead>
+				                <tr>
+				                    <th>Name</th>
+				                    <th>Description</th>
+														<th>Next (months)</th>
+														<th>Next (km)</th>
+														<th>Next (eng. hours)</th>
+			                 </tr>
+				            </thead>
+
+				            <tbody>
+				                {{#each maintenanceTypes}} {{> maintenanceTypeTableRow}} {{/each}}
+				            </tbody>
+				        </table>
+				    </section>
+				 </div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="maintenanceTypeTableRow">
+    <tr class="{{active}}">
+        <td>{{name}}</td>
+        <td>{{description}}</td>
+				<td>{{nextMaintenanceMonths}}</td>
+				<td>{{nextMaintenanceKMs}}</td>
+				<td>{{nextMaintenanceEngineHours}}</td>
+    </tr>
+</template>

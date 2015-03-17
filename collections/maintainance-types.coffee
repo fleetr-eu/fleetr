@@ -1,3 +1,3 @@
-@MaintainanceTypes = new Mongo.Collection 'maintainanceTypes'
-Partitioner.partitionCollection MaintainanceTypes
-MaintainanceTypes.attachSchema Schema.maintainanceTypes
+@MaintenanceTypes = new Mongo.Collection 'maintenanceTypes'
+Partitioner.partitionCollection MaintenanceTypes
+MaintenanceTypes.attachSchema Schema.maintenanceTypes

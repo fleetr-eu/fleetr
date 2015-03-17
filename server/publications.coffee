@@ -11,8 +11,8 @@ Meteor.startup ->
   Meteor.publish 'expenseGroups', -> ExpenseGroups.find {}
   Meteor.publish 'expenseTypes', -> ExpenseTypes.find {}
   Meteor.publish 'expenses', -> Expenses.find {}
-  Meteor.publish 'maintainanceTypes', -> MaintainanceTypes.find {}
-  Meteor.publish 'vehicleMaintainances', (vehicleId)-> Maintainances.find {vehicle: vehicleId}
+  Meteor.publish 'maintenanceTypes', -> MaintenanceTypes.find {}
+  Meteor.publish 'vehicleMaintenances', (vehicleId)-> Maintenances.find {vehicle: vehicleId}
   Meteor.publish 'alarms', -> Alarms.find {}
   Meteor.publish 'notifications', -> Notifications.find {}
   Meteor.publish 'geofences', -> Geofences.find {}
