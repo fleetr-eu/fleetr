@@ -16,29 +16,19 @@ Template.simpleMap.rendered = ->
     type: $ne: 35
   Meteor.subscribe 'logbook', searchArgs, ->
     path = Logbook.find(searchArgs, {sort: recordTime: -1}).map (point) ->
-      color = if point.speed >= 100 then 'red' else 'green'
-      opts =
-        position: new google.maps.LatLng(point.lat, point.lon)
-        icon: "/images/icons/#{color}-circle.png"
-        map: map
-      info =
-        speed: point.speed
-        distance: point.distance
-      new InfoMarker opts, info, map
-      
+      console.log point.speed
+      color = 'red' if point.speed >= Settings.maxSpeed
+      color = 'blue' if point.speed <= 0.05
+      if color
+        opts =
+          position: new google.maps.LatLng(point.lat, point.lon)
+          icon: "/images/icons/#{color}-circle.png"
+          map: map
+        info =
+          speed: point.speed
+          distance: point.distance
+        new InfoMarker opts, info, map
+
       lat: point.lat, lng: point.lon, id: point._id
 
-    poly = new FleetrPolyline map, path
-    # poly.infoWindows = {}
-
-
-    # poly.addListener 'click', (e) ->
-    #   nearest = @findNearestPoint(e.latLng)
-    #   point = Logbook.findOne _id: path[nearest.index].id
-    #   nearest.loc = [point.lon, point.lat]
-    #   infoWindow = @infoWindows[nearest.index]
-    #   unless infoWindow
-    #     infoWindow = new SimpleInfoWindow point
-    #     infoWindow.marker = new EmptyMarker(nearest, map)
-    #     @infoWindows[nearest.index] = infoWindow
-    #   infoWindow.open map, infoWindow.marker
+    new FleetrPolyline map, path
