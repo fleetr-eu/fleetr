@@ -16,7 +16,6 @@ Template.simpleMap.rendered = ->
     type: $ne: 35
   Meteor.subscribe 'logbook', searchArgs, ->
     path = Logbook.find(searchArgs, {sort: recordTime: -1}).map (point) ->
-      console.log point.speed
       color = 'red' if point.speed >= Settings.maxSpeed
       color = 'blue' if point.speed <= 0.05
       if color
