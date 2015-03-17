@@ -46,7 +46,7 @@ Meteor.publish 'startstoppub', (args)->
           record.maxSpeed = maxSpeed
           if record.startStopDistance == 0
             # console.log 'Filter out: zero distance: ' + JSON.stringify(record)
-          else if trackpoints == 0
+          # else if trackpoints == 0
             # console.log 'Filter out: ' + args.speed + ' ' + record.startStopSpeed + ' ' + record.maxSpeed
           else if args.hideIdle and record.startStopDistance < IDLE_DISTANCE_LIMIT
             # console.log 'Filter out: ' + args.speed + ' ' + record.startStopSpeed + ' ' + record.maxSpeed
