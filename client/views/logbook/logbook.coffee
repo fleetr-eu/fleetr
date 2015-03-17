@@ -9,6 +9,7 @@ START_STOP_ROW_TYPE  = 29
 REGULAR_ROW_TYPE  = 30
 EVENT_ROW_TYPE    = 35
 
+UNIT_TIMEZONE = '+0200' # should be configured probably in vehicle configuration 
 
 rowStyles =
   0: 'message-row'
@@ -73,7 +74,12 @@ createStartStopOptions = ->
     # { key: '_id', label: 'Date'}
     # { key: 'total', label: 'Amount' }
     # { key: 'minSpeed', label: 'Min speed'}
-    {key: 'startStopTime', label: 'Start/Finish' , fn: (val,obj)-> twin(moment(obj.start.recordTime).format('HH:mm:ss'), moment(obj.stop.recordTime).format('HH:mm:ss'))}
+    {key: 'startStopTime', label: 'Start/Finish' , fn: (val,obj)-> 
+      # console.log 'START: ' + obj.start.recordTime
+      start = moment(obj.start.recordTime).zone(UNIT_TIMEZONE).format('HH:mm:ss')
+      stop = moment(obj.stop.recordTime).zone(UNIT_TIMEZONE).format('HH:mm:ss')
+      twin(start,stop)
+    }
     {key: 'startStopLocation', label: 'From/To', fn: (val,obj)->
       startLocation = geocode2(obj.start.type, obj.start.lat, obj.start.lon).split(',')[-3..]
       stopLocation = geocode2(obj.stop.type, obj.stop.lat, obj.stop.lon).split(',')[-3..]
@@ -84,6 +90,7 @@ createStartStopOptions = ->
       m = obj.stop.tacho%1000
       odo = km + ',' + m
       twin(val.toFixed(2), odo)
+      # twin(obj.start.tacho.toFixed(2), odo)
     }
     
     # {key: 'startStopSpeed', label: 'Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
@@ -99,7 +106,18 @@ createStartStopOptions = ->
       fuel = (obj.stop.fuelc-obj.start.fuelc)/1000
       twin(fuel.toFixed(2) + ' (l)', (fuel/distance*100).toFixed(2) + ' (l/100km)')
     }
-    {key: 'driver', label: 'Driver', fn: (val)->twin('&lt;driver&gt;','&lt;license&gt;') }
+    {key: 'driver', label: 'Driver', fn: (val,obj)->
+      vehicle = Vehicles.find ({unitId: obj.deviceId})
+      console.log 'Vehicle: ' + vehicle
+      driverId = Vehicles.getAssignedDriver(vehicle._id, Date.now())
+      console.log 'driverid: ' + driverId
+      driver = Drivers.findOne({_id: driverId})
+      console.log 'driver: ' + driver
+      console.log 'Driver: ' + JSON.stringify(driver) if driver
+
+      # twin(obj.start.deviceId,obj.stop.deviceId) 
+      twin('&lt;zdriver&gt;','&lt;license&gt;') 
+    }
     # {key: 'vehicle', label: 'Vehicle', fn: (val)->'<vehicle>' }
     {key: 'map', label: 'Map', tmpl: Template.mapCellTemplate}
   ]
