@@ -70,7 +70,7 @@ Meteor.startup ->
     constructor: (data) ->
       super
         content: """
-                <div style='width:11em;'>
-                  <p>Скорост: #{data.speed} км/ч</p>
-                  <p>Километраж: #{data.distance} км</p>
+                <div style='width:15em;'>
+                  <p>Скорост: #{parseFloat(data.speed).toFixed(0)} км/ч</p>
+                  <p>Километраж: #{parseFloat(data.tacho / 1000).toFixed(0)} км</p>
                 </div>"""
