@@ -66,11 +66,22 @@ Meteor.startup ->
                   <p><a href="/location/remove/#{location._id}">Изтрий</a></p>
                 </div>"""
 
+
   class @SimpleInfoWindow extends google.maps.InfoWindow
     constructor: (data) ->
       super
         content: """
-                <div style='width:15em;'>
-                  <p>Скорост: #{parseFloat(data.speed).toFixed(0)} км/ч</p>
-                  <p>Километраж: #{parseFloat(data.tacho / 1000).toFixed(0)} км</p>
-                </div>"""
+                  <p>Скорост: #{data.speed} км/ч</p>
+                  <p>Километраж: #{data.distance} км</p>
+                """
+
+  class @InfoMarker extends google.maps.Marker
+    constructor: (opts, info, map) ->
+      super opts
+      @addListener 'click', =>
+        @infoWindow ?= new SimpleInfoWindow(info)
+        @infoWindow.open map, @
+
+    addListener: (event, handler) ->
+      google.maps.event.addListener @, event, handler
+      @
