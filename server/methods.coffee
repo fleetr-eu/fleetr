@@ -57,6 +57,10 @@ Meteor.methods
     @unblock()
     Expenses.submit doc, diff
 
+  submitMaintainanceType: (doc, diff) ->
+    @unblock()
+    MaintainanceTypes.submit(doc, diff)
+
   removeExpenses: (doc) -> Expenses.remove _id : doc
 
   toggleNotificationSeen: (id, oldSeenState) ->

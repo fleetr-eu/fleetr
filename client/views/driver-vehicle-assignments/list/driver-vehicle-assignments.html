@@ -1,17 +1,17 @@
 <template name="driverVehicleAssignments">
 
 	<h3 class="page-title">
-		Асоциирани шофьори и автомобили
+		Associated Drivers and Vehicles
 	</h3>
 	<div class="page-bar">
 		<ul class="page-breadcrumb">
 			<li>
 				<i class="fa fa-home"></i>
-				<a href="/">Начало</a>
+				<a href="/">Home</a>
 				<i class="fa fa-angle-right"></i>
 			</li>
 			<li>
-				<a href="#">Асоциирани шофьори и автомобили</a>
+				<a href="#">	Associated Drivers and Vehicles</a>
 			</li>
 		</ul>
 	</div>
@@ -38,9 +38,10 @@
 
 				            <thead>
 				                <tr>
-				                    <th>Шофьор</th>
-				                    <th>Автомобил</th>
-				                    <th>От момент</th>
+				                    <th>Driver</th>
+				                    <th>Vehicle</th>
+				                    <th>Date</th>
+														<th>Time</th>
 				                    <th>Събитие</th>
 				                </tr>
 				            </thead>
@@ -60,7 +61,8 @@
     <tr class="{{active}}">
         <td>{{driverName}}</td>
         <td>{{vehicleLicensePlate}}</td>
-        <td>{{formatedMoment}}</td>
+				<td>{{formatedDate}}</td>
+        <td>{{time}}</td>
         <td><span style={{styleEvent}}>{{formatedEvent}}</span></td>
     </tr>
 </template>

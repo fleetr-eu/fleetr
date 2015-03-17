@@ -18,12 +18,12 @@ Template.driverVehicleAssignmentTableRow.helpers
     else
       ""
   active: -> if @_id == Session.get('selectedDriverVehicleAssignmentId') then 'active' else ''
-  formatedMoment: -> moment(@moment).locale(Settings.locale).format(Settings.longDateTimeFormat)
+  formatedDate: -> moment(@moment).locale(Settings.locale).format(Settings.longDateFormat)
   formatedEvent: ->
     if @event == 'begin'
-      "асоцииране"
+      "associate"
     else
-      "деасоцииране"
+      "disassociate"
   styleEvent: ->
     if @event == 'begin'
       "color:navy;"

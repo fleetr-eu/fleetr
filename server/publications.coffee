@@ -11,6 +11,8 @@ Meteor.startup ->
   Meteor.publish 'expenseGroups', -> ExpenseGroups.find {}
   Meteor.publish 'expenseTypes', -> ExpenseTypes.find {}
   Meteor.publish 'expenses', -> Expenses.find {}
+  Meteor.publish 'maintainanceTypes', -> MaintainanceTypes.find {}
+  Meteor.publish 'vehicleMaintainances', (vehicleId)-> Maintainances.find {vehicle: vehicleId}
   Meteor.publish 'alarms', -> Alarms.find {}
   Meteor.publish 'notifications', -> Notifications.find {}
   Meteor.publish 'geofences', -> Geofences.find {}
@@ -23,7 +25,6 @@ Meteor.startup ->
 
   Meteor.publish 'alarm-definitions', -> AlarmDefinitions.find {}
   Meteor.publish 'mycodes', -> MyCodes.find {}
-
 
   Meteor.publish 'dateRangeAggregation', (args)->
     sub = this
@@ -38,11 +39,11 @@ Meteor.startup ->
           type: "$type",
           speed: "$speed",
           tacho: "$tacho",
-          distance: "$distance", 
-          fuelUsed: "$fuelUsed", 
-          recordTime: "$recordTime", 
-          lat: "$lat", 
-          lon: "$lon", 
+          distance: "$distance",
+          fuelUsed: "$fuelUsed",
+          recordTime: "$recordTime",
+          lat: "$lat",
+          lon: "$lon",
           year: { $substr: ["$recordTime",0,4] },
           month: { $substr: ["$recordTime",5,2] },
           day: { $substr: ["$recordTime",8,2] },
@@ -53,11 +54,11 @@ Meteor.startup ->
           type: "$type",
           speed: "$speed",
           tacho: "$tacho",
-          distance: "$distance", 
-          fuelUsed: "$fuelUsed", 
-          recordTime: "$recordTime", 
-          lat: "$lat", 
-          lon: "$lon", 
+          distance: "$distance",
+          fuelUsed: "$fuelUsed",
+          recordTime: "$recordTime",
+          lat: "$lat",
+          lon: "$lon",
           date: { $concat: ["$year","-","$month","-","$day"] },
           timestamp: "$interval",
         }
