@@ -28,13 +28,29 @@ createAggregationTableOptions = ->
     { key: '_id', label: 'Date'}
     # { key: 'total', label: 'Amount' }
     # { key: 'minSpeed', label: 'Min speed'}
-    { key: 'loc', label: 'From/To', fn: (val,obj)-> '' }
-    { key: 'sumDistance', label: 'Distance/Odo', fn: (val)->(val/1000).toFixed(0) }
+    { key: 'loc', label: 'From/To', fn: (val,obj)-> 
+      start = obj.startLat.toFixed(2) + ':' + obj.startLon.toFixed(2)
+      stop = obj.stopLat.toFixed(2) + ':' + obj.stopLon.toFixed(2)
+      startLocation = geocode2(30, obj.startLat, obj.startLon).split(',')[-3..]
+      stopLocation = geocode2(30, obj.stopLat, obj.stopLon).split(',')[-3..]
+      twin(startLocation,stopLocation)
+
+    }
+    { key: 'distance', label: 'Distance/Odo', fn: (val,obj)-> 
+      km = Math.floor(obj.lastOdometer/1000)
+      m = obj.lastOdometer%1000
+      odo = km + ',' + m
+      twin((obj.sumDistance/1000).toFixed(0),odo) 
+    }
 
     # { key: 'maxSpeed', label: 'Max speed (km/h)', fn: (val)->(val).toFixed(0) }
     # { key: 'avgSpeed', label: 'Avg speed (km/h)', fn: (val)->(val).toFixed(0) }
-    { key: 'speed', label: 'Speed/Max', fn: (val,obj)-> twin(obj.avgSpeed.toFixed(0),obj.maxSpeed.toFixed(0)) }
-    { key: 'time', label: 'Time/Idel', fn: (val,obj)-> '' }
+    { key: 'speed', label: 'Speed/Max', fn: (val,obj)-> twin(obj.avgSpeed?.toFixed(0),obj.maxSpeed?.toFixed(0)) }
+    { key: 'time', label: 'Time/Idle', fn: (val,obj)-> 
+      obj.sumInterval
+      # diff = moment(obj.stopTime).diff(moment(obj.startTime), 'seconds')
+      # moment.duration(diff, "seconds").format('HH:mm:ss', {trim: false})
+    }
 
     # { key: 'sumFuel', label: 'Fuel (l)', fn: (val)-> (val/1000).toFixed(2) }
     # { key:'litersPer100', label: 'Fuel (l/100km)', fn: (val,obj)->(obj.sumFuel/obj.sumDistance*100).toFixed(2) }
@@ -67,7 +83,7 @@ createStartStopOptions = ->
     
     # {key: 'startStopSpeed', label: 'Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
     # {key: 'maxSpeed', label: 'Max Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
-    {key: 'startStopSpeed', label: 'Speed/Max', fn: (val,obj)-> twin(obj.startStopSpeed.toFixed(0),obj.maxSpeed.toFixed(0)) }
+    {key: 'startStopSpeed', label: 'Speed/Max', fn: (val,obj)-> twin(obj.startStopSpeed?.toFixed(0),obj.maxSpeed?.toFixed(0)) }
     {key: 'startStopTravelTime', label: 'Travel time', fn: (val,obj)->
       diff = moment(obj.stop.recordTime).diff(moment(obj.start.recordTime), 'seconds')
       moment.duration(diff, "seconds").format('HH:mm:ss', {trim: false})

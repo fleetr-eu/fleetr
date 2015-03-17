@@ -22,7 +22,36 @@
 	color: #ffffff;	
 }
 
-/*.selected:hover {
-	background-color: #4b8df8;
-	color: #ffffff;	
-}*/
+
+.distance {
+	text-align: right;
+}
+
+.speed {
+	text-align: right;
+}
+
+.time {
+	text-align: right;
+}
+
+.litersPer100 {
+	text-align: right;
+}
+
+.startStopDistance {
+	text-align: right;
+}
+
+.startStopSpeed {
+	text-align: right;
+}
+
+.startStopFuel {
+	text-align: right;
+}
+
+.startStopTravelTime {
+	text-align: right;
+}
+
