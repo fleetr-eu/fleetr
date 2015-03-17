@@ -107,8 +107,16 @@ createStartStopOptions = ->
       twin(fuel.toFixed(2) + ' (l)', (fuel/distance*100).toFixed(2) + ' (l/100km)')
     }
     {key: 'driver', label: 'Driver', fn: (val,obj)->
+      vehicle = Vehicles.find ({unitId: obj.deviceId})
+      console.log 'Vehicle: ' + vehicle
+      driverId = Vehicles.getAssignedDriver(vehicle._id, Date.now())
+      console.log 'driverid: ' + driverId
+      driver = Drivers.findOne({_id: driverId})
+      console.log 'driver: ' + driver
+      console.log 'Driver: ' + JSON.stringify(driver) if driver
+
       # twin(obj.start.deviceId,obj.stop.deviceId) 
-      twin('&lt;driver&gt;','&lt;license&gt;') 
+      twin('&lt;zdriver&gt;','&lt;license&gt;') 
     }
     # {key: 'vehicle', label: 'Vehicle', fn: (val)->'<vehicle>' }
     {key: 'map', label: 'Map', tmpl: Template.mapCellTemplate}
