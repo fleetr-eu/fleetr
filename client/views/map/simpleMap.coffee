@@ -27,7 +27,7 @@ Template.simpleMap.rendered = ->
           map: map
         info =
           speed: point.speed.toFixed(0)
-          distance: point.distance.toFixed(0)
+          distance: (point.tacho/1000).toFixed(0)
         new InfoMarker opts, info
 
       lat: point.lat, lng: point.lon, id: point._id
