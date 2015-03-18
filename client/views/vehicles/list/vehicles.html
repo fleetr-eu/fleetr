@@ -38,6 +38,7 @@
 				                    <th>No</th>
 				                    <th>Fleet</th>
 														<th>Driver</th>
+														<th class="text-right">Speed</th>
 				                    <th class="text-right">Odometer</th>
 														<th class="text-right"><i class="fa fa-tags"></i></th>
 														<th class="text-right"><i class="icon-bell"></i></th>
@@ -66,7 +67,8 @@
 					{{licensePlate}}</td>
         <td>{{fleetName}}</td>
 				<td>{{driver}}</td>
-        <td class="text-right">{{odometer}}</td>
+				<td class="text-right">{{speed}} km/h</td>
+        <td class="text-right">{{odometer}} km</td>
 
 				<td class="text-right" >
 					<span data-toggle="popover" data-placement="top" data-content="{{tags}}">{{tagsInfo}}</span>
