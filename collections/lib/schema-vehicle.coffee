@@ -274,3 +274,30 @@ Schema.vehicle = new SimpleSchema
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-6"
       "input-col-class": "col-sm-6"
+
+  speed:
+    type: Number
+    label: "Speed"
+    decimal: true
+    optional: true
+
+  lastUpdate:
+    type: Date
+    label: "Last Update"
+    optional: true
+
+  lat:
+    type: Number
+    label: "Lat"
+    decimal: true
+    optional: true
+
+  lon:
+    type: Number
+    label: "Lon"
+    decimal: true
+    optional: true
+
+  status:
+    type: String,
+    optional:true
