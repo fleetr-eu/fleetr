@@ -201,7 +201,10 @@
 							Друг отчет</a>
 						</li>
 						<li class="{{isActiveRoute regex='\blogbook\b'}}">
-							<a href="/logbook">{{_ "menu.logbook"}}</a>
+							<a href="{{pathFor 'logbook'}}">{{_ "menu.logbook"}}</a>
+						</li>
+						<li class="{{isActiveRoute regex='\blogbook\b'}}">
+							<a href="{{pathFor 'reclog'}}">Records Log</a>
 						</li>
 					</ul>
 				</li>
