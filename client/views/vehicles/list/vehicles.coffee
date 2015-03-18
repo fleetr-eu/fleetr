@@ -47,7 +47,7 @@ Template.vehicleTableRow.helpers
     km + ',' + m
 
   formatedSpeed: ->
-    @speed.toFxed(0)
+    @speed?.toFxed(0)
 
 Template.vehicleTableRow.events
   'click tr': -> Session.set 'selectedVehicleId', @_id
