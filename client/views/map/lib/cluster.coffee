@@ -4,7 +4,7 @@ Meteor.startup ->
     averageCenter:true
     gridSize:40
 
-  createPathClusterer = (imagePrefix) -> (map) ->
+  @createPathClusterer = (imagePrefix) -> (map) ->
     opts = _.extend commonOptions,
       zIndex: 20
       imagePath: "/images/#{imagePrefix}"
