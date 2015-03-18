@@ -18,7 +18,7 @@ Meteor.startup ->
   Meteor.publish 'geofences', -> Geofences.find {}
   Meteor.publish 'driverVehicleAssignments', -> DriverVehicleAssignments.find {}
 
-  Meteor.publish 'logbook', (args) -> console.log args; Logbook.find args || {}
+  Meteor.publish 'logbook', (args) -> Logbook.find(args || {}, {sort: {recordTime: -1}} ) 
 
   Meteor.publish 'locations', (vehicleId, dtFrom, dtTo) ->
     Locations.find {vehicleId: vehicleId, timestamp: {$gte: dtFrom*1000, $lte: dtTo*1000}}, {sort: {timestamp: -1}}

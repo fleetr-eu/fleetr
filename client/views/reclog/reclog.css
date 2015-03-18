@@ -1,0 +1,34 @@
+.message-row {
+ 	color: #aaaaaa;
+}
+
+.regular-row {
+}
+  
+.start-row {
+	background-color: green;
+  color: white;
+}
+
+.stop-row {
+	background-color: red;
+  color: white;
+}
+
+.event-row {
+	background-color: yellow;
+  color: black;
+}
+
+.distance {
+	text-align: right;
+}
+
+.tacho {
+	text-align: right;
+}
+
+.speed {
+	text-align: right;
+}
+

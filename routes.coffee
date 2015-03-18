@@ -178,6 +178,11 @@ Meteor.startup ->
       template: 'logbook'
       subscriptions: -> Meteor.subscribe 'mycodes'
 
+    @route 'reclog',
+      path: '/reclog'
+      template: 'reclog'
+      # subscriptions: -> Meteor.subscribe 'logbook'
+
     @route 'alarm-definitions-add',
       path: '/alarm-definitions/add'
       template: 'alarmDefinitionsAdd'

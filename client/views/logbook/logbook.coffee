@@ -108,7 +108,7 @@ createStartStopOptions = ->
     }
     {key: 'driver', label: 'Driver', fn: (val,obj)->
       vehicle = Vehicles.find ({unitId: obj.deviceId})
-      console.log 'Vehicle: ' + vehicle
+      console.log 'Vehicle: ' + JSON.stringify(vehicle) if vehicle
       driverId = Vehicles.getAssignedDriver(vehicle._id, Date.now())
       console.log 'driverid: ' + driverId
       driver = Drivers.findOne({_id: driverId})
