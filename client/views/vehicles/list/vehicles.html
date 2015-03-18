@@ -37,12 +37,12 @@
 				                    <th>Name</th>
 				                    <th>No</th>
 				                    <th>Fleet</th>
-				                    <th>Odometer</th>
 														<th>Driver</th>
+				                    <th class="text-right">Odometer</th>
 														<th class="text-right"><i class="fa fa-tags"></i></th>
 														<th class="text-right"><i class="icon-bell"></i></th>
 														<th class="text-right"><i class="icon-calendar"></i></th>
-														<th>Map</th>
+														<th class="text-right"><img src="/images/Google-Maps-icon.png" height="22" title="Show on the map" /></th>
 				                </tr>
 				            </thead>
 
@@ -65,8 +65,8 @@
 					{{logging}}
 					{{licensePlate}}</td>
         <td>{{fleetName}}</td>
-        <td>{{odometer}}</td>
 				<td>{{driver}}</td>
+        <td class="text-right">{{odometer}}</td>
 
 				<td class="text-right" >
 					<span data-toggle="popover" data-placement="top" data-content="{{tags}}">{{tagsInfo}}</span>
@@ -79,6 +79,6 @@
 				</td> -->
 				<td class="text-right"><span class="badge badge-danger">2</span></td>
 				<td class="text-right"><span class="badge badge-warning">7</span></td>
-				<td class="text-center"><img src="/images/Google-Maps-icon.png" height="22" title="Show on the map" /></td>
+				<td class="text-right">Go</td>
     </tr>
 </template>
