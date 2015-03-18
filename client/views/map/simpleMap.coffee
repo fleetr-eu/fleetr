@@ -1,5 +1,7 @@
 Template.simpleMap.rendered = ->
   {deviceId, start, stop} =  EJSON.parse decodeURIComponent @data
+  start.time = moment(start.time).toDate()
+  stop.time = moment(stop.time).toDate()
   map = new google.maps.Map document.getElementById("simpleMap"), Map.options
   bounds = new google.maps.LatLngBounds()
   [_.extend(start, {title: 'Start', icon: '/images/icons/start.png'}),

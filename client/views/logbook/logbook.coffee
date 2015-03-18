@@ -9,7 +9,7 @@ START_STOP_ROW_TYPE  = 29
 REGULAR_ROW_TYPE  = 30
 EVENT_ROW_TYPE    = 35
 
-UNIT_TIMEZONE = '+0200' # should be configured probably in vehicle configuration 
+UNIT_TIMEZONE = '+0200' # should be configured probably in vehicle configuration
 
 rowStyles =
   0: 'message-row'
@@ -29,7 +29,7 @@ createAggregationTableOptions = ->
     { key: '_id', label: 'Date'}
     # { key: 'total', label: 'Amount' }
     # { key: 'minSpeed', label: 'Min speed'}
-    { key: 'loc', label: 'From/To', fn: (val,obj)-> 
+    { key: 'loc', label: 'From/To', fn: (val,obj)->
       start = obj.startLat.toFixed(2) + ':' + obj.startLon.toFixed(2)
       stop = obj.stopLat.toFixed(2) + ':' + obj.stopLon.toFixed(2)
       startLocation = geocode2(30, obj.startLat, obj.startLon).split(',')[-3..]
@@ -37,17 +37,17 @@ createAggregationTableOptions = ->
       twin(startLocation,stopLocation)
 
     }
-    { key: 'distance', label: 'Distance/Odo', fn: (val,obj)-> 
+    { key: 'distance', label: 'Distance/Odo', fn: (val,obj)->
       km = Math.floor(obj.lastOdometer/1000)
       m = obj.lastOdometer%1000
       odo = km + ',' + m
-      twin((obj.sumDistance/1000).toFixed(0),odo) 
+      twin((obj.sumDistance/1000).toFixed(0),odo)
     }
 
     # { key: 'maxSpeed', label: 'Max speed (km/h)', fn: (val)->(val).toFixed(0) }
     # { key: 'avgSpeed', label: 'Avg speed (km/h)', fn: (val)->(val).toFixed(0) }
     { key: 'speed', label: 'Speed/Max', fn: (val,obj)-> twin(obj.avgSpeed?.toFixed(0),obj.maxSpeed?.toFixed(0)) }
-    { key: 'time', label: 'Time/Idle', fn: (val,obj)-> 
+    { key: 'time', label: 'Time/Idle', fn: (val,obj)->
       move = moment.duration(obj.sumMoveInterval, "seconds").format('HH:mm:ss', {trim: false})
       idle = moment.duration(obj.sumIdleInterval, "seconds").format('HH:mm:ss', {trim: false})
       twin(move,idle)
@@ -76,7 +76,7 @@ createStartStopOptions = ->
     # { key: '_id', label: 'Date'}
     # { key: 'total', label: 'Amount' }
     # { key: 'minSpeed', label: 'Min speed'}
-    {key: 'startStopTime', label: 'Start/Finish' , fn: (val,obj)-> 
+    {key: 'startStopTime', label: 'Start/Finish' , fn: (val,obj)->
       # console.log 'START: ' + obj.start.recordTime
       start = moment(obj.start.recordTime).zone(UNIT_TIMEZONE).format('HH:mm:ss')
       stop = moment(obj.stop.recordTime).zone(UNIT_TIMEZONE).format('HH:mm:ss')
@@ -87,14 +87,14 @@ createStartStopOptions = ->
       stopLocation = geocode2(obj.stop.type, obj.stop.lat, obj.stop.lon).split(',')[-3..]
       twin(startLocation,stopLocation)
     }
-    {key: 'startStopDistance', label: 'Distance/Odo', fn: (val,obj)-> 
+    {key: 'startStopDistance', label: 'Distance/Odo', fn: (val,obj)->
       km = Math.floor(obj.stop.tacho/1000)
       m = obj.stop.tacho%1000
       odo = km + ',' + m
       twin(val.toFixed(2), odo)
       # twin(obj.start.tacho.toFixed(2), odo)
     }
-    
+
     # {key: 'startStopSpeed', label: 'Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
     # {key: 'maxSpeed', label: 'Max Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
     {key: 'startStopSpeed', label: 'Speed/Max', fn: (val,obj)-> twin(obj.startStopSpeed?.toFixed(0),obj.maxSpeed?.toFixed(0)) }
@@ -102,7 +102,7 @@ createStartStopOptions = ->
       diff = moment(obj.stop.recordTime).diff(moment(obj.start.recordTime), 'seconds')
       moment.duration(diff, "seconds").format('HH:mm:ss', {trim: false})
     }
-    
+
     {key: 'startStopFuel', label: 'Fuel/Per 100', fn: (val,obj)->
       distance = (obj.stop.tacho-obj.start.tacho)/1000
       fuel = (obj.stop.fuelc-obj.start.fuelc)/1000
@@ -117,8 +117,8 @@ createStartStopOptions = ->
       console.log 'driver: ' + driver
       console.log 'Driver: ' + JSON.stringify(driver) if driver
 
-      # twin(obj.start.deviceId,obj.stop.deviceId) 
-      twin('&lt;zdriver&gt;','&lt;license&gt;') 
+      # twin(obj.start.deviceId,obj.stop.deviceId)
+      twin('&lt;zdriver&gt;','&lt;license&gt;')
     }
     # {key: 'vehicle', label: 'Vehicle', fn: (val)->'<vehicle>' }
     {key: 'map', label: 'Map', tmpl: Template.mapCellTemplate}
@@ -130,12 +130,12 @@ Template.mapCellTemplate.helpers
   opts: -> encodeURIComponent EJSON.stringify
     deviceId: @start.deviceId
     start:
-      time: @start.recordTime
+      time: moment(@start.recordTime).valueOf()
       position:
         lat: @start.lat
         lng: @start.lon
     stop:
-      time: @stop.recordTime
+      time: moment(@stop.recordTime).valueOf()
       position:
         lat: @stop.lat
         lng: @stop.lon
@@ -177,9 +177,9 @@ Template.logbook.created = ->
   # @TabularTables.Logbook = createLogbookTable()
 
 Template.logbook.rendered = ->
-  $('#daterange').daterangepicker 
+  $('#daterange').daterangepicker
     locale: {cancelLabel: 'Clear'}
-    ranges: 
+    ranges:
       'Today': [moment(), moment()]
       'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')]
       'Last 7 Days': [moment().subtract(6, 'days'), moment()]
