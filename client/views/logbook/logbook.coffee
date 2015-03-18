@@ -140,33 +140,6 @@ Template.mapCellTemplate.helpers
         lat: @stop.lat
         lng: @stop.lon
 
-# createLogbookTable = () ->
-#   new Tabular.Table
-#     name: "Logbook"
-#     collection: Logbook
-#     columns: [
-#       {data: 'recordTime', label: 'Time', render: (val,type,obj) -> moment(val).format('DD/MM/YYYY HH:mm:ss') }
-#       {data: 'io', label: 'Start/Stop', render: (val,type,obj) ->
-#         return '' if obj.type != START_STOP_ROW_TYPE
-#         if val%2==0 then 'stop' else 'start'
-#       }
-#       {data: "type", title: "Type"}
-#       {data: 'address', title: 'Location', render: (val,type,obj) -> geocode2(obj.type, obj.lat,obj.lon) }
-#       {data: "speed", title: "Speed (km/h)", render: (val,type,obj) -> val }
-#       {data: 'distance', title: 'Distance (m)', render: (val,type,obj) -> val}
-#       {data: 'fuelUsed', title: 'Fuel (ml)', render: (val,type,obj) -> val }
-#       {data: 'fuell', title: 'Fuel (l)'}  #, fn: (val,obj) -> val/1000 } }
-#       {title: 'Driver', render: (val,type,obj) -> '&lt;driver&gt;' }
-#       {title: 'License', render: (val,type,obj) -> '&lt;license&gt;' }
-#       {title: 'Map', render: (val,type,obj) -> '&lt;map link&gt;' }
-#       {data: "lat", title: "Lat", visible: false}
-#       {data: "lon", title: "Lon", visible: false}
-#     ]
-#     # selector: () -> {type:30}
-
-
-
-
 Template.logbook.created = ->
   @TabularTables = {}
   @autorun ->

@@ -76,11 +76,11 @@ Meteor.startup ->
                 """
 
   class @InfoMarker extends google.maps.Marker
-    constructor: (opts, info, map) ->
+    constructor: (opts, info) ->
       super opts
       @addListener 'click', =>
         @infoWindow ?= new SimpleInfoWindow(info)
-        @infoWindow.open map, @
+        @infoWindow.open opts.map, @
 
     addListener: (event, handler) ->
       google.maps.event.addListener @, event, handler

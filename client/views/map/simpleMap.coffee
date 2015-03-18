@@ -10,10 +10,6 @@ Template.simpleMap.rendered = ->
     bounds.extend new google.maps.LatLng(point.position.lat, point.position.lng)
   map.fitBounds bounds
 
-  clusterers = []
-  ['red', 'blue'].forEach (color) ->
-   clusterers[color] = createPathClusterer("icons/#{color}-circle") map
-
   searchArgs =
     recordTime:
       $gte: start.time
@@ -27,12 +23,12 @@ Template.simpleMap.rendered = ->
       if color
         opts =
           position: new google.maps.LatLng(point.lat, point.lon)
-          icon: "/images/icons/#{color}-circle1.png"
+          icon: "/images/icons/#{color}-circle.png"
           map: map
         info =
-          speed: point.speed
-          distance: point.distance
-        clusterers[color].addMarker(new InfoMarker opts, info, map)
+          speed: point.speed.toFixed(0)
+          distance: point.distance.toFixed(0)
+        new InfoMarker opts, info
 
       lat: point.lat, lng: point.lon, id: point._id
 
