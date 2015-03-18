@@ -1,28 +1,40 @@
 <template name="logbook">
 
-{{#portlet}}
-<div class="input-prepend input-group">
-	<span class="add-on input-group-addon">
- 		<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
- 	</span>
- 	<input type="text" style="width: 200px" id="daterange" class="form-control"/>
-</div>
-{{> reactiveTable settings=aggopts}}
-<!-- {{/portlet}} -->
-
-<!-- {{#portlet}} -->
-<div class="input-prepend input-group">
-	<span class="add-on input-group-addon">
- 		<i class="glyphicon glyphicon-dashboard fa fa-dashboard"></i>
- 	</span>
- 	<input type="text" style="width: 200px" id="speed" class="form-control"/>
- 	<label class="hide-idle">
-  <input id="hideIdleCheckbox" type="checkbox" checked="{{hideIdleIdle}}" />
-  	Hide idle records
-	</label>
-</div>
-{{> reactiveTable settings=startstopopts}}
-{{/portlet}}
+	<div class="row">
+		<div class="col-md-12">
+			<div class="portlet box blue">
+				<div class="portlet-title">
+					<div class="caption" id="drivers">
+						Logbook
+					</div>
+				</div>
+				<div class="portlet-body">
+					<section class="content" id="aggregated-table-section">
+						<div class="input-prepend input-group" id="daterange-prepend">
+							<span class="add-on input-group-addon">
+						 		<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+						 	</span>
+						 	<input type="text" style="width: 200px;" id="daterange" class="form-control"/>
+						</div>
+						{{> reactiveTable settings=aggopts}}
+					</section>
+					<section id="detailed-table-section">
+						<div class="input-prepend input-group" id="details-table-prepend">
+							<span class="add-on input-group-addon">
+						 		<i class="glyphicon glyphicon-dashboard fa fa-dashboard"></i>
+						 	</span>
+						 	<input type="text" style="width: 200px" id="speed" class="form-control"/>
+							<label class="hide-idle">
+							  <input id="hideIdleCheckbox" type="checkbox" checked="{{hideIdleIdle}}" />
+							  	Hide idle records
+							</label>
+						</div>
+						{{> reactiveTable settings=startstopopts}}
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
   <!-- {{> reactiveTable settings=opts}} -->

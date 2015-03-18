@@ -36,9 +36,9 @@ Template.vehicleTableRow.helpers
   tagsInfo: -> if @tags then "..." else ""
   stateImg: ->
     switch @state
-      when "M"
+      when "start"
         if @speed > @maxAllowedSpeed then "/images/truck-state-red.png" else "/images/truck-state-green.png"
-      when "S" then "/images/truck-state-blue.png"
+      when "stop" then "/images/truck-state-blue.png"
       else "/images/truck-state-grey.png"
 
 Template.vehicleTableRow.events
