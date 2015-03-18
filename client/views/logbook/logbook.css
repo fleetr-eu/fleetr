@@ -4,7 +4,7 @@
 
 .regular-row {
 }
-  
+
 .start-row {
   color: #00ff00;
 }
@@ -19,7 +19,7 @@
 
 .selected {
 	background-color: #4b8df8;
-	color: #ffffff;	
+	color: #ffffff;
 }
 
 
@@ -55,3 +55,16 @@
 	text-align: right;
 }
 
+#daterange-prepend, #details-table-prepend {
+  possition:relative;
+  top:34px;
+}
+
+#aggregated-table-section, #detailed-table-section {
+  margin-top:-34px;
+}
+
+.hide-idle {
+  height: 32px;
+  padding:10px;
+}
