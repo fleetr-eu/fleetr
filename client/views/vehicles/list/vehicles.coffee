@@ -1,26 +1,10 @@
 Template.vehicles.created = ->
   Session.setDefault 'vehicleFilter', ''
-  Session.setDefault 'loggedVehicle', ''
-  Meteor.subscribe 'locations', Session.get('selectedVehicleId'), Session.get("mapDateRangeFrom"), Session.get("mapDateRangeTo")
-
-Template.vehicles.rendered = ->
-  @autorun ->
-    Meteor.subscribe 'locations', Session.get('selectedVehicleId')
-
-Template.vehicles.destroyed = ->
-  Meteor.clearInterval(Session.get('loggingLocationInterval'))
 
 Template.vehicles.events
   'click .deleteVehicle': ->
     Meteor.call 'removeVehicle', Session.get('selectedVehicleId')
     Session.set 'selectedVehicleId', null
-  "click .startLocationLogging" : (e) ->
-      Session.set "loggedVehicle", Session.get('selectedVehicleId')
-      Session.set 'loggingLocationInterval', Meteor.setInterval(Locations.log, 5000)
-  "click .stopLocationLogging" : (e) ->
-      Session.set "loggedVehicle", ''
-      Meteor.clearInterval(Session.get('loggingLocationInterval'))
-      Session.set 'loggingLocationInterval', ''
 
 Template.vehicles.helpers
   vehicles: ->
@@ -32,7 +16,6 @@ Template.vehicleTableRow.helpers
   fleetName: -> Fleets.findOne(_id : @allocatedToFleet)?.name
   active: -> if @_id == Session.get('selectedVehicleId') then 'active' else ''
   allocatedToFleetFromDate: -> @allocatedToFleetFromDate.toLocaleDateString()
-  logging: -> if @_id == Session.get('loggedVehicle') then "[L]" else ""
   tagsInfo: -> if @tags then "..." else ""
   stateImg: ->
     switch @state
@@ -42,12 +25,10 @@ Template.vehicleTableRow.helpers
       else "/images/truck-state-grey.png"
 
   formatedOdometer: ->
-    km = Math.floor(@odometer/1000)
-    m = @odometer%1000
-    km + ',' + m
+    (@odometer?/1000).toFixed(3)
 
   formatedSpeed: ->
-    @speed?.toFxed(0)
+    @speed?.toFixed(0)
 
 Template.vehicleTableRow.events
   'click tr': -> Session.set 'selectedVehicleId', @_id
