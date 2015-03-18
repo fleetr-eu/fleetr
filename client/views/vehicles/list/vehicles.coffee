@@ -34,6 +34,12 @@ Template.vehicleTableRow.helpers
   allocatedToFleetFromDate: -> @allocatedToFleetFromDate.toLocaleDateString()
   tagsArray: -> tagsAsArray.call @
   logging: -> if @_id == Session.get('loggedVehicle') then "[L]" else ""
+  stateImg: ->
+    switch @state
+      when "M"
+        if @speed > @maxAllowedSpeed then "/images/truck-state-red.png" else "/images/truck-state-green.png"
+      when "S" then "/images/truck-state-blue.png"
+      else "/images/truck-state-grey.png"
 
 Template.vehicleTableRow.events
   'click tr': -> Session.set 'selectedVehicleId', @_id

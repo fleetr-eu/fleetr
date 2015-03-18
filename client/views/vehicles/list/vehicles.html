@@ -33,11 +33,16 @@
 
 				            <thead>
 				                <tr>
-				                    <th>Номер</th>
-				                    <th>VIN</th>
-				                    <th>Автопарк</th>
-				                    <th>От дата</th>
-														<th>Етикети</th>
+														<th>State</th>
+				                    <th>Name</th>
+				                    <th>No</th>
+				                    <th>Fleet</th>
+				                    <th>Odo</th>
+														<th>Driver</th>
+														<th>Tags</th>
+														<th class="text-right"><i class="icon-bell"></i></th>
+														<th class="text-right"><i class="icon-calendar"></i></th>
+														<th>Map</th>
 				                </tr>
 				            </thead>
 
@@ -54,16 +59,21 @@
 
 <template name="vehicleTableRow">
     <tr class="{{active}}">
+			<td class="text-center"><img src="{{stateImg}}" height="22" title="Current state" /></td>
+        <td>{{name}}</td>
         <td>
 					{{logging}}
 					{{licensePlate}}</td>
-        <td>{{identificationNumber}}</td>
         <td>{{fleetName}}</td>
-        <td>{{allocatedToFleetFromDate}}</td>
+        <td>{{odometer}}</td>
+				<td>{{driver}}</td>
 				<td>
 					{{#each tagsArray}}
 					<span class="label label-danger filter-tag">{{this}}</span>
 					{{/each}}
 				</td>
+				<td class="text-right">xx</td>
+				<td class="text-right">yy</td>
+				<td class="text-center"><img src="/images/Google-Maps-icon.png" height="22" title="Show on the map" /></td>
     </tr>
 </template>

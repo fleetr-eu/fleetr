@@ -3,10 +3,21 @@ Schema.vehicle = new SimpleSchema
     type: String
     optional: true
 
-  lastLocation:
-    type: Object
+  state:
+    type: String
     optional: true
-    blackbox: true
+
+  lat:
+    type: Number
+    optional: true
+
+  lon:
+    type: Number
+    optional: true
+
+  speed:
+    type: Number
+    optional: true
 
   tags:
     type: String
@@ -22,6 +33,14 @@ Schema.vehicle = new SimpleSchema
       "label-class": "col-sm-6"
       "input-col-class": "col-sm-6"
       "leftLabel": "true"
+
+  name:
+    type: String
+    label: 'Name'
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-6"
+      "input-col-class": "col-sm-6"
 
   licensePlate:
     type: String
@@ -216,6 +235,16 @@ Schema.vehicle = new SimpleSchema
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-6"
       "input-col-class": "col-sm-6"
+
+  maxAllowedSpeed:
+    type: Number
+    label: "Max allowed speed (km/h)"
+    optional: true
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-6"
+      "input-col-class": "col-sm-6"
+
 
   mass:
     type: Number
