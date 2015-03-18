@@ -2,7 +2,7 @@
   <div class="portlet box blue-hoki">
     <div class="portlet-title">
       <div class="caption">
-        <i class="fa da-wrench"></i>Maintenance for {{licensePlate}}
+        <i class="fa da-wrench"></i>Maintenance for {{vechileName}}
       </div>
       <div class="tools">
         <a href="" class="fullscreen"></a>
@@ -15,18 +15,27 @@
       </div>
     </div>
     <div class="portlet-body">
-      <div class="container">
+      <div class="row">
         {{#autoForm doc=maintenance collection="Maintenances" id="maintenancesForm" type="method" meteormethod="submitMaintenance"}}
             <fieldset>
-              <div class="col-md-7">
-                {{> afQuickField template="bootstrap3-horizontal" name="maintenanceType"}}
-                {{> afQuickField template="bootstrap3-horizontal" name="odometer"}}
-                {{> afQuickField template="bootstrap3-horizontal" name="date"}}
-                {{> afQuickField template="bootstrap3-horizontal" name="nextMaintenanceDate"}}
-                {{> afQuickField template="bootstrap3-horizontal" name="nextMaintenanceOdometer"}}
-                {{> afQuickField template="bootstrap3-horizontal" name="nextMaintenanceEngineHours"}}
+              <div class="col-md-6">
+                {{> afQuickField name="maintenanceType"}}
+                {{> afQuickField name="maintenanceDate"}}
+                {{> afQuickField name="odometer"}}
+                {{> afQuickField name="engineHours"}}
+              </div>
+              <div class="col-md-6">
+                <legend class="col-sm-12">Next Maintenance</legend>
+                {{> afQuickField name="nextMaintenanceDate"}}
+                {{> afQuickField name="nextMaintenanceOdometer"}}
+                {{> afQuickField name="nextMaintenanceEngineHours"}}
+              </div>
+              <div class="col-md-12">
+                <legend class="col-sm-12">Note</legend>
+                {{> afQuickField name="note" label=false}}
               </div>
           </fieldset>
+
         {{/autoForm}}
       </div>
     </div>

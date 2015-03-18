@@ -209,92 +209,120 @@ Schema.maintenanceTypes = new SimpleSchema
 
   nextMaintenanceMonths:
     type: Number
-    label: "Next after (months)"
+    label: "Months"
     optional: true
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-4"
+      "input-col-class": "col-sm-7"
 
   nextMaintenanceKMs:
     type: Number
     decimal:true
-    label: "Next after (km)"
+    label: "Km"
     optional: true
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-4"
+      "input-col-class": "col-sm-7"
 
   nextMaintenanceEngineHours:
     type: Number
     decimal:true
-    label: "Next after (engine hours)"
+    label: "Engine hours"
     optional: true
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-4"
+      "input-col-class": "col-sm-7"
 
-Schema.maintenance = new SimpleSchema
+Schema.maintenances = new SimpleSchema
 
   maintenanceType:
      type: String
-     label: 'Maintenance Type'
+     label: 'Type'
      autoform:
        firstOption: "(Select)"
        options: -> MaintenanceTypes.find().map (maintenanceType) -> label: maintenanceType.name, value: maintenanceType._id
        allowOptions: "true"
        template: "bootstrap3-horizontal"
-       "label-class": "col-sm-5"
-       "input-col-class": "col-sm-7"
+       "label-class": "col-sm-4"
+       "input-col-class": "col-sm-8"
 
-    vehicle:
-       type:String
-       label: "Vehicle"
-       autoform:
-         firstOption: "(Select)"
-         options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
-         allowOptions: "true"
-         template: "bootstrap3-horizontal"
-         "label-class": "col-sm-5"
-         "input-col-class": "col-sm-7"
+  note:
+    type: String
+    decimal:true
+    label: "Note"
+    autoform:
+      rows: 5
 
-    odometer:
-      type: Number
-      decimal:true
-      label: "Odometer"
-      autoform:
-        template: "bootstrap3-horizontal"
-        "label-class": "col-sm-5"
-        "input-col-class": "col-sm-7"
+  vehicle:
+     type:String
+     label: "Vehicle"
+     autoform:
+       firstOption: "(Select)"
+       options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
+       allowOptions: "true"
+       template: "bootstrap3-horizontal"
+       "label-class": "col-sm-4"
+       "input-col-class": "col-sm-8"
 
-    date:
-      type:Date
-      label: "Date"
-      autoform:
-        type: "bootstrap-datepicker"
-        template: "bootstrap3-horizontal"
-        "label-class": "col-sm-5"
-        "input-col-class": "col-sm-7"
+  maintenanceDate:
+    type:Date
+    label: "Date"
+    autoform:
+      type: "bootstrap-datepicker"
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-4"
+      "input-col-class": "col-sm-8"
 
-    nextMaintenanceDate:
-      type: Date
-      label: "Next maintenance (date)"
-      optional: true
-      autoform:
-        template: "bootstrap3-horizontal"
-        "label-class": "col-sm-5"
-        "input-col-class": "col-sm-7"
+  odometer:
+    type: Number
+    decimal:true
+    label: "Odometer"
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-4"
+      "input-col-class": "col-sm-8"
 
-    nextMaintenanceOdometer:
-      type: Date
-      label: "Next maintenance (km)"
-      optional: true
-      autoform:
-        template: "bootstrap3-horizontal"
-        "label-class": "col-sm-5"
-        "input-col-class": "col-sm-7"
+  engineHours:
+    type: Number
+    decimal:true
+    label: "Engine hours"
+    optional: true
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-4"
+      "input-col-class": "col-sm-8"
+
+  nextMaintenanceDate:
+    type:Date
+    label: "Date"
+    autoform:
+      type: "bootstrap-datepicker"
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-4"
+      "input-col-class": "col-sm-8"
+
+  nextMaintenanceOdometer:
+    type: Number
+    label: "Odometer"
+    optional: true
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-4"
+      "input-col-class": "col-sm-8"
+
+  nextMaintenanceEngineHours:
+    type: Number
+    decimal:true
+    label: "Engine hours"
+    optional: true
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-4"
+      "input-col-class": "col-sm-8"
+
 
 Schema.driverEvents = new SimpleSchema
   driver:

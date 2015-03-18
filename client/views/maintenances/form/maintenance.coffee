@@ -1,7 +1,7 @@
 Template.maintenance.helpers
-  licensePlate: ->
-    vehicle = Vehicles.findOne _id: @vehicleId
-    vehicle?.licensePlate
+  vechileName: ->
+    v = Vehicles.findOne _id: @vehicleId
+    "#{v?.name} (#{v?.licensePlate})"
 
 Template.maintenance.events
   "click .btn-sm" : (e) ->
