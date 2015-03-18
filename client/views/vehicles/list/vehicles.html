@@ -18,8 +18,6 @@
 							<a href="{{pathFor 'addVehicle'}}"><span class="glyphicon glyphicon-plus"></span></a>
 							{{#if selectedVehicleId}}
 							<a href="#" class="addMaintenance"><span class="fa fa-wrench"></span></a>
-							<a href="#" class="startLocationLogging"><span class="fa fa-play"></span></a>
-							<a href="#" class="stopLocationLogging"><span class="fa fa-stop"></span></a>
 							<a href="{{pathFor 'editVehicle' vehicleId=selectedVehicleId}}"><span class="glyphicon glyphicon-pencil"></span></a>
 							<a href="#" class="deleteVehicle"><span class="glyphicon glyphicon-trash"></span></a>
 							{{/if}}
@@ -62,14 +60,11 @@
     <tr class="{{active}}">
 			<td class="text-center"><img src="{{stateImg}}" height="22" title="Current state" /></td>
         <td>{{name}}</td>
-        <td>
-					{{logging}}
-					{{licensePlate}}</td>
+        <td>{{licensePlate}}</td>
         <td>{{fleetName}}</td>
 				<td>{{driver}}</td>
 				<td class="text-right">{{formatedSpeed}} km/h</td>
         <td class="text-right">{{formatedOdometer}} km</td>
-
 				<td class="text-right" >
 					<span data-toggle="popover" data-placement="top" data-content="{{tags}}">{{tagsInfo}}</span>
 				</td>
