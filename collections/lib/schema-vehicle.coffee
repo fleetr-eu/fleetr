@@ -6,6 +6,10 @@ Schema.vehicle = new SimpleSchema
   state:
     type: String
     optional: true
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-6"
+      "input-col-class": "col-sm-6"
 
   lat:
     type: Number
@@ -18,6 +22,10 @@ Schema.vehicle = new SimpleSchema
   speed:
     type: Number
     optional: true
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-6"
+      "input-col-class": "col-sm-6"
 
   tags:
     type: String

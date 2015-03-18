@@ -41,6 +41,14 @@ Template.vehicleTableRow.helpers
       when "stop" then "/images/truck-state-blue.png"
       else "/images/truck-state-grey.png"
 
+  formatedOdometer: ->
+    km = Math.floor(@odometer/1000)
+    m = @odometer%1000
+    km + ',' + m
+
+  formatedSpeed: ->
+    @speed.toFxed(0)
+
 Template.vehicleTableRow.events
   'click tr': -> Session.set 'selectedVehicleId', @_id
   'click .filter-tag': (e) ->
