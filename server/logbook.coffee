@@ -23,9 +23,12 @@ Meteor.publish 'dateRangeAggregation', (args)->
           year: { $substr: ["$recordTime",0,4] },
           month: { $substr: ["$recordTime",5,2] },
           day: { $substr: ["$recordTime",8,2] },
-          timestamp: "$interval",
+          interval: "$interval",
+          moveInterval: {$cond: { if: { $gte: [ "$distance", 0.01 ] }, then: "$interval", else: 0 }}
+          idleInterval: {$cond: { if: { $lte: [ "$distance", 0.01 ] }, then: "$interval", else: 0 }}
         }
       },
+
       {$project : {
           type: "$type",
           speed: "$speed",
@@ -36,7 +39,9 @@ Meteor.publish 'dateRangeAggregation', (args)->
           lat: "$lat",
           lon: "$lon",
           date: { $concat: ["$year","-","$month","-","$day"] },
-          timestamp: "$interval",
+          interval: "$interval",
+          moveInterval: "$moveInterval",
+          idleInterval: "$idleInterval",
         }
       },
       { $group : {
@@ -59,7 +64,11 @@ Meteor.publish 'dateRangeAggregation', (args)->
             startLon: { $first: "$lon" }
             stopLon: { $last: "$lon" }
 
-            # avgFuelUsed: { $avg: "$speed" }
+            minInterval: {$min: "$interval"}
+            maxInterval: {$max: "$interval"}
+
+            sumMoveInterval: {$sum: "$moveInterval"}
+            sumIdleInterval: {$sum: "$idleInterval"}
         }}
     ]
     time = new Date().getTime()

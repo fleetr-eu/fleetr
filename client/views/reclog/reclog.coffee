@@ -20,6 +20,7 @@ Template.reclog.helpers
         km + ',' + m
       }
       {key: 'speed', label: 'Speed', fn: (val,obj)-> val.toFixed(2)}
+      {key: 'interval', label: 'Interval', fn: (val,obj)-> val}
     ]
     showColumnToggles: true
     class: "table table-stripped table-hover start-stop-table"

@@ -48,7 +48,9 @@ createAggregationTableOptions = ->
     # { key: 'avgSpeed', label: 'Avg speed (km/h)', fn: (val)->(val).toFixed(0) }
     { key: 'speed', label: 'Speed/Max', fn: (val,obj)-> twin(obj.avgSpeed?.toFixed(0),obj.maxSpeed?.toFixed(0)) }
     { key: 'time', label: 'Time/Idle', fn: (val,obj)-> 
-      obj.sumInterval
+      move = moment.duration(obj.sumMoveInterval, "seconds").format('HH:mm:ss', {trim: false})
+      idle = moment.duration(obj.sumIdleInterval, "seconds").format('HH:mm:ss', {trim: false})
+      twin(move,idle)
       # diff = moment(obj.stopTime).diff(moment(obj.startTime), 'seconds')
       # moment.duration(diff, "seconds").format('HH:mm:ss', {trim: false})
     }
