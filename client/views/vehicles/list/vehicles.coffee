@@ -32,8 +32,8 @@ Template.vehicleTableRow.helpers
   fleetName: -> Fleets.findOne(_id : @allocatedToFleet)?.name
   active: -> if @_id == Session.get('selectedVehicleId') then 'active' else ''
   allocatedToFleetFromDate: -> @allocatedToFleetFromDate.toLocaleDateString()
-  tagsArray: -> tagsAsArray.call @
   logging: -> if @_id == Session.get('loggedVehicle') then "[L]" else ""
+  tagsInfo: -> if @tags then "..." else ""
   stateImg: ->
     switch @state
       when "M"
@@ -47,3 +47,6 @@ Template.vehicleTableRow.events
     tag = e.target.innerText
     $('#vehicles #filter').val(tag)
     Session.set 'vehicleFilter', tag
+
+Template.vehicleTableRow.rendered = ->
+  $('[data-toggle="popover"]').popover()
