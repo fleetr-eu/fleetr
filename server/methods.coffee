@@ -49,6 +49,10 @@ Meteor.methods
     @unblock()
     MaintenanceTypes.submit(doc, diff)
 
+  submitMaintenance: (doc, diff) ->
+    @unblock()
+    Maintenances.submit(doc, diff)
+
   removeMaintenanceType: (doc) ->
     @unblock()
     MaintenanceTypes.remove _id : doc
@@ -64,8 +68,6 @@ Meteor.methods
   submitExpense: (doc, diff) ->
     @unblock()
     Expenses.submit doc, diff
-
-
 
   removeExpenses: (doc) -> Expenses.remove _id : doc
 

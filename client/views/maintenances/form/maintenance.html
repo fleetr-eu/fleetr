@@ -2,7 +2,7 @@
   <div class="portlet box blue-hoki">
     <div class="portlet-title">
       <div class="caption">
-        <i class="fa da-wrench"></i>Maintenance for {{vechileName}}
+        <i class="fa da-wrench"></i>Add Maintenance for {{vehicleName}}
       </div>
       <div class="tools">
         <a href="" class="fullscreen"></a>
@@ -19,6 +19,7 @@
         {{#autoForm doc=maintenance collection="Maintenances" id="maintenancesForm" type="method" meteormethod="submitMaintenance"}}
             <fieldset>
               <div class="col-md-6">
+                {{> afFieldInput type="hidden" name="vehicle" value=vechileId}}
                 {{> afQuickField name="maintenanceType"}}
                 {{> afQuickField name="maintenanceDate"}}
                 {{> afQuickField name="odometer"}}
@@ -29,6 +30,7 @@
                 {{> afQuickField name="nextMaintenanceDate"}}
                 {{> afQuickField name="nextMaintenanceOdometer"}}
                 {{> afQuickField name="nextMaintenanceEngineHours"}}
+                <a href="#" class="btn btn-primary btn-calculate-next col-sm-2">Calculate</a>
               </div>
               <div class="col-md-12">
                 <legend class="col-sm-12">Note</legend>

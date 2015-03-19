@@ -253,19 +253,13 @@ Schema.maintenances = new SimpleSchema
     type: String
     decimal:true
     label: "Note"
+    optional: true
     autoform:
       rows: 5
 
   vehicle:
      type:String
      label: "Vehicle"
-     autoform:
-       firstOption: "(Select)"
-       options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
-       allowOptions: "true"
-       template: "bootstrap3-horizontal"
-       "label-class": "col-sm-4"
-       "input-col-class": "col-sm-8"
 
   maintenanceDate:
     type:Date
@@ -298,6 +292,7 @@ Schema.maintenances = new SimpleSchema
   nextMaintenanceDate:
     type:Date
     label: "Date"
+    optional: true
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
