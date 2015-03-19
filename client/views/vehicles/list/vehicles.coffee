@@ -25,7 +25,9 @@ Template.vehicleTableRow.helpers
       else "/images/truck-state-grey.png"
 
   formatedOdometer: ->
-    (@odometer?/1000).toFixed(3)
+    km = Math.floor(@odometer/1000)
+    m = @odometer%1000
+    km + ',' + m
 
   formatedSpeed: ->
     @speed?.toFixed(0)
