@@ -306,6 +306,6 @@ Schema.vehicle = new SimpleSchema
     decimal: true
     optional: true
 
-  status:
+  state:
     type: String,
     optional:true
