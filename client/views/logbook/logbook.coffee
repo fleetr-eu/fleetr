@@ -86,6 +86,23 @@ Template.logbook.created = ->
   # @TabularTables.Logbook = createLogbookTable()
 
 Template.logbook.rendered = ->
+
+  drp = '<label>Period:<input type="text" id="daterange" class="form-control input-sm"/>  </label> '
+  $("#aggregated-table-section").find("#datatable_length").parent().removeClass("col-sm-6")
+  $("#aggregated-table-section").find("#datatable_filter").parent().removeClass("col-sm-6")
+  $("#aggregated-table-section").find("#datatable_length").parent().addClass("col-sm-3")
+  $("#aggregated-table-section").find("#datatable_filter").parent().addClass("col-sm-9")
+  $("#aggregated-table-section").find("#datatable_filter").prepend(drp)
+
+  sp = '<label>Speed:<input type="text" id="speed" class="form-control input-sm"/>  </label>
+        <label>Hide Idle <input id="hideIdleCheckbox" type="checkbox" class="form-control input-sm hide-idle" />&nbsp;&nbsp;</label>'
+  $("#detailed-table-section").find("#datatable_length").parent().removeClass("col-sm-6")
+  $("#detailed-table-section").find("#datatable_filter").parent().removeClass("col-sm-6")
+  $("#detailed-table-section").find("#datatable_length").parent().addClass("col-sm-3")
+  $("#detailed-table-section").find("#datatable_filter").parent().addClass("col-sm-9")
+  $("#detailed-table-section").find("#datatable_filter").prepend(sp)
+
+
   $('#daterange').daterangepicker
     locale: {cancelLabel: 'Clear'}
     ranges:

@@ -55,14 +55,14 @@
 	text-align: right;
 }
 
-#daterange-prepend, #details-table-prepend {
+/*#daterange-prepend, #details-table-prepend {
   possition:relative;
   top:34px;
 }
 
 #aggregated-table-section, #detailed-table-section {
   margin-top:-34px;
-}
+}*/
 
 .hide-idle {
   height: 32px;
@@ -73,6 +73,6 @@
   float: right !important;
 }
 
-.dataTables_length {
-  float: right !important;
-}
+/*.dataTables_length {
+  float: left !important;
+}*/
