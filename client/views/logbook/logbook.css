@@ -68,3 +68,11 @@
   height: 32px;
   padding:10px;
 }
+
+.dataTables_filter {
+  float: right !important;
+}
+
+.dataTables_length {
+  float: right !important;
+}

@@ -1,6 +1,6 @@
-Template.drivers.created = -> 
+Template.drivers.created = ->
   Session.set 'driverFilter', ''
-  @autorun -> 
+  @autorun ->
     Meteor.subscribe 'drivers'
 
 Template.drivers.events
@@ -25,12 +25,15 @@ Template.drivers.helpers
   # ]
   datafunc: ()->
     () -> Drivers.find().fetch()
-  options: 
+  options:
     columns: [
       {title: 'Name', data: (obj)-> obj.firstName + ' ' + obj.name }
       {title: 'Tags', data: (obj)-> gettags(obj.tags) }
     ]
 
+Template.drivers.events
+  'click .agg-table tr': ->
+      Session.set 'selectedDriverId', @_id
 
 # Template.driverTableRow.helpers
 #   fullName: -> "#{@firstName} #{@name}"

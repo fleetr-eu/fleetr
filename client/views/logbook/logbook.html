@@ -16,23 +16,24 @@
 						 	</span>
 						 	<input type="text" style="width: 200px;" id="daterange" class="form-control"/>
 						</div>
-						<div class="table-responsive agg-table">
+						<div class="agg-table">
 							<!-- {{> reactiveTable settings=aggopts}} -->
 							{{> ReactiveDatatable tableData=aggDatafunc options=aggOptions }}
 						</div>
 					</section>
+					<hr/>
 					<section id="detailed-table-section">
 						<div class="input-prepend input-group" id="details-table-prepend">
-							<span class="add-on input-group-addon">
+							<!-- <span class="add-on input-group-addon">
 						 		<i class="glyphicon glyphicon-dashboard fa fa-dashboard"></i>
 						 	</span>
-						 	<input type="text" style="width: 200px" id="speed" class="form-control"/>
+						 	<input type="text" style="width: 200px" id="speed" class="form-control"/> -->
 							<label class="hide-idle">
 							  <input id="hideIdleCheckbox" type="checkbox" checked="{{hideIdleIdle}}" />
 							  	Hide idle records
 							</label>
 						</div>
-						<div class="table-responsive start-stop-table">
+						<div class="start-stop-table">
 							<!-- {{> reactiveTable settings=startstopopts}} -->
 							{{> ReactiveDatatable tableData=startStopDatafunc options=startStopOptions }}
 						</div>

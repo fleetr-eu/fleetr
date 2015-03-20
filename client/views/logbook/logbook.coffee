@@ -96,7 +96,6 @@ Template.logbook.rendered = ->
       'This Month': [moment().startOf('month'), moment().endOf('month')]
       'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
 
-
 geocode2 = (type, lat,lon) ->
   return "" if type == MESSAGE_ROW_TYPE
   scale = 1000
@@ -126,7 +125,8 @@ geocode2 = (type, lat,lon) ->
   'loading...'
 
 
-aggOptions = 
+aggOptions =
+  responsive:true
   columns: [
     {data: '_id', title: 'Date'}
     {title: 'From/To', data: (obj)->
@@ -155,9 +155,9 @@ aggOptions =
     }
 
     {title: 'Map', tmpl: Template.aggMapCellTemplate}
-  ]  
+  ]
 
-startStopOptions = 
+startStopOptions =
   columns: [
     {title: 'Start/Finish', className: '', data: (obj)->
       start = moment(obj.start.recordTime).zone(UNIT_TIMEZONE).format('HH:mm:ss')
