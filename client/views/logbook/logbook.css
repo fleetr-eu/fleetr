@@ -65,11 +65,11 @@
 }*/
 
 .hide-idle {
-  height: 32px;
-  padding:10px;
+  height: 24px;
+  padding:12px;
 }
 
-.dataTables_filter {
+.dataTables_filter, .dataTables_paginate {
   float: right !important;
 }
 

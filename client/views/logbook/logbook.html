@@ -4,7 +4,7 @@
 		<div class="col-md-12">
 			<div class="portlet box blue">
 				<div class="portlet-title">
-					<div class="caption" id="drivers">
+					<div class="caption" id="logbook">
 						Logbook
 					</div>
 				</div>
@@ -16,27 +16,27 @@
 						 	</span>
 						 	<input type="text" style="width: 200px;" id="daterange" class="form-control"/>
 						</div> -->
-						<div class="agg-table">
+						<!-- <div class="agg-table"> -->
 							<!-- {{> reactiveTable settings=aggopts}} -->
 							{{> ReactiveDatatable tableData=aggDatafunc options=aggOptions }}
-						</div>
+						<!-- </div> -->
 					</section>
 					<hr/>
 					<section id="detailed-table-section">
-						<div class="input-prepend input-group" id="details-table-prepend">
-							<!-- <span class="add-on input-group-addon">
+						<!-- <div class="input-prepend input-group" id="details-table-prepend">
+							<span class="add-on input-group-addon">
 						 		<i class="glyphicon glyphicon-dashboard fa fa-dashboard"></i>
 						 	</span>
-						 	<input type="text" style="width: 200px" id="speed" class="form-control"/> -->
+						 	<input type="text" style="width: 200px" id="speed" class="form-control"/>
 							<label class="hide-idle">
 							  <input id="hideIdleCheckbox" type="checkbox" checked="{{hideIdleIdle}}" />
 							  	Hide idle records
 							</label>
-						</div>
-						<div class="start-stop-table">
+						</div> -->
+						<!-- <div class="start-stop-table"> -->
 							<!-- {{> reactiveTable settings=startstopopts}} -->
 							{{> ReactiveDatatable tableData=startStopDatafunc options=startStopOptions }}
-						</div>
+						<!-- </div> -->
 					</section>
 				</div>
 			</div>
