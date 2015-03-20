@@ -18,11 +18,19 @@ gettags = (tags)->
 Template.drivers.helpers
   drivers: -> Drivers.findFiltered 'driverFilter', ['firstName', 'name', 'tags']
   selectedDriverId: -> Session.get('selectedDriverId')
-  driversCollection: ()-> Drivers
-  driversFields: ()-> [
-    {key: 'name', label: 'Name', fn: (val,obj)-> obj.firstName + ' ' + obj.name }
-    {key: 'tags', label: 'Tags', fn: (val,obj)-> gettags(obj.tags) }
-  ]
+  # driversCollection: ()-> Drivers
+  # driversFields: ()-> [
+  #   {key: 'name', label: 'Name', fn: (val,obj)-> obj.firstName + ' ' + obj.name }
+  #   {key: 'tags', label: 'Tags', fn: (val,obj)-> gettags(obj.tags) }
+  # ]
+  datafunc: ()->
+    () -> Drivers.find().fetch()
+  options: 
+    columns: [
+      {title: 'Name', data: (obj)-> obj.firstName + ' ' + obj.name }
+      {title: 'Tags', data: (obj)-> gettags(obj.tags) }
+    ]
+
 
 # Template.driverTableRow.helpers
 #   fullName: -> "#{@firstName} #{@name}"
