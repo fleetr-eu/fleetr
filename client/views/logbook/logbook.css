@@ -39,19 +39,19 @@
 	text-align: right;
 }
 
-.startStopDistance {
+.distance-col {
 	text-align: right;
 }
 
-.startStopSpeed {
+.speed-col {
 	text-align: right;
 }
 
-.startStopFuel {
+.fuel-col {
 	text-align: right;
 }
 
-.startStopTravelTime {
+.time-col {
 	text-align: right;
 }
 

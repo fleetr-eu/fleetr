@@ -16,8 +16,9 @@
 						 	</span>
 						 	<input type="text" style="width: 200px;" id="daterange" class="form-control"/>
 						</div>
-						<div class="table-responsive">
-							{{> reactiveTable settings=aggopts}}
+						<div class="table-responsive agg-table">
+							<!-- {{> reactiveTable settings=aggopts}} -->
+							{{> ReactiveDatatable tableData=aggDatafunc options=aggOptions }}
 						</div>
 					</section>
 					<section id="detailed-table-section">
@@ -31,7 +32,7 @@
 							  	Hide idle records
 							</label>
 						</div>
-						<div class="table-responsive">
+						<div class="table-responsive start-stop-table">
 							<!-- {{> reactiveTable settings=startstopopts}} -->
 							{{> ReactiveDatatable tableData=startStopDatafunc options=startStopOptions }}
 						</div>
