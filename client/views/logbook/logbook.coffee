@@ -271,7 +271,7 @@ Template.logbook.events
     filter.speed = speed
     Session.set STARTSTOP_FILTER_NAME, filter
     # console.log 'Filter: ' + JSON.stringify(args)
-  'click .agg-table tr': (event,p)->
+  'click #aggregated-table-section tr': (event,p)->
     value = $('td', event.currentTarget).eq(0).text()
     console.log 'Click: ' + value
     # name = $('td', this).eq(0).text()
@@ -283,7 +283,7 @@ Template.logbook.events
     $("#speed").val('')
     # console.log 'Filter: ' + JSON.stringify(args)
     Session.set STARTSTOP_FILTER_NAME, {recordTime: args}
-    $(".aggregation-table tr").removeClass('selected')
+    $("#aggregated-table-section tr").removeClass('selected')
     event.currentTarget.setAttribute('class', 'selected')
 
   'click #hideIdleCheckbox': (event,p)->
