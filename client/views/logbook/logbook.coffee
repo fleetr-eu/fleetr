@@ -73,9 +73,6 @@ createStartStopOptions = ->
   collection: StartStop
   rowsPerPage: 10
   fields: [
-    # { key: '_id', label: 'Date'}
-    # { key: 'total', label: 'Amount' }
-    # { key: 'minSpeed', label: 'Min speed'}
     {key: 'startStopTime', label: 'Start/Finish' , fn: (val,obj)->
       # console.log 'START: ' + obj.start.recordTime
       start = moment(obj.start.recordTime).zone(UNIT_TIMEZONE).format('HH:mm:ss')
@@ -92,11 +89,8 @@ createStartStopOptions = ->
       m = obj.stop.tacho%1000
       odo = km + ',' + m
       twin(val.toFixed(2), odo)
-      # twin(obj.start.tacho.toFixed(2), odo)
     }
 
-    # {key: 'startStopSpeed', label: 'Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
-    # {key: 'maxSpeed', label: 'Max Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
     {key: 'startStopSpeed', label: 'Speed/Max', fn: (val,obj)-> twin(obj.startStopSpeed?.toFixed(0),obj.maxSpeed?.toFixed(0)) }
     {key: 'startStopTravelTime', label: 'Travel time', fn: (val,obj)->
       diff = moment(obj.stop.recordTime).diff(moment(obj.start.recordTime), 'seconds')
@@ -189,13 +183,70 @@ geocode2 = (type, lat,lon) ->
 
   'loading...'
 
+startStopOptions = 
+  columns: [
+    {title: 'Start/Finish', data: (obj)->
+      # console.log 'START: ' + obj.start.recordTime
+      start = moment(obj.start.recordTime).zone(UNIT_TIMEZONE).format('HH:mm:ss')
+      stop = moment(obj.stop.recordTime).zone(UNIT_TIMEZONE).format('HH:mm:ss')
+      twin(start,stop)
+    }
+    {title: 'From/To', data: (obj)->
+      startLocation = geocode2(obj.start.type, obj.start.lat, obj.start.lon).split(',')[-3..]
+      stopLocation = geocode2(obj.stop.type, obj.stop.lat, obj.stop.lon).split(',')[-3..]
+      twin(startLocation,stopLocation)
+    }
+    {title: 'Distance/Odo', data: (obj)->
+      km = Math.floor(obj.stop.tacho/1000)
+      m = obj.stop.tacho%1000
+      odo = km + ',' + m
+      twin(obj.startStopDistance.toFixed(2), odo)
+    }
+
+
+
+    {title: 'Speed/Max', data: (obj)-> twin(obj.startStopSpeed?.toFixed(0),obj.maxSpeed?.toFixed(0)) }
+    {title: 'Travel time', data: (obj)->
+      diff = moment(obj.stop.recordTime).diff(moment(obj.start.recordTime), 'seconds')
+      moment.duration(diff, "seconds").format('HH:mm:ss', {trim: false})
+    }
+
+    {title: 'Fuel/Per 100', data: (obj)->
+      distance = (obj.stop.tacho-obj.start.tacho)/1000
+      fuel = (obj.stop.fuelc-obj.start.fuelc)/1000
+      twin(fuel.toFixed(2) + ' (l)', (fuel/distance*100).toFixed(2) + ' (l/100km)')
+    }
+    {title: 'Driver', data: (obj)->
+      # vehicle = Vehicles.find ({unitId: obj.deviceId})
+      # console.log 'Vehicle: ' + JSON.stringify(vehicle) if vehicle
+      # driverId = Vehicles.getAssignedDriver(vehicle._id, Date.now())
+      # console.log 'driverid: ' + driverId
+      # driver = Drivers.findOne({_id: driverId})
+      # console.log 'driver: ' + driver
+      # console.log 'Driver: ' + JSON.stringify(driver) if driver
+
+      twin('&lt;driver&gt;','&lt;license&gt;')
+    #   # twin(obj.start.deviceId,obj.stop.deviceId)
+    }
+    # # {key: 'vehicle', label: 'Vehicle', fn: (val)->'<vehicle>' }
+    {title: 'Map', tmpl: Template.mapCellTemplate}
+
+
+  ]
+
 
 Template.logbook.helpers
   selector: ()-> Session.get(LOGBOOK_FILTER_NAME)
   #filter: ()-> JSON.stringify(Session.get(LOGBOOK_FILTER_NAME))
   aggopts: createAggregationTableOptions
-  startstopopts: createStartStopOptions
+  # startstopopts: createStartStopOptions
   hideIdle: () -> Session.get(STARTSTOP_FILTER_NAME)?.hideIdle
+
+
+  startStopDatafunc: ()->
+    () -> StartStop.find().fetch()
+  startStopOptions: startStopOptions
+
 
 show = (obj) ->
   str = ''
