@@ -11,13 +11,6 @@ EVENT_ROW_TYPE    = 35
 
 UNIT_TIMEZONE = '+0200' # should be configured probably in vehicle configuration
 
-rowStyles =
-  0: 'message-row'
-  30: 'regular-row'
-  29: 'start-row'
-  35: 'event-row'
-  'unknown' : 'unknown-row'
-
 twin = (str1,str2) ->
   new Spacebars.SafeString(str1 + '<br>' + str2)
 
@@ -69,63 +62,6 @@ createAggregationTableOptions = ->
   showColumnToggles: true
   class: "table table-stripped aggregation-table"
 
-createStartStopOptions = ->
-  collection: StartStop
-  rowsPerPage: 10
-  fields: [
-    # { key: '_id', label: 'Date'}
-    # { key: 'total', label: 'Amount' }
-    # { key: 'minSpeed', label: 'Min speed'}
-    {key: 'startStopTime', label: 'Start/Finish' , fn: (val,obj)->
-      # console.log 'START: ' + obj.start.recordTime
-      start = moment(obj.start.recordTime).zone(UNIT_TIMEZONE).format('HH:mm:ss')
-      stop = moment(obj.stop.recordTime).zone(UNIT_TIMEZONE).format('HH:mm:ss')
-      twin(start,stop)
-    }
-    {key: 'startStopLocation', label: 'From/To', fn: (val,obj)->
-      startLocation = geocode2(obj.start.type, obj.start.lat, obj.start.lon).split(',')[-3..]
-      stopLocation = geocode2(obj.stop.type, obj.stop.lat, obj.stop.lon).split(',')[-3..]
-      twin(startLocation,stopLocation)
-    }
-    {key: 'startStopDistance', label: 'Distance/Odo', fn: (val,obj)->
-      km = Math.floor(obj.stop.tacho/1000)
-      m = obj.stop.tacho%1000
-      odo = km + ',' + m
-      twin(val.toFixed(2), odo)
-      # twin(obj.start.tacho.toFixed(2), odo)
-    }
-
-    # {key: 'startStopSpeed', label: 'Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
-    # {key: 'maxSpeed', label: 'Max Speed (km/h)', fn: (val,obj)-> val.toFixed(0) }
-    {key: 'startStopSpeed', label: 'Speed/Max', fn: (val,obj)-> twin(obj.startStopSpeed?.toFixed(0),obj.maxSpeed?.toFixed(0)) }
-    {key: 'startStopTravelTime', label: 'Travel time', fn: (val,obj)->
-      diff = moment(obj.stop.recordTime).diff(moment(obj.start.recordTime), 'seconds')
-      moment.duration(diff, "seconds").format('HH:mm:ss', {trim: false})
-    }
-
-    {key: 'startStopFuel', label: 'Fuel/Per 100', fn: (val,obj)->
-      distance = (obj.stop.tacho-obj.start.tacho)/1000
-      fuel = (obj.stop.fuelc-obj.start.fuelc)/1000
-      twin(fuel.toFixed(2) + ' (l)', (fuel/distance*100).toFixed(2) + ' (l/100km)')
-    }
-    {key: 'driver', label: 'Driver', fn: (val,obj)->
-      vehicle = Vehicles.find ({unitId: obj.deviceId})
-      console.log 'Vehicle: ' + JSON.stringify(vehicle) if vehicle
-      driverId = Vehicles.getAssignedDriver(vehicle._id, Date.now())
-      console.log 'driverid: ' + driverId
-      driver = Drivers.findOne({_id: driverId})
-      console.log 'driver: ' + driver
-      console.log 'Driver: ' + JSON.stringify(driver) if driver
-
-      # twin(obj.start.deviceId,obj.stop.deviceId)
-      twin('&lt;zdriver&gt;','&lt;license&gt;')
-    }
-    # {key: 'vehicle', label: 'Vehicle', fn: (val)->'<vehicle>' }
-    {key: 'map', label: 'Map', tmpl: Template.mapCellTemplate}
-  ]
-  showColumnToggles: true
-  class: "table table-stripped table-hover start-stop-table"
-
 Template.mapCellTemplate.helpers
   opts: -> encodeURIComponent EJSON.stringify
     deviceId: @start.deviceId
@@ -150,6 +86,23 @@ Template.logbook.created = ->
   # @TabularTables.Logbook = createLogbookTable()
 
 Template.logbook.rendered = ->
+
+  drp = '<label>Period:<input type="text" id="daterange" class="form-control input-sm"/>  </label> '
+  $("#aggregated-table-section").find("#datatable_length").parent().removeClass("col-sm-6")
+  $("#aggregated-table-section").find("#datatable_filter").parent().removeClass("col-sm-6")
+  $("#aggregated-table-section").find("#datatable_length").parent().addClass("col-sm-4")
+  $("#aggregated-table-section").find("#datatable_filter").parent().addClass("col-sm-8")
+  $("#aggregated-table-section").find("#datatable_filter").prepend(drp)
+
+  sp = '<label>Speed:<input type="text" id="speed" class="form-control input-sm"/>  </label>
+        <label>Hide Idle <input id="hideIdleCheckbox" type="checkbox" class="form-control hide-idle" />&nbsp;&nbsp;</label>'
+  $("#detailed-table-section").find("#datatable_length").parent().removeClass("col-sm-6")
+  $("#detailed-table-section").find("#datatable_filter").parent().removeClass("col-sm-6")
+  $("#detailed-table-section").find("#datatable_length").parent().addClass("col-sm-4")
+  $("#detailed-table-section").find("#datatable_filter").parent().addClass("col-sm-8")
+  $("#detailed-table-section").find("#datatable_filter").prepend(sp)
+
+
   $('#daterange').daterangepicker
     locale: {cancelLabel: 'Clear'}
     ranges:
@@ -159,7 +112,6 @@ Template.logbook.rendered = ->
       'Last 30 Days': [moment().subtract(29, 'days'), moment()]
       'This Month': [moment().startOf('month'), moment().endOf('month')]
       'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-
 
 geocode2 = (type, lat,lon) ->
   return "" if type == MESSAGE_ROW_TYPE
@@ -190,12 +142,97 @@ geocode2 = (type, lat,lon) ->
   'loading...'
 
 
+aggOptions =
+  responsive:true
+  columns: [
+    {data: '_id', title: 'Date'}
+    {title: 'From/To', data: (obj)->
+      start = obj.startLat.toFixed(2) + ':' + obj.startLon.toFixed(2)
+      stop = obj.stopLat.toFixed(2) + ':' + obj.stopLon.toFixed(2)
+      startLocation = geocode2(30, obj.startLat, obj.startLon).split(',')[-3..]
+      stopLocation = geocode2(30, obj.stopLat, obj.stopLon).split(',')[-3..]
+      twin(startLocation,stopLocation)
+    }
+    {title: 'Distance/Odo', className: 'distance-col', data: (obj)->
+      km = Math.floor(obj.lastOdometer/1000)
+      m = obj.lastOdometer%1000
+      odo = km + ',' + m
+      twin((obj.sumDistance/1000).toFixed(0),odo)
+    }
+    {title: 'Speed/Max', className: 'speed-col', data: (obj)-> twin(obj.avgSpeed?.toFixed(0),obj.maxSpeed?.toFixed(0)) }
+    {title: 'Time/Idle', className: 'time-col', data: (obj)->
+      move = moment.duration(obj.sumMoveInterval, "seconds").format('HH:mm:ss', {trim: false})
+      idle = moment.duration(obj.sumIdleInterval, "seconds").format('HH:mm:ss', {trim: false})
+      twin(move,idle)
+    }
+    {title: 'Fuel/Per 100', className: 'fuel-col', data: (obj)->
+      f = (obj.sumFuel/1000).toFixed(2)
+      fl = (obj.sumFuel/obj.sumDistance*100).toFixed(2)
+      twin(f,fl)
+    }
+
+    {title: 'Map', tmpl: Template.aggMapCellTemplate}
+  ]
+
+startStopOptions =
+  responsive:true
+  columns: [
+    {title: 'Start/Finish', className: '', data: (obj)->
+      start = moment(obj.start.recordTime).zone(UNIT_TIMEZONE).format('HH:mm:ss')
+      stop = moment(obj.stop.recordTime).zone(UNIT_TIMEZONE).format('HH:mm:ss')
+      twin(start,stop)
+    }
+    {title: 'From/To', className: '', data: (obj)->
+      startLocation = geocode2(obj.start.type, obj.start.lat, obj.start.lon).split(',')[-3..]
+      stopLocation = geocode2(obj.stop.type, obj.stop.lat, obj.stop.lon).split(',')[-3..]
+      twin(startLocation,stopLocation)
+    }
+    {title: 'Distance/Odo', className: 'distance-col', data: (obj)->
+      km = Math.floor(obj.stop.tacho/1000)
+      m = obj.stop.tacho%1000
+      odo = km + ',' + m
+      twin(obj.startStopDistance.toFixed(2), odo)
+    }
+    {title: 'Speed/Max', className: 'speed-col', data: (obj)-> twin(obj.startStopSpeed?.toFixed(0),obj.maxSpeed?.toFixed(0)) }
+    {title: 'Travel time', className: 'time-col', data: (obj)->
+      diff = moment(obj.stop.recordTime).diff(moment(obj.start.recordTime), 'seconds')
+      moment.duration(diff, "seconds").format('HH:mm:ss', {trim: false})
+    }
+    {title: 'Fuel/Per 100', className: 'fuel-col', data: (obj)->
+      distance = (obj.stop.tacho-obj.start.tacho)/1000
+      fuel = (obj.stop.fuelc-obj.start.fuelc)/1000
+      twin(fuel.toFixed(2) + ' (l)', (fuel/distance*100).toFixed(2) + ' (l/100km)')
+    }
+    {title: 'Driver', className: '', data: (obj)->
+      # vehicle = Vehicles.find ({unitId: obj.deviceId})
+      # console.log 'Vehicle: ' + JSON.stringify(vehicle) if vehicle
+      # driverId = Vehicles.getAssignedDriver(vehicle._id, Date.now())
+      # console.log 'driverid: ' + driverId
+      # driver = Drivers.findOne({_id: driverId})
+      # console.log 'driver: ' + driver
+      # console.log 'Driver: ' + JSON.stringify(driver) if driver
+      twin('&lt;driver&gt;','&lt;license&gt;')
+    }
+    {title: 'Map', className: '', tmpl: Template.mapCellTemplate}
+  ]
+
+
 Template.logbook.helpers
   selector: ()-> Session.get(LOGBOOK_FILTER_NAME)
   #filter: ()-> JSON.stringify(Session.get(LOGBOOK_FILTER_NAME))
   aggopts: createAggregationTableOptions
-  startstopopts: createStartStopOptions
+  # startstopopts: createStartStopOptions
   hideIdle: () -> Session.get(STARTSTOP_FILTER_NAME)?.hideIdle
+
+
+  aggDatafunc: ()->
+    () -> DateRangeAggregation.find().fetch()
+  aggOptions: aggOptions
+
+  startStopDatafunc: ()->
+    () -> StartStop.find().fetch()
+  startStopOptions: startStopOptions
+
 
 show = (obj) ->
   str = ''
@@ -211,7 +248,7 @@ Template.logbook.events
     filter = Session.get(LOGBOOK_FILTER_NAME) || {}
     delete filter.recordTime
     $("#speed").val('')
-    $(".aggregation-table tr").removeClass('selected')
+    $(".agg-table tr").removeClass('selected')
     Session.set LOGBOOK_FILTER_NAME, filter
     Session.set STARTSTOP_FILTER_NAME, filter
     # console.log 'Filter: ' + JSON.stringify(filter)
@@ -234,16 +271,19 @@ Template.logbook.events
     filter.speed = speed
     Session.set STARTSTOP_FILTER_NAME, filter
     # console.log 'Filter: ' + JSON.stringify(args)
-  'click .aggregation-table tr': (event,p)->
-    startDate = moment(this._id)
-    endDate = moment(this._id).add(1, 'days')
+  'click #aggregated-table-section tr': (event,p)->
+    value = $('td', event.currentTarget).eq(0).text()
+    console.log 'Click: ' + value
+    # name = $('td', this).eq(0).text()
+    startDate = moment(value)
+    endDate = moment(value).add(1, 'days')
     args = Session.get(LOGBOOK_FILTER_NAME)?.recordTime || {}
     args['$gte'] = startDate.toDate()
     args['$lte'] = endDate.toDate()
     $("#speed").val('')
     # console.log 'Filter: ' + JSON.stringify(args)
     Session.set STARTSTOP_FILTER_NAME, {recordTime: args}
-    $(".aggregation-table tr").removeClass('selected')
+    $("#aggregated-table-section tr").removeClass('selected')
     event.currentTarget.setAttribute('class', 'selected')
 
   'click #hideIdleCheckbox': (event,p)->

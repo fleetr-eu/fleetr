@@ -39,32 +39,40 @@
 	text-align: right;
 }
 
-.startStopDistance {
+.distance-col {
 	text-align: right;
 }
 
-.startStopSpeed {
+.speed-col {
 	text-align: right;
 }
 
-.startStopFuel {
+.fuel-col {
 	text-align: right;
 }
 
-.startStopTravelTime {
+.time-col {
 	text-align: right;
 }
 
-#daterange-prepend, #details-table-prepend {
+/*#daterange-prepend, #details-table-prepend {
   possition:relative;
   top:34px;
 }
 
 #aggregated-table-section, #detailed-table-section {
   margin-top:-34px;
-}
+}*/
 
 .hide-idle {
-  height: 32px;
-  padding:10px;
+  height: 24px;
+  padding:12px;
 }
+
+.dataTables_filter, .dataTables_paginate {
+  float: right !important;
+}
+
+/*.dataTables_length {
+  float: left !important;
+}*/

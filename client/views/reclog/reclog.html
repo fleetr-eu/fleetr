@@ -1,4 +1,7 @@
 <template name="reclog">
-	{{> reactiveTable settings=opts}}
+	<div class="table-responsive">
+		<!-- {{> reactiveTable settings=opts}} -->
+		{{> ReactiveDatatable tableData=datafunc options=options }}
+	</div>
 </template>
 
