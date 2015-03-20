@@ -158,6 +158,7 @@ aggOptions =
   ]
 
 startStopOptions =
+  responsive:true
   columns: [
     {title: 'Start/Finish', className: '', data: (obj)->
       start = moment(obj.start.recordTime).zone(UNIT_TIMEZONE).format('HH:mm:ss')
