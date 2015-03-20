@@ -19,7 +19,7 @@
         {{#autoForm doc=maintenance collection="Maintenances" id="maintenancesForm" type="method" meteormethod="submitMaintenance"}}
             <fieldset>
               <div class="col-md-6">
-                {{> afFieldInput type="hidden" name="vehicle" value=vechileId}}
+                {{> afFieldInput type="hidden" name="vehicle" value=vehicleId}}
                 {{> afQuickField name="maintenanceType"}}
                 {{> afQuickField name="maintenanceDate"}}
                 {{> afQuickField name="odometer"}}
