@@ -5,7 +5,9 @@
 	</h3>
 
 	{{#portlet}}
-		{{> reactiveTable collection=driversCollection fields=driversFields }}
+		<div class="table-responsive">
+			{{> reactiveTable collection=driversCollection fields=driversFields }}
+		</div>
   {{/portlet}}
 	 
  </template>
