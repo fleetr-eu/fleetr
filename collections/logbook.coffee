@@ -1,4 +1,5 @@
 @Logbook = new Meteor.Collection "logbook"
+@StartStop = new Meteor.Collection "startstop"
 
 Logbook.after.insert (userId, e) -> 
   # console.log 'HOOK!'
