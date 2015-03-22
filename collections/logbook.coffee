@@ -1,5 +1,6 @@
-@Logbook = new Meteor.Collection "logbook"
-@StartStop = new Meteor.Collection "startstop"
+@Logbook    = new Meteor.Collection "logbook"
+@StartStop  = new Meteor.Collection "startstop"
+@AggByDate  = new Meteor.Collection "aggbydate"
 
 Logbook.after.insert (userId, e) ->
   # console.log 'HOOK!'
@@ -24,6 +25,26 @@ Logbook.after.insert (userId, e) ->
       update = {lastUpdate: e.recordTime, speed: speed, lat: e.lat, lon: e.lon, odometer: e.tacho, state: status}
       Vehicles.update v._id, {$set: update}
       console.log 'update vehile start/stop status: ' + id + ' ' + JSON.stringify(update)
+
+@AggByDate.helpers
+  fromTo: ->
+    start = moment(@startTime).zone(Settings.unitTimezone).format('HH:mm:ss')
+    stop = moment(@stopTime).zone(Settings.unitTimezone).format('HH:mm:ss')
+    twin(start,stop)
+  beginEnd: ->
+    startLocation = geocode2(29, @startLat, @startLon).split(',')[-3..]
+    stopLocation = geocode2(29, @stopLat, @stopLon).split(',')[-3..]
+    twin(startLocation, stopLocation)
+  interval: ->
+    moment.duration(@sumInterval, "seconds").format('HH:mm:ss', {trim: false})
+  distance: ->
+    @sumDistance?.toFixed(2)
+  speed: ->
+    twin('---','---')
+  fuel: ->
+    distance = @sumDistance
+    f = @sumFuel/1000
+    twin(f.toFixed(2), (f/distance*100).toFixed(2))
 
 twin = (str1,str2) ->
   new Spacebars.SafeString(str1 + '<br>' + str2)
@@ -61,6 +82,7 @@ geocode2 = (type, lat,lon) ->
     Meteor.call 'cacheLocationName',  lat, lon, address
 
   'loading...'
+
 
 @StartStop.helpers
    startStop: ->

@@ -19,6 +19,7 @@ Meteor.startup ->
   Meteor.publish 'driverVehicleAssignments', -> DriverVehicleAssignments.find {}
 
   Meteor.publish 'startstop', (args) -> StartStop.find(args || {}) 
+  Meteor.publish 'aggbydate', (args) -> AggByDate.find(args || {}) 
   Meteor.publish 'logbook'  , (args) -> Logbook.find(args || {}, {sort: {recordTime: -1}} ) 
 
   Meteor.publish 'locations', (vehicleId, dtFrom, dtTo) ->
@@ -56,10 +57,11 @@ Meteor.startup ->
       { $group : {
             _id: "$date"
             total: { $sum: 1 }
-            maxSpeed: { $max: "$maxspeed" }
-            avgSpeed: { $avg: "$speed" }
-            sumDistance: { $sum: "$distance" }
-            sumFuel: { $sum: "$fuel" }
+            sumDistance : { $sum: "$distance" }
+            sumFuel     : { $sum: "$fuel" }
+            sumInterval : { $sum: "$interval" }
+            maxSpeed    : { $max: "$maxspeed" }
+            avgSpeed    : { $avg: "$speed" }
 
             startLat: { $first: "$startLat" }
             stopLat: { $last: "$stopLat" }
@@ -69,7 +71,6 @@ Meteor.startup ->
             startTime: { $first: "$start.recordTime" }
             stopTime: { $last: "$stop.recordTime" }
 
-            sumInterval: { $sum: "$interval" }
 
             stopOdo  : { $last: "$stopOdo" }
         }}

@@ -2,6 +2,27 @@ TabularTables = {}
 
 Meteor.isClient && Template.registerHelper('TabularTables', TabularTables)
 
+TabularTables.LogbookAggByDate = new Tabular.Table
+  name: "LogbookAggByDate"
+  collection: AggByDate
+  responsive:true
+  columns: [
+    { title: 'Date', data:'date' }
+    { title: 'From<br>To', data: 'fromTo()', className: 'time-col' }
+    { width: '35%', title: 'Begin<br>End', data: 'beginEnd()'}
+    { title: 'Distance', data:'distance()', className: 'distance-col' }
+    { title: 'Fuel<br>Per 100', data:'fuel()', className: 'fuel-col' }
+    { title: 'Speed<br>Max Speed', data:'speed()', className: 'speed-col' }
+    { title: 'Travel Time', data: 'interval()', className: 'time-col' }
+    # { width: '10%', title: 'Distance<br>Odometer', data:'distanceOdometer()', className: 'distance-col'}
+    # { width: '10%', title: 'Speed<br>Max', data: 'speedMaxSpeed()', className: 'speed-col'}
+    # { width: '10%', title: 'Duration', data:'duration()', className: 'time-col'}
+    # { width: '10%', title: 'Fuel<br>per 100', data: 'fuel()', className: 'fuel-col'}
+    # { width: '10%', title: 'Driver', data: 'driverName()' }
+    # { width: '10%', tmpl: Meteor.isClient && Template.mapCellTemplate }
+  ]
+  extraFields: ['sumInterval', 'sumDistance', 'sumFuel', 'startLat', 'stopLat', 'startLon', 'stopLon']
+
 TabularTables.LogbookStartStop = new Tabular.Table
   name: "LogbookStartStop"
   collection: StartStop
@@ -46,3 +67,4 @@ TabularTables.RecLog = new Tabular.Table
         return if item.io%2 == 0 then 'stop-row' else 'start-row'
       'unknown'
     row.setAttribute('class', rowClass(data))
+

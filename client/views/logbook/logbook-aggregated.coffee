@@ -109,7 +109,7 @@
 #
 #
 Template.logbook.helpers
-  selectedDate: ()-> "2015-03-17"
+  selectedDate: ()-> '2015-03-18' #Session.get('logbook-selected-date')
 
 #   selector: ()-> Session.get(LOGBOOK_FILTER_NAME)
 #   #filter: ()-> JSON.stringify(Session.get(LOGBOOK_FILTER_NAME))
@@ -131,6 +131,11 @@ Template.logbook.helpers
 #   return str
 #
 #
+Template.logbook.events
+  'click #aggregated-table-section tr': (event,p)->
+  # TODO: what to catch here?
+
+
 # Template.logbook.events
 #   'cancel.daterangepicker #daterange': (event,p) ->
 #     $('#daterange').val('')
