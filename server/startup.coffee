@@ -7,8 +7,8 @@ upgradeDatabase = () ->
     # if false and rec.start.location and rec.stop.location
     if rec.start.location and rec.stop.location
       # do nothins
-      console.log 'start.location: ' + JSON.stringify(rec.start.location)
-      console.log 'stop.location : ' + JSON.stringify(rec.stop.location)
+      # console.log 'start.location: ' + JSON.stringify(rec.start.location)
+      # console.log 'stop.location : ' + JSON.stringify(rec.stop.location)
     else
       console.log 'Processing record...'
       # console.log 'start.loc: ' + rec.start.location
@@ -32,7 +32,6 @@ upgradeDatabase = () ->
       else
         console.log 'geocoding error'
   console.log 'DONE'
-
 
 
 Meteor.startup ->

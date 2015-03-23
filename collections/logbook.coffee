@@ -85,6 +85,11 @@ geocode2 = (type, lat,lon) ->
 
   'loading...'
 
+toAddress = (loc)->
+  addr = loc.country
+  addr += ', ' + loc.city
+  addr += ', ' + loc.zipcode if loc.zipcode
+  addr += ', ' + loc.streetName
 
 @StartStop.helpers
    startStop: ->
@@ -92,8 +97,10 @@ geocode2 = (type, lat,lon) ->
      stop = moment(@stop.recordTime).zone(Settings.unitTimezone).format('HH:mm:ss')
      twin(start,stop)
    fromTo: ->
-      startLocation = geocode2(@start.type, @start.lat, @start.lon).split(',')[-3..]
-      stopLocation = geocode2(@stop.type, @stop.lat, @stop.lon).split(',')[-3..]
+      startLocation = if @start.location then toAddress(@start.location) else 'not geocoded yet...'
+      stopLocation  = if @stop.location then toAddress(@stop.location) else 'not geocoded yet...'
+      # startLocation = geocode2(@start.type, @start.lat, @start.lon).split(',')[-3..]
+      # stopLocation = geocode2(@stop.type, @stop.lat, @stop.lon).split(',')[-3..]
       twin(startLocation, stopLocation)
    distanceOdometer: ->
      twin(@startStopDistance.toFixed(3), (@stop?.tacho/1000).toFixed(3))
