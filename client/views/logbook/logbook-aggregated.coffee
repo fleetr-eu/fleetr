@@ -138,7 +138,7 @@ Template.logbook.events
     value = td.split(' ')[0]
     # console.log 'Value: ' + value
     Session.set('logbook-selected-date', value)
-    Router.go("logbookStartStop", {selectedDate: Session.get('logbook-selected-date')})
+    Router.go("logbookStartStop", {selectedDate: value})
 
 
 # Template.logbook.events
