@@ -27,6 +27,8 @@ Logbook.after.insert (userId, e) ->
       console.log 'update vehile start/stop status: ' + id + ' ' + JSON.stringify(update)
 
 @AggByDate.helpers
+  general: ->
+    @date + ' (' + @total + ')'
   fromTo: ->
     start = moment(@startTime).zone(Settings.unitTimezone).format('HH:mm:ss')
     stop = moment(@stopTime).zone(Settings.unitTimezone).format('HH:mm:ss')
@@ -40,7 +42,7 @@ Logbook.after.insert (userId, e) ->
   distance: ->
     @sumDistance?.toFixed(2)
   speed: ->
-    twin('---','---')
+    twin(@avgSpeed?.toFixed(0),@maxSpeed?.toFixed(0))
   fuel: ->
     distance = @sumDistance
     f = @sumFuel/1000
