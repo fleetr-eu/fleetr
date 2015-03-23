@@ -109,7 +109,7 @@
 #
 #
 Template.logbook.helpers
-  selectedDate: ()-> '2015-03-18' #Session.get('logbook-selected-date')
+  selectedDate: ()-> Session.get('logbook-selected-date')
 
 #   selector: ()-> Session.get(LOGBOOK_FILTER_NAME)
 #   #filter: ()-> JSON.stringify(Session.get(LOGBOOK_FILTER_NAME))
@@ -132,8 +132,13 @@ Template.logbook.helpers
 #
 #
 Template.logbook.events
-  'click #aggregated-table-section tr': (event,p)->
-  # TODO: what to catch here?
+  'click .table tr': (event,p)->
+    td = $('td', event.currentTarget).eq(0).text()
+    console.log 'Click: ' + td
+    value = td.split(' ')[0]
+    console.log 'Value: ' + value
+    Session.set('logbook-selected-date', value)
+    # TODO: what to catch here?
 
 
 # Template.logbook.events

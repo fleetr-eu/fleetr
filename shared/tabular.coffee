@@ -21,7 +21,12 @@ TabularTables.LogbookAggByDate = new Tabular.Table
     # { width: '10%', title: 'Driver', data: 'driverName()' }
     # { width: '10%', tmpl: Meteor.isClient && Template.mapCellTemplate }
   ]
-  extraFields: ['date', 'sumInterval', 'sumDistance', 'sumFuel', 'startLat', 'stopLat', 'startLon', 'stopLon', 'avgSpeed', 'maxSpeed', 'total']
+  extraFields: [
+    'date', 'sumInterval', 'sumDistance', 'sumFuel', 
+    'startTime', 'stopTime',
+    'startLat', 'stopLat', 'startLon', 'stopLon', 
+    'avgSpeed', 'maxSpeed', 'total'
+  ]
 
 TabularTables.LogbookStartStop = new Tabular.Table
   name: "LogbookStartStop"
