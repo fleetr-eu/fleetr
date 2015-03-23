@@ -31,6 +31,7 @@ process = (r)->
 
 
 Meteor.startup ->
+  console.log 'MQTT URL: ' + Meteor.settings.mqttUrl
   client = mqtt.connect Meteor.settings.mqttUrl || 'mqtt://mqtt'
 
   client.subscribe '/fleetr/records': 2, (err, granted) ->
