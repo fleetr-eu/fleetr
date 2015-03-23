@@ -6,3 +6,4 @@
   shortDateFormat: 'DD/MM/YYYY'
   timeFormat: 'HH:mm'
   longDateTimeFormat: 'Do MMMM YYYY, HH:mm'
+  unitTimezone: '+0200'

@@ -1,7 +1,7 @@
 <template name="reclog">
-	<div class="table-responsive">
+	<!-- <div class="table-responsive"> -->
 		<!-- {{> reactiveTable settings=opts}} -->
-		{{> ReactiveDatatable tableData=datafunc options=options }}
-	</div>
+		<!-- {{> ReactiveDatatable tableData=datafunc options=options }} -->
+		{{> tabular table=TabularTables.RecLog class="table table-striped table-bordered table-condensed"}}
+	<!-- </div> -->
 </template>
-
