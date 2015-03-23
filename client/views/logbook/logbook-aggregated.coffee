@@ -30,6 +30,9 @@
 #   @autorun ->
 #     Meteor.subscribe 'dateRangeAggregation', Session.get(LOGBOOK_FILTER_NAME)
 #     # Meteor.subscribe 'startstop', Session.get(STARTSTOP_FILTER_NAME)
+
+
+
 #
 # Template.logbook.rendered = ->
 #
@@ -58,34 +61,6 @@
 #       'Last 30 Days': [moment().subtract(29, 'days'), moment()]
 #       'This Month': [moment().startOf('month'), moment().endOf('month')]
 #       'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-#
-# geocode2 = (type, lat, lon) ->
-#   return "" if type == MESSAGE_ROW_TYPE
-#   scale = 1000
-#   lat = Math.round(lat*scale)
-#   lon = Math.round(lon*scale)
-#
-#   code = MyCodes.findCachedLocationName lat, lon
-#
-#   if code
-#     return code.address
-#
-#   geocoder = new google.maps.Geocoder();
-#   latlon = new google.maps.LatLng(lat/scale,lon/scale);
-#
-#
-#   geocoder.geocode { 'latLng': latlon}, (results, status) ->
-#     if status isnt google.maps.GeocoderStatus.OK
-#       console.log 'Geocode error: ' + lat + ':' + lon + ': ' +  status
-#       return
-#     if not results[0]
-#       console.log 'Geocode error: ' + lat + ':' + lon + ': ' + JSON.strinfify(results)
-#       return
-#     address = results[0].formatted_address
-#     console.log 'Geocoded: ' + lat + ':' + lon + ': ' + address
-#     Meteor.call 'cacheLocationName',  lat, lon, address
-#
-#   'loading...'
 #
 #
 # aggOptions =
@@ -133,7 +108,9 @@
 #
 #
 #
-# Template.logbook.helpers
+Template.logbook.helpers
+  selectedDate: ()-> "2015-03-17"
+
 #   selector: ()-> Session.get(LOGBOOK_FILTER_NAME)
 #   #filter: ()-> JSON.stringify(Session.get(LOGBOOK_FILTER_NAME))
 #   # aggopts: createAggregationTableOptions
