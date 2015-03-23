@@ -14,8 +14,8 @@ TabularTables.RecLog = new Tabular.Table
   name: "RecLog",
   collection: Logbook,
   columns: [
-    {title: 'Time' , sort: 'descending', data: 'time', render: (val, type, doc) ->
-      moment(doc.recordTime).zone(Settings.unitTimezone).format('DD-MM HH:mm:ss')
+    {title: 'Time', data: 'recordTime', render: (val, type, doc) ->
+      moment(val).zone(Settings.unitTimezone).format('DD-MM HH:mm:ss')
     }
     {title: 'Type', data: 'type'}
     {title: 'Distance', data: 'distance', render: (val, type, doc) -> val?.toFixed(3)}
