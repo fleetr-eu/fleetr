@@ -134,11 +134,11 @@ Template.logbook.helpers
 Template.logbook.events
   'click .table tr': (event,p)->
     td = $('td', event.currentTarget).eq(0).text()
-    console.log 'Click: ' + td
+    # console.log 'Click: ' + td
     value = td.split(' ')[0]
-    console.log 'Value: ' + value
+    # console.log 'Value: ' + value
     Session.set('logbook-selected-date', value)
-    # TODO: what to catch here?
+    Router.go("logbookStartStop", {selectedDate: Session.get('logbook-selected-date')})
 
 
 # Template.logbook.events
@@ -194,3 +194,5 @@ Template.logbook.events
 #     filter.hideIdle = event.target.checked
 #     Session.set STARTSTOP_FILTER_NAME, filter
 #     # console.log 'Filter: ' + JSON.stringify(args)
+
+# Router.route "my-route", {path:"/my-route/:selectedDate"}
