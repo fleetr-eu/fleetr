@@ -18,8 +18,8 @@ TabularTables.RecLog = new Tabular.Table
       moment(doc.recordTime).zone(Settings.unitTimezone).format('DD-MM HH:mm:ss')
     }
     {title: 'Type', data: 'type'}
-    {title: 'Distance', data: 'distance', render: (val, type, doc) -> doc.distance?.toFixed(3)}
-    {title: 'Speed', data: 'speed', render: (val, type, doc) -> doc.speed?.toFixed(2)}
+    {title: 'Distance', data: 'distance', render: (val, type, doc) -> val?.toFixed(3)}
+    {title: 'Speed', data: 'speed', render: (val, type, doc) -> val?.toFixed(2)}
     {title: 'Interval', data: 'interval'}
   ]
   rowCallback: (row,data)->
