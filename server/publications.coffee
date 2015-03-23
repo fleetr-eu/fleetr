@@ -18,7 +18,8 @@ Meteor.startup ->
   Meteor.publish 'geofences', -> Geofences.find {}
   Meteor.publish 'driverVehicleAssignments', -> DriverVehicleAssignments.find {}
 
-  Meteor.publish 'logbook', (args) -> Logbook.find(args || {}, {sort: {recordTime: -1}} ) 
+  Meteor.publish 'startstop', (args) -> StartStop.find(args || {}) 
+  Meteor.publish 'logbook'  , (args) -> Logbook.find(args || {}, {sort: {recordTime: -1}} ) 
 
   Meteor.publish 'locations', (vehicleId, dtFrom, dtTo) ->
     Locations.find {vehicleId: vehicleId, timestamp: {$gte: dtFrom*1000, $lte: dtTo*1000}}, {sort: {timestamp: -1}}
@@ -33,77 +34,52 @@ Meteor.startup ->
     if args
       rangeMatch = {$match: args}
     pipeline = [
-      {$match: {type: 30}}
-      rangeMatch
       {$project : {
-          type: "$type",
-          speed: "$speed",
-          tacho: "$tacho",
-          distance: "$distance",
-          fuelUsed: "$fuelUsed",
-          recordTime: "$recordTime",
-          lat: "$lat",
-          lon: "$lon",
-          year: { $substr: ["$recordTime",0,4] },
-          month: { $substr: ["$recordTime",5,2] },
-          day: { $substr: ["$recordTime",8,2] },
-          interval: "$interval",
+          startLat  : "$start.lat"
+          stopLat   : "$stop.lat"
+          startLon  : "$start.lon"
+          stopLon   : "$stop.lon"
           
-          # moveInterval: {$cond: [true, 1, 0]}
+          startOdo  : "$start.tacho"
+          stopOdo   : "$stop.tacho"
           
-          moveInterval: {$cond: [{$gte:["$distance", 0.01]}, "$interval", 0]}
-          idleInterval: {$cond: [{$lt:["$distance", 0.01]}, "$interval", 0]}
-          
-          # moveInterval: {$cond: { if: { $gte: [ "$distance", 0.01 ] }, then: "$interval", else: 0 }}
-          # idleInterval: {$cond: { if: { $lte: [ "$distance", 0.01 ] }, then: "$interval", else: 0 }}
+     
+          date      : "$date"
+          distance  : "$startStopDistance"
+          speed     : "$startStopSpeed"
+          interval  : "$interval"
+          maxspeed  : "$maxSpeed"
+          fuel      : "$fuelUsed"
         }
       },
-      {$project : {
-          type: "$type",
-          speed: "$speed",
-          tacho: "$tacho",
-          distance: "$distance",
-          fuelUsed: "$fuelUsed",
-          recordTime: "$recordTime",
-          lat: "$lat",
-          lon: "$lon",
-          date: { $concat: ["$year","-","$month","-","$day"] },
-          interval: "$interval",
-          moveInterval: "$moveInterval",
-          idleInterval: "$idleInterval",
-        }
-      },
+
       { $group : {
             _id: "$date"
             total: { $sum: 1 }
-            minSpeed: { $min: "$speed" }
-            maxSpeed: { $max: "$speed" }
+            maxSpeed: { $max: "$maxspeed" }
             avgSpeed: { $avg: "$speed" }
-
             sumDistance: { $sum: "$distance" }
-            lastOdometer: { $last: "$tacho" }
-            startTime: { $first: "$recordTime" }
-            stopTime: { $last: "$recordTime" }
-            sumFuel: { $sum: "$fuelUsed" }
+            sumFuel: { $sum: "$fuel" }
+
+            startLat: { $first: "$startLat" }
+            stopLat: { $last: "$stopLat" }
+            startLon: { $first: "$startLon" }
+            stopLon: { $last: "$stopLon" }
+
+            startTime: { $first: "$start.recordTime" }
+            stopTime: { $last: "$stop.recordTime" }
+
             sumInterval: { $sum: "$interval" }
 
-            startLat: { $first: "$lat" }
-            stopLat: { $last: "$lat" }
-
-            startLon: { $first: "$lon" }
-            stopLon: { $last: "$lon" }
-
-            minInterval: {$min: "$interval"}
-            maxInterval: {$max: "$interval"}
-
-            sumMoveInterval: {$sum: "$moveInterval"}
-            sumIdleInterval: {$sum: "$idleInterval"}
+            stopOdo  : { $last: "$stopOdo" }
         }}
+
     ]
     time = new Date().getTime()
 
-    res = db.collection('logbook').aggregate pipeline, Meteor.bindEnvironment(
+    res = db.collection('startstop').aggregate pipeline, Meteor.bindEnvironment(
       (err, result) ->
+        console.log 'Count: ' + result.length
         _.each result, (e) ->
           console.log 'Record: ' + JSON.stringify(e)
           sub.added "dateRangeAggregation", e._id, e if e.sumDistance > 0
