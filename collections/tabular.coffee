@@ -14,18 +14,13 @@ TabularTables.RecLog = new Tabular.Table
   name: "RecLog",
   collection: Logbook,
   columns: [
-    {title: 'Time' , sort: 'descending', data: (obj)->
-      moment(obj.recordTime).zone(Settings.unitTimezone).format('DD-MM HH:mm:ss')
+    {title: 'Time' , sort: 'descending', data: 'time', render: (val, type, doc) ->
+      moment(doc.recordTime).zone(Settings.unitTimezone).format('DD-MM HH:mm:ss')
     }
     {title: 'Type', data: 'type'}
-    {title: 'Distance', data: (obj)-> obj.distance?.toFixed(2)}
-#     {key: 'tacho', label: 'Odo', fn: (val,obj)->
-#       km = Math.floor(val/1000)
-#       m = val%1000
-#       km + ',' + m
-#     }
-    {title: 'Speed', data: (obj)-> obj.speed}
-    {title: 'Interval', data: (obj)-> obj.interval}
+    {title: 'Distance', data: 'distance', render: (val, type, doc) -> doc.distance?.toFixed(3)}
+    {title: 'Speed', data: 'speed', render: (val, type, doc) -> doc.speed?.toFixed(2)}
+    {title: 'Interval', data: 'interval'}
   ]
   rowCallback: (row,data)->
     console.log 'Row: ' + row + ' data: ' + data.type
