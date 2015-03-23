@@ -24,6 +24,44 @@ makeStartStopRecord = (start,stop)->
   console.log 'start/stop record: ' + JSON.stringify(record)
   return record  
 
+updateAggRecord = (record) ->
+  agg = AggByDate.findOne {date: record.date}
+  if not agg
+    agg = 
+      date        : record.date
+      startLat    : record.start.lat
+      stopLat     : record.stop.lat
+      startLon    : record.start.lon
+      stopLon     : record.stop.lon
+      startTime   : record.start.recordTime
+      stopTime    : record.stop.recordTime
+      stopOdo     : record.stop.tacho
+      sumDistance : record.startStopDistance     
+      sumFuel     : record.fuelUsed
+      sumInterval : record.interval
+      avgSpeed    : record.startStopSpeed
+      maxSpeed    : record.maxSpeed
+      total       : 1
+    console.log 'Insert: ' + agg.date + ' dis: ' + agg.sumDistance
+    AggByDate.insert agg
+  else
+    agg.sumDistance += record.startStopDistance     
+    agg.sumFuel     += record.fuelUsed
+    agg.sumInterval += record.interval
+    agg.avgSpeed     = agg.sumDistance/agg.sumInterval*3600;
+    agg.maxSpeed     = record.maxSpeed if record.maxSpeed > agg.maxSpeed
+    agg.total++
+    console.log 'Updated: ' + agg.date + ' dis: ' + agg.sumDistance + ' avg: ' + agg.avgSpeed + ' max: ' + agg.maxSpeed 
+    update = 
+      sumDistance : agg.sumDistance
+      sumFuel     : agg.sumFuel
+      sumInterval : agg.sumInterval
+      avgSpeed    : agg.avgSpeed
+      maxSpeed    : agg.maxSpeed
+      total       : agg.total
+    AggByDate.update {_id: agg._id}, {$set: update}
+    return agg
+
 process = (r)->
   # console.log 'Processing!'
   lastStart = Logbook.findOne {type:29,io:255}, {sort: {recordTime:-1}}
@@ -36,7 +74,7 @@ process = (r)->
 
   record = makeStartStopRecord(start,stop)
   StartStop.insert record
-
+  updateAggRecord record
 
 Meteor.startup ->
   console.log 'MQTT URL: ' + Meteor.settings.mqttUrl
