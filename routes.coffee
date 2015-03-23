@@ -76,7 +76,7 @@ Meteor.startup ->
     @route 'listFleetGroups',
       path: '/groups/list'
       template: 'fleetGroups'
-      data: -> {pageTitle: 'Групи автопаркове'}
+      data: -> {pageTitle: 'Fleet Groups'}
       waitOn: -> Meteor.subscribe 'fleetGroups'
     @route 'addFleetGroup',
       path: '/groups/add'
@@ -177,6 +177,12 @@ Meteor.startup ->
       path: '/logbook'
       template: 'logbook'
       subscriptions: -> Meteor.subscribe 'mycodes'
+
+    @route 'logbookStartStop',
+      path: '/logbook/detailed/:selectedDate'
+      template: 'logbookStartStop'
+      waitOn: -> Meteor.subscribe('mycodes')
+      data: -> {'selectedDate' : @params.selectedDate}
 
     @route 'reclog',
       path: '/reclog'
