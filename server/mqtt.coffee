@@ -1,5 +1,9 @@
+# MQTT_URL = 'mqtt://144.76.40.200'
+MQTT_URL = 'mqtt://gps.kale-bg.com:10013'
+
+
 Meteor.startup ->
-  client = mqtt.connect 'mqtt://144.76.40.200'
+  client = mqtt.connect MQTT_URL
   client.subscribe '/fleetr/records'
   client.on 'message', (topic, message) ->
     Fiber = Npm.require('fibers')
@@ -19,5 +23,11 @@ Meteor.startup ->
     ).run()
 
 
-  
+
+
+
+
+
+
+ 
   
