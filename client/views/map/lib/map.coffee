@@ -5,6 +5,7 @@ Meteor.startup ->
       zoom: 12
       mapTypeId: google.maps.MapTypeId.ROADMAP
       disableDefaultUI: true
+      streetViewControl: true
       zoomControl: true
       zoomControlOptions:
           style: google.maps.ZoomControlStyle.SMALL
