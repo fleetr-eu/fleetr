@@ -34,8 +34,10 @@ Logbook.after.insert (userId, e) ->
     stop = moment(@stopTime).zone(Settings.unitTimezone).format('HH:mm:ss')
     twin(start,stop)
   beginEnd: ->
-    startLocation = geocode2(29, @startLat, @startLon).split(',')[-3..]
-    stopLocation = geocode2(29, @stopLat, @stopLon).split(',')[-3..]
+    startLocation = if @startLocation then toAddress(@startLocation) else 'not geocoded yet...'
+    stopLocation  = if @stopLocation then toAddress(@stopLocation) else 'not geocoded yet...'
+    # startLocation = geocode2(29, @startLat, @startLon).split(',')[-3..]
+    # stopLocation = geocode2(29, @stopLat, @stopLon).split(',')[-3..]
     twin(startLocation, stopLocation)
   interval: ->
     moment.duration(@sumInterval, "seconds").format('HH:mm:ss', {trim: false})
@@ -56,34 +58,6 @@ START_STOP_ROW_TYPE  = 29
 REGULAR_ROW_TYPE  = 30
 EVENT_ROW_TYPE    = 35
 LANGUAGE = 'bg'
-
-geocode2 = (type, lat,lon) ->
-  return "" if type == MESSAGE_ROW_TYPE
-  scale = 1000
-  lat = Math.round(lat*scale)
-  lon = Math.round(lon*scale)
-
-  code = MyCodes.findCachedLocationName lat, lon
-
-  if code
-    return code.address
-
-  geocoder = new google.maps.Geocoder();
-  latlon = new google.maps.LatLng(lat/scale,lon/scale);
-
-
-  geocoder.geocode { language: LANGUAGE, 'latLng': latlon}, (results, status) ->
-    if status isnt google.maps.GeocoderStatus.OK
-      console.log 'Geocode error: ' + lat + ':' + lon + ': ' +  status
-      return
-    if not results[0]
-      console.log 'Geocode error: ' + lat + ':' + lon + ': ' + JSON.strinfify(results)
-      return
-    address = results[0].formatted_address
-    console.log 'Geocoded: ' + lat + ':' + lon + ': ' + address
-    Meteor.call 'cacheLocationName',  lat, lon, address
-
-  'loading...'
 
 toAddress = (loc)->
   addr = loc.country

@@ -1,8 +1,9 @@
+UNIT_TIMEZONE = '+0200'
 
-upgradeDatabase = () ->
-  # records = StartStop.find({}, {limit:1}).fetch()
+geocodeStartStop = ->
+  console.log 'Geocoding start/stop...'
   records = StartStop.find({}).fetch()
-  console.log 'Records: ' + records.length
+  console.log 'Records(start/stop): ' + records.length
   for rec in records
     # if false and rec.start.location and rec.stop.location
     if rec.start.location and rec.stop.location
@@ -10,7 +11,11 @@ upgradeDatabase = () ->
       # console.log 'start.location: ' + JSON.stringify(rec.start.location)
       # console.log 'stop.location : ' + JSON.stringify(rec.stop.location)
     else
-      console.log 'Processing record...'
+      startDate = moment(rec.start.recordTime).zone(UNIT_TIMEZONE).format("DD-MM HH:mm:ss") 
+      stopDate  = moment(rec.stop.recordTime).zone(UNIT_TIMEZONE).format("DD-MM HH:mm:ss")
+      console.log 'Geocode start/stop record: [' + startDate + "] - [" + stopDate + ']'
+      # console.log 'Processing start/stop record...'
+
       # console.log 'start.loc: ' + rec.start.location
       # console.log 'stop.loc : ' + rec.stop.location
       geo = new GeoCoder
@@ -31,15 +36,45 @@ upgradeDatabase = () ->
         StartStop.update {_id: rec._id}, {$set: {"stop.location": stopLocation, "start.location": startLocation}}
       else
         console.log 'geocoding error'
-  console.log 'DONE'
+  console.log 'Geocoding start/stop done'
+
+geocodeAggDyDate = ->
+  console.log 'Geocoding aggbydate...'
+  records = AggByDate.find({}).fetch()
+  console.log 'Records(aggbydate): ' + records.length
+  for rec in records
+    # if false and rec.start.location and rec.stop.location
+    if rec.startLocation and rec.stopLocation
+      # do nothins
+      # console.log 'start.location: ' + JSON.stringify(rec.start.location)
+      # console.log 'stop.location : ' + JSON.stringify(rec.stop.location)
+    else
+      
+      console.log 'Geocode agg record...'
+      first = StartStop.findOne {_id: rec.startId}
+      last  = StartStop.findOne {_id: rec.stopId}
+      console.log '  first: ' + rec.startId + ' ' + first
+      console.log '  last : ' + rec.stopId + ' ' + last
+      if first and last
+        startLocation = first.start.location
+        stopLocation = last.stop.location
+        AggByDate.update {_id: rec._id}, {$set: {"startLocation": startLocation, "stopLocation": stopLocation}}       
+        console.log '  agg: location updated'
+      else
+        console.log '  agg: no startstop record found'
+  console.log 'Geocoding aggbydate done'
+
+
+upgradeDatabase = () ->
+  geocodeStartStop()
+  
+  # fix stop values in aggregation...
+  geocodeAggDyDate()
+
+  console.log 'DB UPGRADE DONE'
 
 
 Meteor.startup ->
   Fiber = Npm.require('fibers')
   Fiber(upgradeDatabase).run()
-
-
-
-
-
 

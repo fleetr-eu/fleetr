@@ -26,7 +26,8 @@ TabularTables.LogbookAggByDate = new Tabular.Table
     'date', 'sumInterval', 'sumDistance', 'sumFuel', 
     'startTime', 'stopTime',
     'startLat', 'stopLat', 'startLon', 'stopLon', 
-    'avgSpeed', 'maxSpeed', 'total'
+    'avgSpeed', 'maxSpeed', 'total',
+    'startLocation', 'stopLocation'
   ]
 
 TabularTables.LogbookStartStop = new Tabular.Table
