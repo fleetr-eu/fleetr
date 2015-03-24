@@ -13,7 +13,7 @@ Meteor.subscribe 'alarms'
 Meteor.subscribe 'driverVehicleAssignments'
 Meteor.subscribe 'vehiclesMakes'
 Meteor.subscribe 'vehiclesModels'
-Meteor.subscribe 'logbook', {}
+# Meteor.subscribe 'logbook', {}
 
 Session.setDefault 'filterAlarms', ''
 Session.setDefault 'filterNotifications', ''
