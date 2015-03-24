@@ -30,7 +30,7 @@ Meteor.startup ->
     Locations.find {vehicleId: vehicleId, timestamp: {$gte: dtFrom*1000, $lte: dtTo*1000}}, {sort: {timestamp: -1}}
 
   Meteor.publish 'alarm-definitions', -> AlarmDefinitions.find {}
-  Meteor.publish 'mycodes', -> MyCodes.find {}
+  # Meteor.publish 'mycodes', -> MyCodes.find {}
 
   Meteor.publish 'dateRangeAggregation', (args)->
     sub = this

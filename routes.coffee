@@ -176,12 +176,12 @@ Meteor.startup ->
     @route 'logbook',
       path: '/logbook'
       template: 'logbook'
-      subscriptions: -> Meteor.subscribe 'mycodes'
+      # subscriptions: -> Meteor.subscribe 'mycodes'
 
     @route 'logbookStartStop',
       path: '/logbook/detailed/:selectedDate'
       template: 'logbookStartStop'
-      waitOn: -> Meteor.subscribe('mycodes')
+      # waitOn: -> Meteor.subscribe('mycodes')
       data: -> {'selectedDate' : @params.selectedDate}
 
     @route 'reclog',
