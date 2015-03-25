@@ -1,6 +1,9 @@
 Meteor.startup ->
   client = mqtt.connect Meteor.settings.mqttUrl || 'mqtt://mqtt'
-  client.subscribe '/fleetr/records'
+
+  client.subscribe '/fleetr/records': 2, (err, granted) ->
+    console.log "MQTT Error: #{err}" if err
+
   client.on 'message', (topic, message) ->
     Fiber = Npm.require('fibers')
     data = message.toString()
