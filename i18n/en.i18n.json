@@ -1,19 +1,25 @@
 {
   "menu": {
     "dashboard": "Dashboard",
-    "logbook": "LogBook",
-    "groups": "Fleet groups",
     "fleets": "Fleets",
-    "vehicles": "Vehicles",
+    "listFleetGroups": "Fleet Groups",
+    "listFleets": "Fleets",
+    "listVehicles": "Vehicles",
     "drivers": "Drivers",
+    "listDrivers": "Drivers",
+    "drivers_vehicles": "Drivers and Vehicles",
     "objects": "Objects",
+    "settings" : "Settings",
     "expenses": "Expenses",
-    "maintenance" : "Maintenance",
+    "addExpenseGroup": "Add Expense Group",
+    "addExpenseType": "Add Expense Type",
+    "addExpense": "Add Expense",
+    "addMaintenanceType" : "Add Maintenance Type",
+    "listMaintenanceTypes" : "Maintenance Types",
+    "logbook": "Logbook",
+    "reclog": "Unit reports",
     "reports": "Reports",
-    "map": "Map",
-    "list": "List",
-    "add": "Add new",
-    "drivers_vehicles": "Drivers and vehicles"
+    "map": "Map"
   },
 
   "fleetGroup": {

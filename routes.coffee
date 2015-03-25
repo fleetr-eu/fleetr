@@ -74,15 +74,15 @@ Meteor.startup ->
         @next()
 
     @route 'listFleetGroups',
-      path: '/groups/list'
+      path: '/fleets/groups/list'
       template: 'fleetGroups'
       data: -> {pageTitle: 'Fleet Groups'}
       waitOn: -> Meteor.subscribe 'fleetGroups'
     @route 'addFleetGroup',
-      path: '/groups/add'
+      path: '/fleets/groups/add'
       template: 'fleetGroup'
     @route 'editFleetGroup',
-      path: '/groups/edit/:groupId'
+      path: '/fleets/groups/edit/:groupId'
       template: 'fleetGroup'
       data: -> {'groupId' : @params.groupId}
       waitOn: -> Meteor.subscribe 'fleetGroup', @params.groupId

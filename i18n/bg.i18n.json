@@ -1,19 +1,25 @@
 {
   "menu": {
     "dashboard": "Статистики",
-    "logbook": "LogBook",
-    "groups": "Групи автопаркове",
     "fleets": "Автопаркове",
-    "vehicles": "Автомобили",
+    "listFleetGroups": "Групи автопаркове",
+    "listFleets": "Автопаркове",
+    "listVehicles": "Автомобили",
     "drivers": "Шофьори",
+    "listDrivers": "Шофьори",
+    "drivers_vehicles": "Шофьори и автомобили",
     "objects": "Обекти",
+    "settings" : "Настройки",
     "expenses": "Разходи",
-    "maintenance" : "Поддръжка",
+    "addExpenseGroup": "Добави група разходи",
+    "addExpenseType": "Добави вид разход",
+    "addExpense": "Добави разход",
+    "addMaintenanceType" : "Добави вид поддръжка",
+    "listMaintenanceTypes" : "Видове поддръжки",
+    "logbook": "Журнал",
+    "reclog": "Репорти от устройството",
     "reports": "Отчети",
-    "map": "Карта",
-    "list": "Списък",
-    "add": "Добавяне",
-    "drivers_vehicles": "Шофьори и автомобили"
+    "map": "Карта"
   },
 
   "fleetGroup": {
