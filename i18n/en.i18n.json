@@ -9,11 +9,11 @@
     "listDrivers": "Drivers",
     "drivers_vehicles": "Drivers and Vehicles",
     "objects": "Objects",
-    "settings" : "Settings",
     "expenses": "Expenses",
     "addExpenseGroup": "Add Expense Group",
     "addExpenseType": "Add Expense Type",
     "addExpense": "Add Expense",
+    "maintenances" : "Maintenances",
     "addMaintenanceType" : "Add Maintenance Type",
     "listMaintenanceTypes" : "Maintenance Types",
     "logbook": "Logbook",
@@ -73,9 +73,9 @@
   },
 
   "maintenanceTypes": {
-    "title" :"Мaintenance Type",
-    "listTitle" : "Мaintenance Types",
-    "nextMaintenanceAfter" : "Next Мaintenance After",
+    "title" :"Maintenance Type",
+    "listTitle" : "Maintenance Types",
+    "nextMaintenanceAfter" : "Next Maintenance After",
     "name" : "Name",
     "description" : "Description",
     "nextMaintenanceMonths" : "Months",
@@ -84,9 +84,9 @@
   },
 
   "maintenances": {
-    "title" :"Мaintenance",
-    "listTitle" : "Мaintenances",
-    "nextMaintenance" : "Next Мaintenance",
+    "title" :"Maintenance",
+    "listTitle" : "Maintenance",
+    "nextMaintenance" : "Next Maintenance",
     "maintenanceType" : "Type",
     "description" : "Description",
     "vehicle" : "Vehicle",
