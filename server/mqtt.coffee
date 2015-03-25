@@ -1,8 +1,8 @@
 UNIT_TIMEZONE = '+0200'
 
 makeStartStopRecord = (start,stop)->
+  console.log 'Process STOP record'
   record = {start: start, stop: stop}
-  # record = {}
 
   distance = (stop.tacho-start.tacho)/1000
   record.fuelUsed = stop.fuelc - start.fuelc
@@ -21,46 +21,62 @@ makeStartStopRecord = (start,stop)->
 
   record.recordTime = start.recordTime
   record.date = moment(stop.recordTime).zone(UNIT_TIMEZONE).format('YYYY-MM-DD')
+
+  startLocation = geocode(rec.start.lat, rec.start.lon)
+  stopLocation = geocode(rec.stop.lat, rec.stop.lon)
+  if startLocation and stopLocation
+    record.start.location = startLocation    
+    record.stop.location = stopLocation    
+
   console.log 'start/stop record: ' + JSON.stringify(record)
   return record
 
 updateAggRecord = (record) ->
   agg = AggByDate.findOne {date: record.date}
   if not agg
-    agg =
+    agg = 
       date        : record.date
-      startLat    : record.start.lat
-      stopLat     : record.stop.lat
-      startLon    : record.start.lon
-      stopLon     : record.stop.lon
+      startId     : record._id
       startTime   : record.start.recordTime
-      stopTime    : record.stop.recordTime
-      stopOdo     : record.stop.tacho
-      sumDistance : record.startStopDistance
+      sumDistance : record.startStopDistance     
+      startLocation: record.start.location
       sumFuel     : record.fuelUsed
       sumInterval : record.interval
       avgSpeed    : record.startStopSpeed
       maxSpeed    : record.maxSpeed
       total       : 1
+      stopId      : record._id
+      stopTime    : record.stop.recordTime
+      stopOdo     : record.stop.tacho
+      stopLocation: record.stop.location
     console.log 'Insert: ' + agg.date + ' dis: ' + agg.sumDistance
     AggByDate.insert agg
   else
-    agg.sumDistance += record.startStopDistance
+    agg.sumDistance += record.startStopDistance     
     agg.sumFuel     += record.fuelUsed
     agg.sumInterval += record.interval
     agg.avgSpeed     = agg.sumDistance/agg.sumInterval*3600;
     agg.maxSpeed     = record.maxSpeed if record.maxSpeed > agg.maxSpeed
+    agg.stopTime     = record.stop.recordTime
+    agg.stopOdo      = record.stop.tacho
+    agg.stopId       = record._id
+    agg.stopLocation = record.stop.location
     agg.total++
-    console.log 'Updated: ' + agg.date + ' dis: ' + agg.sumDistance + ' avg: ' + agg.avgSpeed + ' max: ' + agg.maxSpeed
-    update =
+    console.log 'Updated: ' + agg.date + ' dis: ' + agg.sumDistance + ' avg: ' + agg.avgSpeed + ' max: ' + agg.maxSpeed 
+    update = 
       sumDistance : agg.sumDistance
       sumFuel     : agg.sumFuel
       sumInterval : agg.sumInterval
       avgSpeed    : agg.avgSpeed
       maxSpeed    : agg.maxSpeed
       total       : agg.total
+      stopTime    : agg.stopTime
+      stopOdo     : agg.stopOdo
+      stopId      : agg.stopId 
+      stopLocation: agg.stopLocation 
     AggByDate.update {_id: agg._id}, {$set: update}
     return agg
+
 
 process = (r)->
   # console.log 'Processing!'
@@ -86,6 +102,7 @@ Meteor.startup ->
     Fiber = Npm.require('fibers')
     data = message.toString()
     console.log 'MQTT: ' + data
+    # console.log 'Geocoder: ' + geocoder
     record = JSON.parse(data)
     Fiber(() ->
       #if typeof record.recordTime is 'string'

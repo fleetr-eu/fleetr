@@ -1,5 +1,17 @@
 UNIT_TIMEZONE = '+0200'
 
+geocoder = new GeoCoder
+  geocoderProvider: "openstreetmap"
+  httpAdapter: "http"
+
+@geocode = (lat,lon) ->
+  location = geocoder.reverse(lat, lon)
+  if location 
+    location = location[0]      
+    location.latitude  = lat
+    location.longitude = lon
+  return location      
+
 geocodeStartStop = ->
   console.log 'Geocoding start/stop...'
   records = StartStop.find({}).fetch()
@@ -18,25 +30,14 @@ geocodeStartStop = ->
 
       # console.log 'start.loc: ' + rec.start.location
       # console.log 'stop.loc : ' + rec.stop.location
-      geo = new GeoCoder
-        geocoderProvider: "openstreetmap"
-        httpAdapter: "http"
-      startLocation = geo.reverse(rec.start.lat, rec.start.lon)
-      stopLocation = geo.reverse(rec.stop.lat, rec.stop.lon)
+      startLocation = geocode(rec.start.lat, rec.start.lon)
+      stopLocation = geocode(rec.stop.lat, rec.stop.lon)
       if startLocation and stopLocation
-        startLocation = startLocation[0]      
-        stopLocation = stopLocation[0]
-        
-        startLocation.latitude  = rec.start.lat
-        startLocation.longitude = rec.start.lon
-        
-        stopLocation.latitude  = rec.stop.lat
-        stopLocation.longitude = rec.stop.lon
-        
         StartStop.update {_id: rec._id}, {$set: {"stop.location": stopLocation, "start.location": startLocation}}
       else
         console.log 'geocoding error'
   console.log 'Geocoding start/stop done'
+
 
 geocodeAggDyDate = ->
   console.log 'Geocoding aggbydate...'
