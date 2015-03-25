@@ -32,4 +32,4 @@ Template.simpleMap.rendered = ->
 
       lat: point.lat, lng: point.lon, id: point._id
 
-    new FleetrPolyline map, path
+    new FleetrPolyline map, _.filter(path, (p) -> !(isNaN(p.lat) || isNaN(p.lng)))

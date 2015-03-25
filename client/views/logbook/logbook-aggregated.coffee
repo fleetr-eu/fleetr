@@ -109,7 +109,7 @@
 #
 #
 Template.logbook.helpers
-  selectedDate: ()-> "2015-03-17"
+  selectedDate: ()-> Session.get('logbook-selected-date')
 
 #   selector: ()-> Session.get(LOGBOOK_FILTER_NAME)
 #   #filter: ()-> JSON.stringify(Session.get(LOGBOOK_FILTER_NAME))
@@ -131,6 +131,16 @@ Template.logbook.helpers
 #   return str
 #
 #
+Template.logbook.events
+  'click .table tr': (event,p)->
+    td = $('td', event.currentTarget).eq(0).text()
+    # console.log 'Click: ' + td
+    value = td.split(' ')[0]
+    # console.log 'Value: ' + value
+    Session.set('logbook-selected-date', value)
+    Router.go("logbookStartStop", {selectedDate: Session.get('logbook-selected-date')})
+
+
 # Template.logbook.events
 #   'cancel.daterangepicker #daterange': (event,p) ->
 #     $('#daterange').val('')
@@ -184,3 +194,5 @@ Template.logbook.helpers
 #     filter.hideIdle = event.target.checked
 #     Session.set STARTSTOP_FILTER_NAME, filter
 #     # console.log 'Filter: ' + JSON.stringify(args)
+
+# Router.route "my-route", {path:"/my-route/:selectedDate"}

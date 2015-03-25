@@ -121,7 +121,7 @@ Schema.vehicle = new SimpleSchema
       "input-col-class": "col-sm-6"
 
   fuelType:
-    type: String, label:()->TAPi18n.__('vehicle.fuelType')
+    type: String, optional: true, label:()->TAPi18n.__('vehicle.fuelType')
     allowedValues: ['Gas', 'Gasoline', 'Diesel', 'Electric', 'Hybrid']
     autoform:
       firstOption: "(Select)"
@@ -135,12 +135,12 @@ Schema.vehicle = new SimpleSchema
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
   productionYear:
-    type: Number, label:()->TAPi18n.__('vehicle.productionYear')
+    type: Number, optional: true, label:()->TAPi18n.__('vehicle.productionYear')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
   body:
-    type: String, label:()->TAPi18n.__('vehicle.body')
+    type: String, optional: true, label:()->TAPi18n.__('vehicle.body')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
