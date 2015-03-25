@@ -22,8 +22,8 @@ makeStartStopRecord = (start,stop)->
   record.recordTime = start.recordTime
   record.date = moment(stop.recordTime).zone(UNIT_TIMEZONE).format('YYYY-MM-DD')
 
-  startLocation = geocode(rec.start.lat, rec.start.lon)
-  stopLocation = geocode(rec.stop.lat, rec.stop.lon)
+  startLocation = geocode(record.start.lat, record.start.lon)
+  stopLocation = geocode(record.stop.lat, record.stop.lon)
   if startLocation and stopLocation
     record.start.location = startLocation    
     record.stop.location = stopLocation    
