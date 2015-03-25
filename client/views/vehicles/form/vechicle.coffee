@@ -1,4 +1,5 @@
 Template.vehicle.rendered = ->
+  AutoForm.resetForm("vehicleForm")
   # i = 0
   # while i < 7
   #   $("#timepicker#{i}From").datetimepicker pickDate: false, language:Settings.locale

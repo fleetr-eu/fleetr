@@ -1,6 +1,7 @@
 Session.setDefault 'driverImage', '/images/200x200.jpg'
 
 Template.driver.rendered = ->
+  AutoForm.resetForm("driverForm")
   Metronic.initSlimScroll '.scroller'
   if @driverId
     Session.set 'driverImage', Drivers.findOne(_id: @driverId)?.picture

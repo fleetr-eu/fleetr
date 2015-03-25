@@ -1,3 +1,6 @@
+Template.maintenance.rendered = ->
+  AutoForm.resetForm("maintenancesForm")
+
 Template.maintenance.helpers
   vehicleName: ->
     v = Vehicles.findOne _id: @vehicleId

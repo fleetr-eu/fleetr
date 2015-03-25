@@ -1,3 +1,6 @@
+Template.fleet.rendered = ->
+  AutoForm.resetForm("fleetForm")
+
 Template.fleet.helpers
   fleet: -> Fleets.findOne _id: @fleetId
 

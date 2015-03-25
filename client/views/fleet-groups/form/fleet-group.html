@@ -2,24 +2,23 @@
   <div class="portlet box blue-hoki">
     <div class="portlet-title">
       <div class="caption">
-        <i class="icon-car"></i>Fleet group
+        <i class="icon-car"></i>{{_ "fleetGroup.title"}}
       </div>
       <div class="tools">
         <a href="" class="fullscreen"></a>
       </div>
       <div class="actions">
-        <a href="#" class="btn btn-default btn-primary btn-sm">
-        <i class="fa fa-check"></i> Save </a>
-        <a href="#" class="btn btn-default btn-reset">
-        <i class="fa fa-close"></i> Cancel </a>
+          <a href="#" class="btn btn-default btn-primary btn-sm">
+          <i class="fa fa-check"></i> {{_ "button.save"}}</a>
+          <a href="#" class="btn btn-default btn-reset">
+          <i class="fa fa-close"></i> {{_ "button.reset"}}</a>
       </div>
     </div>
     <div class="portlet-body">
       {{#autoForm collection="FleetGroups" doc=fleetGroup id="fleetGroupForm" type="method" meteormethod="submitFleetGroup"}}
-
             <div class="row">
               <fieldset>
-                  <div class="col-md-12">
+                  <div class="col-md-6">
                   	  {{> afFieldInput type="hidden" name="_id" value=_id}}
                       {{> afQuickField name="name"}}
                       {{> afQuickField name="description"}}

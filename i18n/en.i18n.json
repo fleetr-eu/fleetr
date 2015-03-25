@@ -15,6 +15,57 @@
     "add": "Add new",
     "drivers_vehicles": "Drivers and vehicles"
   },
+
+  "fleetGroup": {
+    "title" : "Fleet Group",
+    "listTitle" : "Fleet Groups",
+    "name" : "Name",
+    "description" : "Description"
+  },
+
+  "fleet": {
+    "title" :"Fleet",
+    "listTitle" : "Fleets",
+    "name" : "Name",
+    "description" : "Description",
+    "parent" : "Group"
+  },
+
+  "expenseGroups": {
+    "title" :"Expense Group",
+    "listTitle" : "Expense Groups",
+    "name" : "Name",
+    "description" : "Description"
+  },
+
+  "expenseTypes": {
+    "title" :"Expense Type",
+    "listTitle" : "Expense Types",
+    "name" : "Name",
+    "unitOfMeasure":"Unit of measure",
+    "description" : "Description"
+  },
+
+  "expenses": {
+    "title" :"Expense",
+    "listTitle" : "Expenses",
+    "expenseType" : "Type",
+    "expenseGroup" : "Group",
+    "vehicle" : "Vehicle",
+    "location" : "Location",
+    "odometer" : "Odometer",
+    "driver" : "Driver",
+    "invoiceNr" : "Invoice No",
+    "date" : "Date",
+    "quantity" : "Quantity",
+    "totalVATIncluded" : "Total (VAT included)",
+    "vat" : "VAT",
+    "VATIncluded" : "VAT included?",
+    "discount" : "Discount",
+    "total" : "Total",
+    "description" : "Description"
+  },
+
   "vehicle": {
     "tab" : {
       "basicData" :"Basic data",
@@ -22,7 +73,8 @@
       "workSchedule" : "Work Schedule",
       "alarmsConfiguration" : "Alarms configuration"
     },
-    "vehicle" : "Vehicle",
+    "title" : "Vehicle",
+    "listTitle" : "Vehicles",
     "active" : "Active",
     "state" : "State",
     "tags" : "Tags",
@@ -51,7 +103,22 @@
     "maxAllowedSpeed":"Max allowed speed (km/h)",
     "mass" : "Mass (kg)"
   },
+
+  "driver": {
+    "title" : "Driver",
+    "listTitle" : "Drivers"
+  },
+
   "dropdown": {
     "select": "(Select)"
+  },
+
+  "button" : {
+    "save":"Save",
+    "reset": "Reset"
+  },
+
+  "general" : {
+    "search":"Search ..."
   }
 }

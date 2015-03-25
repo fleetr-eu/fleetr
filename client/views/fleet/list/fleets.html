@@ -1,27 +1,11 @@
 <template name="fleets">
-	<h3 class="page-title">
-		Автопаркове
-	</h3>
-	<div class="page-bar">
-		<ul class="page-breadcrumb">
-			<li>
-				<i class="fa fa-home"></i>
-				<a href="/">Начало</a>
-				<i class="fa fa-angle-right"></i>
-			</li>
-			<li>
-				<a href="#">Автопаркове</a>
-			</li>
-		</ul>
-	</div>
-	<!-- END PAGE HEADER-->
-
-	<div class="row">
+	<h3 class="page-title">{{_ "fleet.listTitle"}}</h3>
+ 		<div class="row">
 			<div class="col-md-12">
 				<div class="portlet box blue">
 					<div class="portlet-title">
 						<div class="caption" id="fleets">
-		            {{> filter sessionVar='fleetFilter' placeholder='Търсене...'}}
+		            {{> filter sessionVar='fleetFilter'}}
 						</div>
 						<div class="tools">
 							<a href="{{pathFor 'addFleet'}}"><span class="glyphicon glyphicon-plus"></span></a>
@@ -34,17 +18,14 @@
 
 					<div class="portlet-body">
 				    <section class="content">
-
 				        <table class="table table-striped">
-
 				            <thead>
 				                <tr>
-				                    <th>Име</th>
-				                    <th>Описание</th>
-														<th>Група</th>
+													<th>{{_ "fleet.title"}}</th>
+													<th>{{_ "fleet.description"}}</th>
+													<th>{{_ "fleet.parent"}}</th>
 				                </tr>
 				            </thead>
-
 				            <tbody>
 				                {{#each fleets}} {{>fleetTableRow}} {{/each}}
 				            </tbody>

@@ -2,33 +2,32 @@
   <div class="portlet box blue-hoki">
     <div class="portlet-title">
       <div class="caption">
-        <i class="fa fa-file-o"></i>Expense Type
+        <i class="fa fa-file-o"></i>{{_ "expenseTypes.title"}}
       </div>
       <div class="tools">
         <a href="" class="fullscreen"></a>
       </div>
       <div class="actions">
         <a href="#" class="btn btn-default btn-primary btn-sm">
-        <i class="fa fa-check"></i>Save</a>
-        <a href="#" class="btn btn-default btn-reset">
-        <i class="fa fa-close"></i>Cancel</a>
+          <i class="fa fa-check"></i> {{_ "button.save"}}</a>
+          <a href="#" class="btn btn-default btn-reset">
+          <i class="fa fa-close"></i> {{_ "button.reset"}}</a>
       </div>
     </div>
     <div class="portlet-body">
-      <div class="container">
         {{#autoForm collection="ExpenseTypes" id="expenseTypeForm" type="method" meteormethod="submitExpenseType"}}
         <div class="form" id="expenseType-info">
           <div class="row">
             <fieldset>
               <div class="col-md-6">
                 {{> afQuickField name="name"}}
+                {{> afQuickField name="unitOfMeasure"}}
                 {{> afQuickField name="description" rows=5}}
               </div>
             </fieldset>
           </div>
         </div>
         {{/autoForm}}
-      </div>
     </div>
   </div>
 </template>

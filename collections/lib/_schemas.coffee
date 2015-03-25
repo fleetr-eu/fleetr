@@ -2,188 +2,148 @@
 
 Schema.fleetGroups = new SimpleSchema
   _id:
-    type: String
-    optional: true
-
+    type: String, optional: true
   name:
-    type: String
-    label: 'Group name'
+    type: String, label: ()->TAPi18n.__('fleetGroup.name')
   description:
-    type: String
-    label: 'Description'
-    optional: true
+    type: String, optional: true, label: ()->TAPi18n.__('fleetGroup.description')
+    autoform:
+      rows: 5
 
 Schema.fleet = new SimpleSchema
   _id:
-    type: String
-    optional: true
+    type: String, optional: true
   name:
-    type: String
-    label: 'Name'
+    type: String, label: ()->TAPi18n.__('fleet.name')
   description:
-    type: String
-    label: 'Description'
-    optional: true
-  parent:
-    type:String
-    label: 'Group'
+    type: String, optional: true, label: ()->TAPi18n.__('fleet.description')
     autoform:
-      firstOption: "(Select)"
+      rows: 5
+  parent:
+    type:String, label: ()->TAPi18n.__('fleet.parent')
+    autoform:
+      firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> FleetGroups.find().map (group) -> label: group.name, value: group._id
 
 Schema.expenseGroups = new SimpleSchema
   _id:
-    type: String
-    optional: true
-
+    type: String, optional: true
   name:
-    type: String
-    label: 'Name'
+    type: String, label: ()->TAPi18n.__('expenseGroups.name')
   description:
-    type: String
-    label: 'Description'
-    optional: true
+    type: String, optional: true, label: ()->TAPi18n.__('expenseGroups.description')
+    autoform:
+      rows: 5
 
 Schema.expenseTypes = new SimpleSchema
   _id:
-    type: String
-    optional: true
-
+    type: String, optional: true
   name:
-    type: String
-    label: 'Name'
+    type: String, label: ()->TAPi18n.__('expenseTypes.name')
+  unitOfMeasure:
+    type: String, label: ()->TAPi18n.__('expenseTypes.unitOfMeasure')
   description:
-    type: String
-    label: 'Description'
-    optional: true
+    type: String, optional: true, label: ()->TAPi18n.__('expenseTypes.description')
+    autoform:
+      rows: 5
 
 Schema.expenses = new SimpleSchema
-
+  _id:
+    type: String, optional: true
   expenseType:
-     type: String
-     label: 'Expense Type'
+     type: String,  label: ()->TAPi18n.__('expenses.expenseType')
      autoform:
-       firstOption: "(Select)"
+       firstOption: ()->TAPi18n.__('dropdown.select')
        options: -> ExpenseTypes.find().map (expenseType) -> label: expenseType.name, value: expenseType._id
        allowOptions: "true"
-       template: "bootstrap3-horizontal"
-       "label-class": "col-sm-5"
-       "input-col-class": "col-sm-7"
-
+       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
    expenseGroup:
       type: String
-      label: 'Expense Group'
+      label: ()->TAPi18n.__('expenses.expenseGroup')
       autoform:
-        firstOption: "(Select)"
+        firstOption: ()->TAPi18n.__('dropdown.select')
         options: -> ExpenseGroups.find().map (expenseGroup) -> label: expenseGroup.name, value: expenseGroup._id
         allowOptions: "true"
-        template: "bootstrap3-horizontal"
-        "label-class": "col-sm-5"
-        "input-col-class": "col-sm-7"
-
-    vehicle:
+        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+   vehicle:
        type:String
-       label: "Vehicle"
+       label: ()->TAPi18n.__('expenses.vehicle')
        autoform:
-         firstOption: "(Select)"
+         firstOption: ()->TAPi18n.__('dropdown.select')
          options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
          allowOptions: "true"
-         template: "bootstrap3-horizontal"
-         "label-class": "col-sm-5"
-         "input-col-class": "col-sm-7"
-
-    odometer:
+         template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+   location:
+       type:String
+       label: ()->TAPi18n.__('expenses.location')
+       autoform:
+         template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+   odometer:
       type: Number
       decimal:true
-      label: "Odometer"
+      label: ()->TAPi18n.__('expenses.odometer')
       autoform:
-        template: "bootstrap3-horizontal"
-        "label-class": "col-sm-5"
-        "input-col-class": "col-sm-7"
-
+        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
    driver:
       type: String
-      label: 'Driver'
+      label: ()->TAPi18n.__('expenses.driver')
       autoform:
-        firstOption: "(Select)"
+        firstOption: ()->TAPi18n.__('dropdown.select')
         options: -> Drivers.find().map (driver) -> label: driver.firstName+" "+driver.name, value: driver._id
         allowOptions: "true"
-        template: "bootstrap3-horizontal"
-        "label-class": "col-sm-5"
-        "input-col-class": "col-sm-7"
-
+        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
    invoiceNr:
       type:String
-      label: "Invoce №"
+      label: ()->TAPi18n.__('expenses.invoiceNr')
       autoform:
-        template: "bootstrap3-horizontal"
-        "label-class": "col-sm-5"
-        "input-col-class": "col-sm-7"
-
+        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
    date:
       type:Date
-      label: "Date"
+      label: ()->TAPi18n.__('expenses.date')
       autoform:
         type: "bootstrap-datepicker"
-        template: "bootstrap3-horizontal"
-        "label-class": "col-sm-5"
-        "input-col-class": "col-sm-7"
-
+        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
    quantity:
       type: Number
-      label: "Quantity"
+      label: ()->TAPi18n.__('expenses.quantity')
       autoform:
-        template: "bootstrap3-horizontal"
-        "label-class": "col-sm-5"
-        "input-col-class": "col-sm-7"
-
+        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
    totalVATIncluded:
       type: Number
       decimal:true
-      label: "Amount (VAT included)"
+      label: ()->TAPi18n.__('expenses.totalVATIncluded')
       autoform:
-        template: "bootstrap3-horizontal"
-        "label-class": "col-sm-5"
-        "input-col-class": "col-sm-7"
-
+        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
    vat:
      type: Number
      decimal:true
-     label: "VAT"
+     label: ()->TAPi18n.__('expenses.vat')
      optional: true
      autoform:
-       template: "bootstrap3-horizontal"
-       "label-class": "col-sm-5"
-       "input-col-class": "col-sm-7"
-
-
+       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
    VATIncluded:
       type: Boolean
-      label: "VAT included"
+      label: ()->TAPi18n.__('expenses.VATIncluded')
       optional: true
       autoform:
-        template: "bootstrap3-horizontal"
-        "label-class": "col-sm-5"
-        "input-col-class": "col-sm-7"
-        "leftLabel": "true"
-
+        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8", "leftLabel": "true"
    discount:
       type: Number
       decimal:true
-      label: "Discount"
+      label: ()->TAPi18n.__('expenses.discount')
       optional: true
       autoform:
-        template: "bootstrap3-horizontal"
-        "label-class": "col-sm-5"
-        "input-col-class": "col-sm-7"
-
-   totalNet:
+        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+   total:
       type:Number
-      label: "Amount (net)"
+      label: ()->TAPi18n.__('expenses.total')
       autoform:
-        template: "bootstrap3-horizontal"
-        "label-class": "col-sm-5"
-        "input-col-class": "col-sm-7"
+        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+   description:
+     type: String, optional: true, label: ()->TAPi18n.__('expenses.description')
+     autoform:
+       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+       rows: 5
 
 Schema.maintenanceTypes = new SimpleSchema
   _id:

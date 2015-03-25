@@ -1,19 +1,30 @@
 <template name="drivers">
-
-	<h3 class="page-title">
-		Drivers
-	</h3>
-
-	{{#portlet}}
-		<!-- <div class="table-responsive"> -->
-			<!-- {{> reactiveTable collection=driversCollection fields=driversFields }} -->
-			<!-- {{> ReactiveDatatable tableData=datafunc options=options }} -->
-
-			{{> tabular table=TabularTables.Drivers class="table table-striped table-bordered table-condensed"}}
-		<!-- </div> -->
-  {{/portlet}}
-
- </template>
+	<h3 class="page-title">{{_ "driver.listTitle"}}</h3>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="portlet box blue">
+				<div class="portlet-title">
+					<div class="caption">
+						{{> filter sessionVar='driverFilter' placeholder='Търсене...'}}
+					</div>
+					<div class="tools">
+						<a href="{{pathFor 'addDriver'}}"><span class="glyphicon glyphicon-plus"></span></a>
+						{{#if selectedDriverId}}
+						<a href="{{pathFor 'addDriverVehicleAssignment'}}"><span class="fa fa-sign-in"></span></a>
+						<a href="{{pathFor 'editDriver' driverId=selectedDriverId}}"><span class="glyphicon glyphicon-pencil"></span></a>
+						<a href="#" class="deleteDriver"><span class="glyphicon glyphicon-trash"></span></a>
+						{{/if}}
+					</div>
+				</div>
+				<div class="portlet-body">
+					<section class="content">
+						{{> tabular table=TabularTables.Drivers class="table table-striped table-bordered table-condensed"}}
+					</section>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
 
 <!-- <template name="driverTableRow">
     <tr class="{{active}}">

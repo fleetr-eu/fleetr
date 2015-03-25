@@ -15,8 +15,60 @@
     "add": "Добавяне",
     "drivers_vehicles": "Шофьори и автомобили"
   },
-  "vehicle": {
+
+  "fleetGroup": {
+    "title" : "Група автопаркове",
+    "listTitle" : "Групи автопаркове",
+    "name" : "Име",
+    "description" : "Описание"
+  },
+
+  "fleet": {
+    "title" : "Автопарк",
+    "listTitle" : "Автопаркове",
+    "name" : "Име",
+    "description" : "Описание",
+    "parent" : "Група"
+  },
+
+  "expenseGroups": {
+    "title" :"Група разходи",
+    "listTitle" : "Групи разходи",
+    "name" : "Име",
+    "description" : "Описание"
+  },
+
+  "expenseTypes": {
+    "title" : "Вид разход",
+    "listTitle" : "Видове разходи",
+    "name" : "Име",
+    "unitOfMeasure":"Мярка",
+    "description" : "Описание"
+  },
+
+  "expenses": {
+    "title" :"Разход",
+    "listTitle" : "Разоди",
+    "expenseType" : "Вид",
+    "expenseGroup" : "Група",
     "vehicle" : "Автомобил",
+    "location" : "Локация",
+    "odometer" : "Одометър",
+    "driver" : "Шофьор",
+    "invoiceNr" : "Фактура No",
+    "date" : "Дата",
+    "quantity" : "Количество",
+    "totalVATIncluded" : "Обща сума с ДДС",
+    "vat" : "Сума ДДС",
+    "VATIncluded" : "Сумата е с ДДС",
+    "discount" : "Сума отстъпка",
+    "total" : "Обща сума",
+    "description" : "Описание"
+  },
+
+  "vehicle": {
+    "title" : "Автомобил",
+    "listTitle" : "Автомобили",
     "active" : "Активен",
     "state" : "Състояние",
     "tags" : "Етикети",
@@ -52,7 +104,17 @@
     "maxAllowedSpeed":"Разрешена скорост (км/ч)",
     "mass" : "Маса (кг)"
   },
+
   "dropdown": {
     "select": "(Изберете)"
+  },
+
+  "button" : {
+    "save":"Запиши",
+    "reset": "Анулирай"
+  },
+
+  "general" : {
+    "search":"Търси ..."
   }
 }

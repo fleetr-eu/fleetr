@@ -2,44 +2,44 @@
   <div class="portlet box blue-hoki">
     <div class="portlet-title">
       <div class="caption">
-        <i class="fa da-dollar"></i>Expenses
+        <i class="fa da-dollar"></i>{{_ "expenses.title"}}
       </div>
       <div class="tools">
         <a href="" class="fullscreen"></a>
       </div>
       <div class="actions">
         <a href="#" class="btn btn-default btn-primary btn-sm">
-        <i class="fa fa-check"></i>Save</a>
-        <a href="#" class="btn btn-default btn-reset">
-        <i class="fa fa-close"></i>Cancel</a>
+          <i class="fa fa-check"></i> {{_ "button.save"}}</a>
+          <a href="#" class="btn btn-default btn-reset">
+          <i class="fa fa-close"></i> {{_ "button.reset"}}</a>
       </div>
     </div>
     <div class="portlet-body">
-      <div class="container">
         {{#autoForm doc=expense collection="Expenses" id="expensesForm" type="method" meteormethod="submitExpense"}}
-            <fieldset>
-              <div class="col-md-7">
+        <div class="row">
+          <fieldset>
+            <div class="col-md-6">
                 {{> afQuickField template="bootstrap3-horizontal" name="expenseType"}}
                 {{> afQuickField template="bootstrap3-horizontal" name="expenseGroup"}}
                 {{> afQuickField template="bootstrap3-horizontal" name="vehicle"}}
                 {{> afQuickField template="bootstrap3-horizontal" name="odometer"}}
                 {{> afQuickField template="bootstrap3-horizontal" name="driver"}}
-                {{> afQuickField template="bootstrap3-horizontal" name="date"}}
-                {{> afQuickField template="bootstrap3-horizontal" name="invoiceNr"}}
-                {{> afQuickField template="bootstrap3-horizontal" name="quantity"}}
-                {{> afQuickField template="bootstrap3-horizontal" name="totalVATIncluded"}}
-                {{> afQuickField template="bootstrap3-horizontal" name="vat"}}
-              </div>
-              <div class="col-md-7">
-                {{> afQuickField template="bootstrap3-horizontal" name="VATIncluded"}}
-              </div>
-              <div class="col-md-7">
-                {{> afQuickField template="bootstrap3-horizontal" name="discount"}}
-                {{> afQuickField template="bootstrap3-horizontal" name="totalNet"}}
-              </div>
+                {{> afQuickField template="bootstrap3-horizontal" name="location"}}
+                {{> afQuickField template="bootstrap3-horizontal" name="description"}}
+            </div>
+            <div class="col-md-6">
+              {{> afQuickField template="bootstrap3-horizontal" name="invoiceNr"}}
+              {{> afQuickField template="bootstrap3-horizontal" name="date"}}
+              {{> afQuickField template="bootstrap3-horizontal" name="quantity"}}
+              {{> afQuickField template="bootstrap3-horizontal" name="totalVATIncluded"}}
+              <!-- {{> afQuickField template="bootstrap3-horizontal" name="VATIncluded"}} -->
+              {{> afQuickField template="bootstrap3-horizontal" name="vat"}}
+              {{> afQuickField template="bootstrap3-horizontal" name="discount"}}
+              {{> afQuickField template="bootstrap3-horizontal" name="total"}}
+            </div>
           </fieldset>
+        </div>
         {{/autoForm}}
-      </div>
     </div>
   </div>
 </template>

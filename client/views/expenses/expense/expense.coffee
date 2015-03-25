@@ -1,3 +1,6 @@
+Template.expense.rendered = ->
+  AutoForm.resetForm("expensesForm")
+
 Template.expense.events
   "click .btn-sm" : (e) ->
     $("#expensesForm").submit()
