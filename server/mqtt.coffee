@@ -1,7 +1,7 @@
 Meteor.startup ->
-  client = mqtt.connect Meteor.settings.mqttUrl || 'mqtt://mqtt'
+  client = mqtt.connect Meteor.settings.mqttUrl || 'mqtt://mqtt:1883'
 
-  client.subscribe '/fleetr/records': 2, (err, granted) ->
+  client.subscribe '/fleetr/records': 2, (err, granted) -> #subscribe at QoS level 2
     console.log "MQTT Error: #{err}" if err
 
   client.on 'message', (topic, message) ->
