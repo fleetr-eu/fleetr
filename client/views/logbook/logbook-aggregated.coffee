@@ -109,7 +109,7 @@
 #
 #
 Template.logbook.helpers
-  selectedDate: ()-> '2015-03-18' #Session.get('logbook-selected-date')
+  selectedDate: ()-> Session.get('logbook-selected-date')
 
 #   selector: ()-> Session.get(LOGBOOK_FILTER_NAME)
 #   #filter: ()-> JSON.stringify(Session.get(LOGBOOK_FILTER_NAME))
@@ -132,8 +132,13 @@ Template.logbook.helpers
 #
 #
 Template.logbook.events
-  'click #aggregated-table-section tr': (event,p)->
-  # TODO: what to catch here?
+  'click .table tr': (event,p)->
+    td = $('td', event.currentTarget).eq(0).text()
+    # console.log 'Click: ' + td
+    value = td.split(' ')[0]
+    # console.log 'Value: ' + value
+    Session.set('logbook-selected-date', value)
+    Router.go("logbookStartStop", {selectedDate: Session.get('logbook-selected-date')})
 
 
 # Template.logbook.events
@@ -189,3 +194,5 @@ Template.logbook.events
 #     filter.hideIdle = event.target.checked
 #     Session.set STARTSTOP_FILTER_NAME, filter
 #     # console.log 'Filter: ' + JSON.stringify(args)
+
+# Router.route "my-route", {path:"/my-route/:selectedDate"}
