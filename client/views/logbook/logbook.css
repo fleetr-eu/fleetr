@@ -22,6 +22,10 @@
 	color: #ffffff;
 }
 
+.selected a {
+	background-color: #4b8df8;
+	color: #ffffff;
+}
 
 .distance {
 	text-align: right;

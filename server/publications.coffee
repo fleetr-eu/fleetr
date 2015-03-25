@@ -2,6 +2,7 @@ Meteor.startup ->
   Meteor.publish 'drivers', -> Drivers.find {}
   Meteor.publish 'countries', -> Countries.find {}
   Meteor.publish 'vehicles', -> Vehicles.find {}
+  Meteor.publish 'vehicle', (filter) -> if filter then Vehicles.find(filter) else []
   Meteor.publish 'vehiclesMakes', -> VehiclesMakes.find {}
   Meteor.publish 'vehiclesModels', -> VehiclesModels.find {}
   Meteor.publish 'fleetGroups', -> FleetGroups.find {}, {$sort: {name: 1}}
@@ -18,9 +19,9 @@ Meteor.startup ->
   Meteor.publish 'geofences', -> Geofences.find {}
   Meteor.publish 'driverVehicleAssignments', -> DriverVehicleAssignments.find {}
 
-  Meteor.publish 'startstop', (args) -> StartStop.find(args || {}) 
-  Meteor.publish 'aggbydate', (args) -> AggByDate.find(args || {}) 
-  Meteor.publish 'logbook'  , (args) -> Logbook.find(args || {}, {sort: {recordTime: -1}} ) 
+  Meteor.publish 'startstop', (args) -> StartStop.find(args || {})
+  Meteor.publish 'aggbydate', (args) -> AggByDate.find(args || {})
+  Meteor.publish 'logbook'  , (args) -> Logbook.find(args || {}, {sort: {recordTime: -1}} )
 
   Meteor.publish 'locations', (vehicleId, dtFrom, dtTo) ->
     Locations.find {vehicleId: vehicleId, timestamp: {$gte: dtFrom*1000, $lte: dtTo*1000}}, {sort: {timestamp: -1}}
@@ -40,11 +41,11 @@ Meteor.startup ->
           stopLat   : "$stop.lat"
           startLon  : "$start.lon"
           stopLon   : "$stop.lon"
-          
+
           startOdo  : "$start.tacho"
           stopOdo   : "$stop.tacho"
-          
-     
+
+
           date      : "$date"
           distance  : "$startStopDistance"
           speed     : "$startStopSpeed"

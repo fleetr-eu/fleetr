@@ -1,3 +1,20 @@
+
+Template.logbook.helpers
+  selectedDate: ()-> Session.get('logbook-selected-date')
+
+Template.detailsCellTemplate.helpers
+  rowDate: ()-> @date
+
+Template.logbook.events
+  'click .table tr': (event,p)->
+    td = $('td', event.currentTarget).eq(0).text()
+    console.log 'Click: ' + td
+    $(".table tr").removeClass('selected')
+    event.currentTarget.classList.add('selected')
+    # event.currentTarget.setAttribute('class', 'selected')
+
+
+
 # @DateRangeAggregation = new Mongo.Collection 'dateRangeAggregation'
 # # @StartStop = new Mongo.Collection 'startstop'
 #
@@ -108,8 +125,6 @@
 #
 #
 #
-Template.logbook.helpers
-  selectedDate: ()-> Session.get('logbook-selected-date')
 
 #   selector: ()-> Session.get(LOGBOOK_FILTER_NAME)
 #   #filter: ()-> JSON.stringify(Session.get(LOGBOOK_FILTER_NAME))
@@ -131,14 +146,14 @@ Template.logbook.helpers
 #   return str
 #
 #
-Template.logbook.events
-  'click .table tr': (event,p)->
-    td = $('td', event.currentTarget).eq(0).text()
-    # console.log 'Click: ' + td
-    value = td.split(' ')[0]
-    # console.log 'Value: ' + value
-    Session.set('logbook-selected-date', value)
-    Router.go("logbookStartStop", {selectedDate: value})
+# Template.logbook.events
+#   'click .table tr': (event,p)->
+#     td = $('td', event.currentTarget).eq(0).text()
+#     # console.log 'Click: ' + td
+#     value = td.split(' ')[0]
+#     # console.log 'Value: ' + value
+#     Session.set('logbook-selected-date', value)
+#     Router.go("logbookStartStop", {selectedDate: value})
 
 
 # Template.logbook.events

@@ -1,0 +1,30 @@
+<template name="vehicleInfo">
+  {{#with vehicle}}
+  <div class="portlet light bg-inverse">
+		<div class="portlet-title">
+			<div class="caption" style="width:100%;">
+				<span class="caption-subject bold uppercase">Vehicle Info</span>
+        <a href="#"><i class="glyphicon glyphicon-map-marker pull-right" title="Show current position"></i></a>
+			</div>
+		</div>
+		<div class="portlet-body form">
+			<form action="#" class="form-horizontal">
+				<div class="form-body">
+					<div class="form-group">
+						<label class="col-md-3">Name:</label>
+						<label class="col-md-3">{{name}}</label>
+						<label class="col-md-3">License plate:</label>
+						<label class="col-md-3">{{licensePlate}}</label>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3">Speed:</label>
+						<label class="col-md-3">{{speed}}</label>
+						<label class="col-md-3">Odometer:</label>
+						<label class="col-md-3">{{odometer}}</label>
+					</div>
+        </div>
+			</form>
+		  </div>
+    </div>
+  {{/with}}
+</template>
