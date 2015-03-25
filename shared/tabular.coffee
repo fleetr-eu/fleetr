@@ -14,6 +14,7 @@ TabularTables.LogbookAggByDate = new Tabular.Table
     { title: 'Fuel<br>Per 100', data:'fuel()', className: 'fuel-col' }
     { title: 'Speed<br>Max Speed', data:'speed()', className: 'speed-col' }
     { title: 'Travel Time', data: 'interval()', className: 'time-col' }
+    { title: 'Details', tmpl: Meteor.isClient && Template.detailsCellTemplate }
     # { width: '10%', title: 'Distance<br>Odometer', data:'distanceOdometer()', className: 'distance-col'}
     # { width: '10%', title: 'Speed<br>Max', data: 'speedMaxSpeed()', className: 'speed-col'}
     # { width: '10%', title: 'Duration', data:'duration()', className: 'time-col'}
