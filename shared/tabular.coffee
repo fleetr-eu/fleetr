@@ -7,7 +7,7 @@ TabularTables.LogbookAggByDate = new Tabular.Table
   collection: AggByDate
   responsive:true
   columns: [
-    { title: 'Date', data:'general()' }
+    { width: '10%', title: 'Date', data:'general()' }
     { title: 'From<br>To', data: 'fromTo()', className: 'time-col' }
     { width: '35%', title: 'Begin<br>End', data: 'beginEnd()'}
     { title: 'Distance', data:'distance()', className: 'distance-col' }
