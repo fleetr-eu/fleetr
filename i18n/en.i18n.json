@@ -14,5 +14,44 @@
     "list": "List",
     "add": "Add new",
     "drivers_vehicles": "Drivers and vehicles"
+  },
+  "vehicle": {
+    "tab" : {
+      "basicData" :"Basic data",
+      "vinData" :"VIN data",
+      "workSchedule" : "Work Schedule",
+      "alarmsConfiguration" : "Alarms configuration"
+    },
+    "vehicle" : "Vehicle",
+    "active" : "Active",
+    "state" : "State",
+    "tags" : "Tags",
+    "name": "Name",
+    "licensePlate" :"License plate",
+    "identificationNumber":"Identification No (VIN)",
+    "engineNumber":"Engine No",
+    "allocatedToFleet":"Fleet",
+    "allocatedToFleetFromDate":"In the fleet since",
+    "color":"Color",
+    "odometer":"Odometer (km)",
+    "unitId":"Unit Id",
+    "nextTechnicalCheck":"Next tech. check",
+
+    "category":"Category",
+    "make":"Make",
+    "model":"Model",
+    "kind":"Kind",
+    "maxPower":"Max power (kW)",
+    "fuelType":"Fuel type",
+    "productionYear" : "Production year",
+    "body":"Body",
+    "engineDisplacement":"Engine displacement (cc)",
+    "maxFuelCapacity":"Max fuel capacity (l)",
+    "maxSpeed":"Max speed (km/h)",
+    "maxAllowedSpeed":"Max allowed speed (km/h)",
+    "mass" : "Mass (kg)"
+  },
+  "dropdown": {
+    "select": "(Select)"
   }
 }

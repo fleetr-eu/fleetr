@@ -14,5 +14,45 @@
     "list": "Списък",
     "add": "Добавяне",
     "drivers_vehicles": "Шофьори и автомобили"
+  },
+  "vehicle": {
+    "vehicle" : "Автомобил",
+    "active" : "Активен",
+    "state" : "Състояние",
+    "tags" : "Етикети",
+    "tab" : {
+      "basicData" :"Основни данни",
+      "vinData" :"VIN данни",
+      "workSchedule" : "Работни часове",
+      "alarmsConfiguration" : "Настройка на аларми"
+    },
+    "name": "Наименование",
+    "licensePlate" :"Регистрацинен No",
+    "identificationNumber":"Идентификационен No (VIN)",
+    "engineNumber":"Двигател No",
+    "allocatedToFleet":"Автопарк",
+    "allocatedToFleetFromDate":"В автопарка от",
+    "allocatedToFleet":"Автопарк",
+    "color":"Цвят",
+    "odometer":"Одометър (км)",
+    "unitId":"Устройство No",
+    "nextTechnicalCheck":"Следващ тех. преглед",
+
+    "category":"Категория",
+    "make":"Марка",
+    "model":"Модел",
+    "kind":"Вид",
+    "maxPower":"Макс мощност (kW)",
+    "fuelType":"Вид гориво",
+    "productionYear" : "Година на производство",
+    "body":"Тяло",
+    "engineDisplacement":"Обем на двигателя (куб.см)",
+    "maxFuelCapacity":"Макс обем на резервоара (л)",
+    "maxSpeed":"Макс скорост (км/ч)",
+    "maxAllowedSpeed":"Разрешена скорост (км/ч)",
+    "mass" : "Маса (кг)"
+  },
+  "dropdown": {
+    "select": "(Изберете)"
   }
 }

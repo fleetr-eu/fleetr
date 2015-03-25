@@ -8,7 +8,7 @@
 				-->
 				</a>
 				<div class="page-title"> fleetr </div>
-				{{> i18n_dropdown}}
+
 				<div class="menu-toggler sidebar-toggler hide">
 					<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
 				</div>
@@ -17,6 +17,9 @@
 			</a>
 			<div class="top-menu">
 				<ul class="nav navbar-nav pull-right">
+					<li class="input-sm">
+						{{> i18n_dropdown}}
+					</li>
 					{{> alarms}}
 					{{> messages}}
 					{{> notifications}}

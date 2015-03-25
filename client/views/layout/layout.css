@@ -1,3 +1,17 @@
 input[type='checkbox'] {
   margin-top: -5px;
 }
+
+.tap-i18n-dropdown select {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  font-color: white;
+  height: 29px;
+  padding: 5px;
+  width: 110px;
+}
+
+.dropdown-user {
+  background: transparent;
+}

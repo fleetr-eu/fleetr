@@ -1,9 +1,7 @@
 <template name="vehicle">
 <div class="portlet box blue-hoki">
     <div class="portlet-title">
-      <div class="caption">
-        <i class="icon-car"></i>Vehicle
-      </div>
+      <div class="caption"><i class="icon-car"></i>{{_ "vehicle.vehicle"}}</div>
       <div class="tools">
         <a href="" class="fullscreen"></a>
       </div>
@@ -19,17 +17,17 @@
       <div class="tabbable-custom">
         <ul class="nav nav-tabs">
           <li class="active">
-            <a href="#tab_1" data-toggle="tab">
-            Basic data</a>
+            <a href="#tab_1" data-toggle="tab">{{_ "vehicle.tab.basicData"}}</a>
           </li>
           <li>
-            <a href="#tab_2" data-toggle="tab">
-            VIN info </a>
+            <a href="#tab_2" data-toggle="tab">{{_ "vehicle.tab.vinData"}}</a>
           </li>
           <li>
-            <a href="#tab_4" data-toggle="tab">
-            Working Schedule </a>
+            <a href="#tab_4" data-toggle="tab">{{_ "vehicle.tab.workSchedule"}}</a>
           </li>
+          <li>
+            <a href="#tab_5" data-toggle="tab">{{_ "vehicle.tab.alarmsConfiguration"}}</a>
+            </li>
         </ul>
 
         <div class="tab-content">
@@ -43,17 +41,17 @@
                       {{> afQuickField name="identificationNumber"}}
                       {{> afQuickField name="engineNumber"}}
                       {{> afQuickField name="color"}}
-                      {{> afQuickField name="allocatedToFleet"}}
-                      {{> afQuickField name="allocatedToFleetFromDate"}}
-                      {{> afQuickField name="odometer"}}
-                      {{> afQuickField name="unitId"}}
-                      {{> afQuickField name="nextTechnicalCheck"}}
-                      {{> afQuickField name="state"}}
+                      {{> afQuickField name="tags"}}
                       {{> afQuickField name="active"}}
                     </div>
-                  <div class="col-md-6">
-                    {{> afQuickField name="tags"}}
-                  </div>
+                    <div class="col-md-6">
+                      {{> afQuickField name="allocatedToFleet"}}
+                      {{> afQuickField name="allocatedToFleetFromDate"}}
+                      {{> afQuickField name="odometer" readonly=true}}
+                      {{> afQuickField name="unitId"}}
+                      {{> afQuickField name="nextTechnicalCheck"}}
+                      {{> afQuickField name="state" readonly=true}}
+                    </div>
               </fieldset>
             </div>
           </div>
@@ -81,7 +79,6 @@
               </fieldset>
             </div>
           </div>
-
           <div class="tab-pane" id="tab_4">
             <fieldset>
               <div class="table-responsive">
@@ -98,6 +95,20 @@
               </div>
             </fieldset>
           </div>
+          <div class="tab-pane" id="tab_5">
+            <fieldset>
+              <table class="table table-striped vehicle-alarms-table" cellpadding="20">
+                <tr>
+                  <td>{{> afQuickField name='alarms.speedingAlarmActive'}}</td>
+                  <td>{{> afQuickField name='alarms.speedingAlarmSpeed'}}</td>
+                </tr>
+                <tr>
+                  <td>{{> afQuickField name='alarms.idleAlarmActive'}}</td>
+                  <td>{{> afQuickField name='alarms.idleAlarmTime'}}</td>
+                </tr>
+              </table>
+            </fieldset>
+          </div>
         </div>
       </div>
       {{/autoForm}}
@@ -107,12 +118,11 @@
 
 <template name="timePickersForDay">
   <tr>
-    <td> {{day}} </td>
-
+    <td>{{day}}</td>
     <td>
       <div class="input-group date" id="timepicker{{seq}}From">
         <span class="input-group-addon datepickerbutton">
-            <span class="glyphicon glyphicon-time"></span>
+          <span class="glyphicon glyphicon-time"></span>
         </span>
         {{> afFieldInput name=fromField type="text"}}
         <span class="help-block"></span>
@@ -121,7 +131,7 @@
     <td>
       <div class="input-group date" id="timepicker{{seq}}To">
         <span class="input-group-addon datepickerbutton">
-            <span class="glyphicon glyphicon-time"></span>
+          <span class="glyphicon glyphicon-time"></span>
         </span>
         {{> afFieldInput name=toField type="text"}}
         <span class="help-block"></span>
