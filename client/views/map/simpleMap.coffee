@@ -1,3 +1,4 @@
+deviceId = null
 Template.simpleMap.rendered = ->
   {deviceId, start, stop} =  EJSON.parse decodeURIComponent @data
   start.time = moment(start.time).toDate()
@@ -33,3 +34,6 @@ Template.simpleMap.rendered = ->
       lat: point.lat, lng: point.lon, id: point._id
 
     new FleetrPolyline map, _.filter(path, (p) -> !(isNaN(p.lat) || isNaN(p.lng)))
+
+Template.simpleMap.helpers
+  unitId: -> deviceId
