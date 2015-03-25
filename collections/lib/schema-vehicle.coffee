@@ -77,6 +77,12 @@ Schema.vehicle = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
+  engineHours:
+    type: Number, optional: true, label:()->TAPi18n.__('vehicle.engineHours')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+
+
   unitId:
     type: String, optional: true, label:()->TAPi18n.__('vehicle.unitId')
     autoform:

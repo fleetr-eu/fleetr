@@ -5,6 +5,9 @@ Template.maintenance.helpers
   vehicleName: ->
     v = Vehicles.findOne _id: @vehicleId
     "#{v?.name} (#{v?.licensePlate})"
+  datePickerOptions :->
+    todayBtn: "linked"
+    language: "bg"
 
 Template.maintenance.events
   "click .btn-sm" : (e) ->
@@ -28,3 +31,11 @@ Template.maintenance.events
         if mt.nextMaintenanceEngineHours
           nmeo = parseInt($("input[name='engineHours']").val()) + mt.nextMaintenanceEngineHours
           $("input[name='nextMaintenanceEngineHours']").val(nmeo)
+
+  "click .btn-get-current" : (e) ->
+     $("input[name='maintenanceDate']").val(moment())
+     v = Vehicles.findOne(_id: @vehicleId)
+     if v
+       console.log v
+       $("input[name='odometer']").val(parseInt(v.odometer))
+       $("input[name='engineHours']").val(parseInt(v.engineHours))

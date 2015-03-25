@@ -66,6 +66,32 @@
     "description" : "Описание"
   },
 
+  "maintenanceTypes": {
+    "title" :"Вид поддръжка",
+    "listTitle" : "Видове поддръжки",
+    "nextMaintenanceAfter" : "Следваща поддръжка след",
+    "name" : "Вид",
+    "description" : "Описание",
+    "nextMaintenanceMonths" : "Месеци",
+    "nextMaintenanceKMs" : "Километри",
+    "nextMaintenanceEngineHours" : "Двигателни часове"
+  },
+
+  "maintenances": {
+    "title" :"Поддръжка",
+    "listTitle" : "Поддръжки",
+    "nextMaintenance" : "Следваща поддръжка",
+    "maintenanceType" : "Вид",
+    "description" : "Описание",
+    "vehicle" : "Автомобил",
+    "maintenanceDate" : "Дата",
+    "odometer" : "Километри",
+    "engineHours" : "Двигател часове",
+    "nextMaintenanceDate" : "Дата",
+    "nextMaintenanceOdometer" : "Одометър",
+    "nextMaintenanceEngineHours" : "Двигател часове"
+  },
+
   "vehicle": {
     "title" : "Автомобил",
     "listTitle" : "Автомобили",
@@ -87,6 +113,7 @@
     "allocatedToFleet":"Автопарк",
     "color":"Цвят",
     "odometer":"Одометър (км)",
+    "engineHours": "Двигател часове",
     "unitId":"Устройство No",
     "nextTechnicalCheck":"Следващ тех. преглед",
 
@@ -111,7 +138,9 @@
 
   "button" : {
     "save":"Запиши",
-    "reset": "Анулирай"
+    "reset": "Анулирай",
+    "calculate": "Изчисли",
+    "getCurrent": "Вземи текущи"
   },
 
   "general" : {

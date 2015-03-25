@@ -66,6 +66,32 @@
     "description" : "Description"
   },
 
+  "maintenanceTypes": {
+    "title" :"Мaintenance Type",
+    "listTitle" : "Мaintenance Types",
+    "nextMaintenanceAfter" : "Next Мaintenance After",
+    "name" : "Name",
+    "description" : "Description",
+    "nextMaintenanceMonths" : "Months",
+    "nextMaintenanceKMs" : "Kilometers",
+    "nextMaintenanceEngineHours" : "Engine hours"
+  },
+
+  "maintenances": {
+    "title" :"Мaintenance",
+    "listTitle" : "Мaintenances",
+    "nextMaintenance" : "Next Мaintenance",
+    "maintenanceType" : "Type",
+    "description" : "Description",
+    "vehicle" : "Vehicle",
+    "maintenanceDate" : "Date",
+    "odometer" : "Odometer",
+    "engineHours" : "Engine hours",
+    "nextMaintenanceDate" : "Date",
+    "nextMaintenanceOdometer" : "Odometer",
+    "nextMaintenanceEngineHours" : "Engine hours"
+  },
+
   "vehicle": {
     "tab" : {
       "basicData" :"Basic data",
@@ -86,6 +112,7 @@
     "allocatedToFleetFromDate":"In the fleet since",
     "color":"Color",
     "odometer":"Odometer (km)",
+    "engineHours": "Engine hours",
     "unitId":"Unit Id",
     "nextTechnicalCheck":"Next tech. check",
 
@@ -115,7 +142,9 @@
 
   "button" : {
     "save":"Save",
-    "reset": "Reset"
+    "reset": "Reset",
+    "calculate": "Calculate",
+    "getCurrent": "Get current"
   },
 
   "general" : {

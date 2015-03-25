@@ -8,7 +8,13 @@ Template.vehicle.rendered = ->
   Session.set "selectedMake", ""
 
 Template.vehicle.helpers
+  datePickerOptions :->
+    todayBtn: "linked"
+    language: "bg"
   vehicle: -> Vehicles.findOne _id: @vehicleId
+  readonly: ->
+    v = Vehicles.findOne _id: @vehicleId
+    if v then true else false
   days:-> [
       {day:'Понеделник', seq:0}
       {day:'Вторник', seq:1}

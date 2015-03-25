@@ -147,137 +147,75 @@ Schema.expenses = new SimpleSchema
 
 Schema.maintenanceTypes = new SimpleSchema
   _id:
-    type: String
-    optional: true
-
+    type: String, optional: true
   name:
-    type: String
-    label: 'Name'
+    type: String, label: ()-> TAPi18n.__('maintenanceTypes.name')
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
-
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   description:
-    type: String
-    label: 'Description'
-    optional: true
+    type: String, optional: true, label: ()-> TAPi18n.__('maintenanceTypes.description')
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
-
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+      rows:5
   nextMaintenanceMonths:
-    type: Number
-    label: "Months"
-    optional: true
+    type: Number, optional: true, label: ()-> TAPi18n.__('maintenanceTypes.nextMaintenanceMonths')
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
-
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   nextMaintenanceKMs:
-    type: Number
-    decimal:true
-    label: "Km"
-    optional: true
+    type: Number, decimal:true, optional: true, label: ()-> TAPi18n.__('maintenanceTypes.nextMaintenanceKMs')
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
-
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   nextMaintenanceEngineHours:
-    type: Number
-    decimal:true
-    label: "Engine hours"
-    optional: true
+    type: Number, optional: true, decimal:true, label: ()-> TAPi18n.__('maintenanceTypes.nextMaintenanceEngineHours')
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 
 Schema.maintenances = new SimpleSchema
 
   maintenanceType:
      type: String
-     label: 'Type'
+     label: ()-> TAPi18n.__('maintenances.maintenanceType')
      autoform:
        firstOption: "(Select)"
        options: -> MaintenanceTypes.find().map (maintenanceType) -> label: maintenanceType.name, value: maintenanceType._id
        allowOptions: "true"
-       template: "bootstrap3-horizontal"
-       "label-class": "col-sm-4"
-       "input-col-class": "col-sm-8"
-
-  note:
-    type: String
-    decimal:true
-    label: "Note"
-    optional: true
+       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  description:
+    type: String, decimal:true, optional: true, label: ()-> TAPi18n.__('maintenances.description')
     autoform:
       rows: 5
-
   vehicle:
-     type:String
-     label: "Vehicle"
-
+     type:String, label: ()-> TAPi18n.__('maintenances.vehicle')
   maintenanceDate:
-    type:Date
-    label: "Date"
+    type:Date, label: ()-> TAPi18n.__('maintenances.maintenanceDate')
     autoform:
       type: "bootstrap-datepicker"
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-4"
-      "input-col-class": "col-sm-8"
-
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   odometer:
-    type: Number
-    decimal:true
-    label: "Odometer"
+    type: Number, decimal:true, label: ()-> TAPi18n.__('maintenances.odometer')
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-4"
-      "input-col-class": "col-sm-8"
-
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   engineHours:
-    type: Number
-    decimal:true
-    label: "Engine hours"
-    optional: true
+    type: Number, decimal:true, optional: true
+    label: ()-> TAPi18n.__('maintenances.engineHours')
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-4"
-      "input-col-class": "col-sm-8"
-
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   nextMaintenanceDate:
-    type:Date
-    label: "Date"
-    optional: true
+    type:Date, optional: true, label: ()-> TAPi18n.__('maintenances.nextMaintenanceDate')
     autoform:
       type: "bootstrap-datepicker"
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-4"
-      "input-col-class": "col-sm-8"
-
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   nextMaintenanceOdometer:
     type: Number
-    label: "Odometer"
     optional: true
+    label: ()-> TAPi18n.__('maintenances.nextMaintenanceOdometer')
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-4"
-      "input-col-class": "col-sm-8"
-
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   nextMaintenanceEngineHours:
-    type: Number
-    decimal:true
-    label: "Engine hours"
-    optional: true
+    type: Number, decimal:true, optional: true
+    label: ()-> TAPi18n.__('maintenances.nextMaintenanceEngineHours')
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-4"
-      "input-col-class": "col-sm-8"
-
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 
 Schema.driverEvents = new SimpleSchema
   driver:

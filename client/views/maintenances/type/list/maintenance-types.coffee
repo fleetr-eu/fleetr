@@ -9,6 +9,7 @@ Template.maintenanceTypes.events
 Template.maintenanceTypes.helpers
   maintenanceTypes: -> MaintenanceTypes.findFiltered 'maintenanceTypeFilter', ['name', 'description']
   selectedMaintenanceTypeId: -> Session.get('selectedMaintenanceTypeId')
+  placeholderSearch :-> TAPi18n.__('general.search')
 
 Template.maintenanceTypeTableRow.helpers
   active: -> if @_id == Session.get('selectedMaintenanceTypeId') then 'active' else ''
