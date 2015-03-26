@@ -6,8 +6,9 @@ msg = ''
 
 Template.vehicleInfo.created = ->
   Meteor.subscribe 'vehicleInfo', @data?.unitId
-
   msg = @data.message
+
+Template.vehicleInfo.rendered = ->
   vehicle = Vehicles.findOne(unitId: @data?.unitId)
   fleet = Fleets.findOne(_id: vehicle?.allocatedToFleet)
   group = FleetGroups.findOne(_id: fleet?.parent)
@@ -21,13 +22,14 @@ Template.vehicleInfo.helpers
   driver: -> "#{driver.firstName} #{driver.name}"
   stateIcon: ->
     state = 'red'
-    if vehicle.state == 'stop'
+    if vehicle?.state == 'stop'
       state = 'blue'
-    if vehicle.state == 'start'
-      if vehicle.alarms.speedingAlarmActive &&
-        vehicle.speed > vehicle.alarms.maxAllowedSpeed
+    if vehicle?.state == 'start'
+      if vehicle.alarms?.speedingAlarmActive &&
+        vehicle.speed > vehicle.alarms?.maxAllowedSpeed
           state = 'red'
       else
-        state = green
+        state = 'green'
+    state
   toFixed: (field, precision) -> vehicle[field].toFixed(precision)
   message: -> msg
