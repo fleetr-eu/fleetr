@@ -14,10 +14,10 @@ Template.vehicleInfo.created = ->
     driver.set Drivers.findOne(_id: assignment?.driver)
 
 Template.vehicleInfo.helpers
-  vehicle: -> console.log 'vehicle', vehicle.get(); vehicle.get()
-  fleet: -> fleet.get().name
-  fleetGroup: -> group.get().name
-  driver: -> "#{driver.get().firstName} #{driver.get().name}"
+  vehicle: -> vehicle.get()
+  fleet: -> fleet.get()
+  fleetGroup: -> group.get()
+  driver: -> driver.get()
   stateIcon: ->
     if vehicle.get().state == 'stop'
       'blue'
@@ -30,5 +30,5 @@ Template.vehicleInfo.helpers
     else
       'red'
   odometer: -> (vehicle.get().odometer / 1000).toFixed(3)
-  toFixed: (field, precision) -> vehicle.get()[field].toFixed(precision)
+  toFixed: (field, precision) -> vehicle.get()[field]?.toFixed(precision)
   message: -> msg

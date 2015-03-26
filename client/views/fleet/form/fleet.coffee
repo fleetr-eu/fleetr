@@ -1,5 +1,5 @@
 Template.fleet.rendered = ->
-  AutoForm.resetForm("fleetForm")
+  AutoForm.getValidationContext("fleetForm").resetValidation()
 
 Template.fleet.helpers
   fleet: -> Fleets.findOne _id: @fleetId

@@ -54,8 +54,8 @@ geocodeAggDyDate = ->
       console.log 'Geocode agg record...'
       first = StartStop.findOne {_id: rec.startId}
       last  = StartStop.findOne {_id: rec.stopId}
-      console.log '  first: ' + rec.startId + ' ' + first
-      console.log '  last : ' + rec.stopId + ' ' + last
+      # console.log '  first: ' + rec.startId + ' ' + first
+      # console.log '  last : ' + rec.stopId + ' ' + last
       if first and last
         startLocation = first.start.location
         stopLocation = last.stop.location
@@ -65,13 +65,32 @@ geocodeAggDyDate = ->
         console.log '  agg: no startstop record found'
   console.log 'Geocoding aggbydate done'
 
+geocodeIdle = ->
+  console.log 'Geocoding idlebook...'
+  records = IdleBook.find({}).fetch()
+  console.log 'Records(idlebook): ' + records.length
+  for rec in records
+    if rec.location
+      # do nothins
+    else
+      geo = new GeoCoder
+        geocoderProvider: "openstreetmap"
+        httpAdapter: "http"
+      console.log 'Geocode idle record...'
+      location = geo.reverse(rec.lat, rec.lon)
+      if location
+        location = location[0]      
+        location.latitude  = rec.lat
+        location.longitude = rec.lon
+        IdleBook.update {_id: rec._id}, {$set: {"location": location}}       
+        console.log '  idlebook: location updated'
+  console.log 'Geocoding aggbydate done'
+
 
 upgradeDatabase = () ->
   geocodeStartStop()
-  
-  # fix stop values in aggregation...
   geocodeAggDyDate()
-
+  geocodeIdle()
   console.log 'DB UPGRADE DONE'
 
 

@@ -10,6 +10,7 @@ input[type='checkbox'] {
   height: 29px;
   padding: 5px;
   width: 110px;
+  color: lightgrey;
 }
 
 .dropdown-user {

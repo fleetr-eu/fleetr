@@ -4,15 +4,20 @@
 		<div class="portlet-title">
 			<div class="caption" style="width:100%;">
 				<span class="caption-subject bold uppercase">Vehicle Info</span>
-        <a href="#"><i class="glyphicon glyphicon-map-marker pull-right" title="Show current position"></i></a>
+        <a href="{{pathFor 'mapVehicles' vehicleId=_id}}"><i class="glyphicon glyphicon-map-marker pull-right" title="Show current position"></i></a>
 			</div>
 		</div>
 		<div class="portlet-body form">
       <p>
-        <span><i class="fa fa-sitemap"></i> {{fleetGroup}}, {{fleet}} |</span>
+        <span><i class="fa fa-sitemap"></i>
+          <a href="{{pathFor 'editFleetGroup' groupId=fleetGroup._id}}">{{fleetGroup.name}}</a>,
+          <a href="{{pathFor 'editFleet' fleetId=fleet._id}}">{{fleet.name}}</a> |
+        </span>
         <span>
           <i class="fa fa-car"></i>
-          {{name}} ({{licensePlate}}) |
+          <a href="{{pathFor 'editVehicle' vehicleId=_id}}" title="Edit this vehicle">
+            {{name}} ({{licensePlate}})
+          </a> |
           <img src="/images/truck-state-{{stateIcon}}.png"/> |
         </span>
         <span><i class="glyphicon glyphicon-dashboard"></i>
@@ -20,32 +25,19 @@
           Odometer: {{odometer}}km,
           Tank: {{toFixed 'fuel' 2}}l |
         </span>
-        <span><i class="glyphicon glyphicon-user"></i> {{driver}}</span>
+        <span>
+          <i class="glyphicon glyphicon-user"></i>
+          <a href="{{pathFor 'editDriver' driverId=driver._id}}">
+             {{driver.firstName}} {{driver.name}}
+          </a>
+        </span>
       </p>
+      {{#if message}}
       <p>
         {{message}}
       </p>
+      {{/if}}
 	  </div>
   </div>
   {{/with}}
-</template>
-
-<template name="backup">
-			<form action="#" class="form-horizontal">
-				<div class="form-body">
-					<div class="form-group">
-						<label class="col-md-3">Name:</label>
-						<label class="col-md-3">{{name}}</label>
-						<label class="col-md-3">License plate:</label>
-						<label class="col-md-3">{{licensePlate}}</label>
-					</div>
-					<div class="form-group">
-						<label class="col-md-3">Speed:</label>
-						<label class="col-md-3">{{speed}}</label>
-						<label class="col-md-3">Odometer:</label>
-						<label class="col-md-3">{{odometer}}</label>
-					</div>
-        </div>
-			</form>
-
 </template>

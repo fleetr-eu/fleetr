@@ -1,5 +1,5 @@
 Template.fleetGroup.rendered = ->
-  AutoForm.resetForm("fleetGroupForm")
+  AutoForm.getValidationContext("fleetGroupForm").resetValidation()
 
 Template.fleetGroup.helpers
   fleetGroup: ->

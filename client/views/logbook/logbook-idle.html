@@ -1,0 +1,27 @@
+<template name="logbookStartStopIdle">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="portlet box blue">
+        <div class="portlet-title">
+          <div class="caption" id="logbook">
+            Idle for {{selectedDate}}
+          </div>
+        </div>
+        <div class="portlet-body">
+          <section class="content" id="aggregated-table-section">
+            {{> tabular table=TabularTables.IdleBook selector=selector class="table table-striped table-bordered table-condensed"}}
+          </section>
+          <section class="content" id="totals-section">
+            Here come the totals
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="mapIdleCellTemplate">
+  <a href="{{pathFor 'simple-map' data=opts}}">
+    <img src="/images/Google-Maps-icon.png" title="Show on the map" />
+  </a>
+</template>

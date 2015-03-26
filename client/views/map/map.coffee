@@ -1,6 +1,7 @@
 Template.map.rendered = ->
   Session.set "mapDateRangeFrom", +moment().subtract(2, "hours").format("X")
   Session.set "mapDateRangeTo", +moment().add(1, "hours").format("X")
+  Session.set 'selectedVehicleId', @data.vehicleId
 
   Map.init =>
     @autorun ->

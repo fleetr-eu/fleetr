@@ -1,6 +1,7 @@
 @Logbook    = new Meteor.Collection "logbook"
 @StartStop  = new Meteor.Collection "startstop"
 @AggByDate  = new Meteor.Collection "aggbydate"
+@IdleBook   = new Meteor.Collection "idlebook"
 
 Logbook.after.insert (userId, e) ->
   # console.log 'HOOK!'
@@ -96,3 +97,11 @@ toAddress = (loc)->
      # console.log 'driver: ' + driver
      # console.log 'Driver: ' + JSON.stringify(driver) if driver
      twin('name','sirname')
+
+@IdleBook.helpers
+  idledate: -> moment(@startTime).zone(Settings.unitTimezone).format('DD-MM-YYYY')
+  from    : -> moment(@startTime).zone(Settings.unitTimezone).format('HH:mm:ss')
+  to      : -> moment(@stopTime).zone(Settings.unitTimezone).format('HH:mm:ss')
+  dur     : -> moment.duration(@duration, "seconds").format('HH:mm:ss', {trim: false})
+  address : -> toAddress(@location)
+  passedDistance: -> @distance #.toFixed(0)

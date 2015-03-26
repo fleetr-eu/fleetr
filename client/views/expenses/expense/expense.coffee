@@ -1,5 +1,5 @@
 Template.expense.rendered = ->
-  AutoForm.resetForm("expensesForm")
+  AutoForm.getValidationContext("expensesForm").resetValidation()
 
 Template.expense.events
   "click .btn-sm" : (e) ->

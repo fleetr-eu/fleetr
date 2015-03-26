@@ -48,6 +48,7 @@ Meteor.startup ->
     @route 'listDrivers',
       path: '/drivers/list'
       template: 'drivers'
+      waitOn: -> Meteor.subscribe('drivers')
     @route 'addDriver',
       path: '/drivers/add'
       template: 'driver'
@@ -111,8 +112,9 @@ Meteor.startup ->
       waitOn: -> [Meteor.subscribe('fleet', @params.fleetId), Meteor.subscribe('fleetGroups')]
 
     @route 'mapVehicles',
-      path: '/vehicles/map'
+      path: '/vehicles/map/:vehicleId?'
       template: 'map'
+      data: -> vehicleId: @params.vehicleId
     @route 'mapDrivers',
       path: '/drivers/map'
       template: 'map'
@@ -189,6 +191,12 @@ Meteor.startup ->
     @route 'logbookStartStop',
       path: '/logbook/detailed/:selectedDate'
       template: 'logbookStartStop'
+      # waitOn: -> Meteor.subscribe('mycodes')
+      data: -> {'selectedDate' : @params.selectedDate}
+
+    @route 'logbookStartStopIdle',
+      path: '/logbook/idle/:selectedDate'
+      template: 'logbookStartStopIdle'
       # waitOn: -> Meteor.subscribe('mycodes')
       data: -> {'selectedDate' : @params.selectedDate}
 

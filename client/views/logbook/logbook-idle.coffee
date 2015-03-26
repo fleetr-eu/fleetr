@@ -1,4 +1,7 @@
-Template.mapCellTemplate.helpers
+Template.logbookStartStopIdle.created = ->
+  Meteor.subscribe 'idlebook'
+
+Template.mapIdleCellTemplate.helpers
   opts: -> encodeURIComponent EJSON.stringify
     deviceId: @start.deviceId
     start:
@@ -12,10 +15,11 @@ Template.mapCellTemplate.helpers
         lat: @stop.lat
         lng: @stop.lon
 
-Template.logbookStartStop.helpers
+Template.logbookStartStopIdle.helpers
   selector: -> {date: @selectedDate}
 
-# Template.logbookStartStop.events
+
+# Template.logbookStartStopIdle.events
 
 #   'change #speed': (event,p) ->
 #     console.log 'Speed: ' + event.target.value

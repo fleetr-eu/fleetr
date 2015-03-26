@@ -1,7 +1,5 @@
 Template.drivers.created = ->
   Session.set 'driverFilter', ''
-  @autorun ->
-    Meteor.subscribe 'drivers'
 
 Template.drivers.events
   'click .deleteDriver': ->
