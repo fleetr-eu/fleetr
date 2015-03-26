@@ -8,6 +8,30 @@
 			</div>
 		</div>
 		<div class="portlet-body form">
+      <p>
+        <span><i class="fa fa-sitemap"></i>{{fleetGroup}} |</span>
+        <span><i class="fa fa-cubes"></i>{{fleet}} |</span>
+        <span>
+          <i class="fa fa-car"></i>
+          {{name}} ({{licensePlate}}) |
+          <img src="/images/truck-state-{{stateIcon}}.png"/>
+        </span>
+        <span><i class="glyphicon glyphicon-dashboard"></i> |
+          Speed: {{toFixed 'speed' 2}} |
+          Odometer: {{toFixed 'odometer' 3}} |
+          Tank: {{toFixed 'fuel' 2}} |
+        </span>
+        <span><i class="glyphicon glyphicon-user"></i>{{driver}}</span>
+      </p>
+      <p>
+        {{message}}
+      </p>
+	  </div>
+  </div>
+  {{/with}}
+</template>
+
+<template name="backup">
 			<form action="#" class="form-horizontal">
 				<div class="form-body">
 					<div class="form-group">
@@ -24,7 +48,5 @@
 					</div>
         </div>
 			</form>
-		  </div>
-    </div>
-  {{/with}}
+
 </template>

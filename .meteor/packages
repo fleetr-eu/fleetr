@@ -31,10 +31,10 @@ tap:i18n-ui
 alethes:pages
 msavin:mongol
 meteorhacks:fast-render
-reactive-var
 mkarliner:mqtt
 meteorhacks:aggregate
 loftsteinn:bootstrap3-daterangepicker
 wizonesolutions:moment-duration-format
 aldeed:tabular
 aldeed:geocoder
+reywood:publish-composite

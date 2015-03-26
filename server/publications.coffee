@@ -1,5 +1,6 @@
 Meteor.startup ->
   Meteor.publish 'drivers', -> Drivers.find {}
+  Meteor.publish 'driver', (filter) -> if filter then Drivers.find(filter) else []
   Meteor.publish 'countries', -> Countries.find {}
   Meteor.publish 'vehicles', -> Vehicles.find {}
   Meteor.publish 'vehicle', (filter) -> if filter then Vehicles.find(filter) else []
@@ -18,6 +19,8 @@ Meteor.startup ->
   Meteor.publish 'notifications', -> Notifications.find {}
   Meteor.publish 'geofences', -> Geofences.find {}
   Meteor.publish 'driverVehicleAssignments', -> DriverVehicleAssignments.find {}
+  Meteor.publish 'driverVehicleAssignment', (filter) ->
+    if filter then DriverVehicleAssignments.find filter else []
 
   Meteor.publish 'startstop', (args) -> StartStop.find(args || {})
   Meteor.publish 'aggbydate', (args) -> AggByDate.find(args || {})
@@ -93,3 +96,30 @@ Meteor.startup ->
     time = new Date().getTime() - time
     console.log 'Aggregated in: ' + time + 'ms'
     return res
+
+
+  Meteor.publishComposite 'vehicleInfo', (unitId) ->
+    find: ->
+      Vehicles.find unitId: unitId
+    children: [
+      {
+        find: (vehicle) ->
+          Fleets.find _id: vehicle.allocatedToFleet
+        children: [
+          {
+            find: (fleet) ->
+              FleetGroups.find _id: fleet.parent
+          }
+        ]
+      },
+      {
+        find: (vehicle) ->
+          DriverVehicleAssignments.find vehicle: vehicle._id
+        children: [
+          {
+            find: (assignment) ->
+              Drivers.find assignment.driver
+          }
+        ]
+      }
+    ]
