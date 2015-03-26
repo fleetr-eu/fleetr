@@ -63,13 +63,17 @@ Meteor.startup ->
       path: '/vehicles/add'
       template: 'vehicle'
       waitOn: ->
-        Meteor.subscribe ['vehiclesMakes', 'vehiclesModels']
+        [Meteor.subscribe('vehiclesMakes'), Meteor.subscribe('vehiclesModels')]
     @route 'editVehicle',
       path: '/vehicles/edit/:vehicleId'
       template: 'vehicle'
       data: -> {'vehicleId' : @params.vehicleId}
       waitOn: ->
-        Meteor.subscribe ['vehiclesMakes', 'vehiclesModels']
+        [
+          Meteor.subscribe('vehiclesMakes')
+          Meteor.subscribe('vehiclesModels')
+          Meteor.subscribe('vehicle', _id: @params.vehicleId)
+        ]
     @route 'removeVehicle',
       path: '/location/remove/:locationId'
       template: 'map'

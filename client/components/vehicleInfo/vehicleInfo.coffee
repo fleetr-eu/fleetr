@@ -1,35 +1,34 @@
-vehicle = null
-fleet = null
-group = null
-driver = null
+vehicle = new ReactiveVar {}
+fleet = new ReactiveVar {}
+group = new ReactiveVar {}
+driver = new ReactiveVar {}
 msg = ''
 
 Template.vehicleInfo.created = ->
-  Meteor.subscribe 'vehicleInfo', @data?.unitId
   msg = @data.message
-
-Template.vehicleInfo.rendered = ->
-  vehicle = Vehicles.findOne(unitId: @data?.unitId)
-  fleet = Fleets.findOne(_id: vehicle?.allocatedToFleet)
-  group = FleetGroups.findOne(_id: fleet?.parent)
-  assignment = DriverVehicleAssignments.findOne(vehicle: vehicle?._id)
-  driver = Drivers.findOne(_id: assignment?.driver)
+  Meteor.subscribe 'vehicleInfo', @data.unitId, =>
+    vehicle.set Vehicles.findOne(unitId: @data.unitId)
+    fleet.set Fleets.findOne(_id: vehicle.get().allocatedToFleet)
+    group.set FleetGroups.findOne(_id: fleet.get().parent)
+    assignment = DriverVehicleAssignments.findOne(vehicle: vehicle.get()._id)
+    driver.set Drivers.findOne(_id: assignment?.driver)
 
 Template.vehicleInfo.helpers
-  vehicle: -> vehicle
-  fleet: -> fleet.name
-  fleetGroup: -> group.name
-  driver: -> "#{driver.firstName} #{driver.name}"
+  vehicle: -> console.log 'vehicle', vehicle.get(); vehicle.get()
+  fleet: -> fleet.get().name
+  fleetGroup: -> group.get().name
+  driver: -> "#{driver.get().firstName} #{driver.get().name}"
   stateIcon: ->
-    state = 'red'
-    if vehicle?.state == 'stop'
-      state = 'blue'
-    if vehicle?.state == 'start'
-      if vehicle.alarms?.speedingAlarmActive &&
-        vehicle.speed > vehicle.alarms?.maxAllowedSpeed
-          state = 'red'
+    if vehicle.get().state == 'stop'
+      'blue'
+    else if vehicle.get().state == 'start'
+      if vehicle.get().alarms?.speedingAlarmActive &&
+        vehicle.get().speed > vehicle.get().alarms?.maxAllowedSpeed
+          'red'
       else
-        state = 'green'
-    state
-  toFixed: (field, precision) -> vehicle[field].toFixed(precision)
+        'green'
+    else
+      'red'
+  odometer: -> (vehicle.get().odometer / 1000).toFixed(3)
+  toFixed: (field, precision) -> vehicle.get()[field].toFixed(precision)
   message: -> msg
