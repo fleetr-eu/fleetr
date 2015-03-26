@@ -11,8 +11,8 @@ Meteor.subscribe 'maintenanceTypes'
 Meteor.subscribe 'notifications'
 Meteor.subscribe 'alarms'
 Meteor.subscribe 'driverVehicleAssignments'
-Meteor.subscribe 'vehiclesMakes'
-Meteor.subscribe 'vehiclesModels'
+# Meteor.subscribe 'vehiclesMakes'
+# Meteor.subscribe 'vehiclesModels'
 # Meteor.subscribe 'logbook', {}
 
 Session.setDefault 'filterAlarms', ''

@@ -62,10 +62,14 @@ Meteor.startup ->
     @route 'addVehicle',
       path: '/vehicles/add'
       template: 'vehicle'
+      waitOn: ->
+        Meteor.subscribe ['vehiclesMakes', 'vehiclesModels']
     @route 'editVehicle',
       path: '/vehicles/edit/:vehicleId'
       template: 'vehicle'
       data: -> {'vehicleId' : @params.vehicleId}
+      waitOn: ->
+        Meteor.subscribe ['vehiclesMakes', 'vehiclesModels']
     @route 'removeVehicle',
       path: '/location/remove/:locationId'
       template: 'map'
@@ -176,12 +180,12 @@ Meteor.startup ->
     @route 'logbook',
       path: '/logbook'
       template: 'logbook'
-      # subscriptions: -> Meteor.subscribe 'mycodes'
+      subscriptions: -> Meteor.subscribe 'mycodes'
 
     @route 'logbookStartStop',
       path: '/logbook/detailed/:selectedDate'
       template: 'logbookStartStop'
-      # waitOn: -> Meteor.subscribe('mycodes')
+      waitOn: -> Meteor.subscribe('mycodes')
       data: -> {'selectedDate' : @params.selectedDate}
 
     @route 'reclog',
