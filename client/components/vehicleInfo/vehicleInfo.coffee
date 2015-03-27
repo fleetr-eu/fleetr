@@ -14,7 +14,7 @@ Template.vehicleInfo.created = ->
     driver.set Drivers.findOne(_id: assignment?.driver)
 
 Template.vehicleInfo.helpers
-  vehicle: -> console.log 'vehicle', vehicle.get(); vehicle.get()
+  vehicle: -> vehicle.get()
   fleet: -> fleet.get().name
   fleetGroup: -> group.get().name
   driver: -> "#{driver.get().firstName} #{driver.get().name}"
