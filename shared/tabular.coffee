@@ -7,7 +7,7 @@ TabularTables.LogbookAggByDate = new Tabular.Table
   collection: AggByDate
   responsive:true
   columns: [
-    { title: 'Date', data:'general()' }
+    { width: '10%', title: 'Date', data:'general()' }
     { title: 'From<br>To', data: 'fromTo()', className: 'time-col' }
     { width: '35%', title: 'Begin<br>End', data: 'beginEnd()'}
     { title: 'Distance', data:'distance()', className: 'distance-col' }
@@ -15,6 +15,7 @@ TabularTables.LogbookAggByDate = new Tabular.Table
     { title: 'Speed<br>Max Speed', data:'speed()', className: 'speed-col' }
     { title: 'Travel Time', data: 'interval()', className: 'time-col' }
     { title: 'Details', tmpl: Meteor.isClient && Template.detailsCellTemplate }
+    { title: 'Idle', tmpl: Meteor.isClient && Template.idleCellTemplate }
     # { width: '10%', title: 'Distance<br>Odometer', data:'distanceOdometer()', className: 'distance-col'}
     # { width: '10%', title: 'Speed<br>Max', data: 'speedMaxSpeed()', className: 'speed-col'}
     # { width: '10%', title: 'Duration', data:'duration()', className: 'time-col'}
@@ -31,6 +32,21 @@ TabularTables.LogbookAggByDate = new Tabular.Table
   ]
 
 TabularTables.LogbookStartStop = new Tabular.Table
+  name: "LogbookStartStop"
+  collection: StartStop
+  responsive:true
+  columns: [
+    { width: '10%', title: 'Start<br>Finish', data:'startStop()' }
+    { width: '35%', title: 'From<br>To', data: 'fromTo()' }
+    { width: '10%', title: 'Distance<br>Odometer', data:'distanceOdometer()', className: 'distance-col'}
+    { width: '10%', title: 'Speed<br>Max', data: 'speedMaxSpeed()', className: 'speed-col'}
+    { width: '10%', title: 'Duration', data:'duration()', className: 'time-col'}
+    { width: '10%', title: 'Fuel<br>per 100', data: 'fuel()', className: 'fuel-col'}
+    { width: '10%', title: 'Driver', data: 'driverName()' }
+    { width: '10%', tmpl: Meteor.isClient && Template.mapCellTemplate }
+  ]
+
+TabularTables.LogbookStartStopIdle = new Tabular.Table
   name: "LogbookStartStop"
   collection: StartStop
   responsive:true
