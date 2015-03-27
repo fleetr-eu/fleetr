@@ -30,5 +30,5 @@ Template.vehicleInfo.helpers
     else
       'red'
   odometer: -> (vehicle.get().odometer / 1000).toFixed(3)
-  toFixed: (field, precision) -> vehicle.get()[field].toFixed(precision)
+  toFixed: (field, precision) -> vehicle.get()[field]?.toFixed(precision)
   message: -> msg
