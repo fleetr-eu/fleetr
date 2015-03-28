@@ -1,3 +1,3 @@
 #!/bin/sh
-docker rm $(docker stop $(docker ps -aq))
-docker-compose up
+/usr/bin/docker rm $(/usr/bin/docker stop $(/usr/bin/docker ps -aq))
+/usr/local/bin/docker-compose up &
