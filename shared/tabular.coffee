@@ -69,6 +69,7 @@ TabularTables.Drivers = new Tabular.Table
     {data: "name", title: "Sirname"}
   ]
 
+
 TabularTables.RecLog = new Tabular.Table
   name: "RecLog",
   collection: Logbook,
@@ -77,12 +78,15 @@ TabularTables.RecLog = new Tabular.Table
       moment(val).zone(Settings.unitTimezone).format('DD-MM HH:mm:ss')
     }
     {title: 'Type', data: 'type'}
+    {title: 'Event', data: 'event'}
+    {title: 'Tacho', data: 'tacho'}
     {title: 'Distance', data: 'distance', render: (val, type, doc) -> val?.toFixed(3)}
     {title: 'Speed', data: 'speed', render: (val, type, doc) -> val?.toFixed(2)}
+    {title: 'Calc Speed', data: 'speed', render: (val, type, doc) -> (doc.distance/1000/doc.interval*3600).toFixed(2)}
     {title: 'Interval', data: 'interval'}
   ]
   rowCallback: (row,data)->
-    console.log 'Row: ' + row + ' data: ' + data.type
+    # console.log 'Row: ' + row + ' data: ' + data.type
     rowClass = (item)->
       return 'regular-row' if item.type == 30
       return 'event-row' if item.type == 35
@@ -90,4 +94,18 @@ TabularTables.RecLog = new Tabular.Table
         return if item.io%2 == 0 then 'stop-row' else 'start-row'
       'unknown'
     row.setAttribute('class', rowClass(data))
+  # fnDrawCallback: gopage
+  # console.log 'draw callback: ' + 
 
+TabularTables.IdleBook = new Tabular.Table
+  name: "IdleBook"
+  collection: IdleBook
+  responsive:true
+  columns: [
+    { width: '10%', title: 'Date'     , data: 'idledate()' }
+    { width: '35%', title: 'From'     , data: 'from()' }
+    { width: '35%', title: 'To'       , data: 'to()' }
+    { width: '10%', title: 'Duration' , data: 'dur()' }
+    { width: '10%', title: 'Distance' , data: 'passedDistance()' }
+    # { width: '10%', tmpl: Meteor.isClient && Template.mapCellTemplate }
+  ]
