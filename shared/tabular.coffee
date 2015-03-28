@@ -103,9 +103,10 @@ TabularTables.IdleBook = new Tabular.Table
   responsive:true
   columns: [
     { width: '10%', title: 'Date'     , data: 'idledate()' }
-    { width: '35%', title: 'From'     , data: 'from()' }
-    { width: '35%', title: 'To'       , data: 'to()' }
-    { width: '10%', title: 'Duration' , data: 'dur()' }
-    { width: '10%', title: 'Distance' , data: 'passedDistance()' }
+    { width: '10%', title: 'From'     , data: 'from()', className: 'time-col' }
+    { width: '10%', title: 'To'       , data: 'to()', className: 'time-col' }
+    { width: '35%', title: 'Address'  , data: 'address()' }
+    { width: '10%', title: 'Duration' , data: 'dur()', className: 'time-col' }
+    { width: '10%', title: 'Distance' , data: 'passedDistance()', className: 'distance-col' }
     # { width: '10%', tmpl: Meteor.isClient && Template.mapCellTemplate }
   ]

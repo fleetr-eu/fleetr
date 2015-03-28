@@ -103,4 +103,5 @@ toAddress = (loc)->
   from    : -> moment(@startTime).zone(Settings.unitTimezone).format('HH:mm:ss')
   to      : -> moment(@stopTime).zone(Settings.unitTimezone).format('HH:mm:ss')
   dur     : -> moment.duration(@duration, "seconds").format('HH:mm:ss', {trim: false})
+  address : -> toAddress(@location)
   passedDistance: -> @distance #.toFixed(0)
