@@ -112,8 +112,9 @@ Meteor.startup ->
       waitOn: -> [Meteor.subscribe('fleet', @params.fleetId), Meteor.subscribe('fleetGroups')]
 
     @route 'mapVehicles',
-      path: '/vehicles/map'
+      path: '/vehicles/map/:vehicleId?'
       template: 'map'
+      data: -> vehicleId: @params.vehicleId
     @route 'mapDrivers',
       path: '/drivers/map'
       template: 'map'

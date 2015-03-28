@@ -15,9 +15,9 @@ Template.vehicleInfo.created = ->
 
 Template.vehicleInfo.helpers
   vehicle: -> vehicle.get()
-  fleet: -> fleet.get().name
-  fleetGroup: -> group.get().name
-  driver: -> "#{driver.get().firstName} #{driver.get().name}"
+  fleet: -> fleet.get()
+  fleetGroup: -> group.get()
+  driver: -> driver.get()
   stateIcon: ->
     if vehicle.get().state == 'stop'
       'blue'
