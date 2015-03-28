@@ -1,9 +1,9 @@
 web:
-  build: .
+  build: fleetr/web
   command: mongod --rest --httpinterface
   links:
-    - db
-    - mqtt
+   - db
+   - mqtt
   ports:
    - "10025:80"
   environment:
