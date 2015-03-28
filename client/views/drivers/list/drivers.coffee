@@ -16,7 +16,7 @@ Template.drivers.helpers
   selectedDriverId: -> Session.get('selectedDriverId')
 
 Template.drivers.events
-  'click tr': (event, tpl) ->
+  'click tbody tr': (event, tpl) ->
     dataTable = $(event.target).closest('table').DataTable()
     rowData = dataTable.row(event.currentTarget).data()
     Session.set 'selectedDriverId', rowData._id
