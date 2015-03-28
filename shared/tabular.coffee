@@ -24,9 +24,9 @@ TabularTables.LogbookAggByDate = new Tabular.Table
     # { width: '10%', tmpl: Meteor.isClient && Template.mapCellTemplate }
   ]
   extraFields: [
-    'date', 'sumInterval', 'sumDistance', 'sumFuel', 
+    'date', 'sumInterval', 'sumDistance', 'sumFuel',
     'startTime', 'stopTime',
-    'startLat', 'stopLat', 'startLon', 'stopLon', 
+    'startLat', 'stopLat', 'startLon', 'stopLon',
     'avgSpeed', 'maxSpeed', 'total',
     'startLocation', 'stopLocation'
   ]
@@ -68,7 +68,12 @@ TabularTables.Drivers = new Tabular.Table
     {data: "firstName", title: "Name"},
     {data: "name", title: "Sirname"}
   ]
-
+  createdRow: ( row, data, dataIndex ) ->
+    if Meteor.isClient
+      if Session.equals('selectedDriverId', data._id)
+        $(row).addClass 'selected'
+      else
+        $(row).removeClass 'selected'
 
 TabularTables.RecLog = new Tabular.Table
   name: "RecLog",
@@ -95,7 +100,7 @@ TabularTables.RecLog = new Tabular.Table
       'unknown'
     row.setAttribute('class', rowClass(data))
   # fnDrawCallback: gopage
-  # console.log 'draw callback: ' + 
+  # console.log 'draw callback: ' +
 
 TabularTables.IdleBook = new Tabular.Table
   name: "IdleBook"

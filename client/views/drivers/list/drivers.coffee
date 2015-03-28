@@ -6,7 +6,6 @@ Template.drivers.events
     Meteor.call 'removeDriver', Session.get('selectedDriverId')
     Session.set 'selectedDriverId', null
 
-
 gettags = (tags)->
   str = ''
   for tag in tags.split(',')
@@ -14,33 +13,10 @@ gettags = (tags)->
   new Spacebars.SafeString(str)
 
 Template.drivers.helpers
-  drivers: -> Drivers.findFiltered 'driverFilter', ['firstName', 'name', 'tags']
   selectedDriverId: -> Session.get('selectedDriverId')
-  # driversCollection: ()-> Drivers
-  # driversFields: ()-> [
-  #   {key: 'name', label: 'Name', fn: (val,obj)-> obj.firstName + ' ' + obj.name }
-  #   {key: 'tags', label: 'Tags', fn: (val,obj)-> gettags(obj.tags) }
-  # ]
-  datafunc: ()->
-    () -> Drivers.find().fetch()
-  options:
-    columns: [
-      {title: 'Name', data: (obj)-> obj.firstName + ' ' + obj.name }
-      {title: 'Tags', data: (obj)-> gettags(obj.tags) }
-    ]
 
 Template.drivers.events
-  'click .agg-table tr': ->
-      Session.set 'selectedDriverId', @_id
-
-# Template.driverTableRow.helpers
-#   fullName: -> "#{@firstName} #{@name}"
-#   active: -> if @_id == Session.get('selectedDriverId') then 'active' else ''
-#   tagsArray: -> tagsAsArray.call @
-
-# Template.driverTableRow.events
-#   'click tr': -> Session.set 'selectedDriverId', @_id
-#   'click .filter-tag': (e) ->
-#     tag = e.target.innerText
-#     $('#drivers #filter').val(tag)
-#     Session.set 'driverFilter', tag
+  'click tr': (event, tpl) ->
+    dataTable = $(event.target).closest('table').DataTable()
+    rowData = dataTable.row(event.currentTarget).data()
+    Session.set 'selectedDriverId', rowData._id

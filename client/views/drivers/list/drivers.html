@@ -4,9 +4,6 @@
 		<div class="col-md-12">
 			<div class="portlet box blue">
 				<div class="portlet-title">
-					<div class="caption">
-						{{> filter sessionVar='driverFilter' placeholder='Търсене...'}}
-					</div>
 					<div class="tools">
 						<a href="{{pathFor 'addDriver'}}"><span class="glyphicon glyphicon-plus"></span></a>
 						{{#if selectedDriverId}}
@@ -18,22 +15,10 @@
 				</div>
 				<div class="portlet-body">
 					<section class="content">
-						{{> tabular table=TabularTables.Drivers class="table table-striped table-bordered table-condensed"}}
+						{{> tabular table=TabularTables.Drivers class="table table-bordered table-condensed"}}
 					</section>
 				</div>
 			</div>
 		</div>
 	</div>
 </template>
-
-<!-- <template name="driverTableRow">
-    <tr class="{{active}}">
-        <td>{{fullName}}</td>
-				<td>
-					{{#each tagsArray}}
-					<span class="label label-danger filter-tag">{{this}}</span>
-					{{/each}}
-				</td>
-    </tr>
-</template>
- -->
