@@ -1,6 +1,6 @@
 Template.expenseGroup.rendered = ->
-  AutoForm.resetForm("expenseGroupForm")
-  
+  AutoForm.getValidationContext("expenseGroupForm").resetValidation()
+
 Template.expenseGroup.events
   "click .btn-sm" : (e) ->
     $("#expenseGroupForm").submit()

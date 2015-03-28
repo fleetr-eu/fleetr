@@ -1,5 +1,5 @@
 Template.maintenance.rendered = ->
-  AutoForm.resetForm("maintenancesForm")
+  AutoForm.getValidationContext("maintenancesForm").resetValidation()
 
 Template.maintenance.helpers
   vehicleName: ->
