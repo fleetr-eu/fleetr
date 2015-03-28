@@ -1,0 +1,25 @@
+web:
+  build: .
+  command: mongod --rest --httpinterface
+  links:
+    - db
+    - mqtt
+  ports:
+   - "10025:80"
+  environment:
+   - ROOT_URL=http://fleetr.eu
+   - MONGO_URL=mongodb://db:27017
+
+mqtt:
+  image: villlem/mqtt-server:latest
+  ports:
+   - "10013:1883"
+
+db:
+  image: dockerfile/mongodb
+  command: mongod --rest --httpinterface
+  ports:
+   - "27017:27017"
+   - "28017:28017"
+  volumes:
+   - /media/data/fleetr:/data/db
