@@ -48,6 +48,7 @@ Meteor.startup ->
     @route 'listDrivers',
       path: '/drivers/list'
       template: 'drivers'
+      waitOn: -> Meteor.subscribe('drivers')
     @route 'addDriver',
       path: '/drivers/add'
       template: 'driver'
