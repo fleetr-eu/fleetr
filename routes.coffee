@@ -38,6 +38,7 @@ Meteor.startup ->
 
   Router.configure
     layoutTemplate: 'layout'
+    loadingTemplate: 'loading'
 
   Router.map ->
     @route 'dashboard',
