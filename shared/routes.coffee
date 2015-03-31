@@ -61,6 +61,11 @@ Meteor.startup ->
     @route 'listVehicles',
       path: '/vehicles/list'
       template: 'vehicles'
+      waitOn: ->
+        [Meteor.subscribe('vehicles')
+        Meteor.subscribe('fleets')
+        Meteor.subscribe('drivers')
+        Meteor.subscribe('driverVehicleAssignments')]
     @route 'addVehicle',
       path: '/vehicles/add'
       template: 'vehicle'
@@ -71,11 +76,9 @@ Meteor.startup ->
       template: 'vehicle'
       data: -> {'vehicleId' : @params.vehicleId}
       waitOn: ->
-        [
-          Meteor.subscribe('vehiclesMakes')
+        [Meteor.subscribe('vehiclesMakes')
           Meteor.subscribe('vehiclesModels')
-          Meteor.subscribe('vehicle', _id: @params.vehicleId)
-        ]
+          Meteor.subscribe('vehicle', _id: @params.vehicleId)]
     @route 'removeVehicle',
       path: '/location/remove/:locationId'
       template: 'map'
@@ -116,9 +119,13 @@ Meteor.startup ->
       path: '/vehicles/map/:vehicleId?'
       template: 'map'
       data: -> vehicleId: @params.vehicleId
+      waitOn: ->
+        Meteor.subscribe('vehicles')
     @route 'mapDrivers',
       path: '/drivers/map'
       template: 'map'
+      waitOn: ->
+        Meteor.subscribe('drivers')
 
     @route 'drilldownReport',
       path: '/reports/drilldown'
@@ -134,6 +141,11 @@ Meteor.startup ->
     @route 'addExpense',
       path: '/expenses/add'
       template: 'expense'
+      waitOn: ->
+        [Meteor.subscribe('expenseTypes')
+          Meteor.subscribe('expenseGroups')
+          Meteor.subscribe('drivers')
+          Meteor.subscribe('vehicles')]
 
     @route 'addMaintenanceType',
       path: '/maintenance/types/add'
@@ -143,16 +155,22 @@ Meteor.startup ->
       path: '/maintenance/types/edit/:maintenanceTypeId'
       template: 'maintenanceType'
       data: -> {'maintenanceTypeId' : @params.maintenanceTypeId}
+      waitOn: ->
+        Meteor.subscribe('maintenanceType', @params.maintenanceTypeId)
 
     @route 'listMaintenanceType',
       path: '/maintenance/types/list'
       template: 'maintenanceTypes'
+      waitOn: ->
+        Meteor.subscribe('maintenanceTypes')
 
     @route 'addMaintenance',
       path: '/vehicle/:vehicleId/maintenances/add'
       template: 'maintenance'
       data: -> {'vehicleId' : @params.vehicleId}
-      waitOn: -> Meteor.subscribe 'vehicleMaintenances', @params.vehicleId
+      waitOn: ->
+        [Meteor.subscribe('vehicleMaintenances', @params.vehicleId)
+        Meteor.subscribe('maintenanceTypes')]
 
     @route 'listAlarms',
       path: '/alarms/list'
@@ -169,13 +187,24 @@ Meteor.startup ->
     @route 'listDriverVehicleAssignments',
       path: '/assignments/driver/vehicle/list'
       template: 'driverVehicleAssignments'
+      waitOn: ->
+        [Meteor.subscribe('vehicles')
+        Meteor.subscribe('drivers')
+        Meteor.subscribe('driverVehicleAssignments')]
     @route 'addDriverVehicleAssignment',
       path: '/assignments/driver/vehicle/add'
       template: 'driverVehicleAssignment'
+      waitOn: ->
+        [Meteor.subscribe('vehicles')
+        Meteor.subscribe('drivers')]
     @route 'editDriverVehicleAssignment',
       path: '/assignments/driver/vehicle/:driverVehicleAssignmentId'
       template: 'driverVehicleAssignment'
       data: -> {'driverVehicleAssignmentId' : @params.driverVehicleAssignmentId}
+      waitOn: ->
+        [Meteor.subscribe('vehicles')
+        Meteor.subscribe('drivers')
+        Meteor.subscribe('driverVehicleAssignment', _id: @params.driverVehicleAssignmentId)]
 
     @route 'resetAll',
       path: '/reset'
@@ -204,7 +233,7 @@ Meteor.startup ->
     @route 'reclog',
       path: '/reclog/:date?/:startTime?/:stopTime?'
       template: 'reclog'
-      data: -> 
+      data: ->
         'date': @params.date
         'startTime': @params.startTime
         'stopTime': @params.stopTime
