@@ -87,7 +87,10 @@ TabularTables.RecLog = new Tabular.Table
     {title: 'Tacho', data: 'tacho'}
     {title: 'Distance', data: 'distance', render: (val, type, doc) -> val?.toFixed(3)}
     {title: 'Speed', data: 'speed', render: (val, type, doc) -> val?.toFixed(2)}
-    {title: 'Calc Speed', data: 'speed', render: (val, type, doc) -> (doc.distance/1000/doc.interval*3600).toFixed(2)}
+    {title: 'Calc Speed', data: 'speed', render: (val, type, doc) -> 
+      return '' if not doc.interval
+      (doc?.distance/1000/doc?.interval*3600)?.toFixed(2)
+    }
     {title: 'Interval', data: 'interval'}
     # {title: 'IO', data: 'io'}
   ]
@@ -115,5 +118,7 @@ TabularTables.IdleBook = new Tabular.Table
     { width: '35%', title: 'Address'  , data: 'address()' }
     { width: '10%', title: 'Duration' , data: 'dur()', className: 'time-col' }
     { width: '10%', title: 'Distance' , data: 'passedDistance()', className: 'distance-col' }
+    {width: '10%', title: 'Details', tmpl: Meteor.isClient && Template.idleDetailsCellTemplate }
+  
     # { width: '10%', tmpl: Meteor.isClient && Template.mapCellTemplate }
   ]

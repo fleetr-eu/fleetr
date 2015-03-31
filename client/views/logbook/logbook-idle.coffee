@@ -15,10 +15,14 @@ Template.mapIdleCellTemplate.helpers
         lat: @stop.lat
         lng: @stop.lon
 
+Template.idleDetailsCellTemplate.helpers
+  datetime: ->
+    date     : @date 
+    startTime: @from()
+    stopTime : @to()
+
 Template.logbookIdle.helpers
   selector: -> 
-    console.log 'start: ' + @selectedDate
-    console.log 'xxx: ' + @xxx
     {date: @selectedDate}
 
 

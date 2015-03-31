@@ -20,6 +20,14 @@
   </div>
 </template>
 
+<template name="idleDetailsCellTemplate">
+  {{#with datetime}}
+    <a href="{{pathFor 'reclog' }}">
+      Details
+    </a>
+  {{/with}}
+</template>
+
 <template name="mapIdleCellTemplate">
   <a href="{{pathFor 'simple-map' data=opts}}">
     <img src="/images/Google-Maps-icon.png" title="Show on the map" />

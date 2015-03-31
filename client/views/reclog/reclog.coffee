@@ -31,5 +31,5 @@ Template.reclog.helpers
         if @startTime and @stopTime
           start = timeOfDay(@date, @startTime).toDate()
           stop = timeOfDay(@date, @stopTime).toDate()
-          search.recordTime = {$gte: start, $lt: stop}
+          search.recordTime = {$gte: start, $lte: stop}
       search
