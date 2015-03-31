@@ -89,7 +89,9 @@ TabularTables.RecLog = new Tabular.Table
     {title: 'Speed', data: 'speed', render: (val, type, doc) -> val?.toFixed(2)}
     {title: 'Calc Speed', data: 'speed', render: (val, type, doc) -> (doc.distance/1000/doc.interval*3600).toFixed(2)}
     {title: 'Interval', data: 'interval'}
+    # {title: 'IO', data: 'io'}
   ]
+  extraFields: ['io']
   rowCallback: (row,data)->
     # console.log 'Row: ' + row + ' data: ' + data.type
     rowClass = (item)->

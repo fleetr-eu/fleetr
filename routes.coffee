@@ -195,16 +195,19 @@ Meteor.startup ->
       # waitOn: -> Meteor.subscribe('mycodes')
       data: -> {'selectedDate' : @params.selectedDate}
 
-    @route 'logbookStartStopIdle',
-      path: '/logbook/idle/:selectedDate'
-      template: 'logbookStartStopIdle'
+    @route 'logbookIdle',
+      path: '/logbook/idle/:selectedDate/:xxx?'
+      template: 'logbookIdle'
       # waitOn: -> Meteor.subscribe('mycodes')
-      data: -> {'selectedDate' : @params.selectedDate}
+      data: -> {'selectedDate': @params.selectedDate, 'xxx': @params.xxx}
 
     @route 'reclog',
-      path: '/reclog'
+      path: '/reclog/:date?/:startTime?/:stopTime?'
       template: 'reclog'
-      # subscriptions: -> Meteor.subscribe 'logbook'
+      data: -> 
+        'date': @params.date
+        'startTime': @params.startTime
+        'stopTime': @params.stopTime
 
     @route 'alarm-definitions-add',
       path: '/alarm-definitions/add'

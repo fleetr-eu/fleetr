@@ -1,4 +1,4 @@
-Template.logbookStartStopIdle.created = ->
+Template.logbookIdle.created = ->
   Meteor.subscribe 'idlebook'
 
 Template.mapIdleCellTemplate.helpers
@@ -15,8 +15,11 @@ Template.mapIdleCellTemplate.helpers
         lat: @stop.lat
         lng: @stop.lon
 
-Template.logbookStartStopIdle.helpers
-  selector: -> {date: @selectedDate}
+Template.logbookIdle.helpers
+  selector: -> 
+    console.log 'start: ' + @selectedDate
+    console.log 'xxx: ' + @xxx
+    {date: @selectedDate}
 
 
 # Template.logbookStartStopIdle.events
