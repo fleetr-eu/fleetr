@@ -1,5 +1,5 @@
 timeOfDay = (day, time) ->
-  moment(day + ' ' + time + ' ' + Settings.unitTimezone)
+  moment(day + ' ' + time  + Settings.unitTimezone)
 
 Template.reclog.rendered = ->
   select = '<select id="selectEventType" aria-controls="DataTables_Table_0" class="form-control input-sm">
@@ -29,7 +29,10 @@ Template.reclog.helpers
         stop = moment(datezoned).add(1,'days').toDate()
         search.recordTime = {$gte: start, $lt: stop}
         if @startTime and @stopTime
+          # console.log 'Start: ' + @startTime
           start = timeOfDay(@date, @startTime).toDate()
-          stop = timeOfDay(@date, @stopTime).toDate()
+          # console.log 'Stop : ' + @stopTime
+          stop  = timeOfDay(@date, @stopTime).toDate()
           search.recordTime = {$gte: start, $lte: stop}
+      # console.log 'Search: ' + JSON.stringify(search)
       search
