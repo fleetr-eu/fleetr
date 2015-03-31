@@ -61,6 +61,7 @@ EVENT_ROW_TYPE    = 35
 LANGUAGE = 'bg'
 
 toAddress = (loc)->
+  return 'not geocoded yet...' if not loc
   addr = loc.country
   addr += ', ' + loc.city
   addr += ', ' + loc.zipcode if loc.zipcode
