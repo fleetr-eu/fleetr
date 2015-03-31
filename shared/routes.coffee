@@ -53,10 +53,15 @@ Meteor.startup ->
     @route 'addDriver',
       path: '/drivers/add'
       template: 'driver'
+      waitOn: ->
+        Meteor.subscribe('countries')
     @route 'editDriver',
       path: '/drivers/edit/:driverId'
       template: 'driver'
       data: -> {'driverId' : @params.driverId}
+      waitOn: ->
+        [Meteor.subscribe('driver', _id: @params.driverId)
+        Meteor.subscribe('countries')]
 
     @route 'listVehicles',
       path: '/vehicles/list'

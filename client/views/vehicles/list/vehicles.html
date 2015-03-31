@@ -60,7 +60,7 @@
         <td>{{name}}</td>
         <td>{{licensePlate}}</td>
         <td>{{fleetName}}</td>
-				<td>{{driver}}</td>
+				<td><a href="{{pathFor 'editDriver' driverId=driver._id}}">{{driver.firstName}} {{driver.name}}</a></td>
 				<td class="text-right">{{formatedSpeed}} km/h</td>
         <td class="text-right">{{formatedOdometer}} km</td>
 				<td class="text-right" >
