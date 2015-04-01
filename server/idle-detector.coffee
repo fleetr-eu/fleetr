@@ -49,6 +49,7 @@ class @IdleDetector
     if distance >= DistanceLimit
       if idleStartTime
         interval = moment.duration(seconds, "seconds").format('HH:mm:ss', {trim: false})
+        seconds = (record.recordTime.getTime() - idleStartTime.getTime())/1000
         idle = 
           date     : @isodate(idleStartTime)
           startTime: idleStartTime
