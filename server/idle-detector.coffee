@@ -36,8 +36,8 @@ class @IdleDetector
     idleStartTime = null
 
   process: (record)->
-    return if record.type isnt 30
     @reset(record) if record.type is 29
+    return if record.type isnt 30
     distance += record.distance
     seconds += record.interval
 
