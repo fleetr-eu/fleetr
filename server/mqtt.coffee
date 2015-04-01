@@ -98,6 +98,8 @@ Meteor.startup ->
   client.subscribe '/fleetr/records': 2, (err, granted) -> #subscribe at QoS level 2
     console.log "MQTT Error: #{err}" if err
 
+  idleDetector = new IdleDetector
+
   client.on 'message', (topic, message) ->
     Fiber = Npm.require('fibers')
     data = message.toString()
@@ -116,4 +118,10 @@ Meteor.startup ->
       if record.type == 29 and record.io == 254
         process(record)
       Logbook.insert record
+
+      idle = idleDetector.process(record)
+      if idle
+        IdleBook.insert idle if idle
+        console.log 'New idle interval inserted'
+
     ).run()
