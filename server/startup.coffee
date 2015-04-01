@@ -12,89 +12,64 @@ geocoder = new GeoCoder
     location.longitude = lon
   return location      
 
-geocodeStartStop = ->
-  console.log 'Geocoding start/stop...'
-  records = StartStop.find({}).fetch()
-  console.log 'Records(start/stop): ' + records.length
-  for rec in records
-    # if false and rec.start.location and rec.stop.location
-    if rec.start.location and rec.stop.location
-      # do nothins
-      # console.log 'start.location: ' + JSON.stringify(rec.start.location)
-      # console.log 'stop.location : ' + JSON.stringify(rec.stop.location)
+class Geocoder
+  constructor: (collection, name) ->
+    @collection = collection
+    @name = name
+  process: ()->
+    records = @collection.find({}).fetch()
+    console.log 'Geocoding ' + @name + '(' + records.length +  ')...'
+    for rec in records
+      @processRecord(rec)
+    console.log 'Geocoding ' + @name + ' done'
+
+class StartStopGeocoder extends Geocoder
+  constructor: () ->
+    super StartStop, 'start/stop'
+  processRecord: (rec)->
+    return if rec.start.location and rec.stop.location
+    startDate = moment(rec.start.recordTime).zone(UNIT_TIMEZONE).format("DD-MM HH:mm:ss") 
+    stopDate  = moment(rec.stop.recordTime).zone(UNIT_TIMEZONE).format("DD-MM HH:mm:ss")
+    console.log 'Geocode ' + @name + ' record: [' + startDate + "] - [" + stopDate + ']'
+    startLocation = geocode(rec.start.lat, rec.start.lon)
+    stopLocation = geocode(rec.stop.lat, rec.stop.lon)
+    if startLocation and stopLocation
+      StartStop.update {_id: rec._id}, {$set: {"stop.location": stopLocation, "start.location": startLocation}}
     else
-      startDate = moment(rec.start.recordTime).zone(UNIT_TIMEZONE).format("DD-MM HH:mm:ss") 
-      stopDate  = moment(rec.stop.recordTime).zone(UNIT_TIMEZONE).format("DD-MM HH:mm:ss")
-      console.log 'Geocode start/stop record: [' + startDate + "] - [" + stopDate + ']'
-      # console.log 'Processing start/stop record...'
+      console.log @name + ' geocoding error'
 
-      # console.log 'start.loc: ' + rec.start.location
-      # console.log 'stop.loc : ' + rec.stop.location
-      startLocation = geocode(rec.start.lat, rec.start.lon)
-      stopLocation = geocode(rec.stop.lat, rec.stop.lon)
-      if startLocation and stopLocation
-        StartStop.update {_id: rec._id}, {$set: {"stop.location": stopLocation, "start.location": startLocation}}
-      else
-        console.log 'geocoding error'
-  console.log 'Geocoding start/stop done'
-
-
-geocodeAggDyDate = ->
-  console.log 'Geocoding aggbydate...'
-  records = AggByDate.find({}).fetch()
-  console.log 'Records(aggbydate): ' + records.length
-  for rec in records
-    # if false and rec.start.location and rec.stop.location
-    if rec.startLocation and rec.stopLocation
-      # do nothins
-      # console.log 'start.location: ' + JSON.stringify(rec.start.location)
-      # console.log 'stop.location : ' + JSON.stringify(rec.stop.location)
+class AggByDateGeocoder extends Geocoder
+  constructor: () ->
+    super AggByDate, 'aggbydate'
+  processRecord: (rec)->
+    return if rec.startLocation and rec.stopLocation
+    first = StartStop.findOne {_id: rec.startId}
+    last  = StartStop.findOne {_id: rec.stopId}
+    if first and last
+      startLocation = first.start.location
+      stopLocation = last.stop.location
+      AggByDate.update {_id: rec._id}, {$set: {"startLocation": startLocation, "stopLocation": stopLocation}}       
+      console.log 'Geocode agg record: location updated'
     else
-      
-      console.log 'Geocode agg record...'
-      first = StartStop.findOne {_id: rec.startId}
-      last  = StartStop.findOne {_id: rec.stopId}
-      # console.log '  first: ' + rec.startId + ' ' + first
-      # console.log '  last : ' + rec.stopId + ' ' + last
-      if first and last
-        startLocation = first.start.location
-        stopLocation = last.stop.location
-        AggByDate.update {_id: rec._id}, {$set: {"startLocation": startLocation, "stopLocation": stopLocation}}       
-        console.log '  agg: location updated'
-      else
-        console.log '  agg: no startstop record found'
-  console.log 'Geocoding aggbydate done'
+      console.log 'Geocode agg record: no startstop record found'
 
-geocodeIdle = ->
-  console.log 'Geocoding idlebook...'
-  records = IdleBook.find({}).fetch()
-  console.log 'Records(idlebook): ' + records.length
-  for rec in records
-    if rec.location
-      # do nothins
-    else
-      geo = new GeoCoder
-        geocoderProvider: "openstreetmap"
-        httpAdapter: "http"
-      console.log 'Geocode idle record...'
-      location = geo.reverse(rec.lat, rec.lon)
-      if location
-        location = location[0]      
-        location.latitude  = rec.lat
-        location.longitude = rec.lon
-        IdleBook.update {_id: rec._id}, {$set: {"location": location}}       
-        console.log '  idlebook: location updated'
-  console.log 'Geocoding aggbydate done'
-
+class IdleGeocoder extends Geocoder
+  constructor: () ->
+    super IdleBook, 'idlebook'
+  processRecord: (rec)->
+    return if rec.location
+    console.log 'Geocode idle record...'
+    location = geocode(rec.lat, rec.lon)
+    if location
+      IdleBook.update {_id: rec._id}, {$set: {"location": location}}       
+      console.log '  idlebook: location updated'
 
 upgradeDatabase = () ->
-  geocodeStartStop()
-  geocodeAggDyDate()
-  geocodeIdle()
+  new StartStopGeocoder().process()
+  new AggByDateGeocoder().process()
+  new IdleGeocoder().process()
   console.log 'DB UPGRADE DONE'
-
 
 Meteor.startup ->
   Fiber = Npm.require('fibers')
   Fiber(upgradeDatabase).run()
-
