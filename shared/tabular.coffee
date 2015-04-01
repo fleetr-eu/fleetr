@@ -92,6 +92,7 @@ TabularTables.RecLog = new Tabular.Table
       (doc?.distance/1000/doc?.interval*3600)?.toFixed(2)
     }
     {title: 'Interval', data: 'interval'}
+    {title: 'Offset', data: 'offset'}
     # {title: 'IO', data: 'io'}
   ]
   extraFields: ['io']
