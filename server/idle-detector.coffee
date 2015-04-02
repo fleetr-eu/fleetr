@@ -37,7 +37,23 @@ class @IdleDetector
 
   process: (record)->
     @reset(record) if record.type is 29
+    if record.type is 35 and record.event is 1 #idle
+      stopTime = moment(record.stime).toDate()
+      seconds = (record.recordTime.getTime() - stopTime.getTime())/1000
+      idle = 
+        date     : @isodate(record.stime)
+        startTime: record.stime
+        stopTime : record.recordTime
+        distance : undefined
+        duration : seconds
+        lat      : record.slat
+        lon      : record.slon
+      interval = moment.duration(seconds, "seconds").format('HH:mm:ss', {trim: false})
+      console.log 'IDLE DETECTED(EV35): ' + @date(record.stime) + ' [' + @time(record.stime) + ' - ' + @time(record.recordTime) + '] ' + interval + ' seconds: ' + seconds 
+      @reset(record)
+      return idle
     return if record.type isnt 30
+    
     distance += record.distance
     seconds += record.interval
 
