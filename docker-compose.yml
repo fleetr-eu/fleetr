@@ -1,6 +1,5 @@
 web:
-  build: fleetr/web
-  command: mongod --rest --httpinterface
+  image: fleetr/web
   links:
    - db
    - mqtt
