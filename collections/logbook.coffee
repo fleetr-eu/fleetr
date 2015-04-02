@@ -41,7 +41,9 @@ Logbook.after.insert (userId, e) ->
     # stopLocation = geocode2(29, @stopLat, @stopLon).split(',')[-3..]
     twin(startLocation, stopLocation)
   interval: ->
-    moment.duration(@sumInterval, "seconds").format('HH:mm:ss', {trim: false})
+    travel = moment.duration(@sumInterval, "seconds").format('HH:mm:ss', {trim: false})
+    idle = moment.duration(@idleTime, "seconds").format('HH:mm:ss', {trim: false})
+    twin(travel,idle)
   distance: ->
     @sumDistance?.toFixed(2)
   speed: ->

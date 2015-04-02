@@ -13,7 +13,7 @@ TabularTables.LogbookAggByDate = new Tabular.Table
     { title: 'Distance', data:'distance()', className: 'distance-col' }
     { title: 'Fuel<br>Per 100', data:'fuel()', className: 'fuel-col' }
     { title: 'Speed<br>Max Speed', data:'speed()', className: 'speed-col' }
-    { title: 'Travel Time', data: 'interval()', className: 'time-col' }
+    { title: 'Travel Time<br>Idle Time', data: 'interval()', className: 'time-col' }
     { title: 'Details', tmpl: Meteor.isClient && Template.detailsCellTemplate }
     { title: 'Idle', tmpl: Meteor.isClient && Template.idleCellTemplate }
     # { width: '10%', title: 'Distance<br>Odometer', data:'distanceOdometer()', className: 'distance-col'}
@@ -28,7 +28,8 @@ TabularTables.LogbookAggByDate = new Tabular.Table
     'startTime', 'stopTime',
     'startLat', 'stopLat', 'startLon', 'stopLon',
     'avgSpeed', 'maxSpeed', 'total',
-    'startLocation', 'stopLocation'
+    'startLocation', 'stopLocation',
+    'idleTime'
   ]
 
 TabularTables.LogbookStartStop = new Tabular.Table
