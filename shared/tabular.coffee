@@ -10,19 +10,14 @@ TabularTables.LogbookAggByDate = new Tabular.Table
     # { width: '10%', title: 'Date', data:'general()' }
     { width: '10%', title: 'Date', data:'date', render: (val, type, doc) -> doc.general() }
     { title: 'From<br>To', data: 'fromTo()', className: 'time-col' }
-    { width: '35%', title: 'Begin<br>End', data: 'beginEnd()'}
+    { width: '35%', title: 'Begin<br>End', data: 'startAddress', render: (val, type, doc) -> doc.beginEnd() }
     { title: 'Distance', data:'sumDistance', className: 'distance-col', render: (val, type, doc) -> doc.distance() }
     { title: 'Fuel<br>Per 100', data:'sumFuel', className: 'fuel-col', render: (val, type, doc) -> doc.fuel() }
     { title: 'Speed<br>Max Speed', data:'maxSpeed', className: 'speed-col', render: (val, type, doc) -> doc.speed() }
     { title: 'Travel Time', data: 'sumInterval', className: 'time-col', render: (val, type, doc) -> doc.interval() }
     { title: 'Details', tmpl: Meteor.isClient && Template.detailsCellTemplate }
     { title: 'Idle', tmpl: Meteor.isClient && Template.idleCellTemplate }
-    # { width: '10%', title: 'Distance<br>Odometer', data:'distanceOdometer()', className: 'distance-col'}
-    # { width: '10%', title: 'Speed<br>Max', data: 'speedMaxSpeed()', className: 'speed-col'}
-    # { width: '10%', title: 'Duration', data:'duration()', className: 'time-col'}
-    # { width: '10%', title: 'Fuel<br>per 100', data: 'fuel()', className: 'fuel-col'}
-    # { width: '10%', title: 'Driver', data: 'driverName()' }
-    # { width: '10%', tmpl: Meteor.isClient && Template.mapCellTemplate }
+    # { title: 'Start', data: 'startAddress' }
   ]
   # pub: "aggbydate-tabular"
   extraFields: [

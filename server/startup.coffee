@@ -22,6 +22,13 @@ class Geocoder
     for rec in records
       @processRecord(rec)
     console.log 'Geocoding ' + @name + ' done'
+  toAddress: (loc)->
+    return 'not geocoded yet...' if not loc
+    addr = loc.country
+    addr += ', ' + loc.city
+    addr += ', ' + loc.zipcode if loc.zipcode
+    addr += ', ' + loc.streetName
+
 
 class StartStopGeocoder extends Geocoder
   constructor: () ->
@@ -42,16 +49,22 @@ class AggByDateGeocoder extends Geocoder
   constructor: () ->
     super AggByDate, 'aggbydate'
   processRecord: (rec)->
-    return if rec.startLocation and rec.stopLocation
-    first = StartStop.findOne {_id: rec.startId}
-    last  = StartStop.findOne {_id: rec.stopId}
-    if first and last
-      startLocation = first.start.location
-      stopLocation = last.stop.location
-      AggByDate.update {_id: rec._id}, {$set: {"startLocation": startLocation, "stopLocation": stopLocation}}       
-      console.log 'Geocode agg record: location updated'
-    else
-      console.log 'Geocode agg record: no startstop record found'
+    # if not rec.startAddress or not rec.stopAddress
+    return if rec.startAddress and rec.stopAddress
+    if not rec.startLocation or not rec.stopLocation
+      first = StartStop.findOne {_id: rec.startId}
+      last  = StartStop.findOne {_id: rec.stopId}
+      if first and last
+        startLocation = first.start.location
+        stopLocation = last.stop.location
+        AggByDate.update {_id: rec._id}, {$set: {"startLocation": startLocation, "stopLocation": stopLocation}}       
+        console.log 'Geocode agg record: location updated'
+      else
+        console.log 'Geocode agg record: no startstop record found'
+    rec.startAddress = @toAddress(rec.startLocation)
+    rec.stopAddress  = @toAddress(rec.stopLocation)
+    AggByDate.update {_id: rec._id}, {$set: {"startAddress": rec.startAddress, "stopAddress": rec.stopAddress}}       
+    console.log 'agg record: start/stop address updated'
 
 class IdleGeocoder extends Geocoder
   constructor: () ->
