@@ -125,3 +125,8 @@ Meteor.startup ->
         ]
       }
     ]
+
+
+Meteor.publish "aggbydate-tabular", (tableName, ids, fields)->
+  return AggByDate.find {_id: {$in: ids}}, {fields: fields, sort: {date: 1}}
+

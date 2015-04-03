@@ -7,13 +7,14 @@ TabularTables.LogbookAggByDate = new Tabular.Table
   collection: AggByDate
   responsive:true
   columns: [
-    { width: '10%', title: 'Date', data:'general()' }
+    # { width: '10%', title: 'Date', data:'general()' }
+    { width: '10%', title: 'Date', data:'date', render: (val, type, doc) -> doc.general() }
     { title: 'From<br>To', data: 'fromTo()', className: 'time-col' }
     { width: '35%', title: 'Begin<br>End', data: 'beginEnd()'}
-    { title: 'Distance', data:'distance()', className: 'distance-col' }
-    { title: 'Fuel<br>Per 100', data:'fuel()', className: 'fuel-col' }
-    { title: 'Speed<br>Max Speed', data:'speed()', className: 'speed-col' }
-    { title: 'Travel Time<br>Idle Time', data: 'interval()', className: 'time-col' }
+    { title: 'Distance', data:'sumDistance', className: 'distance-col', render: (val, type, doc) -> doc.distance() }
+    { title: 'Fuel<br>Per 100', data:'sumFuel', className: 'fuel-col', render: (val, type, doc) -> doc.fuel() }
+    { title: 'Speed<br>Max Speed', data:'maxSpeed', className: 'speed-col', render: (val, type, doc) -> doc.speed() }
+    { title: 'Travel Time', data: 'sumInterval', className: 'time-col', render: (val, type, doc) -> doc.interval() }
     { title: 'Details', tmpl: Meteor.isClient && Template.detailsCellTemplate }
     { title: 'Idle', tmpl: Meteor.isClient && Template.idleCellTemplate }
     # { width: '10%', title: 'Distance<br>Odometer', data:'distanceOdometer()', className: 'distance-col'}
@@ -23,6 +24,7 @@ TabularTables.LogbookAggByDate = new Tabular.Table
     # { width: '10%', title: 'Driver', data: 'driverName()' }
     # { width: '10%', tmpl: Meteor.isClient && Template.mapCellTemplate }
   ]
+  # pub: "aggbydate-tabular"
   extraFields: [
     'date', 'sumInterval', 'sumDistance', 'sumFuel',
     'startTime', 'stopTime',
@@ -60,6 +62,7 @@ TabularTables.Drivers = new Tabular.Table
         $(row).addClass 'selected'
       else
         $(row).removeClass 'selected'
+
 
 TabularTables.RecLog = new Tabular.Table
   name: "RecLog",
