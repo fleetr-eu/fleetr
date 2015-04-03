@@ -58,19 +58,3 @@ Template.idleDetailsCellTemplate.helpers
 
 
 
-# Template.logbookStartStopIdle.events
-
-#   'change #speed': (event,p) ->
-#     console.log 'Speed: ' + event.target.value
-#     filter = Session.get(STARTSTOP_FILTER_NAME) || {}
-#     speed = Number(event.target.value)
-#     filter.speed = speed
-#     Session.set STARTSTOP_FILTER_NAME, filter
-#     # console.log 'Filter: ' + JSON.stringify(args)
-
-#   'click #hideIdleCheckbox': (event,p)->
-#     filter = Session.get(STARTSTOP_FILTER_NAME) || {}
-#     console.log 'Clicked: ' + event.target.checked
-#     filter.hideIdle = event.target.checked
-#     Session.set STARTSTOP_FILTER_NAME, filter
-#     # console.log 'Filter: ' + JSON.stringify(args)
