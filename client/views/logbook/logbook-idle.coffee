@@ -1,6 +1,4 @@
 Template.logbookIdle.created = ->
-  Meteor.subscribe 'idlebook'
-
 
 Template.logbookIdle.rendered = ->
   select = '<select id="selectDuration" aria-controls="DataTables_Table_0" class="form-control input-sm">
@@ -23,31 +21,33 @@ Template.logbookIdle.events
     console.log 'Selected: ' + val
     Session.set "selected-min-duration" , val
 
-
-
 Template.logbookIdle.helpers
-  selector: -> 
+  selector: ()-> 
     search = {date: @selectedDate}
     if Session.get("selected-min-duration")
       duration = parseInt(Session.get("selected-min-duration")) 
       search.duration = {$gte: duration}
     console.log 'Search: ' + JSON.stringify(search)
     search
-
+  totalIdleTime: () ->
+    total = 0
+    IdleBook.find().forEach (rec)-> 
+      total += rec.duration
+    moment.duration(total, "seconds").format('HH:mm:ss', {trim: false})
 
 Template.mapIdleCellTemplate.helpers
   opts: -> encodeURIComponent EJSON.stringify
-    deviceId: @start.deviceId
+    deviceId: @deviceId
     start:
-      time: moment(@start.recordTime).valueOf()
+      time: moment(@startTime).valueOf()
       position:
-        lat: @start.lat
-        lng: @start.lon
+        lat: @lat
+        lng: @lon
     stop:
-      time: moment(@stop.recordTime).valueOf()
+      time: moment(@stopTime).valueOf()
       position:
-        lat: @stop.lat
-        lng: @stop.lon
+        lat: @lat
+        lng: @lon
 
 Template.idleDetailsCellTemplate.helpers
   datetime: ->

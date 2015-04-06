@@ -48,6 +48,7 @@ class @IdleDetector
         duration : seconds
         lat      : record.slat
         lon      : record.slon
+        deviceId : record.deviceId
       interval = moment.duration(seconds, "seconds").format('HH:mm:ss', {trim: false})
       console.log 'IDLE DETECTED(EV35): ' + @date(record.stime) + ' [' + @time(record.stime) + ' - ' + @time(record.recordTime) + '] ' + interval + ' seconds: ' + seconds 
       @reset(record)
@@ -74,6 +75,7 @@ class @IdleDetector
           duration : seconds
           lat      : resetLat
           lon      : resetLon
+          deviceId : record.deviceId
         console.log 'IDLE DETECTED: ' + @date(idleStartTime) + ' [' + @time(idleStartTime) + ' - ' + @time(record.recordTime) + '] ' + interval + ' seconds: ' + seconds + ' distance: ' + distance
         idle.location = geocode(idle.lat, idle.lon)
       @reset(record)

@@ -1,3 +1,16 @@
+Template.logbookStartStop.helpers
+  selector: -> {date: @selectedDate}
+  totalDistance: () ->
+    total = 0
+    StartStop.find().forEach (rec)-> 
+      total += rec.startStopDistance
+    total.toFixed(0) 
+  totalTravelTime: () ->
+    total = 0
+    StartStop.find().forEach (rec)-> 
+      total += rec.interval
+    moment.duration(total, "seconds").format('HH:mm:ss', {trim: false})
+
 Template.mapCellTemplate.helpers
   opts: -> encodeURIComponent EJSON.stringify
     deviceId: @start.deviceId
@@ -12,22 +25,3 @@ Template.mapCellTemplate.helpers
         lat: @stop.lat
         lng: @stop.lon
 
-Template.logbookStartStop.helpers
-  selector: -> {date: @selectedDate}
-
-# Template.logbookStartStop.events
-
-#   'change #speed': (event,p) ->
-#     console.log 'Speed: ' + event.target.value
-#     filter = Session.get(STARTSTOP_FILTER_NAME) || {}
-#     speed = Number(event.target.value)
-#     filter.speed = speed
-#     Session.set STARTSTOP_FILTER_NAME, filter
-#     # console.log 'Filter: ' + JSON.stringify(args)
-
-#   'click #hideIdleCheckbox': (event,p)->
-#     filter = Session.get(STARTSTOP_FILTER_NAME) || {}
-#     console.log 'Clicked: ' + event.target.checked
-#     filter.hideIdle = event.target.checked
-#     Session.set STARTSTOP_FILTER_NAME, filter
-#     # console.log 'Filter: ' + JSON.stringify(args)

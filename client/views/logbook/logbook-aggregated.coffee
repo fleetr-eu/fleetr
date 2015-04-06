@@ -1,5 +1,23 @@
 Template.logbook.helpers
-  selectedDate: ()-> Session.get('logbook-selected-date')
+  selectedDateRange: ()-> Session.get('logbook-selected-date-range')
+  selector: ()->
+    # {date: '2015-03-18'}
+    {}
+  totalDistance: () ->
+    total = 0
+    AggByDate.find().forEach (rec)-> 
+      total += rec.sumDistance
+    total.toFixed(0) 
+  totalTravelTime: () ->
+    total = 0
+    AggByDate.find().forEach (rec)-> 
+      total += rec.sumInterval
+    moment.duration(total, "seconds").format('HH:mm:ss', {trim: false})
+  totalIdleTime: () ->
+    total = 0
+    AggByDate.find().forEach (rec)-> 
+      total += rec.idleTime if rec.idleTime
+    moment.duration(total, "seconds").format('HH:mm:ss', {trim: false})
 
 Template.logbook.events
   'click .table tr': (event,p)->
