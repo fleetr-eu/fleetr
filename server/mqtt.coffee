@@ -78,12 +78,15 @@ updateAggRecord = (record) ->
     return agg
 
 
-process = (r)->
+prepareLogbookRecord = (record)->
+  record.loc = [record.lon, record.lat]
+
+processStopRecord = (r)->
   # console.log 'Processing!'
   lastStart = Logbook.findOne {type:29,io:255}, {sort: {recordTime:-1}}
-  console.log 'LastStart: ' + JSON.stringify(lastStart)
-  console.log 'LastStart: ' + moment(lastStart.recordTime).zone(UNIT_TIMEZONE).format('YYYY-MM-DD HH:mm:ss') + ' io: ' + lastStart.io + ' tacho: ' + lastStart.tacho + ' fuel: ' + lastStart.fuelc
-  console.log 'ThisStop : ' + moment(r.recordTime).zone(UNIT_TIMEZONE).format('YYYY-MM-DD HH:mm:ss') + ' io: ' + r.io + ' tacho: ' + r.tacho + ' fuel: ' + r.fuelc
+  # console.log 'LastStart: ' + JSON.stringify(lastStart)
+  # console.log 'LastStart: ' + moment(lastStart.recordTime).zone(UNIT_TIMEZONE).format('YYYY-MM-DD HH:mm:ss') + ' io: ' + lastStart.io + ' tacho: ' + lastStart.tacho + ' fuel: ' + lastStart.fuelc
+  # console.log 'ThisStop : ' + moment(r.recordTime).zone(UNIT_TIMEZONE).format('YYYY-MM-DD HH:mm:ss') + ' io: ' + r.io + ' tacho: ' + r.tacho + ' fuel: ' + r.fuelc
 
   start = lastStart
   stop = r
@@ -114,9 +117,9 @@ Meteor.startup ->
         date = new Date(record.recordTime)
         # console.log '  convert date: ' + date
         record.recordTime = date
-      # console.log 'inserting record: ' + JSON.stringify(record)
+      prepareLogbookRecord(record)
       if record.type == 29 and record.io == 254
-        process(record)
+        processStopRecord(record)
       Logbook.insert record
 
       idle = idleDetector.process(record)

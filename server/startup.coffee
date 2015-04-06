@@ -12,16 +12,26 @@ geocoder = new GeoCoder
     location.longitude = lon
   return location      
 
-class Geocoder
+class RecordProcessor
   constructor: (collection, name) ->
     @collection = collection
     @name = name
   process: ()->
     records = @collection.find({}).fetch()
-    console.log 'Geocoding ' + @name + '(' + records.length +  ')...'
+    console.log 'Processing ' + @name + '(' + records.length +  ')...'
     for rec in records
       @processRecord(rec)
-    console.log 'Geocoding ' + @name + ' done'
+    console.log 'Processing ' + @name + ' done'
+
+class Geocoder extends RecordProcessor
+  constructor: (collection, name) ->
+    super collection, name
+  # process: ()->
+  #   records = @collection.find({}).fetch()
+  #   console.log 'Geocoding ' + @name + '(' + records.length +  ')...'
+  #   for rec in records
+  #     @processRecord(rec)
+  #   console.log 'Geocoding ' + @name + ' done'
   toAddress: (loc)->
     return 'not geocoded yet...' if not loc
     addr = loc.country
@@ -77,7 +87,17 @@ class IdleGeocoder extends Geocoder
       IdleBook.update {_id: rec._id}, {$set: {"location": location}}       
       console.log '  idlebook: location updated'
 
+class LogbookEnchancer extends RecordProcessor
+  constructor: () ->
+    super Logbook, 'logbook'
+  processRecord: (rec)->
+    if not rec.loc
+      loc = [rec.lon, rec.lat]
+      Logbook.update {_id: rec._id}, {$set: {loc: loc}}
+
 upgradeDatabase = () ->
+  console.log 'ENCHANCE DB'
+  new LogbookEnchancer().process()
   new StartStopGeocoder().process()
   new AggByDateGeocoder().process()
   new IdleGeocoder().process()
