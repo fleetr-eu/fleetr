@@ -11,6 +11,8 @@ class @IdleDetector
 
   idleStartTime = null
 
+  stopped = false
+
   time: (time)->
     moment(time).zone(Settings.unitTimezone).format("HH:mm:ss")
 
@@ -36,7 +38,9 @@ class @IdleDetector
     idleStartTime = null
 
   process: (record)->
-    @reset(record) if record.type is 29
+    if record.type is 29
+      stopped = record.io == 254
+      @reset(record) 
     if record.type is 35 and record.event is 1 #idle
       stopTime = moment(record.stime).toDate()
       seconds = (record.recordTime.getTime() - stopTime.getTime())/1000
@@ -80,7 +84,7 @@ class @IdleDetector
         idle.location = geocode(idle.lat, idle.lon)
       @reset(record)
       return idle
-    else if seconds > TimeLimit
+    else if seconds > TimeLimit and not stopped
       idleStartTime = resetTime
       console.log '  IDLE ' + @time(idleStartTime)
     else
