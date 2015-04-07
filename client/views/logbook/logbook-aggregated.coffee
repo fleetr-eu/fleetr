@@ -1,8 +1,7 @@
+daterange = new ReactiveVar({})
+
 Template.logbook.helpers
-  selectedDateRange: ()-> Session.get('logbook-selected-date-range')
-  selector: ()-> Session.get('logbook-date-range')
-    # {date: '2015-03-18'}
-    # {}
+  selector: ()-> daterange.get() 
   totalDistance: () ->
     total = 0
     AggByDate.find().forEach (rec)-> 
@@ -32,9 +31,9 @@ Template.logbook.events
     stop = endDate.format('YYYY-MM-DD')
     console.log start + ' - ' + stop
     range = {date: {$gte: start, $lte: stop}}
-    Session.set('logbook-date-range', range)
+    daterange.set(range)
   'cancel.daterangepicker #logbook-date-range': (event,p) ->
-    Session.set('logbook-date-range', {})
+    daterange.set({})
 
 
 Template.detailsCellTemplate.helpers
@@ -42,9 +41,6 @@ Template.detailsCellTemplate.helpers
 
 Template.idleCellTemplate.helpers
   rowDate: ()-> @date
-
-Template.logbook.rendered = ()->
-  Session.set('logbook-date-range', {})
 
 Template.logbook.rendered = ()->
   $('#logbook-date-range').daterangepicker
