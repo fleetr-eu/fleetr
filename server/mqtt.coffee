@@ -126,5 +126,16 @@ Meteor.startup ->
       if idle
         IdleBook.insert idle if idle
         console.log 'New idle interval inserted'
+                
+        agg = AggByDate.findOne {date: idle.date}
+        if agg
+          seconds = idle.duration
+          seconds += agg.idleTime if agg.idleTime
+          console.log 'Set agg idle interval to: ' + seconds
+          AggByDate.update {_id: agg._id}, {$set: {idleTime: seconds}}
+          console.log 'Agg idle interval updated: ' + seconds
+        else
+          console.log 'No add data for: ' + date
+
 
     ).run()

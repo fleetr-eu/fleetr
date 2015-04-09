@@ -46,15 +46,6 @@ Template.logbook.rendered = ()->
   $('#logbook-date-range').daterangepicker
     startDate: moment().subtract('days', 29)
     endDate: moment()
-    # minDate: '01/01/2012'
-    # maxDate: '12/31/2014'
-    # dateLimit: 
-    #   days: 60
-    # showDropdowns: false
-    # showWeekNumbers: true
-    # timePicker: false
-    # timePickerIncrement: 1
-    # timePicker12Hour: true
     ranges: 
       'Today': [moment(), moment()],
       'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
@@ -66,13 +57,8 @@ Template.logbook.rendered = ()->
     applyClass: ' blue'
     cancelClass: 'default'
     format: 'DD/DD/YYYY'
-    # separator: ' to '
     locale: 
       cancelLabel: 'Clear'
-      #applyLabel: 'Apply'
-      #fromLabel: 'From'
-      #toLabel: 'To'
-      #customRangeLabel: 'Custom Range'
       daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
       monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
       firstDay: 1
