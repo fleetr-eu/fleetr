@@ -124,6 +124,17 @@ Meteor.methods
         fuel      : {$sum: "$sumFuel"}
     ]
 
+  detailedTotals: (date)->
+    StartStop.aggregate [
+      {$match: {date: date}}
+      $group: 
+        _id: null
+        distance  : {$sum: "$startStopDistance"}
+        travelTime: {$sum: "$interval"}
+        fuel      : {$sum: "$fuelUsed"}
+    ]
+
+
 
   # totalDistance: () ->
   #   total = 0

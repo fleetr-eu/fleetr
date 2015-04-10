@@ -35,7 +35,7 @@ Template.idleCellTemplate.helpers
 Template.logbook.rendered = ()->
   Meteor.call 'aggByDateTotals', (err, res)-> 
     if not err
-      console.log 'Total: ' + JSON.stringify(res)
+      console.log 'Agg Total: ' + JSON.stringify(res)
       total.set(res[0])
   $('#logbook-date-range').daterangepicker
     startDate: moment().subtract('days', 29)

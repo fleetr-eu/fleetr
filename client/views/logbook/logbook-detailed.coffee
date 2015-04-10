@@ -1,15 +1,17 @@
+total = new ReactiveVar({})
+
 Template.logbookStartStop.helpers
   selector: -> {date: @selectedDate}
-  totalDistance: () ->
-    total = 0
-    StartStop.find().forEach (rec)-> 
-      total += rec.startStopDistance
-    total.toFixed(0) 
-  totalTravelTime: () ->
-    total = 0
-    StartStop.find().forEach (rec)-> 
-      total += rec.interval
-    moment.duration(total, "seconds").format('HH:mm:ss', {trim: false})
+  totalDistance: -> total.get().distance?.toFixed(0)
+  totalFuel: -> (total.get().fuel/1000)?.toFixed(0)
+  totalTravelTime: -> moment.duration(total.get().travelTime, "seconds").format('HH:mm:ss', {trim: false})
+
+Template.logbookStartStop.rendered = ()->
+  Meteor.call 'detailedTotals', Template.currentData().selectedDate, (err, res)-> 
+    if not err
+      console.log 'Detailed Total: ' + JSON.stringify(res)
+      total.set(res[0])
+
 
 Template.mapCellTemplate.helpers
   opts: -> encodeURIComponent EJSON.stringify
