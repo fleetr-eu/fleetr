@@ -134,20 +134,13 @@ Meteor.methods
         fuel      : {$sum: "$fuelUsed"}
     ]
 
+  idleTotals: (date)->
+    IdleBook.aggregate [
+      {$match: {date: date}}
+      $group: 
+        _id: null
+        idleTime: {$sum: "$duration"}
+    ]
 
 
-  # totalDistance: () ->
-  #   total = 0
-  #   AggByDate.find().forEach (rec)-> 
-  #     total += rec.sumDistance
-  #   total.toFixed(0) 
-  # totalTravelTime: () ->
-  #   total = 0
-  #   AggByDate.find().forEach (rec)-> 
-  #     total += rec.sumInterval
-  #   moment.duration(total, "seconds").format('HH:mm:ss', {trim: false})
-  # totalIdleTime: () ->
-  #   total = 0
-  #   AggByDate.find().forEach (rec)-> 
-  #     total += rec.idleTime if rec.idleTime
-  #   moment.duration(total, "seconds").format('HH:mm:ss', {trim: false})
+

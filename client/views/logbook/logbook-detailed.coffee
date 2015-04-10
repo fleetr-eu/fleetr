@@ -8,9 +8,7 @@ Template.logbookStartStop.helpers
 
 Template.logbookStartStop.rendered = ()->
   Meteor.call 'detailedTotals', Template.currentData().selectedDate, (err, res)-> 
-    if not err
-      console.log 'Detailed Total: ' + JSON.stringify(res)
-      total.set(res[0])
+    total.set(res[0]) if not err
 
 
 Template.mapCellTemplate.helpers

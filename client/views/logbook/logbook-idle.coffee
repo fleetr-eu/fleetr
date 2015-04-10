@@ -1,6 +1,12 @@
+total = new ReactiveVar({})
+
 Template.logbookIdle.created = ->
 
 Template.logbookIdle.rendered = ->
+  Meteor.call 'idleTotals', Template.currentData().selectedDate, (err, res)-> 
+    if not err 
+      console.log 'Idle: ' + JSON.stringify(res)
+      if res[0] then total.set(res[0]) else total.set({idleTime:0})
   select = '<select id="selectDuration" aria-controls="DataTables_Table_0" class="form-control input-sm">
                   <option value="">all</option>
                   <option value="60">1 min</option>
@@ -29,11 +35,7 @@ Template.logbookIdle.helpers
       search.duration = {$gte: duration}
     console.log 'Search: ' + JSON.stringify(search)
     search
-  totalIdleTime: () ->
-    total = 0
-    IdleBook.find().forEach (rec)-> 
-      total += rec.duration
-    moment.duration(total, "seconds").format('HH:mm:ss', {trim: false})
+  totalIdleTime: -> moment.duration(total.get().idleTime, "seconds").format('HH:mm:ss', {trim: false})
 
 Template.mapIdleCellTemplate.helpers
   opts: -> encodeURIComponent EJSON.stringify

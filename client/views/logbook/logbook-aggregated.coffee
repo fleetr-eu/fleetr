@@ -11,7 +11,7 @@ Template.logbook.helpers
 Template.logbook.events
   'click .table tr': (event,p)->
     td = $('td', event.currentTarget).eq(0).text()
-    console.log 'Click: ' + td
+    # console.log 'Click: ' + td
     $(".table tr").removeClass('selected')
     event.currentTarget.classList.add('selected')
   'apply.daterangepicker #logbook-date-range': (event,p) ->
@@ -34,9 +34,7 @@ Template.idleCellTemplate.helpers
 
 Template.logbook.rendered = ()->
   Meteor.call 'aggByDateTotals', (err, res)-> 
-    if not err
-      console.log 'Agg Total: ' + JSON.stringify(res)
-      total.set(res[0])
+    total.set(res[0]) if not err
   $('#logbook-date-range').daterangepicker
     startDate: moment().subtract('days', 29)
     endDate: moment()
