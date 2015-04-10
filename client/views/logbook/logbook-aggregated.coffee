@@ -1,22 +1,12 @@
 daterange = new ReactiveVar({})
+total = new ReactiveVar({})
 
 Template.logbook.helpers
   selector: ()-> daterange.get() 
-  totalDistance: () ->
-    total = 0
-    AggByDate.find().forEach (rec)-> 
-      total += rec.sumDistance
-    total.toFixed(0) 
-  totalTravelTime: () ->
-    total = 0
-    AggByDate.find().forEach (rec)-> 
-      total += rec.sumInterval
-    moment.duration(total, "seconds").format('HH:mm:ss', {trim: false})
-  totalIdleTime: () ->
-    total = 0
-    AggByDate.find().forEach (rec)-> 
-      total += rec.idleTime if rec.idleTime
-    moment.duration(total, "seconds").format('HH:mm:ss', {trim: false})
+  totalDistance: -> total.get().distance?.toFixed(0)
+  totalFuel: -> (total.get().fuel/1000)?.toFixed(0)
+  totalTravelTime: -> moment.duration(total.get().travelTime, "seconds").format('HH:mm:ss', {trim: false})
+  totalIdleTime: -> moment.duration(total.get().idleTime, "seconds").format('HH:mm:ss', {trim: false})
 
 Template.logbook.events
   'click .table tr': (event,p)->
@@ -43,6 +33,10 @@ Template.idleCellTemplate.helpers
   rowDate: ()-> @date
 
 Template.logbook.rendered = ()->
+  Meteor.call 'aggByDateTotals', (err, res)-> 
+    if not err
+      console.log 'Total: ' + JSON.stringify(res)
+      total.set(res[0])
   $('#logbook-date-range').daterangepicker
     startDate: moment().subtract('days', 29)
     endDate: moment()

@@ -113,3 +113,30 @@ Meteor.methods
       console.log 'Insert cache: ' + JSON.stringify(doc)
       MyCodes.insert doc
     doc
+
+  aggByDateTotals: ->
+    AggByDate.aggregate [
+      $group: 
+        _id: null
+        distance  : {$sum: "$sumDistance"}
+        travelTime: {$sum: "$sumInterval"}
+        idleTime  : {$sum: "$idleTime"}
+        fuel      : {$sum: "$sumFuel"}
+    ]
+
+
+  # totalDistance: () ->
+  #   total = 0
+  #   AggByDate.find().forEach (rec)-> 
+  #     total += rec.sumDistance
+  #   total.toFixed(0) 
+  # totalTravelTime: () ->
+  #   total = 0
+  #   AggByDate.find().forEach (rec)-> 
+  #     total += rec.sumInterval
+  #   moment.duration(total, "seconds").format('HH:mm:ss', {trim: false})
+  # totalIdleTime: () ->
+  #   total = 0
+  #   AggByDate.find().forEach (rec)-> 
+  #     total += rec.idleTime if rec.idleTime
+  #   moment.duration(total, "seconds").format('HH:mm:ss', {trim: false})
