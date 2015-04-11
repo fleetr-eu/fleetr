@@ -6,11 +6,11 @@ geocoder = new GeoCoder
 
 @geocode = (lat,lon) ->
   location = geocoder.reverse(lat, lon)
-  if location 
-    location = location[0]      
+  if location
+    location = location[0]
     location.latitude  = lat
     location.longitude = lon
-  return location      
+  return location
 
 class RecordProcessor
   constructor: (collection, name) ->
@@ -45,7 +45,7 @@ class StartStopGeocoder extends Geocoder
     super StartStop, 'start/stop'
   processRecord: (rec)->
     return if rec.start.location and rec.stop.location
-    startDate = moment(rec.start.recordTime).zone(UNIT_TIMEZONE).format("DD-MM HH:mm:ss") 
+    startDate = moment(rec.start.recordTime).zone(UNIT_TIMEZONE).format("DD-MM HH:mm:ss")
     stopDate  = moment(rec.stop.recordTime).zone(UNIT_TIMEZONE).format("DD-MM HH:mm:ss")
     console.log 'Geocode ' + @name + ' record: [' + startDate + "] - [" + stopDate + ']'
     startLocation = geocode(rec.start.lat, rec.start.lon)
@@ -67,13 +67,13 @@ class AggByDateGeocoder extends Geocoder
       if first and last
         startLocation = first.start.location
         stopLocation = last.stop.location
-        AggByDate.update {_id: rec._id}, {$set: {"startLocation": startLocation, "stopLocation": stopLocation}}       
+        AggByDate.update {_id: rec._id}, {$set: {"startLocation": startLocation, "stopLocation": stopLocation}}
         console.log 'Geocode agg record: location updated'
       else
         console.log 'Geocode agg record: no startstop record found'
     rec.startAddress = @toAddress(rec.startLocation)
     rec.stopAddress  = @toAddress(rec.stopLocation)
-    AggByDate.update {_id: rec._id}, {$set: {"startAddress": rec.startAddress, "stopAddress": rec.stopAddress}}       
+    AggByDate.update {_id: rec._id}, {$set: {"startAddress": rec.startAddress, "stopAddress": rec.stopAddress}}
     console.log 'agg record: start/stop address updated'
 
 class IdleGeocoder extends Geocoder
@@ -84,10 +84,10 @@ class IdleGeocoder extends Geocoder
     console.log 'Geocode idle record...'
     location = geocode(rec.lat, rec.lon)
     if location
-      IdleBook.update {_id: rec._id}, {$set: {"location": location}}       
+      IdleBook.update {_id: rec._id}, {$set: {"location": location}}
       console.log '  idlebook: location updated'
 
-class LogbookEnchancer extends RecordProcessor
+class LogbookEnhancer extends RecordProcessor
   constructor: () ->
     super Logbook, 'logbook'
   processRecord: (rec)->
@@ -96,8 +96,8 @@ class LogbookEnchancer extends RecordProcessor
       Logbook.update {_id: rec._id}, {$set: {loc: loc}}
 
 upgradeDatabase = () ->
-  console.log 'ENCHANCE DB'
-  new LogbookEnchancer().process()
+  console.log 'ENHANCE DB'
+  new LogbookEnhancer().process()
   new StartStopGeocoder().process()
   new AggByDateGeocoder().process()
   new IdleGeocoder().process()

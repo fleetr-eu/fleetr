@@ -1,7 +1,7 @@
 Meteor.startup ->
   class @FleetrLatLng extends google.maps.LatLng
     constructor: (@location) ->
-      [lng, lat] = @location?.loc
+      [lat, lng] = @location
       super lat, lng
 
   class FleetrMarker extends google.maps.Marker
@@ -9,9 +9,9 @@ Meteor.startup ->
       google.maps.event.addListener @, event, handler
       @
 
-    withInfo: (vehicle, location, map) ->
+    withInfo: (vehicle, map) ->
       @addListener 'click', ->
-            new FleetrInfoWindow(vehicle, @location).open map, @
+        new FleetrInfoWindow(vehicle).open map, @
 
   class @EmptyMarker extends FleetrMarker
     constructor: (location, map) ->
@@ -35,35 +35,34 @@ Meteor.startup ->
         zIndex: 15
 
   class @VehicleMarker extends FleetrMarker
-    constructor: (vehicle, @location) ->
+    constructor: (vehicle) ->
       truckIcon =
-        if @location.speed == 0
-          if @location.stay < Settings.maxStay
+        if vehicle.speed == 0
+          if vehicle.stay < Settings.maxStay
             '/images/truck-blue.png'
           else
             '/images/truck-gray.png'
         else
-          if @location.speed > Settings.maxSpeed
+          if vehicle.speed > Settings.maxSpeed
             '/images/truck-red.png'
           else '/images/truck-green.png'
       super
-        position: new FleetrLatLng @location
+        position: new FleetrLatLng [vehicle.lat, vehicle.lon]
         title: vehicle?.identificationNumber || @location.vehicle()?.identificationNumber
         icon: truckIcon
         zIndex: 100
 
   class @FleetrInfoWindow extends google.maps.InfoWindow
-    constructor: (vehicle, location) ->
-      vehicle = vehicle || location.vehicle() || Vehicles.findOne(_id: Session.get('selectedVehicleId'))
+    constructor: (vehicle) ->
+      vehicle = vehicle || Vehicles.findOne(_id: Session.get('selectedVehicleId'))
       super
         content: """
                 <div style='width:11em;'>
                   <p>ВИН: #{vehicle.identificationNumber}</p>
                   <p>Номер: #{vehicle.licensePlate}</p>
-                  <p>Скорост: #{parseFloat(Math.round(location.speed * 100) / 100).toFixed(0)} км/ч</p>
-                  <p>Километраж: #{parseFloat(Math.round(location.distance / 1000 * 100) / 100).toFixed(0)} км</p>
+                  <p>Скорост: #{vehicle.speed.toFixed(2)} км/ч</p>
+                  <p>Километраж: #{(vehicle.odometer / 1000).toFixed(3)} км</p>
                   <p>Престой: #{moment.duration(location.stay,'seconds').humanize()}</p>
-                  <p><a href="/location/remove/#{location._id}">Изтрий</a></p>
                 </div>"""
 
 

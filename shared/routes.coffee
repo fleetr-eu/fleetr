@@ -86,12 +86,6 @@ Meteor.startup ->
         [Meteor.subscribe('vehiclesMakes')
           Meteor.subscribe('vehiclesModels')
           Meteor.subscribe('vehicle', _id: @params.vehicleId)]
-    @route 'removeVehicle',
-      path: '/location/remove/:locationId'
-      template: 'map'
-      onRun: ->
-        Meteor.call 'removeLocation', @params.locationId
-        @next()
 
     @route 'listFleetGroups',
       path: '/fleets/groups/list'

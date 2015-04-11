@@ -17,7 +17,8 @@ TabularTables.LogbookAggByDate = new Tabular.Table
     { title: 'Travel Time', data: 'sumInterval', className: 'time-col', render: (val, type, doc) -> doc.interval() }
     { title: 'Details', tmpl: Meteor.isClient && Template.detailsCellTemplate }
     { title: 'Idle', tmpl: Meteor.isClient && Template.idleCellTemplate }
-    # { title: 'Start', data: 'startAddress' }
+    # hidden columns, only for searching
+    { data: 'stopAddress', className: 'hidden' }
   ]
   # pub: "aggbydate-tabular"
   extraFields: [
@@ -71,7 +72,7 @@ TabularTables.RecLog = new Tabular.Table
     {title: 'Tacho', data: 'tacho'}
     {title: 'Distance', data: 'distance', render: (val, type, doc) -> val?.toFixed(3)}
     {title: 'Speed', data: 'speed', render: (val, type, doc) -> val?.toFixed(2)}
-    {title: 'Calc Speed', data: 'speed', render: (val, type, doc) -> 
+    {title: 'Calc Speed', data: 'speed', render: (val, type, doc) ->
       return '' if not doc.interval
       (doc?.distance/1000/doc?.interval*3600)?.toFixed(2)
     }
@@ -103,4 +104,3 @@ TabularTables.IdleBook = new Tabular.Table
     { width: '10%', title: 'Details'   , tmpl: Meteor.isClient && Template.idleDetailsCellTemplate }
     { width: '10%', tmpl: Meteor.isClient && Template.mapIdleCellTemplate }
   ]
-

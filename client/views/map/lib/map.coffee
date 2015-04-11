@@ -22,9 +22,6 @@ Meteor.startup ->
       Map.vehicleClusterer = createVehicleClusterer Map.map
 
       google.maps.event.addListenerOnce Map.map, 'idle', Map.renderMarkers
-      Map.addListener 'click', (e) ->
-        pos = {coords: {longitude: e.latLng.lng(), latitude: e.latLng.lat()}}
-        Locations.save(Session.get('selectedVehicleId'), pos)
 
       Map.addListener 'zoom_changed', -> Session.set('zoomLevel', Map.map.getZoom())
 
@@ -33,22 +30,17 @@ Meteor.startup ->
 
     renderMarkers: ->
       markers = Vehicles.findFiltered('vehicleFilter', ['licensePlate', 'tags']).map (vehicle) ->
-        location = vehicle.lastLocation
-        if location
-          new VehicleMarker(vehicle, location).withInfo(vehicle, @location, Map.map)
+        new VehicleMarker(vehicle).withInfo(vehicle, Map.map)
       Map.deleteVehicleMarkers()
       Map.showVehicleMarkers markers
 
-      selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
-      Map.setCenter selectedVehicle?.lastLocation
-      locations = selectedVehicle?.lastLocations()
-      Map.showPath locations
-      Map.showPathMarkers selectedVehicle, locations
-
-    addLocation: (lat, lng, speed, stay) ->
       if Session.get('selectedVehicleId')
-        loc = [lng, lat]
-        Locations.saveToDatabase loc, speed, stay, Session.get('selectedVehicleId')
+        selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
+        if selectedVehicle
+          Map.setCenter [selectedVehicle.lat, selectedVehicle.lon]
+          locations = selectedVehicle.lastLocations(100)
+          Map.showPath locations
+          Map.showPathMarkers selectedVehicle, locations
 
     addListener: (event, listener) ->
       google.maps.event.addListener Map.map, event, listener
@@ -56,21 +48,22 @@ Meteor.startup ->
     showVehicleMarkers: (markers) ->
       Map.vehicleClusterer?.addMarkers(markers?.filter (m) -> m if m)
 
-    showPathMarkers: (vehicle, locations) ->
-      locations?.forEach (location) ->
-        if location?.speed >= Settings.maxSpeed
-          m = new SpeedMarker(location).withInfo(vehicle, location, Map.map)
-          Map.speedClusterer?.addMarker m
-        if location?.stay >= Settings.maxStay
-          m = new LongStayMarker(location).withInfo(vehicle, location, Map.map)
-          Map.stayClusterer?.addMarker m
+    showPathMarkers: (vehicle) ->
+      if vehicle
+        locations = Logbook.find deviceId: vehicle.unitId
+        locations?.forEach (location) ->
+          if location?.speed >= Settings.maxSpeed
+            m = new SpeedMarker(location).withInfo(vehicle, location, Map.map)
+            Map.speedClusterer?.addMarker m
+          if location?.stay >= Settings.maxStay
+            m = new LongStayMarker(location).withInfo(vehicle, location, Map.map)
+            Map.stayClusterer?.addMarker m
 
     setCenter: (location) ->
-      if location
-        [lng, lat] = location.loc
-        Map.map?.setCenter {lat: lat, lng: lng}
+      Map.map?.setCenter(new FleetrLatLng(location)) if location
 
     showPath: (locations) ->
+      console.log locations.fetch()
       Map.deletePath()
       if locations?.count() > 0
         path = locations.map (location) -> new FleetrLatLng location

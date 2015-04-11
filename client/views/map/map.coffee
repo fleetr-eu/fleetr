@@ -5,8 +5,14 @@ Template.map.rendered = ->
 
   Map.init =>
     @autorun ->
-      Meteor.subscribe 'locations', Session.get('selectedVehicleId')
-      , Session.get("mapDateRangeFrom"), Session.get("mapDateRangeTo"), Map.renderMarkers
+      vehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
+      if vehicle
+        Meteor.subscribe 'logbook',
+          deviceId: vehicle.unitId
+          recordTime:
+            $gte: Session.get("mapDateRangeFrom") * 1000
+            $lte: Session.get("mapDateRangeTo") * 1000
+        , Map.renderMarkers
 
   $("#hours_range").ionRangeSlider
     type : "double"
@@ -34,7 +40,6 @@ Template.map.created = -> Session.setDefault 'vehicleFilter', ''
 
 Template.vehiclesMapTable.helpers
   vehicles: -> Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'tags']
-  selectedVehicleId: -> Session.get('selectedVehicleId')
 
 Template.vehicleMapTableRow.helpers
   fleetName: -> Fleets.findOne(_id : @allocatedToFleet).name
@@ -52,8 +57,3 @@ Template.vehicleMapTableRow.events
 Template.map.events
   'click #pac-input-clear': ->
     $('#pac-input').val('')
-  'click .addStay': ->
-    lastLocation = Locations.findOne {vehicleId: Session.get('selectedVehicleId')}, {sort: {timestamp: -1}}
-    if lastLocation
-      pos = {coords: {longitude: lastLocation.loc[0], latitude: lastLocation.loc[1]}}
-      Locations.save(Session.get('selectedVehicleId'), pos)

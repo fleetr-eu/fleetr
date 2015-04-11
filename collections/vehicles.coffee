@@ -16,6 +16,6 @@ Vehicles.getAssignedDriver = (vehicle, timestamp) ->
 Vehicles.helpers
   lastLocations: (limit) ->
     if limit
-      Locations.find {vehicleId: @_id}, {sort: {timestamp: -1}, limit: limit}
+      Logbook.find {unitId: @deviceId}, {sort: {recordTime: -1}, limit: limit}
     else
-      Locations.find {vehicleId: @_id}, {sort: {timestamp: -1}}
+      Logbook.find {unitId: @deviceId}, {sort: {recordTime: -1}}
