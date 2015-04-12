@@ -11,7 +11,6 @@ TabularTables.LogbookAggByDate = new Tabular.Table
     { width: '10%', title: 'Date', data:'date', render: (val, type, doc) -> doc.general() }
     { title: 'From<br>To', data: 'fromTo()', className: 'time-col' }
     { width: '35%', title: 'Begin<br>End', data: 'startAddress', render: (val, type, doc) -> doc.beginEnd() }
-    { title: 'End', data: 'stopAddress', className: "hidden"}
     { title: 'Distance', data:'sumDistance', className: 'distance-col', render: (val, type, doc) -> doc.distance() }
     { title: 'Fuel<br>Per 100', data:'sumFuel', className: 'fuel-col', render: (val, type, doc) -> doc.fuel() }
     { title: 'Speed<br>Max Speed', data:'maxSpeed', className: 'speed-col', render: (val, type, doc) -> doc.speed() }
