@@ -1,5 +1,5 @@
 Template.vehicleFilter.rendered = ->
-  Session.set @data.sessionVar, {}
+  Session.set(@data.sessionVar, {}) if @data.sessionVar
   @subscribe 'fleetGroups'
   @autorun =>
     groupId = Session.get(@data.sessionVar)?.selectedFleetGroupId

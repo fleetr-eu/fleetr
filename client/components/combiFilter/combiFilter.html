@@ -1,0 +1,21 @@
+<template name="combiFilter">
+  <div class="tabbable-custom">
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#tab_vehicle" data-toggle="tab" value="vehicle">Vehicle</a>
+      </li>
+      <li>
+        <a href="#tab_driver" data-toggle="tab" value="driver">Driver</a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab_vehicle">
+        {{> vehicleFilter sessionVar="combi filter session var vehicle"}}
+      </div>
+      <div class="tab-pane" id="tab_driver">
+        {{> driverFilter sessionVar="combi filter session var driver"}}
+      </div>
+    </div>
+  </div>
+</template>

@@ -1,5 +1,5 @@
 Template.driverFilter.rendered = ->
-  Session.set @data.sessionVar, {selectedDriverId: undefined}
+  Session.set(@data.sessionVar, {selectedDriverId: undefined}) if @data.sessionVar
   @subscribe 'drivers'
 
 Template.driverFilter.helpers
