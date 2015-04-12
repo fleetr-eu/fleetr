@@ -1,0 +1,29 @@
+<template name="vehicleFilter">
+  <div class="portlet light bg-inverse">
+		<div class="portlet-body form form-inline">
+      <span><i class="fa fa-sitemap"></i>
+        <select class="form-control vehicle-filter fleet-group">
+            <option value="">All fleet groups</option>
+            {{#each fleetGroups}}
+            <option value="{{_id}}">{{name}}</option>
+            {{/each}}
+        </select>
+        <select class="form-control vehicle-filter fleet">
+            <option value="">All fleets</option>
+            {{#each fleets}}
+            <option value="{{_id}}">{{name}}</option>
+            {{/each}}
+        </select>
+      </span>
+      &nbsp;&nbsp;
+      <span><i class="fa fa-car"></i>
+        <select class="form-control vehicle-filter vehicle">
+            <option value="">All vehicles</option>
+            {{#each vehicles}}
+            <option value="{{_id}}">{{name}} ({{licensePlate}})</option>
+            {{/each}}
+        </select>
+      </span>
+	  </div>
+  </div>
+</template>
