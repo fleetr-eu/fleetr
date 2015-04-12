@@ -59,7 +59,6 @@ class AggByDateGeocoder extends Geocoder
   constructor: () ->
     super AggByDate, 'aggbydate'
   processRecord: (rec)->
-    # if not rec.startAddress or not rec.stopAddress
     return if rec.startAddress and rec.stopAddress
     if not rec.startLocation or not rec.stopLocation
       first = StartStop.findOne {_id: rec.startId}
