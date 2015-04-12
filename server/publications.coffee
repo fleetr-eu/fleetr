@@ -125,5 +125,20 @@ Meteor.publishComposite 'vehicleInfo', (unitId) ->
     }
   ]
 
-Meteor.publish "aggbydate-tabular", (tableName, ids, fields)->
-  return AggByDate.find {_id: {$in: ids}}, {fields: fields, sort: {date: 1}}
+# Meteor.publish "aggbydate-tabular", (tableName, ids, fields)->
+# return AggByDate.find {_id: {$in: ids}}, {fields: fields, sort: {date: 1}}
+
+Meteor.publish 'aggbydate-tabular', (tableName, ids, fields)->
+  self = this
+  subHandle = AggByDate.find({_id: {$in: ids}}, {fields: fields}).observeChanges(
+    added: (id, fields) ->
+      console.log 'Added: ' + JSON.stringify(fields,null,2)
+      self.added 'aggbydate', id, fields
+    changed: (id, fields) ->
+      self.changed 'aggbydate', id, fields
+    removed: (id) ->
+      self.removed 'aggbydate', id
+  )
+  self.ready()
+  self.onStop ->
+    subHandle.stop()
