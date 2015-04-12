@@ -1,0 +1,14 @@
+<template name="driverFilter">
+  <div class="portlet light bg-inverse">
+		<div class="portlet-body form form-inline">
+      <span><i class="glyphicon glyphicon-user"></i>
+        <select class="form-control driver-filter">
+            <option value="">All drivers</option>
+            {{#each drivers}}
+            <option value="{{_id}}">{{firstName}} {{name}}</option>
+            {{/each}}
+        </select>
+      </span>
+	  </div>
+  </div>
+</template>
