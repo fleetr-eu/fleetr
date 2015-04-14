@@ -4,6 +4,14 @@ class TableFilter
     @columns = columns
     @selector = new ReactiveVar({})
 
+  maxspeed: (speed) ->
+    sel = @selector.get()
+    if speed
+      sel.maxSpeed = {$gt:speed}
+    else
+      delete sel.maxSpeed
+    @selector.set(sel)      
+
   range: (range) ->
     sel = @selector.get()
     if range
@@ -72,7 +80,11 @@ Template.logbook.rendered = ()->
   # column class can be set in TabularTable definition
   $input.on 'keyup', ->
     console.log 'Key: ' + @value
-    self.filter.value @value
+    if parseInt(@value)
+      self.filter.maxspeed parseInt(@value)
+    else
+      self.filter.value @value
+      self.filter.maxspeed undefined
 
   Meteor.call 'aggByDateTotals', (err, res)-> 
     total.set(res[0]) if not err

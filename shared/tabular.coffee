@@ -6,6 +6,7 @@ TabularTables.LogbookAggByDate = new Tabular.Table
   name: "LogbookAggByDate"
   collection: AggByDate
   responsive:true
+  searching: false
   columns: [
     # { width: '10%', title: 'Date', data:'general()' }
     { width: '10%', title: 'Date', data:'date', render: (val, type, doc) -> doc.general() }
