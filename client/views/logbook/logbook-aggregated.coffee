@@ -2,23 +2,31 @@ class TableFilter
   
   constructor: (columns)->  
     @columns = columns
-    @sel = {}
+    @selector = new ReactiveVar({})
 
-  forValue: (value) ->
+  range: (range) ->
+    sel = @selector.get()
+    if range
+      sel.date = range
+    else
+      delete sel.date
+    @selector.set(sel)      
+
+  value: (value) ->
+    sel = @selector.get()
     if value
       searches = []
       for column in @columns
-        sel = {}
-        sel[column] =
+        s = {}
+        s[column] =
           $regex: value
           $options: 'i'
-        searches.push sel  
-      @sel['$or'] = searches
+        searches.push s
+      sel['$or'] = searches
     else
-      delete @sel['$or']
-    @sel
+      delete sel['$or']
+    @selector.set(sel)
 
-daterange = new ReactiveVar({})
 total = new ReactiveVar({})
 
 Template.logbook.helpers
@@ -27,13 +35,12 @@ Template.logbook.helpers
   totalFuel: -> (total.get().fuel/1000)?.toFixed(0)
   totalTravelTime: -> moment.duration(total.get().travelTime, "seconds").format('HH:mm:ss', {trim: false})
   totalIdleTime: -> moment.duration(total.get().idleTime, "seconds").format('HH:mm:ss', {trim: false})
-  currentSelector: ()->  Template.instance().currentSelector.get()
-  currentSelectorStr: ()->  JSON.stringify(Template.instance().currentSelector.get())
+  currentSelector: ()->  Template.instance().filter.selector.get()
+  currentSelectorStr: ()->  JSON.stringify(Template.instance().filter.selector.get())
     
 Template.logbook.events
   'click .table tr': (event,p)->
     td = $('td', event.currentTarget).eq(0).text()
-    # console.log 'Click: ' + td
     $(".table tr").removeClass('selected')
     event.currentTarget.classList.add('selected')
   'apply.daterangepicker #logbook-date-range': (event,p) ->
@@ -42,10 +49,10 @@ Template.logbook.events
     start = startDate.format('YYYY-MM-DD')
     stop = endDate.format('YYYY-MM-DD')
     console.log start + ' - ' + stop
-    range = {date: {$gte: start, $lte: stop}}
-    daterange.set(range)
+    range = {$gte: start, $lte: stop}
+    Template.instance().filter.range range
   'cancel.daterangepicker #logbook-date-range': (event,p) ->
-    daterange.set({})
+    Template.instance().filter.range undefined
 
 
 Template.detailsCellTemplate.helpers
@@ -55,9 +62,7 @@ Template.idleCellTemplate.helpers
   rowDate: ()-> @date
 
 Template.logbook.created = ()->
- this.currentSelector = new ReactiveVar({})
- this.filter = new TableFilter(['date', 'startAddress'])
- # this.filter = new TableFilter(['date'])
+ this.filter = new TableFilter(['date', 'startAddress','stopAddress'])
 
 Template.logbook.rendered = ()->
   self = this
@@ -67,15 +72,7 @@ Template.logbook.rendered = ()->
   # column class can be set in TabularTable definition
   $input.on 'keyup', ->
     console.log 'Key: ' + @value
-    # sel = self.currentSelector.get()
-    # if @value
-    #   sel.date =
-    #     $regex: @value
-    #     $options: 'i'
-    # else
-    #   delete sel.my_col
-    # self.currentSelector.set sel
-    self.currentSelector.set self.filter.forValue @value
+    self.filter.value @value
 
   Meteor.call 'aggByDateTotals', (err, res)-> 
     total.set(res[0]) if not err

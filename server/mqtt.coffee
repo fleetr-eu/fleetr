@@ -1,4 +1,9 @@
-UNIT_TIMEZONE = '+0200'
+toAddress: (loc)->
+  return 'not geocoded yet...' if not loc
+  addr = loc.country
+  addr += ', ' + loc.city
+  addr += ', ' + loc.zipcode if loc.zipcode
+  addr += ', ' + loc.streetName
 
 makeStartStopRecord = (start,stop)->
   console.log 'Process STOP record'
@@ -36,7 +41,7 @@ makeStartStopRecord = (start,stop)->
     record.interval = (stop.recordTime.getTime() - start.recordTime.getTime())/1000
 
     record.recordTime = start.recordTime
-    record.date = moment(stop.recordTime).zone(UNIT_TIMEZONE).format('YYYY-MM-DD')
+    record.date = moment(stop.recordTime).zone(Settings.unitTimezone).format('YYYY-MM-DD')
 
     # console.log 'START/STOP: geocoding.....'
 
@@ -74,6 +79,8 @@ updateAggRecord = (record) ->
       stopTime    : record.stop.recordTime
       stopOdo     : record.stop.tacho
       stopLocation: record.stop.location
+      startAddress: toAddress(record.start.location)
+      stopAddress : toAddress(record.stop.location)
     console.log 'Insert: ' + agg.date + ' dis: ' + agg.sumDistance
     AggByDate.insert agg
   else
@@ -86,6 +93,7 @@ updateAggRecord = (record) ->
     agg.stopOdo      = record.stop.tacho
     agg.stopId       = record._id
     agg.stopLocation = record.stop.location
+    agg.stopAddress  = toAddress(record.stop.location)
     agg.total++
     console.log 'Updated: ' + agg.date + ' dis: ' + agg.sumDistance + ' avg: ' + agg.avgSpeed + ' max: ' + agg.maxSpeed 
     update = 
@@ -99,6 +107,7 @@ updateAggRecord = (record) ->
       stopOdo     : agg.stopOdo
       stopId      : agg.stopId 
       stopLocation: agg.stopLocation 
+      stopAddress : agg.stopAddress
     AggByDate.update {_id: agg._id}, {$set: update}
     return agg
 

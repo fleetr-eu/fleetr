@@ -1,5 +1,3 @@
-UNIT_TIMEZONE = '+0200'
-
 geocoder = new GeoCoder
   geocoderProvider: "openstreetmap"
   httpAdapter: "http"
@@ -45,8 +43,8 @@ class StartStopGeocoder extends Geocoder
     super StartStop, 'start/stop'
   processRecord: (rec)->
     return if rec.start.location and rec.stop.location
-    startDate = moment(rec.start.recordTime).zone(UNIT_TIMEZONE).format("DD-MM HH:mm:ss")
-    stopDate  = moment(rec.stop.recordTime).zone(UNIT_TIMEZONE).format("DD-MM HH:mm:ss")
+    startDate = moment(rec.start.recordTime).zone(Settings.unitTimezone).format("DD-MM HH:mm:ss")
+    stopDate  = moment(rec.stop.recordTime).zone(Settings.unitTimezone).format("DD-MM HH:mm:ss")
     console.log 'Geocode ' + @name + ' record: [' + startDate + "] - [" + stopDate + ']'
     startLocation = geocode(rec.start.lat, rec.start.lon)
     stopLocation = geocode(rec.stop.lat, rec.stop.lon)
