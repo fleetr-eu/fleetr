@@ -8,27 +8,52 @@ makeStartStopRecord = (start,stop)->
   record.fuelUsed = stop.fuelc - start.fuelc
   seconds = moment(stop.recordTime).diff(moment(start.recordTime), 'seconds')
 
-  record.startStopDistance = distance
-  record.startStopSpeed =  (distance*3600/seconds)
+  try 
 
+    # console.log 'START/STOP: distance: ' + distance + '; seconds: ' + seconds
+    record.startStopDistance = distance
+    record.startStopSpeed =  (distance*3600/seconds)
+    # console.log 'START/STOP: speed: ' + record.startStopSpeed
+    
+    # console.log 'START/STOP: start: ' + start.recordTime
+    # console.log 'START/STOP: stop : ' + stop.recordTime
 
-  withMaxSpeed = Logbook.findOne {type:30, recordTime: {$gte: start.recordTime, $lte: stop.recordTime}}, {sort: {speed:-1}}
-  maxSpeed = withMaxSpeed.speed if withMaxSpeed
-  # maxSpeed = record.startStopSpeed if not maxSpeed
-  record.maxSpeed = maxSpeed
+    search = {type:30, recordTime: {$gte: start.recordTime, $lte: stop.recordTime}}
+    order = {sort: {speed:-1}}
 
-  record.interval = (stop.recordTime.getTime() - start.recordTime.getTime())/1000
+    # console.log 'START/STOP: search: ' + JSON.stringify(search)
+    # console.log 'START/STOP: order : ' + JSON.stringify(order)
 
-  record.recordTime = start.recordTime
-  record.date = moment(stop.recordTime).zone(UNIT_TIMEZONE).format('YYYY-MM-DD')
+    withMaxSpeed = Logbook.findOne search, order
+    # console.log 'START/STOP: wms: ' + withMaxSpeed
+    maxSpeed = withMaxSpeed.speed if withMaxSpeed
+    
+    # console.log 'START/STOP: maxspeed: ' + maxSpeed
 
-  startLocation = geocode(record.start.lat, record.start.lon)
-  stopLocation = geocode(record.stop.lat, record.stop.lon)
-  if startLocation and stopLocation
-    record.start.location = startLocation    
-    record.stop.location = stopLocation    
+    # maxSpeed = record.startStopSpeed if not maxSpeed
+    record.maxSpeed = maxSpeed
 
-  console.log 'start/stop record: ' + JSON.stringify(record)
+    record.interval = (stop.recordTime.getTime() - start.recordTime.getTime())/1000
+
+    record.recordTime = start.recordTime
+    record.date = moment(stop.recordTime).zone(UNIT_TIMEZONE).format('YYYY-MM-DD')
+
+    # console.log 'START/STOP: geocoding.....'
+
+    startLocation = geocode(record.start.lat, record.start.lon)
+    stopLocation = geocode(record.stop.lat, record.stop.lon)
+    if startLocation and stopLocation
+      record.start.location = startLocation    
+      record.stop.location = stopLocation    
+      # console.log 'START/STOP: geocoding done ok'
+    #else
+    #  console.log 'START/STOP: geocoding failed'
+
+    # console.log 'start/stop record: ' + JSON.stringify(record)
+  
+  catch error
+    console.log "START/STOP ERROR: " + error
+
   return record
 
 updateAggRecord = (record) ->
@@ -91,9 +116,13 @@ processStopRecord = (r)->
   start = lastStart
   stop = r
 
+  console.log 'making start/stop record...'
   record = makeStartStopRecord(start,stop)
   StartStop.insert record
+  console.log 'start/stop record inserted ok'
   updateAggRecord record
+  console.log 'agg record procesed ok'
+
 
 Meteor.startup ->
   console.log 'MQTT URL: ' + Meteor.settings.mqttUrl
@@ -110,17 +139,15 @@ Meteor.startup ->
     # console.log 'Geocoder: ' + geocoder
     record = JSON.parse(data)
     Fiber(() ->
-      #if typeof record.recordTime is 'string'
-      #  date = new Date(record.recordTime)
-      #  console.log '  date: ' + date + ' ' + (typeof date)
       if typeof record.recordTime is 'string'
         date = new Date(record.recordTime)
-        # console.log '  convert date: ' + date
         record.recordTime = date
       prepareLogbookRecord(record)
       if record.type == 29 and record.io == 254
+        console.log 'processing start/stop record...'
         processStopRecord(record)
       Logbook.insert record
+      console.log 'Logbook record inserted ok'
 
       idle = idleDetector.process(record)
       if idle
