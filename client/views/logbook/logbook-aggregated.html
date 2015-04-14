@@ -18,8 +18,8 @@
 							<input id="logbook-date-range" class="datepicker" type="text">
 						</div>
 						
-
-						{{> tabular table=TabularTables.LogbookAggByDate selector=selector class="table table-bordered table-condensed"}}
+						Selector: {{currentSelectorStr}}
+						{{> tabular table=TabularTables.LogbookAggByDate selector=currentSelector class="table table-bordered table-condensed"}}
 						
 						<p class="fa fa-truck"> Total Distance: </p>{{totalDistance}} km <br>
 						<p class="fa fa-clock-o"> Total Travel Time: </p>{{totalTravelTime}} <br>

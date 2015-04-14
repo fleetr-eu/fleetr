@@ -1,3 +1,23 @@
+class TableFilter
+  
+  constructor: (columns)->  
+    @columns = columns
+    @sel = {}
+
+  forValue: (value) ->
+    if value
+      searches = []
+      for column in @columns
+        sel = {}
+        sel[column] =
+          $regex: value
+          $options: 'i'
+        searches.push sel  
+      @sel['$or'] = searches
+    else
+      delete @sel['$or']
+    @sel
+
 daterange = new ReactiveVar({})
 total = new ReactiveVar({})
 
@@ -7,7 +27,9 @@ Template.logbook.helpers
   totalFuel: -> (total.get().fuel/1000)?.toFixed(0)
   totalTravelTime: -> moment.duration(total.get().travelTime, "seconds").format('HH:mm:ss', {trim: false})
   totalIdleTime: -> moment.duration(total.get().idleTime, "seconds").format('HH:mm:ss', {trim: false})
-
+  currentSelector: ()->  Template.instance().currentSelector.get()
+  currentSelectorStr: ()->  JSON.stringify(Template.instance().currentSelector.get())
+    
 Template.logbook.events
   'click .table tr': (event,p)->
     td = $('td', event.currentTarget).eq(0).text()
@@ -32,7 +54,29 @@ Template.detailsCellTemplate.helpers
 Template.idleCellTemplate.helpers
   rowDate: ()-> @date
 
+Template.logbook.created = ()->
+ this.currentSelector = new ReactiveVar({})
+ this.filter = new TableFilter(['date', 'startAddress'])
+ # this.filter = new TableFilter(['date'])
+
 Template.logbook.rendered = ()->
+  self = this
+  $table = $('.table')
+  $input = $('<input name="type" type="text" placeholder="Filter"/>')
+  $table.last('thead th.my_col').append $input
+  # column class can be set in TabularTable definition
+  $input.on 'keyup', ->
+    console.log 'Key: ' + @value
+    # sel = self.currentSelector.get()
+    # if @value
+    #   sel.date =
+    #     $regex: @value
+    #     $options: 'i'
+    # else
+    #   delete sel.my_col
+    # self.currentSelector.set sel
+    self.currentSelector.set self.filter.forValue @value
+
   Meteor.call 'aggByDateTotals', (err, res)-> 
     total.set(res[0]) if not err
   $('#logbook-date-range').daterangepicker
