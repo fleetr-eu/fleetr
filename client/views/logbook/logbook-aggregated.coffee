@@ -75,9 +75,7 @@ Template.logbook.created = ()->
 Template.logbook.rendered = ()->
   self = this
   $table = $('.table')
-  $input = $('<input name="type" type="text" placeholder="Filter"/>')
-  $table.last('thead th.my_col').append $input
-  # column class can be set in TabularTable definition
+  $input = $('#filter')
   $input.on 'keyup', ->
     console.log 'Key: ' + @value
     if parseInt(@value)

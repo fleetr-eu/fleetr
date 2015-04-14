@@ -17,8 +17,9 @@
 						<div>
 							<input id="logbook-date-range" class="datepicker" type="text">
 						</div>
-						
-						Selector: {{currentSelectorStr}}
+						<input id="filter" name="type" type="text" placeholder="Filter"/>
+
+						<!-- Selector: {{currentSelectorStr}} -->
 						{{> tabular table=TabularTables.LogbookAggByDate selector=currentSelector class="table table-bordered table-condensed"}}
 						
 						<p class="fa fa-truck"> Total Distance: </p>{{totalDistance}} km <br>
