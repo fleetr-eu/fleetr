@@ -1,3 +1,8 @@
+isnum = (input)->
+  RE = /^-{0,1}\d*\.{0,1}\d+$/
+  return (RE.test(input))
+
+
 class TableFilter
   
   constructor: (columns)->  
@@ -77,10 +82,12 @@ Template.logbook.rendered = ()->
   $table = $('.table')
   $input = $('#filter')
   $input.on 'keyup', ->
-    console.log 'Key: ' + @value
-    if parseInt(@value)
-      self.filter.maxspeed parseInt(@value)
+    if isnum(@value)
+      num = parseInt(@value)
+      console.log 'Num: ' + num
+      self.filter.maxspeed num
     else
+      console.log 'Str: ' + @value
       self.filter.value @value
       self.filter.maxspeed undefined
 
