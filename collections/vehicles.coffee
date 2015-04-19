@@ -15,7 +15,9 @@ Vehicles.getAssignedDriver = (vehicle, timestamp) ->
 
 Vehicles.getAssignedDriverByUnitId = (unitId, timestamp) ->
   vehicle = Vehicles.findOne {unitId: unitId}
+  retrn undefined if not vehicle
   driverId = Vehicles.getAssignedDriver(vehicle._id, timestamp)
+  retrn undefined if not driverId
   Drivers.findOne({_id: driverId})
 
 Vehicles.helpers
