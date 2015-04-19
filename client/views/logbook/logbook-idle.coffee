@@ -1,6 +1,9 @@
 total = new ReactiveVar({})
 
 Template.logbookIdle.created = ->
+  Meteor.subscribe "vehicles"
+  Meteor.subscribe "driverVehicleAssignments"
+  Meteor.subscribe "drivers"
 
 Template.logbookIdle.rendered = ->
   Meteor.call 'idleTotals', Template.currentData().selectedDate, (err, res)-> 

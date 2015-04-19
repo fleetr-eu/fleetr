@@ -92,14 +92,8 @@ toAddress = (loc)->
      f = (@stop.fuelc-@start.fuelc)/1000
      twin(f.toFixed(2), (f/distance*100).toFixed(2))
    driverName: ->
-     # vehicle = Vehicles.find ({unitId: obj.deviceId})
-     # console.log 'Vehicle: ' + JSON.stringify(vehicle) if vehicle
-     # driverId = Vehicles.getAssignedDriver(vehicle._id, Date.now())
-     # console.log 'driverid: ' + driverId
-     # driver = Drivers.findOne({_id: driverId})
-     # console.log 'driver: ' + driver
-     # console.log 'Driver: ' + JSON.stringify(driver) if driver
-     twin('name','sirname')
+     driver = Vehicles.getAssignedDriverByUnitId @start.deviceId, @start.recordTime
+     if driver then twin(driver.firstName, driver.name) else twin('unknown','')
 
 @IdleBook.helpers
   idledate: -> moment(@startTime).zone(Settings.unitTimezone).format('DD-MM-YYYY')
@@ -108,3 +102,6 @@ toAddress = (loc)->
   dur     : -> moment.duration(@duration, "seconds").format('HH:mm:ss', {trim: false})
   address : -> toAddress(@location)
   passedDistance: -> @distance #.toFixed(0)
+  driverName: ->
+    driver = Vehicles.getAssignedDriverByUnitId @deviceId, @startTime
+    if driver then twin(driver.firstName + '&nbsp;' + driver.name, '') else twin('unknown','')

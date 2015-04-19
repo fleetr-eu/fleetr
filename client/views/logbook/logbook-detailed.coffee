@@ -6,6 +6,11 @@ Template.logbookStartStop.helpers
   totalFuel: -> (total.get().fuel/1000)?.toFixed(0)
   totalTravelTime: -> moment.duration(total.get().travelTime, "seconds").format('HH:mm:ss', {trim: false})
 
+Template.logbookStartStop.created = ()->
+  Meteor.subscribe "vehicles"
+  Meteor.subscribe "driverVehicleAssignments"
+  Meteor.subscribe "drivers"
+
 Template.logbookStartStop.rendered = ()->
   Meteor.call 'detailedTotals', Template.currentData().selectedDate, (err, res)-> 
     total.set(res[0]) if not err

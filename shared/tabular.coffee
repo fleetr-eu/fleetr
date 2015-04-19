@@ -102,6 +102,7 @@ TabularTables.IdleBook = new Tabular.Table
     { width: '50%', title: 'Address'  , data: 'address()' }
     { width: '10%', title: 'Duration' , data: 'dur()', className: 'time-col' }
     { width: '10%', title: 'Distance' , data: 'passedDistance()', className: 'distance-col' }
-    { width: '10%', title: 'Details'   , tmpl: Meteor.isClient && Template.idleDetailsCellTemplate }
-    { width: '10%', tmpl: Meteor.isClient && Template.mapIdleCellTemplate }
+    { width: '10%', title: 'Driver', data: 'driverName()' }
+    # { width: '10%', title: 'Details'   , tmpl: Meteor.isClient && Template.idleDetailsCellTemplate }
+    { width: '5%', tmpl: Meteor.isClient && Template.mapIdleCellTemplate }
   ]

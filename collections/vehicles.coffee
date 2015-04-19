@@ -13,6 +13,11 @@ Vehicles.getAssignedDriver = (vehicle, timestamp) ->
   else
     ""
 
+Vehicles.getAssignedDriverByUnitId = (unitId, timestamp) ->
+  vehicle = Vehicles.findOne {unitId: unitId}
+  driverId = Vehicles.getAssignedDriver(vehicle._id, timestamp)
+  Drivers.findOne({_id: driverId})
+
 Vehicles.helpers
   lastLocations: (limit) ->
     if limit
