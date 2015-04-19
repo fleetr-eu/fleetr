@@ -8,7 +8,7 @@ Vehicles.after.remove (userId, doc) ->
 
 Vehicles.getAssignedDriver = (vehicle, timestamp) ->
   dvAssignment = DriverVehicleAssignments.findOne {vehicle:vehicle},  {sort: {moment: -1}}
-  if (dvAssignment?.moment <= timestamp) and (dvAssignment?.event=='begin')
+  if (dvAssignment?.date <= timestamp) and (dvAssignment?.event=='begin')
     dvAssignment.driver
   else
     ""
