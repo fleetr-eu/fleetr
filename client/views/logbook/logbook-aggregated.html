@@ -14,18 +14,24 @@
 					</section>
 					<section class="content" id="totals-section">
 					
-						<div>
-							<input id="logbook-date-range" class="datepicker" type="text">
+						<div class="form-inline">
+							<div class="form-group">
+							    <input id="logbook-date-range" class="form-control" type="text" placeholder="Choose date">
+						    </div>
+							<div class="form-group">
+							   <input id="filter" name="type" class="form-control" type="text" placeholder="Filter" />
+						    </div>
 						</div>
-						<input id="filter" name="type" type="text" placeholder="Filter"/>
 
 						<!-- Selector: {{currentSelectorStr}} -->
-						{{> tabular table=TabularTables.LogbookAggByDate selector=currentSelector class="table table-bordered table-condensed"}}
-						
-						<p class="fa fa-truck"> Total Distance: </p>{{totalDistance}} km <br>
-						<p class="fa fa-clock-o"> Total Travel Time: </p>{{totalTravelTime}} <br>
-						<p class="fa fa-coffee"> Total Idle Time: </p>{{totalIdleTime}} <br>
-						<p class="fa fa-plug"> Total Fuel: </p>{{totalFuel}} <br>
+						{{> tabular table=TabularTables.LogbookAggByDate selector=currentSelector class="table table-bordered table-condensed table-striped"}}
+
+						<ul class="list-unstyled">
+							<li><span class="fa  fa-truck"></span> Total Distance: {{totalDistance}} km</li>
+							<li><span class="fa fa-clock-o"></span> Total Travel Time: {{totalTravelTime}}</li>
+							<li><span class="fa fa-coffee"></span> Total Idle Time: {{totalIdleTime}}</li>
+							<li><span class="fa  fa-plug"></span> Total Fuel: {{totalFuel}}</li>
+						</ul>
 
 					</section>
 				</div>

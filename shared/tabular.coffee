@@ -2,11 +2,31 @@ TabularTables = {}
 
 Meteor.isClient && Template.registerHelper('TabularTables', TabularTables)
 
+languageTt = {
+  "sProcessing":   "Обработка на резултатите...",
+  "sLengthMenu":   "Показване на _MENU_ резултата",
+  "sZeroRecords":  "Няма намерени резултати",
+  "sInfo":         "Показване на резултати от _START_ до _END_ от общо _TOTAL_",
+  "sInfoEmpty":    "Показване на резултати от 0 до 0 от общо 0",
+  "sInfoFiltered": "(филтрирани от общо _MAX_ резултата)",
+  "sInfoPostFix":  "",
+  "sSearch":       "Търсене във всички колони:",
+  "sUrl":          "",
+  "oPaginate": {
+    "sFirst":    "Първа",
+    "sPrevious": "Предишна",
+    "sNext":     "Следваща",
+    "sLast":     "Последна"
+  }
+}
+
 TabularTables.LogbookAggByDate = new Tabular.Table
   name: "LogbookAggByDate"
   collection: AggByDate
+ # lengthChange: false
   responsive:true
   searching: false
+  language: languageTt
   columns: [
     # { width: '10%', title: 'Date', data:'general()' }
     { width: '10%', title: 'Date', data:'date', render: (val, type, doc) -> doc.general() }
@@ -31,9 +51,11 @@ TabularTables.LogbookAggByDate = new Tabular.Table
     'idleTime'
   ]
 
+
 TabularTables.LogbookStartStop = new Tabular.Table
   name: "LogbookStartStop"
   collection: StartStop
+  language: languageTt
   responsive:true
   columns: [
     { width: '10%', title: 'Start<br>Finish', data:'startStop()' }
@@ -47,8 +69,9 @@ TabularTables.LogbookStartStop = new Tabular.Table
   ]
 
 TabularTables.Drivers = new Tabular.Table
-  name: "DriversList",
-  collection: Drivers,
+  name: "DriversList"
+  collection: Drivers
+  language: languageTt
   columns: [
     {data: "firstName", title: "Name"},
     {data: "name", title: "Sirname"}
@@ -62,8 +85,9 @@ TabularTables.Drivers = new Tabular.Table
 
 
 TabularTables.RecLog = new Tabular.Table
-  name: "RecLog",
-  collection: Logbook,
+  name: "RecLog"
+  collection: Logbook
+  language: languageTt
   columns: [
     {title: 'Time', data: 'recordTime', render: (val, type, doc) ->
       moment(val).zone(Settings.unitTimezone).format('DD-MM HH:mm:ss')
@@ -94,6 +118,7 @@ TabularTables.RecLog = new Tabular.Table
 TabularTables.IdleBook = new Tabular.Table
   name: "IdleBook"
   collection: IdleBook
+  language: languageTt
   responsive:true
   columns: [
     { width: '10%', title: 'Date'     , data: 'idledate()' }
