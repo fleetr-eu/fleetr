@@ -3,7 +3,10 @@ geocoder = new GeoCoder
   httpAdapter: "http"
 
 @geocode = (lat,lon) ->
+  return undefined if not lat and not lon
+  # console.log 'Geocoding: ' + lat + ' : ' + lon
   location = geocoder.reverse(lat, lon)
+  # console.log '  location: ' + JSON.stringify(location)
   if location
     location = location[0]
     location.latitude  = lat
@@ -20,6 +23,7 @@ class RecordProcessor
     for rec in records
       @processRecord(rec)
     console.log 'Processing ' + @name + ' done'
+
 
 class Geocoder extends RecordProcessor
   constructor: (collection, name) ->
@@ -46,8 +50,13 @@ class StartStopGeocoder extends Geocoder
     startDate = moment(rec.start.recordTime).zone(Settings.unitTimezone).format("DD-MM HH:mm:ss")
     stopDate  = moment(rec.stop.recordTime).zone(Settings.unitTimezone).format("DD-MM HH:mm:ss")
     console.log 'Geocode ' + @name + ' record: [' + startDate + "] - [" + stopDate + ']'
+    
+    # console.log '  geocoding start: ' + rec.start.lat + ' : ' +  rec.start.lon
     startLocation = geocode(rec.start.lat, rec.start.lon)
+    
+    # console.log '  geocoding stop : ' + rec.stop.lat + ' : ' +  rec.stop.lon
     stopLocation = geocode(rec.stop.lat, rec.stop.lon)
+    
     if startLocation and stopLocation
       StartStop.update {_id: rec._id}, {$set: {"stop.location": stopLocation, "start.location": startLocation}}
     else

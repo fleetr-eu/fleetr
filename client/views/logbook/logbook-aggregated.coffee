@@ -42,6 +42,7 @@ class TableFilter
 
 total = new ReactiveVar({})
 
+
 Template.logbook.helpers
   selector: ()-> daterange.get() 
   totalDistance: -> total.get().distance?.toFixed(0)
