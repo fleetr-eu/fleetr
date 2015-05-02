@@ -46,21 +46,23 @@ class StartStopGeocoder extends Geocoder
   constructor: () ->
     super StartStop, 'start/stop'
   processRecord: (rec)->
-    return if rec.start.location and rec.stop.location
-    startDate = moment(rec.start.recordTime).zone(Settings.unitTimezone).format("DD-MM HH:mm:ss")
-    stopDate  = moment(rec.stop.recordTime).zone(Settings.unitTimezone).format("DD-MM HH:mm:ss")
-    console.log 'Geocode ' + @name + ' record: [' + startDate + "] - [" + stopDate + ']'
-    
-    # console.log '  geocoding start: ' + rec.start.lat + ' : ' +  rec.start.lon
-    startLocation = geocode(rec.start.lat, rec.start.lon)
-    
-    # console.log '  geocoding stop : ' + rec.stop.lat + ' : ' +  rec.stop.lon
-    stopLocation = geocode(rec.stop.lat, rec.stop.lon)
-    
-    if startLocation and stopLocation
-      StartStop.update {_id: rec._id}, {$set: {"stop.location": stopLocation, "start.location": startLocation}}
-    else
-      console.log @name + ' geocoding error'
+    return if rec.startAddress and rec.stopAddress
+    if not rec.start.location or not rec.stop.location
+      startDate = moment(rec.start.recordTime).zone(Settings.unitTimezone).format("DD-MM HH:mm:ss")
+      stopDate  = moment(rec.stop.recordTime).zone(Settings.unitTimezone).format("DD-MM HH:mm:ss")
+      console.log 'Geocode ' + @name + ' record: [' + startDate + "] - [" + stopDate + ']'
+      
+      startLocation = geocode(rec.start.lat, rec.start.lon)
+      stopLocation = geocode(rec.stop.lat, rec.stop.lon)
+      
+      if startLocation and stopLocation
+        StartStop.update {_id: rec._id}, {$set: {"stop.location": stopLocation, "start.location": startLocation}}
+      else
+        console.log @name + ' geocoding error'
+    # console.log 'recording start/stop address'
+    rec.startAddress = @toAddress(rec.start.location)
+    rec.stopAddress  = @toAddress(rec.stop.location)
+    StartStop.update {_id: rec._id}, {$set: {"startAddress": rec.startAddress, "stopAddress": rec.stopAddress}}
 
 class AggByDateGeocoder extends Geocoder
   constructor: () ->

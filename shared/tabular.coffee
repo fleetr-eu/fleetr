@@ -57,6 +57,7 @@ TabularTables.LogbookStartStop = new Tabular.Table
   collection: StartStop
   language: languageTt
   responsive:true
+  searching: false
   columns: [
     { width: '10%', title: 'Start<br>Finish', data:'startStop()' }
     { width: '35%', title: 'From<br>To', data: 'fromTo()' }
