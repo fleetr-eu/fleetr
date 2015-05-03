@@ -13,7 +13,7 @@ geocoder = new GeoCoder
     console.log 'Goocoding error: ' + x + '>>>'
   finally
     console.log 'Geocoding finished>>>'
-  # console.log '  location: ' + JSON.stringify(location)
+  console.log '  geocoded location: ' + location
   if location
     location = location[0]
     location.latitude  = lat
