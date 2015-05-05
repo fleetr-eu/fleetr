@@ -60,8 +60,8 @@ class StartStopGeocoder extends Geocoder
       else
         console.log @name + ' geocoding error'
     # console.log 'recording start/stop address'
-    rec.startAddress = @toAddress(rec.start.location)
-    rec.stopAddress  = @toAddress(rec.stop.location)
+    rec.startAddress = @toAddress(rec.start.location) if rec.start.location
+    rec.stopAddress  = @toAddress(rec.stop.location) if rec.stop.location
     StartStop.update {_id: rec._id}, {$set: {"startAddress": rec.startAddress, "stopAddress": rec.stopAddress}}
 
 class AggByDateGeocoder extends Geocoder
@@ -79,8 +79,8 @@ class AggByDateGeocoder extends Geocoder
         console.log 'Geocode agg record: location updated'
       else
         console.log 'Geocode agg record: no startstop record found'
-    rec.startAddress = @toAddress(rec.startLocation)
-    rec.stopAddress  = @toAddress(rec.stopLocation)
+    rec.startAddress = @toAddress(rec.startLocation) if rec.startLocation
+    rec.stopAddress  = @toAddress(rec.stopLocation) if rec.stopLocation
     AggByDate.update {_id: rec._id}, {$set: {"startAddress": rec.startAddress, "stopAddress": rec.stopAddress}}
     console.log 'agg record: start/stop address updated'
 

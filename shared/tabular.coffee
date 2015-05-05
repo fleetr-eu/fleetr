@@ -59,15 +59,18 @@ TabularTables.LogbookStartStop = new Tabular.Table
   responsive:true
   searching: false
   columns: [
-    { width: '10%', title: 'Start<br>Finish', data:'startStop()' }
-    { width: '35%', title: 'From<br>To', data: 'fromTo()' }
-    { width: '10%', title: 'Distance<br>Odometer', data:'distanceOdometer()', className: 'distance-col'}
-    { width: '10%', title: 'Speed<br>Max', data: 'speedMaxSpeed()', className: 'speed-col'}
-    { width: '10%', title: 'Duration', data:'duration()', className: 'time-col'}
-    { width: '10%', title: 'Fuel<br>per 100', data: 'fuel()', className: 'fuel-col'}
+    { width: '10%', title: 'Start<br>Finish', data:'start.recordTime', render: (val, type, doc) -> doc.startStop() }
+    { width: '35%', title: 'From<br>To', data: 'startAddress', render: (val, type, doc) -> doc.fromTo() }
+    { width: '10%', title: 'Distance<br>Odometer', data:'startStopDistance', className: 'distance-col', render: (val, type, doc) -> doc.distanceOdometer() }
+    { width: '10%', title: 'Speed<br>Max', data: 'startStopSpeed', className: 'speed-col', render: (val, type, doc) -> doc.speedMaxSpeed() }
+    { width: '10%', title: 'Duration', data: 'interval', className: 'time-col', render: (val, type, doc) -> doc.duration() }
+    { width: '10%', title: 'Fuel<br>per 100', data: 'fuelUsed', className: 'fuel-col', render: (val, type, doc) -> doc.fuel() }
     { width: '10%', title: 'Driver', data: 'driverName()' }
     { width: '10%', tmpl: Meteor.isClient && Template.mapCellTemplate }
   ]
+  extraFields: [
+    'start', 'stop', 'startStopDistance', 'startStopSpeed', 'maxSpeed'
+  ]    
 
 TabularTables.Drivers = new Tabular.Table
   name: "DriversList"
