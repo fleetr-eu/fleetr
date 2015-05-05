@@ -1,11 +1,39 @@
+class TableFilter
+  
+  constructor: (selectedDate, columns)->  
+    @columns = columns
+    @selector = new ReactiveVar({date: selectedDate})
+
+  value: (value) ->
+    sel = @selector.get()
+    if value
+      searches = []
+      for column in @columns
+        s = {}
+        s[column] =
+          $regex: value
+          $options: 'i'
+        searches.push s
+      sel['$or'] = searches
+    else
+      delete sel['$or']
+    console.log 'set: ' + JSON.stringify(sel)
+    @selector.set(sel)
+
 total = new ReactiveVar({})
 
 Template.logbookIdle.created = ->
   Meteor.subscribe "vehicles"
   Meteor.subscribe "driverVehicleAssignments"
   Meteor.subscribe "drivers"
+  this.filter = new TableFilter Template.currentData().selectedDate, [
+    'location.city'
+    'location.zipcode'
+    'location.streetName'
+  ]
 
 Template.logbookIdle.rendered = ->
+  self = this
   Meteor.call 'idleTotals', Template.currentData().selectedDate, (err, res)-> 
     if not err 
       console.log 'Idle: ' + JSON.stringify(res)
@@ -24,6 +52,12 @@ Template.logbookIdle.rendered = ->
   $("#DataTables_Table_0_filter").parent().addClass("col-sm-8")
   $("#DataTables_Table_0_filter").prepend(select)
 
+  $input = $('#filter')
+  $input.on 'keyup', ->
+    console.log 'Search: ' + @value
+    self.filter.value @value
+
+
 Template.logbookIdle.events
   'change #selectDuration': ->
     val = $('#selectDuration').val()
@@ -39,6 +73,8 @@ Template.logbookIdle.helpers
     console.log 'Search: ' + JSON.stringify(search)
     search
   totalIdleTime: -> moment.duration(total.get().idleTime, "seconds").format('HH:mm:ss', {trim: false})
+  currentSelector: ()-> Template.instance().filter.selector.get()
+  currentSelectorStr: ()-> JSON.stringify(Template.instance().filter.selector.get())
 
 Template.mapIdleCellTemplate.helpers
   opts: -> encodeURIComponent EJSON.stringify

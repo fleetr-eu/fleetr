@@ -124,14 +124,16 @@ TabularTables.IdleBook = new Tabular.Table
   collection: IdleBook
   language: languageTt
   responsive:true
+  searching: false
   columns: [
     { width: '10%', title: 'Date'     , data: 'idledate()' }
-    { width: '10%', title: 'From'     , data: 'from()', className: 'time-col' }
-    { width: '10%', title: 'To'       , data: 'to()', className: 'time-col' }
+    { width: '10%', title: 'From'     , data: 'startTime', className: 'time-col', render: (val, type, doc) -> doc.from() }
+    { width: '10%', title: 'To'       , data: 'stopTime', className: 'time-col', render: (val, type, doc) -> doc.to() }
     { width: '50%', title: 'Address'  , data: 'address()' }
-    { width: '10%', title: 'Duration' , data: 'dur()', className: 'time-col' }
-    { width: '10%', title: 'Distance' , data: 'passedDistance()', className: 'distance-col' }
+    { width: '10%', title: 'Duration' , data: 'duration', className: 'time-col', render: (val, type, doc) -> doc.dur() }
+    { width: '10%', title: 'Distance' , data: 'distance', className: 'distance-col', render: (val, type, doc) -> doc.passedDistance() }
     { width: '10%', title: 'Driver', data: 'driverName()' }
     # { width: '10%', title: 'Details'   , tmpl: Meteor.isClient && Template.idleDetailsCellTemplate }
     { width: '5%', tmpl: Meteor.isClient && Template.mapIdleCellTemplate }
   ]
+  extraFields: ['duration', 'distance', 'deviceId', 'location']
