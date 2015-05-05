@@ -5,15 +5,8 @@ geocoder = new GeoCoder
 @geocode = (lat,lon) ->
   return undefined if not lat and not lon
   # console.log 'Geocoding: ' + lat + ' : ' + lon
-  location = undefined
-  console.log '<<<Start geocoding'
-  try
-    location = geocoder.reverse(lat, lon)
-  catch x
-    console.log 'Goocoding error: ' + x + '>>>'
-  finally
-    console.log 'Geocoding finished>>>'
-  console.log '  geocoded location: ' + location
+  location = geocoder.reverse(lat, lon)
+  # console.log '  geocoded location: ' + location
   if location
     location = location[0]
     location.latitude  = lat

@@ -22,7 +22,7 @@ Meteor.publish 'driverVehicleAssignments', -> DriverVehicleAssignments.find {}
 Meteor.publish 'driverVehicleAssignment', (filter) ->
   if filter then DriverVehicleAssignments.find filter else []
 
-Meteor.publish 'startstop', (args) -> StartStop.find(args || {})
+Meteor.publish 'startstop', (args) -> StartStop.find(args || {}, {sort: {startTime: 1}} )
 Meteor.publish 'aggbydate', (args) -> AggByDate.find(args || {})
 Meteor.publish 'logbook'  , (args) -> Logbook.find(args || {}, {sort: {recordTime: -1}} )
 Meteor.publish 'idlebook'  , (args) -> IdleBook.find(args || {}, {sort: {startTime: 1}} )
