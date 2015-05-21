@@ -8,8 +8,16 @@
           </div>
         </div>
         <div class="portlet-body">
+          <div class="form-inline">
+              <div class="form-group">
+                  <input id="logbook-date-range" class="form-control" type="text" placeholder="Choose date">
+                </div>
+              <div class="form-group">
+                 <input id="filter" name="type" class="form-control" type="text" placeholder="Address" />
+              </div>
+          </div>
           <section class="content" id="aggregated-table-section">
-            {{> tabular table=TabularTables.IdleBook selector=selector class="table table-striped table-bordered table-condensed"}}
+            {{> tabular table=TabularTables.IdleBook selector=currentSelector class="table table-striped table-bordered table-condensed"}}
           </section>
           <section class="content" id="totals-section">
             <p class="fa fa-coffee"> Total Idle Time: </p>{{totalIdleTime}}<br>

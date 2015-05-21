@@ -71,6 +71,7 @@ toAddress = (loc)->
 
 @StartStop.helpers
    startStop: ->
+     # console.log 'this: ' + JSON.stringify(this)
      start = moment(@start.recordTime).zone(Settings.unitTimezone).format('HH:mm:ss')
      stop = moment(@stop.recordTime).zone(Settings.unitTimezone).format('HH:mm:ss')
      twin(start,stop)

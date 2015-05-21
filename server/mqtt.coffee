@@ -1,4 +1,4 @@
-toAddress: (loc)->
+toAddress = (loc)->
   return 'not geocoded yet...' if not loc
   addr = loc.country
   addr += ', ' + loc.city
@@ -152,11 +152,11 @@ Meteor.startup ->
         date = new Date(record.recordTime)
         record.recordTime = date
       prepareLogbookRecord(record)
+      Logbook.insert record
+      console.log 'Logbook record inserted ok'
       if record.type == 29 and record.io == 254
         console.log 'processing start/stop record...'
         processStopRecord(record)
-      Logbook.insert record
-      console.log 'Logbook record inserted ok'
 
       idle = idleDetector.process(record)
       if idle
