@@ -12,8 +12,8 @@ Meteor.startup ->
     init: (cb) ->
       navigator.geolocation.getCurrentPosition Map.setup(cb), Map.setup(cb)
 
-    setup: (cb) -> (position) ->
-      position ?= {coords: {latitude: 42.6959214, longitude: 23.3198662}}
+    # Location defaults to Sofia
+    setup: (cb) -> (position = {coords: {latitude: 42.6959214, longitude: 23.3198662}}) ->
       Map.options.center = lat: position.coords.latitude, lng: position.coords.longitude
       Map.map = new google.maps.Map document.getElementById("map-canvas"), Map.options
       Map.vehicleClusterer = createVehicleClusterer Map.map

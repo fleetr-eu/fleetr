@@ -7,7 +7,6 @@ Template.map.rendered = ->
       if selectedVehicle
         Map.setCenter [selectedVehicle.lat, selectedVehicle.lon]
 
-
 Template.map.helpers
   selectedVehicleId: -> Session.get('selectedVehicleId')
   renderMarkers: -> Map.renderMarkers()

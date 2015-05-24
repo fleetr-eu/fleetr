@@ -24,7 +24,7 @@ Template.simpleMap.rendered = ->
   Meteor.subscribe 'logbook', searchArgs, ->
     path = Logbook.find(searchArgs, {sort: recordTime: -1}).map (point) ->
       color = 'red' if point.speed >= Settings.maxSpeed
-      color = 'blue' if point.speed <= 0.05
+      color = 'blue' if point.speed <= Settigns.zeroSpeed
       if color
         opts =
           position: new google.maps.LatLng(point.lat, point.lon)
