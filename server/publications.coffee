@@ -24,7 +24,8 @@ Meteor.publish 'driverVehicleAssignment', (filter) ->
 
 Meteor.publish 'startstop', (args) -> StartStop.find(args || {}, {sort: {startTime: 1}} )
 Meteor.publish 'aggbydate', (args) -> AggByDate.find(args || {})
-Meteor.publish 'logbook'  , (args) -> Logbook.find(args || {}, {sort: {recordTime: -1}} )
+Meteor.publish 'latest device position', (deviceId) ->
+  Logbook.find {deviceId: deviceId}, {sort: {recordTime: -1}, limit: 1}
 Meteor.publish 'idlebook'  , (args) -> IdleBook.find(args || {}, {sort: {startTime: 1}} )
 
 Meteor.publish 'locations', (vehicleId, dtFrom, dtTo) ->

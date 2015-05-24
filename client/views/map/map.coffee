@@ -1,36 +1,11 @@
 Template.map.rendered = ->
-  Session.set "mapDateRangeFrom", +moment().subtract(2, "hours").format("X")
-  Session.set "mapDateRangeTo", +moment().add(1, "hours").format("X")
   Session.set 'selectedVehicleId', @data.vehicleId
 
   Map.init =>
     @autorun ->
       vehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
       if vehicle
-        Meteor.subscribe 'logbook',
-          deviceId: vehicle.unitId
-          recordTime:
-            $gte: Session.get("mapDateRangeFrom") * 1000
-            $lte: Session.get("mapDateRangeTo") * 1000
-        , Map.renderMarkers
-
-  $("#hours_range").ionRangeSlider
-    type : "double"
-    min: +moment().subtract(24, "hours").format("X")
-    max: +moment().add(2, "hours").format("X")
-    from: +moment().subtract(2, "hours").format("X")
-    to: +moment().add(1, "hours").format("X")
-    grid: true
-    keyboard: true
-    keyboard_step: 1
-    force_edges: true
-    prettify: (num) ->
-        m = moment(num, "X")
-        m.locale(Settings.locale).format("Do MMMM, HH:mm")
-    onChange: (data) ->
-      Session.set "mapDateRangeFrom", data.from
-      Session.set "mapDateRangeTo", data.to
-
+        Meteor.subscribe 'latest device position', vehicle.unitId, Map.renderMarkers
 
 Template.map.helpers
   selectedVehicleId: -> Session.get('selectedVehicleId')
