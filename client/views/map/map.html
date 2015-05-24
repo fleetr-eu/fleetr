@@ -42,7 +42,7 @@
   <table class="table table-striped">
     <thead>
         <tr>
-          <th>Номер</th>
+          <th>Име (Номер)</th>
           <th>Етикети</th>
         </tr>
       </thead>
@@ -54,7 +54,7 @@
 
 <template name="vehicleMapTableRow">
     <tr class="{{active}}">
-        <td>{{licensePlate}}</td>
+        <td>{{name}} ({{licensePlate}})</td>
         <td>
           {{#each tagsArray}}
           <span class="label label-danger filter-tag">{{this}}</span>
