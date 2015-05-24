@@ -3,9 +3,10 @@ Template.map.rendered = ->
 
   Map.init =>
     @autorun ->
-      vehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
-      if vehicle
-        Meteor.subscribe 'latest device position', vehicle.unitId, Map.renderMarkers
+      selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
+      if selectedVehicle
+        Map.setCenter [selectedVehicle.lat, selectedVehicle.lon]
+
 
 Template.map.helpers
   selectedVehicleId: -> Session.get('selectedVehicleId')

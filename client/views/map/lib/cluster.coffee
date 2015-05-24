@@ -1,19 +1,22 @@
 Meteor.startup ->
-  commonOptions =
-    zoomOnClick:true
-    averageCenter:true
-    gridSize:40
-
-  @createPathClusterer = (imagePrefix) -> (map) ->
-    opts = _.extend commonOptions,
-      zIndex: 20
-      imagePath: "/images/#{imagePrefix}"
-      calculator: -> {index: 1, text: ''}
-    new MarkerClusterer map, [], opts
-
-  @createSpeedClusterer = createPathClusterer 'speed/m'
-
-  @createStayClusterer = createPathClusterer 'stay/m'
-
   @createVehicleClusterer = (map) ->
-    new MarkerClusterer map, [], _.extend(commonOptions, {zIndex: 90})
+    new MarkerClusterer map, [],
+      calculator: (markers, styles) ->
+        index: 1
+        text: markers.length
+        # text: "<img src='/images/truck-red.png'>#{markers.length}</img>"
+        # text: "<h1 style='color:red;'>#{markers.length}</h1>"
+        title: "Click to expand the cluster."
+      zoomOnClick:true
+      averageCenter:true
+      zIndex: 90
+      gridSize:40
+      styles: [
+        {
+          url: "/images/truck-blue.png"
+          width: 32
+          height: 37
+          textSize: 20
+          textColor: 'red'
+        }
+      ]

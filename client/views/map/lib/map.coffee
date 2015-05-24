@@ -16,8 +16,6 @@ Meteor.startup ->
       position ?= {coords: {latitude: 42.6959214, longitude: 23.3198662}}
       Map.options.center = lat: position.coords.latitude, lng: position.coords.longitude
       Map.map = new google.maps.Map document.getElementById("map-canvas"), Map.options
-      Map.speedClusterer = createSpeedClusterer Map.map
-      Map.stayClusterer = createStayClusterer Map.map
       Map.vehicleClusterer = createVehicleClusterer Map.map
 
       google.maps.event.addListenerOnce Map.map, 'idle', Map.renderMarkers
