@@ -26,15 +26,11 @@ Meteor.startup ->
       cb && cb()
 
     renderMarkers: ->
-      markers = Vehicles.findFiltered('vehicleFilter', ['licensePlate', 'tags']).map (vehicle) ->
+      markers = Vehicles.findFiltered('vehicleFilter', ['name', 'licensePlate', 'tags'])
+      .map (vehicle) ->
         new VehicleMarker(vehicle).withInfo(vehicle, Map.map)
       Map.deleteVehicleMarkers()
       Map.showVehicleMarkers markers
-
-      if Session.get('selectedVehicleId')
-        selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
-        if selectedVehicle
-          Map.setCenter [selectedVehicle.lat, selectedVehicle.lon]
 
     addListener: (event, listener) ->
       google.maps.event.addListener Map.map, event, listener

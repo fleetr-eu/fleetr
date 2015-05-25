@@ -20,6 +20,7 @@ binary-heap@1.0.3
 blaze@2.1.2
 blaze-tools@1.0.3
 boilerplate-generator@1.0.3
+bojicas:bootstrap-alerts@1.0.1
 callback-hook@1.0.3
 cfs:http-methods@0.0.29
 check@1.0.5
@@ -109,6 +110,7 @@ tap:i18n-ui@0.7.0
 templating@1.1.1
 tracker@1.0.7
 tsega:bootstrap3-datetimepicker@4.7.14_4
+twbs:bootstrap@3.3.4
 ui@1.0.6
 underscore@1.0.3
 underscorestring:underscore.string@3.0.3_1

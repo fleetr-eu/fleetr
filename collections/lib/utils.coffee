@@ -3,7 +3,7 @@ Mongo.Collection.prototype.findFiltered = (filterVar, fieldsToFilter) ->
   fields = fieldsToFilter.reduce (acc, field) ->
     term = {}
     term[field] =
-      $regex: "#{query}"
+      $regex: query
       $options: 'i'
     acc.push term
     acc

@@ -5,7 +5,10 @@ Template.map.rendered = ->
     @autorun ->
       selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
       if selectedVehicle
-        Map.setCenter [selectedVehicle.lat, selectedVehicle.lon]
+        if selectedVehicle.lat && selectedVehicle.lon
+          Map.setCenter [selectedVehicle.lat, selectedVehicle.lon]
+        else
+          Alerts.set 'This vehicle has no known position.'
 
 Template.map.helpers
   selectedVehicleId: -> Session.get('selectedVehicleId')
@@ -14,7 +17,7 @@ Template.map.helpers
 Template.map.created = -> Session.setDefault 'vehicleFilter', ''
 
 Template.vehiclesMapTable.helpers
-  vehicles: -> Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'tags']
+  vehicles: -> Vehicles.findFiltered 'vehicleFilter', ['name', 'licensePlate', 'tags']
 
 Template.vehicleMapTableRow.helpers
   fleetName: -> Fleets.findOne(_id : @allocatedToFleet).name
