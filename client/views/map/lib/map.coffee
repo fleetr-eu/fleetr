@@ -26,8 +26,7 @@ Meteor.startup ->
       cb && cb()
 
     renderMarkers: ->
-      markers = Vehicles.findFiltered('vehicleFilter', ['name', 'licensePlate', 'tags'])
-      .map (vehicle) ->
+      markers = Vehicles.find().map (vehicle) ->
         new VehicleMarker(vehicle).withInfo(vehicle, Map.map)
       Map.deleteVehicleMarkers()
       Map.showVehicleMarkers markers
