@@ -136,10 +136,18 @@ processStopRecord = (r)->
 Meteor.startup ->
   console.log 'MQTT URL: ' + Meteor.settings.mqttUrl
   client = mqtt.connect Meteor.settings.mqttUrl || 'mqtt://mqtt:1883'
-  client.subscribe '/fleetr/records': 2, (err, granted) -> #subscribe at QoS level 2
-    console.log "MQTT Error: #{err}" if err
 
   idleDetector = new IdleDetector
+
+  client.on 'connect', () -> 
+    console.log 'MQTT CONNECTED OK'
+    client.subscribe '/fleetr/records': 2, (err, granted) -> #subscribe at QoS level 2
+      if err
+        console.log "MQTT Error: #{err}" 
+      else
+        console.log 'MQTT SUBSCRIBED: ' + JSON.stringify(granted)
+  
+  client.on 'disconnect', () -> console.log '*** MQTT DISCONNECTED'
 
   client.on 'message', (topic, message) ->
     Fiber = Npm.require('fibers')
