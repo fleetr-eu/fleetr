@@ -85,7 +85,8 @@ Meteor.startup ->
       waitOn: ->
         [Meteor.subscribe('vehiclesMakes')
           Meteor.subscribe('vehiclesModels')
-          Meteor.subscribe('vehicle', _id: @params.vehicleId)]
+          Meteor.subscribe('vehicle', _id: @params.vehicleId)
+          Meteor.subscribe('fleets')]
 
     @route 'listFleetGroups',
       path: '/fleets/groups/list'

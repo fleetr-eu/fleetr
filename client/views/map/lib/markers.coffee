@@ -37,18 +37,21 @@ Meteor.startup ->
   class @VehicleMarker extends FleetrMarker
     constructor: (vehicle) ->
       truckIcon =
-        if vehicle.speed == 0
-          if vehicle.stay < Settings.maxStay
+        if vehicle.speed <= Settings.zeroSpeed
+          if vehicle.stay < (vehicle.alarms?.idleAlarmTime || Settings.maxStay)
             '/images/truck-blue.png'
           else
             '/images/truck-gray.png'
-        else
-          if vehicle.speed > Settings.maxSpeed
+        else if vehicle.speed > (vehicle.alarms?.speedingAlarmSpeed || Settings.maxSpeed)
             '/images/truck-red.png'
-          else '/images/truck-green.png'
+        else if vehicle.speed? or vehicle.stay?
+          '/images/truck-green.png'
+        else
+          '/images/truck-blue.png'
+
       super
         position: new FleetrLatLng [vehicle.lat, vehicle.lon]
-        title: vehicle?.identificationNumber || @location.vehicle()?.identificationNumber
+        title: "#{vehicle?.name} (#{vehicle?.licensePlate})"
         icon: truckIcon
         zIndex: 100
 

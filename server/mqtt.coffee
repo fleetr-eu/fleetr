@@ -1,5 +1,5 @@
 toAddress = (loc)->
-  return 'not geocoded yet...' if not loc
+  return undefined if not loc
   addr = loc.country
   addr += ', ' + loc.city
   addr += ', ' + loc.zipcode if loc.zipcode
@@ -23,7 +23,7 @@ makeStartStopRecord = (start,stop)->
     # console.log 'START/STOP: start: ' + start.recordTime
     # console.log 'START/STOP: stop : ' + stop.recordTime
 
-    search = {type:30, recordTime: {$gte: start.recordTime, $lte: stop.recordTime}}
+    search = {deviceId: start.deviceId, type:30, recordTime: {$gte: start.recordTime, $lte: stop.recordTime}}
     order = {sort: {speed:-1}}
 
     # console.log 'START/STOP: search: ' + JSON.stringify(search)
@@ -50,7 +50,7 @@ makeStartStopRecord = (start,stop)->
     if startLocation and stopLocation
       record.start.location = startLocation    
       record.stop.location = stopLocation    
-      # console.log 'START/STOP: geocoding done ok'
+      #console.log 'START/STOP: geocoding done ok'
     #else
     #  console.log 'START/STOP: geocoding failed'
 
@@ -62,11 +62,11 @@ makeStartStopRecord = (start,stop)->
   return record
 
 updateAggRecord = (record) ->
-  agg = AggByDate.findOne {date: record.date}
+  agg = AggByDate.findOne {deviceId: record.start.deviceId, date: record.date}
   if not agg
     agg = 
       date        : record.date
-      startId     : record._id
+      startId     : record.start._id
       startTime   : record.start.recordTime
       sumDistance : record.startStopDistance     
       startLocation: record.start.location
@@ -75,12 +75,13 @@ updateAggRecord = (record) ->
       avgSpeed    : record.startStopSpeed
       maxSpeed    : record.maxSpeed
       total       : 1
-      stopId      : record._id
+      stopId      : record.stop._id
       stopTime    : record.stop.recordTime
       stopOdo     : record.stop.tacho
       stopLocation: record.stop.location
       startAddress: toAddress(record.start.location)
       stopAddress : toAddress(record.stop.location)
+      deviceId    : record.start.deviceId
     console.log 'Insert: ' + agg.date + ' dis: ' + agg.sumDistance
     AggByDate.insert agg
   else
@@ -91,9 +92,11 @@ updateAggRecord = (record) ->
     agg.maxSpeed     = record.maxSpeed if record.maxSpeed > agg.maxSpeed
     agg.stopTime     = record.stop.recordTime
     agg.stopOdo      = record.stop.tacho
-    agg.stopId       = record._id
+    agg.stopId       = record.stop._id
     agg.stopLocation = record.stop.location
     agg.stopAddress  = toAddress(record.stop.location)
+    agg.startLocation = record.start.location
+    agg.startAddress  = toAddress(record.start.location)
     agg.total++
     console.log 'Updated: ' + agg.date + ' dis: ' + agg.sumDistance + ' avg: ' + agg.avgSpeed + ' max: ' + agg.maxSpeed 
     update = 
@@ -108,6 +111,8 @@ updateAggRecord = (record) ->
       stopId      : agg.stopId 
       stopLocation: agg.stopLocation 
       stopAddress : agg.stopAddress
+      startLocation: agg.startLocation 
+      startAddress : agg.startAddress
     AggByDate.update {_id: agg._id}, {$set: update}
     return agg
 
@@ -117,7 +122,7 @@ prepareLogbookRecord = (record)->
 
 processStopRecord = (r)->
   # console.log 'Processing!'
-  lastStart = Logbook.findOne {type:29,io:255}, {sort: {recordTime:-1}}
+  lastStart = Logbook.findOne {deviceId:r.deviceId, type:29,io:255}, {sort: {recordTime:-1}}
   # console.log 'LastStart: ' + JSON.stringify(lastStart)
   # console.log 'LastStart: ' + moment(lastStart.recordTime).zone(UNIT_TIMEZONE).format('YYYY-MM-DD HH:mm:ss') + ' io: ' + lastStart.io + ' tacho: ' + lastStart.tacho + ' fuel: ' + lastStart.fuelc
   # console.log 'ThisStop : ' + moment(r.recordTime).zone(UNIT_TIMEZONE).format('YYYY-MM-DD HH:mm:ss') + ' io: ' + r.io + ' tacho: ' + r.tacho + ' fuel: ' + r.fuelc
@@ -137,7 +142,7 @@ Meteor.startup ->
   console.log 'MQTT URL: ' + Meteor.settings.mqttUrl
   client = mqtt.connect Meteor.settings.mqttUrl || 'mqtt://mqtt:1883'
 
-  idleDetector = new IdleDetector
+  idleDetectors = {}
 
   client.on 'connect', () -> 
     console.log 'MQTT CONNECTED OK'
@@ -166,12 +171,17 @@ Meteor.startup ->
         console.log 'processing start/stop record...'
         processStopRecord(record)
 
+      idleDetector = idleDetectors[record.deviceId]
+      if(not idleDetector)  
+        idleDetector = new IdleDetector
+        idleDetectors[record.deviceId] = idleDetector
+
       idle = idleDetector.process(record)
       if idle
         IdleBook.insert idle if idle
         console.log 'New idle interval inserted'
                 
-        agg = AggByDate.findOne {date: idle.date}
+        agg = AggByDate.findOne {date: idle.date, deviceId: record.deviceId}
         if agg
           seconds = idle.duration
           seconds += agg.idleTime if agg.idleTime
@@ -179,7 +189,7 @@ Meteor.startup ->
           AggByDate.update {_id: agg._id}, {$set: {idleTime: seconds}}
           console.log 'Agg idle interval updated: ' + seconds
         else
-          console.log 'No add data for: ' + date
-
+          console.log 'Idle: No aggregated data found for: ' + date
 
     ).run()
+

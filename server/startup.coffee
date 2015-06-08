@@ -2,12 +2,17 @@ geocoder = new GeoCoder
   geocoderProvider: "openstreetmap"
   httpAdapter: "http"
 
+
 @geocode = (lat,lon) ->
+  console.log '  geocoding: ' + lat + ' : ' + lon
   return undefined if not lat and not lon
-  # console.log 'Geocoding: ' + lat + ' : ' + lon
-  location = geocoder.reverse(lat, lon)
-  # console.log '  geocoded location: ' + location
+  try
+    location = geocoder.reverse(lat, lon)
+  catch err
+    console.log '  geocode err: ' + err
+  console.log '  geocoded location: ' + JSON.stringify(location)
   if location
+    # console.log '  geocoded location: ' + JSON.stringify(location)
     location = location[0]
     location.latitude  = lat
     location.longitude = lon
@@ -35,7 +40,7 @@ class Geocoder extends RecordProcessor
   #     @processRecord(rec)
   #   console.log 'Geocoding ' + @name + ' done'
   toAddress: (loc)->
-    return 'not geocoded yet...' if not loc
+    return undefined if not loc
     addr = loc.country
     addr += ', ' + loc.city
     addr += ', ' + loc.zipcode if loc.zipcode
@@ -52,13 +57,26 @@ class StartStopGeocoder extends Geocoder
       stopDate  = moment(rec.stop.recordTime).zone(Settings.unitTimezone).format("DD-MM HH:mm:ss")
       console.log 'Geocode ' + @name + ' record: [' + startDate + "] - [" + stopDate + ']'
       
-      startLocation = geocode(rec.start.lat, rec.start.lon)
-      stopLocation = geocode(rec.stop.lat, rec.stop.lon)
-      
-      if startLocation and stopLocation
-        StartStop.update {_id: rec._id}, {$set: {"stop.location": stopLocation, "start.location": startLocation}}
+      startLocation = geocode(rec.start.lat, rec.start.lon) if not rec.startAddress
+      if startLocation 
+        StartStop.update {_id: rec._id}, {$set: {"start.location": startLocation}}
+        console.log '  ' + @name + ' start location geocoded'
       else
-        console.log @name + ' geocoding error'
+        console.log '  ' + @name + ' couldn not geocode start location'
+      # console.log 'START LOC: ' + JSON.stringify(rec.start) if not startLocation
+      
+      stopLocation = geocode(rec.stop.lat, rec.stop.lon) if not rec.stopAddress
+      # console.log 'STOP LOC: ' + JSON.stringify(rec.stop) if not stopLocation
+      if stopLocation
+        StartStop.update {_id: rec._id}, {$set: {"stop.location": stopLocation}}
+        console.log '  ' + @name + ' stop  location geocoded'
+      else
+        console.log '  ' + @name + ' couldn not geocode stop location'
+      
+      #if startLocation and stopLocation
+      #  StartStop.update {_id: rec._id}, {$set: {"stop.location": stopLocation, "start.location": startLocation}}
+      #else
+      #  console.log '  ' + @name + ' geocoding error'
     # console.log 'recording start/stop address'
     rec.startAddress = @toAddress(rec.start.location) if rec.start.location
     rec.stopAddress  = @toAddress(rec.stop.location) if rec.stop.location
@@ -83,6 +101,7 @@ class AggByDateGeocoder extends Geocoder
     rec.stopAddress  = @toAddress(rec.stopLocation) if rec.stopLocation
     AggByDate.update {_id: rec._id}, {$set: {"startAddress": rec.startAddress, "stopAddress": rec.stopAddress}}
     console.log 'agg record: start/stop address updated'
+
 
 class IdleGeocoder extends Geocoder
   constructor: () ->
