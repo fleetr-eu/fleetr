@@ -6,11 +6,12 @@ dateFormatter = (row, cell, value) -> new Date(value).toLocaleDateString 'en-US'
 
 getDateRow = (field) -> (row) -> new Date(row[field]).toLocaleDateString 'en-US'
 
-sumTotalsFormatter = (totals, columnDef) ->
+sumTotalsFormatter = (sign) -> (totals, columnDef) ->
   val = totals.sum && totals.sum[columnDef.field];
   if val
-    "&euro; " + ((Math.round(parseFloat(val)*100)/100));
+    "#{sign} " + ((Math.round(parseFloat(val)*100)/100));
   else "-"
+sumEuroTotalsFormatter = sumTotalsFormatter '&euro;'
 
 columns = [
   { id: "type", name: "Type", field: "expenseTypeName", sortable: true }
@@ -21,10 +22,10 @@ columns = [
   { id: "fleet", name: "Fleet", field: "fleetName", sortable: true }
   { id: "date", name: "Date", field: "timestamp", sortable: true, formatter: dateFormatter }
   { id: "invoiceNo", name: "Invoice NO.", field: "invoiceNr", sortable: true }
-  { id: "quantity", name: "quantity", field: "quantity", sortable: true, groupTotalsFormatter: sumTotalsFormatter }
-  { id: "amountGross", name: "Amount Gross", field: "total", sortable: true, groupTotalsFormatter: sumTotalsFormatter }
-  { id: "amountVat", name: "VAT", field: "totalVATIncluded", sortable: true, groupTotalsFormatter: sumTotalsFormatter }
-  { id: "amountDiscount", name: "Discount", field: "discount", sortable: true, groupTotalsFormatter: sumTotalsFormatter }
+  { id: "quantity", name: "Quantity", field: "quantity", sortable: true, groupTotalsFormatter: sumTotalsFormatter('total:') }
+  { id: "amountGross", name: "Amount Gross", field: "total", sortable: true, groupTotalsFormatter: sumEuroTotalsFormatter }
+  { id: "amountVat", name: "VAT", field: "totalVATIncluded", sortable: true, groupTotalsFormatter: sumEuroTotalsFormatter }
+  { id: "amountDiscount", name: "Discount", field: "discount", sortable: true, groupTotalsFormatter: sumEuroTotalsFormatter }
   { id: "note", name: "Note", field: "note" }
 ]
 # { id: "amountNet", name: "Amount Net", field: "total" }                # sum
@@ -81,15 +82,16 @@ Template.expenseReport.onRendered ->
     dataView.endUpdate()
 
 groupBy = (dataView, field, fieldName) ->
+  aggregators = [
+    new Slick.Data.Aggregators.Sum('total')
+    new Slick.Data.Aggregators.Sum('totalVATIncluded')
+    new Slick.Data.Aggregators.Sum('discount')
+  ]
+  aggregators.push new Slick.Data.Aggregators.Sum('quantity') if field == 'expenseTypeName'
   dataView.setGrouping
     getter: field
     formatter: (g) ->
       "<strong>#{fieldName}:</strong> " + g.value + "  <span style='color:green'>(" + g.count + " items)</span>"
-    aggregators: [
-      new Slick.Data.Aggregators.Sum('total')
-      new Slick.Data.Aggregators.Sum('quantity')
-      new Slick.Data.Aggregators.Sum('totalVATIncluded')
-      new Slick.Data.Aggregators.Sum('discount')
-    ],
-    aggregateCollapsed: false,
+    aggregators: aggregators
+    aggregateCollapsed: false
     lazyTotalsCalculation: true
