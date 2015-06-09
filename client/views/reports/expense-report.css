@@ -1,0 +1,10 @@
+.slickfleetr .slick-header-column.ui-state-default {
+  height: initial; /* by default height is too small to show text */
+}
+
+.slickfleetr .slick-group-toggle.expanded {
+  background: url(/slickgrid/images/collapse.gif) no-repeat center center;
+}
+.slickfleetr .slick-group-toggle.collapsed {
+  background: url(/slickgrid/images/expand.gif) no-repeat center center;
+}
