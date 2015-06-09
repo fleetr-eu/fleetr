@@ -240,6 +240,12 @@ Meteor.startup ->
         'startTime': @params.startTime
         'stopTime': @params.stopTime
 
+    @route 'expenseReport',
+      path: '/reports/expenses'
+      waitOn: -> [
+        Meteor.subscribe('expenses')
+      ]
+
     @route 'alarm-definitions-add',
       path: '/alarm-definitions/add'
       template: 'alarmDefinitionsAdd'
