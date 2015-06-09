@@ -6,7 +6,6 @@
 meteor-platform
 aldeed:collection2
 aldeed:autoform
-mizzao:bootstrap-3
 coffeescript
 yogiben:admin
 accounts-base
@@ -41,3 +40,5 @@ reywood:publish-composite
 reactive-var
 sacha:spin
 bojicas:bootstrap-alerts
+phuocd:slickgrid
+twbs:bootstrap
