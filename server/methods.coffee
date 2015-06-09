@@ -116,7 +116,7 @@ Meteor.methods
 
   aggByDateTotals: ->
     AggByDate.aggregate [
-      $group: 
+      $group:
         _id: null
         distance  : {$sum: "$sumDistance"}
         travelTime: {$sum: "$sumInterval"}
@@ -127,7 +127,7 @@ Meteor.methods
   detailedTotals: (date)->
     StartStop.aggregate [
       {$match: {date: date}}
-      $group: 
+      $group:
         _id: null
         distance  : {$sum: "$startStopDistance"}
         travelTime: {$sum: "$interval"}
@@ -137,10 +137,18 @@ Meteor.methods
   idleTotals: (date)->
     IdleBook.aggregate [
       {$match: {date: date}}
-      $group: 
+      $group:
         _id: null
         idleTime: {$sum: "$duration"}
     ]
 
-
-
+  getExpenses: ->
+    Expenses.find().map (expense) ->
+      expense.expenseTypeName = ExpenseTypes.findOne({_id: expense.expenseType})?.name
+      expense.expenseGroupName = ExpenseGroups.findOne({_id: expense.expenseGroup})?.name
+      expense.driverName = Drivers.findOne({_id: expense.driver})?.name
+      vehicle = Vehicles.findOne({_id: expense.vehicle})
+      expense.vehicleName = vehicle?.name
+      expense.fleetName = Fleets.findOne(_id: vehicle?.allocatedToFleet)?.name
+      console.log vehicle
+      expense
