@@ -19,7 +19,8 @@
     "logbook": "Logbook",
     "reclog": "Unit reports",
     "reports": "Reports",
-    "map": "Map"
+    "map": "Map",
+    "expenseReport": "Expenses"
   },
 
   "fleetGroup": {
