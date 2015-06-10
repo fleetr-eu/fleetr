@@ -110,21 +110,25 @@ TotalsDataProvider = (dataView, columns, fields) ->
   emptyRowMetaData = columns: {}
   #Make the totals not editable.
   #for i = 0; i < columns.length; i++
-  totalsMetadata.columns[i] = { editor: null, formatter: null } for i in [0..columns.length+1]
-  emptyRowMetaData.columns[i] = { editor: null, formatter: -> '' } for i in [0..columns.length+1]
+  totalsMetadata.columns[i] = { editor: null } for i in [0..columns.length]
+  emptyRowMetaData.columns[i] = { editor: null, formatter: -> '' } for i in [0..columns.length]
+
+  emptyRow = {}
+  emptyRow[columns[i].field] = '' for i in [0..columns.length]
 
   expandGroup: (key) -> dataView.expandGroup key
   collapseGroup: (key) -> dataView.collapseGroup key
   getLength: ->
-    console.log 'getLength', dataView.getLength()
     dataView.getLength() + 2;
   getItem: (index) ->
-    console.log 'getItem', index
     if index < dataView.getLength()
+      console.log 'getItem', index, dataView.getLength(), 'return', dataView.getItem index
       dataView.getItem index
     else if index == dataView.getLength()
-      {}
+      console.log 'getItem', index, dataView.getLength(), 'return', emptyRow
+      emptyRow
     else
+      console.log 'getItem', index, dataView.getLength(), 'return', totals
       totals
   updateTotals: ->
     columnIdx = columns.length
@@ -136,9 +140,9 @@ TotalsDataProvider = (dataView, columns, fields) ->
         total = total + (parseInt(dataView.getItem(i)[column.field], 10) || 0) while (i--)
         totals[column.field] = total
   getItemMetadata: (index) ->
-    if index == dataView.getLength()
+    if index < dataView.getLength()
+      dataView.getItemMetadata index
+    else if index == dataView.getLength()
       emptyRowMetaData
-    else if index == dataView.getLength()+1
+    else
       totalsMetadata
-    else dataView.getItemMetadata index
-  #@updateTotals();
