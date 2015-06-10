@@ -2,7 +2,8 @@
 dataView = null
 
 addId = (item) -> item.id = item._id; item;
-dateFormatter = (row, cell, value) -> new Date(value).toLocaleDateString 'en-US'
+dateFormatter = (row, cell, value) -> if value then new Date(value).toLocaleDateString 'en-US' else ''
+euroFormatter = (row, cell, value) -> "&euro; #{if value then value else '0'}"
 
 getDateRow = (field) -> (row) -> new Date(row[field]).toLocaleDateString 'en-US'
 
@@ -10,7 +11,7 @@ sumTotalsFormatter = (sign) -> (totals, columnDef) ->
   val = totals.sum && totals.sum[columnDef.field];
   if val
     "#{sign} " + ((Math.round(parseFloat(val)*100)/100));
-  else "-"
+  else ''
 sumEuroTotalsFormatter = sumTotalsFormatter '&euro;'
 
 columns = [
@@ -23,9 +24,9 @@ columns = [
   { id: "date", name: "Date", field: "timestamp", sortable: true, formatter: dateFormatter }
   { id: "invoiceNo", name: "Invoice NO.", field: "invoiceNr", sortable: true }
   { id: "quantity", name: "Quantity", field: "quantity", sortable: true, groupTotalsFormatter: sumTotalsFormatter('total:') }
-  { id: "amountGross", name: "Amount Gross", field: "total", sortable: true, groupTotalsFormatter: sumEuroTotalsFormatter }
-  { id: "amountVat", name: "VAT", field: "totalVATIncluded", sortable: true, groupTotalsFormatter: sumEuroTotalsFormatter }
-  { id: "amountDiscount", name: "Discount", field: "discount", sortable: true, groupTotalsFormatter: sumEuroTotalsFormatter }
+  { id: "amountGross", name: "Amount Gross", field: "total", sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
+  { id: "amountVat", name: "VAT", field: "totalVATIncluded", sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
+  { id: "amountDiscount", name: "Discount", field: "discount", sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
   { id: "note", name: "Note", field: "note" }
 ]
 # { id: "amountNet", name: "Amount Net", field: "total" }                # sum
@@ -53,7 +54,9 @@ Template.expenseReport.onRendered ->
     dataView = new Slick.Data.DataView
       groupItemMetadataProvider: groupItemMetadataProvider,
       inlineFilters: true
-    MyGrid.grid = grid = new Slick.Grid '#slickgrid', dataView, columns, options
+
+    @MyDP = TotalsDataProvider dataView, columns, ['total', 'totalVATIncluded', 'discount']
+    MyGrid.grid = grid = new Slick.Grid '#slickgrid', MyDP, columns, options
 
     grid.onSort.subscribe (e, args) ->
       # args: sort information.
@@ -64,14 +67,15 @@ Template.expenseReport.onRendered ->
       slickgrid.invalidate()
 
     dataView.onRowCountChanged.subscribe (e, args) ->
-      grid.updateRowCount()
+      MyDP.updateTotals()
       grid.render()
     dataView.onRowsChanged.subscribe (e, args) ->
       grid.invalidateRows(args.rows)
+      grid.updateRowCount()
       grid.render()
     # register the group item metadata provider to add expand/collapse group handlers
     grid.registerPlugin(groupItemMetadataProvider);
-    grid.setSelectionModel(new Slick.CellSelectionModel());
+    #grid.setSelectionModel(new Slick.CellSelectionModel());
     columnpicker = new Slick.Controls.ColumnPicker(columns, grid, options);
     #var pager = new Slick.Controls.Pager(dataView, grid, $("#pager"));
 
@@ -95,3 +99,46 @@ groupBy = (dataView, field, fieldName) ->
     aggregators: aggregators
     aggregateCollapsed: false
     lazyTotalsCalculation: true
+
+TotalsDataProvider = (dataView, columns, fields) ->
+  console.log dataView
+  totals = {};
+  totalsMetadata =
+    #Style the totals row differently.
+    cssClasses: "totals"
+    columns: {}
+  emptyRowMetaData = columns: {}
+  #Make the totals not editable.
+  #for i = 0; i < columns.length; i++
+  totalsMetadata.columns[i] = { editor: null, formatter: null } for i in [0..columns.length+1]
+  emptyRowMetaData.columns[i] = { editor: null, formatter: -> '' } for i in [0..columns.length+1]
+
+  expandGroup: (key) -> dataView.expandGroup key
+  collapseGroup: (key) -> dataView.collapseGroup key
+  getLength: ->
+    console.log 'getLength', dataView.getLength()
+    dataView.getLength() + 2;
+  getItem: (index) ->
+    console.log 'getItem', index
+    if index < dataView.getLength()
+      dataView.getItem index
+    else if index == dataView.getLength()
+      {}
+    else
+      totals
+  updateTotals: ->
+    columnIdx = columns.length
+    while (columnIdx--)
+      column = columns[columnIdx]
+      if column.field in fields
+        total = 0;
+        i = dataView.getLength();
+        total = total + (parseInt(dataView.getItem(i)[column.field], 10) || 0) while (i--)
+        totals[column.field] = total
+  getItemMetadata: (index) ->
+    if index == dataView.getLength()
+      emptyRowMetaData
+    else if index == dataView.getLength()+1
+      totalsMetadata
+    else dataView.getItemMetadata index
+  #@updateTotals();

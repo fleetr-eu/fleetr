@@ -8,3 +8,15 @@
 .slickfleetr .slick-group-toggle.collapsed {
   background: url(/slickgrid/images/expand.gif) no-repeat center center;
 }
+
+
+.slickfleetr .slick-cell {
+  height: 25px !important;
+}
+
+/* Grand totals */
+.slickfleetr .totals {
+  font-weight: bold;
+  color: gray;
+  font-style: italic;
+}
