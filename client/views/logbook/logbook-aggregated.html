@@ -41,13 +41,13 @@
 </template>
 
 <template name="detailsCellTemplate">
-	<a href="{{pathFor 'logbookStartStop' selectedDate=rowDate}}">
+	<a href="{{pathFor 'logbookReportStartStop' selectedDate=rowDate}}">
 		Details
 	</a>
 </template>
 
 <template name="idleCellTemplate">
-	<a href="{{pathFor 'logbookIdle' selectedDate=rowDate}}">
+	<a href="{{pathFor 'logbookReportIdle' selectedDate=rowDate}}">
 		Idle
 	</a>
 </template>
