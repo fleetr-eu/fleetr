@@ -114,19 +114,19 @@ TotalsDataProvider = (dataView, columns, fields) ->
   emptyRowMetaData.columns[i] = { editor: null, formatter: -> '' } for i in [0..columns.length]
 
   emptyRow = {}
-  emptyRow[columns[i].field] = '' for i in [0..columns.length]
+  emptyRow[columns[i]?.field] = '' for i in [0..columns.length]
 
   expandGroup: (key) -> dataView.expandGroup key
   collapseGroup: (key) -> dataView.collapseGroup key
   getLength: ->
-    dataView.getLength() + 2;
+    dataView.getLength() + 1;
   getItem: (index) ->
     if index < dataView.getLength()
       console.log 'getItem', index, dataView.getLength(), 'return', dataView.getItem index
       dataView.getItem index
-    else if index == dataView.getLength()
-      console.log 'getItem', index, dataView.getLength(), 'return', emptyRow
-      emptyRow
+    # else if index == dataView.getLength()
+    #  console.log 'getItem', index, dataView.getLength(), 'return', emptyRow
+    #  emptyRow
     else
       console.log 'getItem', index, dataView.getLength(), 'return', totals
       totals
@@ -142,7 +142,7 @@ TotalsDataProvider = (dataView, columns, fields) ->
   getItemMetadata: (index) ->
     if index < dataView.getLength()
       dataView.getItemMetadata index
-    else if index == dataView.getLength()
-      emptyRowMetaData
+    # else if index == dataView.getLength()
+    #  emptyRowMetaData
     else
       totalsMetadata
