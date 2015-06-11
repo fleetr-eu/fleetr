@@ -73,7 +73,6 @@ meteorhacks:unblock@1.1.0
 meteortoys:toykit@0.5.0
 minifiers@1.1.5
 minimongo@1.0.8
-mizzao:bootstrap-3@3.3.1_1
 mizzao:partitioner@0.5.4
 mkarliner:mqtt@0.0.9
 mobile-status-bar@1.0.3
@@ -87,6 +86,7 @@ msavin:mongol@1.0.70
 npm-bcrypt@0.7.8_2
 observe-sequence@1.0.6
 ordered-dict@1.0.3
+phuocd:slickgrid@1.0.1
 raix:handlebar-helpers@0.2.4
 rajit:bootstrap3-datepicker@1.4.1
 random@1.0.3

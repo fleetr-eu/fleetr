@@ -1,0 +1,22 @@
+.slickfleetr .slick-header-column.ui-state-default {
+  height: initial; /* by default height is too small to show text */
+}
+
+.slickfleetr .slick-group-toggle.expanded {
+  background: url(/slickgrid/images/collapse.gif) no-repeat center center;
+}
+.slickfleetr .slick-group-toggle.collapsed {
+  background: url(/slickgrid/images/expand.gif) no-repeat center center;
+}
+
+
+.slickfleetr .slick-cell {
+  height: 25px !important;
+}
+
+/* Grand totals */
+.slickfleetr .totals {
+  font-weight: bold;
+  color: gray;
+  font-style: italic;
+}

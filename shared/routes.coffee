@@ -215,30 +215,36 @@ Meteor.startup ->
         Meteor.call 'reset'
         @next()
 
-    @route 'logbook',
-      path: '/logbook'
+    @route 'logbookReport',
+      path: '/reports/logbook'
       template: 'logbook'
       # subscriptions: -> Meteor.subscribe 'mycodes'
 
-    @route 'logbookStartStop',
-      path: '/logbook/detailed/:selectedDate'
+    @route 'logbookReportStartStop',
+      path: '/reports/logbook/detailed/:selectedDate'
       template: 'logbookStartStop'
       # waitOn: -> Meteor.subscribe('mycodes')
       data: -> {'selectedDate' : @params.selectedDate}
 
-    @route 'logbookIdle',
-      path: '/logbook/idle/:selectedDate/:xxx?'
+    @route 'logbookReportIdle',
+      path: '/reports/logbook/idle/:selectedDate/:xxx?'
       template: 'logbookIdle'
       # waitOn: -> Meteor.subscribe('mycodes')
       data: -> {'selectedDate': @params.selectedDate, 'xxx': @params.xxx}
 
-    @route 'reclog',
-      path: '/reclog/:date?/:startTime?/:stopTime?'
+    @route 'reclogReport',
+      path: '/reports/reclog/:date?/:startTime?/:stopTime?'
       template: 'reclog'
       data: ->
         'date': @params.date
         'startTime': @params.startTime
         'stopTime': @params.stopTime
+
+    @route 'expenseReport',
+      path: '/reports/expenses'
+      waitOn: -> [
+        Meteor.subscribe('expenses')
+      ]
 
     @route 'alarm-definitions-add',
       path: '/alarm-definitions/add'

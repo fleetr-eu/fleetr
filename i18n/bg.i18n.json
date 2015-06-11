@@ -19,7 +19,8 @@
     "logbook": "Журнал",
     "reclog": "Репорти от устройството",
     "reports": "Отчети",
-    "map": "Карта"
+    "map": "Карта",
+    "expenseReport": "Expenses"
   },
 
   "fleetGroup": {
