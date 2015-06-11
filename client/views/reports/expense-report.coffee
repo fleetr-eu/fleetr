@@ -70,6 +70,9 @@ Template.expenseReport.onRendered ->
       MyDP.updateTotals()
       grid.render()
     dataView.onRowsChanged.subscribe (e, args) ->
+      args.rows.push dataView.getLength()
+      args.rows.push dataView.getLength() + 1
+      console.log 'onRowsChanged', args
       grid.invalidateRows(args.rows)
       grid.updateRowCount()
       grid.render()
@@ -119,14 +122,14 @@ TotalsDataProvider = (dataView, columns, fields) ->
   expandGroup: (key) -> dataView.expandGroup key
   collapseGroup: (key) -> dataView.collapseGroup key
   getLength: ->
-    dataView.getLength() + 1;
+    dataView.getLength() + 2
   getItem: (index) ->
     if index < dataView.getLength()
       console.log 'getItem', index, dataView.getLength(), 'return', dataView.getItem index
       dataView.getItem index
-    # else if index == dataView.getLength()
-    #  console.log 'getItem', index, dataView.getLength(), 'return', emptyRow
-    #  emptyRow
+     else if index == dataView.getLength()
+      console.log 'getItem', index, dataView.getLength(), 'return', emptyRow
+      emptyRow
     else
       console.log 'getItem', index, dataView.getLength(), 'return', totals
       totals
@@ -142,7 +145,7 @@ TotalsDataProvider = (dataView, columns, fields) ->
   getItemMetadata: (index) ->
     if index < dataView.getLength()
       dataView.getItemMetadata index
-    # else if index == dataView.getLength()
-    #  emptyRowMetaData
+     else if index == dataView.getLength()
+      emptyRowMetaData
     else
       totalsMetadata
