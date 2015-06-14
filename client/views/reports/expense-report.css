@@ -14,6 +14,17 @@
   height: 25px !important;
 }
 
+.slickfleetr .slick-header-column {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  padding: 10px !important;
+  padding-left:0;
+  font-weight: bold;
+  border: 0 !important;
+  background: lightblue;
+  /* border-right: 1px dotted white; */
+}
+
 /* Grand totals */
 .slickfleetr .totals {
   font-weight: bold;

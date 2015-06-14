@@ -1,5 +1,26 @@
 @MyGrid = {}
+activeFilters = new Mongo.Collection null
 dataView = null
+
+addGroupBy = (fieldOrFunc, name) ->
+  unless activeFilters.findOne(name: name)
+    activeFilters.insert name: name
+    groupBy dataView, fieldOrFunc, name
+
+Template.expenseReport.helpers
+  activeFilters: activeFilters.find()
+
+Template.expenseReport.events
+  'click .removeFilter': ->
+    activeFilters.remove name: @name
+    removeGroupBy @name
+  'click #groupByDate': (event, tpl) -> addGroupBy getDateRow('timestamp'), 'Date'
+  'click #groupByType': (event, tpl) -> addGroupBy 'expenseTypeName', 'Type'
+  'click #groupByGroup': (event, tpl) -> addGroupBy 'expenseGroupName', 'Group'
+  'click #groupByVehicle': (event, tpl) -> addGroupBy 'vehicleName', 'Vehicle'
+  'click #groupByFleet': (event, tpl) -> addGroupBy 'fleetName', 'Fleet'
+  'click #groupByFleetGroup': (event, tpl) -> #tbd, see method
+  'click #resetGroupBy': (event, tpl) -> dataView.setGrouping []
 
 addId = (item) -> item.id = item._id; item;
 dateFormatter = (row, cell, value) -> if value then new Date(value).toLocaleDateString 'en-US' else ''
@@ -23,22 +44,13 @@ columns = [
   { id: "fleet", name: "Fleet", field: "fleetName", sortable: true }
   { id: "date", name: "Date", field: "timestamp", sortable: true, formatter: dateFormatter }
   { id: "invoiceNo", name: "Invoice NO.", field: "invoiceNr", sortable: true }
-  { id: "quantity", name: "Quantity", field: "quantity", sortable: true, groupTotalsFormatter: sumTotalsFormatter('total:') }
+  { id: "quantity", name: "Quantity", field: "quantity", sortable: true, groupTotalsFormatter: sumTotalsFormatter('') }
   { id: "amountGross", name: "Amount Gross", field: "total", sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
   { id: "amountVat", name: "VAT", field: "totalVATIncluded", sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
   { id: "amountDiscount", name: "Discount", field: "discount", sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
   { id: "note", name: "Note", field: "note" }
 ]
 # { id: "amountNet", name: "Amount Net", field: "total" }                # sum
-
-Template.expenseReport.events
-  'click #groupByDate': (event, tpl) -> groupBy dataView, getDateRow('timestamp'), 'Date'
-  'click #groupByType': (event, tpl) -> groupBy dataView, 'expenseTypeName', 'Type'
-  'click #groupByGroup': (event, tpl) -> groupBy dataView, 'expenseGroupName', 'Group'
-  'click #groupByVehicle': (event, tpl) -> groupBy dataView, 'vehicleName', 'Vehicle'
-  'click #groupByFleet': (event, tpl) -> groupBy dataView, 'fleetName', 'Fleet'
-  'click #groupByFleetGroup': (event, tpl) -> #tbd, see method
-  'click #resetGroupBy': (event, tpl) -> dataView.setGrouping []
 
 Template.expenseReport.onRendered ->
 
@@ -88,6 +100,7 @@ Template.expenseReport.onRendered ->
     grid.autosizeColumns()
     dataView.endUpdate()
 
+groupings = {}
 groupBy = (dataView, field, fieldName) ->
   aggregators = [
     new Slick.Data.Aggregators.Sum('total')
@@ -95,24 +108,31 @@ groupBy = (dataView, field, fieldName) ->
     new Slick.Data.Aggregators.Sum('discount')
   ]
   aggregators.push new Slick.Data.Aggregators.Sum('quantity') if field == 'expenseTypeName'
-  dataView.setGrouping
+  console.log 'collapsed?', Object.keys(groupings).length > 0
+  groupings[fieldName] =
     getter: field
     formatter: (g) ->
       "<strong>#{fieldName}:</strong> " + g.value + "  <span style='color:green'>(" + g.count + " items)</span>"
     aggregators: aggregators
-    aggregateCollapsed: false
+    collapsed: Object.keys(groupings).length > 0
+    aggregateCollapsed: true
     lazyTotalsCalculation: true
+  effectuateGroupings()
+
+removeGroupBy = (name) ->
+  delete groupings[name]
+  effectuateGroupings()
+
+effectuateGroupings = ->
+  dataView.setGrouping (val for key, val of groupings)
+
 
 TotalsDataProvider = (dataView, columns, fields) ->
-  console.log dataView
-  totals = {};
+  totals = {}
   totalsMetadata =
-    #Style the totals row differently.
     cssClasses: "totals"
     columns: {}
   emptyRowMetaData = columns: {}
-  #Make the totals not editable.
-  #for i = 0; i < columns.length; i++
   totalsMetadata.columns[i] = { editor: null } for i in [0..columns.length]
   emptyRowMetaData.columns[i] = { editor: null, formatter: -> '' } for i in [0..columns.length]
 
@@ -134,14 +154,9 @@ TotalsDataProvider = (dataView, columns, fields) ->
       console.log 'getItem', index, dataView.getLength(), 'return', totals
       totals
   updateTotals: ->
-    columnIdx = columns.length
-    while (columnIdx--)
-      column = columns[columnIdx]
-      if column.field in fields
-        total = 0;
-        i = dataView.getLength();
-        total = total + (parseInt(dataView.getItem(i)[column.field], 10) || 0) while (i--)
-        totals[column.field] = total
+    for column in columns
+      if column.field in fields # only calculate total for the requested fields
+        totals[column.field] = (parseInt dataView.getItem(idx)?[column.field] || 0 for idx in [0..dataView.getLength()-1]).reduce (p, c) -> p + c
   getItemMetadata: (index) ->
     if index < dataView.getLength()
       dataView.getItemMetadata index

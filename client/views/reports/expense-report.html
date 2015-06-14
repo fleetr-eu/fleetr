@@ -25,6 +25,15 @@
           </div>
         </div>
         <div class="portlet-body">
+          <ol class="list-inline">
+            <li><strong>Grouped by:</strong></li>
+          {{#each activeFilters}}
+            <li>{{name}} <a href="#" class="removeFilter"><span class="glyphicon glyphicon-remove"></span></a></li>
+          {{else}}
+            <li>no grouping</li>
+          {{/each}}
+          </ol>
+
           <div id="slickgrid" class="slickfleetr" style="width:100%; height:500px;"></div>
         </div>
       </div>
