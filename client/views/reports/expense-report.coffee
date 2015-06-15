@@ -79,12 +79,11 @@ Template.expenseReport.onRendered ->
       slickgrid.invalidate()
 
     dataView.onRowCountChanged.subscribe (e, args) ->
-      MyDP.updateTotals()
       grid.render()
     dataView.onRowsChanged.subscribe (e, args) ->
+      # totals rows, the two last ones, should always be visually updated
       args.rows.push dataView.getLength()
       args.rows.push dataView.getLength() + 1
-      console.log 'onRowsChanged', args
       grid.invalidateRows(args.rows)
       grid.updateRowCount()
       grid.render()
@@ -96,9 +95,13 @@ Template.expenseReport.onRendered ->
 
     dataView.beginUpdate()
     dataView.setItems expenses
-    #groupBy dataView, 'expenseGroupName'
     grid.autosizeColumns()
     dataView.endUpdate()
+
+    # update and render totals row
+    MyDP.updateTotals()
+    grid.invalidateRows [dataView.getLength() + 1]
+    grid.render()
 
 groupings = {}
 groupBy = (dataView, field, fieldName) ->
