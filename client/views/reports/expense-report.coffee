@@ -1,19 +1,48 @@
-@MyGrid = {}
-activeFilters = new Mongo.Collection null
+@MyGrid =
+  grid: null
+  columnFilters: {}
+  addColumnFilter: (filter) ->
+    console.log 'addColumnFilter', filter
+    regex = new RegExp filter.spec.regex
+    @columnFilters[filter.spec.field] = (text) -> "#{text}".match regex
+    dataView.refresh()
+  removeColumnFilter: (filter) ->
+    delete @columnFilters[filter.spec.field]
+    dataView.refresh()
+
+activeGroupings = new Mongo.Collection null
+activeFilters   = new Mongo.Collection null
 dataView = null
 
+activeFilters.find(type:'client').observe
+  added: MyGrid.addColumnFilter.bind MyGrid
+  changed: MyGrid.addColumnFilter.bind MyGrid
+  removed: MyGrid.removeColumnFilter.bind MyGrid
+
 addGroupBy = (fieldOrFunc, name) ->
-  unless activeFilters.findOne(name: name)
-    activeFilters.insert name: name
+  unless activeGroupings.findOne(name: name)
+    activeGroupings.insert name: name
     groupBy dataView, fieldOrFunc, name
 
+@addFilter = (type, name, text, spec) ->
+  activeFilters.upsert {name: name, type: type}, {name: name, type: type, text: text, spec:spec}
+@removeFilter = (type, name) ->
+  activeFilters.remove name: name, type: type
+
 Template.expenseReport.helpers
-  activeFilters: activeFilters.find()
+  activeGroupings:  activeGroupings.find()
+  activeFilters:    activeFilters.find()
 
 Template.expenseReport.events
-  'click .removeFilter': ->
-    activeFilters.remove name: @name
+  'click .removeGroupBy': ->
+    activeGroupings.remove name: @name
     removeGroupBy @name
+  'click .removeFilter': ->
+    removeFilter @type, @name
+    #activeFilters.remove name: @name
+    # temp
+    Meteor.call 'getExpenses', (err, expenses) ->
+      setGridData( expenses.map addId )
   'click #groupByDate': (event, tpl) -> addGroupBy getDateRow('timestamp'), 'Date'
   'click #groupByType': (event, tpl) -> addGroupBy 'expenseTypeName', 'Type'
   'click #groupByGroup': (event, tpl) -> addGroupBy 'expenseGroupName', 'Group'
@@ -21,6 +50,19 @@ Template.expenseReport.events
   'click #groupByFleet': (event, tpl) -> addGroupBy 'fleetName', 'Fleet'
   'click #groupByFleetGroup': (event, tpl) -> #tbd, see method
   'click #resetGroupBy': (event, tpl) -> dataView.setGrouping []
+  'apply.daterangepicker #date-range-filter': (event,p) ->
+    startDate = $('#date-range-filter').data('daterangepicker').startDate
+    endDate = $('#date-range-filter').data('daterangepicker').endDate
+    start = startDate.format('YYYY-MM-DD')
+    stop = endDate.format('YYYY-MM-DD')
+    console.log start + ' - ' + stop
+    range = {$gte: start, $lte: stop}
+    console.log range
+    console.log startDate.unix(), endDate.unix()
+    addFilter 'server', 'Date', "#{start} - #{stop}",
+      {startDate: startDate.toISOString(), endDate: endDate.toISOString()}
+    Meteor.call 'getExpenses', startDate.toISOString(), endDate.toISOString(), (err, expenses) ->
+      setGridData( expenses.map addId )
 
 addId = (item) -> item.id = item._id; item;
 dateFormatter = (row, cell, value) -> if value then new Date(value).toLocaleDateString 'en-US' else ''
@@ -54,54 +96,90 @@ columns = [
 
 Template.expenseReport.onRendered ->
 
-  Meteor.call 'getExpenses', (err, expenses) ->
-    console.log 'getExpenses', err, expenses
-    expenses = expenses.map(addId)
+  DateRangeFilter.install $ '#date-range-filter'
 
-    options =
-      enableCellNavigation: true
-      enableColumnReorder: false
+  options =
+    enableCellNavigation: false
+    enableColumnReorder: false
+    showHeaderRow: true
+    headerRowHeight: 30
+    explicitInitialization: true
 
-    groupItemMetadataProvider = new Slick.Data.GroupItemMetadataProvider()
-    dataView = new Slick.Data.DataView
-      groupItemMetadataProvider: groupItemMetadataProvider,
-      inlineFilters: true
+  groupItemMetadataProvider = new Slick.Data.GroupItemMetadataProvider()
+  dataView = new Slick.Data.DataView
+    groupItemMetadataProvider: groupItemMetadataProvider,
+    inlineFilters: true
 
-    @MyDP = TotalsDataProvider dataView, columns, ['total', 'totalVATIncluded', 'discount']
-    MyGrid.grid = grid = new Slick.Grid '#slickgrid', MyDP, columns, options
+  MyGrid.dp = TotalsDataProvider dataView, columns, ['total', 'totalVATIncluded', 'discount']
+  MyGrid.grid = grid = new Slick.Grid '#slickgrid', MyGrid.dp, columns, options
 
-    grid.onSort.subscribe (e, args) ->
-      # args: sort information.
-      field = args.sortCol.field
-      rows.sort (a, b) ->
-        result = if a[field] > b[field] then 1 else if a[field] < b[field] then -1 else 0
-        if args.sortAsc then result else -result
-      slickgrid.invalidate()
+  grid.onSort.subscribe (e, args) ->
+    # args: sort information.
+    field = args.sortCol.field
+    rows.sort (a, b) ->
+      result = if a[field] > b[field] then 1 else if a[field] < b[field] then -1 else 0
+      if args.sortAsc then result else -result
+    grid.invalidate()
 
-    dataView.onRowCountChanged.subscribe (e, args) ->
-      grid.render()
-    dataView.onRowsChanged.subscribe (e, args) ->
-      # totals rows, the two last ones, should always be visually updated
-      args.rows.push dataView.getLength()
-      args.rows.push dataView.getLength() + 1
-      grid.invalidateRows(args.rows)
-      grid.updateRowCount()
-      grid.render()
-    # register the group item metadata provider to add expand/collapse group handlers
-    grid.registerPlugin(groupItemMetadataProvider);
-    #grid.setSelectionModel(new Slick.CellSelectionModel());
-    columnpicker = new Slick.Controls.ColumnPicker(columns, grid, options);
-    #var pager = new Slick.Controls.Pager(dataView, grid, $("#pager"));
 
-    dataView.beginUpdate()
-    dataView.setItems expenses
-    grid.autosizeColumns()
-    dataView.endUpdate()
+  $(grid.getHeaderRow()).delegate ":input", "change keyup", (e) ->
+    columnId = $(this).data("columnId");
+    if columnId
+      column = (columns.filter (column) -> column.id == columnId)[0]
+      if $(this).val().length
+        addFilter 'client', column.name, $(this).val(),
+          { field: column.field, regex: "#{$(this).val()}" }
+      else
+        removeFilter 'client', column.name
+  grid.onHeaderRowCellRendered.subscribe (e, args) ->
+    $(args.node).empty()
+    $("<input type='text'>")
+       .data("columnId", args.column.id)
+       #.val(columnFilters[args.column.id])
+       .appendTo(args.node)
 
-    # update and render totals row
-    MyDP.updateTotals()
-    grid.invalidateRows [dataView.getLength() + 1]
+  filter = `function filter(item) {
+    for (var field in MyGrid.columnFilters) {
+      if (item[field] && !MyGrid.columnFilters[field](item[field])) {
+        console.log('not included::', field, item[field])
+        return false;
+      }
+    }
+    return true;
+  }`
+
+  dataView.setFilter filter
+  dataView.onRowCountChanged.subscribe (e, args) ->
+    grid.invalidateRows [dataView.getLength(), dataView.getLength()+1]
+    grid.updateRowCount()
     grid.render()
+  dataView.onRowsChanged.subscribe (e, args) ->
+    # totals rows, the two last ones, should always be visually updated
+    console.log 'onRowsChanged', args.rows
+    args.rows.push dataView.getLength()
+    args.rows.push dataView.getLength() + 1
+    grid.invalidateRows(args.rows)
+    grid.updateRowCount()
+    grid.render()
+  # register the group item metadata provider to add expand/collapse group handlers
+  grid.registerPlugin(groupItemMetadataProvider);
+  grid.init()
+  #grid.setSelectionModel(new Slick.CellSelectionModel());
+  columnpicker = new Slick.Controls.ColumnPicker(columns, grid, options);
+  #var pager = new Slick.Controls.Pager(dataView, grid, $("#pager"));
+
+  Meteor.call 'getExpenses', (err, expenses) -> setGridData( expenses.map addId )
+
+setGridData = (data) ->
+  dataView.beginUpdate()
+  dataView.setItems data
+  MyGrid.grid.autosizeColumns()
+  dataView.endUpdate()
+
+  # update and render totals row
+  MyGrid.dp.updateTotals()
+  MyGrid.grid.invalidateRows [dataView.getLength(), dataView.getLength() + 1]
+  MyGrid.grid.render()
 
 groupings = {}
 groupBy = (dataView, field, fieldName) ->

@@ -142,13 +142,17 @@ Meteor.methods
         idleTime: {$sum: "$duration"}
     ]
 
-  getExpenses: ->
-    Expenses.find().map (expense) ->
+  getExpenses: (startDate, endDate) ->
+    searchObject = {}
+    if startDate and endDate
+      searchObject.date = $gte: new Date(startDate), $lte: new Date(endDate)
+
+    console.log searchObject
+    Expenses.find(searchObject).map (expense) ->
       expense.expenseTypeName = ExpenseTypes.findOne({_id: expense.expenseType})?.name
       expense.expenseGroupName = ExpenseGroups.findOne({_id: expense.expenseGroup})?.name
       expense.driverName = Drivers.findOne({_id: expense.driver})?.name
       vehicle = Vehicles.findOne({_id: expense.vehicle})
       expense.vehicleName = vehicle?.name
       expense.fleetName = Fleets.findOne(_id: vehicle?.allocatedToFleet)?.name
-      console.log vehicle
-      expense
+      expense # return the expense
