@@ -39,7 +39,6 @@ Template.expenseReport.events
     removeGroupBy @name
   'click .removeFilter': ->
     removeFilter @type, @name
-    #activeFilters.remove name: @name
     # temp
     Meteor.call 'getExpenses', (err, expenses) ->
       setGridData( expenses.map addId )
@@ -237,7 +236,8 @@ TotalsDataProvider = (dataView, columns, fields) ->
   updateTotals: ->
     for column in columns
       if column.field in fields # only calculate total for the requested fields
-        totals[column.field] = (parseInt dataView.getItem(idx)?[column.field] || 0 for idx in [0..dataView.getLength()-1]).reduce (p, c) -> p + c
+        totals[column.field] = (parseInt dataView.getItem(idx)?[column.field] || 0 for idx in [0..dataView.getLength()-1])
+        .reduce(((p, c) -> p + c), 0)
   getItemMetadata: (index) ->
     if index < dataView.getLength()
       dataView.getItemMetadata index
