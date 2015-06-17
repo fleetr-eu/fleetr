@@ -149,6 +149,7 @@ Template.expenseReport.onRendered ->
 
   dataView.setFilter filter
   dataView.onRowCountChanged.subscribe (e, args) ->
+    MyGrid.dp.updateTotals()
     grid.invalidateRows [dataView.getLength(), dataView.getLength()+1]
     grid.updateRowCount()
     grid.render()
@@ -236,8 +237,15 @@ TotalsDataProvider = (dataView, columns, fields) ->
   updateTotals: ->
     for column in columns
       if column.field in fields # only calculate total for the requested fields
-        totals[column.field] = (parseInt dataView.getItem(idx)?[column.field] || 0 for idx in [0..dataView.getLength()-1])
-        .reduce(((p, c) -> p + c), 0)
+        groups = dataView.getGroups()
+        if groups && groups.length
+          console.log 'groups', dataView.getGroups()
+          totals[column.field] = dataView.getGroups().reduce (total, group) ->
+            total + (parseInt group.totals?.sum?[column.field] || 0)
+          , 0
+        else
+          totals[column.field] = (parseInt dataView.getItem(idx)?[column.field] || 0 for idx in [0..dataView.getLength()-1])
+          .reduce(((p, c) -> p + c), 0)
   getItemMetadata: (index) ->
     if index < dataView.getLength()
       dataView.getItemMetadata index
