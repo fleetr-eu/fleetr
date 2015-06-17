@@ -1,5 +1,6 @@
 @MyGrid =
   grid: null
+  dv: -> dataView
   columnFilters: {}
   addColumnFilter: (filter) ->
     console.log 'addColumnFilter', filter
@@ -140,24 +141,25 @@ Template.expenseReport.onRendered ->
   filter = `function filter(item) {
     for (var field in MyGrid.columnFilters) {
       if (item[field] && !MyGrid.columnFilters[field](item[field])) {
-        console.log('not included::', field, item[field])
         return false;
       }
     }
     return true;
   }`
 
-  dataView.setFilter filter
+  #dataView.setFilter filter
   dataView.onRowCountChanged.subscribe (e, args) ->
     MyGrid.dp.updateTotals()
-    grid.invalidateRows [dataView.getLength(), dataView.getLength()+1]
+    dl = if dataView.getLength() then dataView.getLength() else 0
+    grid.invalidateRows [dl, dl+1]
     grid.updateRowCount()
     grid.render()
   dataView.onRowsChanged.subscribe (e, args) ->
     # totals rows, the two last ones, should always be visually updated
     console.log 'onRowsChanged', args.rows
-    args.rows.push dataView.getLength()
-    args.rows.push dataView.getLength() + 1
+    dl = if dataView.getLength() then dataView.getLength() else 0
+    args.rows.push dl
+    args.rows.push dl + 1
     grid.invalidateRows(args.rows)
     grid.updateRowCount()
     grid.render()
@@ -171,6 +173,7 @@ Template.expenseReport.onRendered ->
   Meteor.call 'getExpenses', (err, expenses) -> setGridData( expenses.map addId )
 
 setGridData = (data) ->
+  console.log 'setGridData', data
   dataView.beginUpdate()
   dataView.setItems data
   MyGrid.grid.autosizeColumns()
@@ -178,7 +181,8 @@ setGridData = (data) ->
 
   # update and render totals row
   MyGrid.dp.updateTotals()
-  MyGrid.grid.invalidateRows [dataView.getLength(), dataView.getLength() + 1]
+  dl = if dataView.getLength() then dataView.getLength() else 0
+  MyGrid.grid.invalidateRows [dl, dl + 1]
   MyGrid.grid.render()
 
 groupings = {}
@@ -223,16 +227,18 @@ TotalsDataProvider = (dataView, columns, fields) ->
   expandGroup: (key) -> dataView.expandGroup key
   collapseGroup: (key) -> dataView.collapseGroup key
   getLength: ->
-    dataView.getLength() + 2
+    dl = if dataView.getLength() then dataView.getLength() else 0
+    dl + 2
   getItem: (index) ->
-    if index < dataView.getLength()
-      console.log 'getItem', index, dataView.getLength(), 'return', dataView.getItem index
+    dl = if dataView.getLength() then dataView.getLength() else 0
+    if index < dl
+      console.log 'getItem', index, dl, 'return', dataView.getItem index
       dataView.getItem index
-     else if index == dataView.getLength()
-      console.log 'getItem', index, dataView.getLength(), 'return', emptyRow
+     else if index == dl
+      console.log 'getItem', index, dl, 'return', emptyRow
       emptyRow
     else
-      console.log 'getItem', index, dataView.getLength(), 'return', totals
+      console.log 'getItem', index, dl, 'return', totals
       totals
   updateTotals: ->
     for column in columns
@@ -244,12 +250,14 @@ TotalsDataProvider = (dataView, columns, fields) ->
             total + (parseInt group.totals?.sum?[column.field] || 0)
           , 0
         else
-          totals[column.field] = (parseInt dataView.getItem(idx)?[column.field] || 0 for idx in [0..dataView.getLength()-1])
+          dl = if dataView.getLength() then dataView.getLength() else 0
+          totals[column.field] = (parseInt dataView.getItem(idx)?[column.field] || 0 for idx in [0..dl-1])
           .reduce(((p, c) -> p + c), 0)
   getItemMetadata: (index) ->
-    if index < dataView.getLength()
+    dl = if dataView.getLength() then dataView.getLength() else 0
+    if index < dl
       dataView.getItemMetadata index
-     else if index == dataView.getLength()
+     else if index == dl
       emptyRowMetaData
     else
       totalsMetadata
