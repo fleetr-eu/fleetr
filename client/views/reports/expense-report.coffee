@@ -12,6 +12,7 @@
 
   removeColumnFilter: (filter) ->
     delete @columnFilters[filter.spec.field]
+    $("#searchbox-#{filter.spec.field}").val('')
     applyFilters()
 
   _groupings: {}
@@ -183,7 +184,7 @@ Template.expenseReport.onRendered ->
     $(args.node).empty()
     if args.column.allowSearch
       $('<span class="glyphicon glyphicon-search searchbox" aria-hidden="true"></span>').appendTo(args.node)
-      $("<input type='text' class='searchbox'>")
+      $("<input id='searchbox-#{args.column.field}' type='text' class='searchbox'>")
          .data("columnId", args.column.id)
          .appendTo(args.node)
     else if args.column.allowDateSearch
