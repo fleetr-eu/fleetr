@@ -1,29 +1,66 @@
 @MyGrid =
   grid: null
+  data: []
   dv: -> dataView
   columnFilters: {}
+
   addColumnFilter: (filter) ->
     console.log 'addColumnFilter', filter
     regex = new RegExp filter.spec.regex
     @columnFilters[filter.spec.field] = (text) -> "#{text}".match regex
-    dataView.refresh()
+    applyFilters()
+
   removeColumnFilter: (filter) ->
     delete @columnFilters[filter.spec.field]
-    dataView.refresh()
+    applyFilters()
+
+  _groupings: {}
+  resetGroupBy: ->
+    @_groupings = {}
+    activeGroupings.remove {}
+    @_effectuateGroupings()
+
+  addGroupBy: (field, fieldName) ->
+    if activeGroupings.findOne(name: fieldName) then return
+    aggregators = [
+      new Slick.Data.Aggregators.Sum('total')
+      new Slick.Data.Aggregators.Sum('totalVATIncluded')
+      new Slick.Data.Aggregators.Sum('discount')
+    ]
+    aggregators.push new Slick.Data.Aggregators.Sum('quantity') if field == 'expenseTypeName'
+    console.log 'collapsed?', Object.keys(@_groupings).length > 0
+    @_groupings[fieldName] =
+      getter: field
+      formatter: (g) ->
+        "<strong>#{fieldName}:</strong> " + g.value + "  <span style='color:green'>(" + g.count + " items)</span>"
+      aggregators: aggregators
+      collapsed: Object.keys(@_groupings).length > 0
+      aggregateCollapsed: true
+      lazyTotalsCalculation: true
+    activeGroupings.insert name: fieldName
+    @_effectuateGroupings()
+
+  removeGroupBy: (name) ->
+    activeGroupings.remove name: name
+    delete @_groupings[name]
+    @_effectuateGroupings()
+
+  _effectuateGroupings: ->
+    dataView.setGrouping (val for key, val of @_groupings)
 
 activeGroupings = new Mongo.Collection null
 activeFilters   = new Mongo.Collection null
 dataView = null
 
-activeFilters.find(type:'client').observe
+# Handle changes to client rendered filters
+activeFilters.find(type: 'client').observe
   added: MyGrid.addColumnFilter.bind MyGrid
   changed: MyGrid.addColumnFilter.bind MyGrid
   removed: MyGrid.removeColumnFilter.bind MyGrid
 
-addGroupBy = (fieldOrFunc, name) ->
-  unless activeGroupings.findOne(name: name)
-    activeGroupings.insert name: name
-    groupBy dataView, fieldOrFunc, name
+# Handle changes to server rendered fitlers
+activeFilters.find(type: 'server').observe
+  removed: -> $('#date-range-filter').val('')
 
 @addFilter = (type, name, text, spec) ->
   activeFilters.upsert {name: name, type: type}, {name: name, type: type, text: text, spec:spec}
@@ -36,20 +73,20 @@ Template.expenseReport.helpers
 
 Template.expenseReport.events
   'click .removeGroupBy': ->
-    activeGroupings.remove name: @name
-    removeGroupBy @name
+    MyGrid.removeGroupBy @name
   'click .removeFilter': ->
     removeFilter @type, @name
     # temp
-    Meteor.call 'getExpenses', (err, expenses) ->
-      setGridData( expenses.map addId )
-  'click #groupByDate': (event, tpl) -> addGroupBy getDateRow('timestamp'), 'Date'
-  'click #groupByType': (event, tpl) -> addGroupBy 'expenseTypeName', 'Type'
-  'click #groupByGroup': (event, tpl) -> addGroupBy 'expenseGroupName', 'Group'
-  'click #groupByVehicle': (event, tpl) -> addGroupBy 'vehicleName', 'Vehicle'
-  'click #groupByFleet': (event, tpl) -> addGroupBy 'fleetName', 'Fleet'
+    if @type is 'server'
+      Meteor.call 'getExpenses', (err, expenses) ->
+        setGridData( expenses.map addId )
+  'click #groupByDate': (event, tpl) -> MyGrid.addGroupBy getDateRow('timestamp'), 'Date'
+  'click #groupByType': (event, tpl) -> MyGrid.addGroupBy 'expenseTypeName', 'Type'
+  'click #groupByGroup': (event, tpl) -> MyGrid.addGroupBy 'expenseGroupName', 'Group'
+  'click #groupByVehicle': (event, tpl) -> MyGrid.addGroupBy 'vehicleName', 'Vehicle'
+  'click #groupByFleet': (event, tpl) -> MyGrid.addGroupBy 'fleetName', 'Fleet'
   'click #groupByFleetGroup': (event, tpl) -> #tbd, see method
-  'click #resetGroupBy': (event, tpl) -> dataView.setGrouping []
+  'click #resetGroupBy': (event, tpl) -> MyGrid.resetGroupBy()
   'apply.daterangepicker #date-range-filter': (event,p) ->
     startDate = $('#date-range-filter').data('daterangepicker').startDate
     endDate = $('#date-range-filter').data('daterangepicker').endDate
@@ -79,7 +116,16 @@ sumEuroTotalsFormatter = sumTotalsFormatter '&euro;'
 
 columns = [
   { id: "type", name: "Type", field: "expenseTypeName", sortable: true }
-  { id: "description", name: "Description", field: "description" }
+  { id: "description", name: "Description", field: "description", header:
+    menu:
+      items: [
+        {
+          iconImage: "../images/sort-asc.gif"
+          title: "Group By",
+          command: "group"
+        }
+      ]
+  }
   { id: "expenseGroup", name: "Group", field: "expenseGroupName", sortable: true }
   { id: "vehicle", name: "Vehicle", field: "vehicleName", sortable: true }
   { id: "driver", name: "Driver", field: "driverName", sortable: true }
@@ -105,6 +151,17 @@ Template.expenseReport.onRendered ->
     headerRowHeight: 30
     explicitInitialization: true
 
+  headerMenuPlugin = new Slick.Plugins.HeaderMenu({})
+  headerMenuPlugin.onBeforeMenuShow.subscribe (e, args) ->
+    console.log 'onBeforeMenuShow', e, args
+    menu = args.menu
+    i = menu.items.length
+    menu.items.push
+      title: "Menu item " + i
+      command: "item" + i
+
+  headerMenuPlugin.onCommand.subscribe (e, args) ->
+    console.log 'onCommand', e, args
   groupItemMetadataProvider = new Slick.Data.GroupItemMetadataProvider()
   dataView = new Slick.Data.DataView
     groupItemMetadataProvider: groupItemMetadataProvider,
@@ -138,16 +195,6 @@ Template.expenseReport.onRendered ->
        #.val(columnFilters[args.column.id])
        .appendTo(args.node)
 
-  filter = `function filter(item) {
-    for (var field in MyGrid.columnFilters) {
-      if (item[field] && !MyGrid.columnFilters[field](item[field])) {
-        return false;
-      }
-    }
-    return true;
-  }`
-
-  #dataView.setFilter filter
   dataView.onRowCountChanged.subscribe (e, args) ->
     MyGrid.dp.updateTotals()
     dl = if dataView.getLength() then dataView.getLength() else 0
@@ -165,6 +212,7 @@ Template.expenseReport.onRendered ->
     grid.render()
   # register the group item metadata provider to add expand/collapse group handlers
   grid.registerPlugin(groupItemMetadataProvider);
+  #grid.registerPlugin(headerMenuPlugin);
   grid.init()
   #grid.setSelectionModel(new Slick.CellSelectionModel());
   columnpicker = new Slick.Controls.ColumnPicker(columns, grid, options);
@@ -172,8 +220,19 @@ Template.expenseReport.onRendered ->
 
   Meteor.call 'getExpenses', (err, expenses) -> setGridData( expenses.map addId )
 
-setGridData = (data) ->
-  console.log 'setGridData', data
+filter = `function filter(item) {
+  for (var field in MyGrid.columnFilters) {
+    if (item[field] && !MyGrid.columnFilters[field](item[field])) {
+      return false;
+    }
+  }
+  return true;
+}`
+
+applyFilters = () ->
+  setGridData MyGrid.data.filter( (item) -> filter item), false
+setGridData = (data, save = true) ->
+  MyGrid.data = data if save
   dataView.beginUpdate()
   dataView.setItems data
   MyGrid.grid.autosizeColumns()
@@ -184,32 +243,6 @@ setGridData = (data) ->
   dl = if dataView.getLength() then dataView.getLength() else 0
   MyGrid.grid.invalidateRows [dl, dl + 1]
   MyGrid.grid.render()
-
-groupings = {}
-groupBy = (dataView, field, fieldName) ->
-  aggregators = [
-    new Slick.Data.Aggregators.Sum('total')
-    new Slick.Data.Aggregators.Sum('totalVATIncluded')
-    new Slick.Data.Aggregators.Sum('discount')
-  ]
-  aggregators.push new Slick.Data.Aggregators.Sum('quantity') if field == 'expenseTypeName'
-  console.log 'collapsed?', Object.keys(groupings).length > 0
-  groupings[fieldName] =
-    getter: field
-    formatter: (g) ->
-      "<strong>#{fieldName}:</strong> " + g.value + "  <span style='color:green'>(" + g.count + " items)</span>"
-    aggregators: aggregators
-    collapsed: Object.keys(groupings).length > 0
-    aggregateCollapsed: true
-    lazyTotalsCalculation: true
-  effectuateGroupings()
-
-removeGroupBy = (name) ->
-  delete groupings[name]
-  effectuateGroupings()
-
-effectuateGroupings = ->
-  dataView.setGrouping (val for key, val of groupings)
 
 
 TotalsDataProvider = (dataView, columns, fields) ->

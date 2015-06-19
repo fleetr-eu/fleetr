@@ -1,5 +1,5 @@
 .slickfleetr .slick-header-column.ui-state-default {
-  height: initial; /* by default height is too small to show text */
+  height: 35px; /* by default height is too small to show text */
 }
 
 .slickfleetr .slick-group-toggle.expanded {
@@ -30,4 +30,24 @@
   font-weight: bold;
   color: gray;
   font-style: italic;
+}
+
+
+.slickfleetr .slick-header-menu {
+  border: 1px solid #718BB7;
+  background: #f0f0f0;
+  padding: 2px;
+  -moz-box-shadow: 2px 2px 2px silver;
+  -webkit-box-shadow: 2px 2px 2px silver;
+  min-width: 100px;
+  z-index: 20;
+}
+.slickfleetr .slick-header-menuitem {
+  padding: 2px 4px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+.slickfleetr .slick-header-menuitem:hover {
+  border-color: silver;
+  background: white;
 }
