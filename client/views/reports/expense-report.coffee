@@ -115,34 +115,25 @@ sumTotalsFormatter = (sign) -> (totals, columnDef) ->
 sumEuroTotalsFormatter = sumTotalsFormatter '&euro;'
 
 columns = [
-  { id: "type", name: "Type", field: "expenseTypeName", sortable: true }
-  { id: "description", name: "Description", field: "description", header:
-    menu:
-      items: [
-        {
-          iconImage: "../images/sort-asc.gif"
-          title: "Group By",
-          command: "group"
-        }
-      ]
-  }
-  { id: "expenseGroup", name: "Group", field: "expenseGroupName", sortable: true }
-  { id: "vehicle", name: "Vehicle", field: "vehicleName", sortable: true }
-  { id: "driver", name: "Driver", field: "driverName", sortable: true }
-  { id: "fleet", name: "Fleet", field: "fleetName", sortable: true }
-  { id: "date", name: "Date", field: "timestamp", sortable: true, formatter: dateFormatter }
-  { id: "invoiceNo", name: "Invoice NO.", field: "invoiceNr", sortable: true }
-  { id: "quantity", name: "Quantity", field: "quantity", sortable: true, groupTotalsFormatter: sumTotalsFormatter('') }
-  { id: "amountGross", name: "Amount Gross", field: "total", sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
-  { id: "amountVat", name: "VAT", field: "totalVATIncluded", sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
-  { id: "amountDiscount", name: "Discount", field: "discount", sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
-  { id: "note", name: "Note", field: "note" }
+  { id: "type", name: "Type", field: "expenseTypeName", sortable: true, allowSearch: true }
+  { id: "description", name: "Description", field: "description", allowSearch: true }
+  { id: "expenseGroup", name: "Group", field: "expenseGroupName", sortable: true, allowSearch: true }
+  { id: "vehicle", name: "Vehicle", field: "vehicleName", sortable: true, allowSearch: true }
+  { id: "driver", name: "Driver", field: "driverName", sortable: true, allowSearch: true }
+  { id: "fleet", name: "Fleet", field: "fleetName", sortable: true, allowSearch: true }
+  { id: "date", name: "Date", field: "timestamp", width:120, sortable: true, formatter: dateFormatter, allowDateSearch: true }
+  { id: "invoiceNo", name: "Invoice NO.", field: "invoiceNr", sortable: true, width:50 }
+  { id: "quantity", name: "Quantity", field: "quantity", width:50, sortable: true, groupTotalsFormatter: sumTotalsFormatter('') }
+  { id: "amountGross", name: "Amount Gross", field: "total", width:50, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
+  { id: "amountVat", name: "VAT", field: "totalVATIncluded", width:50, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
+  { id: "amountDiscount", name: "Discount", field: "discount", width:50, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
+  { id: "note", name: "Note", field: "note", allowSearch: true }
 ]
 # { id: "amountNet", name: "Amount Net", field: "total" }                # sum
 
 Template.expenseReport.onRendered ->
 
-  DateRangeFilter.install $ '#date-range-filter'
+  #DateRangeFilter.install $ '#date-range-filter'
 
   options =
     enableCellNavigation: false
@@ -190,10 +181,16 @@ Template.expenseReport.onRendered ->
         removeFilter 'client', column.name
   grid.onHeaderRowCellRendered.subscribe (e, args) ->
     $(args.node).empty()
-    $("<input type='text'>")
-       .data("columnId", args.column.id)
-       #.val(columnFilters[args.column.id])
-       .appendTo(args.node)
+    if args.column.allowSearch
+      $('<span class="glyphicon glyphicon-search searchbox" aria-hidden="true"></span>').appendTo(args.node)
+      $("<input type='text' class='searchbox'>")
+         .data("columnId", args.column.id)
+         .appendTo(args.node)
+    else if args.column.allowDateSearch
+      $('<input id="date-range-filter" class="searchbox" type="text" placeholder="Filter on date">').appendTo args.node
+      DateRangeFilter.install $ '#date-range-filter'
+    else
+      $("<div class='searchdisabled'>&nbsp;</div>").appendTo args.node
 
   dataView.onRowCountChanged.subscribe (e, args) ->
     MyGrid.dp.updateTotals()
