@@ -6,7 +6,7 @@
 
   addColumnFilter: (filter) ->
     console.log 'addColumnFilter', filter
-    regex = new RegExp filter.spec.regex
+    regex = new RegExp filter.spec.regex, 'i'
     @columnFilters[filter.spec.field] = (text) -> "#{text}".match regex
     applyFilters()
 
