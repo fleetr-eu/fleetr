@@ -123,11 +123,11 @@ columns = [
   { id: "driver", name: "Driver", field: "driverName", sortable: true, allowSearch: true }
   { id: "fleet", name: "Fleet", field: "fleetName", sortable: true, allowSearch: true }
   { id: "date", name: "Date", field: "timestamp", width:120, sortable: true, formatter: dateFormatter, allowDateSearch: true }
-  { id: "invoiceNo", name: "Invoice NO.", field: "invoiceNr", sortable: true, width:50 }
-  { id: "quantity", name: "Quantity", field: "quantity", width:50, sortable: true, groupTotalsFormatter: sumTotalsFormatter('') }
-  { id: "amountGross", name: "Amount Gross", field: "total", width:50, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
+  { id: "invoiceNo", name: "Invoice NO.", field: "invoiceNr", sortable: true, width:75 }
+  { id: "quantity", name: "Quantity", field: "quantity", width:75, sortable: true, groupTotalsFormatter: sumTotalsFormatter('') }
+  { id: "amountGross", name: "Amount Gross", field: "total", width:80, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
   { id: "amountVat", name: "VAT", field: "totalVATIncluded", width:50, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
-  { id: "amountDiscount", name: "Discount", field: "discount", width:50, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
+  { id: "amountDiscount", name: "Discount", field: "discount", width:75, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
   { id: "note", name: "Note", field: "note", allowSearch: true }
 ]
 # { id: "amountNet", name: "Amount Net", field: "total" }                # sum
