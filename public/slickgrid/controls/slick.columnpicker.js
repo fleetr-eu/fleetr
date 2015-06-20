@@ -19,6 +19,15 @@
       });
       $menu.bind("click", updateColumn);
 
+      var visibleColumns = [];
+      $.each(columns, function(idx){
+        column = columns[idx];
+        if(column.hidden == undefined || column.hidden == false){
+          visibleColumns.push(column);
+        }
+      });
+      grid.setColumns(visibleColumns);
+
     }
 
     function handleHeaderContextMenu(e, args) {
