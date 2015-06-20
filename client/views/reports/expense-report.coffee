@@ -125,10 +125,10 @@ columns = [
   { id: "date", name: "Date", field: "timestamp", width:120, sortable: true, formatter: dateFormatter, allowDateSearch: true }
   { id: "invoiceNo", name: "Invoice NO.", field: "invoiceNr", sortable: true, width:75 }
   { id: "quantity", name: "Quantity", field: "quantity", width:75, sortable: true, groupTotalsFormatter: sumTotalsFormatter('') }
-  { id: "amountGross", name: "Amount Gross", field: "total", width:80, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
-  { id: "amountVat", name: "VAT", field: "totalVATIncluded", width:50, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
+  { id: "totalVat", name: "Total+VAT", field: "totalVATIncluded", width:75, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
+  { id: "amountVat", name: "VAT", field: "vat", width:50, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
   { id: "amountDiscount", name: "Discount", field: "discount", width:75, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
-  { id: "note", name: "Note", field: "note", allowSearch: true }
+  { id: "total", name: "Total", field: "total", width:80, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
 ]
 # { id: "amountNet", name: "Amount Net", field: "total" }                # sum
 
@@ -159,7 +159,7 @@ Template.expenseReport.onRendered ->
     groupItemMetadataProvider: groupItemMetadataProvider,
     inlineFilters: true
 
-  MyGrid.dp = TotalsDataProvider dataView, columns, ['total', 'totalVATIncluded', 'discount']
+  MyGrid.dp = TotalsDataProvider dataView, columns, ['total', 'totalVATIncluded', 'vat', 'discount']
   MyGrid.grid = grid = new Slick.Grid '#slickgrid', MyGrid.dp, columns, options
 
 
@@ -235,6 +235,7 @@ filter = `function filter(item) {
 applyFilters = () ->
   setGridData MyGrid.data.filter( (item) -> filter item), false
 setGridData = (data, save = true) ->
+  console.log 'data', data
   MyGrid.data = data if save
   dataView.beginUpdate()
   dataView.setItems data
