@@ -1,27 +1,41 @@
 @SlickGrid = ->
 
-  grid: null
-  data: []
-  dv: -> dataView
-  columnFilters: {}
+  @grid = null
+  @data = []
 
-  addColumnFilter: (filter) ->
+  @install = ->
+    # Handle changes to client rendered fitlers
+    @_activeFilters.find(type: 'client').observe
+      added: @addColumnFilter
+      changed: @addColumnFilter
+      removed: @removeColumnFilter
+
+    # Handle changes to server rendered fitlers
+    @_activeFilters.find(type: 'server').observe
+      removed: -> $('#date-range-filter').val('')
+    @
+
+  # column filters -->
+  @_activeFilters = new Mongo.Collection null
+  @columnFilters = {}
+  @addColumnFilter = (filter) =>
     regex = new RegExp filter.spec.regex, 'i'
     @columnFilters[filter.spec.field] = (text) -> "#{text}".match regex
     applyFilters()
-
-  removeColumnFilter: (filter) ->
+  @removeColumnFilter = (filter) =>
     delete @columnFilters[filter.spec.field]
     $("#searchbox-#{filter.spec.field}").val('')
     applyFilters()
+  # <-- column filters
 
-  _groupings: {}
-  resetGroupBy: ->
+  @_activeGroupings = new Mongo.Collection null
+  @_groupings = {}
+  @resetGroupBy = ->
     @_groupings = {}
     activeGroupings.remove {}
     @_effectuateGroupings()
 
-  addGroupBy: (field, fieldName) ->
+  @addGroupBy = (field, fieldName) ->
     if activeGroupings.findOne(name: fieldName) then return
     aggregators = [
       new Slick.Data.Aggregators.Sum('total')
@@ -40,38 +54,31 @@
     activeGroupings.insert name: fieldName
     @_effectuateGroupings()
 
-  removeGroupBy: (name) ->
+  @removeGroupBy = (name) ->
     activeGroupings.remove name: name
     delete @_groupings[name]
     @_effectuateGroupings()
 
-  _effectuateGroupings: ->
+  @_effectuateGroupings = ->
     dataView.setGrouping (val for key, val of @_groupings)
 
-MyGrid = SlickGrid()
+  @install()
 
-activeGroupings = new Mongo.Collection null
-activeFilters   = new Mongo.Collection null
+MyGrid = new SlickGrid()
+
 dataView = null
 
 # Handle changes to client rendered filters
-activeFilters.find(type: 'client').observe
-  added: MyGrid.addColumnFilter.bind MyGrid
-  changed: MyGrid.addColumnFilter.bind MyGrid
-  removed: MyGrid.removeColumnFilter.bind MyGrid
 
-# Handle changes to server rendered fitlers
-activeFilters.find(type: 'server').observe
-  removed: -> $('#date-range-filter').val('')
 
 @addFilter = (type, name, text, spec) ->
-  activeFilters.upsert {name: name, type: type}, {name: name, type: type, text: text, spec:spec}
+  MyGrid._activeFilters.upsert {name: name, type: type}, {name: name, type: type, text: text, spec:spec}
 @removeFilter = (type, name) ->
-  activeFilters.remove name: name, type: type
+  MyGrid._activeFilters.remove name: name, type: type
 
 Template.expenseReport.helpers
-  activeGroupings:  activeGroupings.find()
-  activeFilters:    activeFilters.find()
+  activeGroupings:  MyGrid._activeGroupings.find()
+  activeFilters:    MyGrid._activeFilters.find()
 
 Template.expenseReport.events
   'click .removeGroupBy': ->
