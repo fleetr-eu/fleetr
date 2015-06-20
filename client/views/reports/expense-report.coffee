@@ -1,11 +1,11 @@
-@MyGrid =
+@SlickGrid = ->
+
   grid: null
   data: []
   dv: -> dataView
   columnFilters: {}
 
   addColumnFilter: (filter) ->
-    console.log 'addColumnFilter', filter
     regex = new RegExp filter.spec.regex, 'i'
     @columnFilters[filter.spec.field] = (text) -> "#{text}".match regex
     applyFilters()
@@ -29,7 +29,6 @@
       new Slick.Data.Aggregators.Sum('discount')
     ]
     aggregators.push new Slick.Data.Aggregators.Sum('quantity') if field == 'expenseTypeName'
-    console.log 'collapsed?', Object.keys(@_groupings).length > 0
     @_groupings[fieldName] =
       getter: field
       formatter: (g) ->
@@ -48,6 +47,8 @@
 
   _effectuateGroupings: ->
     dataView.setGrouping (val for key, val of @_groupings)
+
+MyGrid = SlickGrid()
 
 activeGroupings = new Mongo.Collection null
 activeFilters   = new Mongo.Collection null
@@ -93,10 +94,7 @@ Template.expenseReport.events
     endDate = $('#date-range-filter').data('daterangepicker').endDate
     start = startDate.format('YYYY-MM-DD')
     stop = endDate.format('YYYY-MM-DD')
-    console.log start + ' - ' + stop
     range = {$gte: start, $lte: stop}
-    console.log range
-    console.log startDate.unix(), endDate.unix()
     addFilter 'server', 'Date', "#{start} - #{stop}",
       {startDate: startDate.toISOString(), endDate: endDate.toISOString()}
     Meteor.call 'getExpenses', startDate.toISOString(), endDate.toISOString(), (err, expenses) ->
@@ -144,17 +142,6 @@ Template.expenseReport.onRendered ->
     explicitInitialization: true
     forceFitColumns: true
 
-  headerMenuPlugin = new Slick.Plugins.HeaderMenu({})
-  headerMenuPlugin.onBeforeMenuShow.subscribe (e, args) ->
-    console.log 'onBeforeMenuShow', e, args
-    menu = args.menu
-    i = menu.items.length
-    menu.items.push
-      title: "Menu item " + i
-      command: "item" + i
-
-  headerMenuPlugin.onCommand.subscribe (e, args) ->
-    console.log 'onCommand', e, args
   groupItemMetadataProvider = new Slick.Data.GroupItemMetadataProvider()
   dataView = new Slick.Data.DataView
     groupItemMetadataProvider: groupItemMetadataProvider,
@@ -172,7 +159,6 @@ Template.expenseReport.onRendered ->
   grid.onSort.subscribe (e, args) ->
     sortdir = args.sortAsc ? 1 : -1;
     sortcol = args.sortCol.field
-    console.log 'sort on', sortcol
     dataView.sort(comparer(sortcol), args.sortAsc)
 
   $(grid.getHeaderRow()).delegate ":input", "change keyup", (e) ->
@@ -205,7 +191,6 @@ Template.expenseReport.onRendered ->
     grid.render()
   dataView.onRowsChanged.subscribe (e, args) ->
     # totals rows, the two last ones, should always be visually updated
-    console.log 'onRowsChanged', args.rows
     dl = if dataView.getLength() then dataView.getLength() else 0
     args.rows.push dl
     args.rows.push dl + 1
@@ -234,7 +219,6 @@ filter = `function filter(item) {
 applyFilters = () ->
   setGridData MyGrid.data.filter( (item) -> filter item), false
 setGridData = (data, save = true) ->
-  console.log 'data', data
   MyGrid.data = data if save
   dataView.beginUpdate()
   dataView.setItems data
@@ -268,20 +252,16 @@ TotalsDataProvider = (dataView, columns, fields) ->
   getItem: (index) ->
     dl = if dataView.getLength() then dataView.getLength() else 0
     if index < dl
-      console.log 'getItem', index, dl, 'return', dataView.getItem index
       dataView.getItem index
      else if index == dl
-      console.log 'getItem', index, dl, 'return', emptyRow
       emptyRow
     else
-      console.log 'getItem', index, dl, 'return', totals
       totals
   updateTotals: ->
     for column in columns
       if column.field in fields # only calculate total for the requested fields
         groups = dataView.getGroups()
         if groups && groups.length
-          console.log 'groups', dataView.getGroups()
           totals[column.field] = dataView.getGroups().reduce (total, group) ->
             total + (parseInt group.totals?.sum?[column.field] || 0)
           , 0
