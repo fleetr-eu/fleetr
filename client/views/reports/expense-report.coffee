@@ -116,14 +116,14 @@ sumTotalsFormatter = (sign) -> (totals, columnDef) ->
 sumEuroTotalsFormatter = sumTotalsFormatter '&euro;'
 
 columns = [
+  { id: "date", name: "Date", field: "timestamp", width:120, sortable: true, formatter: dateFormatter, allowDateSearch: true }
   { id: "type", name: "Type", field: "expenseTypeName", sortable: true, allowSearch: true }
-  { id: "description", name: "Description", field: "description", allowSearch: true }
-  { id: "expenseGroup", name: "Group", field: "expenseGroupName", sortable: true, allowSearch: true }
+  { id: "description", name: "Description", field: "description", width:100, allowSearch: true, hidden:true }
+  { id: "expenseGroup", name: "Group", field: "expenseGroupName", sortable: true, allowSearch: true, hidden:true }
   { id: "vehicle", name: "Vehicle", field: "vehicleName", sortable: true, allowSearch: true }
   { id: "driver", name: "Driver", field: "driverName", sortable: true, allowSearch: true }
   { id: "fleet", name: "Fleet", field: "fleetName", sortable: true, allowSearch: true }
-  { id: "date", name: "Date", field: "timestamp", width:120, sortable: true, formatter: dateFormatter, allowDateSearch: true }
-  { id: "invoiceNo", name: "Invoice NO.", field: "invoiceNr", sortable: true, width:75 }
+  { id: "invoiceNo", name: "Invoice NO.", field: "invoiceNr", sortable: true, width:75, hidden:true }
   { id: "quantity", name: "Quantity", field: "quantity", width:75, sortable: true, groupTotalsFormatter: sumTotalsFormatter('') }
   { id: "totalVat", name: "Total+VAT", field: "totalVATIncluded", width:75, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
   { id: "amountVat", name: "VAT", field: "vat", width:50, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
@@ -142,6 +142,7 @@ Template.expenseReport.onRendered ->
     showHeaderRow: true
     headerRowHeight: 30
     explicitInitialization: true
+    forceFitColumns: true
 
   headerMenuPlugin = new Slick.Plugins.HeaderMenu({})
   headerMenuPlugin.onBeforeMenuShow.subscribe (e, args) ->
@@ -173,8 +174,6 @@ Template.expenseReport.onRendered ->
     sortcol = args.sortCol.field
     console.log 'sort on', sortcol
     dataView.sort(comparer(sortcol), args.sortAsc)
-
-
 
   $(grid.getHeaderRow()).delegate ":input", "change keyup", (e) ->
     columnId = $(this).data("columnId");
