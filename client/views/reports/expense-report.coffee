@@ -162,13 +162,18 @@ Template.expenseReport.onRendered ->
   MyGrid.dp = TotalsDataProvider dataView, columns, ['total', 'totalVATIncluded', 'discount']
   MyGrid.grid = grid = new Slick.Grid '#slickgrid', MyGrid.dp, columns, options
 
+
+  comparer = (sortcol) -> (a, b) ->
+    x = a[sortcol]
+    y = b[sortcol]
+    if x == y then 0 else if x > y then 1 else -1
+
   grid.onSort.subscribe (e, args) ->
-    # args: sort information.
-    field = args.sortCol.field
-    rows.sort (a, b) ->
-      result = if a[field] > b[field] then 1 else if a[field] < b[field] then -1 else 0
-      if args.sortAsc then result else -result
-    grid.invalidate()
+    sortdir = args.sortAsc ? 1 : -1;
+    sortcol = args.sortCol.field
+    console.log 'sort on', sortcol
+    dataView.sort(comparer(sortcol), args.sortAsc)
+
 
 
   $(grid.getHeaderRow()).delegate ":input", "change keyup", (e) ->
