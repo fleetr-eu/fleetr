@@ -17,6 +17,7 @@
 
   # column filters -->
   @_activeFilters = new Mongo.Collection null
+  @activeFiltersCursor = @_activeFilters.find()
   @columnFilters = {}
   @addColumnFilter = (filter) =>
     regex = new RegExp filter.spec.regex, 'i'
@@ -26,17 +27,22 @@
     delete @columnFilters[filter.spec.field]
     $("#searchbox-#{filter.spec.field}").val('')
     applyFilters()
+  @addFilter = (type, name, text, spec) ->
+    @_activeFilters.upsert {name: name, type: type}, {name: name, type: type, text: text, spec:spec}
+  @removeFilter = (type, name) ->
+    @_activeFilters.remove name: name, type: type
   # <-- column filters
 
   @_activeGroupings = new Mongo.Collection null
+  @activeGroupingsCursor = @_activeGroupings.find()
   @_groupings = {}
   @resetGroupBy = ->
     @_groupings = {}
-    activeGroupings.remove {}
+    @_activeGroupings.remove {}
     @_effectuateGroupings()
 
   @addGroupBy = (field, fieldName) ->
-    if activeGroupings.findOne(name: fieldName) then return
+    if @_activeGroupings.findOne(name: fieldName) then return
     aggregators = [
       new Slick.Data.Aggregators.Sum('total')
       new Slick.Data.Aggregators.Sum('totalVATIncluded')
@@ -51,11 +57,11 @@
       collapsed: Object.keys(@_groupings).length > 0
       aggregateCollapsed: true
       lazyTotalsCalculation: true
-    activeGroupings.insert name: fieldName
+    @_activeGroupings.insert name: fieldName
     @_effectuateGroupings()
 
   @removeGroupBy = (name) ->
-    activeGroupings.remove name: name
+    @_activeGroupings.remove name: name
     delete @_groupings[name]
     @_effectuateGroupings()
 
@@ -68,23 +74,16 @@ MyGrid = new SlickGrid()
 
 dataView = null
 
-# Handle changes to client rendered filters
-
-
-@addFilter = (type, name, text, spec) ->
-  MyGrid._activeFilters.upsert {name: name, type: type}, {name: name, type: type, text: text, spec:spec}
-@removeFilter = (type, name) ->
-  MyGrid._activeFilters.remove name: name, type: type
 
 Template.expenseReport.helpers
-  activeGroupings:  MyGrid._activeGroupings.find()
-  activeFilters:    MyGrid._activeFilters.find()
+  activeGroupings:  MyGrid.activeGroupingsCursor
+  activeFilters:    MyGrid.activeFiltersCursor
 
 Template.expenseReport.events
   'click .removeGroupBy': ->
     MyGrid.removeGroupBy @name
   'click .removeFilter': ->
-    removeFilter @type, @name
+    MyGrid.removeFilter @type, @name
     # temp
     if @type is 'server'
       Meteor.call 'getExpenses', (err, expenses) ->
@@ -102,7 +101,7 @@ Template.expenseReport.events
     start = startDate.format('YYYY-MM-DD')
     stop = endDate.format('YYYY-MM-DD')
     range = {$gte: start, $lte: stop}
-    addFilter 'server', 'Date', "#{start} - #{stop}",
+    MyGrid.addFilter 'server', 'Date', "#{start} - #{stop}",
       {startDate: startDate.toISOString(), endDate: endDate.toISOString()}
     Meteor.call 'getExpenses', startDate.toISOString(), endDate.toISOString(), (err, expenses) ->
       setGridData( expenses.map addId )
@@ -173,10 +172,10 @@ Template.expenseReport.onRendered ->
     if columnId
       column = (columns.filter (column) -> column.id == columnId)[0]
       if $(this).val().length
-        addFilter 'client', column.name, $(this).val(),
+        MyGrid.addFilter 'client', column.name, $(this).val(),
           { field: column.field, regex: "#{$(this).val()}" }
       else
-        removeFilter 'client', column.name
+        MyGrid.removeFilter 'client', column.name
   grid.onHeaderRowCellRendered.subscribe (e, args) ->
     $(args.node).empty()
     if args.column.allowSearch
