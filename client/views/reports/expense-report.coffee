@@ -1,6 +1,7 @@
 @SlickGrid = ->
 
   @grid = null
+  @_dataView = null
   @data = []
 
   @install = ->
@@ -33,6 +34,7 @@
     @_activeFilters.remove name: name, type: type
   # <-- column filters
 
+  # grouping -->
   @_activeGroupings = new Mongo.Collection null
   @activeGroupingsCursor = @_activeGroupings.find()
   @_groupings = {}
@@ -40,7 +42,6 @@
     @_groupings = {}
     @_activeGroupings.remove {}
     @_effectuateGroupings()
-
   @addGroupBy = (field, fieldName) ->
     if @_activeGroupings.findOne(name: fieldName) then return
     aggregators = [
@@ -59,20 +60,17 @@
       lazyTotalsCalculation: true
     @_activeGroupings.insert name: fieldName
     @_effectuateGroupings()
-
   @removeGroupBy = (name) ->
     @_activeGroupings.remove name: name
     delete @_groupings[name]
     @_effectuateGroupings()
-
   @_effectuateGroupings = ->
-    dataView.setGrouping (val for key, val of @_groupings)
+    @_dataView.setGrouping (val for key, val of @_groupings)
+  # <-- grouping
 
   @install()
 
 MyGrid = new SlickGrid()
-
-dataView = null
 
 
 Template.expenseReport.helpers
@@ -149,11 +147,11 @@ Template.expenseReport.onRendered ->
     forceFitColumns: true
 
   groupItemMetadataProvider = new Slick.Data.GroupItemMetadataProvider()
-  dataView = new Slick.Data.DataView
+  MyGrid._dataView = new Slick.Data.DataView
     groupItemMetadataProvider: groupItemMetadataProvider,
     inlineFilters: true
 
-  MyGrid.dp = TotalsDataProvider dataView, columns, ['total', 'totalVATIncluded', 'vat', 'discount']
+  MyGrid.dp = TotalsDataProvider MyGrid._dataView, columns, ['total', 'totalVATIncluded', 'vat', 'discount']
   MyGrid.grid = grid = new Slick.Grid '#slickgrid', MyGrid.dp, columns, options
 
 
@@ -165,7 +163,7 @@ Template.expenseReport.onRendered ->
   grid.onSort.subscribe (e, args) ->
     sortdir = args.sortAsc ? 1 : -1;
     sortcol = args.sortCol.field
-    dataView.sort(comparer(sortcol), args.sortAsc)
+    MyGrid._dataView.sort(comparer(sortcol), args.sortAsc)
 
   $(grid.getHeaderRow()).delegate ":input", "change keyup", (e) ->
     columnId = $(this).data("columnId");
@@ -189,15 +187,15 @@ Template.expenseReport.onRendered ->
     else
       $("<div class='searchdisabled'>&nbsp;</div>").appendTo args.node
 
-  dataView.onRowCountChanged.subscribe (e, args) ->
+  MyGrid._dataView.onRowCountChanged.subscribe (e, args) ->
     MyGrid.dp.updateTotals()
-    dl = if dataView.getLength() then dataView.getLength() else 0
+    dl = if MyGrid._dataView.getLength() then MyGrid._dataView.getLength() else 0
     grid.invalidateRows [dl, dl+1]
     grid.updateRowCount()
     grid.render()
-  dataView.onRowsChanged.subscribe (e, args) ->
+  MyGrid._dataView.onRowsChanged.subscribe (e, args) ->
     # totals rows, the two last ones, should always be visually updated
-    dl = if dataView.getLength() then dataView.getLength() else 0
+    dl = if MyGrid._dataView.getLength() then MyGrid._dataView.getLength() else 0
     args.rows.push dl
     args.rows.push dl + 1
     grid.invalidateRows(args.rows)
@@ -226,14 +224,14 @@ applyFilters = () ->
   setGridData MyGrid.data.filter( (item) -> filter item), false
 setGridData = (data, save = true) ->
   MyGrid.data = data if save
-  dataView.beginUpdate()
-  dataView.setItems data
+  MyGrid._dataView.beginUpdate()
+  MyGrid._dataView.setItems data
   MyGrid.grid.autosizeColumns()
-  dataView.endUpdate()
+  MyGrid._dataView.endUpdate()
 
   # update and render totals row
   MyGrid.dp.updateTotals()
-  dl = if dataView.getLength() then dataView.getLength() else 0
+  dl = if MyGrid._dataView.getLength() then MyGrid._dataView.getLength() else 0
   MyGrid.grid.invalidateRows [dl, dl + 1]
   MyGrid.grid.render()
 
