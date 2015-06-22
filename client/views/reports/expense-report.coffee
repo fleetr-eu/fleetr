@@ -60,7 +60,7 @@ TotalsDataProvider = (dataView, columns, fields) ->
       totalsMetadata
 
 # Component that wraps SlickGrid and uses Meteorish constructs
-@SlickGrid = (options, columns)->
+@FleetrGrid = (options, columns)->
 
   @grid = null
   @_dataView = null
@@ -218,7 +218,7 @@ options =
   explicitInitialization: true
   forceFitColumns: true
 
-MyGrid = new SlickGrid options, columns
+MyGrid = new FleetrGrid options, columns
 
 Template.expenseReport.onRendered ->
   MyGrid.install()
