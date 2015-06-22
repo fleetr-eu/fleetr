@@ -53,13 +53,12 @@ Template.expenseReport.events
     # temp
     if @type is 'server'
       Meteor.call 'getExpenses', (err, expenses) ->
-        setGridData( expenses.map addId )
+        MyGrid.setGridData( expenses.map addId )
   'click #groupByDate': (event, tpl) -> MyGrid.addGroupBy getDateRow('timestamp'), 'Date'
   'click #groupByType': (event, tpl) -> MyGrid.addGroupBy 'expenseTypeName', 'Type'
   'click #groupByGroup': (event, tpl) -> MyGrid.addGroupBy 'expenseGroupName', 'Group'
   'click #groupByVehicle': (event, tpl) -> MyGrid.addGroupBy 'vehicleName', 'Vehicle'
   'click #groupByFleet': (event, tpl) -> MyGrid.addGroupBy 'fleetName', 'Fleet'
-  'click #groupByFleetGroup': (event, tpl) -> #tbd, see method
   'click #resetGroupBy': (event, tpl) -> MyGrid.resetGroupBy()
   'apply.daterangepicker #date-range-filter': (event,p) ->
     startDate = $('#date-range-filter').data('daterangepicker').startDate
@@ -70,4 +69,4 @@ Template.expenseReport.events
     MyGrid.addFilter 'server', 'Date', "#{start} - #{stop}",
       {startDate: startDate.toISOString(), endDate: endDate.toISOString()}
     Meteor.call 'getExpenses', startDate.toISOString(), endDate.toISOString(), (err, expenses) ->
-      setGridData( expenses.map addId )
+      MyGrid.setGridData( expenses.map addId )
