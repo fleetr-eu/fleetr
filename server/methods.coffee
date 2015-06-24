@@ -147,7 +147,6 @@ Meteor.methods
     if startDate and endDate
       searchObject.date = $gte: new Date(startDate), $lte: new Date(endDate)
 
-    console.log searchObject
     Expenses.find(searchObject).map (expense) ->
       expense.expenseTypeName = ExpenseTypes.findOne({_id: expense.expenseType})?.name
       expense.expenseGroupName = ExpenseGroups.findOne({_id: expense.expenseGroup})?.name
@@ -156,3 +155,10 @@ Meteor.methods
       expense.vehicleName = vehicle?.name
       expense.fleetName = Fleets.findOne(_id: vehicle?.allocatedToFleet)?.name
       expense # return the expense
+
+  getMaintenanceVehicles: (nextTechnicalCheckMax) ->
+    searchObject =
+      nextTechnicalCheck: $lte: new Date nextTechnicalCheckMax
+
+    Vehicles.find(searchObject).map (vehicle) ->
+      vehicle

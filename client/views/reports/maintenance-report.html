@@ -1,0 +1,46 @@
+<template name="maintenanceReport">
+  <h3 class="page-title">Reports &raquo; Maintenance</h3>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="portlet box blue">
+        <div class="portlet-title">
+          <div class="caption" id="expenses">
+            <ul class="nav nav-pills" role="tablist">
+              <li role="presentation" class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="groupByLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Group By <span class="caret"></span>
+                </button>
+                <ul id="groupByMenu" class="dropdown-menu" role="menu" aria-labelledby="groupByLink">
+                  <li role="presentation"><a id="groupByNextCheck" role="menuitem" tabindex="-1" href="#">Next Check</a></li>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation"><a id="resetGroupBy" role="menuitem" tabindex="-1" href="#">No Grouping</a></li>
+                </ul>
+              </li>
+              <li role="presentation">
+
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="portlet-body">
+          <ol class="list-inline">
+            <li><strong>Grouped by:</strong></li>
+          {{#each activeGroupings}}
+            <li>{{name}} <a href="#" class="removeGroupBy"><span class="glyphicon glyphicon-remove"></span></a></li>
+          {{else}}
+            <li>No grouping.</li>
+          {{/each}}
+            <li><strong>Filtered on:</strong></li>
+          {{#each activeFilters}}
+            <li>{{name}} ({{text}}) <a href="#" class="removeFilter"><span class="glyphicon glyphicon-remove"></span></a></li>
+          {{else}}
+            <li>No filters.</li>
+          {{/each}}
+          </ol>
+
+          <div id="slickgrid" class="slickfleetr" style="width:100%; height:500px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

@@ -20,7 +20,8 @@
     "reclog": "Репорти от устройството",
     "reports": "Отчети",
     "map": "Карта",
-    "expenseReport": "Expenses"
+    "expenseReport": "разходи",
+    "maintenanceReport": "поддръжка"
   },
 
   "fleetGroup": {

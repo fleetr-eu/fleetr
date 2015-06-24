@@ -128,7 +128,7 @@
 					</ul>
 					</li>
 
-					<li class="{{isActiveRoute regex='maintenance'}}">
+					<li class="{{isActiveRoute regex='maintenanceType'}}">
 						<a href="javascript:;">
 							<i class="fa fa-wrench"></i>
 							<span class="title">{{_ "menu.maintenances"}}</span>
@@ -151,6 +151,9 @@
 					<ul class="sub-menu">
 						<li class="{{isActiveRoute regex='expenseReport'}}">
 							<a href="{{pathFor 'expenseReport'}}">{{_ "menu.expenseReport"}}</a>
+						</li>
+						<li class="{{isActiveRoute regex='maintenanceReport'}}">
+							<a href="{{pathFor 'maintenanceReport'}}">{{_ "menu.maintenanceReport"}}</a>
 						</li>
 						<li class="{{isActiveRoute regex='logbook'}}">
 							<a href="{{pathFor 'logbookReport'}}">{{_ "menu.logbook"}}</a>

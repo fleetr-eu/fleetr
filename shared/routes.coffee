@@ -242,9 +242,8 @@ Meteor.startup ->
 
     @route 'expenseReport',
       path: '/reports/expenses'
-      waitOn: -> [
-        Meteor.subscribe('expenses')
-      ]
+    @route 'maintenanceReport',
+      path: '/reports/maintenance'
 
     @route 'alarm-definitions-add',
       path: '/alarm-definitions/add'

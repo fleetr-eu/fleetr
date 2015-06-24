@@ -48,7 +48,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       totalsMetadata
 
 # Component that wraps SlickGrid and uses Meteorish constructs
-@FleetrGrid = (options, columns, methodName) ->
+@FleetrGrid = (options, columns, getDataFunc) ->
 
   @grid = null
   @_dataView = null
@@ -149,7 +149,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       y = b[sortcol]
       if x == y then 0 else if x > y then 1 else -1
 
-    @grid.onSort.subscribe (e, args) ->
+    @grid.onSort.subscribe (e, args) =>
       sortdir = args.sortAsc ? 1 : -1;
       sortcol = args.sortCol.field
       @_dataView.sort(comparer(sortcol), args.sortAsc)
@@ -196,6 +196,6 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     @grid.init()
     columnpicker = new Slick.Controls.ColumnPicker columns, @grid, options
 
-    Meteor.call methodName, (err, items) => @setGridData( items.map Helpers.addId )
+    getDataFunc (items) => @setGridData( items.map Helpers.addId )
 
   @

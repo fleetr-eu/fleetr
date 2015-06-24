@@ -20,7 +20,8 @@
     "reclog": "Unit reports",
     "reports": "Reports",
     "map": "Map",
-    "expenseReport": "Expenses"
+    "expenseReport": "Expenses",
+    "maintenanceReport": "Maintenance"
   },
 
   "fleetGroup": {

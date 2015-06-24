@@ -45,7 +45,9 @@ options =
   explicitInitialization: true
   forceFitColumns: true
 
-MyGrid = new FleetrGrid options, columns, 'getExpenses'
+MyGrid = new FleetrGrid options, columns, (callback) ->
+  Meteor.call 'getExpenses', (err, items) ->
+    callback items
 
 Template.expenseReport.onRendered ->
   MyGrid.install()
