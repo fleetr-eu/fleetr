@@ -22,10 +22,19 @@ columns = [
   { id: "fleet", name: "Fleet", field: "fleetName", sortable: true, allowSearch: true }
   { id: "invoiceNo", name: "Invoice NO.", field: "invoiceNr", sortable: true, width:75, hidden:true }
   { id: "quantity", name: "Quantity", field: "quantity", width:75, sortable: true, groupTotalsFormatter: sumTotalsFormatter('') }
-  { id: "totalVat", name: "Total+VAT", field: "totalVATIncluded", width:75, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
-  { id: "amountVat", name: "VAT", field: "vat", width:50, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
-  { id: "amountDiscount", name: "Discount", field: "discount", width:75, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
-  { id: "total", name: "Total", field: "total", width:80, sortable: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
+  { id: "totalVat", name: "Total+VAT", field: "totalVATIncluded", width:75, sortable: true, grandTotal: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
+  { id: "amountVat", name: "VAT", field: "vat", width:50, sortable: true, grandTotal: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
+  { id: "amountDiscount", name: "Discount", field: "discount", width:75, sortable: true,  grandTotal: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
+  { id: "total", name: "Total", field: "total", width:80, sortable: true,  grandTotal: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
+]
+
+aggregatorsBasic = [
+  new Slick.Data.Aggregators.Sum('total')
+  new Slick.Data.Aggregators.Sum('totalVATIncluded')
+  new Slick.Data.Aggregators.Sum('discount')
+]
+aggregatorsQuantity = aggregatorsBasic.concat [
+  new Slick.Data.Aggregators.Sum('quantity')
 ]
 
 options =
@@ -36,7 +45,7 @@ options =
   explicitInitialization: true
   forceFitColumns: true
 
-MyGrid = new FleetrGrid options, columns
+MyGrid = new FleetrGrid options, columns, 'getExpenses'
 
 Template.expenseReport.onRendered ->
   MyGrid.install()
@@ -54,11 +63,11 @@ Template.expenseReport.events
     if @type is 'server'
       Meteor.call 'getExpenses', (err, expenses) ->
         MyGrid.setGridData( expenses.map addId )
-  'click #groupByDate': (event, tpl) -> MyGrid.addGroupBy getDateRow('timestamp'), 'Date'
-  'click #groupByType': (event, tpl) -> MyGrid.addGroupBy 'expenseTypeName', 'Type'
-  'click #groupByGroup': (event, tpl) -> MyGrid.addGroupBy 'expenseGroupName', 'Group'
-  'click #groupByVehicle': (event, tpl) -> MyGrid.addGroupBy 'vehicleName', 'Vehicle'
-  'click #groupByFleet': (event, tpl) -> MyGrid.addGroupBy 'fleetName', 'Fleet'
+  'click #groupByDate': (event, tpl) -> MyGrid.addGroupBy getDateRow('timestamp'), 'Date', aggregatorsBasic
+  'click #groupByType': (event, tpl) -> MyGrid.addGroupBy 'expenseTypeName', 'Type', aggregatorsQuantity
+  'click #groupByGroup': (event, tpl) -> MyGrid.addGroupBy 'expenseGroupName', 'Group', aggregatorsBasic
+  'click #groupByVehicle': (event, tpl) -> MyGrid.addGroupBy 'vehicleName', 'Vehicle', aggregatorsBasic
+  'click #groupByFleet': (event, tpl) -> MyGrid.addGroupBy 'fleetName', 'Fleet', aggregatorsBasic
   'click #resetGroupBy': (event, tpl) -> MyGrid.resetGroupBy()
   'apply.daterangepicker #date-range-filter': (event,p) ->
     startDate = $('#date-range-filter').data('daterangepicker').startDate

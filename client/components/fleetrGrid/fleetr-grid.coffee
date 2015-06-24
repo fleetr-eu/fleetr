@@ -2,7 +2,7 @@ Helpers =
   addId: (item) -> item.id = item._id; item;
 
 # Slickgrid data provider that implements a grand total row
-TotalsDataProvider = (dataView, columns, fields) ->
+TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
   totals = {}
   totalsMetadata =
     cssClasses: "totals"
@@ -28,17 +28,16 @@ TotalsDataProvider = (dataView, columns, fields) ->
     else
       totals
   updateTotals: ->
-    for column in columns
-      if column.field in fields # only calculate total for the requested fields
-        groups = dataView.getGroups()
-        if groups && groups.length
-          totals[column.field] = dataView.getGroups().reduce (total, group) ->
-            total + (parseInt group.totals?.sum?[column.field] || 0)
-          , 0
-        else
-          dl = if dataView.getLength() then dataView.getLength() else 0
-          totals[column.field] = (parseInt dataView.getItem(idx)?[column.field] || 0 for idx in [0..dl-1])
-          .reduce(((p, c) -> p + c), 0)
+    for column in grandTotalsColumns
+      groups = dataView.getGroups()
+      if groups && groups.length
+        totals[column.field] = dataView.getGroups().reduce (total, group) ->
+          total + (parseInt group.totals?.sum?[column.field] || 0)
+        , 0
+      else
+        dl = if dataView.getLength() then dataView.getLength() else 0
+        totals[column.field] = (parseInt dataView.getItem(idx)?[column.field] || 0 for idx in [0..dl-1])
+        .reduce(((p, c) -> p + c), 0)
   getItemMetadata: (index) ->
     dl = if dataView.getLength() then dataView.getLength() else 0
     if index < dl
@@ -49,7 +48,7 @@ TotalsDataProvider = (dataView, columns, fields) ->
       totalsMetadata
 
 # Component that wraps SlickGrid and uses Meteorish constructs
-@FleetrGrid = (options, columns) ->
+@FleetrGrid = (options, columns, methodName) ->
 
   @grid = null
   @_dataView = null
@@ -104,14 +103,8 @@ TotalsDataProvider = (dataView, columns, fields) ->
     @_groupings = {}
     @_activeGroupings.remove {}
     @_effectuateGroupings()
-  @addGroupBy = (field, fieldName) ->
+  @addGroupBy = (field, fieldName, aggregators = []) ->
     if @_activeGroupings.findOne(name: fieldName) then return
-    aggregators = [
-      new Slick.Data.Aggregators.Sum('total')
-      new Slick.Data.Aggregators.Sum('totalVATIncluded')
-      new Slick.Data.Aggregators.Sum('discount')
-    ]
-    aggregators.push new Slick.Data.Aggregators.Sum('quantity') if field == 'expenseTypeName'
     @_groupings[fieldName] =
       getter: field
       formatter: (g) ->
@@ -146,7 +139,8 @@ TotalsDataProvider = (dataView, columns, fields) ->
       groupItemMetadataProvider: groupItemMetadataProvider,
       inlineFilters: true
 
-    @totalsDataProvider = TotalsDataProvider @_dataView, columns, ['total', 'totalVATIncluded', 'vat', 'discount']
+    grandTotalsColumns = (column for column in columns when column.grandTotal)
+    @totalsDataProvider = TotalsDataProvider @_dataView, columns, grandTotalsColumns
     @grid = new Slick.Grid '#slickgrid', @totalsDataProvider, columns, options
 
 
@@ -202,6 +196,6 @@ TotalsDataProvider = (dataView, columns, fields) ->
     @grid.init()
     columnpicker = new Slick.Controls.ColumnPicker columns, @grid, options
 
-    Meteor.call 'getExpenses', (err, expenses) => @setGridData( expenses.map Helpers.addId )
+    Meteor.call methodName, (err, items) => @setGridData( items.map Helpers.addId )
 
   @
