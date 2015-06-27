@@ -13,8 +13,10 @@ sumEuroTotalsFormatter = sumTotalsFormatter '&euro;'
 
 
 columns = [
-  { id: "nextTechnicalCheck", name: "Next Check", field: "nextTechnicalCheck", width:120, sortable: true, formatter: dateFormatter}
-  { id: "name", name: "Name", field: "name", sortable: true, allowSearch: true}
+  { id: "nextMaintenanceDate", name: "Next Maintenance Date", field: "nextMaintenanceDate", width:120, sortable: true, formatter: dateFormatter}
+  { id: 'nextMaintenanceOdometer', name: 'Next Maintenance Odometer', field: 'nextMaintenanceOdometer', sortable: true}
+  { id: 'nextMaintenanceEngineHours', name: 'Next Maintenance Engine Hours', field: 'nextMaintenanceEngineHours', sortable: true}
+  { id: "vehicleName", name: "Name", field: "vehicleName", sortable: true, allowSearch: true}
 ]
 
 aggregatorsBasic = [
