@@ -159,7 +159,9 @@ Meteor.methods
   getMaintenanceVehicles: (filter = {}) ->
     searchObject = {}
     if filter.nextTechnicalCheckDateMax
-      searchObject.nextTechnicalCheck = $lte: new Date filter.nextTechnicalCheckDateMax
+      searchObject.maintenanceDate = $lte: new Date filter.nextTechnicalCheckDateMax
 
-    Vehicles.find(searchObject).map (vehicle) ->
-      vehicle
+    Maintenances.find(searchObject).map (maintenance) ->
+      vehicle = Vehicles.findOne _id: maintenance.vehicle
+      maintenance.vehicleName = vehicle.name
+      maintenance
