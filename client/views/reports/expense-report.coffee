@@ -45,9 +45,7 @@ options =
   explicitInitialization: true
   forceFitColumns: true
 
-MyGrid = new FleetrGrid options, columns, (callback) ->
-  Meteor.call 'getExpenses', (err, items) ->
-    callback items
+MyGrid = new FleetrGrid options, columns, 'getExpenses'
 
 Template.expenseReport.onRendered ->
   MyGrid.install()
@@ -61,10 +59,6 @@ Template.expenseReport.events
     MyGrid.removeGroupBy @name
   'click .removeFilter': ->
     MyGrid.removeFilter @type, @name
-    # temp
-    if @type is 'server'
-      Meteor.call 'getExpenses', (err, expenses) ->
-        MyGrid.setGridData( expenses.map addId )
   'click #groupByDate': (event, tpl) -> MyGrid.addGroupBy getDateRow('timestamp'), 'Date', aggregatorsBasic
   'click #groupByType': (event, tpl) -> MyGrid.addGroupBy 'expenseTypeName', 'Type', aggregatorsQuantity
   'click #groupByGroup': (event, tpl) -> MyGrid.addGroupBy 'expenseGroupName', 'Group', aggregatorsBasic
@@ -79,5 +73,5 @@ Template.expenseReport.events
     range = {$gte: start, $lte: stop}
     MyGrid.addFilter 'server', 'Date', "#{start} - #{stop}",
       {startDate: startDate.toISOString(), endDate: endDate.toISOString()}
-    Meteor.call 'getExpenses', startDate.toISOString(), endDate.toISOString(), (err, expenses) ->
-      MyGrid.setGridData( expenses.map addId )
+    #Meteor.call 'getExpenses', startDate.toISOString(), endDate.toISOString(), (err, expenses) ->
+    #  MyGrid.setGridData( expenses.map addId )
