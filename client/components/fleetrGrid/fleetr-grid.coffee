@@ -48,7 +48,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       totalsMetadata
 
 # Component that wraps SlickGrid and uses Meteorish constructs
-@FleetrGrid = (options, columns, getDataFunc) ->
+@FleetrGrid = (options, columns, serverMethod, initializeData = true) ->
 
   @grid = null
   @_dataView = null
@@ -132,7 +132,17 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
 
     # Handle changes to server rendered fitlers
     @_activeFilters.find(type: 'server').observe
-      removed: -> $('#date-range-filter').val('')
+      added: (filter) => Meteor.call serverMethod, filter.spec, (err, items) =>
+        @setGridData( items.map Helpers.addId )
+        @_applyFilters()
+      changed: (filter) => Meteor.call serverMethod, filter.spec, (err, items) =>
+        @setGridData( items.map Helpers.addId )
+        @_applyFilters()
+      removed: =>
+        Meteor.call serverMethod, (err, items) =>
+          @setGridData( items.map Helpers.addId )
+          @_applyFilters()
+        $('#date-range-filter').val('')
 
     groupItemMetadataProvider = new Slick.Data.GroupItemMetadataProvider()
     @_dataView = new Slick.Data.DataView
@@ -196,6 +206,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     @grid.init()
     columnpicker = new Slick.Controls.ColumnPicker columns, @grid, options
 
-    getDataFunc (items) => @setGridData( items.map Helpers.addId )
+    if initializeData
+      Meteor.call serverMethod, (err, items) => @setGridData( items.map Helpers.addId )
 
   @
