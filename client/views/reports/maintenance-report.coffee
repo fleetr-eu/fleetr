@@ -34,10 +34,10 @@ options =
   explicitInitialization: true
   forceFitColumns: true
 
-MyGrid = new FleetrGrid options, columns, (callback) ->
-  Meteor.call 'getMaintenanceVehicles', moment().add(30, 'days').toISOString(), (err, items) ->
-    console.log 'getMaintenanceVehicles', items
-    callback items
+MyGrid = new FleetrGrid options, columns, 'getMaintenanceVehicles', false
+def = moment().add(30, 'days')
+MyGrid.addFilter 'server', 'Next Check Before', def.format('YYYY-MM-DD'),
+  nextTechnicalCheckDateMax: def.toISOString()
 
 Template.maintenanceReport.onRendered ->
   MyGrid.install()
@@ -51,10 +51,6 @@ Template.maintenanceReport.events
     MyGrid.removeGroupBy @name
   'click .removeFilter': ->
     MyGrid.removeFilter @type, @name
-    # temp
-    if @type is 'server'
-      Meteor.call 'getExpenses', (err, expenses) ->
-        MyGrid.setGridData( expenses.map addId )
   'click #groupByNextCheck': (event, tpl) -> MyGrid.addGroupBy 'nextTechnicalCheck', 'Next Check', aggregatorsBasic
   'click #resetGroupBy': (event, tpl) -> MyGrid.resetGroupBy()
   'apply.daterangepicker #date-range-filter': (event,p) ->
@@ -65,5 +61,3 @@ Template.maintenanceReport.events
     range = {$gte: start, $lte: stop}
     MyGrid.addFilter 'server', 'Date', "#{start} - #{stop}",
       {startDate: startDate.toISOString(), endDate: endDate.toISOString()}
-    Meteor.call 'getExpenses', startDate.toISOString(), endDate.toISOString(), (err, expenses) ->
-      MyGrid.setGridData( expenses.map addId )
