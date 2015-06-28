@@ -142,10 +142,10 @@ Meteor.methods
         idleTime: {$sum: "$duration"}
     ]
 
-  getExpenses: (filterSpec = {}) ->
+  getExpenses: (filter = {}) ->
     searchObject = {}
-    if filterSpec.startDate and filterSpec.endDate
-      searchObject.date = $gte: new Date(filterSpec.startDate), $lte: new Date(filterSpec.endDate)
+    if filter.startDate and filter.endDate
+      searchObject.date = $gte: new Date(filter.startDate), $lte: new Date(filter.endDate)
 
     Expenses.find(searchObject).map (expense) ->
       expense.expenseTypeName = ExpenseTypes.findOne({_id: expense.expenseType})?.name
@@ -157,11 +157,17 @@ Meteor.methods
       expense # return the expense
 
   getMaintenanceVehicles: (filter = {}) ->
+    console.log filter
     searchObject = {}
-    if filter.nextTechnicalCheckDateMax
-      searchObject.maintenanceDate = $lte: new Date filter.nextTechnicalCheckDateMax
+    if filter.maintenanceDateMin and filter.maintenanceDateMax
+      searchObject.maintenanceDate = $gte: new Date(filter.maintenanceDateMin), $lte: new Date(filter.maintenanceDateMax)
+    if filter.nextMaintenanceOdometer
+      searchObject.nextMaintenanceOdometer = $lte: parseInt filter.nextMaintenanceOdometer.regex
+    if filter.nextMaintenanceEngineHours
+      searchObject.nextMaintenanceEngineHours = $lte: parseInt filter.nextMaintenanceEngineHours.regex
 
     Maintenances.find(searchObject).map (maintenance) ->
       vehicle = Vehicles.findOne _id: maintenance.vehicle
       maintenance.vehicleName = vehicle.name
+      maintenance.fleetName = Fleets.findOne(_id: vehicle?.allocatedToFleet)?.name
       maintenance
