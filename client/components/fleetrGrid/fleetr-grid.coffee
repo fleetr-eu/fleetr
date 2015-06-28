@@ -169,20 +169,24 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       if columnId
         column = (columns.filter (column) -> column.id == columnId)[0]
         if $(e.target).val().length
-          @addFilter 'client', column.name, $(e.target).val(),
-            { field: column.field, regex: "#{$(e.target).val()}" }
+          where = column.search.where or 'client'
+          @addFilter where, column.name, $(e.target).val(),
+            x = {}
+            x["#{column.field}"] = regex: "#{$(e.target).val()}"
+            x
         else
           @removeFilter 'client', column.name
     @grid.onHeaderRowCellRendered.subscribe (e, args) ->
       $(args.node).empty()
-      if args.column.allowSearch
-        $('<span class="glyphicon glyphicon-search searchbox" aria-hidden="true"></span>').appendTo(args.node)
-        $("<input id='searchbox-#{args.column.field}' type='text' class='searchbox'>")
-           .data("columnId", args.column.id)
-           .appendTo(args.node)
-      else if args.column.allowDateSearch
-        $('<input id="date-range-filter" class="searchbox" type="text" placeholder="Filter on date">').appendTo args.node
-        DateRangeFilter.install $ '#date-range-filter'
+      if args.column.search
+        if args.column.search.dateRange
+          $('<input id="date-range-filter" class="searchbox" type="text" placeholder="Filter on date">').appendTo args.node
+          DateRangeFilter.install $('#date-range-filter'), args.column.search.dateRange
+        else
+          $('<span class="glyphicon glyphicon-search searchbox" aria-hidden="true"></span>').appendTo(args.node)
+          $("<input id='searchbox-#{args.column.field}' type='text' class='searchbox'>")
+             .data("columnId", args.column.id)
+             .appendTo(args.node)
       else
         $("<div class='searchdisabled'>&nbsp;</div>").appendTo args.node
 
