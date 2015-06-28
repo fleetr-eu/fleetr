@@ -13,19 +13,41 @@ sumEuroTotalsFormatter = sumTotalsFormatter '&euro;'
 
 
 columns = [
-  { id: "nextMaintenanceDate", name: "Next Maintenance Date", field: "nextMaintenanceDate", width:120, sortable: true, formatter: dateFormatter}
-  { id: 'nextMaintenanceOdometer', name: 'Next Maintenance Odometer', field: 'nextMaintenanceOdometer', sortable: true}
-  { id: 'nextMaintenanceEngineHours', name: 'Next Maintenance Engine Hours', field: 'nextMaintenanceEngineHours', sortable: true}
-  { id: "vehicleName", name: "Name", field: "vehicleName", sortable: true, allowSearch: true}
-]
-
-aggregatorsBasic = [
-  new Slick.Data.Aggregators.Sum('total')
-  new Slick.Data.Aggregators.Sum('totalVATIncluded')
-  new Slick.Data.Aggregators.Sum('discount')
-]
-aggregatorsQuantity = aggregatorsBasic.concat [
-  new Slick.Data.Aggregators.Sum('quantity')
+  id: "nextMaintenanceDate"
+  field: "nextMaintenanceDate"
+  name: "Next Maintenance Date"
+  width:120
+  sortable: true
+  formatter: dateFormatter
+  search:
+    where: 'server'
+    dateRange: DateRanges.future
+,
+  id: 'nextMaintenanceOdometer'
+  field: 'nextMaintenanceOdometer'
+  name: 'Next Maintenance Odometer'
+  sortable: true
+  search:
+    where: 'server'
+,
+  id: 'nextMaintenanceEngineHours'
+  field: 'nextMaintenanceEngineHours'
+  name: 'Next Maintenance Engine Hours'
+  sortable: true
+  search:
+    where: 'server'
+,
+  id: "vehicleName"
+  field: "vehicleName"
+  name: "Name"
+  sortable: true
+,
+  id: "fleetName"
+  field: "fleetName"
+  name: "Fleet"
+  sortable: true
+  search:
+    where: 'client'
 ]
 
 options =
@@ -37,9 +59,10 @@ options =
   forceFitColumns: true
 
 MyGrid = new FleetrGrid options, columns, 'getMaintenanceVehicles', false
-def = moment().add(30, 'days')
-MyGrid.addFilter 'server', 'Next Check Before', def.format('YYYY-MM-DD'),
-  nextTechnicalCheckDateMax: def.toISOString()
+now = moment()
+future = moment().add(29, 'days')
+MyGrid.addFilter 'server', 'Maintenance Date', "#{now.format('YYYY-MM-DD')} - #{future.format('YYYY-MM-DD')}",
+  {maintenanceDateMin: now.toISOString(), maintenanceDateMax: future.toISOString()}
 
 Template.maintenanceReport.onRendered ->
   MyGrid.install()
@@ -53,7 +76,7 @@ Template.maintenanceReport.events
     MyGrid.removeGroupBy @name
   'click .removeFilter': ->
     MyGrid.removeFilter @type, @name
-  'click #groupByNextCheck': (event, tpl) -> MyGrid.addGroupBy 'nextTechnicalCheck', 'Next Check', aggregatorsBasic
+  'click #groupByNextCheck': (event, tpl) -> MyGrid.addGroupBy 'nextTechnicalCheck', 'Next Check'
   'click #resetGroupBy': (event, tpl) -> MyGrid.resetGroupBy()
   'apply.daterangepicker #date-range-filter': (event,p) ->
     startDate = $('#date-range-filter').data('daterangepicker').startDate
@@ -61,5 +84,5 @@ Template.maintenanceReport.events
     start = startDate.format('YYYY-MM-DD')
     stop = endDate.format('YYYY-MM-DD')
     range = {$gte: start, $lte: stop}
-    MyGrid.addFilter 'server', 'Date', "#{start} - #{stop}",
-      {startDate: startDate.toISOString(), endDate: endDate.toISOString()}
+    MyGrid.addFilter 'server', 'Maintenance Date', "#{start} - #{stop}",
+      {maintenanceDateMin: startDate.toISOString(), maintenanceDateMax: endDate.toISOString()}
