@@ -145,6 +145,29 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       changed: @addColumnFilter
       removed: @removeColumnFilter
 
+    for column in columns when column.groupable
+      column.header =
+        buttons: [
+          cssClass: "icon-highlight-off",
+          command: "toggle-grouping",
+          tooltip: "Group table by #{column.name}"
+        ]
+
+    headerButtonsPlugin = new Slick.Plugins.HeaderButtons()
+    headerButtonsPlugin.onCommand.subscribe (e, args) =>
+      column = args.column
+      button = args.button
+      command = args.command
+      if command == "toggle-grouping"
+        if button.cssClass == "icon-highlight-on"
+          @removeGroupBy column.name
+          button.cssClass = "icon-highlight-off"
+          button.tooltip = "Group table by #{column.name}"
+        else
+          @addGroupBy (column.groupable.transform or column.field), column.name, (column.groupable.aggregators or [])
+          button.cssClass = "icon-highlight-on"
+          button.tooltip = "Remove group #{column.name}"
+
     groupItemMetadataProvider = new Slick.Data.GroupItemMetadataProvider()
     @_dataView = new Slick.Data.DataView
       groupItemMetadataProvider: groupItemMetadataProvider,
@@ -153,6 +176,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     grandTotalsColumns = (column for column in columns when column.grandTotal)
     @totalsDataProvider = TotalsDataProvider @_dataView, columns, grandTotalsColumns
     @grid = new Slick.Grid '#slickgrid', @totalsDataProvider, columns, options
+    @grid.registerPlugin headerButtonsPlugin
 
 
     comparer = (sortcol) -> (a, b) ->

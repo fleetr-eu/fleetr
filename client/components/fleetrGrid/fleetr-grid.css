@@ -45,8 +45,8 @@
   padding-left:0;
   font-weight: bold;
   border: 0 !important;
-  background: lightblue;
-  /* border-right: 1px dotted white; */
+  background: whitesmoke;
+  border-right: 1px dotted lightgrey;
 }
 
 /* Grand totals */
@@ -75,4 +75,13 @@
 .slickfleetr .slick-header-menuitem:hover {
   border-color: silver;
   background: white;
+}
+
+/* Header Button plugin specifics */
+.icon-highlight-off,
+.icon-highlight-on {
+  background-image: url(/slickgrid/images/bullet_blue.png);
+}
+.icon-highlight-off {
+  opacity: 0.2;
 }
