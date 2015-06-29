@@ -11,6 +11,15 @@ sumTotalsFormatter = (sign = '') -> (totals, columnDef) ->
   else ''
 sumEuroTotalsFormatter = sumTotalsFormatter '&euro;'
 
+aggregatorsBasic = [
+  new Slick.Data.Aggregators.Sum 'total'
+  new Slick.Data.Aggregators.Sum 'totalVATIncluded'
+  new Slick.Data.Aggregators.Sum 'discount'
+  new Slick.Data.Aggregators.Sum 'vat'
+]
+aggregatorsQuantity = aggregatorsBasic.concat [
+  new Slick.Data.Aggregators.Sum 'quantity'
+]
 
 columns = [
   id: "date"
@@ -22,6 +31,10 @@ columns = [
   search:
     where: 'server'
     dateRange: DateRanges.history
+  groupable:
+    transform: getDateRow 'timestamp'
+    aggregators: aggregatorsBasic
+
 ,
   id: "type"
   field: "expenseTypeName"
@@ -29,6 +42,8 @@ columns = [
   sortable: true
   search:
     where: 'client'
+  groupable:
+    aggregators: aggregatorsQuantity
 ,
   id: "description"
   field: "description"
@@ -45,6 +60,8 @@ columns = [
   hidden:true,
   search:
     where: 'client'
+  groupable:
+    aggregators: aggregatorsBasic
 ,
   id: "vehicle"
   field: "vehicleName"
@@ -52,6 +69,8 @@ columns = [
   sortable: true
   search:
     where: 'client'
+  groupable:
+    aggregators: aggregatorsBasic
 ,
   id: "driver"
   field: "driverName"
@@ -66,6 +85,8 @@ columns = [
   sortable: true
   search:
     where: 'client'
+  groupable:
+    aggregators: aggregatorsBasic
 ,
   id: "invoiceNo"
   field: "invoiceNr"
@@ -118,16 +139,6 @@ columns = [
   groupTotalsFormatter: sumEuroTotalsFormatter
 ]
 
-aggregatorsBasic = [
-  new Slick.Data.Aggregators.Sum('total')
-  new Slick.Data.Aggregators.Sum('totalVATIncluded')
-  new Slick.Data.Aggregators.Sum('discount')
-  new Slick.Data.Aggregators.Sum 'vat'
-]
-aggregatorsQuantity = aggregatorsBasic.concat [
-  new Slick.Data.Aggregators.Sum('quantity')
-]
-
 options =
   enableCellNavigation: false
   enableColumnReorder: false
@@ -150,12 +161,6 @@ Template.expenseReport.events
     MyGrid.removeGroupBy @name
   'click .removeFilter': ->
     MyGrid.removeFilter @type, @name
-  'click #groupByDate': (event, tpl) -> MyGrid.addGroupBy getDateRow('timestamp'), 'Date', aggregatorsBasic
-  'click #groupByType': (event, tpl) -> MyGrid.addGroupBy 'expenseTypeName', 'Type', aggregatorsQuantity
-  'click #groupByGroup': (event, tpl) -> MyGrid.addGroupBy 'expenseGroupName', 'Group', aggregatorsBasic
-  'click #groupByVehicle': (event, tpl) -> MyGrid.addGroupBy 'vehicleName', 'Vehicle', aggregatorsBasic
-  'click #groupByFleet': (event, tpl) -> MyGrid.addGroupBy 'fleetName', 'Fleet', aggregatorsBasic
-  'click #resetGroupBy': (event, tpl) -> MyGrid.resetGroupBy()
   'apply.daterangepicker #date-range-filter': (event,p) ->
     startDate = $('#date-range-filter').data('daterangepicker').startDate
     endDate = $('#date-range-filter').data('daterangepicker').endDate

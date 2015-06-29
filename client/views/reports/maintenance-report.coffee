@@ -22,6 +22,7 @@ columns = [
   search:
     where: 'server'
     dateRange: DateRanges.future
+  groupable: true
 ,
   id: 'nextMaintenanceOdometer'
   field: 'nextMaintenanceOdometer'
@@ -76,8 +77,6 @@ Template.maintenanceReport.events
     MyGrid.removeGroupBy @name
   'click .removeFilter': ->
     MyGrid.removeFilter @type, @name
-  'click #groupByNextMaintenanceDate': (event, tpl) -> MyGrid.addGroupBy 'nextMaintenanceDate', 'Next Maintenance Date'
-  'click #resetGroupBy': (event, tpl) -> MyGrid.resetGroupBy()
   'apply.daterangepicker #date-range-filter': (event,p) ->
     startDate = $('#date-range-filter').data('daterangepicker').startDate
     endDate = $('#date-range-filter').data('daterangepicker').endDate
