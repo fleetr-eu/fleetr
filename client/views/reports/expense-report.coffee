@@ -122,6 +122,7 @@ aggregatorsBasic = [
   new Slick.Data.Aggregators.Sum('total')
   new Slick.Data.Aggregators.Sum('totalVATIncluded')
   new Slick.Data.Aggregators.Sum('discount')
+  new Slick.Data.Aggregators.Sum 'vat'
 ]
 aggregatorsQuantity = aggregatorsBasic.concat [
   new Slick.Data.Aggregators.Sum('quantity')
