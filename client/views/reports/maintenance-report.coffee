@@ -76,7 +76,7 @@ Template.maintenanceReport.events
     MyGrid.removeGroupBy @name
   'click .removeFilter': ->
     MyGrid.removeFilter @type, @name
-  'click #groupByNextCheck': (event, tpl) -> MyGrid.addGroupBy 'nextTechnicalCheck', 'Next Check'
+  'click #groupByNextMaintenanceDate': (event, tpl) -> MyGrid.addGroupBy 'nextMaintenanceDate', 'Next Maintenance Date'
   'click #resetGroupBy': (event, tpl) -> MyGrid.resetGroupBy()
   'apply.daterangepicker #date-range-filter': (event,p) ->
     startDate = $('#date-range-filter').data('daterangepicker').startDate
