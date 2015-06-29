@@ -75,8 +75,9 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
   @activeFiltersCursor = @_activeFilters.find()
   @columnFilters = {}
   @addColumnFilter = (filter) =>
-    regex = new RegExp filter.spec.regex, 'i'
-    @columnFilters[filter.spec.field] = (text) -> "#{text}".match regex
+    for field of filter.spec
+      regex = new RegExp filter.spec[field].regex, 'i'
+      @columnFilters[field] = (text) -> "#{text}".match regex
     @_applyFilters()
   @removeColumnFilter = (filter) =>
     delete @columnFilters[filter.spec.field]
@@ -84,13 +85,27 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     @_applyFilters()
   @addFilter = (type, name, text, spec) ->
     @_activeFilters.upsert {name: name, type: type}, {name: name, type: type, text: text, spec:spec}
+    @_refreshData() if type == 'server'
+    #@_applyFilters() if type == 'client'
   @removeFilter = (type, name) ->
     @_activeFilters.remove name: name, type: type
+    @_refreshData() if type == 'server'
+    #@_applyFilters() if type == 'client'
+    $('#date-range-filter').val('')
   @_applyFilters = =>
     @setGridData (@data.filter @_filter), false
+  @_refreshData = =>
+    serverFilterSpec = {}
+    items = @_activeFilters.find({type: 'server'}).fetch()
+    _.extend serverFilterSpec, item.spec for item in items
+    Meteor.call serverMethod, serverFilterSpec, (err, items) =>
+      @setGridData( items.map Helpers.addId )
+      @_applyFilters()
   @_filter = (item) =>
+    console.log @columnFilters
     for field of @columnFilters
       if item[field] and !@columnFilters[field](item[field])
+        console.log item[field], 'does not match'
         return false
     true
   # <-- column filters
@@ -130,20 +145,6 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       changed: @addColumnFilter
       removed: @removeColumnFilter
 
-    # Handle changes to server rendered fitlers
-    @_activeFilters.find(type: 'server').observe
-      added: (filter) => Meteor.call serverMethod, filter.spec, (err, items) =>
-        @setGridData( items.map Helpers.addId )
-        @_applyFilters()
-      changed: (filter) => Meteor.call serverMethod, filter.spec, (err, items) =>
-        @setGridData( items.map Helpers.addId )
-        @_applyFilters()
-      removed: =>
-        Meteor.call serverMethod, (err, items) =>
-          @setGridData( items.map Helpers.addId )
-          @_applyFilters()
-        $('#date-range-filter').val('')
-
     groupItemMetadataProvider = new Slick.Data.GroupItemMetadataProvider()
     @_dataView = new Slick.Data.DataView
       groupItemMetadataProvider: groupItemMetadataProvider,
@@ -168,14 +169,14 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       columnId = $(e.target).data("columnId");
       if columnId
         column = (columns.filter (column) -> column.id == columnId)[0]
+        where = column.search.where or 'client'
         if $(e.target).val().length
-          where = column.search.where or 'client'
           @addFilter where, column.name, $(e.target).val(),
-            x = {}
-            x["#{column.field}"] = regex: "#{$(e.target).val()}"
-            x
+            fltr = {}
+            fltr[column.field] = regex: "#{$(e.target).val()}"
+            fltr
         else
-          @removeFilter 'client', column.name
+          @removeFilter where, column.name
     @grid.onHeaderRowCellRendered.subscribe (e, args) ->
       $(args.node).empty()
       if args.column.search
