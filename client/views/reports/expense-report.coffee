@@ -4,7 +4,7 @@ euroFormatter = (row, cell, value) -> "&euro; #{if value then value else '0'}"
 
 getDateRow = (field) -> (row) -> new Date(row[field]).toLocaleDateString 'en-US'
 
-sumTotalsFormatter = (sign) -> (totals, columnDef) ->
+sumTotalsFormatter = (sign = '') -> (totals, columnDef) ->
   val = totals.sum && totals.sum[columnDef.field];
   if val
     "#{sign} " + ((Math.round(parseFloat(val)*100)/100));
@@ -13,19 +13,109 @@ sumEuroTotalsFormatter = sumTotalsFormatter '&euro;'
 
 
 columns = [
-  { id: "date", name: "Date", field: "timestamp", width:120, sortable: true, formatter: dateFormatter, allowDateSearch: true }
-  { id: "type", name: "Type", field: "expenseTypeName", sortable: true, allowSearch: true }
-  { id: "description", name: "Description", field: "description", width:100, allowSearch: true, hidden:true }
-  { id: "expenseGroup", name: "Group", field: "expenseGroupName", sortable: true, allowSearch: true, hidden:true }
-  { id: "vehicle", name: "Vehicle", field: "vehicleName", sortable: true, allowSearch: true }
-  { id: "driver", name: "Driver", field: "driverName", sortable: true, allowSearch: true }
-  { id: "fleet", name: "Fleet", field: "fleetName", sortable: true, allowSearch: true }
-  { id: "invoiceNo", name: "Invoice NO.", field: "invoiceNr", sortable: true, width:75, hidden:true }
-  { id: "quantity", name: "Quantity", field: "quantity", width:75, sortable: true, groupTotalsFormatter: sumTotalsFormatter('') }
-  { id: "totalVat", name: "Total+VAT", field: "totalVATIncluded", width:75, sortable: true, grandTotal: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
-  { id: "amountVat", name: "VAT", field: "vat", width:50, sortable: true, grandTotal: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
-  { id: "amountDiscount", name: "Discount", field: "discount", width:75, sortable: true,  grandTotal: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
-  { id: "total", name: "Total", field: "total", width:80, sortable: true,  grandTotal: true, formatter: euroFormatter, groupTotalsFormatter: sumEuroTotalsFormatter }
+  id: "date"
+  field: "timestamp"
+  name: "Date"
+  width:120
+  sortable: true
+  formatter: dateFormatter
+  search:
+    where: 'server'
+    dateRange: DateRanges.history
+,
+  id: "type"
+  field: "expenseTypeName"
+  name: "Type"
+  sortable: true
+  search:
+    where: 'client'
+,
+  id: "description"
+  field: "description"
+  name: "Description"
+  width:100
+  hidden:true
+  search:
+    where: 'client'
+,
+  id: "expenseGroup"
+  field: "expenseGroupName"
+  name: "Group"
+  sortable: true
+  hidden:true,
+  search:
+    where: 'client'
+,
+  id: "vehicle"
+  field: "vehicleName"
+  name: "Vehicle"
+  sortable: true
+  search:
+    where: 'client'
+,
+  id: "driver"
+  field: "driverName"
+  name: "Driver"
+  sortable: true
+  search:
+    where: 'client'
+,
+  id: "fleet"
+  field: "fleetName"
+  name: "Fleet"
+  sortable: true
+  search:
+    where: 'client'
+,
+  id: "invoiceNo"
+  field: "invoiceNr"
+  name: "Invoice NO."
+  sortable: true
+  width:75
+  hidden:true
+,
+  id: "quantity"
+  field: "quantity"
+  name: "Quantity"
+  width:75
+  sortable: true
+  groupTotalsFormatter: sumTotalsFormatter()
+,
+  id: "totalVat"
+  field: "totalVATIncluded"
+  name: "Total+VAT"
+  width:75
+  sortable: true
+  grandTotal: true
+  formatter: euroFormatter
+  groupTotalsFormatter: sumEuroTotalsFormatter
+,
+  id: "amountVat"
+  field: "vat"
+  name: "VAT"
+  width:50
+  sortable: true
+  grandTotal: true
+  formatter: euroFormatter
+  groupTotalsFormatter: sumEuroTotalsFormatter
+,
+  id: "amountDiscount"
+  field: "discount"
+  name: "Discount"
+  width:75
+  sortable: true
+  grandTotal: true
+  formatter: euroFormatter
+  groupTotalsFormatter: sumEuroTotalsFormatter
+,
+  id: "total"
+  field: "total"
+  name: "Total"
+  width:80
+  sortable: true
+  grandTotal: true
+  formatter: euroFormatter
+  groupTotalsFormatter: sumEuroTotalsFormatter
 ]
 
 aggregatorsBasic = [
@@ -73,5 +163,3 @@ Template.expenseReport.events
     range = {$gte: start, $lte: stop}
     MyGrid.addFilter 'server', 'Date', "#{start} - #{stop}",
       {startDate: startDate.toISOString(), endDate: endDate.toISOString()}
-    #Meteor.call 'getExpenses', startDate.toISOString(), endDate.toISOString(), (err, expenses) ->
-    #  MyGrid.setGridData( expenses.map addId )
