@@ -157,16 +157,23 @@ Meteor.methods
       expense # return the expense
 
   getMaintenanceVehicles: (filter = {}) ->
-    console.log filter
-    searchObject = {}
+    pipeline = [
+      $project:
+        maintenanceDate: 1
+        vehicle: 1
+        nextMaintenanceOdometer: 1
+        nextMaintenanceEngineHours: 1
+        odometerToMaintenance: $subtract: ["$nextMaintenanceOdometer", "$odometer"]
+        engineHoursToMaintenance: $subtract: ["$nextMaintenanceEngineHours", "$engineHours"]
+    ]
+    if filter.odometerToMaintenance
+      pipeline.push $match: odometerToMaintenance: $lte: parseInt filter.odometerToMaintenance.regex
+    if filter.engineHoursToMaintenance
+      pipeline.push $match: engineHoursToMaintenance: $lte: parseInt filter.engineHoursToMaintenance.regex
     if filter.maintenanceDateMin and filter.maintenanceDateMax
-      searchObject.maintenanceDate = $gte: new Date(filter.maintenanceDateMin), $lte: new Date(filter.maintenanceDateMax)
-    if filter.nextMaintenanceOdometer
-      searchObject.nextMaintenanceOdometer = $lte: parseInt filter.nextMaintenanceOdometer.regex
-    if filter.nextMaintenanceEngineHours
-      searchObject.nextMaintenanceEngineHours = $lte: parseInt filter.nextMaintenanceEngineHours.regex
+      pipeline.push $match: maintenanceDate: $gte: new Date(filter.maintenanceDateMin), $lte: new Date(filter.maintenanceDateMax)
 
-    Maintenances.find(searchObject).map (maintenance) ->
+    Maintenances.aggregate(pipeline).map (maintenance) ->
       vehicle = Vehicles.findOne _id: maintenance.vehicle
       maintenance.vehicleName = vehicle.name
       maintenance.fleetName = Fleets.findOne(_id: vehicle?.allocatedToFleet)?.name

@@ -13,9 +13,9 @@ sumEuroTotalsFormatter = sumTotalsFormatter '&euro;'
 
 
 columns = [
-  id: "nextMaintenanceDate"
-  field: "nextMaintenanceDate"
-  name: "Next Maintenance Date"
+  id: "maintenanceDate"
+  field: "maintenanceDate"
+  name: "Maintenance Date"
   width:120
   sortable: true
   formatter: dateFormatter
@@ -23,6 +23,18 @@ columns = [
     where: 'server'
     dateRange: DateRanges.future
   groupable: true
+,
+  id: 'odometerToMaintenance'
+  field: 'odometerToMaintenance'
+  name: 'KM\'s till maintenance'
+  sortable: true
+  search: where: 'server'
+,
+  id: 'engineHoursToMaintenance'
+  field: 'engineHoursToMaintenance'
+  name: 'Engine hours till maintenance'
+  sortable: true
+  search: where: 'server'
 ,
   id: 'nextMaintenanceOdometer'
   field: 'nextMaintenanceOdometer'
