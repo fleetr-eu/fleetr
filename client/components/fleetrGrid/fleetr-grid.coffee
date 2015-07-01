@@ -80,8 +80,9 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       @columnFilters[field] = (text) -> "#{text}".match regex
     @_applyFilters()
   @removeColumnFilter = (filter) =>
-    delete @columnFilters[filter.spec.field]
-    $("#searchbox-#{filter.spec.field}").val('')
+    for field of filter.spec
+      delete @columnFilters[field]
+      $("#searchbox-#{field}").val('')
     @_applyFilters()
   @addFilter = (type, name, text, spec) ->
     @_activeFilters.upsert {name: name, type: type}, {name: name, type: type, text: text, spec:spec}
