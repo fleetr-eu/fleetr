@@ -170,6 +170,10 @@ Meteor.methods
       pipeline.push $match: odometerToMaintenance: $lte: parseInt filter.odometerToMaintenance.regex
     if filter.engineHoursToMaintenance
       pipeline.push $match: engineHoursToMaintenance: $lte: parseInt filter.engineHoursToMaintenance.regex
+    if filter.nextMaintenanceOdometer
+      pipeline.push $match: nextMaintenanceOdometer: $lte: parseInt filter.nextMaintenanceOdometer.regex
+    if filter.nextMaintenanceEngineHours
+      pipeline.push $match: nextMaintenanceEngineHours: $lte: parseInt filter.nextMaintenanceEngineHours.regex
     if filter.maintenanceDateMin and filter.maintenanceDateMax
       pipeline.push $match: maintenanceDate: $gte: new Date(filter.maintenanceDateMin), $lte: new Date(filter.maintenanceDateMax)
 
