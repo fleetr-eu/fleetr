@@ -157,5 +157,12 @@
 
   "general" : {
     "search":"Search ..."
+  },
+
+  "reports": {
+    "title": "Reports",
+    "expenses": {
+      "title": "Expenses"
+    }
   }
 }

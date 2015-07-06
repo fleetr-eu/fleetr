@@ -153,5 +153,13 @@
 
   "general" : {
     "search":"Търси ..."
+  },
+
+  "reports": {
+    "title": "Доклади",
+    "expenses": {
+      "title": "разходи"
+    }
   }
+
 }
