@@ -140,7 +140,10 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
   # <-- grouping
 
   @install = ->
-    # Handle changes to client rendered fitlers
+
+    console.log 'installed?', $('#slickgrid')
+
+    # Handle changes to client rendered filters
     @_activeFilters.find(type: 'client').observe
       added: @addColumnFilter
       changed: @addColumnFilter
@@ -247,3 +250,20 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       Meteor.call serverMethod, (err, items) => @setGridData( items.map Helpers.addId )
 
   @
+
+# Default column formatters
+FleetrGrid.Formatters = {}
+FleetrGrid.Formatters.dateFormatter = (row, cell, value) ->
+  if value then new Date(value).toLocaleDateString 'en-US' else ''
+
+FleetrGrid.Formatters.euroFormatter = (row, cell, value) ->
+  "&euro; #{if value then value else '0'}"
+
+FleetrGrid.Formatters.sumTotalsFormatter = (sign = '') -> (totals, columnDef) ->
+  val = totals.sum && totals.sum[columnDef.field];
+  if val
+    "#{sign} " + ((Math.round(parseFloat(val)*100)/100));
+  else ''
+
+FleetrGrid.Formatters.sumEuroTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '&euro;'
+FleetrGrid.Formatters.sumTotalsFormatterNoSign = FleetrGrid.Formatters.sumTotalsFormatter ''

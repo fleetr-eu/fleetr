@@ -1,15 +1,4 @@
-addId = (item) -> item.id = item._id; item;
-dateFormatter = (row, cell, value) -> if value then new Date(value).toLocaleDateString 'en-US' else ''
-euroFormatter = (row, cell, value) -> "&euro; #{if value then value else '0'}"
-
 getDateRow = (field) -> (row) -> new Date(row[field]).toLocaleDateString 'en-US'
-
-sumTotalsFormatter = (sign = '') -> (totals, columnDef) ->
-  val = totals.sum && totals.sum[columnDef.field];
-  if val
-    "#{sign} " + ((Math.round(parseFloat(val)*100)/100));
-  else ''
-sumEuroTotalsFormatter = sumTotalsFormatter '&euro;'
 
 aggregatorsBasic = [
   new Slick.Data.Aggregators.Sum 'total'
@@ -27,7 +16,7 @@ columns = [
   name: "Date"
   width:120
   sortable: true
-  formatter: dateFormatter
+  formatter: FleetrGrid.Formatters.dateFormatter
   search:
     where: 'server'
     dateRange: DateRanges.history
@@ -100,7 +89,7 @@ columns = [
   name: "Quantity"
   width:75
   sortable: true
-  groupTotalsFormatter: sumTotalsFormatter()
+  groupTotalsFormatter: FleetrGrid.Formatters.sumTotalsFormatterNoSign
 ,
   id: "totalVat"
   field: "totalVATIncluded"
@@ -108,8 +97,8 @@ columns = [
   width:75
   sortable: true
   grandTotal: true
-  formatter: euroFormatter
-  groupTotalsFormatter: sumEuroTotalsFormatter
+  formatter: FleetrGrid.Formatters.euroFormatter
+  groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
 ,
   id: "amountVat"
   field: "vat"
@@ -117,8 +106,8 @@ columns = [
   width:50
   sortable: true
   grandTotal: true
-  formatter: euroFormatter
-  groupTotalsFormatter: sumEuroTotalsFormatter
+  formatter: FleetrGrid.Formatters.euroFormatter
+  groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
 ,
   id: "amountDiscount"
   field: "discount"
@@ -126,8 +115,8 @@ columns = [
   width:75
   sortable: true
   grandTotal: true
-  formatter: euroFormatter
-  groupTotalsFormatter: sumEuroTotalsFormatter
+  formatter: FleetrGrid.Formatters.euroFormatter
+  groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
 ,
   id: "total"
   field: "total"
@@ -135,8 +124,8 @@ columns = [
   width:80
   sortable: true
   grandTotal: true
-  formatter: euroFormatter
-  groupTotalsFormatter: sumEuroTotalsFormatter
+  formatter: FleetrGrid.Formatters.euroFormatter
+  groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
 ]
 
 options =

@@ -1,16 +1,4 @@
-addId = (item) -> item.id = item._id; item;
-dateFormatter = (row, cell, value) -> if value then new Date(value).toLocaleDateString 'en-US' else ''
-euroFormatter = (row, cell, value) -> "&euro; #{if value then value else '0'}"
-
 getDateRow = (field) -> (row) -> new Date(row[field]).toLocaleDateString 'en-US'
-
-sumTotalsFormatter = (sign) -> (totals, columnDef) ->
-  val = totals.sum && totals.sum[columnDef.field];
-  if val
-    "#{sign} " + ((Math.round(parseFloat(val)*100)/100));
-  else ''
-sumEuroTotalsFormatter = sumTotalsFormatter '&euro;'
-
 
 columns = [
   id: "maintenanceDate"
@@ -18,7 +6,7 @@ columns = [
   name: "Maintenance Date"
   width:120
   sortable: true
-  formatter: dateFormatter
+  formatter: FleetrGrid.Formatters.dateFormatter
   search:
     where: 'server'
     dateRange: DateRanges.future
