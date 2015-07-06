@@ -18,7 +18,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
   collapseGroup: (key) -> dataView.collapseGroup key
   getLength: ->
     dl = if dataView.getLength() then dataView.getLength() else 0
-    dl + 2
+    if grandTotalsColumns.length then dl + 2 else dl
   getItem: (index) ->
     dl = if dataView.getLength() then dataView.getLength() else 0
     if index < dl
