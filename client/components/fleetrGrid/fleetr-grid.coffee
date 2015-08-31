@@ -143,8 +143,6 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
   # <-- grouping
 
   @install = (initializeData = true) ->
-    #if @_installed then return else @_installed = true
-    console.log 'installed?', $('#slickgrid')
 
     # Handle changes to client rendered filters
     @_activeFilters.find(type: 'client').observe
@@ -249,9 +247,17 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     @grid.init()
     columnpicker = new Slick.Controls.ColumnPicker columns, @grid, options
 
+    # when this grid has previously been rendered, existing active filters
+    # might still exist. This ensures that the column searchbox values are
+    # populated with the corresponding filter value. Otherwise filters will
+    # be in place, but the searchboxes remain empty.
+    for activeFilter in @_activeFilters.find().fetch()
+      for field of activeFilter.spec
+        $("#searchbox-#{field}").val activeFilter.spec[field].regex
+
     @_refreshData() if initializeData
 
-  @
+  @ # return this object
 
 # Default column formatters
 FleetrGrid.Formatters = {}
