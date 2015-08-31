@@ -59,11 +59,11 @@ options =
   explicitInitialization: true
   forceFitColumns: true
 
-MyGrid = new FleetrGrid options, columns, 'getMaintenanceVehicles', false
+MyGrid = new FleetrGrid options, columns, 'getMaintenanceVehicles'
 now = moment()
 future = moment().add(29, 'days')
 MyGrid.addFilter 'server', 'Maintenance Date', "#{now.format('YYYY-MM-DD')} - #{future.format('YYYY-MM-DD')}",
-  {maintenanceDateMin: now.toISOString(), maintenanceDateMax: future.toISOString()}
+  {maintenanceDateMin: now.toISOString(), maintenanceDateMax: future.toISOString()}, false
 
 Template.maintenanceReport.onRendered ->
   MyGrid.install()

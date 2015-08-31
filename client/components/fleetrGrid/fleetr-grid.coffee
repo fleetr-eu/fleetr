@@ -48,7 +48,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       totalsMetadata
 
 # Component that wraps SlickGrid and uses Meteorish constructs
-@FleetrGrid = (options, columns, serverMethod, initializeData = true) ->
+@FleetrGrid = (options, columns, serverMethod) ->
 
   @grid = null
   @_dataView = null
@@ -84,9 +84,9 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       delete @columnFilters[field]
       $("#searchbox-#{field}").val('')
     @_applyFilters()
-  @addFilter = (type, name, text, spec) ->
+  @addFilter = (type, name, text, spec, refreshData = true) ->
     @_activeFilters.upsert {name: name, type: type}, {name: name, type: type, text: text, spec:spec}
-    @_refreshData() if type == 'server'
+    @_refreshData() if refreshData and type == 'server'
     #@_applyFilters() if type == 'client'
   @removeFilter = (type, name) ->
     @_activeFilters.remove name: name, type: type
@@ -97,16 +97,19 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     @setGridData (@data.filter @_filter), false
   @_refreshData = =>
     serverFilterSpec = {}
-    items = @_activeFilters.find({type: 'server'}).fetch()
+    items = @_activeFilters.find(type: 'server').fetch()
     _.extend serverFilterSpec, item.spec for item in items
+    console.log 'refreshData with serverFilter', serverFilterSpec
     Meteor.call serverMethod, serverFilterSpec, (err, items) =>
       @setGridData( items.map Helpers.addId )
       @_applyFilters()
   @_filter = (item) =>
-    console.log @columnFilters
+    console.log 'filter', @columnFilters
+    filters = @_activeFilters.find(type: 'client').fetch()
+    console.log 'clientFilters', filters
     for field of @columnFilters
       if item[field] and !@columnFilters[field](item[field])
-        console.log item[field], 'does not match'
+        #console.log item[field], 'does not match'
         return false
     true
   # <-- column filters
@@ -139,8 +142,8 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     @_dataView.setGrouping (val for key, val of @_groupings)
   # <-- grouping
 
-  @install = ->
-
+  @install = (initializeData = true) ->
+    #if @_installed then return else @_installed = true
     console.log 'installed?', $('#slickgrid')
 
     # Handle changes to client rendered filters
@@ -246,8 +249,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     @grid.init()
     columnpicker = new Slick.Controls.ColumnPicker columns, @grid, options
 
-    if initializeData
-      Meteor.call serverMethod, (err, items) => @setGridData( items.map Helpers.addId )
+    @_refreshData() if initializeData
 
   @
 
