@@ -218,6 +218,8 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       if args.column.search
         if args.column.search.dateRange
           $('<input id="date-range-filter" class="searchbox" type="text" placeholder="Filter on date">').appendTo args.node
+          # TODO: use input id that includes the column fieldname so in principal it would be
+          #       possible to have more than 1 date range filter
           DateRangeFilter.install $('#date-range-filter'), args.column.search.dateRange
         else
           $('<span class="glyphicon glyphicon-search searchbox" aria-hidden="true"></span>').appendTo(args.node)
@@ -252,8 +254,14 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     # populated with the corresponding filter value. Otherwise filters will
     # be in place, but the searchboxes remain empty.
     for activeFilter in @_activeFilters.find().fetch()
-      for field of activeFilter.spec
-        $("#searchbox-#{field}").val activeFilter.spec[field].regex
+      if Object.keys(activeFilter.spec).length == 2
+        # hacky; assume date filter when filter has two properties
+        # TODO: fix this!
+        console.log 'Ass-uming this is a date filter:', activeFilter
+        $('#date-range-filter').val activeFilter.text
+      else
+        for field of activeFilter.spec
+          $("#searchbox-#{field}").val activeFilter.spec[field].regex
 
     @_refreshData() if initializeData
 
