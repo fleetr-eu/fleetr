@@ -260,18 +260,16 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
   @ # return this object
 
 # Default column formatters
-FleetrGrid.Formatters = {}
-FleetrGrid.Formatters.dateFormatter = (row, cell, value) ->
-  if value then new Date(value).toLocaleDateString 'en-US' else ''
-
-FleetrGrid.Formatters.euroFormatter = (row, cell, value) ->
-  "&euro; #{if value then value else '0'}"
-
-FleetrGrid.Formatters.sumTotalsFormatter = (sign = '') -> (totals, columnDef) ->
-  val = totals.sum && totals.sum[columnDef.field];
-  if val
-    "#{sign} " + ((Math.round(parseFloat(val)*100)/100));
-  else ''
+FleetrGrid.Formatters =
+  dateFormatter: (row, cell, value) ->
+    if value then new Date(value).toLocaleDateString 'en-US' else ''
+  euroFormatter: (row, cell, value) ->
+    "&euro; #{if value then value else '0'}"
+  sumTotalsFormatter: (sign = '') -> (totals, columnDef) ->
+    val = totals.sum && totals.sum[columnDef.field];
+    if val
+      "#{sign} " + ((Math.round(parseFloat(val)*100)/100));
+    else ''
 
 FleetrGrid.Formatters.sumEuroTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '&euro;'
 FleetrGrid.Formatters.sumTotalsFormatterNoSign = FleetrGrid.Formatters.sumTotalsFormatter ''
