@@ -23,7 +23,6 @@ columns = [
   groupable:
     transform: getDateRow 'timestamp'
     aggregators: aggregatorsBasic
-
 ,
   id: "type"
   field: "expenseTypeName"
