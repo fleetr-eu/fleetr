@@ -75,13 +75,13 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
   @addFilter = (type, name, text, spec, refreshData = true) ->
     @_activeFilters.upsert {name: name, type: type}, {name: name, type: type, text: text, spec:spec}
     @_refreshData() if refreshData and type == 'server'
-    @_applyFilters() if type == 'client'
+    @_applyClientFilters() if type == 'client'
   @removeFilter = (type, name) ->
     @_activeFilters.remove name: name, type: type
     @_refreshData() if type == 'server'
-    @_applyFilters() if type == 'client'
+    @_applyClientFilters() if type == 'client'
     $('#date-range-filter').val('')
-  @_applyFilters = =>
+  @_applyClientFilters = =>
     @setGridData (@data.filter @_filter), false
   @_refreshData = =>
     serverFilterSpec = {}
@@ -90,7 +90,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     console.log 'refreshData with serverFilter', serverFilterSpec
     Meteor.call serverMethod, serverFilterSpec, (err, items) =>
       @setGridData( items.map Helpers.addId )
-      @_applyFilters()
+      @_applyClientFilters()
   @_filter = (item) =>
     filters = @_activeFilters.find(type: 'client').fetch()
     for filter in filters
