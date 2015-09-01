@@ -72,14 +72,13 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
 
   # column filters -->
   @_activeFilters = new Mongo.Collection null
+  @activeFiltersCursor = @_activeFilters.find()
   @addFilter = (type, name, text, spec, refreshData = true) ->
     @_activeFilters.upsert {name: name, type: type}, {name: name, type: type, text: text, spec:spec}
     @_refreshData() if refreshData and type == 'server'
-    @_applyClientFilters() if type == 'client'
   @removeFilter = (type, name) ->
     @_activeFilters.remove name: name, type: type
     @_refreshData() if type == 'server'
-    @_applyClientFilters() if type == 'client'
     $('#date-range-filter').val('')
   @_applyClientFilters = =>
     @setGridData (@data.filter @_filter), false
@@ -133,9 +132,11 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
 
     # Handle changes to client rendered filters
     @_activeFilters.find(type: 'client').observe
-       removed: (filter) -> $("#searchbox-#{field}").val('') for field of filter.spec
-    #  added: @addColumnFilter
-    #  changed: @addColumnFilter
+     removed: (filter) =>
+         $("#searchbox-#{field}").val('') for field of filter.spec
+         @_applyClientFilters()
+     added: @_applyClientFilters
+     changed: @_applyClientFilters
 
     for column in columns when column.groupable
       column.header =
