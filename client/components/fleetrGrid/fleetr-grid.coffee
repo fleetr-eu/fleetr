@@ -72,26 +72,14 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
 
   # column filters -->
   @_activeFilters = new Mongo.Collection null
-  @activeFiltersCursor = @_activeFilters.find()
-  @columnFilters = {}
-  @addColumnFilter = (filter) =>
-    for field of filter.spec
-      regex = new RegExp filter.spec[field].regex, 'i'
-      @columnFilters[field] = (text) -> "#{text}".match regex
-    @_applyFilters()
-  @removeColumnFilter = (filter) =>
-    for field of filter.spec
-      delete @columnFilters[field]
-      $("#searchbox-#{field}").val('')
-    @_applyFilters()
   @addFilter = (type, name, text, spec, refreshData = true) ->
     @_activeFilters.upsert {name: name, type: type}, {name: name, type: type, text: text, spec:spec}
     @_refreshData() if refreshData and type == 'server'
-    #@_applyFilters() if type == 'client'
+    @_applyFilters() if type == 'client'
   @removeFilter = (type, name) ->
     @_activeFilters.remove name: name, type: type
     @_refreshData() if type == 'server'
-    #@_applyFilters() if type == 'client'
+    @_applyFilters() if type == 'client'
     $('#date-range-filter').val('')
   @_applyFilters = =>
     @setGridData (@data.filter @_filter), false
@@ -104,13 +92,12 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       @setGridData( items.map Helpers.addId )
       @_applyFilters()
   @_filter = (item) =>
-    console.log 'filter', @columnFilters
     filters = @_activeFilters.find(type: 'client').fetch()
-    console.log 'clientFilters', filters
-    for field of @columnFilters
-      if item[field] and !@columnFilters[field](item[field])
-        #console.log item[field], 'does not match'
-        return false
+    for filter in filters
+      for field of filter.spec when item[field]
+        regex = new RegExp filter.spec[field].regex, 'i'
+        if !"#{item[field]}".match regex
+          return false
     true
   # <-- column filters
 
@@ -146,9 +133,9 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
 
     # Handle changes to client rendered filters
     @_activeFilters.find(type: 'client').observe
-      added: @addColumnFilter
-      changed: @addColumnFilter
-      removed: @removeColumnFilter
+       removed: (filter) -> $("#searchbox-#{field}").val('') for field of filter.spec
+    #  added: @addColumnFilter
+    #  changed: @addColumnFilter
 
     for column in columns when column.groupable
       column.header =
