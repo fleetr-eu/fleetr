@@ -1,5 +1,5 @@
 @AdminConfig =
-  adminEmails: ['gantchok@yahoo.com', 'pokraev@gmail.com']
+  adminEmails: ['gantchok@yahoo.com', 'pokraev@gmail.com', 'babbata@gmail.com']
   collections:
     Drivers:
       icon: 'car'
