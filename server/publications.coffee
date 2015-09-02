@@ -34,6 +34,8 @@ Meteor.publish 'locations', (vehicleId, dtFrom, dtTo) ->
 Meteor.publish 'alarm-definitions', -> AlarmDefinitions.find {}
 # Meteor.publish 'mycodes', -> MyCodes.find {}
 
+Meteor.publish 'logbook', (searchArgs) -> Logbook.find searchArgs, {sort: recordTime: -1}
+
 Meteor.publish 'dateRangeAggregation', (args)->
   sub = this
   db = MongoInternals.defaultRemoteCollectionDriver().mongo.db
