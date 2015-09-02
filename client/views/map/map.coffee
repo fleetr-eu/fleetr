@@ -1,4 +1,7 @@
+Template.map.created = -> Session.setDefault 'vehicleFilter', ''
+
 Template.map.rendered = ->
+  Meteor.typeahead.inject()
   Session.set 'selectedVehicleId', @data.vehicleId
 
   Map.init =>
@@ -13,25 +16,11 @@ Template.map.rendered = ->
 Template.map.helpers
   selectedVehicleId: -> Session.get('selectedVehicleId')
   renderMarkers: -> Map.renderMarkers()
-
-Template.map.created = -> Session.setDefault 'vehicleFilter', ''
-
-Template.vehiclesMapTable.helpers
-  vehicles: -> Vehicles.findFiltered 'vehicleFilter', ['name', 'licensePlate', 'tags']
-
-Template.vehicleMapTableRow.helpers
-  fleetName: -> Fleets.findOne(_id : @allocatedToFleet).name
-  active: -> if @_id == Session.get('selectedVehicleId') then 'active' else ''
-  allocatedToFleetFromDate: -> @allocatedToFleetFromDate.toLocaleDateString()
-  tagsArray: -> tagsAsArray.call @
-
-Template.vehicleMapTableRow.events
-  'click tr': -> Session.set 'selectedVehicleId', @_id
-  'click .filter-tag': (e) ->
-    tag = e.target.innerText
-    $('#vehicles #filter').val(tag)
-    Session.set 'vehicleFilter', tag
+  vehicles: -> Vehicles.find().fetch().map (v) ->
+    value: "#{v.name} (#{v.licensePlate}) | #{v.tags.join(', ')}"
+    id: v._id
+  selectVehicle: (event, suggestion, datasetName) ->
+    Session.set 'selectedVehicleId', suggestion.id
 
 Template.map.events
-  'click #pac-input-clear': ->
-    $('#pac-input').val('')
+  'click #pac-input-clear': -> $('#pac-input').val('')

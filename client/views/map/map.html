@@ -5,63 +5,44 @@
     Карта на автомобили
     </h3>
 
-    <div class="row">
-        <div class="col-md-12">
-          <div class="portlet box blue">
-            <div class="portlet-title">
-              <div class="caption" id="mapVehicles">
-                  {{> filter sessionVar='vehicleFilter' placeholder='Търсене...'}}
-              </div>
-              <div class="tools">
-                <a href="#" class="fullscreen"></a>
-              </div>
+
+  <div class="row">
+      <div class="col-md-12">
+        <div class="portlet box blue">
+          <div class="portlet-title">
+            <div class="caption" id="mapVehicles">
+                <div style="color: black">
+                  <input id="vehiclesFilter" class="form-control typeahead" name="vehicles" type="text"
+                     placeholder="Select a vehicle to display on the map"
+                     autocomplete="off" spellcheck="off"
+                     data-source="vehicles"
+                     data-selected="selectVehicle"/>
+                </div>
             </div>
-            <div class="portlet-body">
+            <div class="tools">
+              <a href="#" class="fullscreen"></a>
+            </div>
+          </div>
+          <div class="portlet-body">
             <div class="row">
-               <div class="col-md-4">
+               <div class="col-md-12">
                  <section class="content">
-                   {{> vehiclesMapTable }}
-                </section>
-               </div>
-               <div class="col-md-8">
-                 <section class="content">
-                   <div id="pac-search">
-                     <input id="pac-input" class="controls" type="text" placeholder="Търсене ...">
-                     <span id="pac-input-clear" class="glyphicon glyphicon-remove"></span>
+                   <div id="pac-search" style="margin-top: 6px;">
+                     <div class="input-group">
+                        <div class="input-group">
+                          <input id="pac-input" type="text" class="form-control" placeholder="Amount">
+                          <div id="pac-input-clear" class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></div>
+                        </div>
+                    </div>
                    </div>
                    <div id="map-canvas">{{renderMarkers}}</div>
                  </section>
                </div>
              </div>
-           </div>
-         </div>
+          </div>
        </div>
      </div>
-</template>
-
-<template name="vehiclesMapTable">
-  <table class="table table-striped">
-    <thead>
-        <tr>
-          <th>Име (Номер)</th>
-          <th>Етикети</th>
-        </tr>
-      </thead>
-      <tbody>
-          {{#each vehicles}} {{>vehicleMapTableRow}} {{/each}}
-      </tbody>
-  </table>
-</template>
-
-<template name="vehicleMapTableRow">
-    <tr class="{{active}}">
-        <td>{{name}} ({{licensePlate}})</td>
-        <td>
-          {{#each tagsArray}}
-          <span class="label label-danger filter-tag">{{this}}</span>
-          {{/each}}
-        </td>
-    </tr>
+   </div>
 </template>
 
 <template name="simpleMap">
