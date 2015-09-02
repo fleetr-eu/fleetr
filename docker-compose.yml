@@ -15,8 +15,7 @@ mqtt:
    - "10013:1883"
 
 db:
-  image: dockerfile/mongodb
-  command: mongod
+  image: mongo:2.6
   ports:
    - "27017:27017"
    - "28017:28017"
