@@ -17,7 +17,7 @@ Template.map.helpers
   selectedVehicleId: -> Session.get('selectedVehicleId')
   renderMarkers: -> Map.renderMarkers()
   vehicles: -> Vehicles.find().fetch().map (v) ->
-    value: "#{v.name} (#{v.licensePlate}) | #{v.tags.join(', ')}"
+    value: "#{v.name} (#{v.licensePlate})" + if v.tags then " | #{v.tags}" else ""
     id: v._id
   selectVehicle: (event, suggestion, datasetName) ->
     Session.set 'selectedVehicleId', suggestion.id
