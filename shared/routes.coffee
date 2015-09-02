@@ -123,11 +123,6 @@ Meteor.startup ->
       data: -> vehicleId: @params.vehicleId
       waitOn: ->
         Meteor.subscribe('vehicles')
-    @route 'mapDrivers',
-      path: '/drivers/map'
-      template: 'map'
-      waitOn: ->
-        Meteor.subscribe('drivers')
 
     @route 'drilldownReport',
       path: '/reports/drilldown'
