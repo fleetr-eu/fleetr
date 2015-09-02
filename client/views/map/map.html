@@ -5,46 +5,45 @@
     Карта на автомобили
     </h3>
 
-
-  <div class="row">
-      <div class="col-md-12">
-        <div class="portlet box blue">
-          <div class="portlet-title">
-            <div class="caption" id="mapVehicles">
-                <div style="color: black">
-                  <input id="vehiclesFilter" class="form-control typeahead" name="vehicles" type="text"
-                     placeholder="Select a vehicle to display on the map"
-                     autocomplete="on" spellcheck="off"
-                     data-source="vehicles"
-                     data-selected="selectVehicle"
-                     data-min-length="0"
-                     data-autoselect="true"/>
-                </div>
+    <div class="row">
+        <div class="col-md-12">
+          <div class="portlet box blue">
+            <div class="portlet-title">
+              <div class="caption" id="mapVehicles">
+                  <div style="color: black">
+                    <input id="vehiclesFilter" class="form-control typeahead" name="vehicles" type="text"
+                       placeholder="Select a vehicle to display on the map..."
+                       autocomplete="on" spellcheck="off"
+                       data-source="vehicles"
+                       data-selected="selectVehicle"
+                       data-min-length="0"
+                       data-autoselect="true"/>
+                  </div>
+              </div>
+              <div class="tools">
+                <a href="#" class="fullscreen"></a>
+              </div>
             </div>
-            <div class="tools">
-              <a href="#" class="fullscreen"></a>
-            </div>
-          </div>
-          <div class="portlet-body">
-            <div class="row">
-               <div class="col-md-12">
-                 <section class="content">
-                   <div id="pac-search" style="margin-top: 6px;">
-                     <div class="input-group">
-                        <div class="input-group">
-                          <input id="pac-input" type="text" class="form-control" placeholder="Amount">
-                          <div id="pac-input-clear" class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></div>
-                        </div>
-                    </div>
-                   </div>
-                   <div id="map-canvas">{{renderMarkers}}</div>
-                 </section>
+            <div class="portlet-body">
+              <div class="row">
+                 <div class="col-md-12">
+                   <section class="content">
+                     <div id="pac-search" style="margin-top: 6px;">
+                       <div class="input-group">
+                          <div class="input-group">
+                            <input id="pac-input" type="text" class="form-control" placeholder="Jump to...">
+                            <div id="pac-input-clear" class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></div>
+                          </div>
+                      </div>
+                     </div>
+                     <div id="map-canvas">{{renderMarkers}}</div>
+                   </section>
+                 </div>
                </div>
-             </div>
-          </div>
+            </div>
+         </div>
        </div>
      </div>
-   </div>
 </template>
 
 <template name="simpleMap">
