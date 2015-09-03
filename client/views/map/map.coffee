@@ -22,7 +22,7 @@ Template.map.helpers
         name: 'vehicles'
         valueKey: ['name', 'licensePlate', 'tags']
         displayKey: 'displayName'
-        local: -> Vehicles.find().fetch().map (it) ->
+        local: -> Vehicles.find().map (it) ->
           _.extend it,
             displayName: "#{it.name} (#{it.licensePlate})"
             type: 'vehicle'
@@ -33,7 +33,7 @@ Template.map.helpers
         name: 'drivers'
         valueKey: ['name', 'firstName', 'tags']
         displayKey: 'displayName'
-        local: -> Drivers.find().fetch().map (it) ->
+        local: -> Drivers.find().map (it) ->
           _.extend it,
             displayName: "#{it.firstName} #{it.name}"
             type: 'driver'
