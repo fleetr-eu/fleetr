@@ -16,11 +16,41 @@ Template.map.rendered = ->
 Template.map.helpers
   selectedVehicleId: -> Session.get('selectedVehicleId')
   renderMarkers: -> Map.renderMarkers()
-  vehicles: -> Vehicles.find().fetch().map (v) ->
-    value: "#{v.name} (#{v.licensePlate})" + if v.tags then " | #{v.tags}" else ""
-    id: v._id
-  selectVehicle: (event, suggestion, datasetName) ->
-    Session.set 'selectedVehicleId', suggestion.id
+  vehicles: ->
+    [
+      {
+        name: 'vehicles'
+        valueKey: ['name', 'licensePlate', 'tags']
+        displayKey: 'displayName'
+        local: -> Vehicles.find().fetch().map (it) ->
+          _.extend it,
+            displayName: "#{it.name} (#{it.licensePlate})"
+            type: 'vehicle'
+        header: '<h4 style="margin-left:5px;"><strong><i>Vehicles</i></strong></h4>'
+        template: 'vehicleSuggestion'
+      },
+      {
+        name: 'drivers'
+        valueKey: ['name', 'firstName', 'tags']
+        displayKey: 'displayName'
+        local: -> Drivers.find().fetch().map (it) ->
+          _.extend it,
+            displayName: "#{it.firstName} #{it.name}"
+            type: 'driver'
+        header: '<h4 style="margin-left:5px;"><strong><i>Drivers</i></strong></h4>'
+        template: 'driverSuggestion'
+      }
+    ]
+  select: (event, suggestion, datasetName) ->
+    switch suggestion.type # datasetName is not set
+      when 'vehicle'
+        Session.set 'selectedVehicleId', suggestion._id
+      when 'driver'
+        console.log 'TODO: display driver'
+      when 'object'
+        console.log 'TODO: display geofence'
+      else
+        console.log 'Hmm, I do not know how to display this?!'
 
 Template.map.events
   'click #pac-input-clear': -> $('#pac-input').val('')

@@ -1,3 +1,13 @@
+<template name="vehicleSuggestion">
+  <p><h4>{{name}} ({{licensePlate}})</h4></p>
+  <p><i>{{tags}}</i></p>
+</template>
+
+<template name="driverSuggestion">
+  <p><h4>{{firstName}} {{name}}</h4></p>
+  <p><i>{{tags}}</i></p>
+</template>
+
 <template name="map">
     {{> BootstrapAlerts}}
 
@@ -14,8 +24,8 @@
                     <input id="vehiclesFilter" class="form-control typeahead" name="vehicles" type="text"
                        placeholder="Select a vehicle to display on the map..."
                        autocomplete="on" spellcheck="off"
-                       data-source="vehicles"
-                       data-selected="selectVehicle"
+                       data-sets="vehicles"
+                       data-selected="select"
                        data-min-length="0"
                        data-autoselect="true"/>
                   </div>
