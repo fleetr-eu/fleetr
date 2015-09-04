@@ -5,6 +5,8 @@ Template.geofences.helpers
 Template.geofences.created = ->
   GeofenceMap.init -> renderGeofences()
   @autorun ->
+    Meteor.subscribe 'geofences', Session.get('geofenceFilter')
+  @autorun ->
     unless Session.get('addGeofence') || Session.get('editGeofence')
       GeofenceMap?.circle?.setMap(null)
       GeofenceMap?.circle = null
@@ -63,9 +65,6 @@ Template.editGeofence.events
   'click .btn-reset' : (e) ->
     Session.set('addGeofence', false)
     Session.set('editGeofence', false)
-
-Template.geofencesTable.created = ->
-  Meteor.subscribe 'geofences'
 
 Template.geofencesTable.helpers
   geofences: -> Geofences.find()

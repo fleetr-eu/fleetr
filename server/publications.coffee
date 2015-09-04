@@ -17,7 +17,14 @@ Meteor.publish 'maintenanceType', (id) -> MaintenanceTypes.find _id: id
 Meteor.publish 'vehicleMaintenances', (vehicleId)-> Maintenances.find {vehicle: vehicleId}
 Meteor.publish 'alarms', -> Alarms.find {}
 Meteor.publish 'notifications', -> Notifications.find {}
-Meteor.publish 'geofences', -> Geofences.find {}
+Meteor.publish 'geofences', (filter) ->
+  if filter
+    Geofences.find
+      name:
+        $regex: new RegExp filter
+        $options: 'i'
+  else
+    Geofences.find()
 Meteor.publish 'driverVehicleAssignments', -> DriverVehicleAssignments.find {}
 Meteor.publish 'driverVehicleAssignment', (filter) ->
   if filter then DriverVehicleAssignments.find filter else []
