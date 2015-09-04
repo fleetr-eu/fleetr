@@ -89,12 +89,13 @@ Meteor.methods
     Drivers.find().forEach (doc) ->
       Drivers.utils.processNotifications(doc, doc._id)
 
-  submitDriverVehicleAssignment: (doc, diff) -> DriverVehicleAssignments.submit(doc, diff)
+  submitDriverVehicleAssignment: (doc, diff) ->
+    @unblock
+    DriverVehicleAssignments.submit(doc, diff)
+    Drivers.update {_id: doc.driver}, {$set: vehicle_id: doc.vehicle}
+    Vehicles.update {_id: doc.vehicle}, {$set: driver_id: doc.driver}
 
   removeDriverVehicleAssignment: (doc) -> DriverVehicleAssignments.remove _id : doc
-
-  removeDriverVehicleAssignment: (doc) ->
-    DriverVehicleAssignments.remove _id : doc
 
   # findCachedLocationName: (lat,lon) ->
   #   console.log 'MyCodes: ' + MyCodes.find().count()

@@ -46,7 +46,7 @@ Template.map.helpers
       when 'vehicle'
         Session.set 'selectedVehicleId', suggestion._id
       when 'driver'
-        console.log 'TODO: display driver'
+        Session.set 'selectedVehicleId', Drivers.findOne(suggestion._id).vehicle_id
       when 'object'
         console.log 'TODO: display geofence'
       else

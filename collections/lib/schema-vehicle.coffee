@@ -206,3 +206,7 @@ Schema.vehicle = new SimpleSchema
     type: Number, label: "Time", optional:true
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-3", "input-col-class": "col-sm-9"
+
+  driver_id:
+    type: String
+    optional: true

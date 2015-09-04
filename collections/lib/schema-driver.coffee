@@ -383,3 +383,6 @@ Schema.driver = new SimpleSchema
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-8"
       "input-col-class": "col-sm-4"
+  vehicle_id:
+    type: String
+    optional: true
