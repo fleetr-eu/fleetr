@@ -1,22 +1,22 @@
-Template.drivers.created = ->
-  Session.set 'driverFilter', ''
+Template.drivers.created = -> Session.set 'driverFilter', ''
 
 Template.drivers.events
   'click .deleteDriver': ->
     Meteor.call 'removeDriver', Session.get('selectedDriverId')
     Session.set 'selectedDriverId', null
 
-gettags = (tags)->
-  str = ''
-  for tag in tags.split(',')
-    str += '<span class="label label-danger filter-tag">' + tag + '</span>'
-  new Spacebars.SafeString(str)
-
 Template.drivers.helpers
+  drivers: -> Drivers.findFiltered 'driverFilter', ['firstName', 'name', 'tags']
   selectedDriverId: -> Session.get('selectedDriverId')
 
-Template.drivers.events
-  'click tbody tr': (event, tpl) ->
-    dataTable = $(event.target).closest('table').DataTable()
-    rowData = dataTable.row(event.currentTarget).data()
-    Session.set 'selectedDriverId', rowData._id
+Template.driverTableRow.helpers
+  fullName: -> "#{@firstName} #{@name}"
+  active: -> if @_id == Session.get('selectedDriverId') then 'active' else ''
+  tagsArray: -> tagsAsArray.call @
+
+Template.driverTableRow.events
+  'click tr': -> Session.set 'selectedDriverId', @_id
+  'click .filter-tag': (e) ->
+    tag = e.target.innerText
+    $('#drivers #filter').val(tag)
+    Session.set 'driverFilter', tag
