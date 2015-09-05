@@ -1,14 +1,18 @@
-Mongo.Collection.prototype.findFiltered = (filterVar, fieldsToFilter) ->
-  query = Session.get(filterVar).trim().replace ' ', '|'
-  fields = fieldsToFilter.reduce (acc, field) ->
-    term = {}
-    term[field] =
-      $regex: query
-      $options: 'i'
-    acc.push term
-    acc
-  , []
-  @find $or: fields
+Mongo.Collection.prototype.findFiltered = (filter, fieldsToFilter, findOptions) ->
+  if filter
+    fields = fieldsToFilter.reduce (acc, field) ->
+      term = {}
+      term[field] =
+        $regex: filter
+        $options: 'i'
+      acc.push term
+      acc
+    , []
+    @find
+      $or: fields
+    , findOptions || {}
+  else
+    @find {}, findOptions || {}
 
 Mongo.Collection.prototype.submit = (doc, diff) ->
   # after.insert is not triggered. remove after issues is fixed: https://github.com/matb33/meteor-collection-hooks/issues/16

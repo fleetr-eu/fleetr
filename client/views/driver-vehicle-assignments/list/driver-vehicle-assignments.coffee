@@ -32,7 +32,3 @@ Template.driverVehicleAssignmentTableRow.helpers
 
 Template.driverVehicleAssignmentTableRow.events
   'click tr': -> Session.set 'selectedDriverVehicleAssignmentId', @_id
-  'click .filter-tag': (e) ->
-    tag = e.target.innerText
-    $('#driverVehicleAssignmentFilter #filter').val(tag)
-    Session.set 'driverVehicleAssignmentFilter', tag

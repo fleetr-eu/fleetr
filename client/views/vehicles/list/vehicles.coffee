@@ -8,7 +8,7 @@ Template.vehicles.events
 
 Template.vehicles.helpers
   vehicles: ->
-    Vehicles.findFiltered 'vehicleFilter', ['licensePlate', 'identificationNumber', 'tags']
+    Vehicles.findFiltered Session.get('vehicleFilter'), ['licensePlate', 'identificationNumber', 'tags']
   selectedVehicleId: ->
     Session.get('selectedVehicleId')
 
@@ -38,9 +38,7 @@ Template.vehicleTableRow.helpers
 Template.vehicleTableRow.events
   'click tr': -> Session.set 'selectedVehicleId', @_id
   'click .filter-tag': (e) ->
-    tag = e.target.innerText
-    $('#vehicles #filter').val(tag)
-    Session.set 'vehicleFilter', tag
+    Session.set 'vehicleFilter', e.target.innerText || e.target.textContent || ''
 
 Template.vehicleTableRow.rendered = ->
   $('[data-toggle="popover"]').popover()

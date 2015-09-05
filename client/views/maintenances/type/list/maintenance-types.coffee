@@ -7,7 +7,7 @@ Template.maintenanceTypes.events
     Session.set 'selectedMaintenanceTypeId', null
 
 Template.maintenanceTypes.helpers
-  maintenanceTypes: -> MaintenanceTypes.findFiltered 'maintenanceTypeFilter', ['name', 'description']
+  maintenanceTypes: -> MaintenanceTypes.findFiltered Session.get('maintenanceTypeFilter'), ['name', 'description']
   selectedMaintenanceTypeId: -> Session.get('selectedMaintenanceTypeId')
   placeholderSearch :-> TAPi18n.__('general.search')
 

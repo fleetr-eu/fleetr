@@ -76,3 +76,5 @@ Template.geofencesTableRow.events
   'click tr': ->
     Session.set 'selectedGeofenceId', @_id
     GeofenceMap?.setCenter(Geofences.findOne(_id: @_id).center)
+  'click .filter-tag': (e) ->
+    Session.set 'geofenceFilter', e.target.innerText || e.target.textContent || ''

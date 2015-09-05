@@ -33,8 +33,6 @@ Template.alarmTableRow.helpers
 
 Template.alarmTableRow.events
   'click .filter-tag': (e) ->
-    tag = e.target.innerText
-    $('#alarms #filter').val(tag)
-    Session.set 'filterAlarms', tag
+    Session.set 'filterAlarms', e.target.innerText || e.target.textContent || ''
   'click .markSeen': (e) ->
     Meteor.call 'toggleAlarmSeen', @_id, @seen

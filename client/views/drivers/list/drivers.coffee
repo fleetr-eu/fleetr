@@ -6,7 +6,7 @@ Template.drivers.events
     Session.set 'selectedDriverId', null
 
 Template.drivers.helpers
-  drivers: -> Drivers.findFiltered 'driverFilter', ['firstName', 'name', 'tags']
+  drivers: -> Drivers.findFiltered Session.get('driverFilter'), ['firstName', 'name', 'tags']
   selectedDriverId: -> Session.get('selectedDriverId')
 
 Template.driverTableRow.helpers
@@ -17,6 +17,4 @@ Template.driverTableRow.helpers
 Template.driverTableRow.events
   'click tr': -> Session.set 'selectedDriverId', @_id
   'click .filter-tag': (e) ->
-    tag = e.target.innerText
-    $('#drivers #filter').val(tag)
-    Session.set 'driverFilter', tag
+    Session.set 'driverFilter', e.target.innerText || e.target.textContent || ''

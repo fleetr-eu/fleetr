@@ -7,7 +7,7 @@ Template.fleets.events
     Session.set 'selectedFleetId', null
 
 Template.fleets.helpers
-  fleets: -> Fleets.findFiltered 'fleetFilter', ['name', 'description']
+  fleets: -> Fleets.findFiltered Session.get('fleetFilter'), ['name', 'description']
   selectedFleetId: -> Session.get('selectedFleetId')
 
 Template.fleetTableRow.helpers

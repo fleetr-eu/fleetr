@@ -30,8 +30,6 @@ Template.notificationTableRow.helpers
 
 Template.notificationTableRow.events
   'click .filter-tag': (e) ->
-    tag = e.target.innerText
-    $('#notifications #filter').val(tag)
-    Session.set 'filterNotifications', tag
+    Session.set 'filterNotifications', e.target.innerText || e.target.textContent || ''
   'click .markSeen': (e) ->
     Meteor.call 'toggleNotificationSeen', @_id, @seen
