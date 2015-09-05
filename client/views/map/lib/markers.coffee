@@ -11,7 +11,9 @@ Meteor.startup ->
 
     withInfo: (vehicle, map) ->
       @addListener 'click', ->
-        new FleetrInfoWindow(vehicle).open map, @
+        @infoWindow?.close()
+        @infoWindow = new FleetrInfoWindow(vehicle)
+        @infoWindow.open map, @
 
   class @EmptyMarker extends FleetrMarker
     constructor: (location, map) ->
