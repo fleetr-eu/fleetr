@@ -135,12 +135,12 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     console.log '_beforeDataRefresh'
     if not @loadingIndicator
       @loadingIndicator = $('<div id="fleetrGridSpinner"><div class="sk-folding-cube"><div class="sk-cube1 sk-cube"></div><div class="sk-cube2 sk-cube"></div><div class="sk-cube4 sk-cube"></div><div class="sk-cube3 sk-cube"></div></div></div>').appendTo document.body
-    @loadingIndicator.show();
+    @loadingIndicatorShowFunc = lodash.debounce @loadingIndicator.show, 2000
 
   # handler which is called after data has been refreshed from the server
   @_afterDataRefresh = ->
-    console.log '_afterDataRefresh'
-    @loadingIndicator.fadeOut() #if @loadingIndicator
+    @loadingIndicatorShowFunc?.cancel()
+    @loadingIndicator?.fadeOut()
 
   @install = (initializeData = true) ->
 
@@ -203,7 +203,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       sortcol = args.sortCol.field
       @_dataView.sort(comparer(sortcol), args.sortAsc)
 
-    $(@grid.getHeaderRow()).delegate ":input", "change keyup", (e) =>
+    searchInputHandler = (e) =>
       columnId = $(e.target).data("columnId");
       if columnId
         column = (columns.filter (column) -> column.id == columnId)[0]
@@ -215,6 +215,9 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
             fltr
         else
           @removeFilter where, column.name
+
+    $(@grid.getHeaderRow()).delegate ":input", "change keyup", _.debounce(searchInputHandler, 500)
+
     @grid.onHeaderRowCellRendered.subscribe (e, args) ->
       $(args.node).empty()
       if args.column.search
