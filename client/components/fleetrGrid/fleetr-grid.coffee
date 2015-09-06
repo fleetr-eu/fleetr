@@ -83,6 +83,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
   @_applyClientFilters = =>
     @setGridData (@data.filter @_filter), false
   @_refreshData = =>
+    @_beforeDataRefresh()
     serverFilterSpec = {}
     items = @_activeFilters.find(type: 'server').fetch()
     _.extend serverFilterSpec, item.spec for item in items
@@ -90,6 +91,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     Meteor.call serverMethod, serverFilterSpec, (err, items) =>
       @setGridData( items.map Helpers.addId )
       @_applyClientFilters()
+      @_afterDataRefresh()
   @_filter = (item) =>
     filters = @_activeFilters.find(type: 'client').fetch()
     for filter in filters
@@ -127,6 +129,18 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
   @_effectuateGroupings = ->
     @_dataView.setGrouping (val for key, val of @_groupings)
   # <-- grouping
+
+  # handler which is called before data is refreshed from the server
+  @_beforeDataRefresh = =>
+    console.log '_beforeDataRefresh'
+    if not @loadingIndicator
+      @loadingIndicator = $('<div id="fleetrGridSpinner"><div class="sk-folding-cube"><div class="sk-cube1 sk-cube"></div><div class="sk-cube2 sk-cube"></div><div class="sk-cube4 sk-cube"></div><div class="sk-cube3 sk-cube"></div></div></div>').appendTo document.body
+    @loadingIndicator.show();
+
+  # handler which is called after data has been refreshed from the server
+  @_afterDataRefresh = ->
+    console.log '_afterDataRefresh'
+    @loadingIndicator.fadeOut() #if @loadingIndicator
 
   @install = (initializeData = true) ->
 
