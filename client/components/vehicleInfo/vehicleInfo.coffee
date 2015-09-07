@@ -7,7 +7,7 @@ msg = ''
 Template.vehicleInfo.created = ->
   msg = @data.message
   Meteor.subscribe 'vehicleInfo', @data.unitId, =>
-    console.log @data.unitId
+    console.log "Vehicle with unitId #{@data.unitId}"
     v = Vehicles.findOne(unitId: @data.unitId)
     if v
       vehicle.set v
