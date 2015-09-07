@@ -134,7 +134,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
   @_beforeDataRefresh = =>
     console.log '_beforeDataRefresh'
     if not @loadingIndicator
-      @loadingIndicator = $('<div id="fleetrGridSpinner"><div class="sk-folding-cube"><div class="sk-cube1 sk-cube"></div><div class="sk-cube2 sk-cube"></div><div class="sk-cube4 sk-cube"></div><div class="sk-cube3 sk-cube"></div></div></div>').appendTo document.body
+      @loadingIndicator = $('<div id="fleetrGridSpinner"><div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div></div>').appendTo document.body
     @_loadingIndicatorShowId = Meteor.setTimeout((=>@loadingIndicator.fadeIn()), 500)
 
   # handler which is called after data has been refreshed from the server
