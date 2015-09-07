@@ -17,6 +17,6 @@ AutoForm.addHooks [
   onError: (formType, error) ->
     console.log "AutoForm::error formType='#{formType}'", error, @
     if formType == 'pre-submit validation'
-      sAlert.warning sAlertIcon: 'exclamation', sAlertTitle: 'Validation', message: 'Please complete the form.'
+      sAlert.warning sAlertIcon: 'asterisk', sAlertTitle: 'Validation', message: 'Please complete the form.'
     else
       sAlert.error sAlertIcon: 'exclamation', sAlertTitle: 'An error occured', message: 'Could not save form data.'
