@@ -17,9 +17,7 @@ Template.vehicleTableRow.helpers
   active: -> if @_id == Session.get('selectedVehicleId') then 'active' else ''
   allocatedToFleetFromDate: -> @allocatedToFleetFromDate.toLocaleDateString()
   tagsInfo: -> if @tags then "..." else ""
-  driver: ->
-    assignment = DriverVehicleAssignments.findOne vehicle: @_id
-    Drivers.findOne(_id: assignment.driver)
+  driver: -> Drivers.findOne _id: @driver_id
   stateImg: ->
     switch @state
       when "start"
