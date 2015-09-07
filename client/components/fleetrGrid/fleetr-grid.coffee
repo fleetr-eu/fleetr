@@ -135,11 +135,13 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     console.log '_beforeDataRefresh'
     if not @loadingIndicator
       @loadingIndicator = $('<div id="fleetrGridSpinner"><div class="sk-folding-cube"><div class="sk-cube1 sk-cube"></div><div class="sk-cube2 sk-cube"></div><div class="sk-cube4 sk-cube"></div><div class="sk-cube3 sk-cube"></div></div></div>').appendTo document.body
-    @loadingIndicatorShowFunc = lodash.debounce @loadingIndicator.show, 2000
+    @_loadingIndicatorShowId = Meteor.setTimeout((=>@loadingIndicator.fadeIn()), 500)
 
   # handler which is called after data has been refreshed from the server
   @_afterDataRefresh = ->
-    @loadingIndicatorShowFunc?.cancel()
+    if @_loadingIndicatorShowId
+      Meteor.clearTimeout @_loadingIndicatorShowId
+      @_loadingIndicatorShowId = null
     @loadingIndicator?.fadeOut()
 
   @install = (initializeData = true) ->
