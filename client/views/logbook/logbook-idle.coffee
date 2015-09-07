@@ -1,6 +1,6 @@
 class TableFilter
-  
-  constructor: (selectedDate, columns)->  
+
+  constructor: (selectedDate, columns)->
     @columns = columns
     @selector = new ReactiveVar({date: selectedDate})
 
@@ -34,8 +34,8 @@ Template.logbookIdle.created = ->
 
 Template.logbookIdle.rendered = ->
   self = this
-  Meteor.call 'idleTotals', Template.currentData().selectedDate, (err, res)-> 
-    if not err 
+  Meteor.call 'idleTotals', Template.currentData().selectedDate, (err, res)->
+    if not err
       console.log 'Idle: ' + JSON.stringify(res)
       if res[0] then total.set(res[0]) else total.set({idleTime:0})
   select = '<select id="selectDuration" aria-controls="DataTables_Table_0" class="form-control input-sm">
@@ -65,10 +65,10 @@ Template.logbookIdle.events
     Session.set "selected-min-duration" , val
 
 Template.logbookIdle.helpers
-  selector: ()-> 
+  selector: ()->
     search = {date: @selectedDate}
     if Session.get("selected-min-duration")
-      duration = parseInt(Session.get("selected-min-duration")) 
+      duration = parseInt(Session.get("selected-min-duration"))
       search.duration = {$gte: duration}
     console.log 'Search: ' + JSON.stringify(search)
     search
@@ -79,6 +79,7 @@ Template.logbookIdle.helpers
 Template.mapIdleCellTemplate.helpers
   opts: -> encodeURIComponent EJSON.stringify
     deviceId: @deviceId
+    idle: true
     start:
       time: moment(@startTime).valueOf()
       position:
@@ -92,10 +93,6 @@ Template.mapIdleCellTemplate.helpers
 
 Template.idleDetailsCellTemplate.helpers
   datetime: ->
-    date     : @date 
+    date     : @date
     startTime: @from()
     stopTime : @to()
-
-
-
-

@@ -107,24 +107,28 @@ Meteor.publishComposite 'vehicleInfo', (unitId) ->
   children: [
     {
       find: (vehicle) ->
-        Fleets.find _id: vehicle.allocatedToFleet
+        Fleets.find _id: vehicle?.allocatedToFleet
       children: [
         {
           find: (fleet) ->
-            FleetGroups.find _id: fleet.parent
+            FleetGroups.find _id: fleet?.parent
         }
       ]
     },
     {
       find: (vehicle) ->
-        DriverVehicleAssignments.find vehicle: vehicle._id
-      children: [
-        {
-          find: (assignment) ->
-            Drivers.find assignment.driver
-        }
-      ]
+        Drivers.find vehicle_id: _id
     }
+    # {
+    #   find: (vehicle) ->
+    #     DriverVehicleAssignments.find vehicle: vehicle?._id
+    #   children: [
+    #     {
+    #       find: (assignment) ->
+    #         Drivers.find assignment?.driver
+    #     }
+    #   ]
+    # }
   ]
 
 Meteor.publish 'aggbydate-tabular', (tableName, ids, fields)->

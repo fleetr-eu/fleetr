@@ -70,23 +70,7 @@ TabularTables.LogbookStartStop = new Tabular.Table
   ]
   extraFields: [
     'start', 'stop', 'startStopDistance', 'startStopSpeed', 'maxSpeed'
-  ]    
-
-TabularTables.Drivers = new Tabular.Table
-  name: "DriversList"
-  collection: Drivers
-  language: languageTt
-  columns: [
-    {data: "firstName", title: "Name"},
-    {data: "name", title: "Sirname"}
   ]
-  createdRow: ( row, data, dataIndex ) ->
-    if Meteor.isClient
-      if Session.equals('selectedDriverId', data._id)
-        $(row).addClass 'selected'
-      else
-        $(row).removeClass 'selected'
-
 
 TabularTables.RecLog = new Tabular.Table
   name: "RecLog"
