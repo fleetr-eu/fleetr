@@ -2,15 +2,21 @@ Meteor.startup ->
   sAlert.config
     effect: 'genie',
     position: 'bottom-right'
-    timeout: 2500
+    timeout: 5000
     html: true
     onRouteClose: true
     stack: true
 
 AutoForm.addHooks [
-    'vehicleForm'
+    'vehicleForm', 'maintenancesForm', 'fleetGroupForm', 'fleetForm', 'expenseTypeForm',
+    'expenseGroupForm', 'expensesForm', 'driverForm', 'driverVehicleAssignmentForm', 'insertAlarmDefinition'
   ],
-  onSuccess: ->
-    sAlert.success sAlertIcon: 'asterisk', sAlertTitle: 'Saved', message: 'Created successfully.'
-  onError: ->
-    sAlert.error sAlertIcon: 'asterisk', sAlertTitle: 'An error occured', message: 'Oh oh, something went wrong.'
+  onSuccess: (formType, result) ->
+    console.log "AutoForm::success formType='#{formType}'", result, @
+    sAlert.success sAlertIcon: 'check', sAlertTitle: 'Saved', message: 'Saved successfully.'
+  onError: (formType, error) ->
+    console.log "AutoForm::error formType='#{formType}'", error, @
+    if formType == 'pre-submit validation'
+      sAlert.warning sAlertIcon: 'exclamation', sAlertTitle: 'Validation', message: 'Please complete the form.'
+    else
+      sAlert.error sAlertIcon: 'exclamation', sAlertTitle: 'An error occured', message: 'Could not save form data.'
