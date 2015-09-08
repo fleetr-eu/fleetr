@@ -101,13 +101,15 @@ Meteor.publish 'dateRangeAggregation', (args)->
   return res
 
 
-Meteor.publishComposite 'vehicleInfo', (unitId) ->
-  find: -> Vehicles.find unitId: "#{unitId}"
-  children: [
-    find: (vehicle) -> Fleets.find _id: vehicle?.allocatedToFleet
-    children: [ find: (fleet) -> FleetGroups.find _id: fleet?.parent ]
-  ,
-    find: (vehicle) -> Drivers.find vehicle_id: vehicle._id
+Meteor.publish 'vehicleInfo', (unitId) ->
+  vehiclesCursor = Vehicles.find unitId: "#{unitId}"
+  v = vehiclesCursor.fetch()[0]
+  fleetsCursor = Fleets.find _id: v?.allocatedToFleet
+  [
+    vehiclesCursor
+    Drivers.find vehicle_id: v?._id
+    fleetsCursor
+    FleetGroups.find _id: fleetsCursor.fetch()[0]?.parent
   ]
 
 Meteor.publish 'aggbydate-tabular', (tableName, ids, fields)->

@@ -7,17 +7,17 @@ Template.vehicleInfo.helpers
   fleet: -> Fleets.findOne(_id: @allocatedToFleet)
   fleetGroup: -> FleetGroups.findOne(_id: @parent)
   driver: -> Drivers.findOne(_id: @driver_id)
-  stateIcon: -> @color
-    # if @state == 'stop'
-    #   'blue'
-    # else if @state == 'start'
-    #   if @alarms?.speedingAlarmActive &&
-    #     @speed > @alarms?.maxAllowedSpeed
-    #       'red'
-    #   else
-    #     'green'
-    # else
-    #   'red'
+  stateIcon: ->
+    if @state == 'stop'
+      'blue'
+    else if @state == 'start'
+      if @alarms?.speedingAlarmActive &&
+        @speed > @alarms?.maxAllowedSpeed
+          'red'
+      else
+        'green'
+    else
+      'red'
   odometer: -> (@odometer / 1000).toFixed(3)
   toFixed: (field, precision) -> @[field]?.toFixed(precision)
   message: -> Template.instance().data.message
