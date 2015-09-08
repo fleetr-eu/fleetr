@@ -102,33 +102,12 @@ Meteor.publish 'dateRangeAggregation', (args)->
 
 
 Meteor.publishComposite 'vehicleInfo', (unitId) ->
-  find: ->
-    Vehicles.find unitId: unitId
+  find: -> Vehicles.find unitId: "#{unitId}"
   children: [
-    {
-      find: (vehicle) ->
-        Fleets.find _id: vehicle?.allocatedToFleet
-      children: [
-        {
-          find: (fleet) ->
-            FleetGroups.find _id: fleet?.parent
-        }
-      ]
-    },
-    {
-      find: (vehicle) ->
-        Drivers.find vehicle_id: _id
-    }
-    # {
-    #   find: (vehicle) ->
-    #     DriverVehicleAssignments.find vehicle: vehicle?._id
-    #   children: [
-    #     {
-    #       find: (assignment) ->
-    #         Drivers.find assignment?.driver
-    #     }
-    #   ]
-    # }
+    find: (vehicle) -> Fleets.find _id: vehicle?.allocatedToFleet
+    children: [ find: (fleet) -> FleetGroups.find _id: fleet?.parent ]
+  ,
+    find: (vehicle) -> Drivers.find vehicle_id: vehicle._id
   ]
 
 Meteor.publish 'aggbydate-tabular', (tableName, ids, fields)->

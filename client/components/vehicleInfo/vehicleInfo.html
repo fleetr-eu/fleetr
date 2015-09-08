@@ -10,8 +10,12 @@
 		<div class="portlet-body form">
       <p>
         <span><i class="fa fa-sitemap"></i>
-          <a href="{{pathFor 'editFleetGroup' groupId=fleetGroup._id}}">{{fleetGroup.name}}</a>,
-          <a href="{{pathFor 'editFleet' fleetId=fleet._id}}">{{fleet.name}}</a> |
+          {{#with fleet}}
+            {{#with fleetGroup}}
+            <a href="{{pathFor 'editFleetGroup' groupId=_id}}">{{name}}</a>,
+            {{/with}}
+            <a href="{{pathFor 'editFleet' fleetId=_id}}">{{name}}</a> |
+          {{/with}}
         </span>
         <span>
           <i class="fa fa-car"></i>
