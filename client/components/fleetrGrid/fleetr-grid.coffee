@@ -171,11 +171,11 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       button = args.button
       command = args.command
       @_activeGroupings.find(name: column.name).observe
-        removed: =>
-          console.log 'removed'
+        removed: ((column) => (rem) =>
           button.cssClass = "icon-highlight-off"
           button.tooltip = "Group table by #{column.name}"
-          @grid.updateColumnHeader(column.id)
+          @grid.updateColumnHeader(column.id)) column
+
 
       if command == "toggle-grouping"
         if button.cssClass == "icon-highlight-on"
