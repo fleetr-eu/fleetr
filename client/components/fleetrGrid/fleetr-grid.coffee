@@ -171,9 +171,13 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       button = args.button
       command = args.command
       @_activeGroupings.find(name: column.name).observe
-        removed: ((column) => (rem) =>
+        removed: ((column) => =>
           button.cssClass = "icon-highlight-off"
           button.tooltip = "Group table by #{column.name}"
+          @grid.updateColumnHeader(column.id)) column
+        updated: ((column) => =>
+          button.cssClass = "icon-highlight-on"
+          button.tooltip = "Remove group #{column.name}"
           @grid.updateColumnHeader(column.id)) column
 
 
@@ -272,6 +276,17 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       else
         for field of activeFilter.spec
           $("#searchbox-#{field}").val activeFilter.spec[field].regex
+
+    $('.slick-header-button').each (index, headerButtonElement) =>
+      headerButton = $ headerButtonElement
+      column = headerButton.data 'column'
+      grouping = @_activeGroupings.findOne name:column.name
+      if grouping
+        headerButton.addClass 'icon-highlight-on'
+        headerButton.removeClass 'icon-highlight-off'
+        headerButton.attr 'title', "Remove group #{column.name}"
+        headerButton.data 'button', {cssClass: "icon-highlight-on", command: "toggle-grouping", tooltip: "Remove group #{column.name}"}
+    #@grid.
 
     @_refreshData() if initializeData
 
