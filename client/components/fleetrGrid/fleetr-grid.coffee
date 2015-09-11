@@ -282,12 +282,13 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       column = headerButton.data 'column'
       grouping = @_activeGroupings.findOne name:column.name
       if grouping
+        @addGroupBy (column.groupable.transform or column.field), column.name, (column.groupable.aggregators or [])
         headerButton.addClass 'icon-highlight-on'
         headerButton.removeClass 'icon-highlight-off'
         headerButton.attr 'title', "Remove group #{column.name}"
         headerButton.data 'button', {cssClass: "icon-highlight-on", command: "toggle-grouping", tooltip: "Remove group #{column.name}"}
-    #@grid.
 
+    @_effectuateGroupings()
     @_refreshData() if initializeData
 
   @ # return this object
