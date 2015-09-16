@@ -13,6 +13,16 @@
   height: 25px !important;
 }
 
+.slickfleetr .alignment-left {
+  text-align: left;
+}
+.slickfleetr .alignment-right {
+  text-align: right;
+}
+.slickfleetr .alignment-center {
+  text-align: center;
+}
+
 .slickfleetr input.searchbox {
   width: 100%;
   border: 0;

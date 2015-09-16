@@ -165,6 +165,10 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
           tooltip: "Group table by #{column.name}"
         ]
 
+    for column in columns when column.align
+      column.cssClass = "alignment-#{column.align}"
+
+
     headerButtonsPlugin = new Slick.Plugins.HeaderButtons()
     headerButtonsPlugin.onCommand.subscribe (e, args) =>
       column = args.column
