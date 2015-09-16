@@ -1,11 +1,10 @@
-getDateRow = (field) -> (row) -> new Date(row[field]).toLocaleDateString 'en-US'
-
 columns = [
   id: "maintenanceDate"
   field: "maintenanceDate"
   name: "Maintenance Date"
   width:120
   sortable: true
+  align: 'left'
   formatter: FleetrGrid.Formatters.dateFormatter
   search:
     where: 'server'
@@ -17,12 +16,14 @@ columns = [
   name: 'KM\'s till maintenance'
   sortable: true
   search: where: 'server'
+  align: 'right'
 ,
   id: 'engineHoursToMaintenance'
   field: 'engineHoursToMaintenance'
   name: 'Engine hours till maintenance'
   sortable: true
   search: where: 'server'
+  align: 'center'
 ,
   id: 'nextMaintenanceOdometer'
   field: 'nextMaintenanceOdometer'
@@ -52,7 +53,7 @@ columns = [
 ]
 
 options =
-  enableCellNavigation: false
+  enableCellNavigation: true
   enableColumnReorder: false
   showHeaderRow: true
   headerRowHeight: 30
@@ -85,3 +86,5 @@ Template.maintenanceReport.events
     range = {$gte: start, $lte: stop}
     MyGrid.addFilter 'server', 'Maintenance Date', "#{start} - #{stop}",
       {maintenanceDateMin: startDate.toISOString(), maintenanceDateMax: endDate.toISOString()}
+  'build #slickgrid': (event, x, y, z) ->
+    console.log 'build #slickgrid', event, x,y,z

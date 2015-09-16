@@ -203,7 +203,12 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     grandTotalsColumns = (column for column in columns when column.grandTotal)
     @totalsDataProvider = TotalsDataProvider @_dataView, columns, grandTotalsColumns
     @grid = new Slick.Grid '#slickgrid', @totalsDataProvider, columns, options
+    @grid.setSelectionModel new Slick.RowSelectionModel()
     @grid.registerPlugin headerButtonsPlugin
+
+    @grid.onSelectedRowsChanged.subscribe (err, args) ->
+      console.log 'onSelectedRowsChanged', args
+      $('#slickgrid').trigger 'build', ['a','b','c']
 
 
     comparer = (sortcol) -> (a, b) ->

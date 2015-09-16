@@ -12,6 +12,15 @@
 .slickfleetr .slick-cell {
   height: 25px !important;
 }
+.slickfleetr .slick-cell.active {
+  border:none;
+  border-bottom: 1px solid silver;
+  border-right: 1px dotted silver;
+}
+.slickfleetr .slick-cell.selected {
+  background-color: #4b8df8;
+  color: #ffffff;
+}
 
 .slickfleetr .alignment-left {
   text-align: left;
