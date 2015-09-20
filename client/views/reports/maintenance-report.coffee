@@ -86,5 +86,5 @@ Template.maintenanceReport.events
     range = {$gte: start, $lte: stop}
     MyGrid.addFilter 'server', 'Maintenance Date', "#{start} - #{stop}",
       {maintenanceDateMin: startDate.toISOString(), maintenanceDateMax: endDate.toISOString()}
-  'build #slickgrid': (event, x, y, z) ->
-    console.log 'build #slickgrid', event, x,y,z
+  'rowsSelected #slickgrid': (event) ->
+    console.log 'rowsSelected #slickgrid', event
