@@ -206,9 +206,11 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     @grid.setSelectionModel new Slick.RowSelectionModel()
     @grid.registerPlugin headerButtonsPlugin
 
-    @grid.onSelectedRowsChanged.subscribe (err, args) ->
-      console.log 'onSelectedRowsChanged', args
-      $('#slickgrid').trigger 'build', ['a','b','c']
+    @grid.onSelectedRowsChanged.subscribe (err, args) =>
+      if args?.rows?.length > 0
+        $('#slickgrid').trigger $.Event 'rowsSelected',
+          rowIndex: args.rows[0]
+          fleetrGrid: @
 
 
     comparer = (sortcol) -> (a, b) ->
