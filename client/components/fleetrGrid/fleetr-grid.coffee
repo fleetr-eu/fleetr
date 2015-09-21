@@ -315,6 +315,10 @@ FleetrGrid.Formatters =
     if val
       "#{sign} " + ((Math.round(parseFloat(val)*100)/100));
     else ''
+  buttonFormatter: (row, cell, value, column, rowObject) ->
+    console.log 'buttonFormatter', row, cell, column, rowObject
+    buttons = ("<button>#{button.value}</button>" for button in column.buttons)
+    buttons.join ''
 
 FleetrGrid.Formatters.sumEuroTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '&euro;'
 FleetrGrid.Formatters.sumTotalsFormatterNoSign = FleetrGrid.Formatters.sumTotalsFormatter ''
