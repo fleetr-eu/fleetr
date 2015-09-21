@@ -54,9 +54,11 @@ columns = [
   id: "buttons"
   name: "Buttons"
   buttons: [
-    value: "Click"
+    value: "Edit"
+    renderer: (value, row, cell, column, rowObject) ->
+      "<button>Custom:#{value}</button>"
   ,
-    value: "Another"
+    value: "Delete"
   ]
   formatter: FleetrGrid.Formatters.buttonFormatter
 ]
