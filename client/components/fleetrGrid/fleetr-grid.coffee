@@ -275,19 +275,22 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     columnpicker = new Slick.Controls.ColumnPicker columns, @grid, options
 
     # when this grid has previously been rendered, existing active filters
-    # might still exist. This ensures that the column searchbox values are
+    # might still exist. This code ensures that the column searchbox values are
     # populated with the corresponding filter value. Otherwise filters will
     # be in place, but the searchboxes remain empty.
     for activeFilter in @_activeFilters.find().fetch()
       if Object.keys(activeFilter.spec).length == 2
         # hacky; assume date filter when filter has two properties
         # TODO: fix this!
-        console.log 'Ass-uming this is a date filter:', activeFilter
+        console.warn 'Ass-uming this is a date filter:', activeFilter
         $('#date-range-filter').val activeFilter.text
       else
         for field of activeFilter.spec
           $("#searchbox-#{field}").val activeFilter.spec[field].regex
 
+    # ensure the ui that controls grouping is in sync with existing active
+    # groupings. this can happen when the grid has been previously been rendered
+    # and the user navigates back to the grid
     $('.slick-header-button').each (index, headerButtonElement) =>
       headerButton = $ headerButtonElement
       column = headerButton.data 'column'
@@ -316,8 +319,11 @@ FleetrGrid.Formatters =
       "#{sign} " + ((Math.round(parseFloat(val)*100)/100));
     else ''
   buttonFormatter: (row, cell, value, column, rowObject) ->
-    console.log 'buttonFormatter', row, cell, column, rowObject
-    buttons = ("<button>#{button.value}</button>" for button in column.buttons)
+    render = (button) ->
+      if button.renderer
+        button.renderer button.value, row, cell, column, rowObject
+      else "<button>#{button.value}</button>"
+    buttons = (render button for button in column.buttons)
     buttons.join ''
 
 FleetrGrid.Formatters.sumEuroTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '&euro;'
