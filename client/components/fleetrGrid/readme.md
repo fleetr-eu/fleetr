@@ -10,3 +10,6 @@ Create a new instance.
 - options: *Object* -  [Slick Grid Column Options Object](https://github.com/mleibman/SlickGrid/wiki/Grid-Options).
 - columns: *Array* - Array of column definitions.
 - remoteMethod: *String* - Name of DDP remote method.
+
+### *fleetrGrid*.install()
+Installs the grid into the DOM. Before this call, the grid will not be *wired* into the HTML DOM. Normally, you would want to call this function in the Meteor [onRendered](http://docs.meteor.com/#/full/template_onRendered) callback of your template.
