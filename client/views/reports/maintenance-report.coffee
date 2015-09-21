@@ -50,6 +50,15 @@ columns = [
   sortable: true
   search:
     where: 'client'
+,
+  id: "buttons"
+  name: "Buttons"
+  buttons: [
+    value: "Click"
+  ,
+    value: "Another"
+  ]
+  formatter: FleetrGrid.Formatters.buttonFormatter
 ]
 
 options =
