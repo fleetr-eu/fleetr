@@ -3,8 +3,8 @@ Template.fleetrGrid.onRendered ->
   @data.myGrid.install()
 
 Template.fleetrGrid.helpers
-  activeGroupings:  -> @data.myGrid.activeGroupingsCursor
-  activeFilters:    -> @data.myGrid.activeFiltersCursor
+  activeGroupings: (tpl,a,b,c) -> Template.currentData().myGrid.activeGroupingsCursor
+  activeFilters:   (tpl) -> Template.currentData().myGrid.activeFiltersCursor
 
 Template.fleetrGrid.events
   'click .removeGroupBy': (e, tpl) ->

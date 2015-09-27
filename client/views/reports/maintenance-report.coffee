@@ -77,25 +77,5 @@ future = moment().add(29, 'days')
 MyGrid.addFilter 'server', 'Maintenance Date', "#{now.format('YYYY-MM-DD')} - #{future.format('YYYY-MM-DD')}",
   {maintenanceDateMin: now.toISOString(), maintenanceDateMax: future.toISOString()}, false
 
-Template.maintenanceReport.onRendered ->
-  MyGrid.install()
-
 Template.maintenanceReport.helpers
-  activeGroupings:  MyGrid.activeGroupingsCursor
-  activeFilters:    MyGrid.activeFiltersCursor
-
-Template.maintenanceReport.events
-  'click .removeGroupBy': ->
-    MyGrid.removeGroupBy @name
-  'click .removeFilter': ->
-    MyGrid.removeFilter @type, @name
-  'apply.daterangepicker #date-range-filter': (event,p) ->
-    startDate = $('#date-range-filter').data('daterangepicker').startDate
-    endDate = $('#date-range-filter').data('daterangepicker').endDate
-    start = startDate.format('YYYY-MM-DD')
-    stop = endDate.format('YYYY-MM-DD')
-    range = {$gte: start, $lte: stop}
-    MyGrid.addFilter 'server', 'Maintenance Date', "#{start} - #{stop}",
-      {maintenanceDateMin: startDate.toISOString(), maintenanceDateMax: endDate.toISOString()}
-  'rowsSelected #slickgrid': (event) ->
-    console.log 'rowsSelected #slickgrid', event
+  myGrid:  MyGrid
