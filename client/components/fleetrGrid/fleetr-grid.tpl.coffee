@@ -21,6 +21,3 @@ Template.fleetrGrid.events
     range = {$gte: start, $lte: stop}
     tpl.data.myGrid.addFilter 'server', 'Maintenance Date', "#{start} - #{stop}",
       {maintenanceDateMin: startDate.toISOString(), maintenanceDateMax: endDate.toISOString()}
-
-  'rowsSelected #slickgrid': (event) ->
-    console.log 'rowsSelected #slickgrid', event

@@ -79,3 +79,7 @@ MyGrid.addFilter 'server', 'Maintenance Date', "#{now.format('YYYY-MM-DD')} - #{
 
 Template.maintenanceReport.helpers
   myGrid:  MyGrid
+
+Template.maintenanceReport.events
+  'rowsSelected #maintenanceGrid': (event) ->
+    console.log 'rowsSelected #maintenanceGrid', event
