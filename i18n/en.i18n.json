@@ -163,6 +163,9 @@
     "title": "Reports",
     "expenses": {
       "title": "Expenses"
+    },
+    "maintenance": {
+      "title": "Maintenance"
     }
   }
 }

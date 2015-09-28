@@ -159,6 +159,9 @@
     "title": "Доклади",
     "expenses": {
       "title": "разходи"
+    },
+    "maintenance": {
+      "title": "Поддръжка"
     }
   }
 
