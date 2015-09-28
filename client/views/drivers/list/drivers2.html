@@ -1,0 +1,32 @@
+<template name="drivers2">
+
+	<h3 class="page-title">
+		Шофьори Drivers
+	</h3>
+	<div class="page-bar">
+		<ul class="page-breadcrumb">
+			<li>
+				<i class="fa fa-home"></i>
+				<a href="/">Начало</a>
+				<i class="fa fa-angle-right"></i>
+			</li>
+			<li>
+				<a href="#">Шофьори</a>
+			</li>
+		</ul>
+	</div>
+	<!-- END PAGE HEADER-->
+
+	{{> fleetrGrid }}
+</template>
+
+<template name="driverTableRow">
+    <tr class="{{active}}">
+        <td>{{fullName}}</td>
+				<td>
+					{{#each tagsArray}}
+					<span class="label label-danger filter-tag">{{this}}</span>
+					{{/each}}
+				</td>
+    </tr>
+</template>
