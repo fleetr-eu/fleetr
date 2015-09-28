@@ -48,11 +48,20 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       totalsMetadata
 
 # Component that wraps SlickGrid and uses Meteorish constructs
-@FleetrGrid = (options, columns, serverMethod) ->
+@FleetrGrid = (options, columns, serverMethodOrCursor) ->
 
   @grid = null
   @_dataView = null
   @data = []
+
+  console.log 'typeof ',  typeof serverMethodOrCursor
+  if serverMethodOrCursor.observe
+    @cursor = serverMethodOrCursor
+  else if typeof serverMethodOrCursor == 'string'
+    @serverMethod = serverMethodOrCursor
+  else
+    throw new Exception 'Argument serverMethodOrCursor is not a string or cursor'
+
 
   # populates the data for the grid
   @setGridData = (data, store = true) =>
@@ -88,7 +97,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     items = @_activeFilters.find(type: 'server').fetch()
     _.extend serverFilterSpec, item.spec for item in items
     console.log 'refreshData with serverFilter', serverFilterSpec
-    Meteor.call serverMethod, serverFilterSpec, (err, items) =>
+    Meteor.call @serverMethod, serverFilterSpec, (err, items) =>
       @setGridData( items.map Helpers.addId )
       @_applyClientFilters()
       @_afterDataRefresh()
