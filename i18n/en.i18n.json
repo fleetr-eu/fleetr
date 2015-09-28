@@ -24,6 +24,10 @@
     "maintenanceReport": "Maintenance"
   },
 
+  "drivers": {
+    "title": "Drivers"
+  },
+
   "fleetGroup": {
     "title" : "Fleet Group",
     "listTitle" : "Fleet Groups",

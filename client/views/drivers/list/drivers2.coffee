@@ -24,4 +24,4 @@ Template.drivers2.helpers
   grid:  ->
     cursor = Drivers.findFiltered Session.get('driverFilter'), ['firstName', 'name', 'tags']
     new FleetrGrid options, columns, cursor
-  pageTitle: -> "#{TAPi18n.__('reports.title')} &raquo; #{TAPi18n.__('reports.expenses.title')}"
+  pageTitle: -> "#{TAPi18n.__('drivers.title')}"

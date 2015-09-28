@@ -24,6 +24,10 @@
     "maintenanceReport": "Поддръжка"
   },
 
+  "drivers": {
+    "title": "Шофьори"
+  },
+
   "fleetGroup": {
     "title" : "Група автопаркове",
     "listTitle" : "Групи автопаркове",
