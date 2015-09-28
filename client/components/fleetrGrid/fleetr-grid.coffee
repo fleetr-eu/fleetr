@@ -62,11 +62,9 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
   else
     throw new Exception 'Argument serverMethodOrCursor is not a string or cursor'
 
-
   # populates the data for the grid
   @setGridData = (data, store = true) =>
     @data = data if store
-    console.log 'data', data
     @_dataView.beginUpdate()
     @_dataView.setItems data
     @grid.autosizeColumns()
@@ -75,8 +73,18 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     # update and render totals row
     @totalsDataProvider.updateTotals()
     length = @dataViewLength()
-    @grid.invalidateRows [length, length + 1]
+    @grid.invalidateRows [0, length + 1]
     @grid.render()
+
+  # updates a document in the grid
+  @updateDocument = (doc) =>
+    @setGridData(@data.map (d) -> if d._id == doc._id then Helpers.addId doc else d)
+  # add a new document into the grid
+  @addDocument = (doc) =>
+    @setGridData _.union([Helpers.addId doc], @data)
+  # remove a document from the grid
+  @removeDocument = (doc) =>
+    @setGridData(_.reject @data, (d) -> d._id == doc._id)
 
   @dataViewLength = -> if @_dataView.getLength() then @_dataView.getLength() else 0
 
@@ -98,8 +106,13 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     items = @_activeFilters.find(type: 'server').fetch()
     _.extend serverFilterSpec, item.spec for item in items
     console.log 'refreshData with serverFilter', serverFilterSpec
-    Meteor.call @serverMethod, serverFilterSpec, (err, items) =>
-      @setGridData( items.map Helpers.addId )
+    if @serverMethod
+      Meteor.call @serverMethod, serverFilterSpec, (err, items) =>
+        @setGridData( items.map Helpers.addId )
+        @_applyClientFilters()
+        @_afterDataRefresh()
+    if @cursor
+      @setGridData @cursor.map(Helpers.addId)
       @_applyClientFilters()
       @_afterDataRefresh()
   @_filter = (item) =>
@@ -161,12 +174,13 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
 
     # Handle changes to client rendered filters
     @_activeFilters.find(type: 'client').observe
-     removed: (filter) =>
+      removed: (filter) =>
          $("#searchbox-#{field}").val('') for field of filter.spec
          @_applyClientFilters()
-     added: @_applyClientFilters
-     changed: @_applyClientFilters
+      added: @_applyClientFilters
+      changed: @_applyClientFilters
 
+    # render buttons in column header for groupable columns
     for column in columns when column.groupable
       column.header =
         buttons: [
@@ -175,9 +189,9 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
           tooltip: "Group table by #{column.name}"
         ]
 
+    # set alignment css class for column with alignment strategy
     for column in columns when column.align
       column.cssClass = "alignment-#{column.align}"
-
 
     headerButtonsPlugin = new Slick.Plugins.HeaderButtons()
     headerButtonsPlugin.onCommand.subscribe (e, args) =>
@@ -193,7 +207,6 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
           button.cssClass = "icon-highlight-on"
           button.tooltip = "Remove group #{column.name}"
           @grid.updateColumnHeader(column.id)) column
-
 
       if command == "toggle-grouping"
         if button.cssClass == "icon-highlight-on"
@@ -221,7 +234,6 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
         $('#slickgrid').trigger $.Event 'rowsSelected',
           rowIndex: args.rows[0]
           fleetrGrid: @
-
 
     comparer = (sortcol) -> (a, b) ->
       x = a[sortcol]
@@ -311,6 +323,12 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
         headerButton.removeClass 'icon-highlight-off'
         headerButton.attr 'title', "Remove group #{column.name}"
         headerButton.data 'button', {cssClass: "icon-highlight-on", command: "toggle-grouping", tooltip: "Remove group #{column.name}"}
+
+    if @cursor
+      @cursor.observe
+        added: @addDocument
+        changed: @updateDocument
+        removed: @removeDocument
 
     @_effectuateGroupings()
     @_refreshData() if initializeData
