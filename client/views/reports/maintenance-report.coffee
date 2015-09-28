@@ -79,6 +79,7 @@ MyGrid.addFilter 'server', 'Maintenance Date', "#{now.format('YYYY-MM-DD')} - #{
 
 Template.maintenanceReport.helpers
   myGrid:  MyGrid
+  pageTitle: -> "#{TAPi18n.__('reports.title')} &raquo; #{TAPi18n.__('reports.maintenance.title')}"
 
 Template.maintenanceReport.events
   'rowsSelected #maintenanceGrid': (event) ->
