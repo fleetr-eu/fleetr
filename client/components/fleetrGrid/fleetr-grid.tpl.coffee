@@ -1,9 +1,8 @@
 Template.fleetrGrid.onRendered ->
-  console.log 'fleetrGrid::onRendered', @
   @data.myGrid.install()
 
 Template.fleetrGrid.helpers
-  activeGroupings: (tpl,a,b,c) -> Template.currentData().myGrid.activeGroupingsCursor
+  activeGroupings: (tpl) -> Template.currentData().myGrid.activeGroupingsCursor
   activeFilters:   (tpl) -> Template.currentData().myGrid.activeFiltersCursor
 
 Template.fleetrGrid.events
