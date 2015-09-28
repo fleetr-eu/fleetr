@@ -17,16 +17,5 @@
 	</div>
 	<!-- END PAGE HEADER-->
 
-	{{> fleetrGrid }}
-</template>
-
-<template name="driverTableRow">
-    <tr class="{{active}}">
-        <td>{{fullName}}</td>
-				<td>
-					{{#each tagsArray}}
-					<span class="label label-danger filter-tag">{{this}}</span>
-					{{/each}}
-				</td>
-    </tr>
+	{{> fleetrGrid myGrid=grid}}
 </template>
