@@ -66,6 +66,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
   # populates the data for the grid
   @setGridData = (data, store = true) =>
     @data = data if store
+    console.log 'data', data
     @_dataView.beginUpdate()
     @_dataView.setItems data
     @grid.autosizeColumns()
