@@ -27,5 +27,5 @@ Template.fleetrGrid.events
     Session.set 'selectedDocument', event.fleetrGrid.data[event.rowIndex]
 
   'click #createLink': -> $('#slickgrid').trigger $.Event 'createLinkClicked'
-  'click #editLink': -> $('#slickgrid').trigger $.Event 'editLinkClicked', document: @
-  'click #deleteLink': -> $('#slickgrid').trigger $.Event 'deleteLinkClicked', document: @
+  'click #editLink': -> $('#slickgrid').trigger $.Event 'editLinkClicked', document: Session.get('selectedDocument')
+  'click #deleteLink': -> $('#slickgrid').trigger $.Event 'deleteLinkClicked', document: Session.get('selectedDocument')
