@@ -4,18 +4,27 @@ columns = [
   name: "name"
   width:120
   sortable: true
+  search: where: 'client'
 ,
   id: "firstname"
   field: "firstName"
   name: "firstname"
   width:120
   sortable: true
+  search: where: 'client'
+,
+  id: "tags"
+  field: "tags"
+  name: "tags"
+  width:120
+  sortable: true
+  search: where: 'client'
 ]
 
 options =
   enableCellNavigation: true
   enableColumnReorder: false
-  showHeaderRow: false
+  showHeaderRow: true
   headerRowHeight: 30
   explicitInitialization: true
   forceFitColumns: true
