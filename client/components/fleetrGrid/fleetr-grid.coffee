@@ -54,7 +54,6 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
   @_dataView = null
   @data = []
 
-  console.log 'typeof ',  typeof serverMethodOrCursor
   if serverMethodOrCursor.observe
     @cursor = serverMethodOrCursor
   else if typeof serverMethodOrCursor == 'string'
