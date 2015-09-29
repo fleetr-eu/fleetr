@@ -1,9 +1,11 @@
 Template.fleetrGrid.onRendered ->
+  Session.set 'selectedDocument', null
   @data.myGrid.install()
 
 Template.fleetrGrid.helpers
   activeGroupings: (tpl) -> Template.currentData().myGrid.activeGroupingsCursor
   activeFilters:   (tpl) -> Template.currentData().myGrid.activeFiltersCursor
+  selectedDocument:      -> Session.get 'selectedDocument'
 
 Template.fleetrGrid.events
   'click .removeGroupBy': (e, tpl) ->
@@ -20,3 +22,10 @@ Template.fleetrGrid.events
     range = {$gte: start, $lte: stop}
     tpl.data.myGrid.addFilter 'server', 'Maintenance Date', "#{start} - #{stop}",
       {maintenanceDateMin: startDate.toISOString(), maintenanceDateMax: endDate.toISOString()}
+
+  'rowsSelected #slickgrid': (event) ->
+    Session.set 'selectedDocument', event.fleetrGrid.data[event.rowIndex]
+
+  'click #createLink': -> $('#slickgrid').trigger $.Event 'createLinkClicked'
+  'click #editLink': -> $('#slickgrid').trigger $.Event 'editLinkClicked', document: @
+  'click #deleteLink': -> $('#slickgrid').trigger $.Event 'deleteLinkClicked', document: @
