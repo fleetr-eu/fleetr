@@ -1,38 +1,39 @@
-columns = [
-  id: "name"
-  field: "name"
-  name: "name"
-  width:120
-  sortable: true
-  search: where: 'client'
-,
-  id: "firstname"
-  field: "firstName"
-  name: "firstname"
-  width:120
-  sortable: true
-  search: where: 'client'
-,
-  id: "tags"
-  field: "tags"
-  name: "tags"
-  width:120
-  sortable: true
-  search: where: 'client'
-]
-
-options =
-  enableCellNavigation: true
-  enableColumnReorder: false
-  showHeaderRow: true
-  headerRowHeight: 30
-  explicitInitialization: true
-  forceFitColumns: true
+fleetrGridConfig = ->
+  columns: [
+    id: "name"
+    field: "name"
+    name: "name"
+    width:120
+    sortable: true
+    search: where: 'client'
+  ,
+    id: "firstname"
+    field: "firstName"
+    name: "firstname"
+    width:120
+    sortable: true
+    search: where: 'client'
+  ,
+    id: "tags"
+    field: "tags"
+    name: "tags"
+    width:120
+    sortable: true
+    search: where: 'client'
+  ]
+  options:
+    enableCellNavigation: true
+    enableColumnReorder: false
+    showHeaderRow: true
+    headerRowHeight: 30
+    explicitInitialization: true
+    forceFitColumns: true
+  cursor: Drivers.findFiltered Session.get('driverFilter'), ['firstName', 'name', 'tags']
 
 Template.drivers2.helpers
   grid:  ->
-    cursor = Drivers.findFiltered Session.get('driverFilter'), ['firstName', 'name', 'tags']
     new FleetrGrid options, columns, cursor
+  fleetrGridConfig: fleetrGridConfig
   pageTitle: -> "#{TAPi18n.__('drivers.title')}"
 
 Template.drivers2.events
