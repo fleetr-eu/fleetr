@@ -352,6 +352,13 @@ FleetrGrid.Formatters =
       else "<button>#{button.value}</button>"
     buttons = (render button for button in column.buttons)
     buttons.join ''
+  blazeFormatter: (blazeTemplate) -> (row, cell, value, column, rowObject) ->
+    Blaze.toHTMLWithData blazeTemplate,
+      row: row
+      cell: cell
+      value: value
+      column: column
+      rowObject: rowObject
 
 FleetrGrid.Formatters.sumEuroTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '&euro;'
 FleetrGrid.Formatters.sumTotalsFormatterNoSign = FleetrGrid.Formatters.sumTotalsFormatter ''
