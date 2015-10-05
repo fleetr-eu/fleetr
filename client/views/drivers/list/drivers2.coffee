@@ -20,6 +20,7 @@ fleetrGridConfig = ->
     width:120
     sortable: true
     search: where: 'client'
+    formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags
   ]
   options:
     enableCellNavigation: true
@@ -31,8 +32,6 @@ fleetrGridConfig = ->
   cursor: Drivers.findFiltered Session.get('driverFilter'), ['firstName', 'name', 'tags']
 
 Template.drivers2.helpers
-  grid:  ->
-    new FleetrGrid options, columns, cursor
   fleetrGridConfig: fleetrGridConfig
   pageTitle: -> "#{TAPi18n.__('drivers.title')}"
 
@@ -40,3 +39,6 @@ Template.drivers2.events
   'createLinkClicked #driversList':  (e) -> console.log 'drivers2 createLink'
   'editLinkClicked #driversList':    (e) -> console.log 'drivers2 editLink', e.document
   'deleteLinkClicked #driversList':  (e) -> console.log 'drivers2 deleteLink', e.document
+
+Template.columnTags.helpers
+  tagsArray: -> @value?.split(",") || []

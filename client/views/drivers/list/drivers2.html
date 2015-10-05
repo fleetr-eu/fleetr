@@ -1,3 +1,9 @@
 <template name="drivers2">
 	{{> fleetrGrid id="driversList" pageTitle=pageTitle config=fleetrGridConfig }}
 </template>
+
+<template name="columnTags">
+	{{#each tagsArray}}
+	<span class="label label-danger filter-tag">{{this}}</span>
+	{{/each}}
+</template>
