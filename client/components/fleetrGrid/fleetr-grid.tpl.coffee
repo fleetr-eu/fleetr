@@ -1,18 +1,23 @@
-Template.fleetrGrid.onRendered ->
+Template.fleetrGrid.onCreated ->
   Session.set 'selectedDocument', null
-  @data.myGrid.install()
+  config = @data.config
+  @grid = new FleetrGrid config.options, config.columns, config.cursor
+Template.fleetrGrid.onRendered ->
+  @grid.install()
+
+grid = -> Template.instance().grid
 
 Template.fleetrGrid.helpers
-  activeGroupings: (tpl) -> Template.currentData().myGrid.activeGroupingsCursor
-  activeFilters:   (tpl) -> Template.currentData().myGrid.activeFiltersCursor
+  activeGroupings: (tpl) -> grid()?.activeGroupingsCursor
+  activeFilters:   (tpl) -> grid()?.activeFiltersCursor
   selectedDocument:      -> Session.get 'selectedDocument'
 
 Template.fleetrGrid.events
   'click .removeGroupBy': (e, tpl) ->
-    tpl.data.myGrid.removeGroupBy @name
+    grid().removeGroupBy @name
 
   'click .removeFilter': (e, tpl) ->
-    tpl.data.myGrid.removeFilter @type, @name
+    grid().removeFilter @type, @name
 
   'apply.daterangepicker #date-range-filter': (event, tpl) ->
     startDate = $('#date-range-filter').data('daterangepicker').startDate
@@ -20,7 +25,7 @@ Template.fleetrGrid.events
     start = startDate.format('YYYY-MM-DD')
     stop = endDate.format('YYYY-MM-DD')
     range = {$gte: start, $lte: stop}
-    tpl.data.myGrid.addFilter 'server', 'Maintenance Date', "#{start} - #{stop}",
+    grid().addFilter 'server', 'Maintenance Date', "#{start} - #{stop}",
       {maintenanceDateMin: startDate.toISOString(), maintenanceDateMax: endDate.toISOString()}
 
   'rowsSelected #slickgrid': (event) ->
