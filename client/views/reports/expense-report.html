@@ -1,3 +1,4 @@
 <template name="expenseReport">
-  {{> fleetrGrid id="expenseGrid" pageTitle=pageTitle config=fleetrGridConfig }}
+  <h3 class="page-title">{{{pageTitle}}}</h3>
+  {{> fleetrReportGrid id="expenseGrid" config=fleetrGridConfig }}
 </template>
