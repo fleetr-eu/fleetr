@@ -64,7 +64,7 @@ fleetrGridConfig =
     formatter: FleetrGrid.Formatters.buttonFormatter
   ]
   options:
-    enableCellNavigation: true
+    enableCellNavigation: false
     enableColumnReorder: false
     showHeaderRow: true
     headerRowHeight: 30
