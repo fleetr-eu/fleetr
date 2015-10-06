@@ -1,5 +1,6 @@
 <template name="drivers2">
-	{{> fleetrGrid id="driversList" pageTitle=pageTitle config=fleetrGridConfig }}
+	<h3 class="page-title">{{{pageTitle}}}</h3>
+	{{> fleetrListGrid id="driversList" config=fleetrGridConfig }}
 </template>
 
 <template name="columnTags">
