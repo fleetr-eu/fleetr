@@ -1,0 +1,22 @@
+<template name="fleetrListGrid">
+  <div class="row fleetrListGrid">
+    <div class="col-md-12">
+      <div class="portlet box blue">
+        <div class="portlet-title">
+          <div class="caption">
+          </div>
+          <div class="tools">
+            <a id="createLink" href="#"><span class="glyphicon glyphicon-plus"></span></a>
+            {{#if selectedDocument}}
+            <a id="editLink" href=""><span class="glyphicon glyphicon-pencil"></span></a>
+            <a id="deleteLink" href="#" class="deleteDriver"><span class="glyphicon glyphicon-trash"></span></a>
+            {{/if}}
+          </div>
+        </div>
+        <div class="portlet-body">
+          {{> fleetrGrid id=id config=config }}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
