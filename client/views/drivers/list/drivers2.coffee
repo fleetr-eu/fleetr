@@ -29,6 +29,7 @@ fleetrGridConfig = ->
     headerRowHeight: 30
     explicitInitialization: true
     forceFitColumns: true
+    rowHeight: 30
   cursor: Drivers.findFiltered Session.get('driverFilter'), ['firstName', 'name', 'tags']
 
 Template.drivers2.helpers
@@ -36,9 +37,14 @@ Template.drivers2.helpers
   pageTitle: -> "#{TAPi18n.__('drivers.title')}"
 
 Template.drivers2.events
-  'createLinkClicked #driversList':  (e) -> console.log 'drivers2 createLink'
-  'editLinkClicked #driversList':    (e) -> console.log 'drivers2 editLink', e.document
-  'deleteLinkClicked #driversList':  (e) -> console.log 'drivers2 deleteLink', e.document
+  'createLinkClicked #driversList':  Meteor.bindEnvironment (e) ->
+    Meteor.defer -> Router.go 'addDriver'
+  'editLinkClicked #driversList': Meteor.bindEnvironment (e) ->
+    Meteor.defer -> Router.go 'editDriver', {driverId: e.document._id}
+
+  'deleteLinkClicked #driversList':  (e) ->
+    console.log 'drivers2 deleteLink', e.document
+    Meteor.call 'removeDriver', e.document._id
 
 Template.columnTags.helpers
   tagsArray: -> @value?.split(",") || []
