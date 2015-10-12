@@ -10,7 +10,9 @@
 }
 
 .slickfleetr .slick-cell {
-  height: 25px !important;
+  height: 30px !important;
+  padding:5px;
+  line-height: 1.5 !important;
 }
 .slickfleetr .slick-cell.active {
   border:none;
@@ -18,8 +20,8 @@
   border-right: 1px dotted silver;
 }
 .slickfleetr .slick-cell.selected {
-  background-color: #4b8df8;
-  color: #ffffff;
+  background-color: #a6c8e6;
+  color: #2c5285;
 }
 
 .slickfleetr .alignment-left {
