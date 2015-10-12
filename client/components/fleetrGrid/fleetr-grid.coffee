@@ -1,10 +1,17 @@
+options = (config) ->
+  _.extend
+    rowHeight: 30
+    headerRowHeight: 30
+  ,
+    config.options
+
 Template.fleetrGrid.onCreated ->
   Session.set 'selectedDocument', null
   config = @data.config
-  @grid = new FleetrGrid config.options, config.columns, config.remoteMethod or config.cursor
+  @grid = new FleetrGrid options(config), config.columns, config.remoteMethod or config.cursor
   if config.customize and typeof config.customize == 'function'
     config.customize @grid
-    
+
 Template.fleetrGrid.onRendered ->
   @grid.install()
 
