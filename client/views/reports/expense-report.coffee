@@ -130,7 +130,6 @@ fleetrGridConfig =
     enableCellNavigation: false
     enableColumnReorder: false
     showHeaderRow: true
-    headerRowHeight: 30
     explicitInitialization: true
     forceFitColumns: true
   remoteMethod: 'getExpenses'

@@ -26,10 +26,8 @@ fleetrGridConfig = ->
     enableCellNavigation: true
     enableColumnReorder: false
     showHeaderRow: true
-    headerRowHeight: 30
     explicitInitialization: true
     forceFitColumns: true
-    rowHeight: 30
   cursor: Drivers.findFiltered Session.get('driverFilter'), ['firstName', 'name', 'tags']
 
 Template.drivers2.helpers
