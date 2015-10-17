@@ -2,6 +2,10 @@ input[type='checkbox'] {
   margin-top: -5px;
 }
 
+.i18n-container {
+  margin-top: 5px;
+}
+
 .tap-i18n-dropdown select {
   background: transparent;
   border: none;
