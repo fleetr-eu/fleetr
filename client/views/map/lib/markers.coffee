@@ -60,13 +60,15 @@ Meteor.startup ->
   class @FleetrInfoWindow extends google.maps.InfoWindow
     constructor: (vehicle) ->
       vehicle = vehicle || Vehicles.findOne(_id: Session.get('selectedVehicleId'))
+      speed = vehicle.speed?.toFixed(2) || 'Unknown'
+      km = (vehicle.odometer / 1000)?.toFixed(3) || 'Unknown'
       super
         content: """
                 <div style='width:11em;'>
                   <p>ВИН: #{vehicle.identificationNumber}</p>
                   <p>Номер: #{vehicle.licensePlate}</p>
-                  <p>Скорост: #{vehicle.speed.toFixed(2)} км/ч</p>
-                  <p>Километраж: #{(vehicle.odometer / 1000).toFixed(3)} км</p>
+                  <p>Скорост: #{speed} км/ч</p>
+                  <p>Километраж: #{km} км</p>
                   <p>Престой: #{moment.duration(location.stay,'seconds').humanize()}</p>
                 </div>"""
 
