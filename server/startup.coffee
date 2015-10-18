@@ -7,7 +7,8 @@ geocoder = new GeoCoder
   console.log '  geocoding: ' + lat + ' : ' + lon
   return undefined if not lat and not lon
   try
-    location = geocoder.reverse(lat, lon)
+    # FIX: figure out the reverse geocoding
+    # location = geocoder.reverse(lat, lon)
   catch err
     console.log '  geocode err: ' + err
   console.log '  geocoded location: ' + JSON.stringify(location)
