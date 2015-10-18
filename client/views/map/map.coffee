@@ -1,9 +1,8 @@
-Template.map.created = -> Session.setDefault 'vehicleFilter', ''
+Template.map.onCreated ->
+  @showFilterBox = new ReactiveVar false
 
-Template.map.rendered = ->
-  Meteor.typeahead.inject()
+Template.map.onRendered ->
   Session.set 'selectedVehicleId', @data.vehicleId
-
   Map.init =>
     @autorun ->
       selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
@@ -13,44 +12,14 @@ Template.map.rendered = ->
         else
           Alerts.set 'This vehicle has no known position.'
 
+    @autorun -> Map.renderMarkers(); Session.get 'vehicleFilter'
+
 Template.map.helpers
+  filterOptions: -> vehicleDisplayStyle: 'list'
   selectedVehicleId: -> Session.get('selectedVehicleId')
-  renderMarkers: -> Map.renderMarkers()
-  vehicles: ->
-    [
-      {
-        name: 'vehicles'
-        valueKey: ['name', 'licensePlate', 'tags']
-        displayKey: 'displayName'
-        local: -> Vehicles.find().map (it) ->
-          _.extend it,
-            displayName: "#{it.name} (#{it.licensePlate})"
-            type: 'vehicle'
-        header: '<h4 style="margin-left:5px;"><strong><i>Vehicles</i></strong></h4>'
-        template: 'vehicleSuggestion'
-      },
-      {
-        name: 'drivers'
-        valueKey: ['name', 'firstName', 'tags']
-        displayKey: 'displayName'
-        local: -> Drivers.find().map (it) ->
-          _.extend it,
-            displayName: "#{it.firstName} #{it.name}"
-            type: 'driver'
-        header: '<h4 style="margin-left:5px;"><strong><i>Drivers</i></strong></h4>'
-        template: 'driverSuggestion'
-      }
-    ]
-  select: (event, suggestion, datasetName) ->
-    switch suggestion.type # datasetName is not set
-      when 'vehicle'
-        Session.set 'selectedVehicleId', suggestion._id
-      when 'driver'
-        Session.set 'selectedVehicleId', Drivers.findOne(suggestion._id).vehicle_id
-      when 'object'
-        console.log 'TODO: display geofence'
-      else
-        console.log 'Hmm, I do not know how to display this?!'
+  filterSize: -> if Template.instance().showFilterBox.get() then 'col-md-4' else 'hidden'
+  mapSize: -> if Template.instance().showFilterBox.get() then 'col-md-8' else 'col-md-12'
 
 Template.map.events
   'click #pac-input-clear': -> $('#pac-input').val('')
+  'click #toggle-filter': (e, t) -> t.showFilterBox.set not t.showFilterBox.get()

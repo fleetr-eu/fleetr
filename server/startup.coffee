@@ -56,15 +56,15 @@ class StartStopGeocoder extends Geocoder
       startDate = moment(rec.start.recordTime).zone(Settings.unitTimezone).format("DD-MM HH:mm:ss")
       stopDate  = moment(rec.stop.recordTime).zone(Settings.unitTimezone).format("DD-MM HH:mm:ss")
       console.log 'Geocode ' + @name + ' record: [' + startDate + "] - [" + stopDate + ']'
-      
+
       startLocation = geocode(rec.start.lat, rec.start.lon) if not rec.startAddress
-      if startLocation 
+      if startLocation
         StartStop.update {_id: rec._id}, {$set: {"start.location": startLocation}}
         console.log '  ' + @name + ' start location geocoded'
       else
         console.log '  ' + @name + ' couldn not geocode start location'
       # console.log 'START LOC: ' + JSON.stringify(rec.start) if not startLocation
-      
+
       stopLocation = geocode(rec.stop.lat, rec.stop.lon) if not rec.stopAddress
       # console.log 'STOP LOC: ' + JSON.stringify(rec.stop) if not stopLocation
       if stopLocation
@@ -72,7 +72,7 @@ class StartStopGeocoder extends Geocoder
         console.log '  ' + @name + ' stop  location geocoded'
       else
         console.log '  ' + @name + ' couldn not geocode stop location'
-      
+
       #if startLocation and stopLocation
       #  StartStop.update {_id: rec._id}, {$set: {"stop.location": stopLocation, "start.location": startLocation}}
       #else

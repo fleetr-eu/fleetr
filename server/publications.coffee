@@ -5,9 +5,9 @@ Meteor.publish 'vehicles', (filter) -> if filter then Vehicles.find filter else 
 Meteor.publish 'vehicle', (filter) -> if filter then Vehicles.find(filter) else []
 Meteor.publish 'vehiclesMakes', -> VehiclesMakes.find {}
 Meteor.publish 'vehiclesModels', -> VehiclesModels.find {}
-Meteor.publish 'fleetGroups', -> FleetGroups.find {}, {$sort: {name: 1}}
+Meteor.publish 'fleetGroups', (filter) -> FleetGroups.find filter or {}, {$sort: {name: 1}}
 Meteor.publish 'fleetGroup', (gid) -> FleetGroups.find {_id: gid}
-Meteor.publish 'fleets', (filter) -> if filter then Fleets.find filter else Fleets.find {}
+Meteor.publish 'fleets', (filter) -> Fleets.find filter or {}
 Meteor.publish 'fleet', (fid) -> Fleets.find {_id: fid}
 Meteor.publish 'expenseGroups', -> ExpenseGroups.find {}
 Meteor.publish 'expenseTypes', -> ExpenseTypes.find {}

@@ -56,6 +56,7 @@ Meteor.startup ->
         title: "#{vehicle?.name} (#{vehicle?.licensePlate})"
         icon: truckIcon
         zIndex: 100
+        id: vehicle?._id
 
   class @FleetrInfoWindow extends google.maps.InfoWindow
     constructor: (vehicle) ->
