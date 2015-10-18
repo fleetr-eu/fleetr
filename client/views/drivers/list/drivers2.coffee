@@ -46,7 +46,7 @@ Template.drivers2.events
 
 Template.columnTags.helpers
   tagsArray: ->
-    x =  @value?.split(",") || []
+    (@value?.split(",") || []).map ((n) => value: n.trim(), grid: @grid, column: @column)
 Template.columnTags.events
   'click .label': ->
-    console.log "label clicked: #{@}"
+    @grid.setColumnFilterValue @column, @value
