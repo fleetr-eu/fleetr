@@ -52,6 +52,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
 
   @grid = null
   @_dataView = null
+  @_blazeCache = templates: {}, views: {}
   @data = []
 
   if serverMethodOrCursor.observe
@@ -171,6 +172,30 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       @_loadingIndicatorShowId = null
     @loadingIndicator?.fadeOut()
 
+  @_renderBlazeTemplates = _.debounce ->
+    console.log '_renderBlazeTemplates invoked'
+    $('.blazeTemplate').each (index, element) =>
+      node = $ element
+      row = node.data('row')
+      col = node.data('col')
+      rowObject = @grid.getData().getItem(row)
+      column = @grid.getColumns()[col]
+      ctx =
+        row: row
+        col: col
+        value: rowObject[column.field]
+        column: column
+        rowObject: rowObject
+      tpl = @_blazeCache.templates["#{row}:#{col}"]
+      # remove the view if it had already been rendered before
+      # rendering it again
+      if @_blazeCache.views["#{row}:#{col}"]
+        Blaze.remove @_blazeCache.views["#{row}:#{col}"]
+      # render the view
+      view = Blaze.renderWithData tpl, ctx, node.get(0)
+      @_blazeCache.views["#{row}:#{col}"] = view
+  , 10
+
   @install = (initializeData = true) ->
 
     # Handle changes to client rendered filters
@@ -283,6 +308,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       @grid.invalidateRows [dl, dl+1]
       @grid.updateRowCount()
       @grid.render()
+
     @_dataView.onRowsChanged.subscribe (e, args) =>
       # totals rows, the two last ones, should always be visually updated
       dl = if @_dataView.getLength() then @_dataView.getLength() else 0
@@ -291,6 +317,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       @grid.invalidateRows args.rows
       @grid.updateRowCount()
       @grid.render()
+
     # register the group item metadata provider to add expand/collapse group handlers
     @grid.registerPlugin groupItemMetadataProvider
     #grid.registerPlugin(headerMenuPlugin);
@@ -355,12 +382,14 @@ FleetrGrid.Formatters =
     buttons = (render button for button in column.buttons)
     buttons.join ''
   blazeFormatter: (blazeTemplate) -> (row, cell, value, column, rowObject) ->
-    Blaze.toHTMLWithData blazeTemplate,
-      row: row
-      cell: cell
-      value: value
-      column: column
-      rowObject: rowObject
+    # remove the view if it had already been rendered before
+    # rendering it again
+    if @_blazeCache.views["#{row}:#{cell}"]
+      Blaze.remove @_blazeCache.views["#{row}:#{cell}"]
+    @_blazeCache.templates["#{row}:#{cell}"] = blazeTemplate
+    # defer rendering of blazeTemplates
+    Meteor.defer => @_renderBlazeTemplates()
+    return "<div class='blazeTemplate' data-row='#{row}' data-col='#{cell}'></div>"
 
 FleetrGrid.Formatters.sumEuroTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '&euro;'
 FleetrGrid.Formatters.sumTotalsFormatterNoSign = FleetrGrid.Formatters.sumTotalsFormatter ''
