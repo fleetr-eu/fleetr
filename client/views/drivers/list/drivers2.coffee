@@ -45,4 +45,8 @@ Template.drivers2.events
     Meteor.call 'removeDriver', e.document._id
 
 Template.columnTags.helpers
-  tagsArray: -> @value?.split(",") || []
+  tagsArray: ->
+    x =  @value?.split(",") || []
+Template.columnTags.events
+  'click .label': ->
+    console.log "label clicked: #{@}"
