@@ -1,57 +1,12 @@
 Helpers =
   addId: (item) -> item.id = item._id; item;
 
-# Slickgrid data provider that implements a grand total row
-TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
-  totals = {}
-  totalsMetadata =
-    cssClasses: "totals"
-    columns: {}
-  emptyRowMetaData = columns: {}
-  totalsMetadata.columns[i] = { editor: null } for i in [0..columns.length]
-  emptyRowMetaData.columns[i] = { editor: null, formatter: -> '' } for i in [0..columns.length]
-
-  emptyRow = {}
-  emptyRow[columns[i]?.field] = '' for i in [0..columns.length]
-
-  expandGroup: (key) -> dataView.expandGroup key
-  collapseGroup: (key) -> dataView.collapseGroup key
-  getLength: ->
-    dl = if dataView.getLength() then dataView.getLength() else 0
-    if grandTotalsColumns.length then dl + 2 else dl
-  getItem: (index) ->
-    dl = if dataView.getLength() then dataView.getLength() else 0
-    if index < dl
-      dataView.getItem index
-     else if index == dl
-      emptyRow
-    else
-      totals
-  updateTotals: ->
-    for column in grandTotalsColumns
-      groups = dataView.getGroups()
-      if groups && groups.length
-        totals[column.field] = dataView.getGroups().reduce (total, group) ->
-          total + (parseInt group.totals?.sum?[column.field] || 0)
-        , 0
-      else
-        dl = if dataView.getLength() then dataView.getLength() else 0
-        totals[column.field] = (parseInt dataView.getItem(idx)?[column.field] || 0 for idx in [0..dl-1])
-        .reduce(((p, c) -> p + c), 0)
-  getItemMetadata: (index) ->
-    dl = if dataView.getLength() then dataView.getLength() else 0
-    if index < dl
-      dataView.getItemMetadata index
-     else if index == dl
-      emptyRowMetaData
-    else
-      totalsMetadata
-
 # Component that wraps SlickGrid and uses Meteorish constructs
 @FleetrGrid = (options, columns, serverMethodOrCursor) ->
 
   @grid = null
   @_dataView = null
+  @_blazeCache = templates: {}, views: {}
   @data = []
 
   if serverMethodOrCursor.observe
@@ -98,6 +53,8 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     @_activeFilters.remove name: name, type: type
     @_refreshData() if type == 'server'
     $('#date-range-filter').val('')
+  @setColumnFilterValue = (column, filterValue)->
+    $("#searchbox-#{column.field}").val(filterValue).trigger('change')
   @_applyClientFilters = =>
     @setGridData (@data.filter @_filter), false
   @_refreshData = =>
@@ -170,6 +127,30 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       Meteor.clearTimeout @_loadingIndicatorShowId
       @_loadingIndicatorShowId = null
     @loadingIndicator?.fadeOut()
+
+  @_renderBlazeTemplates = _.debounce ->
+    $('.blazeTemplate').each (index, element) =>
+      node = $ element
+      row = node.data('row')
+      col = node.data('col')
+      rowObject = @grid.getData().getItem(row)
+      column = @grid.getColumns()[col]
+      ctx =
+        row: row
+        col: col
+        value: rowObject[column.field]
+        column: column
+        rowObject: rowObject
+        grid: @
+      tpl = @_blazeCache.templates["#{row}:#{col}"]
+      # remove the view if it had already been rendered before
+      # rendering it again
+      if @_blazeCache.views["#{row}:#{col}"]
+        Blaze.remove @_blazeCache.views["#{row}:#{col}"]
+      # render the view
+      view = Blaze.renderWithData tpl, ctx, node.get(0)
+      @_blazeCache.views["#{row}:#{col}"] = view
+  , 100
 
   @install = (initializeData = true) ->
 
@@ -283,6 +264,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       @grid.invalidateRows [dl, dl+1]
       @grid.updateRowCount()
       @grid.render()
+
     @_dataView.onRowsChanged.subscribe (e, args) =>
       # totals rows, the two last ones, should always be visually updated
       dl = if @_dataView.getLength() then @_dataView.getLength() else 0
@@ -291,6 +273,7 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
       @grid.invalidateRows args.rows
       @grid.updateRowCount()
       @grid.render()
+
     # register the group item metadata provider to add expand/collapse group handlers
     @grid.registerPlugin groupItemMetadataProvider
     #grid.registerPlugin(headerMenuPlugin);
@@ -335,32 +318,3 @@ TotalsDataProvider = (dataView, columns, grandTotalsColumns) ->
     @_refreshData() if initializeData
 
   @ # return this object
-
-# Default column formatters
-FleetrGrid.Formatters =
-  dateFormatter: (row, cell, value) ->
-    if value then new Date(value).toLocaleDateString 'en-US' else ''
-  euroFormatter: (row, cell, value) ->
-    "&euro; #{if value then value else '0'}"
-  sumTotalsFormatter: (sign = '') -> (totals, columnDef) ->
-    val = totals.sum && totals.sum[columnDef.field];
-    if val
-      "#{sign} " + ((Math.round(parseFloat(val)*100)/100));
-    else ''
-  buttonFormatter: (row, cell, value, column, rowObject) ->
-    render = (button) ->
-      if button.renderer
-        button.renderer button.value, row, cell, column, rowObject
-      else "<button>#{button.value}</button>"
-    buttons = (render button for button in column.buttons)
-    buttons.join ''
-  blazeFormatter: (blazeTemplate) -> (row, cell, value, column, rowObject) ->
-    Blaze.toHTMLWithData blazeTemplate,
-      row: row
-      cell: cell
-      value: value
-      column: column
-      rowObject: rowObject
-
-FleetrGrid.Formatters.sumEuroTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '&euro;'
-FleetrGrid.Formatters.sumTotalsFormatterNoSign = FleetrGrid.Formatters.sumTotalsFormatter ''

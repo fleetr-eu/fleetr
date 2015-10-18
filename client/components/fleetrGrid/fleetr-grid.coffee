@@ -11,6 +11,8 @@ Template.fleetrGrid.onCreated ->
   @grid = new FleetrGrid options(config), config.columns, config.remoteMethod or config.cursor
   if config.customize and typeof config.customize == 'function'
     config.customize @grid
+  for column in config.columns when column.formatter
+    column.formatter = column.formatter.bind @grid
 
 Template.fleetrGrid.onRendered ->
   @grid.install()

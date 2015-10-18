@@ -45,4 +45,8 @@ Template.drivers2.events
     Meteor.call 'removeDriver', e.document._id
 
 Template.columnTags.helpers
-  tagsArray: -> @value?.split(",") || []
+  tagsArray: ->
+    (@value?.split(",") || []).map ((n) => value: n.trim(), grid: @grid, column: @column)
+Template.columnTags.events
+  'click .label': ->
+    @grid.setColumnFilterValue @column, @value
