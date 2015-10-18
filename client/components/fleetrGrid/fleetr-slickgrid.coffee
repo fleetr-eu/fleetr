@@ -53,6 +53,8 @@ Helpers =
     @_activeFilters.remove name: name, type: type
     @_refreshData() if type == 'server'
     $('#date-range-filter').val('')
+  @setColumnFilterValue = (column, filterValue)->
+    $("#searchbox-#{column.field}").val(filterValue).trigger('change')
   @_applyClientFilters = =>
     @setGridData (@data.filter @_filter), false
   @_refreshData = =>
@@ -127,7 +129,6 @@ Helpers =
     @loadingIndicator?.fadeOut()
 
   @_renderBlazeTemplates = _.debounce ->
-    console.log '_renderBlazeTemplates invoked'
     $('.blazeTemplate').each (index, element) =>
       node = $ element
       row = node.data('row')
@@ -140,6 +141,7 @@ Helpers =
         value: rowObject[column.field]
         column: column
         rowObject: rowObject
+        grid: @
       tpl = @_blazeCache.templates["#{row}:#{col}"]
       # remove the view if it had already been rendered before
       # rendering it again
@@ -148,7 +150,7 @@ Helpers =
       # render the view
       view = Blaze.renderWithData tpl, ctx, node.get(0)
       @_blazeCache.views["#{row}:#{col}"] = view
-  , 10
+  , 100
 
   @install = (initializeData = true) ->
 
