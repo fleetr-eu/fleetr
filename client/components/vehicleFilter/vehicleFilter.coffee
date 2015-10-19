@@ -17,9 +17,11 @@ Template.vehicleFilter.onRendered ->
         allocatedToFleet: fleetId
       else
         allocatedToFleet: $in: _.pluck(Fleets.find().fetch(), '_id')
-    if Session.get(@data.filterVar)
-      vehiclesFilter = _.extend vehiclesFilter,
-        $text: $search: Session.get(@data.filterVar)
+    if filter = Session.get(@data.filterVar).trim()
+      rx =
+        $regex: filter
+        $options: 'i'
+      vehiclesFilter = _.extend vehiclesFilter, $or: [{name: rx}, {licensePlate: rx}, {identificationNumber: rx}, {tags: rx}]
     @subscribe 'vehicles', vehiclesFilter
 
 Template.vehicleFilter.helpers
