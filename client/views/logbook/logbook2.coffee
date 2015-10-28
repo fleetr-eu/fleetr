@@ -25,8 +25,8 @@ fleetrGridConfig =
     id: 'fromTo'
     name: 'From/To'
     formatter: (row, cell, value, column, rowObject) ->
-      "#{toTime(row,cell,rowObject.startTime)} <span class=\"glyphicon glyphicon-arrow-right\" aria-hidden=\"true\"></span> #{toTime(row, cell, rowObject.stopTime)}"
-    width:25
+      "#{toTime(row,cell,rowObject.startTime)} <br /> #{toTime(row, cell, rowObject.stopTime)}"
+    width: 40
   ,
     id: 'startAddress'
     field: 'startAddress'
@@ -55,7 +55,7 @@ fleetrGridConfig =
     field: 'sumFuel'
     name: 'per 100km'
     formatter: (row, cell, value, column, rowObject) ->
-      FleetrGrid.Formatters.roundFloat(2) row, cell, (value/rowObject.sumDistance)/100 if value
+      FleetrGrid.Formatters.roundFloat(2) row, cell, (value/rowObject.sumDistance)/10 if value
     width: 20
   ,
     id: 'speed'
@@ -78,6 +78,7 @@ fleetrGridConfig =
     showHeaderRow: false
     explicitInitialization: true
     forceFitColumns: true
+    rowHeight: 60
   cursor: -> AggByDate.find()
   # customize: (grid) ->
   #   now = moment()
