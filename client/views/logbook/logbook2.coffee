@@ -23,21 +23,27 @@ fleetrGridConfig =
   #   cssClass: 'to'
   # ,
     id: 'fromTo'
-    name: 'From/To'
+    name: 'From / To'
     formatter: (row, cell, value, column, rowObject) ->
-      "#{toTime(row,cell,rowObject.startTime)} <br /> #{toTime(row, cell, rowObject.stopTime)}"
+      "#{toTime(row,cell,rowObject.startTime)}<br />#{toTime(row, cell, rowObject.stopTime)}"
     width: 40
   ,
-    id: 'startAddress'
-    field: 'startAddress'
-    name: 'Begin'
+    id: 'beginEnd'
+    name: 'Begin / End'
+    formatter: (row, cell, value, column, rowObject) ->
+      "#{rowObject.startAddress}<br />#{rowObject.stopAddress}"
     width: 100
   ,
-    id: 'stopAddress'
-    field: 'stopAddress'
-    name: 'End'
-    width: 100
-  ,
+  #   id: 'startAddress'
+  #   field: 'startAddress'
+  #   name: 'Begin'
+  #   width: 100
+  # ,
+  #   id: 'stopAddress'
+  #   field: 'stopAddress'
+  #   name: 'End'
+  #   width: 100
+  # ,
     id: 'distance'
     field: 'sumDistance'
     name: 'Distance'
@@ -78,7 +84,7 @@ fleetrGridConfig =
     showHeaderRow: false
     explicitInitialization: true
     forceFitColumns: true
-    rowHeight: 60
+    rowHeight: 50
   cursor: -> AggByDate.find()
   # customize: (grid) ->
   #   now = moment()
