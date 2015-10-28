@@ -20,7 +20,7 @@
       </div>
       &nbsp;&nbsp;
       <div class="filter-group">
-      {{#if displayVehiclesAsList}}
+      {{#if displayVehiclesList}}
           <span>
               <ul class="list-group">
                 {{#each vehicles}}
@@ -34,7 +34,8 @@
               </ul>
               {{#if this.options.debug}}{{session this.sessionVar}}{{/if}}
           </span>
-      {{else}}
+      {{/if}}
+      {{#if displayVehiclesSelect}}
           <span><i class="fa fa-car"></i>
             <select class="form-control vehicle-filter vehicle">
                 <option value="">All vehicles</option>

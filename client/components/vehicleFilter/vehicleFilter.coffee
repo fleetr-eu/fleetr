@@ -17,7 +17,7 @@ Template.vehicleFilter.onRendered ->
         allocatedToFleet: fleetId
       else
         allocatedToFleet: $in: _.pluck(Fleets.find().fetch(), '_id')
-    if filter = Session.get(@data.filterVar).trim()
+    if filter = Session.get(@data.filterVar)?.trim()
       rx =
         $regex: filter
         $options: 'i'
@@ -26,7 +26,8 @@ Template.vehicleFilter.onRendered ->
 
 Template.vehicleFilter.helpers
   options: -> @options
-  displayVehiclesAsList: -> @options.vehicleDisplayStyle is 'list'
+  displayVehiclesList: -> @options.vehicleDisplayStyle is 'list'
+  displayVehiclesSelect: -> @options.vehicleDisplayStyle is 'select'
   fleetGroups: -> FleetGroups.find {}, sortByName
   fleets: -> Fleets.find {}, sortByName
   vehicles: -> Vehicles.find {}, sortByName
