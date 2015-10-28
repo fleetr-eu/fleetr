@@ -14,7 +14,7 @@
                 <a href="#" class="fullscreen"></a>
               </div>
             </div>
-            <div class="portlet-body">
+            <div class="portlet-body" id="map-container">
               <div class="row">
                  <div class="{{mapSize}}">
                    <section class="content">
@@ -29,7 +29,7 @@
                      <div id="map-canvas"></div>
                    </section>
                  </div>
-                 <div class="{{filterSize}}">
+                 <div class="{{filterSize}}" id="vehicle-filter-box">
                    <section class="content">
                      {{> vehicleFilter selectedVehicleIdVar="selectedVehicleId" filterVar="vehicleFilter" options=filterOptions}}
                      {{> fleetrGrid id="driversList" config=fleetrGridConfig }}

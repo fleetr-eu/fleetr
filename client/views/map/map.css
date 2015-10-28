@@ -1,8 +1,16 @@
 #map-canvas, #simpleMap {
     width: 100%;
-    height: 500px;
+    height: 300px;
     margin: 0px;
     padding: 0px;
+}
+
+#map-container {
+  padding: 0;
+}
+
+#vehicle-filter-box {
+  padding: 10px 25px 0 0;
 }
 
 .controls {

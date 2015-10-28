@@ -3,6 +3,8 @@ Template.map.onCreated ->
 
 Template.map.onRendered ->
   Session.set 'selectedVehicleId', @data.vehicleId
+  mapCanvasHeight = $(document).height() - 230
+  $('#map-canvas').height mapCanvasHeight
   Map.init =>
     @autorun ->
       selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
