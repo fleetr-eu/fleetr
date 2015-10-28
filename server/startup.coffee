@@ -1,10 +1,10 @@
-geocoder = new GeoCoder
+###geocoder = new GeoCoder
   geocoderProvider: "openstreetmap"
   httpAdapter: "http"
-
+###
 
 @geocode = (lat,lon) ->
-  console.log '  geocoding: ' + lat + ' : ' + lon
+  ###console.log '  geocoding: ' + lat + ' : ' + lon
   return undefined if not lat and not lon
   try
     # FIX: figure out the reverse geocoding
@@ -18,6 +18,8 @@ geocoder = new GeoCoder
     location.latitude  = lat
     location.longitude = lon
   return location
+  ###
+  "a string"
 
 class RecordProcessor
   constructor: (collection, name) ->

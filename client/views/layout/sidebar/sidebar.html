@@ -155,8 +155,11 @@
 						<li class="{{isActiveRoute regex='maintenanceReport'}}">
 							<a href="{{pathFor 'maintenanceReport'}}">{{_ "menu.maintenanceReport"}}</a>
 						</li>
-						<li class="{{isActiveRoute regex='logbook'}}">
+						<li class="{{isActiveRoute regex='^logbookReport$'}}">
 							<a href="{{pathFor 'logbookReport'}}">{{_ "menu.logbook"}}</a>
+						</li>
+						<li class="{{isActiveRoute regex='logbookReport2'}}">
+							<a href="{{pathFor 'logbookReport2'}}">{{_ "menu.logbook"}}2</a>
 						</li>
 						<li class="{{isActiveRoute regex='reclog'}}">
 							<a href="{{pathFor 'reclogReport'}}">{{_ "menu.reclog"}}</a>

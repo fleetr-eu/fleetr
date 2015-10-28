@@ -1,0 +1,10 @@
+#logbookGrid .from {
+  border-left: 1px solid grey;
+  border-right: 0;
+  border-bottom: 1px solid grey;
+}
+#logbookGrid .to {
+  border-right: 1px solid grey;
+  border-left: 0;
+  border-bottom: 1px solid grey;
+}

@@ -76,9 +76,6 @@ fleetrGridConfig =
     grid.addFilter 'server', 'Maintenance Date', "#{now.format('YYYY-MM-DD')} - #{future.format('YYYY-MM-DD')}",
       {maintenanceDateMin: now.toISOString(), maintenanceDateMax: future.toISOString()}, false
 
-#MyGrid = new FleetrGrid options, columns, 'getMaintenanceVehicles'
-
-
 Template.maintenanceReport.helpers
   fleetrGridConfig: -> fleetrGridConfig
   pageTitle: -> "#{TAPi18n.__('reports.title')} &raquo; #{TAPi18n.__('reports.maintenance.title')}"

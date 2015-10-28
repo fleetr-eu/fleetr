@@ -13,6 +13,8 @@
   height: 30px !important;
   padding:5px;
   line-height: 1.5 !important;
+  border-left: 0;
+  border-top: 0;
 }
 .slickfleetr .slick-cell.active {
   border:none;

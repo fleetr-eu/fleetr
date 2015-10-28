@@ -216,6 +216,11 @@ Meteor.startup ->
       path: '/reports/logbook'
       template: 'logbook'
       # subscriptions: -> Meteor.subscribe 'mycodes'
+    @route 'logbookReport2',
+      path: '/reports/logbook2'
+      template: 'logbook2'
+      waitOn: -> Meteor.subscribe 'aggbydate'
+      # subscriptions: -> Meteor.subscribe 'mycodes'
 
     @route 'logbookReportStartStop',
       path: '/reports/logbook/detailed/:selectedDate'
