@@ -26,6 +26,7 @@ Template.fleetrGrid.helpers
   activeFilters:   -> grid()?.activeFiltersCursor
   displayGrouping: -> grid()?.hasGroupableColumns()
   displayFilters:  -> grid()?.hasFilterableColumns()
+  height: -> Template.currentData().height or '500px'
 
 Template.fleetrGrid.events
   'click .removeGroupBy': (e, tpl) ->
