@@ -13,6 +13,8 @@ Template.fleetrGrid.onCreated ->
     config.customize @grid
   for column in config.columns when column.formatter
     column.formatter = column.formatter.bind @grid
+  if config.onCreated
+    config.onCreated @grid
 
 Template.fleetrGrid.onRendered ->
   @grid.install()
