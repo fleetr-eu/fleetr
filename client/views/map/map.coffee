@@ -52,11 +52,18 @@ Template.map.helpers
       showHeaderRow: true
       explicitInitialization: true
       forceFitColumns: true
+    onCreated: ((tpl) -> (grid) ->
+      tpl.grid = grid
+    )(Template.instance())
+
     cursor: Vehicles.find {}, sort: name: 1
 
 
 Template.map.events
   'click #pac-input-clear': -> $('#pac-input').val('')
-  'click #toggle-filter': (e, t) -> t.showFilterBox.set not t.showFilterBox.get()
+  'click #toggle-filter': (e, t) ->
+    t.showFilterBox.set not t.showFilterBox.get()
+    Meteor.defer -> t.grid.resize()
+
   'rowsSelected': (e, t) ->
     Session.set 'selectedVehicleId', e.fleetrGrid.data[e.rowIndex]._id
