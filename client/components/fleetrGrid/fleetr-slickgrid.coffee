@@ -33,6 +33,8 @@ Helpers =
     @grid.invalidateRows [0, length + 1]
     @grid.render()
 
+  @resize = => @grid.resizeCanvas()
+
   # updates a document in the grid
   @updateDocument = (doc) =>
     @setGridData(@data.map (d) -> if d._id == doc._id then Helpers.addId doc else d)
