@@ -156,7 +156,11 @@
     "save":"Save",
     "reset": "Reset",
     "calculate": "Calculate",
-    "getCurrent": "Get current"
+    "getCurrent": "Get current",
+    "add": "Add",
+    "edit": "Edit",
+    "delete": "Delete",
+    "filter": "Filter"
   },
 
   "general" : {

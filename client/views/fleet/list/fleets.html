@@ -9,10 +9,19 @@
 								</div>
 						</div>
 						<div class="actions">
-							<a href="{{pathFor 'addFleet'}}" class="btn btn-circle btn-icon-only btn-default"><i class="fa fa-plus"></i></a>
+							<a href="{{pathFor 'addFleet'}}" class="btn btn-circle btn-default">
+                <i class="fa fa-plus"></i>
+                {{_ "button.add"}}
+              </a>
 							{{#if selectedFleetId}}
-							<a href="{{pathFor 'editFleet' fleetId=selectedFleetId}}" class="btn btn-circle btn-icon-only btn-default"><i class="icon-pencil"></i></a>
-							<a href="#" class="deleteFleet btn btn-circle btn-icon-only btn-default"><i class="icon-trash"></i></a>
+							<a href="{{pathFor 'editFleet' fleetId=selectedFleetId}}" class="btn btn-circle btn-default">
+                <i class="icon-pencil"></i>
+                {{_ "button.edit"}}
+              </a>
+							<a href="#" class="deleteFleet btn btn-circle btn-default">
+                <i class="icon-trash"></i>
+                {{_ "button.delete"}}
+              </a>
 							{{/if}}
 						</div>
 					</div>

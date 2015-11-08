@@ -1,5 +1,5 @@
-Template.fleets.created = ->
-  Session.setDefault 'fleetFilter', ''
+Template.fleets.onRendered ->
+  Session.set 'selectedFleetId', null
 
 Template.fleets.events
   'click .deleteFleet': ->
@@ -10,7 +10,6 @@ Template.fleets.events
     Session.set 'selectedFleetId', e.fleetrGrid.data[e.rowIndex]._id
 
 Template.fleets.helpers
-  fleets: -> Fleets.findFiltered Session.get('fleetFilter'), ['name', 'description']
   selectedFleetId: -> Session.get('selectedFleetId')
 
 Template.fleets.helpers
