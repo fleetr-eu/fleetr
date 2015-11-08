@@ -7,10 +7,17 @@
 
 #map-container {
   padding: 0;
+  position:relative;
+  overflow: hidden;
 }
 
 #vehicle-filter-box {
-  padding: 10px 25px 0 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: white;
+  background: rgba(255,255,255, .7);
+  padding: 15px;
 }
 
 .controls {
@@ -57,8 +64,3 @@
   font-size: 13px;
   font-weight: 300;
 }
-
-/*.gm-style-iw{
-    height: 100% !important;
-    overflow: hidden !important;
-}*/
