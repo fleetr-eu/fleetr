@@ -88,6 +88,7 @@ fleetrGridConfig =
     name: "Quantity"
     width:75
     sortable: true
+    align: "right"
     groupTotalsFormatter: FleetrGrid.Formatters.sumTotalsFormatterNoSign
   ,
     id: "totalVat"
@@ -96,6 +97,7 @@ fleetrGridConfig =
     width:75
     sortable: true
     grandTotal: true
+    align: "right"
     formatter: FleetrGrid.Formatters.euroFormatter
     groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
   ,
@@ -105,6 +107,7 @@ fleetrGridConfig =
     width:50
     sortable: true
     grandTotal: true
+    align: "right"
     formatter: FleetrGrid.Formatters.euroFormatter
     groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
   ,
@@ -114,6 +117,7 @@ fleetrGridConfig =
     width:75
     sortable: true
     grandTotal: true
+    align: "right"
     formatter: FleetrGrid.Formatters.euroFormatter
     groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
   ,
@@ -123,6 +127,7 @@ fleetrGridConfig =
     width:80
     sortable: true
     grandTotal: true
+    align: "right"
     formatter: FleetrGrid.Formatters.euroFormatter
     groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
   ]
