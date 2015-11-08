@@ -20,3 +20,18 @@ input[type='checkbox'] {
 .dropdown-user {
   background: transparent;
 }
+
+.page-logo a {
+    font-size: 2.3em;
+    text-decoration: none;
+    color: lightgrey;
+}
+.page-logo a:hover {
+  text-decoration: none;
+  color: white;
+}
+.portlet-title h1 {
+    display: inline;
+    margin: 0;
+    font-size: 1.5em;
+}

@@ -1,53 +1,53 @@
 <template name="vehicleFilter">
-  <div class="portlet light bg-inverse">
-		<div class="portlet-body form form-inline">
-      <div class="filter-group">
-        <span>
-          <i class="fa fa-sitemap"></i>
-          <select class="form-control vehicle-filter fleet-group">
-              <option value="">All fleet groups</option>
-              {{#each fleetGroups}}
-              <option value="{{_id}}">{{name}}</option>
-              {{/each}}
-          </select>
-          <select class="form-control vehicle-filter fleet">
-              <option value="">All fleets</option>
-              {{#each fleets}}
-              <option value="{{_id}}">{{name}}</option>
-              {{/each}}
-          </select>
-        </span>
+    <div class="row form-group">
+      <div class="col-xs-6">
+        <select class="form-control vehicle-filter fleet-group">
+            <option value="">All fleet groups</option>
+            {{#each fleetGroups}}
+            <option value="{{_id}}">{{name}}</option>
+            {{/each}}
+        </select>
       </div>
-      &nbsp;&nbsp;
-      <div class="filter-group">
-      {{#if displayVehiclesList}}
-          <span>
-              <ul class="list-group">
-                {{#each vehicles}}
-                <li class="list-group-item {{active}}">
-                  {{#each tags}}
-                  <span class="badge tag">{{this}}</span>
-                  {{/each}}
-                  <span class="vehicle-filter vehicle" id="{{_id}}">{{name}} ({{licensePlate}})</span>
-                </li>
-                {{/each}}
-              </ul>
-              {{#if this.options.debug}}{{session this.sessionVar}}{{/if}}
-          </span>
-      {{/if}}
-      {{#if displayVehiclesSelect}}
-          <span><i class="fa fa-car"></i>
-            <select class="form-control vehicle-filter vehicle">
-                <option value="">All vehicles</option>
-                {{#each vehicles}}
-                <option value="{{_id}}">{{name}} ({{licensePlate}})</option>
-                {{/each}}
-            </select>
-          </span>
-      {{/if}}
+      <div class="col-xs-6">
+        <select class="form-control vehicle-filter fleet">
+            <option value="">All fleets</option>
+            {{#each fleets}}
+            <option value="{{_id}}">{{name}}</option>
+            {{/each}}
+        </select>
       </div>
-	  </div>
+    </div>
+</template>
+
+<template name="vehicleListOrSelect">
+  <div class="filter-group">
+  {{#if displayVehiclesList}}
+      <span>
+          <ul class="list-group">
+            {{#each vehicles}}
+            <li class="list-group-item {{active}}">
+              {{#each tags}}
+              <span class="badge tag">{{this}}</span>
+              {{/each}}
+              <span class="vehicle-filter vehicle" id="{{_id}}">{{name}} ({{licensePlate}})</span>
+            </li>
+            {{/each}}
+          </ul>
+          {{#if this.options.debug}}{{session this.sessionVar}}{{/if}}
+      </span>
+  {{/if}}
+  {{#if displayVehiclesSelect}}
+      <span><i class="fa fa-car"></i>
+        <select class="form-control vehicle-filter vehicle">
+            <option value="">All vehicles</option>
+            {{#each vehicles}}
+            <option value="{{_id}}">{{name}} ({{licensePlate}})</option>
+            {{/each}}
+        </select>
+      </span>
+  {{/if}}
   </div>
+
 </template>
 
 <template name="checkbox">
