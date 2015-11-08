@@ -80,7 +80,8 @@ Helpers =
   @_filter = (item) =>
     filters = @_activeFilters.find(type: 'client').fetch()
     for filter in filters
-      for field of filter.spec when item[field]
+      for field of filter.spec
+        return false if item[field] == undefined
         regex = new RegExp filter.spec[field].regex, 'i'
         if !"#{item[field]}".match regex
           return false
