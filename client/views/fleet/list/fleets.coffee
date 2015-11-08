@@ -14,7 +14,7 @@ Template.fleets.helpers
   selectedFleetId: -> Session.get('selectedFleetId')
 
 
-# TODO: Everything
+# TODO: show fleet group names instead of ids
 # Template.fleetTableRow.helpers
 #   active: -> if @_id == Session.get('selectedFleetId') then 'active' else ''
 #   group: -> FleetGroups.findOne(_id: @parent).name

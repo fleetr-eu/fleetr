@@ -29,7 +29,7 @@
                      <div id="map-canvas"></div>
                    </section>
                  </div>
-                 <div class="col-md-5 map-filter {{#unless showFilterBox}}hidden{{/unless}}" id="vehicle-filter-box">
+                 <div class="col-md-5 map-filter {{#if showFilterBox}}open{{/if}}" id="vehicle-filter-box">
                     {{> vehicleFilter selectedVehicleIdVar="selectedVehicleId" filterVar="vehicleFilter" options=filterOptions}}
                     {{> fleetrGrid id="driversList" config=fleetrGridConfig }}
                  </div>

@@ -12,12 +12,19 @@
 }
 
 #vehicle-filter-box {
+  -webkit-transition: all .5s; /* Safari */
+   transition: all .5s;;
   position: absolute;
-  right: 0;
+  left: 100%;
   top: 0;
   background: white;
   background: rgba(255,255,255, .7);
   padding: 15px;
+}
+#vehicle-filter-box.open {
+    -ms-transform: translate(-100%); /* IE 9 */
+   	-webkit-transform: translate(-100%); /* Safari */
+    transform: translate(-100%);
 }
 
 .controls {
