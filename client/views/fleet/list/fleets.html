@@ -1,35 +1,25 @@
 <template name="fleets">
-	<h3 class="page-title">{{_ "fleet.listTitle"}}</h3>
  		<div class="row">
 			<div class="col-md-12">
-				<div class="portlet box blue">
+				<div class="portlet light">
 					<div class="portlet-title">
 						<div class="caption" id="fleets">
-		            {{> filter sessionVar='fleetFilter'}}
+								<div class="caption-subject">
+									<h1 class="bold uppercase">{{_ "fleet.listTitle"}}</h1>
+								</div>
 						</div>
-						<div class="tools">
-							<a href="{{pathFor 'addFleet'}}"><span class="glyphicon glyphicon-plus"></span></a>
+						<div class="actions">
+							<a href="{{pathFor 'addFleet'}}" class="btn btn-circle btn-icon-only btn-default"><i class="fa fa-plus"></i></a>
 							{{#if selectedFleetId}}
-							<a href="{{pathFor 'editFleet' fleetId=selectedFleetId}}"><span class="glyphicon glyphicon-pencil"></span></a>
-							<a href="#" class="deleteFleet"><span class="glyphicon glyphicon-trash"></span></a>
+							<a href="{{pathFor 'editFleet' fleetId=selectedFleetId}}" class="btn btn-circle btn-icon-only btn-default"><i class="icon-pencil"></i></a>
+							<a href="#" class="deleteFleet btn btn-circle btn-icon-only btn-default"><i class="icon-trash"></i></a>
 							{{/if}}
 						</div>
 					</div>
 
 					<div class="portlet-body">
 				    <section class="content">
-				        <table class="table table-striped">
-				            <thead>
-				                <tr>
-													<th>{{_ "fleet.title"}}</th>
-													<th>{{_ "fleet.description"}}</th>
-													<th>{{_ "fleet.parent"}}</th>
-				                </tr>
-				            </thead>
-				            <tbody>
-				                {{#each fleets}} {{>fleetTableRow}} {{/each}}
-				            </tbody>
-				        </table>
+						{{> fleetrGrid id="fleetsList" config=fleetsConfig }}
 				    </section>
 				 </div>
 			</div>
