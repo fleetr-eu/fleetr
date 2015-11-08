@@ -5,7 +5,7 @@ Template.fleet.helpers
   fleet: -> Fleets.findOne _id: @fleetId
 
 Template.fleet.events
-  "click .btn-sm" : (e) ->
+  "click .submit" : (e) ->
     $("#fleetForm").submit()
-  "click .btn-reset" : (e) ->
+  "click .reset" : (e) ->
     AutoForm.resetForm("fleetForm")
