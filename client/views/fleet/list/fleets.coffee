@@ -13,16 +13,6 @@ Template.fleets.helpers
   fleets: -> Fleets.findFiltered Session.get('fleetFilter'), ['name', 'description']
   selectedFleetId: -> Session.get('selectedFleetId')
 
-
-# TODO: show fleet group names instead of ids
-# Template.fleetTableRow.helpers
-#   active: -> if @_id == Session.get('selectedFleetId') then 'active' else ''
-#   group: -> FleetGroups.findOne(_id: @parent).name
-#
-# Template.fleetTableRow.events
-#   # 'click tr': -> Session.set 'selectedFleetId', @_id
-
-
 Template.fleets.helpers
   fleetsConfig: ->
     columns: [
@@ -41,7 +31,7 @@ Template.fleets.helpers
       search: where: 'client'
     ,
       id: "group"
-      field: "parent"
+      field: "groupName"
       name: "Group"
       width:120
       sortable: true
@@ -53,4 +43,6 @@ Template.fleets.helpers
       showHeaderRow: true
       explicitInitialization: true
       forceFitColumns: true
-    cursor: Fleets.find()
+    cursor: Fleets.find {},
+      transform: (doc) -> _.extend doc,
+        groupName: FleetGroups.findOne(_id: doc.parent).name
