@@ -92,19 +92,20 @@ Meteor.startup ->
           Meteor.subscribe('vehicle', _id: @params.vehicleId)
           Meteor.subscribe('fleets')]
 
-    @route 'listFleetGroups',
-      path: '/fleets/groups/list'
-      template: 'fleetGroups'
-      data: -> {pageTitle: 'Fleet Groups'}
-      waitOn: -> Meteor.subscribe 'fleetGroups'
     @route 'addFleetGroup',
       path: '/fleets/groups/add'
       template: 'fleetGroup'
+
     @route 'editFleetGroup',
-      path: '/fleets/groups/edit/:groupId'
+      path: '/fleets/groups/edit/:fleetGroupId'
       template: 'fleetGroup'
-      data: -> {'groupId' : @params.groupId}
-      waitOn: -> Meteor.subscribe 'fleetGroup', @params.groupId
+      data: -> {'fleetGroupId' : @params.fleetGroupId}
+      waitOn: -> Meteor.subscribe('fleetGroups')  
+
+    @route 'listFleetGroups',
+      path: '/fleets/groups/list'
+      template: 'fleetGroups'
+      waitOn: -> Meteor.subscribe('fleetGroups')
 
     @route 'listFleets',
       path: '/fleets/list'

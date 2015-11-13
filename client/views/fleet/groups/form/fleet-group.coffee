@@ -2,11 +2,10 @@ Template.fleetGroup.rendered = ->
   AutoForm.getValidationContext("fleetGroupForm").resetValidation()
 
 Template.fleetGroup.helpers
-  fleetGroup: ->
-    fg = FleetGroups.findOne _id: @groupId
+  fleetGroup: -> FleetGroups.findOne _id: @fleetGroupId
 
 Template.fleetGroup.events
-  "click .btn-sm" : (e) ->
+  "click .submit" : (e) ->
     $("#fleetGroupForm").submit()
-  "click .btn-reset" : (e) ->
+  "click .reset" : (e) ->
     AutoForm.resetForm("fleetGroupForm")

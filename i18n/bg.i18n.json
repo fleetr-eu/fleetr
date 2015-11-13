@@ -29,7 +29,7 @@
     "title": "Шофьори"
   },
 
-  "fleetGroup": {
+  "fleetGroups": {
     "title" : "Група автопаркове",
     "listTitle" : "Групи автопаркове",
     "name" : "Име",

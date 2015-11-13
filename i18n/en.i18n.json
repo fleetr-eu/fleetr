@@ -29,7 +29,7 @@
     "title": "Drivers"
   },
 
-  "fleetGroup": {
+  "fleetGroups": {
     "title" : "Fleet Group",
     "listTitle" : "Fleet Groups",
     "name" : "Name",
