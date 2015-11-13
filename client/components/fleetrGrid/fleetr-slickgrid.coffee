@@ -30,7 +30,7 @@ Helpers =
     # update and render totals row
     @totalsDataProvider.updateTotals()
     length = @dataViewLength()
-    @grid.invalidateRows [0, length + 1]
+    @grid.invalidateRows [0..length + 1]
     @grid.render()
 
   @resize = => @grid.resizeCanvas()
@@ -191,7 +191,7 @@ Helpers =
           button.cssClass = "icon-highlight-off"
           button.tooltip = "Group table by #{column.name}"
           @grid.updateColumnHeader(column.id)) column
-        updated: ((column) => =>
+        changed: ((column) => =>
           button.cssClass = "icon-highlight-on"
           button.tooltip = "Remove group #{column.name}"
           @grid.updateColumnHeader(column.id)) column
