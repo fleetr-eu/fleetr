@@ -6,14 +6,12 @@ Template.expenseTypes.events
     Meteor.call 'removeExpenseType', Session.get('selectedExpenseTypeId')
     Session.set 'selectedExpenseTypeId', null
   'rowsSelected': (e, t) ->
-    console.log e
     Session.set 'selectedExpenseTypeId', e.fleetrGrid.data[e.rowIndex]._id
 
 Template.expenseTypes.helpers
   selectedFleetId: -> Session.get('selectedExpenseTypeId')
-
-Template.expenseTypes.helpers
   expenseTypesConfig: ->
+    cursor: ExpenseTypes.find()
     columns: [
       id: "name"
       field: "name"
@@ -42,4 +40,3 @@ Template.expenseTypes.helpers
       showHeaderRow: true
       explicitInitialization: true
       forceFitColumns: true
-      cursor: ExpenseTypes.find
