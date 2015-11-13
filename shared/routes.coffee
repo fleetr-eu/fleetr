@@ -137,6 +137,11 @@ Meteor.startup ->
       path: '/expenses/types/add'
       template: 'expenseType'
 
+    @route 'listExpenseTypes',
+      path: '/expenses/types/list'
+      template: 'expenseTypes'
+      waitOn: -> Meteor.subscribe('expenseTypes')  
+
     @route 'addExpense',
       path: '/expenses/add'
       template: 'expense'
