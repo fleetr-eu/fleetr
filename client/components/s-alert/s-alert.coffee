@@ -13,10 +13,10 @@ AutoForm.addHooks [
   ],
   onSuccess: (formType, result) ->
     console.log "AutoForm::success formType='#{formType}'", result, @
-    sAlert.success sAlertIcon: 'check', sAlertTitle: 'Saved', message: 'Saved successfully.'
+    sAlert.success sAlertIcon: 'check', sAlertTitle: TAPi18n.__('alerts.saved.title'), message: TAPi18n.__('alerts.saved.message')
   onError: (formType, error) ->
     console.log "AutoForm::error formType='#{formType}'", error, @
     if formType == 'pre-submit validation'
-      sAlert.warning sAlertIcon: 'asterisk', sAlertTitle: 'Validation', message: 'Please complete the form.'
+      sAlert.warning sAlertIcon: 'asterisk', sAlertTitle: TAPi18n.__('alerts.validation.title'), message: TAPi18n.__('alerts.validation.message')
     else
-      sAlert.error sAlertIcon: 'exclamation', sAlertTitle: 'An error occured', message: 'Could not save form data.'
+      sAlert.error sAlertIcon: 'exclamation', sAlertTitle: TAPi18n.__('alerts.error.title'), message: TAPi18n.__('alerts.error.message')
