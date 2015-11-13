@@ -87,7 +87,8 @@
     "description" : "Description",
     "nextMaintenanceMonths" : "Months",
     "nextMaintenanceKMs" : "Kilometers",
-    "nextMaintenanceEngineHours" : "Engine hours"
+    "nextMaintenanceEngineHours" : "Engine hours",
+    "nextMaintenanceEngineHoursShort" : "Hours"
   },
 
   "maintenances": {
@@ -102,8 +103,7 @@
     "engineHours" : "Engine hours",
     "nextMaintenanceDate" : "Date",
     "nextMaintenanceOdometer" : "Odometer",
-    "nextMaintenanceEngineHours" : "Engine hours",
-    "nextMaintenanceEngineHoursShort" : "Hours"
+    "nextMaintenanceEngineHours" : "Engine hours"
   },
 
   "vehicle": {
