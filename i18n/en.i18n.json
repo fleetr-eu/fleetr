@@ -175,5 +175,20 @@
     "maintenance": {
       "title": "Maintenance"
     }
+  },
+
+  "alerts": {
+    "saved": {
+      "title": "Saved",
+      "message": "Saved successfully."
+    },
+    "validation": {
+      "title": "Validation",
+      "message": "Please, complete the form."
+    },
+    "error": {
+      "title": "Error",
+      "message": "Could not save the data."
+    }
   }
 }
