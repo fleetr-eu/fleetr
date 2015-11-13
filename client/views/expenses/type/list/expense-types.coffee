@@ -17,21 +17,21 @@ Template.expenseTypes.helpers
     columns: [
       id: "name"
       field: "name"
-      name: "Fleet"
+      name: "#{TAPi18n.__('expenseTypes.name')}"
       width:120
       sortable: true
       search: where: 'client'
     ,
       id: "unitOfMeasure"
       field: "unitOfMeasure"
-      name: "Description"
+      name: "#{TAPi18n.__('expenseTypes.unitOfMeasure')}"
       width:40
       sortable: true
       search: where: 'client'
     ,
       id: "description"
       field: "description"
-      name: "Group"
+      name: #{TAPi18n.__('expenseTypes.description')}"
       width:200
       sortable: true
       search: where: 'client'
