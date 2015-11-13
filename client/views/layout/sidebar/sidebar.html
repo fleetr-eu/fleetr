@@ -109,7 +109,7 @@
 					</ul>
 				</li>
 
-				<li class="{{isActiveRoute regex='expense'}}">
+				<li class="{{isActiveRoute regex='addExpense|listExpenseTypes|listExpenseGroups'}}">
 					<a href="javascript:;">
 						<i class="fa fa-dollar"></i>
 						<span class="title">{{_ "menu.expenses"}}</span>
@@ -123,7 +123,7 @@
 							<a href="{{pathFor 'listExpenseTypes'}}">{{_ "menu.listExpenseTypes"}}</a>
 						</li>
 						<li class="{{isActiveRoute regex='expenses/groups'}}">
-							<a href="{{pathFor 'addExpenseGroup'}}">{{_ "menu.addExpenseGroup"}}</a>
+							<a href="{{pathFor 'listExpenseGroups'}}">{{_ "menu.listExpenseGroups"}}</a>
 						</li>
 					</ul>
 					</li>

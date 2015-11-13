@@ -11,6 +11,7 @@
     "objects": "Обекти",
     "maintenances" : "Поддръжки",
     "expenses": "Разходи",
+    "listExpenseGroups": "Групи разходи",
     "addExpenseGroup": "Добави група разходи",
     "listExpenseTypes": "Видове разходи",
     "addExpense": "Добави разход",
@@ -86,7 +87,9 @@
     "description" : "Описание",
     "nextMaintenanceMonths" : "Месеци",
     "nextMaintenanceKMs" : "Километри",
-    "nextMaintenanceEngineHours" : "Двигателни часове"
+    "nextMaintenanceEngineHours" : "Двигателни часове",
+    "nextMaintenanceEngineHoursShort" : "Часове"
+
   },
 
   "maintenances": {

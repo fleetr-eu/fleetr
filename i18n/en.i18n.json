@@ -10,6 +10,7 @@
     "drivers_vehicles": "Drivers and Vehicles",
     "objects": "Objects",
     "expenses": "Expenses",
+    "listExpenseGroups": "Expense Groups",
     "addExpenseGroup": "Add Expense Group",
     "listExpenseTypes": "Expense Types",
     "addExpense": "Add Expense",
@@ -101,7 +102,8 @@
     "engineHours" : "Engine hours",
     "nextMaintenanceDate" : "Date",
     "nextMaintenanceOdometer" : "Odometer",
-    "nextMaintenanceEngineHours" : "Engine hours"
+    "nextMaintenanceEngineHours" : "Engine hours",
+    "nextMaintenanceEngineHoursShort" : "Hours"
   },
 
   "vehicle": {

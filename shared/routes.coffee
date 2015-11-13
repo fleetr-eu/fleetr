@@ -133,9 +133,20 @@ Meteor.startup ->
       path: '/expenses/groups/add'
       template: 'expenseGroup'
 
+    @route 'editExpenseGroup',
+      path: '/expenses/groups/edit/:expenseGroupId'
+      template: 'expenseGroup'
+      data: -> {'expenseGroupId' : @params.expenseGroupId}
+      waitOn: -> Meteor.subscribe('expenseGroups')  
+
+    @route 'listExpenseGroups',
+      path: '/expenses/groups/list'
+      template: 'expenseGroups'
+      waitOn: -> Meteor.subscribe('expenseGroups')    
+
     @route 'addExpenseType',
       path: '/expenses/types/add'
-      template: 'expenseType'
+      template: 'expenseType'  
 
     @route 'editExpenseType',
       path: '/expenses/types/edit/:expenseTypeId'

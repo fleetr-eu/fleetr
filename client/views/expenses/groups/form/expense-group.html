@@ -1,10 +1,10 @@
-<template name="expenseType">
+<template name="expenseGroup">
   <div class="portlet light">
 
     <div class="portlet-title">
       <div class="caption">
           <div class="caption-subject">
-            <h1 class="bold uppercase"><i class="icon-car"></i>{{_ "expenseTypes.title"}}</h1>
+            <h1 class="bold uppercase"><i class="icon-car"></i>{{_ "expenseGroups.title"}}</h1>
           </div>
       </div>
       <div class="actions">
@@ -20,13 +20,12 @@
       </div>
     </div>
     <div class="portlet-body">
-      {{#autoForm collection="ExpenseTypes" doc=expenseType id="expenseTypeForm" type="method" meteormethod="submitExpenseType"}}
+      {{#autoForm collection="ExpenseGroups" doc=expenseGroup id="expenseGroupForm" type="method" meteormethod="submitExpenseGroup"}}
           <div class="row">
             <fieldset>
                 <div class="col-md-6">
                     {{> afFieldInput type="hidden" name="_id" value=_id}}
                     {{> afQuickField name="name"}}
-                    {{> afQuickField name="unitOfMeasure"}}
                     {{> afQuickField name="description" rows=5}}
                 </div>
             </fieldset>

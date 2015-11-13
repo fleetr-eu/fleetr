@@ -1,24 +1,24 @@
-<template name="maintenanceTypes">
+<template name="expenseGroups">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="portlet light">
 				<div class="portlet-title">
-					<div class="caption" id="maintenanceTypes">
+					<div class="caption" id="expenseGroup">
 						<div class="caption-subject">
-							<h1 class="bold uppercase">{{_ "maintenanceTypes.listTitle"}}</h1>
+							<h1 class="bold uppercase">{{_ "expenseGroups.title"}}</h1>
 						</div>
 					</div>
 					<div class="actions">
-						<a href="{{pathFor 'addMaintenanceType'}}" class="btn btn-circle btn-default">
+						<a href="{{pathFor 'addExpenseGroup'}}" class="btn btn-circle btn-default">
 		                <i class="fa fa-plus"></i>
 		                {{_ "button.add"}}
 		              	</a>
-						{{#if selectedMaintenanceTypeId}}
-							<a href="{{pathFor 'editMaintenanceType' maintenanceTypeId=selectedMaintenanceTypeId}}" class="btn btn-circle btn-default">
+						{{#if selectedExpenseGroupId}}
+							<a href="{{pathFor 'editExpenseGroup' expenseGroupId=selectedExpenseGroupId}}" class="btn btn-circle btn-default">
 			   				<i class="icon-pencil"></i>
 			    			{{_ "button.edit"}}
 			  				</a>
-							<a href="#" class="deleteMaintenanceType btn btn-circle btn-default">
+							<a href="#" class="deleteExpenseGroup btn btn-circle btn-default">
 			   				 <i class="icon-trash"></i>
 			   				 {{_ "button.delete"}}
 			 				 </a>
@@ -27,7 +27,7 @@
 				</div>
 				<div class="portlet-body">
 				    <section class="content">
-						{{> fleetrGrid id="maintenanceTypesList" config=maintenanceTypesConfig }}
+						{{> fleetrGrid id="expenseGroupsList" config=expenseGroupsConfig }}
 				    </section>
 			 	</div>
 			</div>
