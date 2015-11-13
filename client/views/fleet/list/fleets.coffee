@@ -8,6 +8,9 @@ Template.fleets.events
   'rowsSelected': (e, t) ->
     console.log e
     Session.set 'selectedFleetId', e.fleetrGrid.data[e.rowIndex]._id
+  'click .edit-fleet': -> Modal.show 'fleet',
+    doc: Fleets.findOne _id: Session.get('selectedFleetId')
+  'click .add-fleet': -> Modal.show 'fleet'
 
 Template.fleets.helpers
   selectedFleetId: -> Session.get('selectedFleetId')

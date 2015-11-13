@@ -9,12 +9,12 @@
 								</div>
 						</div>
 						<div class="actions">
-							<a href="{{pathFor 'addFleet'}}" class="btn btn-circle btn-default">
+							<a href="#" class="btn btn-circle btn-default add-fleet">
                 <i class="fa fa-plus"></i>
                 {{_ "button.add"}}
               </a>
 							{{#if selectedFleetId}}
-							<a href="{{pathFor 'editFleet' fleetId=selectedFleetId}}" class="btn btn-circle btn-default">
+							<a href="#" class="btn btn-circle btn-default edit-fleet">
                 <i class="icon-pencil"></i>
                 {{_ "button.edit"}}
               </a>
@@ -34,12 +34,4 @@
 			</div>
 		</div>
 	</div>
-</template>
-
-<template name="fleetTableRow">
-    <tr class="{{active}}">
-        <td>{{name}}</td>
-				<td>{{description}}</td>
-				<td>{{group}}</td>
-    </tr>
 </template>
