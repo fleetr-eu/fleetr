@@ -24,6 +24,7 @@
           <div class="row">
             <fieldset>
                 <div class="col-md-6">
+                    {{> afFieldInput type="hidden" name="_id" value=_id}}
                     {{> afQuickField name="name"}}
                     {{> afQuickField name="unitOfMeasure"}}
                     {{> afQuickField name="description" rows=5}}
