@@ -6,3 +6,7 @@ Template.expenseType.events
     $("#expenseTypeForm").submit()
   "click .btn-reset" : (e) ->
     AutoForm.resetForm("expenseTypeForm")
+
+Template.expenseType.helpers   
+   expenseType: ->
+   		ExpenseTypes.findOne _id: @expenseTypeId

@@ -11,7 +11,7 @@
     "objects": "Objects",
     "expenses": "Expenses",
     "addExpenseGroup": "Add Expense Group",
-    "addExpenseType": "Add Expense Type",
+    "listExpenseTypes": "Expense Types",
     "addExpense": "Add Expense",
     "maintenances" : "Maintenances",
     "addMaintenanceType" : "Add Maintenance Type",

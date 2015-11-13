@@ -137,6 +137,12 @@ Meteor.startup ->
       path: '/expenses/types/add'
       template: 'expenseType'
 
+    @route 'editExpenseType',
+      path: '/expenses/types/edit/:expenseTypeId'
+      template: 'expenseType'
+      data: -> {'expenseTypeId' : @params.expenseTypeId}
+      waitOn: -> Meteor.subscribe('expenseTypes')  
+
     @route 'listExpenseTypes',
       path: '/expenses/types/list'
       template: 'expenseTypes'
@@ -159,8 +165,7 @@ Meteor.startup ->
       path: '/maintenance/types/edit/:maintenanceTypeId'
       template: 'maintenanceType'
       data: -> {'maintenanceTypeId' : @params.maintenanceTypeId}
-      waitOn: ->
-        Meteor.subscribe('maintenanceType', @params.maintenanceTypeId)
+      waitOn: -> Meteor.subscribe('maintenanceType', @params.maintenanceTypeId)
 
     @route 'listMaintenanceType',
       path: '/maintenance/types/list'
@@ -172,9 +177,7 @@ Meteor.startup ->
       path: '/vehicle/:vehicleId/maintenances/add'
       template: 'maintenance'
       data: -> {'vehicleId' : @params.vehicleId}
-      waitOn: ->
-        [Meteor.subscribe('vehicleMaintenances', @params.vehicleId)
-        Meteor.subscribe('maintenanceTypes')]
+      waitOn: -> [Meteor.subscribe('vehicleMaintenances', @params.vehicleId), Meteor.subscribe('maintenanceTypes')]
 
     @route 'listAlarms',
       path: '/alarms/list'

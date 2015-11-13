@@ -65,6 +65,10 @@ Meteor.methods
     @unblock()
     ExpenseTypes.submit(doc, diff)
 
+  removeExpenseType: (doc) ->
+    @unblock()
+    ExpenseTypes.remove _id : doc  
+
   submitExpense: (doc, diff) ->
     @unblock()
     Expenses.submit doc, diff

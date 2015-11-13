@@ -9,7 +9,7 @@ Template.expenseTypes.events
     Session.set 'selectedExpenseTypeId', e.fleetrGrid.data[e.rowIndex]._id
 
 Template.expenseTypes.helpers
-  selectedFleetId: -> Session.get('selectedExpenseTypeId')
+  selectedExpenseTypeId: -> Session.get('selectedExpenseTypeId')
   expenseTypesConfig: ->
     cursor: ExpenseTypes.find()
     columns: [
@@ -29,7 +29,7 @@ Template.expenseTypes.helpers
     ,
       id: "description"
       field: "description"
-      name: #{TAPi18n.__('expenseTypes.description')}"
+      name: "#{TAPi18n.__('expenseTypes.description')}"
       width:200
       sortable: true
       search: where: 'client'
