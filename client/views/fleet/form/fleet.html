@@ -11,7 +11,7 @@
                   {{#autoForm collection="Fleets" doc=doc id="fleetForm" type="method" meteormethod="submitFleet"}}
                     <fieldset>
                   	  {{> afFieldInput type="hidden" name="_id" value=_id}}
-                      {{> afQuickField name="name"}}
+                      {{> afQuickField name="name" autofocus=true}}
                       {{> afQuickField name="parent"}}
                       {{> afQuickField name="description"}}
                     </fieldset>
