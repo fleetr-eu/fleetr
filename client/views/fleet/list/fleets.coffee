@@ -3,9 +3,13 @@ Template.fleets.onRendered ->
 
 Template.fleets.events
   'click .deleteFleet': (e, t) ->
-    Meteor.call 'removeFleet', Session.get('selectedFleetId'), ->
-      Meteor.defer ->
-        Session.set 'selectedFleetId', t.grid.data[t.row]?._id
+    Modal.show 'confirmDelete',
+      title: -> TAPi18n.__ 'fleet.title'
+      message: -> TAPi18n.__ 'fleet.deleteMessage'
+      action: ->
+        Meteor.call 'removeFleet', Session.get('selectedFleetId'), ->
+          Meteor.defer ->
+            Session.set 'selectedFleetId', t.grid.data[t.row]?._id
   'rowsSelected': (e, t) ->
     [t.grid, t.row] = [e.fleetrGrid, e.rowIndex]
     Session.set 'selectedFleetId', t.grid.data[t.row]._id
@@ -48,4 +52,4 @@ Template.fleets.helpers
       forceFitColumns: true
     cursor: Fleets.find {},
       transform: (doc) -> _.extend doc,
-        groupName: FleetGroups.findOne(_id: doc.parent).name
+        groupName: FleetGroups.findOne(_id: doc.parent)?.name

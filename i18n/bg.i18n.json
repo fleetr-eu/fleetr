@@ -41,7 +41,8 @@
     "listTitle" : "Автопаркове",
     "name" : "Име",
     "description" : "Описание",
-    "parent" : "Група"
+    "parent" : "Група",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете този автопарк?"
   },
 
   "expenseGroups": {
@@ -152,7 +153,8 @@
 
   "button" : {
     "save":"Запиши",
-    "reset": "Анулирай",
+    "reset": "Изчисти",
+    "cancel": "Анулирай",
     "calculate": "Изчисли",
     "getCurrent": "Вземи текущи",
     "add": "Добави",

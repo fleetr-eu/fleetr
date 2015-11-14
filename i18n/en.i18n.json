@@ -41,7 +41,8 @@
     "listTitle" : "Fleets",
     "name" : "Name",
     "description" : "Description",
-    "parent" : "Group"
+    "parent" : "Group",
+    "deleteMessage": "Are you certain you want to delete this fleet?"
   },
 
   "expenseGroups": {
@@ -157,6 +158,7 @@
   "button" : {
     "save":"Save",
     "reset": "Reset",
+    "cancel": "Cancel",
     "calculate": "Calculate",
     "getCurrent": "Get current",
     "add": "Add",
