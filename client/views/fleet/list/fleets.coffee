@@ -2,12 +2,13 @@ Template.fleets.onRendered ->
   Session.set 'selectedFleetId', null
 
 Template.fleets.events
-  'click .deleteFleet': ->
-    Meteor.call 'removeFleet', Session.get('selectedFleetId')
-    Session.set 'selectedFleetId', null
+  'click .deleteFleet': (e, t) ->
+    Meteor.call 'removeFleet', Session.get('selectedFleetId'), ->
+      Meteor.defer ->
+        Session.set 'selectedFleetId', t.grid.data[t.row]?._id
   'rowsSelected': (e, t) ->
-    console.log e
-    Session.set 'selectedFleetId', e.fleetrGrid.data[e.rowIndex]._id
+    [t.grid, t.row] = [e.fleetrGrid, e.rowIndex]
+    Session.set 'selectedFleetId', t.grid.data[t.row]._id
   'click .edit-fleet': -> Modal.show 'fleet',
     doc: Fleets.findOne _id: Session.get('selectedFleetId')
   'click .add-fleet': -> Modal.show 'fleet'
