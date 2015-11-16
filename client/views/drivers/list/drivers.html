@@ -1,69 +1,36 @@
 <template name="drivers">
-
-	<h3 class="page-title">
-		Шофьори
-	</h3>
-	<div class="page-bar">
-		<ul class="page-breadcrumb">
-			<li>
-				<i class="fa fa-home"></i>
-				<a href="/">Начало</a>
-				<i class="fa fa-angle-right"></i>
-			</li>
-			<li>
-				<a href="#">Шофьори</a>
-			</li>
-		</ul>
-	</div>
-	<!-- END PAGE HEADER-->
-
 	<div class="row">
-			<div class="col-md-12">
-				<div class="portlet box blue">
-					<div class="portlet-title">
-						<div class="caption" id="drivers">
-		            {{> filter sessionVar='driverFilter' placeholder='Търсене...'}}
-						</div>
-						<div class="tools">
-							<a href="{{pathFor 'addDriver'}}"><span class="glyphicon glyphicon-plus"></span></a>
-							{{#if selectedDriverId}}
-							<a href="{{pathFor 'addDriverVehicleAssignment'}}"><span class="fa fa-sign-in"></span></a>
-							<a href="{{pathFor 'editDriver' driverId=selectedDriverId}}"><span class="glyphicon glyphicon-pencil"></span></a>
-							<a href="#" class="deleteDriver"><span class="glyphicon glyphicon-trash"></span></a>
-							{{/if}}
+		<div class="col-md-12">
+			<div class="portlet light">
+				<div class="portlet-title">
+					<div class="caption" id="driversGroup">
+						<div class="caption-subject">
+							<h1 class="bold uppercase">{{_ "drivers.title"}}</h1>
 						</div>
 					</div>
-
-					<div class="portlet-body">
+					<div class="actions">
+						<a href="{{pathFor 'addDriver'}}" class="btn btn-circle btn-default">
+		                <i class="fa fa-plus"></i>
+		                {{_ "button.add"}}
+		              	</a>
+						{{#if selectedDriverId}}
+							<a href="{{pathFor 'editDriver' driverId=selectedDriverId}}" class="btn btn-circle btn-default">
+			   				<i class="icon-pencil"></i>
+			    			{{_ "button.edit"}}
+			  				</a>
+							<a href="#" class="deleteDriver btn btn-circle btn-default">
+			   				 <i class="icon-trash"></i>
+			   				 {{_ "button.delete"}}
+			 				 </a>
+						{{/if}}
+					</div>
+				</div>
+				<div class="portlet-body">
 				    <section class="content">
-
-				        <table class="table table-striped">
-
-				            <thead>
-				                <tr>
-				                    <th>Име и фамилия</th>
-				          					<th>Етикети</th>
-				                </tr>
-				            </thead>
-
-				            <tbody>
-				                {{#each drivers}} {{>driverTableRow}} {{/each}}
-				            </tbody>
-				        </table>
+						{{> fleetrGrid id="driversList" config=driversConfig }}
 				    </section>
-				 </div>
+			 	</div>
 			</div>
 		</div>
 	</div>
-</template>
-
-<template name="driverTableRow">
-    <tr class="{{active}}">
-        <td>{{fullName}}</td>
-				<td>
-					{{#each tagsArray}}
-					<span class="label label-danger filter-tag">{{this}}</span>
-					{{/each}}
-				</td>
-    </tr>
 </template>

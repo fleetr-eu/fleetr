@@ -26,7 +26,9 @@
   },
 
   "drivers": {
-    "title": "Шофьори"
+    "title": "Шофьори",
+    "name" : "Фамилия",
+    "firstName": "Име"
   },
 
   "fleetGroups": {

@@ -1,20 +1,35 @@
-Template.drivers.created = -> Session.set 'driverFilter', ''
+Template.drivers.onRendered ->
+  Session.set 'selectedDriverId', null
 
 Template.drivers.events
   'click .deleteDriver': ->
     Meteor.call 'removeDriver', Session.get('selectedDriverId')
     Session.set 'selectedDriverId', null
+  'rowsSelected': (e, t) ->
+    Session.set 'selectedDriverId', e.fleetrGrid.data[e.rowIndex]._id
 
 Template.drivers.helpers
-  drivers: -> Drivers.findFiltered Session.get('driverFilter'), ['firstName', 'name', 'tags']
   selectedDriverId: -> Session.get('selectedDriverId')
-
-Template.driverTableRow.helpers
-  fullName: -> "#{@firstName} #{@name}"
-  active: -> if @_id == Session.get('selectedDriverId') then 'active' else ''
-  tagsArray: -> tagsAsArray.call @
-
-Template.driverTableRow.events
-  'click tr': -> Session.set 'selectedDriverId', @_id
-  'click .filter-tag': (e) ->
-    Session.set 'driverFilter', e.target.innerText || e.target.textContent || ''
+  driversConfig: ->
+    cursor: Drivers.find()
+    columns: [
+      id: "firstName"
+      field: "firstName"
+      name: "#{TAPi18n.__('drivers.firstName')}"
+      width:80
+      sortable: true
+      search: where: 'client'
+    ,
+      id: "lastName"
+      field: "name"
+      name: "#{TAPi18n.__('drivers.name')}"
+      width:80
+      sortable: true
+      search: where: 'client'
+    ]
+    options:
+      enableCellNavigation: true
+      enableColumnReorder: false
+      showHeaderRow: true
+      explicitInitialization: true
+      forceFitColumns: true
