@@ -46,7 +46,7 @@ Template.fleets.helpers
       name: "Group"
       width:120
       sortable: true
-      search: where: 'client'
+      search: where: 'client',  
     ]
     options:
       enableCellNavigation: true
@@ -57,3 +57,4 @@ Template.fleets.helpers
     cursor: Fleets.find {},
       transform: (doc) -> _.extend doc,
         groupName: FleetGroups.findOne(_id: doc.parent)?.name
+

@@ -26,6 +26,14 @@ Template.drivers.helpers
       width:80
       sortable: true
       search: where: 'client'
+    ,
+      id: "tags"    
+      field: "tags"    
+      name: "#{TAPi18n.__('drivers.tags')}"  
+      width:80    
+      sortable: true   
+      search: where: 'client'    
+      formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags    
     ]
     options:
       enableCellNavigation: true
@@ -33,3 +41,11 @@ Template.drivers.helpers
       showHeaderRow: true
       explicitInitialization: true
       forceFitColumns: true
+
+Template.columnTags.helpers   
+  tagsArray: ->    
+    (@value?.split(",") || []).map ((n) => value: n.trim(), grid: @grid, column: @column)    
+
+Template.columnTags.events   
+  'click .label': ->   
+    @grid.setColumnFilterValue @column, @value

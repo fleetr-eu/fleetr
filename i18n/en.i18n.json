@@ -28,7 +28,8 @@
   "drivers": {
     "title": "Drivers",
     "name" : "Last name",
-    "firstName": "First name"
+    "firstName": "First name",
+    "tags": "Tags"
   },
 
   "fleetGroups": {

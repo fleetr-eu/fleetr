@@ -28,7 +28,8 @@
   "drivers": {
     "title": "Шофьори",
     "name" : "Фамилия",
-    "firstName": "Име"
+    "firstName": "Име",
+    "tags": "Етикети"
   },
 
   "fleetGroups": {
