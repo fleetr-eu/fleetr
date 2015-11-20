@@ -184,6 +184,22 @@ Meteor.startup ->
       waitOn: ->
         Meteor.subscribe('maintenanceTypes')
 
+    @route 'addInsuranceType',
+      path: '/insurance/types/add'
+      template: 'insuranceType'
+
+    @route 'editInsuranceType',
+      path: '/insurance/types/edit/:insuranceTypeId'
+      template: 'insuranceType'
+      data: -> {'insuranceTypeId' : @params.insuranceTypeId}
+      waitOn: -> Meteor.subscribe('insuranceType', @params.insuranceTypeId)
+
+    @route 'listInsuranceType',
+      path: '/insurance/types/list'
+      template: 'insuranceTypes'
+      waitOn: ->
+        Meteor.subscribe('insuranceTypes')    
+
     @route 'addMaintenance',
       path: '/vehicle/:vehicleId/maintenances/add'
       template: 'maintenance'

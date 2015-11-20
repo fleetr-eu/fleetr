@@ -1,0 +1,37 @@
+<template name="insuranceTypes">
+ 		<div class="row">
+			<div class="col-md-12">
+				<div class="portlet light">
+					<div class="portlet-title">
+						<div class="caption" id="insuranceTypes">
+								<div class="caption-subject">
+									<h1 class="bold uppercase">{{_ "insuranceTypes.listTitle"}}</h1>
+								</div>
+						</div>
+						<div class="actions">
+							<a href="#" class="btn btn-circle btn-default add-insuranceType">
+                <i class="fa fa-plus"></i>
+                {{_ "button.add"}}
+              </a>
+							{{#if selectedInsuranceTypesId}}
+							<a href="#" class="btn btn-circle btn-default edit-insuranceType">
+                <i class="icon-pencil"></i>
+                {{_ "button.edit"}}
+              </a>
+							<a href="#" class="deleteInsuranceTypes btn btn-circle btn-default">
+                <i class="icon-trash"></i>
+                {{_ "button.delete"}}
+              </a>
+							{{/if}}
+						</div>
+					</div>
+
+					<div class="portlet-body">
+				    <section class="content">
+						{{> fleetrGrid id="insuranceTypesList" config=insuranceTypesConfig }}
+				    </section>
+				 </div>
+			</div>
+		</div>
+	</div>
+</template>

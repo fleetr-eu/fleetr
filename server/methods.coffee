@@ -53,6 +53,14 @@ Meteor.methods
     @unblock()
     MaintenanceTypes.remove _id : doc  
 
+  submitInsuranceType: (doc, diff) ->
+    @unblock()
+    InsuranceTypes.submit(doc, diff)
+
+  removeInsuranceType: (doc) ->
+    @unblock()
+    InsuranceTypes.remove _id : doc    
+
   submitMaintenance: (doc, diff) ->
     @unblock()
     Maintenances.submit(doc, diff)

@@ -55,6 +55,13 @@
     "description" : "Description"
   },
 
+  "insuranceTypes": {
+    "title" : "Insurance Types",
+    "listTitle" : "Insurance Types",
+    "name" : "Name",
+    "description" : "Description"
+  },
+
   "expenseTypes": {
     "title" :"Expense Type",
     "listTitle" : "Expense Types",

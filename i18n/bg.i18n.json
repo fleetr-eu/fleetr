@@ -55,6 +55,13 @@
     "description" : "Описание"
   },
 
+  "insuranceTypes": {
+    "title" : "Вид застраховка",
+    "listTitle" : "Видове застраховки",
+    "name" : "Вид застраховка",
+    "description" : "Описание"
+  },
+
   "expenseTypes": {
     "title" : "Вид разход",
     "listTitle" : "Видове разходи",

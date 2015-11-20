@@ -25,6 +25,16 @@ Schema.fleet = new SimpleSchema
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> FleetGroups.find().map (group) -> label: group.name, value: group._id
 
+Schema.insuranceTypes = new SimpleSchema
+  _id:
+    type: String, optional: true
+  name:
+    type: String, label: ()->TAPi18n.__('insuranceTypes.name')
+  description:
+    type: String, optional: true, label: ()->TAPi18n.__('insuranceTypes.description')
+    autoform:
+      rows: 5
+
 Schema.expenseGroups = new SimpleSchema
   _id:
     type: String, optional: true
