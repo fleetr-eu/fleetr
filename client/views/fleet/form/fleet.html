@@ -1,35 +1,10 @@
 <template name="fleet">
-    <div class="modal fade" id="editFleet">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h4 class="modal-title">{{_ "fleet.title"}}</h4>
-                </div>
-
-                <div class="modal-body">
-                  {{#autoForm collection="Fleets" doc=doc id="fleetForm" type="method" meteormethod="submitFleet"}}
-                    <fieldset>
-                  	  {{> afFieldInput type="hidden" name="_id" value=_id}}
-                      {{> afQuickField name="name" autofocus=true}}
-                      {{> afQuickField name="parent"}}
-                      {{> afQuickField name="description"}}
-                    </fieldset>
-                  {{/autoForm}}
-                </div>
-
-                <div class="modal-footer">
-                  <a href="#" class="btn btn-circle btn-info submit">
-                    <i class="fa fa-check"></i>
-                    {{_ "button.save"}}
-                  </a>
-                  <a href="#" class="btn btn-circle btn-default" data-dismiss="modal">
-                    <i class="fa fa-close"></i>
-                    {{_ "button.cancel"}}
-                  </a>
-                </div>
-
-            </div>
-        </div>
-    </div>
+  {{#autoForm collection="Fleets" doc=doc id="fleetForm" type="method" meteormethod="submitFleet"}}
+    <fieldset>
+  	  {{> afFieldInput type="hidden" name="_id" value=_id}}
+      {{> afQuickField name="name" autofocus=true}}
+      {{> afQuickField name="parent"}}
+      {{> afQuickField name="description"}}
+    </fieldset>
+  {{/autoForm}}
 </template>

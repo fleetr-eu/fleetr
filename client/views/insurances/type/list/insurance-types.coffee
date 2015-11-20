@@ -11,7 +11,7 @@ Template.insuranceTypes.events
       title: -> TAPi18n.__ 'insuranceTypes.title'
       message: -> TAPi18n.__ 'insuranceTypes.deleteMessage'
       action: ->
-        Meteor.call 'removeInsuranceTypes', Session.get('selectedInsuranceTypesId'), ->
+        Meteor.call 'removeInsuranceType', Session.get('selectedInsuranceTypesId'), ->
           Meteor.defer ->
             Session.set 'selectedInsuranceTypesId', t.grid.data[t.row]?._id
     Modal.show 'confirmDelete', data, options

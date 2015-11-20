@@ -2,7 +2,7 @@ Template.fleet.rendered = ->
   AutoForm.getValidationContext("fleetForm").resetValidation()
 
 Template.fleet.events
-  "click .submit" : (e, t) -> t.$("#fleetForm").submit()
+  "modal-submit": (e, t) -> t.$("#fleetForm").submit()
 
 AutoForm.hooks
   fleetForm: onSuccess: -> Modal.hide()

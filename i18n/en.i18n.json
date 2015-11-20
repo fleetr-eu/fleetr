@@ -15,6 +15,8 @@
     "listExpenseTypes": "Expense Types",
     "addExpense": "Add Expense",
     "maintenances" : "Maintenances",
+    "insurances" : "Insurances",
+    "listInsuranceTypes" : "Insurance Types",
     "addMaintenanceType" : "Add Maintenance Type",
     "listMaintenanceTypes" : "Maintenance Types",
     "logbook": "Logbook",
@@ -36,7 +38,8 @@
     "title" : "Fleet Group",
     "listTitle" : "Fleet Groups",
     "name" : "Name",
-    "description" : "Description"
+    "description" : "Description",
+    "deleteMessage": "Are you certain you want to delete this fleet group?"
   },
 
   "fleet": {
@@ -52,14 +55,16 @@
     "title" :"Expense Group",
     "listTitle" : "Expense Groups",
     "name" : "Name",
-    "description" : "Description"
+    "description" : "Description",
+    "deleteMessage": "Are you certain you want to delete this expense group?"
   },
 
   "insuranceTypes": {
     "title" : "Insurance Types",
     "listTitle" : "Insurance Types",
     "name" : "Name",
-    "description" : "Description"
+    "description" : "Description",
+    "deleteMessage": "Are you certain you want to delete this insurance type?"
   },
 
   "expenseTypes": {
@@ -67,7 +72,8 @@
     "listTitle" : "Expense Types",
     "name" : "Name",
     "unitOfMeasure":"Unit of measure",
-    "description" : "Description"
+    "description" : "Description",
+    "deleteMessage": "Are you certain you want to delete this expense type?"
   },
 
   "expenses": {
@@ -87,7 +93,8 @@
     "VATIncluded" : "VAT included?",
     "discount" : "Discount",
     "total" : "Total",
-    "description" : "Description"
+    "description" : "Description",
+    "deleteMessage": "Are you certain you want to delete this expense?"
   },
 
   "maintenanceTypes": {
@@ -99,7 +106,8 @@
     "nextMaintenanceMonths" : "Months",
     "nextMaintenanceKMs" : "Kilometers",
     "nextMaintenanceEngineHours" : "Engine hours",
-    "nextMaintenanceEngineHoursShort" : "Hours"
+    "nextMaintenanceEngineHoursShort" : "Hours",
+    "deleteMessage": "Are you certain you want to delete this maintenance type?"
   },
 
   "maintenances": {
@@ -114,7 +122,8 @@
     "engineHours" : "Engine hours",
     "nextMaintenanceDate" : "Date",
     "nextMaintenanceOdometer" : "Odometer",
-    "nextMaintenanceEngineHours" : "Engine hours"
+    "nextMaintenanceEngineHours" : "Engine hours",
+    "deleteMessage": "Are you certain you want to delete this maintenance?"
   },
 
   "vehicle": {

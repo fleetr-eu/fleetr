@@ -142,6 +142,20 @@
 						</ul>
 					</li>
 
+					<li class="{{isActiveRoute regex='insurance'}}">
+						<a href="javascript:;">
+							<i class="fa fa-university"></i>
+							<span class="title">{{_ "menu.insurances"}}</span>
+							<span class="arrow "></span>
+						</a>
+						<ul class="sub-menu">
+						<li class="{{isActiveRoute regex='insurance'}}">
+								<a href="{{pathFor 'listInsuranceTypes'}}">
+								{{_ "menu.listInsuranceTypes"}}</a>
+						</li>
+						</ul>
+					</li>
+
 				<li class="{{isActiveRoute regex='Report'}}">
 					<a href="javascript:;">
 					<i class="icon-docs"></i>

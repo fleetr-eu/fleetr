@@ -1,10 +1,6 @@
 Template.fleets.onRendered ->
   Session.set 'selectedFleetId', null
 
-options =
-  backdrop: 'static'
-  keyboard: false
-
 Template.fleets.events
   'click .deleteFleet': (e, t) ->
     data =
@@ -18,8 +14,9 @@ Template.fleets.events
   'rowsSelected': (e, t) ->
     [t.grid, t.row] = [e.fleetrGrid, e.rowIndex]
     Session.set 'selectedFleetId', t.grid.data[t.row]._id
-  'click .edit-fleet': -> Modal.show 'fleet', {doc: Fleets.findOne(_id: Session.get('selectedFleetId'))}, options
-  'click .add-fleet': -> Modal.show 'fleet', {}, options
+  'click .edit-fleet': -> ModalForm.show 'fleet',
+    doc: Fleets.findOne(_id: Session.get('selectedFleetId'))
+  'click .add-fleet': -> ModalForm.show 'fleet'
 
 Template.fleets.helpers
   selectedFleetId: -> Session.get('selectedFleetId')
@@ -46,7 +43,7 @@ Template.fleets.helpers
       name: "Group"
       width:120
       sortable: true
-      search: where: 'client',  
+      search: where: 'client',
     ]
     options:
       enableCellNavigation: true
@@ -57,4 +54,3 @@ Template.fleets.helpers
     cursor: Fleets.find {},
       transform: (doc) -> _.extend doc,
         groupName: FleetGroups.findOne(_id: doc.parent)?.name
-
