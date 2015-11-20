@@ -10,7 +10,7 @@ Template.fleets.events
         Meteor.call 'removeFleet', Session.get('selectedFleetId'), ->
           Meteor.defer ->
             Session.set 'selectedFleetId', t.grid.data[t.row]?._id
-    Modal.show 'confirmDelete', data, options
+    Modal.show 'confirmDelete', data
   'rowsSelected': (e, t) ->
     [t.grid, t.row] = [e.fleetrGrid, e.rowIndex]
     Session.set 'selectedFleetId', t.grid.data[t.row]._id
