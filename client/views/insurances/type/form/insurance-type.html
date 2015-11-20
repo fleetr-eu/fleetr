@@ -8,7 +8,7 @@
                 </div>
 
                 <div class="modal-body">
-                  {{#autoForm collection="InsuranceType" doc=doc id="insuranceTypeForm" type="method" meteormethod="submitInsuranceType"}}
+                  {{#autoForm collection="InsuranceTypes" doc=doc id="insuranceTypeForm" type="method" meteormethod="submitInsuranceType"}}
                     <fieldset>
                   	  {{> afFieldInput type="hidden" name="_id" value=_id}}
                       {{> afQuickField name="name" autofocus=true}}

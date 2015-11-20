@@ -194,7 +194,7 @@ Meteor.startup ->
       data: -> {'insuranceTypeId' : @params.insuranceTypeId}
       waitOn: -> Meteor.subscribe('insuranceType', @params.insuranceTypeId)
 
-    @route 'listInsuranceType',
+    @route 'listInsuranceTypes',
       path: '/insurance/types/list'
       template: 'insuranceTypes'
       waitOn: ->

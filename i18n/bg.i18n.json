@@ -15,6 +15,8 @@
     "addExpenseGroup": "Добави група разходи",
     "listExpenseTypes": "Видове разходи",
     "addExpense": "Добави разход",
+     "insurances" : "Застраховки",
+    "listInsuranceTypes" : "Видове застраховки",
     "addMaintenanceType" : "Добави вид поддръжка",
     "listMaintenanceTypes" : "Видове поддръжки",
     "logbook": "Журнал",
@@ -36,7 +38,8 @@
     "title" : "Група автопаркове",
     "listTitle" : "Групи автопаркове",
     "name" : "Име",
-    "description" : "Описание"
+    "description" : "Описание",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете тази група автопаркове?"
   },
 
   "fleet": {
@@ -52,14 +55,17 @@
     "title" :"Група разходи",
     "listTitle" : "Групи разходи",
     "name" : "Име",
-    "description" : "Описание"
+    "description" : "Описание",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете тази група раходи?"
   },
 
   "insuranceTypes": {
     "title" : "Вид застраховка",
     "listTitle" : "Видове застраховки",
     "name" : "Вид застраховка",
-    "description" : "Описание"
+    "description" : "Описание",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете този вид застраховка?"
+
   },
 
   "expenseTypes": {
@@ -67,7 +73,8 @@
     "listTitle" : "Видове разходи",
     "name" : "Име",
     "unitOfMeasure":"Мярка",
-    "description" : "Описание"
+    "description" : "Описание",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете този вид разход?"
   },
 
   "expenses": {
@@ -87,7 +94,8 @@
     "VATIncluded" : "Сумата е с ДДС",
     "discount" : "Сума отстъпка",
     "total" : "Обща сума",
-    "description" : "Описание"
+    "description" : "Описание",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете този разход?"
   },
 
   "maintenanceTypes": {
@@ -99,7 +107,8 @@
     "nextMaintenanceMonths" : "Месеци",
     "nextMaintenanceKMs" : "Километри",
     "nextMaintenanceEngineHours" : "Двигателни часове",
-    "nextMaintenanceEngineHoursShort" : "Часове"
+    "nextMaintenanceEngineHoursShort" : "Часове",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете този вид поддръжка?"
   },
 
   "maintenances": {
@@ -114,7 +123,8 @@
     "engineHours" : "Двигател часове",
     "nextMaintenanceDate" : "Дата",
     "nextMaintenanceOdometer" : "Одометър",
-    "nextMaintenanceEngineHours" : "Двигател часове"
+    "nextMaintenanceEngineHours" : "Двигател часове",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете тази поддръжка?"
   },
 
   "vehicle": {
@@ -127,7 +137,7 @@
       "basicData" :"Основни данни",
       "vinData" :"VIN данни",
       "workSchedule" : "Работни часове",
-      "alarmsConfiguration" : "Настройка на аларми"
+      "alarmsConfiguration" : "Настройка на аларми",
     },
     "name": "Наименование",
     "licensePlate" :"Регистрацинен No",
