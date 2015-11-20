@@ -65,7 +65,6 @@
     "name" : "Вид застраховка",
     "description" : "Описание",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете този вид застраховка?"
-
   },
 
   "expenseTypes": {
@@ -137,7 +136,7 @@
       "basicData" :"Основни данни",
       "vinData" :"VIN данни",
       "workSchedule" : "Работни часове",
-      "alarmsConfiguration" : "Настройка на аларми",
+      "alarmsConfiguration" : "Настройка на аларми"
     },
     "name": "Наименование",
     "licensePlate" :"Регистрацинен No",
