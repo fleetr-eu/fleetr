@@ -6,6 +6,22 @@ Template.tyres.helpers
     removeItemMethod: 'removeTyre'
     gridConfig:
       columns: [
+        id: "active"
+        field: "active"
+        name: TAPi18n.__ 'tyre.active'
+        width:20
+        sortable: true
+        search: false
+        align: 'center'
+        formatter: FleetrGrid.Formatters.blazeFormatter Template.activeTyre
+      ,
+        id: "vehicle"
+        field: "vehicleLicensePlate"
+        name: TAPi18n.__ 'tyre.vehicle'
+        width:20
+        sortable: true
+        search: where: 'client'
+      ,
         id: "width"
         field: "width"
         name: TAPi18n.__ 'tyre.width'
@@ -47,4 +63,15 @@ Template.tyres.helpers
         showHeaderRow: true
         explicitInitialization: true
         forceFitColumns: true
-      cursor: Tyres.find()
+      cursor: Tyres.find {},
+        transform: (doc) -> _.extend doc,
+          vehicleLicensePlate: Vehicles.findOne(_id: doc.vehicle)?.licensePlate
+
+Template.activeTyre.helpers
+  checked: -> if @value then 'checked' else ''
+
+Template.activeTyre.events
+  'change .active': (e, t) ->
+    Meteor.call 'submitTyre', @rowObject,
+      $set:
+        active: e.target.checked

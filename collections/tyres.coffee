@@ -16,3 +16,14 @@ Tyres.attachSchema new SimpleSchema
   speedIndex:
     type: String
     optional: true
+  active:
+    type: Boolean
+  vehicle:
+    type: String
+    optional: true
+    autoform:
+      firstOption: "(Изберете)"
+      options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
+      template: "bootstrap3-horizontal"
+      "label-class":"col-sm-4"
+      "input-col-class": "col-sm-8"
