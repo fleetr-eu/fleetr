@@ -4,13 +4,13 @@ autoformHooks = {}
   show: (template, data) ->
     context =
       template: template
-      data: data
+      data: data or {}
     Modal.show 'modalForm', context,
       backdrop: 'static'
       keyboard: false
 
   hide: -> Modal.hide()
-  
+
 Template.modalForm.onRendered ->
   autoformId = Template.instance().find('form').id
   AutoForm.getValidationContext(autoformId).resetValidation()
