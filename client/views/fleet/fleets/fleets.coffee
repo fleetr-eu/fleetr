@@ -2,7 +2,7 @@ Template.fleets.onRendered ->
   Session.set 'selectedFleetId', null
 
 Template.fleets.events
-  'click .deleteFleet': (e, t) ->
+  'click .delete-fleet': (e, t) ->
     data =
       title: -> TAPi18n.__ 'fleet.title'
       message: -> TAPi18n.__ 'fleet.deleteMessage'
