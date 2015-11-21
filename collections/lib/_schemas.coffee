@@ -4,9 +4,9 @@ Schema.fleetGroups = new SimpleSchema
   _id:
     type: String, optional: true
   name:
-    type: String, label: ()->TAPi18n.__('fleetGroup.name')
+    type: String, label: ()->TAPi18n.__('fleetGroups.name')
   description:
-    type: String, optional: true, label: ()->TAPi18n.__('fleetGroup.description')
+    type: String, optional: true, label: ()->TAPi18n.__('fleetGroups.description')
     autoform:
       rows: 5
 

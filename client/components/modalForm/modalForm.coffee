@@ -1,10 +1,8 @@
 autoformHooks = {}
 
 @ModalForm =
-  show: (template, data) ->
-    context =
-      template: template
-      data: data or {}
+  show: (template, context) ->
+    context.template = template
     Modal.show 'modalForm', context,
       backdrop: 'static'
       keyboard: false
