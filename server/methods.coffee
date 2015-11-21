@@ -1,3 +1,12 @@
+submitItem = (collection) -> (doc, diff) ->
+  @unblock()
+  collection.submit doc, diff
+
+removeItem = (collection) -> (doc, diff) ->
+  @unblock()
+  collection.remove _id: doc
+
+
 Meteor.methods
   getUser: -> Meteor.user()
 
@@ -9,83 +18,41 @@ Meteor.methods
 
   removeGeofence: (gfId) -> Geofences.remove _id: gfId
 
-  submitDriver: (doc, diff) ->
-    @unblock()
-    Drivers.submit doc, diff
-
-  removeDriver: (doc) ->
-    @unblock()
-    Drivers.remove _id: doc
-
-  submitVehicle: (doc, diff) ->
-    @unblock()
-    Vehicles.submit(doc, diff)
-
-  removeVehicle: (doc) ->
-    @unblock()
-    Vehicles.remove _id : doc
-
-  submitFleetGroup: (doc, diff) ->
-    @unblock()
-    FleetGroups.submit(doc, diff)
-
-  removeFleetGroup: (gid) ->
-    @unblock()
-    FleetGroups.remove _id : gid
-
   addLocation: (doc) ->
     @unblock()
     Locations.insert doc
 
-  submitFleet: (doc, diff) ->
-    @unblock()
-    Fleets.submit(doc, diff)
+  submitDriver: submitItem Drivers
+  removeDriver: removeItem Drivers
 
-  removeFleet: (doc) ->
-    @unblock()
-    Fleets.remove _id : doc
+  submitVehicle: submitItem Vehicles
+  removeVehicle: removeItem Vehicles
 
-  submitMaintenanceType: (doc, diff) ->
-    @unblock()
-    MaintenanceTypes.submit(doc, diff)
+  submitFleetGroup: submitItem FleetGroups
+  removeFleetGroup: removeItem FleetGroups
 
-  removeMaintenanceType: (doc) ->
-    @unblock()
-    MaintenanceTypes.remove _id : doc  
+  submitFleet: submitItem Fleets
+  removeFleet: removeItem Fleets
 
-  submitInsuranceType: (doc, diff) ->
-    @unblock()
-    InsuranceTypes.submit(doc, diff)
+  submitTyre: submitItem Tyres
+  removeTyre: removeItem Tyres
 
-  removeInsuranceType: (doc) ->
-    @unblock()
-    InsuranceTypes.remove _id : doc    
+  submitMaintenanceType: submitItem MaintenanceTypes
+  removeMaintenanceType: removeItem MaintenanceTypes
 
-  submitMaintenance: (doc, diff) ->
-    @unblock()
-    Maintenances.submit(doc, diff)
+  submitInsuranceType: submitItem InsuranceTypes
+  removeInsuranceType: removeItem InsuranceTypes
 
-  submitExpenseGroup: (doc, diff) ->
-    @unblock()
-    ExpenseGroups.submit(doc, diff)
+  submitMaintenance: submitItem Maintenances
 
-  removeExpenseGroup: (doc) ->
-    @unblock()
-    ExpenseGroups.remove _id : doc    
+  submitExpenseGroup: submitItem ExpenseGroups
+  removeExpenseGroup: removeItem ExpenseGroups
 
-  submitExpenseType: (doc, diff) ->
-    @unblock()
-    ExpenseTypes.submit(doc, diff)
+  submitExpenseType: submitItem ExpenseTypes
+  removeExpenseType: removeItem ExpenseTypes
 
-  removeExpenseType: (doc) ->
-    @unblock()
-    ExpenseTypes.remove _id : doc  
-
-  submitExpense: (doc, diff) ->
-    @unblock()
-    Expenses.submit doc, diff
-
-  removeExpenses: (doc) -> Expenses.remove _id : doc
+  submitExpense: submitItem Expenses
+  removeExpenses: removeItem Expenses
 
   toggleNotificationSeen: (id, oldSeenState) ->
     newSeenState = !oldSeenState
@@ -112,13 +79,6 @@ Meteor.methods
     Vehicles.update {_id: doc.vehicle}, {$set: driver_id: doc.driver}
 
   removeDriverVehicleAssignment: (doc) -> DriverVehicleAssignments.remove _id : doc
-
-  # findCachedLocationName: (lat,lon) ->
-  #   console.log 'MyCodes: ' + MyCodes.find().count()
-  #   doc = MyCodes.findOne {lat: lat, lon: lon}
-  #   console.log '  : ' + lat + ':' + lon + ' found: ' + doc
-  #   doc
-
 
   cacheLocationName: (lat,lon,address) ->
     doc = MyCodes.findOne {lat: lat, lon: lon}

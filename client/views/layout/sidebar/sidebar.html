@@ -2,13 +2,6 @@
 	<!-- BEGIN SIDEBAR -->
 	<div class="page-sidebar-wrapper">
 		<div class="page-sidebar navbar-collapse collapse">
-			<!-- BEGIN SIDEBAR MENU -->
-			<!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-			<!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-			<!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-			<!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-			<!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-			<!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
 			<ul class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 				<!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
 				<li class="sidebar-toggler-wrapper">
@@ -17,26 +10,8 @@
 					</div>
 					<!-- END SIDEBAR TOGGLER BUTTON -->
 				</li>
-				<!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
-				<!-- <li class="sidebar-search-wrapper"> -->
-					<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
-					<!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
-					<!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
-					<!-- <form class="sidebar-search " action="/extra_search.html" method="POST">
-						<a href="javascript:;" class="remove">
-						<i class="icon-close"></i>
-						</a>
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="Търсене...">
-							<span class="input-group-btn">
-							<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
-							</span>
-						</div>
-					</form> -->
-					<!-- END RESPONSIVE QUICK SEARCH FORM -->
-				<!-- </li> -->
 				<li  class="{{isActiveRoute regex='dashboard'}}">
-					<a href="javascript:;">
+					<a href="#">
 					<i class="icon-bar-chart"></i>
 					<span class="title">{{_ "menu.dashboard"}}</span>
 					<span class="selected"></span>
@@ -48,8 +23,8 @@
 						</li>
 					</ul>
 				</li>
-				<li class="{{isActivePath regex='fleet|vehicles|mapVehicles'}}">
-					<a href="javascript:;">
+				<li class="{{isActivePath regex='fleet|vehicles|mapVehicles|tyres'}}">
+					<a href="#">
 					<i class="fa fa-car"></i>
 					<span class="title">{{_ "menu.fleets"}}</span>
 					<span class="arrow"></span>
@@ -67,6 +42,10 @@
 							<a href="{{pathFor 'listVehicles'}}">
 								{{_ "menu.listVehicles"}}</a>
 						</li>
+						<li class="{{isActiveRoute regex='listTyres'}}">
+							<a href="{{pathFor 'listTyres'}}">
+								{{_ "menu.listTyres"}}</a>
+						</li>
 						<li class="{{isActiveRoute regex='mapVehicles'}}">
 							<a href="{{pathFor 'mapVehicles'}}">
 								{{_ "menu.map"}}</a>
@@ -75,7 +54,7 @@
 				</li>
 
 				<li class="{{isActiveRoute regex='driver|mapDrivers|assignments'}}">
-					<a href="javascript:;">
+					<a href="#">
 					<i class="icon-user"></i>
 					<span class="title">{{_ "menu.drivers"}}</span>
 					<span class="arrow "></span>
@@ -96,7 +75,7 @@
 					</ul>
 				</li>
 				<li class="{{isActiveRoute regex='geofences'}}">
-					<a href="javascript:;">
+					<a href="#">
 					<i class="icon-home"></i>
 					<span class="title">{{_ "menu.objects"}}</span>
 					<span class="arrow "></span>
@@ -110,7 +89,7 @@
 				</li>
 
 				<li class="{{isActiveRoute regex='addExpense|listExpenseTypes|listExpenseGroups'}}">
-					<a href="javascript:;">
+					<a href="#">
 						<i class="fa fa-dollar"></i>
 						<span class="title">{{_ "menu.expenses"}}</span>
 						<span class="arrow "></span>
@@ -129,7 +108,7 @@
 					</li>
 
 					<li class="{{isActiveRoute regex='maintenanceType'}}">
-						<a href="javascript:;">
+						<a href="#">
 							<i class="fa fa-wrench"></i>
 							<span class="title">{{_ "menu.maintenances"}}</span>
 							<span class="arrow "></span>
@@ -143,7 +122,7 @@
 					</li>
 
 					<li class="{{isActiveRoute regex='insurance'}}">
-						<a href="javascript:;">
+						<a href="#">
 							<i class="fa fa-university"></i>
 							<span class="title">{{_ "menu.insurances"}}</span>
 							<span class="arrow "></span>
@@ -157,7 +136,7 @@
 					</li>
 
 				<li class="{{isActiveRoute regex='Report'}}">
-					<a href="javascript:;">
+					<a href="#">
 					<i class="icon-docs"></i>
 					<span class="title">{{_ "menu.reports"}}</span>
 					<span class="arrow "></span>

@@ -2,6 +2,7 @@ Meteor.publish 'drivers', -> Drivers.find {}
 Meteor.publish 'driver', (filter) -> if filter then Drivers.find(filter) else []
 Meteor.publish 'countries', -> Countries.find {}
 Meteor.publish 'vehicles', (filter) -> if filter then Vehicles.find filter else Vehicles.find {}
+Meteor.publish 'tyres', (filter) -> if filter then Tyres.find filter else Tyres.find {}
 Meteor.publish 'vehicle', (filter) -> if filter then Vehicles.find(filter) else []
 Meteor.publish 'vehiclesMakes', -> VehiclesMakes.find {}
 Meteor.publish 'vehiclesModels', -> VehiclesModels.find {}

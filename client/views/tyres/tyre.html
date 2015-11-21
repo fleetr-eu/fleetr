@@ -1,0 +1,12 @@
+<template name="tyre">
+  {{#autoForm collection="Tyres" doc=doc id="tyreForm" type="method" meteormethod="submitTyre"}}
+    <fieldset>
+  	  {{> afFieldInput type="hidden" name="_id" value=_id}}
+      {{> afQuickField name="width" autofocus=true}}
+      {{> afQuickField name="height"}}
+      {{> afQuickField name="innerDiameter"}}
+      {{> afQuickField name="loadIndex"}}
+      {{> afQuickField name="speedIndex"}}
+    </fieldset>
+  {{/autoForm}}
+</template>

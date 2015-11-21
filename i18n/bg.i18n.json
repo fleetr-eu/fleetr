@@ -24,7 +24,8 @@
     "reports": "Отчети",
     "map": "Карта",
     "expenseReport": "Разходи",
-    "maintenanceReport": "Поддръжка"
+    "maintenanceReport": "Поддръжка",
+    "listTyres": "Гуми"
   },
 
   "drivers": {
@@ -49,6 +50,17 @@
     "description" : "Описание",
     "parent" : "Група",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете този автопарк?"
+  },
+
+  "tyre": {
+    "title" : "Гума",
+    "listTitle" : "Гуми",
+    "width" : "Широчина",
+    "height" : "Височина",
+    "innerDiameter" : "Вътрешен диаметър",
+    "loadIndex" : "Индекс на натоварване",
+    "speedIndex" : "Индекс на скорост",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете тази гума?"
   },
 
   "expenseGroups": {
