@@ -26,9 +26,8 @@ FleetrGrid.Formatters =
     if @_blazeCache.views["#{row}:#{cell}"]
       Blaze.remove @_blazeCache.views["#{row}:#{cell}"]
     @_blazeCache.templates["#{row}:#{cell}"] = blazeTemplate
-    # defer rendering of blazeTemplates
-    Meteor.defer => @_renderBlazeTemplates()
-    return "<div class='blazeTemplate' data-row='#{row}' data-col='#{cell}'></div>"
+    @_renderBlazeTemplates()
+    "<div class='blazeTemplate' data-row='#{row}' data-col='#{cell}'></div>"
 
 FleetrGrid.Formatters.sumEuroTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '&euro;'
 FleetrGrid.Formatters.sumTotalsFormatterNoSign = FleetrGrid.Formatters.sumTotalsFormatter ''
