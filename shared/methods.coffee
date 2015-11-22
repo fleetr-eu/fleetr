@@ -1,9 +1,9 @@
 submitItem = (collection) -> (doc, diff) ->
-  @unblock() unless @isSimulation
+  @unblock()
   collection.submit doc, diff
 
 removeItem = (collection) -> (doc) ->
-  @unblock() unless @isSimulation
+  @unblock()
   collection.remove _id: doc
 
 Meteor.methods
