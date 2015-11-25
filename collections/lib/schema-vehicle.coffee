@@ -100,9 +100,16 @@ Schema.vehicle = new SimpleSchema
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
   makeAndModel:
-    type: String, optional: true, label:()->TAPi18n.__('vehicle.makeAndModel')
+    type: String
+    optional: true
+    label: () -> TAPi18n.__('vehicle.makeAndModel')
     autoform:
+      type: "typeahead"
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      options: ->
+        Vehicles.find({}, {fields: makeAndModel: 1}).map (v) ->
+          label: v.makeAndModel
+          value: v.makeAndModel
 
   kind:
     type: String, optional: true, label:()->TAPi18n.__('vehicle.kind')

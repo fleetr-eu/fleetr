@@ -79,7 +79,6 @@ Meteor.startup ->
       template: 'vehicle'
       waitOn: ->
         [Meteor.subscribe('vehiclesMakes')
-        Meteor.subscribe('vehiclesModels')
         Meteor.subscribe('fleets')]
     @route 'editVehicle',
       path: '/vehicles/edit/:vehicleId'
