@@ -166,6 +166,7 @@
     "category":"Category",
     "make":"Make",
     "model":"Model",
+    "makeAndModel":"Make/Model",
     "kind":"Kind",
     "maxPower":"Max power (kW)",
     "fuelType":"Fuel type",

@@ -168,6 +168,7 @@
     "category":"Категория",
     "make":"Марка",
     "model":"Модел",
+    "makeAndModel":"Марка/Модел",
     "kind":"Вид",
     "maxPower":"Макс мощност (kW)",
     "fuelType":"Вид гориво",

@@ -99,19 +99,9 @@ Schema.vehicle = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
-  make:
-    type: String, optional: true, label:()->TAPi18n.__('vehicle.make')
+  makeAndModel:
+    type: String, optional: true, label:()->TAPi18n.__('vehicle.makeAndModel')
     autoform:
-      firstOption: "(Select)"
-      options: -> VehiclesMakes.find().map (make) -> label: make.name, value: make._id
-      allowOptions: "true"
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
-
-  model:
-    type: String, optional: true, label:()->TAPi18n.__('vehicle.model')
-    autoform:
-      firstOption: "(Select)"
-      allowOptions: "true"
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
   kind:
