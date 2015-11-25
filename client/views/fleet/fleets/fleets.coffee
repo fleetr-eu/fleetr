@@ -8,21 +8,21 @@ Template.fleets.helpers
       columns: [
         id: "fleet"
         field: "name"
-        name: "Fleet"
+        name: "#{TAPi18n.__('fleet.name')}"
         width:120
         sortable: true
         search: where: 'client'
       ,
         id: "description"
         field: "description"
-        name: "Description"
+        name: "#{TAPi18n.__('fleet.description')}"
         width:120
         sortable: true
         search: where: 'client'
       ,
         id: "group"
         field: "groupName"
-        name: "Group"
+        name: "#{TAPi18n.__('fleet.parent')}"
         width:120
         sortable: true
         search: where: 'client',

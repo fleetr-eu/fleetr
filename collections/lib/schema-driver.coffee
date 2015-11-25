@@ -13,7 +13,10 @@ Schema.driver = new SimpleSchema
     type: String
     optional: true
     label: 'Етикети'
-
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"
   name:
     type: String
     label: 'Фамилия'
@@ -74,9 +77,9 @@ Schema.driver = new SimpleSchema
     optional: true
     autoform:
       template: "bootstrap3-horizontal"
+      leftLabel:"true"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7"
-      "leftLabel": "true"
 
   idType:
     type: String
@@ -151,7 +154,6 @@ Schema.driver = new SimpleSchema
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7"
-
   city:
     type: String
     label: "Град"
@@ -181,8 +183,6 @@ Schema.driver = new SimpleSchema
     label: "Държава"
     optional: true
     autoform:
-      firstOption: "(Изберете)"
-      options: -> Countries.find().map (country) -> label: country.name, value: country._id
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7"
@@ -237,7 +237,6 @@ Schema.driver = new SimpleSchema
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7"
-
   categoryA:
     type: Boolean
     optional: true
@@ -254,8 +253,8 @@ Schema.driver = new SimpleSchema
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
-      "label-class": "col-sm-2"
-      "input-col-class": "col-sm-8"
+      "label-class": "col-sm-3"
+      "input-col-class": "col-sm-7"
   categoryB:
     type: Boolean
     optional: true
@@ -272,8 +271,8 @@ Schema.driver = new SimpleSchema
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
-      "label-class": "col-sm-2"
-      "input-col-class": "col-sm-8"
+      "label-class": "col-sm-3"
+      "input-col-class": "col-sm-7"
   categoryC:
     type: Boolean
     optional: true
@@ -290,8 +289,8 @@ Schema.driver = new SimpleSchema
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
-      "label-class": "col-sm-2"
-      "input-col-class": "col-sm-8"
+      "label-class": "col-sm-3"
+      "input-col-class": "col-sm-7"
   categoryD:
     type: Boolean
     optional: true
@@ -308,8 +307,8 @@ Schema.driver = new SimpleSchema
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
-      "label-class": "col-sm-2"
-      "input-col-class": "col-sm-8"
+      "label-class": "col-sm-3"
+      "input-col-class": "col-sm-7"
   categoryE:
     type: Boolean
     optional: true
@@ -326,53 +325,53 @@ Schema.driver = new SimpleSchema
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
-      "label-class": "col-sm-2"
-      "input-col-class": "col-sm-8"
+      "label-class": "col-sm-3"
+      "input-col-class": "col-sm-7"
 
   medEvalExpieryDate:
     type: Date
-    label: "Медицинско свидетелство: Валидно до"
+    label: "Медицинско свидетелство: "
     optional: true
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
-      "label-class": "col-sm-8"
-      "input-col-class": "col-sm-4"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"
   profCertExpieryDate:
     type: Date
-    label: "Професионален сертификат: Валиден до"
+    label: "Професионален сертификат: "
     optional: true
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
-      "label-class": "col-sm-8"
-      "input-col-class": "col-sm-4"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"
   psychApprovalExpieryDate:
     type: Date
-    label: "Удостоверението за психологическа годност: Валидно до"
+    label: "У-ние за психо годност: "
     optional: true
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
-      "label-class": "col-sm-8"
-      "input-col-class": "col-sm-4"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"
   transportLicense:
     type: String
     label: "Транспортен лиценз"
     optional: true
     autoform:
       template: "bootstrap3-horizontal"
-      "label-class": "col-sm-8"
-      "input-col-class": "col-sm-4"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"
   ownsPersonalLicense:
     type: Boolean
-    label: "Притежева личен лиценз"
+    label: "Личен лиценз"
     optional: true
     autoform:
       template: "bootstrap3-horizontal"
       leftLabel:"true"
-      "label-class": "col-sm-8"
-      "input-col-class": "col-sm-4"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"
   ownVehicle:
     type: String
     label: "Собствено МПС"
@@ -381,8 +380,8 @@ Schema.driver = new SimpleSchema
       firstOption: "(Изберете)"
       options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
       template: "bootstrap3-horizontal"
-      "label-class": "col-sm-8"
-      "input-col-class": "col-sm-4"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"
   vehicle_id:
     type: String
     optional: true

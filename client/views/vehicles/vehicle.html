@@ -1,0 +1,53 @@
+<template name="vehicle">
+  <div class="tabbable-custom">
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#tab_1" data-toggle="tab">{{_ "vehicles.tab.basicData"}}</a>
+      </li>
+      <li>
+        <a href="#tab_2" data-toggle="tab">{{_ "vehicles.tab.vinData"}}</a>
+      </li>
+    </ul>
+    {{#autoForm collection="Vehicles" doc=doc id="vehicleForm" type="method" meteormethod="submitVehicle"}}
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab_1">
+          <fieldset>
+        	  {{> afFieldInput type="hidden" name="_id" value=_id}}
+            {{> afQuickField name="name"}}
+            {{> afQuickField name="licensePlate"}}
+            {{> afQuickField name="identificationNumber"}}
+            {{> afQuickField name="engineNumber"}}
+            {{> afQuickField name="color"}}
+            {{> afQuickField name="tags"}}
+            {{> afQuickField name="allocatedToFleet"}}
+            {{> afQuickField name="allocatedToFleetFromDate" datePickerOptions=datePickerOptions}}
+            {{> afQuickField name="odometer" readonly=readonly}}
+            {{> afQuickField name="engineHours" readonly=readonly}}
+            {{> afQuickField name="unitId"}}
+            {{> afQuickField name="nextTechnicalCheck"}}
+            {{> afQuickField name="state" readonly=true}}
+             {{> afQuickField name="active"}}
+          </fieldset>
+      </div>
+
+      <div class="tab-pane" id="tab_2">
+          <fieldset>
+              {{> afQuickField name="category"}}
+              {{> afQuickField name="makeAndModel"}}
+              {{> afQuickField name="kind"}}
+              {{> afQuickField name="productionYear"}}
+              {{> afQuickField name="body"}}
+              {{> afQuickField name="maxPower"}}
+              {{> afQuickField name="fuelType"}}
+              {{> afQuickField name="engineDisplacement"}}
+              {{> afQuickField name="maxFuelCapacity"}}
+              {{> afQuickField name="maxSpeed"}}
+              {{> afQuickField name="maxAllowedSpeed"}}
+              {{> afQuickField name="mass"}}
+          </fieldset>
+      </div>
+    </div>
+    {{/autoForm}}
+
+  </div>
+</template>

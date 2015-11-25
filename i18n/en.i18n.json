@@ -24,14 +24,17 @@
     "reports": "Reports",
     "map": "Map",
     "expenseReport": "Expenses",
-    "maintenanceReport": "Maintenance"
+    "maintenanceReport": "Maintenance",
+    "listTyres": "Tyres"
   },
 
   "drivers": {
     "title": "Drivers",
-    "name" : "Last name",
+    "listTitle" : "Drivers",
     "firstName": "First name",
-    "tags": "Tags"
+    "lastName" : "Last name",
+    "tags": "Tags",
+    "deleteMessage": "Are you certain you want to delete this Driver?"
   },
 
   "fleetGroups": {
@@ -39,7 +42,7 @@
     "listTitle" : "Fleet Groups",
     "name" : "Name",
     "description" : "Description",
-    "deleteMessage": "Are you certain you want to delete this fleet group?"
+    "deleteMessage": "Are you certain you want to delete this Fleet Group?"
   },
 
   "fleet": {
@@ -48,7 +51,7 @@
     "name" : "Name",
     "description" : "Description",
     "parent" : "Group",
-    "deleteMessage": "Are you certain you want to delete this fleet?"
+    "deleteMessage": "Are you certain you want to delete this Fleet?"
   },
 
   "tyre": {
@@ -61,7 +64,7 @@
     "speedIndex" : "Speed index",
     "vehicle" : "Vehicle",
     "active" : "Active",
-    "deleteMessage": "Are you certain you want to delete this tyre?"
+    "deleteMessage": "Are you certain you want to delete this Tyre?"
   },
 
   "expenseGroups": {
@@ -69,7 +72,7 @@
     "listTitle" : "Expense Groups",
     "name" : "Name",
     "description" : "Description",
-    "deleteMessage": "Are you certain you want to delete this expense group?"
+    "deleteMessage": "Are you certain you want to delete this Expense Group?"
   },
 
   "insuranceTypes": {
@@ -77,7 +80,7 @@
     "listTitle" : "Insurance Types",
     "name" : "Name",
     "description" : "Description",
-    "deleteMessage": "Are you certain you want to delete this insurance type?"
+    "deleteMessage": "Are you certain you want to delete this Insurance Type?"
   },
 
   "expenseTypes": {
@@ -86,7 +89,7 @@
     "name" : "Name",
     "unitOfMeasure":"Unit of measure",
     "description" : "Description",
-    "deleteMessage": "Are you certain you want to delete this expense type?"
+    "deleteMessage": "Are you certain you want to delete this Expense Type?"
   },
 
   "expenses": {
@@ -139,7 +142,7 @@
     "deleteMessage": "Are you certain you want to delete this maintenance?"
   },
 
-  "vehicle": {
+  "vehicles": {
     "tab" : {
       "basicData" :"Basic data",
       "vinData" :"VIN data",
@@ -177,11 +180,6 @@
     "maxSpeed":"Max speed (km/h)",
     "maxAllowedSpeed":"Max allowed speed (km/h)",
     "mass" : "Mass (kg)"
-  },
-
-  "driver": {
-    "title" : "Driver",
-    "listTitle" : "Drivers"
   },
 
   "dropdown": {

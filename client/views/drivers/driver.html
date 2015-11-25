@@ -1,0 +1,96 @@
+<template name="driver">
+  <div class="tabbable-custom">
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#tab_1" data-toggle="tab">
+        Лични данни </a>
+      </li>
+      <li>
+        <a href="#tab_2" data-toggle="tab">
+        Kонтакт</a>
+      </li>
+      <li>
+        <a href="#tab_3" data-toggle="tab">
+        Документи</a>
+      </li>
+      <li>
+        <a href="#tab_4" data-toggle="tab">
+        Допълнителни</a>
+      </li>
+    </ul>
+    {{#autoForm collection="Drivers" doc=doc id="driverForm" type="method" meteormethod="submitDriver"}}
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab_1">
+          <fieldset>
+            <legend>&nbsp;</legend>
+            {{> afFieldInput type="hidden" name="_id" value=_id}}
+            {{> afQuickField name="firstName"}}
+            {{> afQuickField name="name"}}
+            {{> afQuickField name="ssn"}}
+            {{> afQuickField name="birthDate"}}
+            {{> afQuickField name="sex"}}
+            {{> afQuickField name="education"}}
+            {{> afQuickField name="tags"}}
+            {{> afQuickField name="active"}}
+            <legend>Снимка</legend>
+            <img id="driverImage" src="{{driverImage}}" alt="Снимка на щофьора" />
+            <input id="picture" name="picture" type="file"/>
+          </fieldset>
+        </div>
+        <div class="tab-pane" id="tab_2">
+          <fieldset>
+             <legend>&nbsp;</legend>
+            {{> afQuickField name="address"}}
+            {{> afQuickField name="city"}}
+            {{> afQuickField name="county"}}
+            {{> afQuickField name="country"}}
+            {{> afQuickField name="email"}}
+            {{> afQuickField name="mobile"}}
+            {{> afQuickField name="officePhone"}}
+            {{> afQuickField name="phone"}}
+          </fieldset>
+        </div>
+        <div class="tab-pane" id="tab_3">
+          <fieldset>
+            <legend>Документ за самоличност</legend>
+            {{> afQuickField name="idType"}}
+            {{> afQuickField name="idSerial"}}
+            {{> afQuickField name="idNo"}}
+            {{> afQuickField name="validFrom"}}
+            {{> afQuickField name="validTo"}}
+            {{> afQuickField name="issuedBy"}}
+            {{> afQuickField name="birthPlace"}}
+            {{> afQuickField name="bloodGroup" }}
+        
+            <legend>Документ за управление на МПС</legend>
+            {{> afQuickField name="licenseIssueDate"}}
+            {{> afQuickField name="licenseExpieryDate"}}
+
+            <legend>Категории</legend>
+            {{> afQuickField name="categoryA" }}
+            {{> afQuickField name="categoryAIssueDate"}}
+            {{> afQuickField name="categoryB" }}
+            {{> afQuickField name="categoryBIssueDate"}}
+            {{> afQuickField name="categoryC" }}
+            {{> afQuickField name="categoryCIssueDate"}}
+            {{> afQuickField name="categoryD" }}
+            {{> afQuickField name="categoryDIssueDate"}}
+            {{> afQuickField name="categoryE" }}
+            {{> afQuickField name="categoryEIssueDate"}}
+          </fieldset>
+        </div>
+        <div class="tab-pane" id="tab_4">
+          <fieldset>
+             <legend>&nbsp;</legend>
+            {{> afQuickField name="medEvalExpieryDate"}}
+            {{> afQuickField name="profCertExpieryDate"}}
+            {{> afQuickField name="psychApprovalExpieryDate"}}
+            {{> afQuickField name="transportLicense"}}
+            {{> afQuickField name="ownVehicle" }}
+            {{> afQuickField name="ownsPersonalLicense"}}
+          </fieldset>
+        </div>
+      </div>
+    {{/autoForm}}
+  </div>
+</template>
