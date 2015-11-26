@@ -1,8 +1,13 @@
+aggregators= [
+  new Slick.Data.Aggregators.Sum 'value'
+]
+
 Template.insurances.helpers
   options: ->
     i18nRoot: 'insurances'
     collection: Insurances
     editItemTemplate: 'insurance'
+    additionalItemActionsTemaplate: 'payment'
     removeItemMethod: 'removeInsurance'
     gridConfig:
       columns: [
@@ -12,14 +17,18 @@ Template.insurances.helpers
         width:80
         sortable: true
         search: where: 'client'
+        groupable:
+          aggregators: aggregators
       ,
         id: "insuranceType"
-        field: "insuranceType"
+        field: "insuranceTypeName"
         name: TAPi18n.__('insurances.insuranceType')
         width:80
         sortable: true
         search: where: 'client'
-      ,  
+        groupable:
+          aggregators: aggregators
+      ,
         id: "policyNo"
         field: "policyNo"
         name: TAPi18n.__('insurances.policyNo')
@@ -32,11 +41,14 @@ Template.insurances.helpers
         name: TAPi18n.__('insurances.value')
         width:80
         sortable: true
+        align: 'right'
         search: where: 'client'
+        groupTotalsFormatter: FleetrGrid.Formatters.sumTotalsFormatterNoSign
       ,
         id: "policyDate"
         field: "policyDate"
         name: TAPi18n.__('insurances.policyDate')
+        formatter: FleetrGrid.Formatters.dateFormatter
         width:80
         sortable: true
         search: where: 'client'
@@ -44,6 +56,7 @@ Template.insurances.helpers
         id: "policyValidFrom"
         field: "policyValidFrom"
         name: TAPi18n.__('insurances.policyValidFrom')
+        formatter: FleetrGrid.Formatters.dateFormatter
         width:80
         sortable: true
         search: where: 'client'
@@ -51,9 +64,10 @@ Template.insurances.helpers
         id: "policyValidTo"
         field: "policyValidTo"
         name: TAPi18n.__('insurances.policyValidTo')
+        formatter: FleetrGrid.Formatters.dateFormatter
         width:80
         sortable: true
-        search: where: 'client'  
+        search: where: 'client'
       ]
       options:
         enableCellNavigation: true
@@ -61,4 +75,6 @@ Template.insurances.helpers
         showHeaderRow: true
         explicitInitialization: true
         forceFitColumns: true
-      cursor: Insurances.find()
+      cursor: Insurances.find {},
+        transform: (doc) -> _.extend doc,
+          insuranceTypeName: InsuranceTypes.findOne(_id: doc.insuranceType)?.name
