@@ -30,7 +30,15 @@ Schema.vehicle = new SimpleSchema
   active:
     type: Boolean, optional: true, label: ()->TAPi18n.__('vehicles.active')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6", "leftLabel": "true"
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions: 
+          size: 'small'
+          onColor: 'success'
+      template: "bootstrap3-horizontal"
+      leftLabel:"true"
+      "label-class": "col-sm-6"
+      "input-col-class": "col-sm-6"
 
   name:
     type: String, label: ()->TAPi18n.__('vehicles.name')
@@ -185,7 +193,15 @@ Schema.vehicle = new SimpleSchema
   "alarms.speedingAlarmActive":
     type: Boolean, label: "Speeding", optional: true
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-9", "input-col-class": "col-sm-3", "leftLabel": "true"
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions: 
+          size: 'small'
+          onColor: 'success'
+      template: "bootstrap3-horizontal"
+      leftLabel:"true"
+      "label-class": "col-sm-9"
+      "input-col-class": "col-sm-3"
 
   "alarms.speedingAlarmSpeed":
     type: Number, label:"Speed", optional:true
@@ -195,7 +211,15 @@ Schema.vehicle = new SimpleSchema
   "alarms.idleAlarmActive":
     type: Boolean, label: "Idling", optional: true
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-9", "input-col-class": "col-sm-3", "leftLabel": "true"
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions: 
+          size: 'small'
+          onColor: 'success'
+      template: "bootstrap3-horizontal"
+      leftLabel:"true"
+      "label-class": "col-sm-9"
+      "input-col-class": "col-sm-3"
 
   "alarms.idleAlarmTime":
     type: Number, label: "Time", optional:true

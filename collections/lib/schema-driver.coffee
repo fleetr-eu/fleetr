@@ -76,6 +76,11 @@ Schema.driver = new SimpleSchema
     label: "Активен"
     optional: true
     autoform:
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions: 
+          size: 'small'
+          onColor: 'success'
       template: "bootstrap3-horizontal"
       leftLabel:"true"
       "label-class": "col-sm-5"
@@ -242,10 +247,15 @@ Schema.driver = new SimpleSchema
     optional: true
     label: 'A'
     autoform:
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions: 
+          size: 'small'
+          onColor: 'success'
       template: "bootstrap3-horizontal"
       leftLabel:"true"
       "label-class": "col-sm-1"
-      "input-col-class": "col-sm-1"
+      "input-col-class": "col-sm-2"
   categoryAIssueDate:
     type: Date
     optional: true
@@ -253,17 +263,22 @@ Schema.driver = new SimpleSchema
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
-      "label-class": "col-sm-3"
+      "label-class": "col-sm-2"
       "input-col-class": "col-sm-7"
   categoryB:
     type: Boolean
     optional: true
     label: 'B'
     autoform:
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions: 
+          size: 'small'
+          onColor: 'success'
       template: "bootstrap3-horizontal"
       leftLabel:"true"
       "label-class": "col-sm-1"
-      "input-col-class": "col-sm-1"
+      "input-col-class": "col-sm-2"
   categoryBIssueDate:
     type: Date
     optional: true
@@ -271,17 +286,22 @@ Schema.driver = new SimpleSchema
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
-      "label-class": "col-sm-3"
+      "label-class": "col-sm-2"
       "input-col-class": "col-sm-7"
   categoryC:
     type: Boolean
     optional: true
     label: 'C'
     autoform:
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions: 
+          size: 'small'
+          onColor: 'success'
       template: "bootstrap3-horizontal"
       leftLabel:"true"
       "label-class": "col-sm-1"
-      "input-col-class": "col-sm-1"
+      "input-col-class": "col-sm-2"
   categoryCIssueDate:
     type: Date
     optional: true
@@ -289,17 +309,22 @@ Schema.driver = new SimpleSchema
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
-      "label-class": "col-sm-3"
+      "label-class": "col-sm-2"
       "input-col-class": "col-sm-7"
   categoryD:
     type: Boolean
     optional: true
     label: 'D'
     autoform:
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions: 
+          size: 'small'
+          onColor: 'success'
       template: "bootstrap3-horizontal"
       leftLabel:"true"
       "label-class": "col-sm-1"
-      "input-col-class": "col-sm-1"
+      "input-col-class": "col-sm-2"
   categoryDIssueDate:
     type: Date
     optional: true
@@ -307,17 +332,22 @@ Schema.driver = new SimpleSchema
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
-      "label-class": "col-sm-3"
+      "label-class": "col-sm-2"
       "input-col-class": "col-sm-7"
   categoryE:
     type: Boolean
     optional: true
     label: 'E'
     autoform:
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions: 
+          size: 'small'
+          onColor: 'success'
       template: "bootstrap3-horizontal"
       leftLabel:"true"
       "label-class": "col-sm-1"
-      "input-col-class": "col-sm-1"
+      "input-col-class": "col-sm-2"
   categoryEIssueDate:
     type: Date
     optional: true
@@ -325,7 +355,7 @@ Schema.driver = new SimpleSchema
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
-      "label-class": "col-sm-3"
+      "label-class": "col-sm-2"
       "input-col-class": "col-sm-7"
 
   medEvalExpieryDate:
@@ -368,6 +398,11 @@ Schema.driver = new SimpleSchema
     label: "Личен лиценз"
     optional: true
     autoform:
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions: 
+          size: 'small'
+          onColor: 'success'
       template: "bootstrap3-horizontal"
       leftLabel:"true"
       "label-class": "col-sm-5"
