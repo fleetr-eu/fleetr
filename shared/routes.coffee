@@ -49,46 +49,31 @@ Meteor.startup ->
     @route 'listDrivers',
       path: '/drivers/list'
       template: 'drivers'
-      waitOn: -> Meteor.subscribe('drivers')
-
-    @route 'listDrivers2',
-      path: '/drivers2/list'
-      template: 'drivers2'
-      waitOn: -> Meteor.subscribe('drivers')
-
+      waitOn: -> Meteor.subscribe('drivers')  
     @route 'addDriver',
       path: '/drivers/add'
       template: 'driver'
-      waitOn: -> Meteor.subscribe('countries')
+      waitOn: -> Meteor.subscribe('drivers')
     @route 'editDriver',
       path: '/drivers/edit/:driverId'
       template: 'driver'
       data: -> {'driverId' : @params.driverId}
-      waitOn: ->[Meteor.subscribe('driver', _id: @params.driverId), Meteor.subscribe('countries')]
+      waitOn: -> Meteor.subscribe('drivers')
 
     @route 'listVehicles',
       path: '/vehicles/list'
       template: 'vehicles'
-      waitOn: ->
-        [Meteor.subscribe('vehicles')
-        Meteor.subscribe('fleets')
-        Meteor.subscribe('drivers')
-        Meteor.subscribe('driverVehicleAssignments')]
+      waitOn: -> [Meteor.subscribe('vehicles'), Meteor.subscribe('fleets'), Meteor.subscribe('drivers')]
     @route 'addVehicle',
       path: '/vehicles/add'
       template: 'vehicle'
-      waitOn: ->
-        [Meteor.subscribe('vehiclesMakes')
-        Meteor.subscribe('fleets')]
+      waitOn: -> [Meteor.subscribe('vehiclesMakes'), Meteor.subscribe('vehiclesModels'), Meteor.subscribe('fleets')]
+
     @route 'editVehicle',
       path: '/vehicles/edit/:vehicleId'
       template: 'vehicle'
       data: -> {'vehicleId' : @params.vehicleId}
-      waitOn: ->
-        [Meteor.subscribe('vehiclesMakes')
-          Meteor.subscribe('vehiclesModels')
-          Meteor.subscribe('vehicle', _id: @params.vehicleId)
-          Meteor.subscribe('fleets')]
+      waitOn: -> [Meteor.subscribe('vehiclesMakes'), Meteor.subscribe('vehiclesModels'), Meteor.subscribe('vehicle', _id: @params.vehicleId), Meteor.subscribe('fleets')]
 
     @route 'addFleetGroup',
       path: '/fleets/groups/add'
@@ -226,16 +211,11 @@ Meteor.startup ->
     @route 'listDriverVehicleAssignments',
       path: '/assignments/driver/vehicle/list'
       template: 'driverVehicleAssignments'
-      waitOn: ->
-        [Meteor.subscribe('vehicles')
-        Meteor.subscribe('drivers')
-        Meteor.subscribe('driverVehicleAssignments')]
+      waitOn: -> [Meteor.subscribe('vehicles'), Meteor.subscribe('drivers'), Meteor.subscribe('driverVehicleAssignments')]
     @route 'addDriverVehicleAssignment',
       path: '/assignments/driver/vehicle/add'
       template: 'driverVehicleAssignment'
-      waitOn: ->
-        [Meteor.subscribe('vehicles')
-        Meteor.subscribe('drivers')]
+      waitOn: -> [Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
     @route 'editDriverVehicleAssignment',
       path: '/assignments/driver/vehicle/:driverVehicleAssignmentId'
       template: 'driverVehicleAssignment'
@@ -244,7 +224,6 @@ Meteor.startup ->
         [Meteor.subscribe('vehicles')
         Meteor.subscribe('drivers')
         Meteor.subscribe('driverVehicleAssignment', _id: @params.driverVehicleAssignmentId)]
-
     @route 'resetAll',
       path: '/reset'
       template: 'dashboard'

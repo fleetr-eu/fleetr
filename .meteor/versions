@@ -29,6 +29,7 @@ chuangbo:cookie@1.1.0
 coffeescript@1.0.6
 comerc:autoform-typeahead@1.0.2
 comerc:bs-typeahead@1.0.2
+ctjp:autoform-bootstrap-switch@0.1.0
 dburles:collection-helpers@1.0.3
 dburles:mongo-collection-instances@0.3.4
 ddp@1.1.0
