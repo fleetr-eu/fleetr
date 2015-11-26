@@ -12,16 +12,19 @@
 						<a href="#" class="btn btn-circle btn-default add-item">
        						<i class="fa fa-plus"></i>
        						{{_ "button.add"}}
-      					</a>
+  					</a>
 						{{#if selectedItemId}}
 							<a href="#" class="btn btn-circle btn-default edit-item">
        							<i class="icon-pencil"></i>
         						{{_ "button.edit"}}
-      						</a>
+  						</a>
 							<a href="#" class="btn btn-circle btn-default delete-item">
        							<i class="icon-trash"></i>
         						{{_ "button.delete"}}
-      						</a>
+  						</a>
+							{{#if additionalItemActionsTemaplate}}
+								{{> Template.dynamic template=additionalItemActionsTemaplate }}
+							{{/if}}
 						{{/if}}
 					</div>
 				</div>

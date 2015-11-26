@@ -7,6 +7,7 @@ Template.insurances.helpers
     i18nRoot: 'insurances'
     collection: Insurances
     editItemTemplate: 'insurance'
+    additionalItemActionsTemaplate: 'payment'
     removeItemMethod: 'removeInsurance'
     gridConfig:
       columns: [
