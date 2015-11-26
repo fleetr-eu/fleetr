@@ -1,10 +1,9 @@
-Template.insurancePayment.helpers
-    insuranceId: -> @insuranceId
-    
-Template.insurancePayments.helpers
-  insuranceId: -> @insuranceId
+Template.insurancePayments.onRendered ->
+  Template.insurancePayment.helpers
+    insuranceId: => @data.insuranceId
 
-  options: ->
+Template.insurancePayments.helpers
+  options: (t) ->
     i18nRoot: 'insurancePayments'
     collection: InsurancePayments
     editItemTemplate: 'insurancePayment'
@@ -24,7 +23,7 @@ Template.insurancePayments.helpers
         width:80
         sortable: true
         search: where: 'client'
-      ,  
+      ,
         id: "actualDate"
         field: "actualDate"
         name: TAPi18n.__('insurancePayments.actualDate')
@@ -58,21 +57,21 @@ Template.insurancePayments.helpers
         name: TAPi18n.__('insurancePayments.VONumber')
         width:80
         sortable: true
-        search: where: 'client' 
+        search: where: 'client'
       ,
         id: "VONumber"
         field: "VONumber"
         name: TAPi18n.__('insurancePayments.invoiceNo')
         width:80
         sortable: true
-        search: where: 'client' 
+        search: where: 'client'
       ,
         id: "VONumber"
         field: "VONumber"
         name: TAPi18n.__('insurancePayments.balance')
         width:80
         sortable: true
-        search: where: 'client' 
+        search: where: 'client'
 
       ]
       options:
