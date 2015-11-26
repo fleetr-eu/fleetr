@@ -15,7 +15,7 @@
     "addExpenseGroup": "Добави група разходи",
     "listExpenseTypes": "Видове разходи",
     "addExpense": "Добави разход",
-     "insurances" : "Застраховки",
+    "insurances" : "Застраховки",
     "listInsuranceTypes" : "Видове застраховки",
     "addMaintenanceType" : "Добави вид поддръжка",
     "listMaintenanceTypes" : "Видове поддръжки",
@@ -213,6 +213,27 @@
     "maintenance": {
       "title": "Поддръжка"
     }
+  },
+
+  "insurances": {
+    "title" : "Застраховка",
+    "listTitle" : "Застраховки",
+    "vehicle": "Автомобил",
+    "insuranceCompany": "ЗК",
+    "insuranceType" : "Вид",
+    "policyNo" : "Полица No",
+    "value": "Стойност",
+    "currency": "Валута",
+    "policyDate": "Дата",
+    "policyValidFrom" : "Валидна от",
+    "policyValidTo" : "Валидна до",
+    "validityMonths": "Валидност (месеци)",
+    "numberOfPayments": "Брой плащания",
+    "insuredFirstName": "Застрахован име",
+    "insuredLastName" : "Застрахован фамилия",
+    "notes" : "Допълнително инфо",
+    "tags": "Етикети",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете тази застраховка?"
   },
 
   "alerts": {

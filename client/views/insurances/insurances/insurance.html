@@ -1,0 +1,22 @@
+<template name="insurance">
+  {{#autoForm collection="Insurances" doc=doc id="insuranceForm" type="method" meteormethod="submitInsurance"}}
+    <fieldset>
+  	  {{> afFieldInput type="hidden" name="_id" value=_id}}
+      {{> afQuickField name="vehicle" autofocus=true }}
+      {{> afQuickField name="insuranceCompany" }}
+      {{> afQuickField name="insuranceType" }}
+      {{> afQuickField name="policyNo" }}
+      {{> afQuickField name="value" }}
+      {{> afQuickField name="currency" }}
+      {{> afQuickField name="policyDate" }}
+      {{> afQuickField name="policyValidFrom" }}
+      {{> afQuickField name="policyValidTo" }}
+      {{> afQuickField name="validityMonths" }}
+      {{> afQuickField name="numberOfPayments" }}
+      {{> afQuickField name="insuredFirstName" }}
+      {{> afQuickField name="insuredLastName" }}
+      {{> afQuickField name="notes" rows=5 }}
+      {{> afQuickField name="tags" }}
+    </fieldset>
+  {{/autoForm}}
+</template>

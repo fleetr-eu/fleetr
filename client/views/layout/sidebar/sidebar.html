@@ -110,10 +110,10 @@
 							<span class="arrow "></span>
 						</a>
 						<ul class="sub-menu">
-						<li class="{{isActiveRoute regex='maintenance'}}">
+							<li class="{{isActiveRoute regex='maintenance'}}">
 								<a href="{{pathFor 'listMaintenanceType'}}">
 									{{_ "menu.listMaintenanceTypes"}}</a>
-						</li>
+							</li>
 						</ul>
 					</li>
 
@@ -124,10 +124,14 @@
 							<span class="arrow "></span>
 						</a>
 						<ul class="sub-menu">
-						<li class="{{isActiveRoute regex='insurance'}}">
+							<li class="{{isActiveRoute regex='insurance'}}">
+								<a href="{{pathFor 'listInsurances'}}">
+								{{_ "menu.insurances"}}</a>
+							</li>	
+							<li class="{{isActiveRoute regex='insurance'}}">
 								<a href="{{pathFor 'listInsuranceTypes'}}">
 								{{_ "menu.listInsuranceTypes"}}</a>
-						</li>
+							</li>
 						</ul>
 					</li>
 
