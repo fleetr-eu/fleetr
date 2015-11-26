@@ -14,7 +14,7 @@ Template.drivers.helpers
         search: where: 'client'
       ,
         id: "lastName"
-        field: "name"
+        field: "lastName"
         name: "#{TAPi18n.__('drivers.name')}"
         width:80
         sortable: true

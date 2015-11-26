@@ -179,7 +179,9 @@
     "maxFuelCapacity":"Max fuel capacity (l)",
     "maxSpeed":"Max speed (km/h)",
     "maxAllowedSpeed":"Max allowed speed (km/h)",
-    "mass" : "Mass (kg)"
+    "mass" : "Mass (kg)",
+
+    "deleteMessage": "Are you certain you want to delete this Vehicle?"
   },
 
   "dropdown": {
