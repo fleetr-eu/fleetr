@@ -13,14 +13,14 @@ Schema.insurance = new SimpleSchema
       "input-col-class": "col-sm-7"
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"   
+      "input-col-class": "col-sm-7"
   insuranceCompany:
     type: String
     label: ()->TAPi18n.__('insurances.insuranceCompany')
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7" 
+      "input-col-class": "col-sm-7"
   insuranceType:
     type: String
     label: ()->TAPi18n.__('insurances.insuranceType')
@@ -30,21 +30,21 @@ Schema.insurance = new SimpleSchema
       options: -> InsuranceTypes.find().map (insurance) -> label: insurance.name, value: insurance._id
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"  
+      "input-col-class": "col-sm-7"
   policyNo:
     type: String
     label: ()->TAPi18n.__('insurances.policyNo')
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7" 
+      "input-col-class": "col-sm-7"
   value:
     type: Number
     label: ()->TAPi18n.__('insurances.value')
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"      
+      "input-col-class": "col-sm-7"
   currency:
     type: String
     label: ()->TAPi18n.__('insurances.currency')
@@ -54,7 +54,7 @@ Schema.insurance = new SimpleSchema
       firstOption: "(Изберете)"
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"        
+      "input-col-class": "col-sm-7"
   policyDate:
     type: Date
     label: ()->TAPi18n.__('insurances.policyDate')
@@ -63,7 +63,7 @@ Schema.insurance = new SimpleSchema
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"      
+      "input-col-class": "col-sm-7"
   policyValidFrom:
     type: Date
     label: ()->TAPi18n.__('insurances.policyValidFrom')
@@ -72,7 +72,7 @@ Schema.insurance = new SimpleSchema
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7" 
+      "input-col-class": "col-sm-7"
   policyValidTo:
     type: Date
     label: ()->TAPi18n.__('insurances.policyValidTo')
@@ -89,7 +89,7 @@ Schema.insurance = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"      
+      "input-col-class": "col-sm-7"
   numberOfPayments:
     type: Number
     label: ()->TAPi18n.__('insurances.numberOfPayments')
@@ -97,14 +97,14 @@ Schema.insurance = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"  
+      "input-col-class": "col-sm-7"
   insuredFirstName:
     type: String
     label: ()->TAPi18n.__('insurances.insuredFirstName')
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7" 
+      "input-col-class": "col-sm-7"
   insuredLastName:
     type: String
     label: ()->TAPi18n.__('insurances.insuredLastName')
@@ -115,13 +115,15 @@ Schema.insurance = new SimpleSchema
   notes:
     type: String
     label: ()->TAPi18n.__('insurances.notes')
+    optional: true
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"            
+      "input-col-class": "col-sm-7"
   tags:
     type: String
     label: ()->TAPi18n.__('insurances.tags')
+    optional: true
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
