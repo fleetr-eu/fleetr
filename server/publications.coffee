@@ -14,6 +14,7 @@ Meteor.publish 'expenseTypes', -> ExpenseTypes.find {}
 Meteor.publish 'expenses', -> Expenses.find {}
 Meteor.publish 'maintenanceTypes', -> MaintenanceTypes.find {}
 Meteor.publish 'insuranceTypes', -> InsuranceTypes.find {}
+Meteor.publish 'insurancePayments', -> InsurancePayments.find {}
 Meteor.publish 'insurances', -> Insurances.find {}
 Meteor.publish 'maintenanceType', (id) -> MaintenanceTypes.find _id: id
 Meteor.publish 'vehicleMaintenances', (vehicleId)-> Maintenances.find {vehicle: vehicleId}

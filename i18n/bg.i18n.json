@@ -236,6 +236,21 @@
     "deleteMessage": "Сигурен ли сте, че искате да изтриете тази застраховка?"
   },
 
+  "insurancePayments": {
+    "title" : "Вноска по застраховка",
+    "listTitle" : "Вноски по застраховки",
+    "montlyPayment" : "Месечна вноска",
+    "plannedDate" : "Планирана дата",
+    "actualDate" : "Actual Date",
+    "currency" : "Currency",
+    "amountNoVAT" : "Сума (без ДДС)",
+    "amountWithVAT" : "Сума (с ДДС)",
+    "VONumber" : "ВО No",
+    "invoiceNo" : "Фактура No",
+    "balance" : "Баланс",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете това плащане?"
+  },
+
   "alerts": {
     "saved": {
       "title": "Запис",

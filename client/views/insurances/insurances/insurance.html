@@ -1,7 +1,7 @@
 <template name="insurance">
   {{#autoForm collection="Insurances" doc=doc id="insuranceForm" type="method" meteormethod="submitInsurance"}}
     <fieldset>
-  	  {{> afFieldInput type="hidden" name="_id" value=_id}}
+  	  {{> afFieldInput name="_id" value=_id}}
       {{> afQuickField name="vehicle" autofocus=true }}
       {{> afQuickField name="insuranceCompany" }}
       {{> afQuickField name="insuranceType" }}

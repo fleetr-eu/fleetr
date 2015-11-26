@@ -126,3 +126,83 @@ Schema.insurance = new SimpleSchema
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7"
+
+Schema.insurancePayment = new SimpleSchema
+  _id:
+    type: String
+    optional: true
+  insuranceId:
+    type: String
+    optional: true
+  montlyPayment:
+    type: Number
+    label: ()->TAPi18n.__('insurancePayments.montlyPayment')
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"
+  plannedDate:
+    type: Date
+    label: ()->TAPi18n.__('insurancePayments.plannedDate')
+    optional: true
+    autoform:
+      type: "bootstrap-datepicker"
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"   
+  actualDate:
+    type: Date
+    label: ()->TAPi18n.__('insurancePayments.actualDate')
+    optional: true
+    autoform:
+      type: "bootstrap-datepicker"
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"
+  currency:
+    type: String
+    label: ()->TAPi18n.__('insurancePayments.currency')
+    optional: true
+    allowedValues: ['EUR', 'BGN']
+    autoform:
+      firstOption: "(Изберете)"
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7" 
+  amountNoVAT:
+    type: Number
+    label: ()->TAPi18n.__('insurancePayments.amountNoVAT')
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"
+  amountWithVAT:
+    type: Number
+    label: ()->TAPi18n.__('insurancePayments.amountWithVAT')
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"
+  VONumber:
+    type: String
+    label: ()->TAPi18n.__('insurancePayments.VONumber')
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"                  
+  invoiceNo:
+    type: String
+    label: ()->TAPi18n.__('insurancePayments.invoiceNo')
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"
+  balance:
+    type: Number
+    label: ()->TAPi18n.__('insurancePayments.balance')
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"      
+   
+  
