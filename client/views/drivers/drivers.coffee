@@ -1,7 +1,7 @@
 Template.drivers.helpers
   options: ->
     i18nRoot: 'drivers'
-    collection: Fleets
+    collection: Drivers
     editItemTemplate: 'driver'
     removeItemMethod: 'removeDriver'
     gridConfig:
@@ -20,12 +20,12 @@ Template.drivers.helpers
         sortable: true
         search: where: 'client'
       ,
-        id: "tags"    
-        field: "tags"    
-        name: "#{TAPi18n.__('drivers.tags')}"  
-        width:80    
-        sortable: true   
-        search: where: 'client'    
+        id: "tags"
+        field: "tags"
+        name: "#{TAPi18n.__('drivers.tags')}"
+        width:80
+        sortable: true
+        search: where: 'client'
         formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags
       ]
       options:

@@ -1,7 +1,7 @@
 Template.vehicles.helpers
   options: ->
     i18nRoot: 'vehicles'
-    collection: Fleets
+    collection: Vehicles
     editItemTemplate: 'vehicle'
     removeItemMethod: 'removeVehicle'
     gridConfig:
@@ -20,12 +20,12 @@ Template.vehicles.helpers
         sortable: true
         search: where: 'client'
       ,
-        id: "tags"    
-        field: "tags"    
-        name: "#{TAPi18n.__('vehicles.tags')}"  
-        width:80    
-        sortable: true   
-        search: where: 'client'    
+        id: "tags"
+        field: "tags"
+        name: "#{TAPi18n.__('vehicles.tags')}"
+        width:80
+        sortable: true
+        search: where: 'client'
         formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags
       ]
       options:
