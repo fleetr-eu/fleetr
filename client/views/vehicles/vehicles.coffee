@@ -6,6 +6,15 @@ Template.vehicles.helpers
     removeItemMethod: 'removeVehicle'
     gridConfig:
       columns: [
+        id: "fleetName"
+        field: "fleetName"
+        name: "#{TAPi18n.__('fleet.name')}"
+        width:80
+        sortable: true
+        search: where: 'client'
+        groupable:
+          aggregators: []
+      ,
         id: "name"
         field: "name"
         name: "#{TAPi18n.__('vehicles.name')}"
@@ -44,7 +53,7 @@ Template.vehicles.helpers
         id: "tags"
         field: "tags"
         name: "#{TAPi18n.__('vehicles.tags')}"
-        width:120
+        width:100
         sortable: true
         search: where: 'client'
         formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags
@@ -55,4 +64,6 @@ Template.vehicles.helpers
         showHeaderRow: true
         explicitInitialization: true
         forceFitColumns: true
-      cursor: Vehicles.find()
+      cursor: Vehicles.find {},
+        transform: (doc) -> _.extend doc, 
+            fleetName: Fleets.findOne(_id: doc.allocatedToFleet)?.name
