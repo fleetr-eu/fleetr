@@ -11,6 +11,7 @@ Template.vehicles.helpers
         name: "#{TAPi18n.__('fleet.name')}"
         width:80
         sortable: true
+        hidden:true
         search: where: 'client'
         groupable:
           aggregators: []
