@@ -31,8 +31,8 @@ Schema.vehicle = new SimpleSchema
     type: Boolean, optional: true, label: ()->TAPi18n.__('vehicles.active')
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
-        switchOptions: 
+      afFieldInput:
+        switchOptions:
           size: 'small'
           onColor: 'success'
       template: "bootstrap3-horizontal"
@@ -43,7 +43,7 @@ Schema.vehicle = new SimpleSchema
   name:
     type: String, label: ()->TAPi18n.__('vehicles.name')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"     
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
   licensePlate:
     type: String, label: ()->TAPi18n.__('vehicles.licensePlate')
@@ -91,19 +91,19 @@ Schema.vehicle = new SimpleSchema
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
   unitId:
-    type: String, optional: true, label:()->TAPi18n.__('vehicles.unitId')
+    type: Number, optional: true, label:()->TAPi18n.__('vehicles.unitId')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
   lastSeen:
     type: String, optional: true, label:()->TAPi18n.__('vehicles.lastSeen')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"      
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
   phoneNumber:
     type: String, optional: true, label:()->TAPi18n.__('vehicles.phoneNumber')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"      
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
   nextTechnicalCheck:
     type: Date, label:()->TAPi18n.__('vehicles.nextTechnicalCheck')
@@ -203,8 +203,8 @@ Schema.vehicle = new SimpleSchema
     type: Boolean, label: "Speeding", optional: true
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
-        switchOptions: 
+      afFieldInput:
+        switchOptions:
           size: 'small'
           onColor: 'success'
       template: "bootstrap3-horizontal"
@@ -221,8 +221,8 @@ Schema.vehicle = new SimpleSchema
     type: Boolean, label: "Idling", optional: true
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
-        switchOptions: 
+      afFieldInput:
+        switchOptions:
           size: 'small'
           onColor: 'success'
       template: "bootstrap3-horizontal"
