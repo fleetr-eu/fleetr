@@ -155,7 +155,7 @@
       "alarmsConfiguration" : "Настройка на аларми"
     },
     "name": "Наименование",
-    "licensePlate" :"Регистрацинен No",
+    "licensePlate" :"Рег. No",
     "identificationNumber":"Идентификационен No (VIN)",
     "engineNumber":"Двигател No",
     "allocatedToFleet":"Автопарк",
@@ -165,8 +165,8 @@
     "odometer":"Одометър (км)",
     "engineHours": "Двигател часове",
     "unitId":"Устройство No",
+    "phoneNumber" : "Телефон",
     "nextTechnicalCheck":"Следващ тех. преглед",
-
     "category":"Категория",
     "make":"Марка",
     "model":"Модел",

@@ -155,7 +155,7 @@
     "state" : "State",
     "tags" : "Tags",
     "name": "Name",
-    "licensePlate" :"License plate",
+    "licensePlate" :"License",
     "identificationNumber":"Identification No (VIN)",
     "engineNumber":"Engine No",
     "allocatedToFleet":"Fleet",
@@ -164,6 +164,7 @@
     "odometer":"Odometer (km)",
     "engineHours": "Engine hours",
     "unitId":"Unit Id",
+    "phoneNumber" : "Phone",
     "nextTechnicalCheck":"Next tech. check",
 
     "category":"Category",

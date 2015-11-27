@@ -43,7 +43,7 @@ Schema.vehicle = new SimpleSchema
   name:
     type: String, label: ()->TAPi18n.__('vehicles.name')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"     
 
   licensePlate:
     type: String, label: ()->TAPi18n.__('vehicles.licensePlate')
@@ -90,11 +90,15 @@ Schema.vehicle = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
-
   unitId:
     type: String, optional: true, label:()->TAPi18n.__('vehicles.unitId')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+
+  phoneNumber:
+    type: String, optional: true, label:()->TAPi18n.__('vehicles.phoneNumber')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"      
 
   nextTechnicalCheck:
     type: Date, label:()->TAPi18n.__('vehicles.nextTechnicalCheck')
