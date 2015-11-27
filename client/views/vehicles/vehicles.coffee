@@ -50,6 +50,16 @@ Template.vehicles.helpers
         width:50
         sortable: true
         search: where: 'client'
+      ,
+        id: "lastSeen"
+        field: "lastSeen"
+        name: "#{TAPi18n.__('vehicles.lastSeen')}"
+        width:50
+        sortable: true
+        formatter: FleetrGrid.Formatters.dateFormatter
+        search:
+          where: 'server'
+          dateRange: DateRanges.history
       ,       
         id: "tags"
         field: "tags"

@@ -25,7 +25,9 @@ Template.fleets.helpers
         name: "#{TAPi18n.__('fleet.parent')}"
         width:120
         sortable: true
-        search: where: 'client',
+        search: where: 'client'
+        groupable:
+          aggregators: []
       ]
       options:
         enableCellNavigation: true
