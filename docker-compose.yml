@@ -1,5 +1,6 @@
 web:
   image: greyarch/fleetr
+  restart: unless-stopped
   links:
    - db
    - mqtt
@@ -11,11 +12,13 @@ web:
 
 mqtt:
   image: villlem/mqtt-server:latest
+  restart: unless-stopped
   ports:
    - "10013:1883"
 
 db:
   image: mongo:2.6
+  restart: unless-stopped
   ports:
    - "27017:27017"
    - "28017:28017"
