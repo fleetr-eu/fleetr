@@ -191,7 +191,7 @@ Helpers =
           button.cssClass = "icon-highlight-off"
           button.tooltip = "Group table by #{column.name}"
           @grid.updateColumnHeader(column.id)) column
-        changed: ((column) => =>
+        updated: ((column) => =>
           button.cssClass = "icon-highlight-on"
           button.tooltip = "Remove group #{column.name}"
           @grid.updateColumnHeader(column.id)) column

@@ -36,14 +36,14 @@ Template.vehicles.helpers
         width:50
         sortable: true
         search: where: 'client'
-      , 
+      ,
         id: "phoneNumber"
         field: "phoneNumber"
         name: "#{TAPi18n.__('vehicles.phoneNumber')}"
         width:50
         sortable: true
         search: where: 'client'
-      , 
+      ,
         id: "odometer"
         field: "odometer"
         name: "#{TAPi18n.__('vehicles.odometer')}"
@@ -60,7 +60,7 @@ Template.vehicles.helpers
         search:
           where: 'server'
           dateRange: DateRanges.history
-      ,       
+      ,
         id: "tags"
         field: "tags"
         name: "#{TAPi18n.__('vehicles.tags')}"
@@ -76,5 +76,5 @@ Template.vehicles.helpers
         explicitInitialization: true
         forceFitColumns: true
       cursor: Vehicles.find {},
-        transform: (doc) -> _.extend doc, 
+        transform: (doc) -> _.extend doc,
             fleetName: Fleets.findOne(_id: doc.allocatedToFleet)?.name
