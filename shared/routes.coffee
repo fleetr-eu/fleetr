@@ -49,7 +49,7 @@ Meteor.startup ->
     @route 'listDrivers',
       path: '/drivers/list'
       template: 'drivers'
-      waitOn: -> Meteor.subscribe('drivers')  
+      waitOn: -> Meteor.subscribe('drivers')
     @route 'addDriver',
       path: '/drivers/add'
       template: 'driver'
@@ -222,7 +222,7 @@ Meteor.startup ->
       path: '/insurance/:insuranceId/payment/list'
       template: 'insurancePayments'
       data: -> {'insuranceId' : @params.insuranceId}
-      waitOn: -> [Meteor.subscribe('insurancePayments', @params.insurancePaymentId)]     
+      waitOn: -> [Meteor.subscribe('insurancePayments', @params.insurancePaymentId)]
 
     @route 'addMaintenance',
       path: '/vehicle/:vehicleId/maintenances/add'
@@ -297,6 +297,16 @@ Meteor.startup ->
 
     @route 'expenseReport',
       path: '/reports/expenses'
+      waitOn: ->
+        [
+          Meteor.subscribe('expenses')
+          Meteor.subscribe('vehicles')
+          Meteor.subscribe('drivers')
+          Meteor.subscribe('fleets')
+          Meteor.subscribe('expenseGroups')
+          Meteor.subscribe('expenseTypes')
+        ]
+
     @route 'maintenanceReport',
       path: '/reports/maintenance'
 

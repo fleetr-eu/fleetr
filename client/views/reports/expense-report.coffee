@@ -45,7 +45,7 @@ fleetrGridConfig =
     field: "expenseGroupName"
     name: "Group"
     sortable: true
-    hidden:true,
+    hidden: true
     search:
       where: 'client'
     groupable:
@@ -66,6 +66,8 @@ fleetrGridConfig =
     sortable: true
     search:
       where: 'client'
+    groupable:
+      aggregators: aggregatorsBasic
   ,
     id: "fleet"
     field: "fleetName"
@@ -132,12 +134,21 @@ fleetrGridConfig =
     groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
   ]
   options:
-    enableCellNavigation: false
+    enableCellNavigation: true
     enableColumnReorder: false
     showHeaderRow: true
     explicitInitialization: true
     forceFitColumns: true
-  remoteMethod: 'getExpenses'
+  cursor: ->
+    Expenses.find {},
+      transform: (expense) ->
+        vehicle = Vehicles.findOne _id: expense.vehicle
+        _.extend expense,
+          expenseTypeName: ExpenseTypes.findOne({_id: expense.expenseType})?.name
+          expenseGroupName: ExpenseGroups.findOne({_id: expense.expenseGroup})?.name
+          driverName: Drivers.findOne({_id: expense.driver})?.name
+          vehicleName: vehicle?.name
+          fleetName: Fleets.findOne(_id: vehicle?.allocatedToFleet)?.name
 
 Template.expenseReport.helpers
   fleetrGridConfig: -> fleetrGridConfig
