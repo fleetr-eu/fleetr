@@ -1,9 +1,11 @@
 unitId = null
-Template.simpleMap.created = ->
+Template.simpleMap.onCreated ->
   {deviceId} =  EJSON.parse decodeURIComponent @data
   unitId = deviceId
 
-Template.simpleMap.rendered = ->
+Template.simpleMap.onRendered ->
+  mapCanvasHeight = $(document).height() - 180
+  $('#simpleMap').height mapCanvasHeight
   {deviceId, start, stop, idle} =  EJSON.parse decodeURIComponent @data
   start.time = moment(start.time).toDate()
   stop.time = moment(stop.time).toDate()

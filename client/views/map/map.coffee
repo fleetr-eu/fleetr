@@ -19,8 +19,6 @@ Template.map.helpers
   filterOptions: -> vehicleDisplayStyle: 'none'
   selectedVehicleId: -> Session.get('selectedVehicleId')
   showFilterBox: -> showFilterBox.get()
-  # filterSize: -> if Template.instance().showFilterBox.get() then 'col-md-4' else 'hidden'
-  # mapSize: -> if Template.instance().showFilterBox.get() then 'col-md-8' else 'col-md-12'
 
   fleetrGridConfig: ->
     columns: [
