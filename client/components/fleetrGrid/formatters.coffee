@@ -21,10 +21,6 @@ FleetrGrid.Formatters =
     buttons = (render button for button in column.buttons)
     buttons.join ''
   blazeFormatter: (blazeTemplate) -> (row, cell, value, column, rowObject) ->
-    # remove the view if it had already been rendered before
-    # rendering it again
-    if @_blazeCache.views["#{row}:#{cell}"]
-      Blaze.remove @_blazeCache.views["#{row}:#{cell}"]
     @_blazeCache.templates["#{row}:#{cell}"] = blazeTemplate
     @_renderBlazeTemplates()
     "<div class='blazeTemplate' data-row='#{row}' data-col='#{cell}'></div>"
