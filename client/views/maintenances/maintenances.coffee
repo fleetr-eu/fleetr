@@ -23,6 +23,7 @@ Template.maintenances.helpers
         width:50
         sortable: true
         search: where: 'client'
+        formatter: FleetrGrid.Formatters.dateFormatter
       ,
         id: "odometer"
         field: "odometer"
@@ -30,6 +31,7 @@ Template.maintenances.helpers
         width:50
         sortable: true
         search: where: 'client'
+        align: "right"
       ,  
         id: "nextKm"
         field: "nextKm"
@@ -37,6 +39,7 @@ Template.maintenances.helpers
         width:50
         sortable: true
         search: where: 'client' 
+        align: "right"
       ,
         id: "engineHours"
         field: "engineHours"
@@ -44,6 +47,7 @@ Template.maintenances.helpers
         width:50
         sortable: true
         search: where: 'client'
+        align: "right"
       ,
         id: "nextMaintenanceDate"
         field: "nextMaintenanceDate"
@@ -51,6 +55,7 @@ Template.maintenances.helpers
         width:50
         sortable: true
         search: where: 'client'
+        formatter: FleetrGrid.Formatters.dateFormatter
       ,
         id: "nextMaintenanceOdometer"
         field: "nextMaintenanceOdometer"
@@ -58,13 +63,15 @@ Template.maintenances.helpers
         width:50
         sortable: true
         search: where: 'client'
+        align: "right"
       ,
         id: "nextMaintenanceEngineHours"
         field: "nextMaintenanceEngineHours"
         name: "#{TAPi18n.__('maintenances.nextMaintenanceEngineHours')}"
         width:50
         sortable: true
-        search: where: 'client'     
+        search: where: 'client'  
+        align: "right"  
       ]
       options:
         enableCellNavigation: true

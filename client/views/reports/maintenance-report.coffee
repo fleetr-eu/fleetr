@@ -24,7 +24,7 @@ fleetrGridConfig =
     name: 'Engine hours till maintenance'
     sortable: true
     search: where: 'server'
-    align: 'center'
+    align: 'right'
   ,
     id: 'nextMaintenanceOdometer'
     field: 'nextMaintenanceOdometer'

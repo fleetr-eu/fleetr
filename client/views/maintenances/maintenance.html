@@ -1,20 +1,19 @@
 <template name="maintenance">
   {{#autoForm doc=doc collection="Maintenances" id="maintenancesForm" type="method" meteormethod="submitMaintenance"}}
       <fieldset>
+          <legend>{{_ "maintenances.currentMaintenance"}}</legend>
           {{> afFieldInput type="hidden" name="vehicle" value=vehicleId}}
           {{> afFieldInput type="hidden" name="_id" value=_id}}
           {{> afQuickField name="maintenanceType"}}
           {{> afQuickField name="maintenanceDate" datePickerOptions=datePickerOptions}}
           {{> afQuickField name="odometer"}}
           {{> afQuickField name="engineHours"}}
-          <a href="#" class="btn btn-primary btn-get-current">{{_ "button.getCurrent"}}</a>
-      
+          <a href="#" class="btn btn-primary btn-get-current pull-right">{{_ "button.getCurrent"}}</a>
           <legend>{{_ "maintenances.nextMaintenance"}}</legend>
           {{> afQuickField name="nextMaintenanceDate"}}
           {{> afQuickField name="nextMaintenanceOdometer"}}
           {{> afQuickField name="nextMaintenanceEngineHours"}}
-          <a href="#" class="btn btn-primary btn-calculate-next">{{_ "button.calculate"}}</a>
-        
+          <a href="#" class="btn btn-primary btn-calculate-next pull-right">{{_ "button.calculate"}}</a>
           <legend>{{_ "maintenances.description"}}</legend>
           {{> afQuickField name="description" label=false}}
     </fieldset>

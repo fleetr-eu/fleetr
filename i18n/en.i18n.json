@@ -130,6 +130,7 @@
     "title" :"Maintenance",
     "listTitle" : "Maintenance",
     "nextMaintenance" : "Next Maintenance",
+    "currentMaintenance" : "Current Maintenance",
     "maintenanceType" : "Type",
     "description" : "Description",
     "vehicle" : "Vehicle",
