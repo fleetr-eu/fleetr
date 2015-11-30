@@ -1,9 +1,13 @@
+Template.maintenancesButton.helpers 
+  vehicleId: => Session.get "selectedItemId"
+
 Template.vehicles.helpers
   options: ->
     i18nRoot: 'vehicles'
     collection: Vehicles
     editItemTemplate: 'vehicle'
     removeItemMethod: 'removeVehicle'
+    additionalItemActionsTemaplate: 'maintenancesButton'
     gridConfig:
       columns: [
         id: "fleetName"

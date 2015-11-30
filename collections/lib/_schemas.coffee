@@ -181,7 +181,10 @@ Schema.maintenanceTypes = new SimpleSchema
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 
 Schema.maintenances = new SimpleSchema
-
+  _id:
+    type: String, optional: true
+  vehicle:
+   type:String, label: ()-> TAPi18n.__('maintenances.vehicle')
   maintenanceType:
      type: String
      label: ()-> TAPi18n.__('maintenances.maintenanceType')
@@ -194,8 +197,6 @@ Schema.maintenances = new SimpleSchema
     type: String, decimal:true, optional: true, label: ()-> TAPi18n.__('maintenances.description')
     autoform:
       rows: 5
-  vehicle:
-     type:String, label: ()-> TAPi18n.__('maintenances.vehicle')
   maintenanceDate:
     type:Date, label: ()-> TAPi18n.__('maintenances.maintenanceDate')
     autoform:

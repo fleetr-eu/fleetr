@@ -1,0 +1,12 @@
+<template name="maintenanceType">
+  {{#autoForm collection="MaintenanceTypes" doc=doc id="maintenanceTypeForm" type="method" meteormethod="submitMaintenanceType"}}
+    <fieldset>
+  	  {{> afFieldInput type="hidden" name="_id" value=_id}}
+      {{> afQuickField name="name"}}
+      <legend>{{_ "maintenanceTypes.nextMaintenanceAfter"}}</legend>
+      {{> afQuickField name="nextMaintenanceMonths"}}
+      {{> afQuickField name="nextMaintenanceKMs"}}
+      {{> afQuickField name="nextMaintenanceEngineHours"}}
+  	</fieldset>
+  {{/autoForm}}
+</template>

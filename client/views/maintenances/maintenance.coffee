@@ -1,19 +1,4 @@
-Template.maintenance.rendered = ->
-  AutoForm.getValidationContext("maintenancesForm").resetValidation()
-
-Template.maintenance.helpers
-  vehicleName: ->
-    v = Vehicles.findOne _id: @vehicleId
-    "#{v?.name} (#{v?.licensePlate})"
-  datePickerOptions :->
-    todayBtn: "linked"
-    language: "bg"
-
 Template.maintenance.events
-  "click .btn-sm" : (e) ->
-    $("#maintenancesForm").submit()
-  "click .btn-reset" : (e) ->
-    AutoForm.resetForm("maintenancesForm")
   "click .btn-calculate-next" : (e) ->
     mt = MaintenanceTypes.findOne _id:$("select[name='maintenanceType']").val()
     if mt

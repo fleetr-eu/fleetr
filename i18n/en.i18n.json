@@ -135,6 +135,7 @@
     "vehicle" : "Vehicle",
     "maintenanceDate" : "Date",
     "odometer" : "Odometer",
+    "nextKm" : "Next km",
     "engineHours" : "Engine hours",
     "nextMaintenanceDate" : "Date",
     "nextMaintenanceOdometer" : "Odometer",

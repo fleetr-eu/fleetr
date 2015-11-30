@@ -135,6 +135,7 @@
     "vehicle" : "Автомобил",
     "maintenanceDate" : "Дата",
     "odometer" : "Километри",
+    "nextKm" : "След км",
     "engineHours" : "Двигател часове",
     "nextMaintenanceDate" : "Дата",
     "nextMaintenanceOdometer" : "Одометър",
