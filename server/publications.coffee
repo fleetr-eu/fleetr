@@ -10,6 +10,7 @@ Meteor.publish 'fleetGroup', (gid) -> FleetGroups.find {_id: gid}
 Meteor.publish 'fleets', (filter) -> Fleets.find filter or {}
 Meteor.publish 'fleet', (fid) -> Fleets.find {_id: fid}
 Meteor.publish 'documentTypes', -> DocumentTypes.find {}
+Meteor.publish 'documents', (driverId) -> Documents.find {driverId : driverId}
 Meteor.publish 'expenseGroups', -> ExpenseGroups.find {}
 Meteor.publish 'expenseTypes', -> ExpenseTypes.find {}
 Meteor.publish 'expenses', -> Expenses.find {}

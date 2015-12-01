@@ -1,9 +1,13 @@
+Template.documentsButton.helpers 
+  driverId: => Session.get "selectedItemId"
+
 Template.drivers.helpers
   options: ->
     i18nRoot: 'drivers'
     collection: Drivers
     editItemTemplate: 'driver'
     removeItemMethod: 'removeDriver'
+    additionalItemActionsTemaplate: 'documentsButton'
     gridConfig:
       columns: [
         id: "firstName"

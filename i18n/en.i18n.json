@@ -63,6 +63,17 @@
     "deleteMessage": "Are you certain you want to delete this Document Type?"
   },
 
+  "documents": {
+    "title" : "Document",
+    "listTitle" : "Documents",
+    "type" : "Type",
+    "number" : "No",
+    "validFrom" : "Valid From",
+    "validTo" : "Valid to",
+    "issuedBy" : "Issued By",
+    "deleteMessage": "Are you certain you want to delete this Document?"
+  },
+
   "tyre": {
     "title" : "Tyre",
     "listTitle" : "Tyres",
