@@ -29,7 +29,8 @@ Template.documents.helpers
         name: "#{TAPi18n.__('documents.validFrom')}"
         width:50
         sortable: true
-        search: where: 'client'
+        search: 
+          where: 'client'
         formatter: FleetrGrid.Formatters.dateFormatter
       ,
         id: "validTo"
@@ -37,13 +38,14 @@ Template.documents.helpers
         name: "#{TAPi18n.__('documents.validTo')}"
         width:50
         sortable: true
-        search: where: 'client'
+        search: 
+          where: 'client'
         formatter: FleetrGrid.Formatters.dateFormatter
       ,
         id: "issuedBy"
         field: "issuedBy"
         name: "#{TAPi18n.__('documents.issuedBy')}"
-        width:50
+        width:100
         sortable: true
         search: where: 'client'      
       ]
