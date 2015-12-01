@@ -44,6 +44,39 @@ Schema.documentTypes = new SimpleSchema
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
       rows: 5
 
+Schema.documents = new SimpleSchema
+  _id:
+    type: String, optional: true
+  driverId:
+    type: String, optional: true  
+  type:
+    type: String
+    label: ()->TAPi18n.__('documents.type')
+    autoform:
+      firstOption: ()->TAPi18n.__('dropdown.select')
+      options: -> DocumentTypes.find().map (documentType) -> label: documentType.name, value: documentType._id
+      allowOptions: "true"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  number:
+    type: String, label: ()->TAPi18n.__('documents.number')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"    
+  validFrom:
+    type: Date, label: ()->TAPi18n.__('documents.validFrom')
+    autoform:
+      type: "bootstrap-datepicker"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  validTo:
+    type: Date, label: ()->TAPi18n.__('documents.validTo')
+    autoform:
+      type: "bootstrap-datepicker"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  issuedBy:
+    type: String, label: ()->TAPi18n.__('documents.issuedBy')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"       
+
+
 Schema.insuranceTypes = new SimpleSchema
   _id:
     type: String, optional: true

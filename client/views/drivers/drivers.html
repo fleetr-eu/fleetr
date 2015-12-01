@@ -1,3 +1,10 @@
 <template name="drivers">
 	{{> crud options }}
 </template>
+
+<template name="documentsButton">
+  <a href="{{pathFor 'listDocuments' driverId=driverId}}" class="btn btn-circle btn-default">
+        <i class="fa fa-document"></i>
+        Documents
+  </a>
+</template>

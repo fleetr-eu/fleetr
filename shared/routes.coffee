@@ -162,7 +162,25 @@ Meteor.startup ->
     @route 'listDocumentTypes',
       path: '/documents/types/list'
       template: 'documentTypes'
-      waitOn: -> Meteor.subscribe('documentTypes')  
+      waitOn: -> Meteor.subscribe('documentTypes') 
+
+    @route 'addDocument',
+      path: '/drivers/:driverId/documents/add'
+      template: 'document'
+      data: -> {'driverId':@params.driverId}
+      waitOn: -> [Meteor.subscribe('documents', @params.driverId), Meteor.subscribe('documentTypes')]
+
+    @route 'editDocument',
+      path: '/drivers/:driverId/documents/edit/:documentId'
+      template: 'document'
+      data: -> {'driverId':@params.driverId, 'documentId' : @params.documentId}
+      waitOn: -> [Meteor.subscribe('documents', @params.driverId), Meteor.subscribe('documentTypes')]
+
+    @route 'listDocuments',
+      path: '/drivers/:driverId/documents/list'
+      template: 'documents'
+      data: -> {'driverId':@params.driverId}
+      waitOn: -> [Meteor.subscribe('documents', @params.driverId), Meteor.subscribe('documentTypes')]    
 
     @route 'addExpense',
       path: '/expenses/add'

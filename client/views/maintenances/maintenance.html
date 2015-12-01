@@ -2,9 +2,9 @@
   {{#autoForm doc=doc collection="Maintenances" id="maintenancesForm" type="method" meteormethod="submitMaintenance"}}
       <fieldset>
           <legend>{{_ "maintenances.currentMaintenance"}}</legend>
-          {{> afFieldInput name="vehicle" value=vehicleId}}
+          {{> afFieldInput type="hidden" name="vehicle" value=vehicleId}}
           {{> afFieldInput type="hidden" name="_id" value=_id}}
-          {{> afQuickField name="maintenanceType"}}
+          {{> afQuickField name="maintenanceType" autofocus=true}}
           {{> afQuickField name="maintenanceDate" datePickerOptions=datePickerOptions}}
           {{> afQuickField name="odometer"}}
           {{> afQuickField name="engineHours"}}

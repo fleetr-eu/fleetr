@@ -55,12 +55,14 @@ Meteor.methods
   submitExpenseType: submitItem ExpenseTypes
   removeExpenseType: removeItem ExpenseTypes
 
-  submitDocumentType: submitItem DocumentTypes
-  removeDocumentType: removeItem DocumentTypes
-
   submitExpense: submitItem Expenses
   removeExpenses: removeItem Expenses
 
+  submitDocumentType: submitItem DocumentTypes
+  removeDocumentType: removeItem DocumentTypes
+
+  submitDocument: submitItem Documents
+  removeDocument: removeItem Documents
 
   submitDriverVehicleAssignment: (doc, diff) ->
     @unblock

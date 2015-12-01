@@ -1,0 +1,13 @@
+<template name="document">
+  {{#autoForm collection="Documents" doc=doc id="documentForm" type="method" meteormethod="submitDocument"}}
+    <fieldset>
+	    {{> afFieldInput type="hidden" name="_id" value=_id}}
+	    {{> afFieldInput type="hidden" name="driverId" value=driverId}}
+	    {{> afQuickField name="type" autofocus=true}}
+	    {{> afQuickField name="number" }}
+	    {{> afQuickField name="validFrom" }}
+	    {{> afQuickField name="validTo" }}
+	    {{> afQuickField name="issuedBy" }}
+    </fieldset>
+  {{/autoForm}}
+</template>
