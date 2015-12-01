@@ -2,7 +2,7 @@
       {{#autoForm collection="FleetGroups" doc=doc id="fleetGroupForm" type="method" meteormethod="submitFleetGroup"}}
             <fieldset>
                     {{> afFieldInput type="hidden" name="_id" value=_id}}
-                    {{> afQuickField name="name"}}
+                    {{> afQuickField name="name" autofocus=true}}
                     {{> afQuickField name="description" rows=5}}
             </fieldset>
       {{/autoForm}}

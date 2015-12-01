@@ -19,7 +19,8 @@ Template.maintenance.events
 
   "click .btn-get-current" : (e) ->
      $("input[name='maintenanceDate']").val(moment())
-     v = Vehicles.findOne(_id: @vehicleId)
+     console.log Template.instance.vehicleId
+     v = Vehicles.findOne _id: Template.instance.vehicleId
      if v
        console.log v
        $("input[name='odometer']").val(parseInt(v.odometer))

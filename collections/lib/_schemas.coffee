@@ -5,34 +5,56 @@ Schema.fleetGroups = new SimpleSchema
     type: String, optional: true
   name:
     type: String, label: ()->TAPi18n.__('fleetGroups.name')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   description:
     type: String, optional: true, label: ()->TAPi18n.__('fleetGroups.description')
     autoform:
-      rows: 5
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 
 Schema.fleet = new SimpleSchema
   _id:
     type: String, optional: true
   name:
     type: String, label: ()->TAPi18n.__('fleet.name')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   description:
     type: String, optional: true, label: ()->TAPi18n.__('fleet.description')
     autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
       rows: 5
   parent:
     type:String, label: ()->TAPi18n.__('fleet.parent')
     autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> FleetGroups.find().map (group) -> label: group.name, value: group._id
+
+Schema.documentTypes = new SimpleSchema
+  _id:
+    type: String, optional: true
+  name:
+    type: String, label: ()->TAPi18n.__('documentTypes.name')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  description:
+    type: String, optional: true, label: ()->TAPi18n.__('documentTypes.description')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+      rows: 5
 
 Schema.insuranceTypes = new SimpleSchema
   _id:
     type: String, optional: true
   name:
     type: String, label: ()->TAPi18n.__('insuranceTypes.name')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   description:
     type: String, optional: true, label: ()->TAPi18n.__('insuranceTypes.description')
     autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"  
       rows: 5
 
 Schema.expenseGroups = new SimpleSchema
@@ -40,9 +62,12 @@ Schema.expenseGroups = new SimpleSchema
     type: String, optional: true
   name:
     type: String, label: ()->TAPi18n.__('expenseGroups.name')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   description:
     type: String, optional: true, label: ()->TAPi18n.__('expenseGroups.description')
     autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
       rows: 5
 
 Schema.expenseTypes = new SimpleSchema
@@ -50,11 +75,16 @@ Schema.expenseTypes = new SimpleSchema
     type: String, optional: true
   name:
     type: String, label: ()->TAPi18n.__('expenseTypes.name')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   unitOfMeasure:
     type: String, label: ()->TAPi18n.__('expenseTypes.unitOfMeasure')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   description:
     type: String, optional: true, label: ()->TAPi18n.__('expenseTypes.description')
     autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
       rows: 5
 
 Schema.expenses = new SimpleSchema

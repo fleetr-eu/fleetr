@@ -1,9 +1,8 @@
-<template name="expenseType">
-  {{#autoForm collection="ExpenseTypes" doc=doc id="expenseTypeForm" type="method" meteormethod="submitExpenseType"}}
+<template name="documentType">
+  {{#autoForm collection="DocumentTypes" doc=doc id="documentTypeForm" type="method" meteormethod="submitDocumentType"}}
     <fieldset>
 	    {{> afFieldInput type="hidden" name="_id" value=_id}}
 	    {{> afQuickField name="name" autofocus=true}}
-	    {{> afQuickField name="unitOfMeasure"}}
 	    {{> afQuickField name="description" rows=5}}
     </fieldset>
   {{/autoForm}}

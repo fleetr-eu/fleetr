@@ -149,6 +149,21 @@ Meteor.startup ->
       template: 'expenseTypes'
       waitOn: -> Meteor.subscribe('expenseTypes')
 
+    @route 'addDocumentType',
+      path: '/documents/types/add'
+      template: 'documentType'
+
+    @route 'editDocumentType',
+      path: '/documents/types/edit/:documentTypeId'
+      template: 'documentType'
+      data: -> {'documentTypeId' : @params.documentTypeId}
+      waitOn: -> Meteor.subscribe('documentTypes')
+
+    @route 'listDocumentTypes',
+      path: '/documents/types/list'
+      template: 'documentTypes'
+      waitOn: -> Meteor.subscribe('documentTypes')  
+
     @route 'addExpense',
       path: '/expenses/add'
       template: 'expense'

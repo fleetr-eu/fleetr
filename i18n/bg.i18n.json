@@ -8,6 +8,7 @@
     "drivers": "Шофьори",
     "listDrivers": "Шофьори",
     "drivers_vehicles": "Шофьори и автомобили",
+    "listDocumentTypes": "Видове документи",
     "objects": "Обекти",
     "maintenances" : "Поддръжки",
     "expenses": "Разходи",
@@ -52,6 +53,14 @@
     "description" : "Описание",
     "parent" : "Група",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете този автопарк?"
+  },
+
+  "documentTypes": {
+    "title" : "Вид документ",
+    "listTitle" : "Видове документи",
+    "name" : "Име",
+    "description" : "Описание",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете този вид документ?"
   },
 
   "tyre": {

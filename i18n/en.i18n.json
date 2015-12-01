@@ -8,6 +8,7 @@
     "drivers": "Drivers",
     "listDrivers": "Drivers",
     "drivers_vehicles": "Drivers and Vehicles",
+    "listDocumentTypes": "Document Types",
     "objects": "Objects",
     "expenses": "Expenses",
     "listExpenseGroups": "Expense Groups",
@@ -52,6 +53,14 @@
     "description" : "Description",
     "parent" : "Group",
     "deleteMessage": "Are you certain you want to delete this Fleet?"
+  },
+
+  "documentTypes": {
+    "title" :"Document Type",
+    "listTitle" : "Document Types",
+    "name" : "Name",
+    "description" : "Description",
+    "deleteMessage": "Are you certain you want to delete this Document Type?"
   },
 
   "tyre": {
