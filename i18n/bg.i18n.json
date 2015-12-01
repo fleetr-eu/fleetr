@@ -159,8 +159,11 @@
     "nextKm" : "След км",
     "engineHours" : "Часове",
     "nextMaintenanceDate" : "Следваща дата",
+    "daysToMaintenance" : "Оставащи дни",
     "nextMaintenanceOdometer" : "Следваш одометър",
+    "odometerToMaintenance" : "Оставащи км",
     "nextMaintenanceEngineHours" : "Следващи часове",
+    "engineHoursToMaintenance" : "Оставащи часове",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете тази поддръжка?"
   },
 
@@ -234,7 +237,13 @@
       "title": "разходи"
     },
     "maintenance": {
-      "title": "Поддръжка"
+      "title": "Предстоящи поддръжки",
+      "nextMaintenanceDate" : "Дата",
+      "daysToMaintenance" : "Оставащи дни",
+      "nextMaintenanceOdometer" : "Одометър",
+      "odometerToMaintenance" : "Оставащи км",
+      "nextMaintenanceEngineHours" : "Д-ни часове",
+      "engineHoursToMaintenance" : "Оставащи часове"
     }
   },
 

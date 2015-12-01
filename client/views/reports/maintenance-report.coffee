@@ -1,9 +1,29 @@
+getDateRow = (field) -> (row) -> new Date(row[field]).toLocaleDateString 'en-US'
+
 fleetrGridConfig =
   columns: [
-    id: "maintenanceDate"
+    id: "fleetName"
+    field: "fleetName"
+    name: "#{TAPi18n.__('fleet.title')}"
+    width:100
+    sortable: true
+    search:
+      where: 'client'
+    groupable: true 
+  ,  
+    id: "vehicleName"
+    field: "vehicleName"
+    name: "#{TAPi18n.__('vehicles.title')}"
+    width:100
+    sortable: true
+    search:
+      where: 'client'
+    groupable: true
+  ,
+    id: "nextMaintenanceDate"
     field: "maintenanceDate"
-    name: "Maintenance Date"
-    width:120
+    name: "#{TAPi18n.__('reports.maintenance.nextMaintenanceDate')}"
+    width:50
     sortable: true
     align: 'left'
     formatter: FleetrGrid.Formatters.dateFormatter
@@ -12,59 +32,54 @@ fleetrGridConfig =
       dateRange: DateRanges.future
     groupable: true
   ,
-    id: 'odometerToMaintenance'
-    field: 'odometerToMaintenance'
-    name: 'KM\'s till maintenance'
+    id: "daysToMaintenance"
+    field: "daysToMaintenance"
+    name: "#{TAPi18n.__('reports.maintenance.daysToMaintenance')}"
+    width:50
     sortable: true
-    search: where: 'server'
     align: 'right'
-  ,
-    id: 'engineHoursToMaintenance'
-    field: 'engineHoursToMaintenance'
-    name: 'Engine hours till maintenance'
-    sortable: true
-    search: where: 'server'
-    align: 'right'
-  ,
-    id: 'nextMaintenanceOdometer'
-    field: 'nextMaintenanceOdometer'
-    name: 'Next Maintenance Odometer'
-    sortable: true
-    search:
-      where: 'server'
-  ,
-    id: 'nextMaintenanceEngineHours'
-    field: 'nextMaintenanceEngineHours'
-    name: 'Next Maintenance Engine Hours'
-    sortable: true
-    search:
-      where: 'server'
-  ,
-    id: "vehicleName"
-    field: "vehicleName"
-    name: "Name"
-    sortable: true
-  ,
-    id: "fleetName"
-    field: "fleetName"
-    name: "Fleet"
-    sortable: true
+    formatter: FleetrGrid.Formatters.dateFormatter
     search:
       where: 'client'
   ,
-    id: "buttons"
-    name: "Buttons"
-    buttons: [
-      value: "Edit"
-      renderer: (value, row, cell, column, rowObject) ->
-        "<button>Custom:#{value}</button>"
-    ,
-      value: "Delete"
-    ]
-    formatter: FleetrGrid.Formatters.buttonFormatter
+    id: 'nextMaintenanceOdometer'
+    field: 'nextMaintenanceOdometer'
+    name: "#{TAPi18n.__('reports.maintenance..nextMaintenanceOdometer')}"
+    width:50
+    align: 'right'
+    sortable: true
+    search:
+      where: 'client'
+  ,    
+    id: 'odometerToMaintenance'
+    field: 'odometerToMaintenance'
+    name: "#{TAPi18n.__('reports.maintenance.odometerToMaintenance')}"
+    width:50
+    align: 'right'
+    sortable: true
+    search: where: 'server'
+  ,
+    id: 'nextMaintenanceEngineHours'
+    field: 'nextMaintenanceEngineHours'
+    name: "#{TAPi18n.__('reports.maintenance.nextMaintenanceEngineHours')}"
+    width:50
+    hidden: true
+    align: 'right'
+    sortable: true
+    search:
+      where: 'server'  
+  ,
+    id: 'engineHoursToMaintenance'
+    field: 'engineHoursToMaintenance'
+    name: "#{TAPi18n.__('reports.maintenance.engineHoursToMaintenance')}"
+    width:50
+    hidden: true
+    align: 'right'
+    sortable: true
+    search: where: 'server'
   ]
   options:
-    enableCellNavigation: false
+    enableCellNavigation: true
     enableColumnReorder: false
     showHeaderRow: true
     explicitInitialization: true
@@ -72,13 +87,13 @@ fleetrGridConfig =
   remoteMethod: 'getMaintenanceVehicles'
   customize: (grid) ->
     now = moment()
-    future = moment().add(29, 'days')
-    grid.addFilter 'server', 'Maintenance Date', "#{now.format('YYYY-MM-DD')} - #{future.format('YYYY-MM-DD')}",
+    future = moment().add(1, 'months')
+    grid.addFilter 'server', "#{TAPi18n.__('reports.maintenance.nextMaintenanceDate')}", "#{now.format('YYYY-MM-DD')} - #{future.format('YYYY-MM-DD')}",
       {maintenanceDateMin: now.toISOString(), maintenanceDateMax: future.toISOString()}, false
 
 Template.maintenanceReport.helpers
   fleetrGridConfig: -> fleetrGridConfig
-  pageTitle: -> "#{TAPi18n.__('reports.title')} &raquo; #{TAPi18n.__('reports.maintenance.title')}"
+  pageTitle: -> "#{TAPi18n.__('reports.maintenance.title')}"
 
 Template.maintenanceReport.events
   'rowsSelected #maintenanceGrid': (event) ->

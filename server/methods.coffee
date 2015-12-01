@@ -79,9 +79,12 @@ Meteor.methods
         vehicle: 1
         nextMaintenanceOdometer: 1
         nextMaintenanceEngineHours: 1
+        daysToMaintenance: $subtract: ["$nextMaintenanceDate", "$maintenanceDate"]
         odometerToMaintenance: $subtract: ["$nextMaintenanceOdometer", "$odometer"]
         engineHoursToMaintenance: $subtract: ["$nextMaintenanceEngineHours", "$engineHours"]
     ]
+    if filter.daysToMaintenance
+      pipeline.push $match: daysToMaintenance: $lte: parseInt filter.daysToMaintenance.regex
     if filter.odometerToMaintenance
       pipeline.push $match: odometerToMaintenance: $lte: parseInt filter.odometerToMaintenance.regex
     if filter.engineHoursToMaintenance

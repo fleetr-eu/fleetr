@@ -159,8 +159,11 @@
     "nextKm" : "Next km",
     "engineHours" : "Engine hours",
     "nextMaintenanceDate" : "Date",
+    "daysToMaintenance" : "Remaining дни",
     "nextMaintenanceOdometer" : "Odometer",
+    "odometerToMaintenance" : "Remaining км",
     "nextMaintenanceEngineHours" : "Engine hours",
+    "engineHoursToMaintenance" : "Remaining часове",
     "deleteMessage": "Are you certain you want to delete this maintenance?"
   },
 
@@ -234,7 +237,13 @@
       "title": "Expenses"
     },
     "maintenance": {
-      "title": "Maintenance"
+      "title": "Upcoming Maintenances",
+      "nextMaintenanceDate" : "Date",
+      "daysToMaintenance" : "Remaining days",
+      "nextMaintenanceOdometer" : "Odometer",
+      "odometerToMaintenance" : "Remaining km",
+      "nextMaintenanceEngineHours" : "Engine hours",
+      "engineHoursToMaintenance" : "Remaining hours"
     }
   },
 
