@@ -1,4 +1,5 @@
 @Tyres = new Mongo.Collection 'tyres'
+Partitioner.partitionCollection Tyres
 
 Tyres.attachSchema new SimpleSchema
   _id:
@@ -40,8 +41,8 @@ Tyres.attachSchema new SimpleSchema
     type: Boolean
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
-        switchOptions: 
+      afFieldInput:
+        switchOptions:
           size: 'small'
           onColor: 'success'
       leftLabel:"true"
