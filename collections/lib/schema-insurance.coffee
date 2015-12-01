@@ -100,6 +100,7 @@ Schema.insurance = new SimpleSchema
       "input-col-class": "col-sm-7"
   insuredFirstName:
     type: String
+    optional: true
     label: ()->TAPi18n.__('insurances.insuredFirstName')
     autoform:
       template: "bootstrap3-horizontal"
@@ -107,6 +108,7 @@ Schema.insurance = new SimpleSchema
       "input-col-class": "col-sm-7"
   insuredLastName:
     type: String
+    optional: true
     label: ()->TAPi18n.__('insurances.insuredLastName')
     autoform:
       template: "bootstrap3-horizontal"

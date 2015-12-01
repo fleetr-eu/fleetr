@@ -2,7 +2,7 @@
   {{#autoForm collection="InsurancePayments" doc=doc id="insurancePaymentsForm" type="method" meteormethod="submitInsurancePayment"}}
     <fieldset>
   	  {{> afFieldInput type="hidden" name="_id" value=_id}}
-      {{> afFieldInput name="insuranceId" value=insuranceId}}
+      {{> afFieldInput type="hidden" name="insuranceId" value=insuranceId}}
       {{> afQuickField name="montlyPayment" autofocus=true }}
       {{> afQuickField name="plannedDate" }}
       {{> afQuickField name="actualDate" }}
