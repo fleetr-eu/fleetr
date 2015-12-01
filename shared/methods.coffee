@@ -43,8 +43,8 @@ Meteor.methods
   submitInsurance: submitItem Insurances
   removeInsurance: removeItem Insurances
 
-  submitInsurance: submitItem InsurancePayments
-  removeInsurance: removeItem InsurancePayments
+  submitInsurancePayment: submitItem InsurancePayments
+  removeInsurancePayment: removeItem InsurancePayments
 
   submitMaintenance: submitItem Maintenances
   removeMaintenance: removeItem Maintenances
