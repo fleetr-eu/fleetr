@@ -5,8 +5,8 @@
     cssClasses: "totals"
     columns: {}
   emptyRowMetaData = columns: {}
-  totalsMetadata.columns[i] = { editor: null } for i in [0..columns.length]
-  emptyRowMetaData.columns[i] = { editor: null, formatter: -> '' } for i in [0..columns.length]
+  totalsMetadata.columns[i] = { editor: null, focusable: false } for i in [0..columns.length]
+  emptyRowMetaData.columns[i] = { editor: null, focusable: false, formatter: -> '' } for i in [0..columns.length]
 
   emptyRow = {}
   emptyRow[columns[i]?.field] = '' for i in [0..columns.length]
