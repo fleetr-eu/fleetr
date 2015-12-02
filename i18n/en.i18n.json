@@ -190,6 +190,8 @@
     "engineHours": "Engine hours",
     "unitId":"Unit Id",
     "lastUpdate":"Last com",
+    "lastUpdateTooLongAgoWarning":"Last communtication was too long ago!",
+    "lastUpdateNoDataWarning":"No communication data available!",
     "phoneNumber" : "Phone",
     "nextTechnicalCheck":"Next tech. check",
 

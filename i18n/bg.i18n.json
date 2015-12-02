@@ -191,6 +191,8 @@
     "engineHours": "Двигател часове",
     "unitId":"У-во",
     "lastUpdate":"Комуникация",
+    "lastUpdateTooLongAgoWarning":"От последната комуникация е изминал твърде дълъг период!",
+    "lastUpdateNoDataWarning":"Няма комуникационни данни!",
     "phoneNumber" : "Телефон",
     "nextTechnicalCheck":"Следващ тех. преглед",
     "category":"Категория",

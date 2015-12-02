@@ -1,3 +1,17 @@
+lastUpdateFormatter = (daysAgo) -> (row, cell, value) ->
+  if value
+    lastUpdate = moment value
+    aWeekAgo = moment().subtract(daysAgo, 'days')
+    longAgoWarning = TAPi18n.__('vehicles.lastUpdateTooLongAgoWarning')
+    attnIcon = if lastUpdate.isBefore(aWeekAgo)
+      "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{longAgoWarning}'></i> "
+    else
+      ''
+    "<span>#{attnIcon}#{lastUpdate.format('DD/MM/YYYY HH:mm:ss')}</span>"
+  else
+    noDataWarning = TAPi18n.__('vehicles.lastUpdateNoDataWarning')
+    "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{noDataWarning}'></i>"
+
 Template.maintenancesButton.helpers
   vehicleId: => Session.get "selectedItemId"
 
@@ -60,7 +74,7 @@ Template.vehicles.helpers
         name: TAPi18n.__('vehicles.lastUpdate')
         width:50
         sortable: true
-        formatter: FleetrGrid.Formatters.dateTimeFormatter
+        formatter: lastUpdateFormatter(7)
         search:
           where: 'server'
           dateRange: DateRanges.history
