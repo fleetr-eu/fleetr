@@ -94,7 +94,3 @@ fleetrGridConfig = ->
 Template.maintenanceReport.helpers
   fleetrGridConfig: -> fleetrGridConfig
   pageTitle: -> TAPi18n.__('reports.maintenance.title')
-
-Template.maintenanceReport.events
-  'rowsSelected #maintenanceGrid': (event) ->
-    console.log 'rowsSelected #maintenanceGrid', event
