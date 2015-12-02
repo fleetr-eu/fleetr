@@ -1,6 +1,9 @@
 Template.maintenances.onRendered ->
+  vehicleId = @data.vehicleId
+  Template.maintenance.onRendered ->
+    @vehicleId = vehicleId
   Template.maintenance.helpers
-    vehicleId: => @data.vehicleId
+    vehicleId: vehicleId
 
 Template.maintenances.helpers
   options: ->
@@ -32,13 +35,13 @@ Template.maintenances.helpers
         sortable: true
         search: where: 'client'
         align: "right"
-      ,  
+      ,
         id: "nextKm"
         field: "nextKm"
         name: "#{TAPi18n.__('maintenances.nextKm')}"
         width:50
         sortable: true
-        search: where: 'client' 
+        search: where: 'client'
         align: "right"
       ,
         id: "engineHours"
@@ -70,8 +73,8 @@ Template.maintenances.helpers
         name: "#{TAPi18n.__('maintenances.nextMaintenanceEngineHours')}"
         width:50
         sortable: true
-        search: where: 'client'  
-        align: "right"  
+        search: where: 'client'
+        align: "right"
       ]
       options:
         enableCellNavigation: true
@@ -83,4 +86,3 @@ Template.maintenances.helpers
         transform: (doc) -> _.extend doc,
             maintenanceTypeName: MaintenanceTypes.findOne(_id: doc.maintenanceType)?.name
             nextKm: doc.nextMaintenanceOdometer-doc.odometer
-
