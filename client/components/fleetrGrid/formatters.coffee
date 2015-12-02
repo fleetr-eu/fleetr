@@ -1,7 +1,7 @@
 # Default column formatters
 FleetrGrid.Formatters =
   dateFormatter: (row, cell, value) ->
-    if value then new Date(value).toLocaleDateString 'en-US' else ''
+    if value then moment(value).format('DD/MM/YYYY') else ''
   timeFormatter: (row, cell, value) ->
     moment(value).format('HH:mm:ss') if value
   dateTimeFormatter: (row, cell, value) ->

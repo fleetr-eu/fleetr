@@ -81,7 +81,7 @@ Meteor.methods
         nextMaintenanceEngineHours: 1
         daysToMaintenance: $divide: [$subtract: ["$nextMaintenanceDate", new Date()], 1000 * 60 * 60 * 24]
         odometerToMaintenance: $subtract: ["$nextMaintenanceOdometer", "$odometer"]
-        engineHoursToMaintenance: $subtract: ["$nextMaintenanceEngineHours", "$engineHours"]  
+        engineHoursToMaintenance: $subtract: ["$nextMaintenanceEngineHours", "$engineHours"]
     ]
     if filter.daysToMaintenance
       pipeline.push $match: daysToMaintenance: $lte: parseInt filter.daysToMaintenance.regex
@@ -94,7 +94,7 @@ Meteor.methods
     if filter.nextMaintenanceEngineHours
       pipeline.push $match: nextMaintenanceEngineHours: $lte: parseInt filter.nextMaintenanceEngineHours.regex
     if filter.maintenanceDateMin and filter.maintenanceDateMax
-      pipeline.push $match: maintenanceDate: $gte: new Date(filter.maintenanceDateMin), $lte: new Date(filter.maintenanceDateMax)
+      pipeline.push $match: nextMaintenanceDate: $gte: new Date(filter.maintenanceDateMin), $lte: new Date(filter.maintenanceDateMax)
 
     Maintenances.aggregate(pipeline).map (maintenance) ->
       vehicle = Vehicles.findOne _id: maintenance.vehicle
