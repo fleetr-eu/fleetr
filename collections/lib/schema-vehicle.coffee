@@ -95,11 +95,6 @@ Schema.vehicle = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
-  lastSeen:
-    type: String, optional: true, label:()->TAPi18n.__('vehicles.lastSeen')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
-
   phoneNumber:
     type: String, optional: true, label:()->TAPi18n.__('vehicles.phoneNumber')
     autoform:

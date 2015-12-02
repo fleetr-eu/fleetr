@@ -189,7 +189,7 @@
     "odometer":"Odometer (km)",
     "engineHours": "Engine hours",
     "unitId":"Unit Id",
-    "lastSeen":"Last com",
+    "lastUpdate":"Last com",
     "phoneNumber" : "Phone",
     "nextTechnicalCheck":"Next tech. check",
 

@@ -1,4 +1,4 @@
-Template.maintenancesButton.helpers 
+Template.maintenancesButton.helpers
   vehicleId: => Session.get "selectedItemId"
 
 Template.vehicles.helpers
@@ -12,7 +12,7 @@ Template.vehicles.helpers
       columns: [
         id: "fleetName"
         field: "fleetName"
-        name: "#{TAPi18n.__('fleet.name')}"
+        name: TAPi18n.__('fleet.name')
         width:80
         sortable: true
         hidden:true
@@ -22,52 +22,52 @@ Template.vehicles.helpers
       ,
         id: "name"
         field: "name"
-        name: "#{TAPi18n.__('vehicles.name')}"
+        name: TAPi18n.__('vehicles.name')
         width:100
         sortable: true
         search: where: 'client'
       ,
         id: "licensePlate"
         field: "licensePlate"
-        name: "#{TAPi18n.__('vehicles.licensePlate')}"
+        name: TAPi18n.__('vehicles.licensePlate')
         width:50
         sortable: true
         search: where: 'client'
       ,
         id: "unitId"
         field: "unitId"
-        name: "#{TAPi18n.__('vehicles.unitId')}"
+        name: TAPi18n.__('vehicles.unitId')
         width:50
         sortable: true
         search: where: 'client'
       ,
         id: "phoneNumber"
         field: "phoneNumber"
-        name: "#{TAPi18n.__('vehicles.phoneNumber')}"
+        name: TAPi18n.__('vehicles.phoneNumber')
         width:50
         sortable: true
         search: where: 'client'
       ,
         id: "odometer"
         field: "odometer"
-        name: "#{TAPi18n.__('vehicles.odometer')}"
+        name: TAPi18n.__('vehicles.odometer')
         width:50
         sortable: true
         search: where: 'client'
       ,
-        id: "lastSeen"
-        field: "lastSeen"
-        name: "#{TAPi18n.__('vehicles.lastSeen')}"
+        id: "lastUpdate"
+        field: "lastUpdate"
+        name: TAPi18n.__('vehicles.lastUpdate')
         width:50
         sortable: true
-        formatter: FleetrGrid.Formatters.dateFormatter
+        formatter: FleetrGrid.Formatters.dateTimeFormatter
         search:
           where: 'server'
           dateRange: DateRanges.history
       ,
         id: "tags"
         field: "tags"
-        name: "#{TAPi18n.__('vehicles.tags')}"
+        name: TAPi18n.__('vehicles.tags')
         width:100
         sortable: true
         search: where: 'client'

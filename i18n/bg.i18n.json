@@ -190,7 +190,7 @@
     "odometer":"Одометър (км)",
     "engineHours": "Двигател часове",
     "unitId":"У-во",
-    "lastSeen":"Коммуникация",
+    "lastUpdate":"Комуникация",
     "phoneNumber" : "Телефон",
     "nextTechnicalCheck":"Следващ тех. преглед",
     "category":"Категория",

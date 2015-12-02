@@ -2,10 +2,12 @@
 FleetrGrid.Formatters =
   dateFormatter: (row, cell, value) ->
     if value then new Date(value).toLocaleDateString 'en-US' else ''
-  roundFloat: (decimals = 0) -> (row, cell, value) ->
-    Number((Number(value)).toFixed(decimals)) if value
   timeFormatter: (row, cell, value) ->
     moment(value).format('HH:mm:ss') if value
+  dateTimeFormatter: (row, cell, value) ->
+    moment(value).format('DD/MM/YYYY HH:mm:ss') if value
+  roundFloat: (decimals = 0) -> (row, cell, value) ->
+    Number((Number(value)).toFixed(decimals)) if value
   euroFormatter: (row, cell, value) ->
     "&euro; #{if value then value else '0'}"
   sumTotalsFormatter: (sign = '') -> (totals, columnDef) ->
