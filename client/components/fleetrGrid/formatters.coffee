@@ -25,8 +25,8 @@ FleetrGrid.Formatters =
   blazeFormatter: (blazeTemplate) -> (row, cell, value, column, rowObject) ->
     if value
       @_blazeCache.templates["#{row}:#{cell}"] = blazeTemplate
-      setTimeout (=> @_renderBlazeTemplates()), 0
-      "<div class='blazeTemplate' data-row='#{row}' data-col='#{cell}'></div>"
+      setTimeout (=> @_renderBlazeTemplates(row,cell)), 0
+      "<div class='blazeTemplate cell#{row}-#{cell}'></div>"
 
 FleetrGrid.Formatters.sumEuroTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '&euro;'
 FleetrGrid.Formatters.sumTotalsFormatterNoSign = FleetrGrid.Formatters.sumTotalsFormatter ''
