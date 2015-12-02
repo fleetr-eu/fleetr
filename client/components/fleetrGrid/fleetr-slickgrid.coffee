@@ -225,9 +225,9 @@ Helpers =
       if x == y then 0 else if x > y then 1 else -1
 
     @grid.onSort.subscribe (e, args) =>
-      sortdir = args.sortAsc ? 1 : -1;
       sortcol = args.sortCol.field
       @_dataView.sort(comparer(sortcol), args.sortAsc)
+      @grid.setSelectedRows([-1])
 
     searchInputHandler = (e) =>
       columnId = $(e.target).data("columnId");
