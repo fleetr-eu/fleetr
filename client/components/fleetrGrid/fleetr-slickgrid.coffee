@@ -134,7 +134,8 @@ Helpers =
       @_loadingIndicatorShowId = null
     @loadingIndicator?.fadeOut()
 
-  @_renderBlazeTemplates = _.debounce ->
+  #_.debounce
+  @_renderBlazeTemplates =  ->
     $('.blazeTemplate').each (index, element) =>
       node = $ element
       row = node.data('row')
@@ -152,11 +153,13 @@ Helpers =
       # remove the view if it had already been rendered before
       # rendering it again
       if @_blazeCache.views["#{row}:#{col}"]
+        console.log "removing view for #{row}:#{col}"
         Blaze.remove @_blazeCache.views["#{row}:#{col}"]
       # render the view
+      console.log "rendering view for #{row}:#{col}"
       view = Blaze.renderWithData tpl, ctx, node.get(0)
       @_blazeCache.views["#{row}:#{col}"] = view
-  , 100
+  #, 100
 
   @install = (initializeData = true) ->
 
