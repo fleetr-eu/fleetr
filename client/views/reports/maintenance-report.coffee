@@ -21,7 +21,7 @@ fleetrGridConfig =
     groupable: true
   ,
     id: "nextMaintenanceDate"
-    field: "maintenanceDate"
+    field: "nextMaintenanceDate"
     name: "#{TAPi18n.__('reports.maintenance.nextMaintenanceDate')}"
     width:50
     sortable: true
@@ -34,13 +34,13 @@ fleetrGridConfig =
   ,
     id: "daysToMaintenance"
     field: "daysToMaintenance"
-    name: "#{TAPi18n.__('reports.maintenance.daysToMaintenance')}"
+    name: TAPi18n.__('reports.maintenance.daysToMaintenance')
     width:50
     sortable: true
     align: 'right'
-    formatter: FleetrGrid.Formatters.dateFormatter
+    formatter: FleetrGrid.Formatters.roundFloat()
     search:
-      where: 'client'
+      where: 'server'
   ,
     id: 'nextMaintenanceOdometer'
     field: 'nextMaintenanceOdometer'
