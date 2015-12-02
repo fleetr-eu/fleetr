@@ -1,19 +1,19 @@
 getDateRow = (field) -> (row) -> new Date(row[field]).toLocaleDateString 'en-US'
 
-fleetrGridConfig =
+fleetrGridConfig = ->
   columns: [
     id: "fleetName"
     field: "fleetName"
-    name: "#{TAPi18n.__('fleet.title')}"
+    name: TAPi18n.__('fleet.title')
     width:100
     sortable: true
     search:
       where: 'client'
-    groupable: true 
-  ,  
+    groupable: true
+  ,
     id: "vehicleName"
     field: "vehicleName"
-    name: "#{TAPi18n.__('vehicles.title')}"
+    name: TAPi18n.__('vehicles.title')
     width:100
     sortable: true
     search:
@@ -22,7 +22,7 @@ fleetrGridConfig =
   ,
     id: "nextMaintenanceDate"
     field: "nextMaintenanceDate"
-    name: "#{TAPi18n.__('reports.maintenance.nextMaintenanceDate')}"
+    name: TAPi18n.__('reports.maintenance.nextMaintenanceDate')
     width:50
     sortable: true
     align: 'left'
@@ -44,16 +44,16 @@ fleetrGridConfig =
   ,
     id: 'nextMaintenanceOdometer'
     field: 'nextMaintenanceOdometer'
-    name: "#{TAPi18n.__('reports.maintenance..nextMaintenanceOdometer')}"
+    name: TAPi18n.__('reports.maintenance.nextMaintenanceOdometer')
     width:50
     align: 'right'
     sortable: true
     search:
       where: 'client'
-  ,    
+  ,
     id: 'odometerToMaintenance'
     field: 'odometerToMaintenance'
-    name: "#{TAPi18n.__('reports.maintenance.odometerToMaintenance')}"
+    name: TAPi18n.__('reports.maintenance.odometerToMaintenance')
     width:50
     align: 'right'
     sortable: true
@@ -61,17 +61,17 @@ fleetrGridConfig =
   ,
     id: 'nextMaintenanceEngineHours'
     field: 'nextMaintenanceEngineHours'
-    name: "#{TAPi18n.__('reports.maintenance.nextMaintenanceEngineHours')}"
+    name: TAPi18n.__('reports.maintenance.nextMaintenanceEngineHours')
     width:50
     hidden: true
     align: 'right'
     sortable: true
     search:
-      where: 'server'  
+      where: 'server'
   ,
     id: 'engineHoursToMaintenance'
     field: 'engineHoursToMaintenance'
-    name: "#{TAPi18n.__('reports.maintenance.engineHoursToMaintenance')}"
+    name: TAPi18n.__('reports.maintenance.engineHoursToMaintenance')
     width:50
     hidden: true
     align: 'right'
@@ -88,12 +88,12 @@ fleetrGridConfig =
   customize: (grid) ->
     now = moment()
     future = moment().add(1, 'months')
-    grid.addFilter 'server', "#{TAPi18n.__('reports.maintenance.nextMaintenanceDate')}", "#{now.format('YYYY-MM-DD')} - #{future.format('YYYY-MM-DD')}",
+    grid.addFilter 'server', TAPi18n.__('reports.maintenance.nextMaintenanceDate'), "#{now.format('YYYY-MM-DD')} - #{future.format('YYYY-MM-DD')}",
       {maintenanceDateMin: now.toISOString(), maintenanceDateMax: future.toISOString()}, false
 
 Template.maintenanceReport.helpers
   fleetrGridConfig: -> fleetrGridConfig
-  pageTitle: -> "#{TAPi18n.__('reports.maintenance.title')}"
+  pageTitle: -> TAPi18n.__('reports.maintenance.title')
 
 Template.maintenanceReport.events
   'rowsSelected #maintenanceGrid': (event) ->
