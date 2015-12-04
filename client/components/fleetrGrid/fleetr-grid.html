@@ -2,19 +2,19 @@
   <div id="{{id}}">
     <ol class="list-inline">
     {{#if displayGrouping}}
-      <li><strong>Grouped by:</strong></li>
+      <li><strong>{{_ "slickgrid.groupedBy"}}:</strong></li>
       {{#each activeGroupings}}
         <li>{{name}} <a href="#" class="removeGroupBy"><span class="glyphicon glyphicon-remove"></span></a></li>
       {{else}}
-        <li>No grouping.</li>
+        <li>{{_ "slickgrid.noGrouping"}}</li>
       {{/each}}
     {{/if}}
     {{#if displayFilters}}
-      <li><strong>Filtered on:</strong></li>
+      <li><strong>{{_ "slickgrid.filteredBy"}}:</strong></li>
       {{#each activeFilters}}
         <li>{{name}} ({{text}}) <a href="#" class="removeFilter"><span class="glyphicon glyphicon-remove"></span></a></li>
       {{else}}
-        <li>No filters.</li>
+        <li>{{_ "slickgrid.noFiltering"}}</li>
       {{/each}}
     {{/if}}
     </ol>

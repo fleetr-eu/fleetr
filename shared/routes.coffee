@@ -50,46 +50,22 @@ Meteor.startup ->
       path: '/drivers/list'
       template: 'drivers'
       waitOn: -> Meteor.subscribe('drivers')
-    @route 'addDriver',
-      path: '/drivers/add'
-      template: 'driver'
-      waitOn: -> Meteor.subscribe('drivers')
-    @route 'editDriver',
-      path: '/drivers/edit/:driverId'
-      template: 'driver'
-      data: -> {'driverId' : @params.driverId}
-      waitOn: -> Meteor.subscribe('drivers')
 
     @route 'listVehicles',
       path: '/vehicles/list'
       template: 'vehicles'
       waitOn: -> [Meteor.subscribe('vehicles'), Meteor.subscribe('fleets'), Meteor.subscribe('drivers')]
-    @route 'addVehicle',
-      path: '/vehicles/add'
-      template: 'vehicle'
-      waitOn: -> [Meteor.subscribe('vehiclesMakes'), Meteor.subscribe('vehiclesModels'), Meteor.subscribe('fleets')]
-
-    @route 'editVehicle',
-      path: '/vehicles/edit/:vehicleId'
-      template: 'vehicle'
-      data: -> {'vehicleId' : @params.vehicleId}
-      waitOn: -> [Meteor.subscribe('vehiclesMakes'), Meteor.subscribe('vehiclesModels'), Meteor.subscribe('vehicle', _id: @params.vehicleId), Meteor.subscribe('fleets')]
-
-    @route 'addFleetGroup',
-      path: '/fleets/groups/add'
-      template: 'fleetGroup'
-
-    @route 'editFleetGroup',
-      path: '/fleets/groups/edit/:fleetGroupId'
-      template: 'fleetGroup'
-      data: -> {'fleetGroupId' : @params.fleetGroupId}
-      waitOn: -> Meteor.subscribe('fleetGroups')
 
     @route 'listFleetGroups',
       path: '/fleets/groups/list'
       template: 'fleetGroups'
       waitOn: -> Meteor.subscribe('fleetGroups')
 
+    @route 'listCustomEvents',
+      path: '/custom-events/list'
+      template: 'customEvents'
+      waitOn: -> [Meteor.subscribe('customEvents'), Meteor.subscribe('fleetGroups'), Meteor.subscribe('fleets'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
+     
     @route 'listTyres',
       path: '/tyres/list'
       template: 'tyres'
@@ -99,17 +75,7 @@ Meteor.startup ->
     @route 'listFleets',
       path: '/fleets/list'
       template: 'fleets'
-      data: -> {pageTitle: 'Автопаркове'}
-      waitOn: -> [Meteor.subscribe('fleets'), Meteor.subscribe('fleetGroups')]
-    @route 'addFleet',
-      path: '/fleets/add'
-      template: 'fleet'
-      waitOn: -> Meteor.subscribe 'fleetGroups'
-    @route 'editFleet',
-      path: '/fleets/edit/:fleetId'
-      template: 'fleet'
-      data: -> {'fleetId' : @params.fleetId}
-      waitOn: -> [Meteor.subscribe('fleet', @params.fleetId), Meteor.subscribe('fleetGroups')]
+      waitOn: -> [Meteor.subscribe('customEvents'), Meteor.subscribe('fleets'), Meteor.subscribe('fleetGroups'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
 
     @route 'mapVehicles',
       path: '/vehicles/map/:vehicleId?'
@@ -119,62 +85,20 @@ Meteor.startup ->
     @route 'drilldownReport',
       path: '/reports/drilldown'
 
-    @route 'addExpenseGroup',
-      path: '/expenses/groups/add'
-      template: 'expenseGroup'
-
-    @route 'editExpenseGroup',
-      path: '/expenses/groups/edit/:expenseGroupId'
-      template: 'expenseGroup'
-      data: -> {'expenseGroupId' : @params.expenseGroupId}
-      waitOn: -> Meteor.subscribe('expenseGroups')
-
     @route 'listExpenseGroups',
       path: '/expenses/groups/list'
       template: 'expenseGroups'
       waitOn: -> Meteor.subscribe('expenseGroups')
-
-    @route 'addExpenseType',
-      path: '/expenses/types/add'
-      template: 'expenseType'
-
-    @route 'editExpenseType',
-      path: '/expenses/types/edit/:expenseTypeId'
-      template: 'expenseType'
-      data: -> {'expenseTypeId' : @params.expenseTypeId}
-      waitOn: -> Meteor.subscribe('expenseTypes')
 
     @route 'listExpenseTypes',
       path: '/expenses/types/list'
       template: 'expenseTypes'
       waitOn: -> Meteor.subscribe('expenseTypes')
 
-    @route 'addDocumentType',
-      path: '/documents/types/add'
-      template: 'documentType'
-
-    @route 'editDocumentType',
-      path: '/documents/types/edit/:documentTypeId'
-      template: 'documentType'
-      data: -> {'documentTypeId' : @params.documentTypeId}
-      waitOn: -> Meteor.subscribe('documentTypes')
-
     @route 'listDocumentTypes',
       path: '/documents/types/list'
       template: 'documentTypes'
       waitOn: -> Meteor.subscribe('documentTypes') 
-
-    @route 'addDocument',
-      path: '/drivers/:driverId/documents/add'
-      template: 'document'
-      data: -> {'driverId':@params.driverId}
-      waitOn: -> [Meteor.subscribe('documents', @params.driverId), Meteor.subscribe('documentTypes')]
-
-    @route 'editDocument',
-      path: '/drivers/:driverId/documents/edit/:documentId'
-      template: 'document'
-      data: -> {'driverId':@params.driverId, 'documentId' : @params.documentId}
-      waitOn: -> [Meteor.subscribe('documents', @params.driverId), Meteor.subscribe('documentTypes')]
 
     @route 'listDocuments',
       path: '/drivers/:driverId/documents/list'
@@ -191,22 +115,11 @@ Meteor.startup ->
           Meteor.subscribe('drivers')
           Meteor.subscribe('vehicles')]
 
-
     @route 'listMaintenances',
       path: '/vehicle/:vehicleId/maintenance/list'
       template: 'maintenances'
       data: -> {'vehicleId' : @params.vehicleId}
       waitOn: -> [Meteor.subscribe('vehicleById', @params.vehicleId), Meteor.subscribe('vehicleMaintenances', @params.vehicleId), Meteor.subscribe('maintenanceTypes')]      
-
-    @route 'addMaintenanceType',
-      path: '/maintenance/types/add'
-      template: 'maintenanceType'
-
-    @route 'editMaintenanceType',
-      path: '/maintenance/types/edit/:maintenanceTypeId'
-      template: 'maintenanceType'
-      data: -> {'maintenanceTypeId' : @params.maintenanceTypeId}
-      waitOn: -> Meteor.subscribe('maintenanceType', @params.maintenanceTypeId)
 
     @route 'listMaintenanceType',
       path: '/maintenance/types/list'
@@ -214,69 +127,22 @@ Meteor.startup ->
       waitOn: ->
         Meteor.subscribe('maintenanceTypes')
 
-    @route 'addInsuranceType',
-      path: '/insurance/types/add'
-      template: 'insuranceType'
-
-    @route 'editInsuranceType',
-      path: '/insurance/types/edit/:insuranceTypeId'
-      template: 'insuranceType'
-      data: -> {'insuranceTypeId' : @params.insuranceTypeId}
-      waitOn: -> Meteor.subscribe('insuranceTypes', @params.insuranceTypeId)
-
     @route 'listInsuranceTypes',
       path: '/insurance/types/list'
       template: 'insuranceTypes'
       waitOn: ->
         Meteor.subscribe('insuranceTypes')
 
-    @route 'addInsurance',
-      path: '/insurance/add'
-      template: 'insurance'
-      waitOn: -> [Meteor.subscribe('insurances', @params.insuranceId), Meteor.subscribe('vehicles')]
-
-    @route 'editInsurance',
-      path: '/insurance/edit/:insuranceId'
-      template: 'insurance'
-      data: -> {'insuranceId' : @params.insuranceId}
-      waitOn: -> [Meteor.subscribe('insurances', @params.insuranceId), Meteor.subscribe('vehicles')]
-
     @route 'listInsurances',
       path: '/insurance/list'
       template: 'insurances'
       waitOn: -> [Meteor.subscribe('insurances', @params.insuranceId), Meteor.subscribe('vehicles'), Meteor.subscribe('insuranceTypes')]
-
-    @route 'addInsurancePayment',
-      path: '/insurance/:insuranceId/payment/add'
-      template: 'insurancePayment'
-      data: -> {'insuranceId' : @params.insuranceId}
-      waitOn: -> [Meteor.subscribe('insurancePayments', @params.insurancePaymentId)]
-
-    @route 'editInsurancePayment',
-      path: '/insurance/:insuranceId/payment/edit/:insurancePaymentId'
-      template: 'insurancePayment'
-      data: -> {'insuranceId' : @params.insuranceId, insurancePaymentId : @params.insurancePaymentId}
-      waitOn: -> [Meteor.subscribe('insurancePayments', @params.insurancePaymentId)]
 
     @route 'listInsurancePayments',
       path: '/insurance/:insuranceId/payment/list'
       template: 'insurancePayments'
       data: -> {'insuranceId' : @params.insuranceId}
       waitOn: -> [Meteor.subscribe('insurancePayments', @params.insurancePaymentId)]
-
-    @route 'addMaintenance',
-      path: '/vehicle/:vehicleId/maintenances/add'
-      template: 'maintenance'
-      data: -> {'vehicleId' : @params.vehicleId}
-      waitOn: -> [Meteor.subscribe('vehicleMaintenances', @params.vehicleId), Meteor.subscribe('maintenanceTypes')]
-
-    @route 'listAlarms',
-      path: '/alarms/list'
-      template: 'alarmsList'
-
-    @route 'listNotifications',
-      path: '/notifications/list'
-      template: 'notificationsList'
 
     @route 'geofences',
       path: '/geofences'

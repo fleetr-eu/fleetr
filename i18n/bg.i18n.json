@@ -1,4 +1,13 @@
 {
+
+  "slickgrid": {
+    "groupedBy": "Групиране по",
+    "filteredBy": "Филтриране по",
+    "noGrouping": "Без групиране",
+    "noFiltering": "Без филтриране",
+    "filterByDate" : "Търсене по дата"
+  },
+    
   "menu": {
     "dashboard": "Статистики",
     "fleets": "Автопаркове",
@@ -26,7 +35,26 @@
     "map": "Карта",
     "expenseReport": "Разходи",
     "maintenanceReport": "Поддръжка",
-    "listTyres": "Гуми"
+    "listTyres": "Гуми",
+    "notifications":"Напомняния"
+  },
+
+
+  "customEvents": {
+    "title": "Събитие",
+    "listTitle" : "Събития",
+    "fleetGroup" : "Група",
+    "fleet" : "Автопарк",
+    "vehicle" : "Автомобил",
+    "driver": "Шофьор",
+    "name": "Име",
+    "description": "Описание",
+    "date" : "Дата",
+    "odometer" : "Одометър",
+    "engineHours": "Двг. часове",
+    "speed": "Скорост",
+    "active" : "Активно",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете това събитие?"
   },
 
   "drivers": {

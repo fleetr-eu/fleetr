@@ -1,4 +1,13 @@
 {
+
+  "slickgrid": {
+    "groupedBy": "Grouped by",
+    "filteredBy": "Filtered by",
+    "noGrouping": "No grouping",
+    "noFiltering": "No filtering",
+    "filterByDate" : "Filter by date"
+  },
+
   "menu": {
     "dashboard": "Dashboard",
     "fleets": "Fleets",
@@ -26,7 +35,25 @@
     "map": "Map",
     "expenseReport": "Expenses",
     "maintenanceReport": "Maintenance",
-    "listTyres": "Tyres"
+    "listTyres": "Tyres",
+    "notifications":"Notifications"
+  },
+
+  "customEvents": {
+    "title": "Event",
+    "listTitle" : "Events",
+    "fleetGroup" : "Group",
+    "fleet" : "Fleet",
+    "vehicle" : "Vehicle",
+    "driver": "Driver",
+    "name": "Name",
+    "description": "Description",
+    "date" : "Date",
+    "odometer" : "Odometer",
+    "engineHours": "Engine hours",
+    "speed": "Speed",
+    "active" : "Active",
+    "deleteMessage": "Are you certain you want to delete this event?"
   },
 
   "drivers": {

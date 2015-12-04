@@ -162,6 +162,18 @@
 						</li>
 					</ul>
 				</li>
+				<li class="{{isActiveRoute regex='Notifications'}}">
+					<a href="#">
+					<i class="icon-docs"></i>
+					<span class="title">{{_ "menu.notifications"}}</span>
+					<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+						<li class="{{isActiveRoute regex='custom-events'}}">
+							<a href="{{pathFor 'listCustomEvents'}}">{{_ "menu.notifications"}}</a>
+						</li>
+					</ul>
+				</li>
 				<!-- BEGIN FRONTEND THEME LINKS -->
 			</ul>
 			<!-- END SIDEBAR MENU -->

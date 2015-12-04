@@ -1,0 +1,17 @@
+<template name="customEvent">
+  {{#autoForm collection="CustomEvents" doc=doc id="customEventForm" type="method" meteormethod="submitCustomEvent"}}
+    <fieldset>
+	    {{> afFieldInput type="hidden" name="_id" value=_id}}
+	    {{> afQuickField name="name" autofocus=true}}
+	    {{> afQuickField name="fleetGroupId" }}
+	    {{> afQuickField name="fleetId" }}
+	    {{> afQuickField name="vehicleId" }}
+	    {{> afQuickField name="driverId"}}
+	    {{> afQuickField name="description"}}
+	    {{> afQuickField name="date"}}
+	    {{> afQuickField name="odometer"}}
+	    {{> afQuickField name="engineHours"}}
+	    {{> afQuickField name="speed"}}
+    </fieldset>
+  {{/autoForm}}
+</template>

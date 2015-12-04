@@ -248,7 +248,7 @@ Helpers =
       $(args.node).empty()
       if args.column.search
         if args.column.search.dateRange
-          $('<input id="date-range-filter" class="searchbox" type="text" placeholder="Filter on date">').appendTo args.node
+          $('<input id="date-range-filter" class="searchbox" type="text" placeholder="Търсене по дата">').appendTo args.node
           # TODO: use input id that includes the column fieldname so in principal it would be
           #       possible to have more than 1 date range filter
           DateRangeFilter.install $('#date-range-filter'), args.column.search.dateRange

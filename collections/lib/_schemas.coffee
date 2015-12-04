@@ -1,5 +1,68 @@
 @Schema = {};
 
+Schema.customEvents = new SimpleSchema
+  _id:
+    type: String, optional: true
+  name:
+    type: String, optional: true, label: ()->TAPi18n.__('customEvents.name')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  fleetGroupId:
+    type: String, optional: true, label: ()->TAPi18n.__('customEvents.fleetGroup')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+      firstOption: ()->TAPi18n.__('dropdown.select')
+      options: -> FleetGroups.find().map (group) -> label: group.name, value: group._id  
+  fleetId:
+    type: String, optional: true, label: ()->TAPi18n.__('customEvents.fleet')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+      firstOption: ()->TAPi18n.__('dropdown.select')
+      options: -> Fleets.find().map (fleet) -> label: fleet.name, value: fleet._id  
+  vehicleId:
+    type: String, optional: true, label: ()->TAPi18n.__('customEvents.vehicle')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+      firstOption: ()->TAPi18n.__('dropdown.select')
+      options: -> Vehicles.find().map (vehicle) -> label: vehicle.name, value: vehicle._id
+  driverId:
+    type: String, optional: true, label: ()->TAPi18n.__('customEvents.driver')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+      firstOption: ()->TAPi18n.__('dropdown.select')
+      options: -> Drivers.find().map (driver) -> label: driver.name, value: driver._id      
+  description:
+    type: String, optional: true, label: ()->TAPi18n.__('customEvents.description')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  date:
+    type: Date, optional: true, label: ()->TAPi18n.__('customEvents.date')
+    autoform:
+      type: "bootstrap-datepicker"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
+  odometer:
+    optional: true
+    type: Number
+      decimal:true
+    label: ()->TAPi18n.__('customEvents.odometer')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  engineHours:
+    optional: true
+    type: Number
+      decimal:true
+    label: ()->TAPi18n.__('customEvents.engineHours')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"            
+  speed:
+    optional: true
+    type: Number
+      decimal:true
+    label: ()->TAPi18n.__('customEvents.speed')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"   
+   
+
 Schema.fleetGroups = new SimpleSchema
   _id:
     type: String, optional: true

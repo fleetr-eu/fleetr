@@ -19,6 +19,9 @@ Meteor.methods
     @unblock()
     Locations.insert doc
 
+  submitCustomEvent: submitItem CustomEvents
+  removeCustomEvent: removeItem CustomEvents
+
   submitDriver: submitItem Drivers
   removeDriver: removeItem Drivers
 
