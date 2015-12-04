@@ -236,6 +236,7 @@
     "body":"Тяло",
     "engineDisplacement":"Обем на двигателя (куб.см)",
     "maxFuelCapacity":"Макс обем на резервоара (л)",
+    "speed":"Cкорост",
     "maxSpeed":"Макс скорост (км/ч)",
     "maxAllowedSpeed":"Разрешена скорост (км/ч)",
     "mass" : "Маса (кг)",
