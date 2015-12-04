@@ -100,7 +100,10 @@ Template.customEvents.helpers
         id: "seen"
         field: "seen"
         name: TAPi18n.__('customEvents.seen')
-        width:30
+        width:20
+        sortable: true
+        search: false
+        align: 'center'
         formatter: FleetrGrid.Formatters.blazeFormatter Template.seenNotification
       ]
       options:
