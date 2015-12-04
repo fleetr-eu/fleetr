@@ -101,8 +101,6 @@ Template.customEvents.helpers
         field: "seen"
         name: TAPi18n.__('customEvents.seen')
         width:30
-        sortable: true
-        search: where: 'client'
         formatter: FleetrGrid.Formatters.blazeFormatter Template.seenNotification
       ]
       options:
@@ -111,3 +109,14 @@ Template.customEvents.helpers
         showHeaderRow: true
         explicitInitialization: true
         forceFitColumns: true
+
+Template.seenNotification.helpers
+  checked: -> 
+    console.log "Helper --->"
+    if @value then 'checked' else ''
+
+Template.seenNotification.events
+  'change .active': (e, t) ->
+    Meteor.call 'submitCustomEvent', @rowObject,
+      $set:
+        active: e.target.checked        
