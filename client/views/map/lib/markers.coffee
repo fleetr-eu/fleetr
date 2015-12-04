@@ -66,7 +66,7 @@ Meteor.startup ->
       super
         content: """
                 <div style='width:11em;'>
-                  <p>ВИН: #{vehicle.identificationNumber}</p>
+                  <p>Име: #{vehicle.name}</p>
                   <p>Номер: #{vehicle.licensePlate}</p>
                   <p>Скорост: #{speed} км/ч</p>
                   <p>Километраж: #{km} км</p>

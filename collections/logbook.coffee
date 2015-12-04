@@ -23,6 +23,7 @@ Logbook.after.insert (userId, e) ->
       stop = e.io % 2 == 0
       status = if stop then 'stop' else 'start'
       speed = if stop then 0 else e.speed
+      speed = if (speed < 0.1) 0 else speed 
       update = {lastUpdate: e.recordTime, speed: speed, lat: e.lat, lon: e.lon, odometer: e.tacho, state: status}
       Vehicles.update v._id, {$set: update}, ->
         console.log 'updated vehicle start/stop status: ' + id + ' ' + JSON.stringify(update)

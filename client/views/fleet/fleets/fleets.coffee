@@ -6,6 +6,15 @@ Template.fleets.helpers
     removeItemMethod: 'removeFleet'
     gridConfig:
       columns: [
+        id: "group"
+        field: "groupName"
+        name: "#{TAPi18n.__('fleet.parent')}"
+        width:120
+        sortable: true
+        search: where: 'client'
+        groupable:
+          aggregators: []
+      ,    
         id: "fleet"
         field: "name"
         name: "#{TAPi18n.__('fleet.name')}"
@@ -19,15 +28,7 @@ Template.fleets.helpers
         width:120
         sortable: true
         search: where: 'client'
-      ,
-        id: "group"
-        field: "groupName"
-        name: "#{TAPi18n.__('fleet.parent')}"
-        width:120
-        sortable: true
-        search: where: 'client'
-        groupable:
-          aggregators: []
+      
       ]
       options:
         enableCellNavigation: true
