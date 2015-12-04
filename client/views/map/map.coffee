@@ -1,3 +1,15 @@
+statusFormatter = () -> (row, cell, value) ->
+  if value
+    if value == "stop"
+      "<img src='/images/truck-state-blue.png'}'></img> "
+    else
+      if value == "start"
+        "<img src='/images/truck-state-green.png'}'></img> "  
+      else          
+        "<img src='/images/truck-state-grey.png'}'></img> "
+  else          
+    "<img src='/images/truck-state-grey.png'}'></img> "  
+
 showFilterBox = new ReactiveVar false
 
 Template.map.onRendered ->
@@ -22,24 +34,42 @@ Template.map.helpers
 
   fleetrGridConfig: ->
     columns: [
+      id: "status"
+      field: "status"
+      name: ""
+      width: 1
+      sortable: true
+      search: where: 'client'
+      formatter: statusFormatter()
+    ,
+      id: "speed"
+      field: "speed"
+      name: TAPi18n.__('vehicles.speed')
+      width: 40
+      sortable: true
+      align: 'right'
+      search: where: 'client'
+      formatter: FleetrGrid.Formatters.roundFloat(2)
+    ,  
       id: "name"
       field: "name"
-      name: "Name"
-      width:120
+      name: TAPi18n.__('vehicles.name')
+      width:80
       sortable: true
       search: where: 'client'
     ,
       id: "licensePlate"
       field: "licensePlate"
-      name: "License Plate"
-      width:120
+      name: TAPi18n.__('vehicles.licensePlate')
+      width:80
       sortable: true
       search: where: 'client'
     ,
       id: "tags"
       field: "tags"
-      name: "Tags"
-      width:120
+      name: TAPi18n.__('vehicles.tags')
+      hidden: true
+      width:80
       sortable: true
       search: where: 'client'
       formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags

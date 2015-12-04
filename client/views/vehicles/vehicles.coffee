@@ -51,6 +51,7 @@ Template.vehicles.helpers
         sortable: true
         align: 'right'
         search: where: 'client'
+        formatter: FleetrGrid.Formatters.roundFloat(2)
       ,
         id: "fleetName"
         field: "fleetName"
