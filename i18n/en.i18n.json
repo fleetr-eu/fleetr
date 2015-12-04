@@ -52,6 +52,8 @@
     "odometer" : "Odometer",
     "engineHours": "Engine hours",
     "speed": "Speed",
+    "seen" : "Seen",
+    "seenTime" : "Date/time",
     "active" : "Active",
     "deleteMessage": "Are you certain you want to delete this event?"
   },

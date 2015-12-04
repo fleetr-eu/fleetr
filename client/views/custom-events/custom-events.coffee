@@ -96,6 +96,14 @@ Template.customEvents.helpers
         width:80
         sortable: true
         search: where: 'client'   
+      ,
+        id: "seen"
+        field: "seen"
+        name: TAPi18n.__('customEvents.seen')
+        width:30
+        sortable: true
+        search: where: 'client'
+        formatter: FleetrGrid.Formatters.blazeFormatter Template.seenNotification
       ]
       options:
         enableCellNavigation: true

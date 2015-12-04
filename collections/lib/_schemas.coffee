@@ -4,7 +4,7 @@ Schema.customEvents = new SimpleSchema
   _id:
     type: String, optional: true
   name:
-    type: String, optional: true, label: ()->TAPi18n.__('customEvents.name')
+    type: String, label: ()->TAPi18n.__('customEvents.name')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   fleetGroupId:
@@ -60,7 +60,31 @@ Schema.customEvents = new SimpleSchema
       decimal:true
     label: ()->TAPi18n.__('customEvents.speed')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"   
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  seen:
+    type: Boolean
+    label: ()->TAPi18n.__('customEvents.seen')
+    optional: true
+    autoform:
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions: 
+          size: 'small'
+          onColor: 'success'
+      template: "bootstrap3-horizontal"
+      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
+  active:
+    type: Boolean
+    label: "Активен"
+    optional: true
+    autoform:
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions: 
+          size: 'small'
+          onColor: 'success'
+      template: "bootstrap3-horizontal"
+      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"     
    
 
 Schema.fleetGroups = new SimpleSchema
