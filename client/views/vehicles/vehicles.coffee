@@ -12,17 +12,17 @@ lastUpdateFormatter = (daysAgo) -> (row, cell, value) ->
     noDataWarning = TAPi18n.__('vehicles.lastUpdateNoDataWarning')
     "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{noDataWarning}'></i>"
 
-statusFormatter = () -> (row, cell, value) ->
+statusFormatter = (row, cell, value) ->
   if value
     if value == "stop"
       "<img src='/images/truck-state-blue.png'}'></img> "
     else
       if value == "start"
-        "<img src='/images/truck-state-green.png'}'></img> "  
-      else          
+        "<img src='/images/truck-state-green.png'}'></img> "
+      else
         "<img src='/images/truck-state-grey.png'}'></img> "
-  else          
-    "<img src='/images/truck-state-grey.png'}'></img> "      
+  else
+    "<img src='/images/truck-state-grey.png'}'></img> "
 
 Template.maintenancesButton.helpers
   vehicleId: => Session.get "selectedItemId"
@@ -36,13 +36,13 @@ Template.vehicles.helpers
     additionalItemActionsTemaplate: 'maintenancesButton'
     gridConfig:
       columns: [
-        id: "status"
-        field: "status"
+        id: "state"
+        field: "state"
         name: ""
         width: 1
         sortable: true
         search: where: 'client'
-        formatter: statusFormatter()
+        formatter: statusFormatter
       ,
         id: "speed"
         field: "speed"
