@@ -65,7 +65,12 @@ Meteor.startup ->
       path: '/custom-events/list'
       template: 'customEvents'
       waitOn: -> [Meteor.subscribe('customEvents'), Meteor.subscribe('fleetGroups'), Meteor.subscribe('fleets'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
-     
+    
+    @route 'listGeofenceEvents',
+      path: '/geofence-events/list'
+      template: 'geofenceEvents'
+      waitOn: -> [Meteor.subscribe('geofenceEvents'), Meteor.subscribe('fleetGroups'), Meteor.subscribe('fleets'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers'), Meteor.subscribe('geofences')]
+
     @route 'listTyres',
       path: '/tyres/list'
       template: 'tyres'

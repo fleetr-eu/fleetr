@@ -162,7 +162,7 @@
 						</li>
 					</ul>
 				</li>
-				<li class="{{isActiveRoute regex='Notifications'}}">
+				<li class="{{isActiveRoute regex='events'}}">
 					<a href="#">
 					<i class="icon-calendar"></i>
 					<span class="title">{{_ "menu.notifications"}}</span>
@@ -171,6 +171,9 @@
 					<ul class="sub-menu">
 						<li class="{{isActiveRoute regex='custom-events'}}">
 							<a href="{{pathFor 'listCustomEvents'}}">{{_ "menu.notifications"}}</a>
+						</li>
+						<li class="{{isActiveRoute regex='geofence-events'}}">
+							<a href="{{pathFor 'listGeofenceEvents'}}">{{_ "menu.geofenceNotifications"}}</a>
 						</li>
 					</ul>
 				</li>

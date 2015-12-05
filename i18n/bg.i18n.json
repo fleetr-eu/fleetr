@@ -36,7 +36,8 @@
     "expenseReport": "Разходи",
     "maintenanceReport": "Поддръжка",
     "listTyres": "Гуми",
-    "notifications":"Напомняния"
+    "notifications":"Напомняния",
+    "geofenceNotifications":"Напомняния за обекти"
   },
 
 
@@ -53,6 +54,25 @@
     "odometer" : "Одометър",
     "engineHours": "Двг. часове",
     "speed": "Скорост",
+    "seen" : "Видяна",
+    "seenTime" : "Дата/час",
+    "active" : "Активно",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете това събитие?"
+  },
+
+  "geofenceEvents": {
+    "title": "Събитие за обект",
+    "listTitle" : "Събития по обекти",
+    "fleetGroup" : "Група",
+    "fleet" : "Автопарк",
+    "vehicle" : "Автомобил",
+    "driver": "Шофьор",
+    "geofence": "Обект",
+    "description": "Описание",
+    "enter" : "Влизане",
+    "exit": "Излизане",
+    "stay": "Престой",
+    "minutes": "Минути",
     "seen" : "Видяна",
     "seenTime" : "Дата/час",
     "active" : "Активно",
