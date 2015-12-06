@@ -65,7 +65,7 @@ Meteor.startup ->
       path: '/custom-events/list'
       template: 'customEvents'
       waitOn: -> [Meteor.subscribe('customEvents'), Meteor.subscribe('fleetGroups'), Meteor.subscribe('fleets'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
-     
+
     @route 'listTyres',
       path: '/tyres/list'
       template: 'tyres'
@@ -98,13 +98,13 @@ Meteor.startup ->
     @route 'listDocumentTypes',
       path: '/documents/types/list'
       template: 'documentTypes'
-      waitOn: -> Meteor.subscribe('documentTypes') 
+      waitOn: -> Meteor.subscribe('documentTypes')
 
     @route 'listDocuments',
       path: '/drivers/:driverId/documents/list'
       template: 'documents'
       data: -> {'driverId':@params.driverId}
-      waitOn: -> [Meteor.subscribe('documents', @params.driverId), Meteor.subscribe('documentTypes')]    
+      waitOn: -> [Meteor.subscribe('documents', @params.driverId), Meteor.subscribe('documentTypes')]
 
     @route 'addExpense',
       path: '/expenses/add'
@@ -119,7 +119,7 @@ Meteor.startup ->
       path: '/vehicle/:vehicleId/maintenance/list'
       template: 'maintenances'
       data: -> {'vehicleId' : @params.vehicleId}
-      waitOn: -> [Meteor.subscribe('vehicleById', @params.vehicleId), Meteor.subscribe('vehicleMaintenances', @params.vehicleId), Meteor.subscribe('maintenanceTypes')]      
+      waitOn: -> [Meteor.subscribe('vehicleById', @params.vehicleId), Meteor.subscribe('vehicleMaintenances', @params.vehicleId), Meteor.subscribe('maintenanceTypes')]
 
     @route 'listMaintenanceType',
       path: '/maintenance/types/list'
@@ -178,8 +178,7 @@ Meteor.startup ->
     @route 'logbookReport2',
       path: '/reports/logbook2'
       template: 'logbook2'
-      waitOn: -> Meteor.subscribe 'aggbydate'
-      # subscriptions: -> Meteor.subscribe 'mycodes'
+      waitOn: -> Meteor.subscribe 'trips'
 
     @route 'logbookReportStartStop',
       path: '/reports/logbook/detailed/:selectedDate'

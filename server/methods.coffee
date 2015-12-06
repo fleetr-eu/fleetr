@@ -101,3 +101,38 @@ Meteor.methods
       maintenance.vehicleName = vehicle.name
       maintenance.fleetName = Fleets.findOne(_id: vehicle?.allocatedToFleet)?.name
       maintenance
+
+
+  createTrips: (date, deviceId) ->
+    @unblock()
+    isStart = (r) -> r.io is 255 and trip is null
+    isStop = (r) -> r.io is 254 and trip isnt null
+    trips = []
+    trip = null
+    Logbook.find({"recordTime": {$gt : date}, type: 29, "deviceId" : deviceId}, {sort: recordTime: 1}).map (l) ->
+      unless Trips.find({startRecId: l._id}, {limit: 1}).count()
+        if isStart(l)
+          trip =
+            deviceId: deviceId
+            startRecId: l._id
+            date: moment(l.recordTime).format('DD-MM-YYYY')
+            startTime: l.recordTime
+            startAddress: l.address
+            startOdometer: l.tacho
+            startFuel: l.fuelc
+        else if isStop(l)
+          trips.push _.extend trip,
+            stopRecId: l._id
+            stopTime: l.recordTime
+            stopAddress: l.address
+            stopOdometer: l.tacho
+            distance: (l.tacho - trip.startOdometer) / 1000
+            stopFuel: l.fuelc
+            fuelConsumed: l.fuelc - trip.startFuel
+          trip = null
+      else
+        trip = null
+        console.error 'Stop record without a corresponding start record!'
+        console.error l
+
+    Trips.insert(t) for t in trips

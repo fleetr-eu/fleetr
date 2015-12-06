@@ -32,13 +32,14 @@ Meteor.publish 'startstop', (args) -> StartStop.find(args || {}, {sort: {startTi
 Meteor.publish 'aggbydate', (args) -> AggByDate.find(args || {})
 Meteor.publish 'latest device position', (deviceId) -> Logbook.find {deviceId: deviceId}, {sort: {recordTime: -1}, limit: 1}
 Meteor.publish 'idlebook'  , (args) -> IdleBook.find(args || {}, {sort: {startTime: 1}} )
+Meteor.publish 'trips', (args) -> Trips.find(args || {}, {sort: {startTime: 1}} )
 
 Meteor.publish 'locations', (vehicleId, dtFrom, dtTo) ->
   Locations.find {vehicleId: vehicleId, timestamp: {$gte: dtFrom*1000, $lte: dtTo*1000}}, {sort: {timestamp: -1}}
 
 Meteor.publish 'alarm-definitions', -> AlarmDefinitions.find {}
 
-Meteor.publish 'logbook', (searchArgs) -> Logbook.find searchArgs, {sort: recordTime: -1}
+Meteor.publish 'logbook', (searchArgs = {}) -> Logbook.find searchArgs, {sort: recordTime: -1}
 
 Meteor.publish 'dateRangeAggregation', (args)->
   sub = this
