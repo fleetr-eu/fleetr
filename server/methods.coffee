@@ -103,14 +103,19 @@ Meteor.methods
       maintenance
 
 
-  createTrips: (date, deviceId) ->
+  createTrips: (deviceId) ->
     @unblock()
+    existingTrips = Trips.find deviceId: deviceId
+    processedStartRecords = (existingTrips.map (t) -> t.startRecId)
+    processedStopRecords = (existingTrips.map (t) -> t.stopRecId)
     isStart = (r) -> r.io is 255 and trip is null
     isStop = (r) -> r.io is 254 and trip isnt null
+    isProcessed = (r) ->
+      (r.io is 255 and r._id in processedStartRecords) or (r.io is 254 and r._id in processedStopRecords)
     trips = []
     trip = null
-    Logbook.find({"recordTime": {$gt : date}, type: 29, "deviceId" : deviceId}, {sort: recordTime: 1}).map (l) ->
-      unless Trips.find({startRecId: l._id}, {limit: 1}).count()
+    Logbook.find({type: 29, "deviceId" : deviceId}, {sort: recordTime: 1}).map (l) ->
+      unless isProcessed(l)
         if isStart(l)
           trip =
             deviceId: deviceId
@@ -121,18 +126,21 @@ Meteor.methods
             startOdometer: l.tacho
             startFuel: l.fuelc
         else if isStop(l)
+          dist = (l.tacho - trip.startOdometer) / 1000
+          duration = moment.duration(moment(l.recordTime).diff(trip.startTime)).asHours()
           trips.push _.extend trip,
             stopRecId: l._id
             stopTime: l.recordTime
             stopAddress: l.address
             stopOdometer: l.tacho
-            distance: (l.tacho - trip.startOdometer) / 1000
+            distance: dist
             stopFuel: l.fuelc
             fuelConsumed: l.fuelc - trip.startFuel
+            avgSpeed: dist/duration
           trip = null
-      else
-        trip = null
-        console.error 'Stop record without a corresponding start record!'
-        console.error l
-
+        else
+          trip = null
+          console.error 'Stop record without a corresponding start record!'
+          console.error l
     Trips.insert(t) for t in trips
+    ""
