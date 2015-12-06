@@ -1,6 +1,7 @@
 remainingFormater = (daysRed, daysOrange, decimals = 0) -> (row, cell, value) ->
   if value
     v = Number((Number(value)).toFixed(decimals))
+    attnIcon = ''
     if v < daysRed
       attnIcon = "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{v}'></i>"
     else 
