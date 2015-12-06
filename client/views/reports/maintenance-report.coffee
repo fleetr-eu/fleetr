@@ -1,3 +1,13 @@
+remainingFormater = (daysRed, daysOrange, decimals = 0) -> (row, cell, value) ->
+  if value
+    v = Number((Number(value)).toFixed(decimals))
+    if v < daysRed
+      attnIcon = "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{v}'></i>"
+    else 
+       if value < daysOrange 
+        attnIcon = "<i class='fa fa-exclamation-triangle' style='color:orange;' title='#{v}'></i>"
+    "<span>#{attnIcon}<div class='pull-right'>#{v}</div></span>"
+
 getDateRow = (field) -> (row) -> new Date(row[field]).toLocaleDateString 'en-US'
 
 Template.maintenanceReport.helpers
@@ -39,10 +49,8 @@ Template.maintenanceReport.helpers
       name: TAPi18n.__('reports.maintenance.daysToMaintenance')
       width:50
       sortable: true
-      align: 'right'
-      formatter: FleetrGrid.Formatters.roundFloat()
-      search:
-        where: 'server'
+      formatter: remainingFormater(2, 10)
+      search: where: 'server'
     ,
       id: 'nextMaintenanceOdometer'
       field: 'nextMaintenanceOdometer'
@@ -50,15 +58,14 @@ Template.maintenanceReport.helpers
       width:50
       align: 'right'
       sortable: true
-      search:
-        where: 'client'
+      search: where: 'client'
     ,
       id: 'odometerToMaintenance'
       field: 'odometerToMaintenance'
       name: TAPi18n.__('reports.maintenance.odometerToMaintenance')
       width:50
-      align: 'right'
       sortable: true
+      formatter: remainingFormater(100, 500)
       search: where: 'server'
     ,
       id: 'nextMaintenanceEngineHours'
@@ -68,16 +75,15 @@ Template.maintenanceReport.helpers
       hidden: true
       align: 'right'
       sortable: true
-      search:
-        where: 'server'
+      search: where: 'server'
     ,
       id: 'engineHoursToMaintenance'
       field: 'engineHoursToMaintenance'
       name: TAPi18n.__('reports.maintenance.engineHoursToMaintenance')
       width:50
       hidden: true
-      align: 'right'
       sortable: true
+      formatter: remainingFormater(20, 100)
       search: where: 'server'
     ]
     options:

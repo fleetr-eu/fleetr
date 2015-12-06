@@ -314,6 +314,7 @@
     "policyDate": "Дата",
     "policyValidFrom" : "Валидна от",
     "policyValidTo" : "Валидна до",
+    "remainingDays" : "Дни",
     "validityMonths": "Валидност (месеци)",
     "numberOfPayments": "Брой плащания",
     "insuredFirstName": "Застрахован: име",
