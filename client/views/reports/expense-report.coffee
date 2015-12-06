@@ -28,8 +28,7 @@ fleetrGridConfig =
     field: "expenseTypeName"
     name: "Type"
     sortable: true
-    search:
-      where: 'client'
+    search: where: 'client'
     groupable:
       aggregators: aggregatorsQuantity
   ,
@@ -38,16 +37,14 @@ fleetrGridConfig =
     name: "Description"
     width:100
     hidden:true
-    search:
-      where: 'client'
+    search: where: 'client'
   ,
     id: "expenseGroup"
     field: "expenseGroupName"
     name: "Group"
     sortable: true
     hidden: true
-    search:
-      where: 'client'
+    search: where: 'client'
     groupable:
       aggregators: aggregatorsBasic
   ,
@@ -55,8 +52,7 @@ fleetrGridConfig =
     field: "vehicleName"
     name: "Vehicle"
     sortable: true
-    search:
-      where: 'client'
+    search: where: 'client'
     groupable:
       aggregators: aggregatorsBasic
   ,
@@ -64,8 +60,7 @@ fleetrGridConfig =
     field: "driverName"
     name: "Driver"
     sortable: true
-    search:
-      where: 'client'
+    search: where: 'client'
     groupable:
       aggregators: aggregatorsBasic
   ,
@@ -73,8 +68,7 @@ fleetrGridConfig =
     field: "fleetName"
     name: "Fleet"
     sortable: true
-    search:
-      where: 'client'
+    search: where: 'client'
     groupable:
       aggregators: aggregatorsBasic
   ,

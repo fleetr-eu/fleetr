@@ -1,14 +1,3 @@
-remainingFormater = (daysRed, daysOrange, decimals = 0) -> (row, cell, value) ->
-  if value
-    v = Number((Number(value)).toFixed(decimals))
-    attnIcon = ''
-    if v < daysRed
-      attnIcon = "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{v}'></i>"
-    else 
-       if value < daysOrange 
-        attnIcon = "<i class='fa fa-exclamation-triangle' style='color:orange;' title='#{v}'></i>"
-    "<span>#{attnIcon}<div class='pull-right'>#{v}</div></span>"
-
 getDateRow = (field) -> (row) -> new Date(row[field]).toLocaleDateString 'en-US'
 
 Template.maintenanceReport.helpers
@@ -50,7 +39,7 @@ Template.maintenanceReport.helpers
       name: TAPi18n.__('reports.maintenance.daysToMaintenance')
       width:50
       sortable: true
-      formatter: remainingFormater(2, 10)
+      formatter: decoratedNumberFormater(2, 10)
       search: where: 'server'
     ,
       id: 'nextMaintenanceOdometer'
@@ -66,7 +55,7 @@ Template.maintenanceReport.helpers
       name: TAPi18n.__('reports.maintenance.odometerToMaintenance')
       width:50
       sortable: true
-      formatter: remainingFormater(100, 500)
+      formatter: decoratedNumberFormater(100, 500)
       search: where: 'server'
     ,
       id: 'nextMaintenanceEngineHours'
@@ -84,7 +73,7 @@ Template.maintenanceReport.helpers
       width:50
       hidden: true
       sortable: true
-      formatter: remainingFormater(20, 100)
+      formatter: decoratedNumberFormater(20, 100)
       search: where: 'server'
     ]
     options:

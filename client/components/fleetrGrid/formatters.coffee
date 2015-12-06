@@ -27,6 +27,17 @@ FleetrGrid.Formatters =
       @_blazeCache.templates["#{row}:#{cell}"] = blazeTemplate
       setTimeout (=> @_renderBlazeTemplates(row,cell)), 0
       "<div class='blazeTemplate cell#{row}-#{cell}'></div>"
+  decoratedNumberFormatter: (numberError, numberWarning, decimals=0 ) -> (row, cell, value) ->
+    if value >= 0
+      v = Number((Number(value)).toFixed(decimals))
+      attnIcon = ""
+      if v < numberError
+        attnIcon = "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{v}'></i>"
+      else 
+         if v < numberWarning 
+          attnIcon = "<i class='fa fa-exclamation-triangle' style='color:orange;' title='#{v}'></i>"
+      "<span>#{attnIcon}<div class='pull-right'>#{v}</div></span>"      
+        
 
 FleetrGrid.Formatters.sumEuroTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '&euro;'
 FleetrGrid.Formatters.sumTotalsFormatterNoSign = FleetrGrid.Formatters.sumTotalsFormatter ''

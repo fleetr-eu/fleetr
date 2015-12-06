@@ -11,6 +11,8 @@ Template.customEvents.helpers
           fleetName: Fleets.findOne(_id: doc.fleetId)?.name
           vehicleName: Vehicles.findOne(_id: doc.vehicleId)?.name
           driverName: Drivers.findOne(_id: doc.driverId)?.name
+          remainingDays: if doc.date then moment(doc.date).diff(moment(), 'days') else -1
+          remainingKm: if doc.odometer then doc.odometer - Vehicles.findOne(_id: doc.vehicleId)?.odometer else -1
       columns: [
         id: "name"
         field: "name"
@@ -66,7 +68,7 @@ Template.customEvents.helpers
         id: "date"
         field: "date"
         name: "#{TAPi18n.__('customEvents.date')}"
-        width:80
+        width:40
         sortable: true
         search: where: 'client'
         formatter: FleetrGrid.Formatters.dateFormatter
@@ -74,18 +76,37 @@ Template.customEvents.helpers
             where: 'server'
             dateRange: DateRanges.future
         groupable: true
+      ,  
+        id: "remainingDays"
+        field: "remainingDays"
+        name: "#{TAPi18n.__('customEvents.remainingDays')}"
+        width:40
+        sortable: true
+        search: where: 'client'
+        formatter: FleetrGrid.Formatters.decoratedNumberFormatter(2, 8)
+        search: where: 'client'
       ,
         id: "odometer"
         field: "odometer"
         name: "#{TAPi18n.__('customEvents.odometer')}"
-        width:80
+        align: 'right'
+        width:40
         sortable: true
         search: where: 'client'
+      ,  
+        id: "remainingKm"
+        field: "remainingKm"
+        name: "#{TAPi18n.__('customEvents.remainingKm')}"
+        width:40
+        sortable: true
+        search: where: 'client'
+        formatter: FleetrGrid.Formatters.decoratedNumberFormatter(101, 501)
+        search: where: 'client'  
       ,
         id: "engineHours"
         field: "engineHours"
         name: "#{TAPi18n.__('customEvents.engineHours')}"
-        width:80
+        width:40
         sortable: true
         search: where: 'client'
         hidden: true 
@@ -93,7 +114,7 @@ Template.customEvents.helpers
         id: "speed"
         field: "speed"
         name: "#{TAPi18n.__('customEvents.speed')}"
-        width:80
+        width:40
         sortable: true
         search: where: 'client'   
       ,
