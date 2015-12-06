@@ -152,4 +152,4 @@ fleetrGridConfig =
 
 Template.expenseReport.helpers
   fleetrGridConfig: -> fleetrGridConfig
-  pageTitle: -> "#{TAPi18n.__('reports.title')} &raquo; #{TAPi18n.__('reports.expenses.title')}"
+  pageTitle: -> "#{TAPi18n.__('reports.expenses.title')}"

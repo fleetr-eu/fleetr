@@ -1,20 +1,4 @@
 <template name="maintenanceReport">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="portlet light">
-				
-					<div class="caption">
-						<div class="caption-subject">
-							<h1 class="bold uppercase">{{pageTitle}}</h1>
-						</div>
-					</div>
-				</div>
-				<div class="portlet-body">
-		  		 	<section class="content">
-						{{> fleetrReportGrid id="maintenanceGrid" config=fleetrGridConfig }}
-					</section>
-		 		</div>
-			
-		</div>
-	</div>
+  <h1 class="bold uppercase">{{pageTitle}}</h1>
+  {{> fleetrReportGrid id="maintenanceGrid" config=fleetrGridConfig }}
 </template>

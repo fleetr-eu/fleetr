@@ -1,5 +1,6 @@
 remainingDaysFormater = (daysRed, daysOrange, decimal) -> (row, cell, value) ->
   if value
+    console.log value
     attnIcon = ""
     if value < daysRed
       attnIcon = "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{value}'></i>"
