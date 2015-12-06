@@ -96,4 +96,4 @@ Template.insurances.helpers
       cursor: Insurances.find {},
         transform: (doc) -> _.extend doc,
           insuranceTypeName: InsuranceTypes.findOne(_id: doc.insuranceType)?.name,
-          remainingDays: moment(doc.policyValidTo).diff(moment(doc.policyValidFrom), 'days')
+          remainingDays: moment(doc.policyValidTo).diff(moment(), 'days')
