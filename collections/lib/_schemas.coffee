@@ -68,9 +68,11 @@ Schema.customEvents = new SimpleSchema
     autoform:
       type: 'bootstrap-switch'
       afFieldInput: 
-        switchOptions: 
-          size: 'small'
+        switchOptions:
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
       leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
   active:
@@ -80,9 +82,11 @@ Schema.customEvents = new SimpleSchema
     autoform:
       type: 'bootstrap-switch'
       afFieldInput: 
-        switchOptions: 
-          size: 'small'
+        switchOptions:
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
       leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"     
  
@@ -130,9 +134,11 @@ Schema.geofenceEvents = new SimpleSchema
     autoform:
       type: 'bootstrap-switch'
       afFieldInput: 
-        switchOptions: 
-          size: 'small'
+        switchOptions:
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
       leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"  
   exit:
@@ -142,9 +148,11 @@ Schema.geofenceEvents = new SimpleSchema
     autoform:
       type: 'bootstrap-switch'
       afFieldInput: 
-        switchOptions: 
-          size: 'small'
+        switchOptions:
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
       leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"  
   stay:
@@ -154,9 +162,11 @@ Schema.geofenceEvents = new SimpleSchema
     autoform:
       type: 'bootstrap-switch'
       afFieldInput: 
-        switchOptions: 
-          size: 'small'
+        switchOptions:
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
       leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-4"       
   minutes:
@@ -173,9 +183,11 @@ Schema.geofenceEvents = new SimpleSchema
     autoform:
       type: 'bootstrap-switch'
       afFieldInput: 
-        switchOptions: 
-          size: 'small'
+        switchOptions:
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
       leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
   active:
@@ -185,9 +197,11 @@ Schema.geofenceEvents = new SimpleSchema
     autoform:
       type: 'bootstrap-switch'
       afFieldInput: 
-        switchOptions: 
-          size: 'small'
+        switchOptions:
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
       leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 

@@ -24,7 +24,7 @@
     "listExpenseGroups": "Групи разходи",
     "addExpenseGroup": "Добави група разходи",
     "listExpenseTypes": "Видове разходи",
-    "addExpense": "Добави разход",
+    "listExpenses": "Разходи",
     "insurances" : "Застраховки",
     "listInsuranceTypes" : "Видове застраховки",
     "addMaintenanceType" : "Добави вид поддръжка",
@@ -164,7 +164,7 @@
 
   "expenses": {
     "title" :"Разход",
-    "listTitle" : "Разоди",
+    "listTitle" : "Разходи",
     "expenseType" : "Вид",
     "expenseGroup" : "Група",
     "vehicle" : "Автомобил",

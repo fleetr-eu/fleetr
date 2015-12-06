@@ -100,6 +100,11 @@ Meteor.startup ->
       template: 'expenseTypes'
       waitOn: -> Meteor.subscribe('expenseTypes')
 
+    @route 'listExpenses',
+      path: '/expenses/list'
+      template: 'expenses'
+      waitOn: -> [Meteor.subscribe('expenses'), Meteor.subscribe('expenseTypes'), Meteor.subscribe('expenseGroups'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
+
     @route 'listDocumentTypes',
       path: '/documents/types/list'
       template: 'documentTypes'
@@ -110,15 +115,6 @@ Meteor.startup ->
       template: 'documents'
       data: -> {'driverId':@params.driverId}
       waitOn: -> [Meteor.subscribe('documents', @params.driverId), Meteor.subscribe('documentTypes')]    
-
-    @route 'addExpense',
-      path: '/expenses/add'
-      template: 'expense'
-      waitOn: ->
-        [Meteor.subscribe('expenseTypes')
-          Meteor.subscribe('expenseGroups')
-          Meteor.subscribe('drivers')
-          Meteor.subscribe('vehicles')]
 
     @route 'listMaintenances',
       path: '/vehicle/:vehicleId/maintenance/list'
