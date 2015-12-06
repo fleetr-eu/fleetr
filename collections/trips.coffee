@@ -26,5 +26,9 @@ Schema.trips = new SimpleSchema
     type: Number
     optional: true
     decimal: true
+  avgSpeed:
+    type: Number
+    optional: true
+    decimal: true
 
 Trips.attachSchema Schema.trips

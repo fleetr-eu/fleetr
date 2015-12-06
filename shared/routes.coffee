@@ -65,7 +65,7 @@ Meteor.startup ->
       path: '/custom-events/list'
       template: 'customEvents'
       waitOn: -> [Meteor.subscribe('customEvents'), Meteor.subscribe('fleetGroups'), Meteor.subscribe('fleets'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
-    
+
     @route 'listGeofenceEvents',
       path: '/geofence-events/list'
       template: 'geofenceEvents'
@@ -176,10 +176,14 @@ Meteor.startup ->
       path: '/reports/logbook'
       template: 'logbook'
       # subscriptions: -> Meteor.subscribe 'mycodes'
-    @route 'logbookReport2',
-      path: '/reports/logbook2'
+    @route 'vehicleLogbook',
+      path: '/vehicles/:vehicleId/logbook'
       template: 'logbook2'
-      waitOn: -> Meteor.subscribe 'trips'
+      data: -> vehicleId: @params.vehicleId
+      waitOn: -> [
+        Meteor.subscribe('tripsOfVehicle', @params.vehicleId)
+        Meteor.subscribe('vehicleById', @params.vehicleId)
+      ]
 
     @route 'logbookReportStartStop',
       path: '/reports/logbook/detailed/:selectedDate'

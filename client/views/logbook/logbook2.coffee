@@ -5,11 +5,23 @@ aggregators = [
 ]
 
 Template.logbook2.onRendered ->
-  Meteor.call 'createTrips', new Date("2015-12-01"), 7660185
+  vehicle = Vehicles.findOne(_id: @data.vehicleId)
+  @deviceId = vehicle.unitId
+  Meteor.call 'createTrips', @deviceId
+
+# Template.logbook2.events
+#   'input #startDate': (e, t) ->
+#     Session.set 'startDate', e.target.value
 
 Template.logbook2.helpers
+  vehicleName: ->
+    Vehicles.findOne(_id: Template.instance().data.vehicleId).name
+
+# Tracker.autorun ->
+#   console.log Session.get 'date'
+Template.logbook2.helpers
   fleetrGridConfig: ->
-    cursor: Trips.find()
+    cursor: Trips.find({startTime: $gt: new Date('2015-12-01')})
     columns: [
       id: "date"
       field: "date"
@@ -38,6 +50,8 @@ Template.logbook2.helpers
       name: 'Distance'
       formatter: FleetrGrid.Formatters.roundFloat 2
       width: 20
+      align: 'right'
+      groupTotalsFormatter: FleetrGrid.Formatters.sumTotalsFormatterNoSign
     ,
       id: 'fuel'
       field: 'fuelConsumed'
@@ -45,13 +59,20 @@ Template.logbook2.helpers
       formatter: (row, cell, value) ->
         FleetrGrid.Formatters.roundFloat(2) row, cell, value/1000 if value
       width: 20
+      align: 'right'
+      groupTotalsFormatter: (totals, columnDef) ->
+        val = totals.sum && totals.sum[columnDef.field];
+        if val
+          "<b>#{(Math.round(parseFloat(val)*100)/100)/1000}</b>"
+        else ''
     ,
       id: 'fuelPer100'
-      field: 'sumFuel'
+      field: 'fuelConsumed'
       name: 'per 100km'
       formatter: (row, cell, value, column, rowObject) ->
-        FleetrGrid.Formatters.roundFloat(2) row, cell, (value/rowObject.sumDistance)/10 if value
+        FleetrGrid.Formatters.roundFloat(2) row, cell, (value/rowObject.distance)/10 if value
       width: 20
+      align: 'right'
     ,
       id: 'speed'
       field: 'avgSpeed'
@@ -59,6 +80,7 @@ Template.logbook2.helpers
       formatter: FleetrGrid.Formatters.roundFloat 0
       width: 20
       cssClass: 'from'
+      align: 'right'
     ,
       id: 'maxSpeed'
       field: 'maxSpeed'
@@ -66,6 +88,7 @@ Template.logbook2.helpers
       formatter: FleetrGrid.Formatters.roundFloat 0
       width: 20
       cssClass: 'to'
+      align: 'right'
     ]
     options:
       enableCellNavigation: false
@@ -74,10 +97,3 @@ Template.logbook2.helpers
       explicitInitialization: true
       forceFitColumns: true
       rowHeight: 50
-
-    # cursor: -> AggByDate.find()
-    # customize: (grid) ->
-    #   now = moment()
-    #   future = moment().add(29, 'days')
-    #   grid.addFilter 'server', 'Maintenance Date', "#{now.format('YYYY-MM-DD')} - #{future.format('YYYY-MM-DD')}",
-    #     {maintenanceDateMin: now.toISOString(), maintenanceDateMax: future.toISOString()}, false

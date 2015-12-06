@@ -24,6 +24,9 @@ statusFormatter = (row, cell, value) ->
   else
     "<img src='/images/truck-state-grey.png'}'></img> "
 
+logbookLinkFormatter = (row, cell, value) ->
+  "<a href='/vehicles/#{value}/logbook'>Logbook</a>"
+
 Template.maintenancesButton.helpers
   vehicleId: => Session.get "selectedItemId"
 
@@ -43,6 +46,7 @@ Template.vehicles.helpers
         sortable: true
         search: where: 'client'
         formatter: statusFormatter
+        align: 'center'
       ,
         id: "speed"
         field: "speed"
@@ -118,6 +122,12 @@ Template.vehicles.helpers
         sortable: true
         search: where: 'client'
         formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags
+      ,
+        id: "id"
+        field: "_id"
+        name: ''
+        width:60
+        formatter: logbookLinkFormatter
       ]
       options:
         enableCellNavigation: true

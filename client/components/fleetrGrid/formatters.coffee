@@ -13,7 +13,7 @@ FleetrGrid.Formatters =
   sumTotalsFormatter: (sign = '') -> (totals, columnDef) ->
     val = totals.sum && totals.sum[columnDef.field];
     if val
-      "#{sign} " + ((Math.round(parseFloat(val)*100)/100));
+      "<b>#{sign} #{Math.round(parseFloat(val)*100)/100}</b>"
     else ''
   buttonFormatter: (row, cell, value, column, rowObject) ->
     render = (button) ->

@@ -34,6 +34,9 @@ Meteor.publish 'aggbydate', (args) -> AggByDate.find(args || {})
 Meteor.publish 'latest device position', (deviceId) -> Logbook.find {deviceId: deviceId}, {sort: {recordTime: -1}, limit: 1}
 Meteor.publish 'idlebook'  , (args) -> IdleBook.find(args || {}, {sort: {startTime: 1}} )
 Meteor.publish 'trips', (args) -> Trips.find(args || {}, {sort: {startTime: 1}} )
+Meteor.publish 'tripsOfVehicle', (vehicleId) ->
+  deviceId = Vehicles.findOne(_id: vehicleId).unitId
+  Trips.find {deviceId: deviceId}, {sort: {startTime: 1}}
 
 Meteor.publish 'locations', (vehicleId, dtFrom, dtTo) ->
   Locations.find {vehicleId: vehicleId, timestamp: {$gte: dtFrom*1000, $lte: dtTo*1000}}, {sort: {timestamp: -1}}
