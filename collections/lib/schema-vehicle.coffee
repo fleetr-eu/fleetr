@@ -33,12 +33,12 @@ Schema.vehicle = new SimpleSchema
       type: 'bootstrap-switch'
       afFieldInput:
         switchOptions:
-          size: 'small'
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
-      leftLabel:"true"
-      "label-class": "col-sm-6"
-      "input-col-class": "col-sm-6"
+      leftLabel:"true", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
   name:
     type: String, label: ()->TAPi18n.__('vehicles.name')
@@ -129,9 +129,7 @@ Schema.vehicle = new SimpleSchema
   maxPower:
     type: Number, optional: true,label:()->TAPi18n.__('vehicles.maxPower')
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-6"
-      "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
   fuelType:
     type: String, optional: true, label:()->TAPi18n.__('vehicles.fuelType')
@@ -200,12 +198,12 @@ Schema.vehicle = new SimpleSchema
       type: 'bootstrap-switch'
       afFieldInput:
         switchOptions:
-          size: 'small'
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
-      leftLabel:"true"
-      "label-class": "col-sm-9"
-      "input-col-class": "col-sm-3"
+      leftLabel:"true", "label-class": "col-sm-9", "input-col-class": "col-sm-3"
 
   "alarms.speedingAlarmSpeed":
     type: Number, label:"Speed", optional:true
@@ -218,12 +216,12 @@ Schema.vehicle = new SimpleSchema
       type: 'bootstrap-switch'
       afFieldInput:
         switchOptions:
-          size: 'small'
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
-      leftLabel:"true"
-      "label-class": "col-sm-9"
-      "input-col-class": "col-sm-3"
+      leftLabel:"true", "label-class": "col-sm-9", "input-col-class": "col-sm-3"
 
   "alarms.idleAlarmTime":
     type: Number, label: "Time", optional:true

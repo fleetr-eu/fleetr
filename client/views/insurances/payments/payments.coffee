@@ -20,6 +20,7 @@ Template.insurancePayments.helpers
         id: "plannedDate"
         field: "plannedDate"
         name: TAPi18n.__('insurancePayments.plannedDate')
+        hidden: true
         width:80
         sortable: true
         search: where: 'client'
@@ -41,6 +42,7 @@ Template.insurancePayments.helpers
         id: "amountNoVAT"
         field: "amountNoVAT"
         name: TAPi18n.__('insurancePayments.amountNoVAT')
+        hidden: true
         width:80
         sortable: true
         search: where: 'client'
@@ -55,6 +57,7 @@ Template.insurancePayments.helpers
         id: "VONumber"
         field: "VONumber"
         name: TAPi18n.__('insurancePayments.VONumber')
+        hidden: true
         width:80
         sortable: true
         search: where: 'client'
@@ -62,12 +65,13 @@ Template.insurancePayments.helpers
         id: "VONumber"
         field: "VONumber"
         name: TAPi18n.__('insurancePayments.invoiceNo')
+        hidden: true
         width:80
         sortable: true
         search: where: 'client'
       ,
-        id: "VONumber"
-        field: "VONumber"
+        id: "balance"
+        field: "balance"
         name: TAPi18n.__('insurancePayments.balance')
         width:80
         sortable: true

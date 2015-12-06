@@ -78,9 +78,11 @@ Schema.driver = new SimpleSchema
     autoform:
       type: 'bootstrap-switch'
       afFieldInput: 
-        switchOptions: 
-          size: 'small'
+        switchOptions:
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
       leftLabel:"true"
       "label-class": "col-sm-5"
@@ -249,10 +251,11 @@ Schema.driver = new SimpleSchema
     autoform:
       type: 'bootstrap-switch'
       afFieldInput: 
-        switchOptions: 
-          size: 'small'
+        switchOptions:
+          size: 'normal'
           onColor: 'success'
-      template: "bootstrap3-horizontal"
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       leftLabel:"true"
       "label-class": "col-sm-1"
       "input-col-class": "col-sm-2"
@@ -272,9 +275,11 @@ Schema.driver = new SimpleSchema
     autoform:
       type: 'bootstrap-switch'
       afFieldInput: 
-        switchOptions: 
-          size: 'small'
+        switchOptions:
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
       leftLabel:"true"
       "label-class": "col-sm-1"
@@ -295,9 +300,11 @@ Schema.driver = new SimpleSchema
     autoform:
       type: 'bootstrap-switch'
       afFieldInput: 
-        switchOptions: 
-          size: 'small'
+        switchOptions:
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
       leftLabel:"true"
       "label-class": "col-sm-1"
@@ -318,9 +325,11 @@ Schema.driver = new SimpleSchema
     autoform:
       type: 'bootstrap-switch'
       afFieldInput: 
-        switchOptions: 
-          size: 'small'
+        switchOptions:
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
       leftLabel:"true"
       "label-class": "col-sm-1"
@@ -341,9 +350,11 @@ Schema.driver = new SimpleSchema
     autoform:
       type: 'bootstrap-switch'
       afFieldInput: 
-        switchOptions: 
-          size: 'small'
+        switchOptions:
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
       leftLabel:"true"
       "label-class": "col-sm-1"
@@ -400,9 +411,11 @@ Schema.driver = new SimpleSchema
     autoform:
       type: 'bootstrap-switch'
       afFieldInput: 
-        switchOptions: 
-          size: 'small'
+        switchOptions:
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
       leftLabel:"true"
       "label-class": "col-sm-5"

@@ -1,0 +1,9 @@
+<template name="expenseGroup">
+  {{#autoForm collection="ExpenseGroups" doc=doc id="expenseGroupForm" type="method" meteormethod="submitExpenseGroup"}}
+   	<fieldset>
+	    {{> afFieldInput type="hidden" name="_id" value=_id}}
+	    {{> afQuickField name="name" autofocus=true}}
+	    {{> afQuickField name="description" rows=5}}
+    </fieldset>
+  {{/autoForm}}
+</template>

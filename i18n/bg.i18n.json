@@ -24,7 +24,7 @@
     "listExpenseGroups": "Групи разходи",
     "addExpenseGroup": "Добави група разходи",
     "listExpenseTypes": "Видове разходи",
-    "addExpense": "Добави разход",
+    "listExpenses": "Разходи",
     "insurances" : "Застраховки",
     "listInsuranceTypes" : "Видове застраховки",
     "addMaintenanceType" : "Добави вид поддръжка",
@@ -36,7 +36,8 @@
     "expenseReport": "Разходи",
     "maintenanceReport": "Поддръжка",
     "listTyres": "Гуми",
-    "notifications":"Напомняния"
+    "notifications":"Напомняния",
+    "geofenceNotifications":"Напомняния за обекти"
   },
 
 
@@ -53,6 +54,25 @@
     "odometer" : "Одометър",
     "engineHours": "Двг. часове",
     "speed": "Скорост",
+    "seen" : "Видяна",
+    "seenTime" : "Дата/час",
+    "active" : "Активно",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете това събитие?"
+  },
+
+  "geofenceEvents": {
+    "title": "Събитие за обект",
+    "listTitle" : "Събития по обекти",
+    "fleetGroup" : "Група",
+    "fleet" : "Автопарк",
+    "vehicle" : "Автомобил",
+    "driver": "Шофьор",
+    "geofence": "Обект",
+    "description": "Описание",
+    "enter" : "Влизане",
+    "exit": "Излизане",
+    "stay": "Престой",
+    "minutes": "Минути",
     "seen" : "Видяна",
     "seenTime" : "Дата/час",
     "active" : "Активно",
@@ -144,7 +164,7 @@
 
   "expenses": {
     "title" :"Разход",
-    "listTitle" : "Разоди",
+    "listTitle" : "Разходи",
     "expenseType" : "Вид",
     "expenseGroup" : "Група",
     "vehicle" : "Автомобил",
@@ -245,7 +265,7 @@
   },
 
   "dropdown": {
-    "select": "(Изберете)"
+    "select": "(Изберете)"  
   },
 
   "button" : {
@@ -261,7 +281,9 @@
   },
 
   "general" : {
-    "search":"Търси ..."
+    "search":"Търси ...",
+    "yes": "да",
+    "no" : "не"
   },
 
   "reports": {
@@ -284,7 +306,7 @@
     "title" : "Застраховка",
     "listTitle" : "Застраховки",
     "vehicle": "Автомобил",
-    "insuranceCompany": "ЗК",
+    "insuranceCompany": "Застраховател",
     "insuranceType" : "Вид",
     "policyNo" : "Полица No",
     "value": "Стойност",
@@ -294,8 +316,8 @@
     "policyValidTo" : "Валидна до",
     "validityMonths": "Валидност (месеци)",
     "numberOfPayments": "Брой плащания",
-    "insuredFirstName": "Застрахован име",
-    "insuredLastName" : "Застрахован фамилия",
+    "insuredFirstName": "Застрахован: име",
+    "insuredLastName" : "Застрахован: фамилия",
     "notes" : "Допълнително инфо",
     "tags": "Етикети",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете тази застраховка?"
@@ -303,11 +325,11 @@
 
   "insurancePayments": {
     "title" : "Вноска по застраховка",
-    "listTitle" : "Вноски по застраховки",
+    "listTitle" : "Вноски по застраховка",
     "montlyPayment" : "Месечна вноска",
     "plannedDate" : "Планирана дата",
-    "actualDate" : "Actual Date",
-    "currency" : "Currency",
+    "actualDate" : "Реална дата",
+    "currency" : "Валута",
     "amountNoVAT" : "Сума (без ДДС)",
     "amountWithVAT" : "Сума (с ДДС)",
     "VONumber" : "ВО No",

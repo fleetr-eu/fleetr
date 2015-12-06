@@ -81,6 +81,7 @@ Template.vehicles.helpers
         field: "unitId"
         name: TAPi18n.__('vehicles.unitId')
         width:50
+        hidden: true
         sortable: true
         search: where: 'client'
       ,
@@ -88,6 +89,7 @@ Template.vehicles.helpers
         field: "phoneNumber"
         name: TAPi18n.__('vehicles.phoneNumber')
         width:50
+        hidden: true
         sortable: true
         search: where: 'client'
       ,
@@ -102,7 +104,7 @@ Template.vehicles.helpers
         id: "lastUpdate"
         field: "lastUpdate"
         name: TAPi18n.__('vehicles.lastUpdate')
-        width:50
+        width:60
         sortable: true
         formatter: lastUpdateFormatter(7)
         search:
@@ -112,7 +114,7 @@ Template.vehicles.helpers
         id: "tags"
         field: "tags"
         name: TAPi18n.__('vehicles.tags')
-        width:100
+        width:60
         sortable: true
         search: where: 'client'
         formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags

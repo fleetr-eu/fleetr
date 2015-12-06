@@ -22,6 +22,9 @@ Meteor.methods
   submitCustomEvent: submitItem CustomEvents
   removeCustomEvent: removeItem CustomEvents
 
+  submitGeofenceEvent: submitItem GeofenceEvents
+  removeGeofenceEvent: removeItem GeofenceEvents
+
   submitDriver: submitItem Drivers
   removeDriver: removeItem Drivers
 

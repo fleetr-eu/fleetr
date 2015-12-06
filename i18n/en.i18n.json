@@ -23,7 +23,7 @@
     "listExpenseGroups": "Expense Groups",
     "addExpenseGroup": "Add Expense Group",
     "listExpenseTypes": "Expense Types",
-    "addExpense": "Add Expense",
+    "listExpenses": "Expenses",
     "maintenances" : "Maintenances",
     "insurances" : "Insurances",
     "listInsuranceTypes" : "Insurance Types",
@@ -36,7 +36,8 @@
     "expenseReport": "Expenses",
     "maintenanceReport": "Maintenance",
     "listTyres": "Tyres",
-    "notifications":"Notifications"
+    "notifications":"Notifications",
+    "geofenceNotifications":"Geofence Events"
   },
 
   "customEvents": {
@@ -52,6 +53,25 @@
     "odometer" : "Odometer",
     "engineHours": "Engine hours",
     "speed": "Speed",
+    "seen" : "Seen",
+    "seenTime" : "Date/time",
+    "active" : "Active",
+    "deleteMessage": "Are you certain you want to delete this event?"
+  },
+
+  "geofenceEvents": {
+    "title": "Geofence Event",
+    "listTitle" : "Geofence Events",
+    "fleetGroup" : "Group",
+    "fleet" : "Fleet",
+    "vehicle" : "Vehicle",
+    "driver": "Driver",
+    "geofence": "Geofence",
+    "description": "Description",
+    "enter" : "Enter",
+    "exit": "Exit",
+    "stay": "Stay",
+    "minutes": "Minutes",
     "seen" : "Seen",
     "seenTime" : "Date/time",
     "active" : "Active",
@@ -259,7 +279,9 @@
   },
 
   "general" : {
-    "search":"Search ..."
+    "search":"Search ...",
+    "yes": "да",
+    "no" : "не"
   },
 
   "reports": {
@@ -282,7 +304,7 @@
     "title" : "Insurance",
     "listTitle" : "Insurances",
      "vehicle": "Vehicle",
-    "insuranceCompany": "Insurance Company",
+    "insuranceCompany": "Insurer",
     "insuranceType" : "Insurance Type",
     "policyNo" : "Policy No",
     "value": "Value",
@@ -292,8 +314,8 @@
     "policyValidTo" : "Valid To",
     "validityMonths": "Validity (months)",
     "numberOfPayments": "# of Payments",
-    "insuredFirstName": "Insured First Name",
-    "insuredLastName" : "Insured Sirname",
+    "insuredFirstName": "Insurant First Name",
+    "insuredLastName" : "Insurant Sirname",
     "notes" : "Notes",
     "tags": "Tags",
     "deleteMessage": "Are you certain you want to delete this insurance?"

@@ -11,10 +11,6 @@
       </li>
       <li>
         <a href="#tab_3" data-toggle="tab">
-        Документи</a>
-      </li>
-      <li>
-        <a href="#tab_4" data-toggle="tab">
         Допълнителни</a>
       </li>
     </ul>
@@ -52,42 +48,11 @@
         </div>
         <div class="tab-pane" id="tab_3">
           <fieldset>
-            <legend>Документ за самоличност</legend>
-            {{> afQuickField name="idType"}}
-            {{> afQuickField name="idSerial"}}
-            {{> afQuickField name="idNo"}}
-            {{> afQuickField name="validFrom"}}
-            {{> afQuickField name="validTo"}}
-            {{> afQuickField name="issuedBy"}}
-            {{> afQuickField name="birthPlace"}}
-            {{> afQuickField name="bloodGroup" }}
-        
-            <legend>Документ за управление на МПС</legend>
-            {{> afQuickField name="licenseIssueDate"}}
-            {{> afQuickField name="licenseExpieryDate"}}
-
-            <legend>Категории</legend>
-            {{> afQuickField name="categoryA" }}
-            {{> afQuickField name="categoryAIssueDate"}}
-            {{> afQuickField name="categoryB" }}
-            {{> afQuickField name="categoryBIssueDate"}}
-            {{> afQuickField name="categoryC" }}
-            {{> afQuickField name="categoryCIssueDate"}}
-            {{> afQuickField name="categoryD" }}
-            {{> afQuickField name="categoryDIssueDate"}}
-            {{> afQuickField name="categoryE" }}
-            {{> afQuickField name="categoryEIssueDate"}}
-          </fieldset>
-        </div>
-        <div class="tab-pane" id="tab_4">
-          <fieldset>
              <legend>&nbsp;</legend>
-            {{> afQuickField name="medEvalExpieryDate"}}
-            {{> afQuickField name="profCertExpieryDate"}}
-            {{> afQuickField name="psychApprovalExpieryDate"}}
+            {{> afQuickField name="bloodGroup" }}
             {{> afQuickField name="transportLicense"}}
-            {{> afQuickField name="ownVehicle" }}
             {{> afQuickField name="ownsPersonalLicense"}}
+            {{> afQuickField name="ownVehicle" }}
           </fieldset>
         </div>
       </div>

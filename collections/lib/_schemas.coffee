@@ -68,9 +68,11 @@ Schema.customEvents = new SimpleSchema
     autoform:
       type: 'bootstrap-switch'
       afFieldInput: 
-        switchOptions: 
-          size: 'small'
+        switchOptions:
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
       leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
   active:
@@ -80,12 +82,128 @@ Schema.customEvents = new SimpleSchema
     autoform:
       type: 'bootstrap-switch'
       afFieldInput: 
-        switchOptions: 
-          size: 'small'
+        switchOptions:
+          size: 'normal'
           onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
       leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"     
-   
+ 
+Schema.geofenceEvents = new SimpleSchema
+  _id:
+    type: String, optional: true
+  fleetGroupId:
+    type: String, optional: true, label: ()->TAPi18n.__('geofenceEvents.fleetGroup')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+      firstOption: ()->TAPi18n.__('dropdown.select')
+      options: -> FleetGroups.find().map (group) -> label: group.name, value: group._id  
+  fleetId:
+    type: String, optional: true, label: ()->TAPi18n.__('geofenceEvents.fleet')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+      firstOption: ()->TAPi18n.__('dropdown.select')
+      options: -> Fleets.find().map (fleet) -> label: fleet.name, value: fleet._id  
+  vehicleId:
+    type: String, optional: true, label: ()->TAPi18n.__('geofenceEvents.vehicle')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+      firstOption: ()->TAPi18n.__('dropdown.select')
+      options: -> Vehicles.find().map (vehicle) -> label: vehicle.name, value: vehicle._id
+  driverId:
+    type: String, optional: true, label: ()->TAPi18n.__('geofenceEvents.driver')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+      firstOption: ()->TAPi18n.__('dropdown.select')
+      options: -> Drivers.find().map (driver) -> label: driver.name, value: driver._id            
+  geofenceId:
+    type: String, label: ()->TAPi18n.__('geofenceEvents.geofence')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+      firstOption: ()->TAPi18n.__('dropdown.select')
+      options: -> Geofences.find().map (geofence) -> label: geofence.name, value: geofence._id 
+  description:
+    type: String, optional: true, label: ()->TAPi18n.__('geofenceEvents.description')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  enter:
+    type: Boolean
+    label: ()->TAPi18n.__('geofenceEvents.enter')
+    optional: true
+    autoform:
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions:
+          size: 'normal'
+          onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
+      template: "bootstrap3-horizontal"
+      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"  
+  exit:
+    type: Boolean
+    label: ()->TAPi18n.__('geofenceEvents.exit')
+    optional: true
+    autoform:
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions:
+          size: 'normal'
+          onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
+      template: "bootstrap3-horizontal"
+      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"  
+  stay:
+    type: Boolean
+    label: ()->TAPi18n.__('geofenceEvents.stay')
+    optional: true
+    autoform:
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions:
+          size: 'normal'
+          onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
+      template: "bootstrap3-horizontal"
+      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-4"       
+  minutes:
+    optional: true
+    type: Number
+      decimal:true
+    label: ()->TAPi18n.__('geofenceEvents.minutes')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-2", "input-col-class": "col-sm-2"
+  seen:
+    type: Boolean
+    label: ()->TAPi18n.__('geofenceEvents.seen')
+    optional: true
+    autoform:
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions:
+          size: 'normal'
+          onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
+      template: "bootstrap3-horizontal"
+      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
+  active:
+    type: Boolean
+    label: "Активен"
+    optional: true
+    autoform:
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions:
+          size: 'normal'
+          onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
+      template: "bootstrap3-horizontal"
+      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 
 Schema.fleetGroups = new SimpleSchema
   _id:

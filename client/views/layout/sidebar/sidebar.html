@@ -87,7 +87,7 @@
 					</ul>
 				</li>
 
-				<li class="{{isActiveRoute regex='addExpense|listExpenseTypes|listExpenseGroups'}}">
+				<li class="{{isActiveRoute regex='listExpenses|listExpenseTypes|listExpenseGroups'}}">
 					<a href="#">
 						<i class="fa fa-dollar"></i>
 						<span class="title">{{_ "menu.expenses"}}</span>
@@ -95,7 +95,7 @@
 					</a>
 					<ul class="sub-menu">
 						<li class="{{isActiveRoute regex='expenses/add'}}">
-							<a href="{{pathFor 'addExpense'}}">{{_ "menu.addExpense"}}</a>
+							<a href="{{pathFor 'listExpenses'}}">{{_ "menu.listExpenses"}}</a>
 						</li>
 						<li class="{{isActiveRoute regex='expenses/types'}}">
 							<a href="{{pathFor 'listExpenseTypes'}}">{{_ "menu.listExpenseTypes"}}</a>
@@ -162,7 +162,7 @@
 						</li>
 					</ul>
 				</li>
-				<li class="{{isActiveRoute regex='Notifications'}}">
+				<li class="{{isActiveRoute regex='events'}}">
 					<a href="#">
 					<i class="icon-calendar"></i>
 					<span class="title">{{_ "menu.notifications"}}</span>
@@ -171,6 +171,9 @@
 					<ul class="sub-menu">
 						<li class="{{isActiveRoute regex='custom-events'}}">
 							<a href="{{pathFor 'listCustomEvents'}}">{{_ "menu.notifications"}}</a>
+						</li>
+						<li class="{{isActiveRoute regex='geofence-events'}}">
+							<a href="{{pathFor 'listGeofenceEvents'}}">{{_ "menu.geofenceNotifications"}}</a>
 						</li>
 					</ul>
 				</li>

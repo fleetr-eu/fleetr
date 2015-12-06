@@ -1,0 +1,19 @@
+<template name="geofenceEvent">
+  {{#autoForm collection="GeofenceEvents" doc=doc id="geofenceEventForm" type="method" meteormethod="submitGeofenceEvent"}}
+    <fieldset>
+	    {{> afFieldInput type="hidden" name="_id" value=_id}}
+	    {{> afQuickField name="geofenceId" autofocus=true}}
+	    {{> afQuickField name="fleetGroupId" }}
+	    {{> afQuickField name="fleetId" }}
+	    {{> afQuickField name="vehicleId" }}
+	    {{> afQuickField name="driverId"}}
+	    {{> afQuickField name="description"}}
+	    {{> afQuickField name="enter"}}
+	    {{> afQuickField name="exit"}}
+	    {{> afQuickField name="stay"}}
+	    {{> afQuickField name="minutes"}}
+	    {{> afQuickField name="seen"}}
+	    {{> afQuickField name="active"}}
+    </fieldset>
+  {{/autoForm}}
+</template>
