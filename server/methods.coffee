@@ -106,8 +106,8 @@ Meteor.methods
   createTrips: (deviceId) ->
     @unblock()
     existingTrips = Trips.find deviceId: deviceId
-    processedStartRecords = (existingTrips.map (t) -> t.startRecId)
-    processedStopRecords = (existingTrips.map (t) -> t.stopRecId)
+    processedStartRecords = (existingTrips.map (t) -> t.start?.recId)
+    processedStopRecords = (existingTrips.map (t) -> t.stop?.recId)
     isStart = (r) -> r.io is 255 and trip is null
     isStop = (r) -> r.io is 254 and trip isnt null
     isProcessed = (r) ->
@@ -119,28 +119,34 @@ Meteor.methods
         if isStart(l)
           trip =
             deviceId: deviceId
-            startRecId: l._id
             date: moment(l.recordTime).format('DD-MM-YYYY')
-            startTime: l.recordTime
-            startAddress: l.address
-            startOdometer: l.tacho
-            startFuel: l.fuelc
+            start:
+              lat: l.lat
+              lng: l.lon
+              recId: l._id
+              time: l.recordTime
+              address: l.address
+              odometer: l.tacho
+              fuel: l.fuelc
         else if isStop(l)
-          dist = (l.tacho - trip.startOdometer) / 1000
-          duration = moment.duration(moment(l.recordTime).diff(trip.startTime)).asHours()
+          dist = (l.tacho - trip.start.odometer) / 1000
+          duration = moment.duration(moment(l.recordTime).diff(trip.start.time)).asHours()
           trips.push _.extend trip,
-            stopRecId: l._id
-            stopTime: l.recordTime
-            stopAddress: l.address
-            stopOdometer: l.tacho
+            stop:
+              lat: l.lat
+              lng: l.lon
+              recId: l._id
+              time: l.recordTime
+              address: l.address
+              odometer: l.tacho
+              fuel: l.fuelc
             distance: dist
-            stopFuel: l.fuelc
-            fuelConsumed: l.fuelc - trip.startFuel
+            fuelConsumed: l.fuelc - trip.start.fuel
             avgSpeed: dist/duration
           trip = null
         else
           trip = null
-          console.error 'Stop record without a corresponding start record!'
+          console.error 'Start/stop record without a corresponding stop/start record!'
           console.error l
     Trips.insert(t) for t in trips
     ""

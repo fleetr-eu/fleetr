@@ -1,34 +1,30 @@
 optional = (type) ->
   type: type
   optional: true
+  decimal: true
 
 @Trips = new Mongo.Collection 'trips'
 Partitioner.partitionCollection Trips
+
+startStopSchema = new SimpleSchema
+  lat: optional Number
+  lng: optional Number
+  recId: optional String
+  time: optional Date
+  address: optional String
+  odometer: optional Number
+  fuel: optional Number
+
 Schema.trips = new SimpleSchema
   _id: optional String
   deviceId: optional Number
-  startRecId: optional String
-  stopRecId: optional String
   date: optional String
-  startTime: optional Date
-  startAddress: optional String
-  startOdometer: optional Number
-  startFuel: optional Number
-  stopTime: optional Date
-  stopAddress: optional String
-  stopOdometer: optional Number
-  stopFuel: optional Number
-  distance:
-    type: Number
-    optional: true
-    decimal: true
-  fuelConsumed:
-    type: Number
-    optional: true
-    decimal: true
-  avgSpeed:
-    type: Number
-    optional: true
-    decimal: true
+  start:
+    type: startStopSchema
+  stop:
+    type: startStopSchema
+  distance: optional Number
+  fuelConsumed: optional Number
+  avgSpeed: optional Number
 
 Trips.attachSchema Schema.trips

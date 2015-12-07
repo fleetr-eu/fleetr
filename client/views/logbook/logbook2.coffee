@@ -21,7 +21,7 @@ Template.logbook2.helpers
 #   console.log Session.get 'date'
 Template.logbook2.helpers
   fleetrGridConfig: ->
-    cursor: Trips.find({startTime: $gt: new Date('2015-12-01')})
+    cursor: Trips.find()
     columns: [
       id: "date"
       field: "date"
@@ -33,16 +33,16 @@ Template.logbook2.helpers
     ,
       id: 'fromTo'
       name: 'From / To'
-      field: 'startTime'
+      field: 'start.time'
       sortable: true
       formatter: (row, cell, value, column, rowObject) ->
-        "#{toTime(row,cell,rowObject.startTime)}<br />#{toTime(row, cell, rowObject.stopTime)}"
+        "#{toTime(row,cell,rowObject.start.time)}<br />#{toTime(row, cell, rowObject.stop.time)}"
       width: 40
     ,
       id: 'beginEnd'
       name: 'Begin / End'
       formatter: (row, cell, value, column, rowObject) ->
-        "#{rowObject.startAddress}<br />#{rowObject.stopAddress}"
+        "#{rowObject.start.address}<br />#{rowObject.stop.address}"
       width: 100
     ,
       id: 'distance'
@@ -89,6 +89,31 @@ Template.logbook2.helpers
       width: 20
       cssClass: 'to'
       align: 'right'
+    ,
+      id: 'simpleMapLink'
+      field: 'deviceId'
+      name: 'Max Speed'
+      width: 20
+      align: 'center'
+      formatter: (row, cell, value, column, rowObject) ->
+        q = encodeURIComponent EJSON.stringify
+          deviceId: value
+          start:
+            time: moment(rowObject.start.time).valueOf()
+            position:
+              lat: rowObject.start.lat
+              lng: rowObject.start.lng
+          stop:
+            time: moment(rowObject.stop.time).valueOf()
+            position:
+              lat: rowObject.stop.lat
+              lng: rowObject.stop.lng
+
+        """
+        <a href='/map/#{q}'>
+          Map
+        </a>
+        """
     ]
     options:
       enableCellNavigation: false
