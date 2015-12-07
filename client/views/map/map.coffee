@@ -40,7 +40,7 @@ Template.map.helpers
       width: 1
       sortable: true
       search: where: 'client'
-      formatter: statusFormatter()
+      formatter: statusFormatter
     ,
       id: "speed"
       field: "speed"
