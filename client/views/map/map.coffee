@@ -35,7 +35,7 @@ Template.map.helpers
   fleetrGridConfig: ->
     columns: [
       id: "status"
-      field: "status"
+      field: "state"
       name: ""
       width: 1
       sortable: true
