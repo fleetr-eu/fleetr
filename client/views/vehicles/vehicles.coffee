@@ -25,7 +25,11 @@ statusFormatter = (row, cell, value) ->
     "<img src='/images/truck-state-grey.png'}'></img> "
 
 logbookLinkFormatter = (row, cell, value) ->
-  "<a href='/vehicles/#{value}/logbook'>Logbook</a>"
+  "<a href='/vehicles/#{value}/logbook'><img src='/images/Google-Logbook-icon.png' height='22' }'></img></a>"
+ 
+mapLinkFormatter = (row, cell, value) ->
+  Session.set('selectedVehicleId', value)
+  "<a href='/vehicles/map/#{value}'><img src='/images/Google-Maps-icon.png' height='22'}'></img></a>" 
 
 Template.maintenancesButton.helpers
   vehicleId: => Session.get "selectedItemId"
@@ -56,6 +60,18 @@ Template.vehicles.helpers
         align: 'right'
         search: where: 'client'
         formatter: FleetrGrid.Formatters.roundFloat(2)
+      ,
+        id: "map"
+        field: "_id"
+        name: ''
+        width:1
+        formatter: mapLinkFormatter
+      ,
+        id: "logbook"
+        field: "_id"
+        name: ''
+        width:1
+        formatter: logbookLinkFormatter  
       ,
         id: "fleetName"
         field: "fleetName"
@@ -122,12 +138,6 @@ Template.vehicles.helpers
         sortable: true
         search: where: 'client'
         formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags
-      ,
-        id: "id"
-        field: "_id"
-        name: ''
-        width:60
-        formatter: logbookLinkFormatter
       ]
       options:
         enableCellNavigation: true
