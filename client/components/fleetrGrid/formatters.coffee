@@ -27,7 +27,7 @@ FleetrGrid.Formatters =
       @_blazeCache.templates["#{row}:#{cell}"] = blazeTemplate
       setTimeout (=> @_renderBlazeTemplates(row,cell)), 0
       "<div class='blazeTemplate cell#{row}-#{cell}'></div>"
-  decoratedLessThanTFormatter: (numberError, numberWarning, decimals=0 ) -> (row, cell, value) ->
+  decoratedLessThanFormatter: (numberError, numberWarning, decimals=0 ) -> (row, cell, value) -> 
     if value >= 0
       v = Number((Number(value)).toFixed(decimals))
       vStr = if v == 0 then "" else v

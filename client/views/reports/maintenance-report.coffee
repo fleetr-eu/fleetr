@@ -37,7 +37,7 @@ Template.maintenanceReport.helpers
       name: TAPi18n.__('reports.maintenance.daysToMaintenance')
       width:50
       sortable: true
-      formatter: decoratedLessThanFormater(2, 10)
+      formatter: FleetrGrid.Formatters.decoratedLessThanFormatter(2, 10)
       search: where: 'server'
     ,
       id: 'nextMaintenanceOdometer'
@@ -53,7 +53,7 @@ Template.maintenanceReport.helpers
       name: TAPi18n.__('reports.maintenance.odometerToMaintenance')
       width:50
       sortable: true
-      formatter: decoratedLessThanFormater(100, 500)
+      formatter: FleetrGrid.Formatters.decoratedLessThanFormatter(100, 500)
       search: where: 'server'
     ,
       id: 'nextMaintenanceEngineHours'
@@ -71,7 +71,7 @@ Template.maintenanceReport.helpers
       width:50
       hidden: true
       sortable: true
-      formatter: decoratedLessThanFormater(20, 100)
+      formatter: FleetrGrid.Formatters.decoratedLessThanFormatter(20, 100)
       search: where: 'server'
     ]
     options:

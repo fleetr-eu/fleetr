@@ -84,7 +84,7 @@ Template.geofenceEvents.helpers
       ,
         id: "stay"
         field: "exit"
-        name: TAPi18n.__('geofenceEvents.seen')
+        name: TAPi18n.__('geofenceEvents.stay')
         width:20
         sortable: true
         search: false
