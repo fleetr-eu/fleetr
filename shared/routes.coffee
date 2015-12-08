@@ -45,6 +45,7 @@ Meteor.startup ->
       path: '/'
       template: 'dashboard'
       fastRender: true
+      waitOn: -> Meteor.subscribe('vehicles')
 
     @route 'listDrivers',
       path: '/drivers/list'
