@@ -25,7 +25,7 @@ statusFormatter = (row, cell, value) ->
     "<img src='/images/truck-state-grey.png'}'></img> "
 
 logbookLinkFormatter = (row, cell, value) ->
-  "<a href='/vehicles/#{value}/logbook'><img src='/images/Google-Logbook-icon.png' height='22' }'></img></a>"
+  "<a href='/vehicles/#{value}/logbook'><img src='/images/logbook-icon.png' height='22' }'></img></a>"
  
 mapLinkFormatter = (row, cell, value) ->
   Session.set('selectedVehicleId', value)
