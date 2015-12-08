@@ -26,7 +26,7 @@ Bootstrap Colorpicker
 Bootstrap Datepaginator
 ***/
 .datepaginator a {
-  font-family: 'Open Sans';
+  font-family: 'Play', sans-serif;
   font-size: 13px;
   font-weight: 300;
 }
@@ -85,12 +85,12 @@ Bootstrap Datepicker
 .datepicker table td {
   color: #000;
   font-weight: 300  !important;
-  font-family: 'Open Sans' !important;
+  font-family: 'Play', sans-serif; !important;
 }
 
 .datepicker table th {
   color: #333;
-  font-family: 'Open Sans' !important;
+  font-family: 'Play', sans-serif; !important;
   font-weight: 400  !important;
 }
 
@@ -173,11 +173,11 @@ Bootstrap  Datetimepicker
 .datetimepicker table td {
   color: #000;
   font-weight: 300  !important;
-  font-family: 'Open Sans' !important;
+  font-family: 'Play', sans-serif; !important;
 }
 
 .datetimepicker table th {
-  font-family: 'Open Sans' !important;
+  font-family: 'Play', sans-serif; !important;
   font-weight: 400  !important;
 }
 
@@ -332,7 +332,7 @@ Bootstrap Select
 
 .bootstrap-select.btn-group .dropdown-menu > li > dt > .text {
   font-weight: 600;
-  font-family: 'Open Sans';
+  font-family: 'Play', sans-serif;
   font-size: 14px;
 }
 
@@ -351,7 +351,7 @@ Bootstrap Select
   content: "\f107";
   display: inline-block;
   border: 0;
-  font-family: FontAwesome;
+  font-family: 'Play', sans-serif;
   font-style: normal;
   font-weight: normal;
 }
@@ -1141,7 +1141,7 @@ Fullcalendar
   color: #ddd;
 }
 .portlet.calendar .fc-button .fc-icon-left-single-arrow {
-  font-family: FontAwesome;
+  font-family: 'Play', sans-serif;
   font-size: 16px;
 }
 .portlet.calendar .fc-button .fc-icon-left-single-arrow:after {
@@ -1151,7 +1151,7 @@ Fullcalendar
   content: "\f104";
 }
 .portlet.calendar .fc-button .fc-icon-right-single-arrow {
-  font-family: FontAwesome;
+  font-family: 'Play', sans-serif;
   font-size: 16px;
 }
 .portlet.calendar .fc-button .fc-icon-right-single-arrow:after {

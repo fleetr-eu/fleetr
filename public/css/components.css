@@ -6,12 +6,20 @@ General reset
 ***/
 /* Set default body */
 body {
-    color: #333333;
-    font-family: "Open Sans", sans-serif;
+    color: #333333; 
+    font-family: 'Play', sans-serif;  
     padding: 0px !important;
     margin: 0px !important;
     font-size: 13px;
     direction: ltr;
+}
+
+thead  {
+    font-family: 'Play', sans-serif; 
+}
+
+tbody  {
+    font-family: 'Play', sans-serif;
 }
 
 /*
@@ -118,7 +126,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Play', sans-serif;
     font-weight: 300;
 }
 
@@ -274,7 +282,7 @@ Utilities
 }
 
 .primary-font {
-    font-family: "Open Sans", sans-serif !important;
+    font-family: 'Play', sans-serif; !important;
 }
 
 .bold {
@@ -1679,7 +1687,7 @@ Charts and statistics
     overflow: hidden;
     height: 300px;
     width: 100%;
-    font-family: "Open Sans", sans-serif !important;
+    font-family: 'Play', sans-serif; !important;
     font-size: 14px;
 }
 
@@ -1913,7 +1921,7 @@ Dropdown Menu
     background-color: #fffff;
     box-shadow: 5px 5px rgba(102, 102, 102, 0.1);
     border: 1px solid #eee;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Play', sans-serif;
 }
 
 .dropdown-menu li.divider {
@@ -2021,7 +2029,7 @@ Dropdown Menu
     font-size: 14px;
     right: 7px;
     top: 7px;
-    font-family: FontAwesome;
+    font-family: 'Play', sans-serif;
     height: auto;
     content: "\f105";
     font-weight: 300;
@@ -2984,8 +2992,8 @@ Customized Bootstrap Labels
     font-size: 13px;
     font-weight: 300;
     padding: 3px 6px 3px 6px;
-    color: #fff;
-    font-family: "Open Sans", sans-serif;
+    color: #fff;  
+    font-family: 'Play', sans-serif;
 }
 
 .label.label-sm {
@@ -3982,7 +3990,7 @@ Portlets
     display: inline-block;
     top: -3px;
     position: relative;
-    font-size: 13px;
+    font-size: 13px;  
     font-family: FontAwesome;
     color: #ACACAC;
 }
@@ -5275,7 +5283,7 @@ Light Table
     font-weight: 600;
     font-size: 13px;
     color: #a7b3b9;
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Play', sans-serif;
     border: 0;
     border-bottom: 1px solid #F2F5F8;
 }
@@ -5727,8 +5735,8 @@ Tiles(new in v1.1.1)
 }
 
 .tiles .tile.selected .check:after {
-    content: "";
-    font-family: FontAwesome;
+    content: "";   
+    font-family: 'Play', sans-serif;
     font-size: 13px;
     content: "\f00c";
     display: inline-block;

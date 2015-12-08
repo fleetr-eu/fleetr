@@ -228,7 +228,6 @@ Schema.fleet = new SimpleSchema
     type: String, optional: true, label: ()->TAPi18n.__('fleet.description')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-      rows: 5
   parent:
     type:String, label: ()->TAPi18n.__('fleet.parent')
     autoform:
@@ -247,7 +246,6 @@ Schema.documentTypes = new SimpleSchema
     type: String, optional: true, label: ()->TAPi18n.__('documentTypes.description')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-      rows: 5
 
 Schema.documents = new SimpleSchema
   _id:
@@ -293,7 +291,6 @@ Schema.insuranceTypes = new SimpleSchema
     type: String, optional: true, label: ()->TAPi18n.__('insuranceTypes.description')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"  
-      rows: 5
 
 Schema.expenseGroups = new SimpleSchema
   _id:
@@ -306,7 +303,6 @@ Schema.expenseGroups = new SimpleSchema
     type: String, optional: true, label: ()->TAPi18n.__('expenseGroups.description')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-      rows: 5
 
 Schema.expenseTypes = new SimpleSchema
   _id:
@@ -323,7 +319,6 @@ Schema.expenseTypes = new SimpleSchema
     type: String, optional: true, label: ()->TAPi18n.__('expenseTypes.description')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-      rows: 5
 
 Schema.expenses = new SimpleSchema
   _id:
@@ -421,7 +416,6 @@ Schema.expenses = new SimpleSchema
      type: String, optional: true, label: ()->TAPi18n.__('expenses.description')
      autoform:
        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-       rows: 5
 
 Schema.maintenanceTypes = new SimpleSchema
   _id:
@@ -434,7 +428,6 @@ Schema.maintenanceTypes = new SimpleSchema
     type: String, optional: true, label: ()-> TAPi18n.__('maintenanceTypes.description')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-      rows:5
   nextMaintenanceMonths:
     type: Number, optional: true, label: ()-> TAPi18n.__('maintenanceTypes.nextMaintenanceMonths')
     autoform:
@@ -463,8 +456,8 @@ Schema.maintenances = new SimpleSchema
        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   description:
     type: String, decimal:true, optional: true, label: ()-> TAPi18n.__('maintenances.description')
-    autoform:
-      rows: 5
+    autoform: 
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   maintenanceDate:
     type:Date, label: ()-> TAPi18n.__('maintenances.maintenanceDate')
     autoform:

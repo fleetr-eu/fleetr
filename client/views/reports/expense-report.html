@@ -1,4 +1,16 @@
 <template name="expenseReport">
-  <h1 class="bold uppercase">{{pageTitle}}</h1>
-  {{> fleetrReportGrid id="expenseGrid" config=fleetrGridConfig }}
+	 <div class="row">
+		<div class="col-md-12">
+			<div class="portlet light">
+				<div class="portlet-title">
+				  	<div class="caption">
+						<div class="caption-subject">
+				      		<h1 class="bold">{{pageTitle}}</h1>
+						</div>
+				  	</div>
+				 </div>
+	  			{{> fleetrReportGrid id="expenseGrid" config=fleetrGridConfig }}
+	   		</div>
+		</div>
+	</div>
 </template>
