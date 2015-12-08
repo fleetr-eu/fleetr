@@ -83,7 +83,7 @@ Template.customEvents.helpers
         width:40
         sortable: true
         search: where: 'client'
-        formatter: FleetrGrid.Formatters.decoratedNumberFormatter(2, 8)
+        formatter: FleetrGrid.Formatters.decoratedLessThanFormatter(2, 8)
         search: where: 'client'
       ,
         id: "odometer"
@@ -100,7 +100,7 @@ Template.customEvents.helpers
         width:40
         sortable: true
         search: where: 'client'
-        formatter: FleetrGrid.Formatters.decoratedNumberFormatter(101, 501)
+        formatter: FleetrGrid.Formatters.decoratedLessThanFormatter(101, 501)
         search: where: 'client'  
       ,
         id: "engineHours"

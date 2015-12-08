@@ -75,7 +75,7 @@ Template.insurances.helpers
         width:40
         sortable: true
         search: where: 'client' 
-        formatter: FleetrGrid.Formatters.decoratedNumberFormatter(2, 16) 
+        formatter: FleetrGrid.Formatters.decoratedLessThanFormatter(2, 16) 
       ]
       options:
         enableCellNavigation: true

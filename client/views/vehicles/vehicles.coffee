@@ -1,3 +1,6 @@
+hiddenOnMobile = () -> 
+  Session.get('device-screensize') is 'small'
+
 lastUpdateFormatter = (daysAgo) -> (row, cell, value) ->
   if value
     lastUpdate = moment value
@@ -10,25 +13,21 @@ lastUpdateFormatter = (daysAgo) -> (row, cell, value) ->
     "<span>#{attnIcon}#{lastUpdate.format('DD/MM/YYYY HH:mm:ss')}</span>"
   else
     noDataWarning = TAPi18n.__('vehicles.lastUpdateNoDataWarning')
-    "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{noDataWarning}'></i>"
+    "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{noDataWarning}'></i>" 
 
 statusFormatter = (row, cell, value) ->
+  color = 'grey'
   if value
-    if value == "stop"
-      "<img src='/images/truck-state-blue.png'}'></img> "
-    else
+    if value == "blue"
+      color = 'green'
       if value == "start"
-        "<img src='/images/truck-state-green.png'}'></img> "
-      else
-        "<img src='/images/truck-state-grey.png'}'></img> "
-  else
-    "<img src='/images/truck-state-grey.png'}'></img> "
+        color = 'green'
+  "<img src='/images/truck-state-#{color}.png'></img>"  
 
 logbookLinkFormatter = (row, cell, value) ->
   "<a href='/vehicles/#{value}/logbook'><img src='/images/logbook-icon.png' height='22' }'></img></a>"
  
 mapLinkFormatter = (row, cell, value) ->
-  Session.set('selectedVehicleId', value)
   "<a href='/vehicles/map/#{value}'><img src='/images/Google-Maps-icon.png' height='22'}'></img></a>" 
 
 Template.maintenancesButton.helpers
@@ -46,32 +45,34 @@ Template.vehicles.helpers
         id: "state"
         field: "state"
         name: ""
-        width: 1
+        maxWidth: 38
         sortable: true
         search: where: 'client'
         formatter: statusFormatter
-        align: 'center'
+        align: 'left'
       ,
         id: "speed"
         field: "speed"
         name: TAPi18n.__('vehicles.speedShort')
-        width: 1
+        maxWidth: 50
         sortable: true
         align: 'right'
         search: where: 'client'
-        formatter: FleetrGrid.Formatters.roundFloat(2)
+        formatter: FleetrGrid.Formatters.decoratedGreaterThanFormatter(50, 100, 0)
       ,
         id: "map"
         field: "_id"
         name: ''
-        width:1
+        maxWidth: 31
         formatter: mapLinkFormatter
+        align: 'left'
       ,
         id: "logbook"
         field: "_id"
         name: ''
-        width:1
-        formatter: logbookLinkFormatter  
+        maxWidth: 31
+        formatter: logbookLinkFormatter
+        align: 'left'
       ,
         id: "fleetName"
         field: "fleetName"
@@ -83,11 +84,20 @@ Template.vehicles.helpers
         groupable:
           aggregators: []
       ,
+        id: "vehicleShowName"
+        field: "vehicleShowName"
+        name: TAPi18n.__('vehicles.name')
+        width:100
+        sortable: true
+        hidden: not hiddenOnMobile()
+        search: where: 'client'    
+      ,
         id: "name"
         field: "name"
         name: TAPi18n.__('vehicles.name')
         width:100
         sortable: true
+        hidden: hiddenOnMobile()
         search: where: 'client'
       ,
         id: "licensePlate"
@@ -95,6 +105,7 @@ Template.vehicles.helpers
         name: TAPi18n.__('vehicles.licensePlate')
         width:50
         sortable: true
+        hidden: hiddenOnMobile()
         search: where: 'client'
       ,
         id: "unitId"
@@ -119,6 +130,7 @@ Template.vehicles.helpers
         width:50
         align: 'right'
         sortable: true
+        hidden: hiddenOnMobile()
         search: where: 'client'
       ,
         id: "lastUpdate"
@@ -127,6 +139,7 @@ Template.vehicles.helpers
         width:60
         sortable: true
         formatter: lastUpdateFormatter(7)
+        hidden: hiddenOnMobile()
         search:
           where: 'server'
           dateRange: DateRanges.history
@@ -136,6 +149,7 @@ Template.vehicles.helpers
         name: TAPi18n.__('vehicles.tags')
         width:60
         sortable: true
+        hidden: hiddenOnMobile()
         search: where: 'client'
         formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags
       ]
@@ -148,3 +162,4 @@ Template.vehicles.helpers
       cursor: Vehicles.find {},
         transform: (doc) -> _.extend doc,
             fleetName: Fleets.findOne(_id: doc.allocatedToFleet)?.name
+            vehicleShowName: doc.name + ' (' + doc.licensePlate + ')'

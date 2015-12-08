@@ -55,7 +55,6 @@
     "remainingKm": "Km",
     "engineHours": "Engine hours",
     "speed": "Speed",
-    "speedShort": "km/h",
     "seen" : "Seen",
     "seenTime" : "Date/time",
     "active" : "Active",
@@ -246,7 +245,6 @@
     "lastUpdateNoDataWarning":"No communication data available!",
     "phoneNumber" : "Phone",
     "nextTechnicalCheck":"Next tech. check",
-
     "category":"Category",
     "make":"Make",
     "model":"Model",
@@ -258,10 +256,11 @@
     "body":"Body",
     "engineDisplacement":"Engine displacement (cc)",
     "maxFuelCapacity":"Max fuel capacity (l)",
+    "speed":"Speed",
+    "speedShort": "km/h",
     "maxSpeed":"Max speed (km/h)",
     "maxAllowedSpeed":"Max allowed speed (km/h)",
     "mass" : "Mass (kg)",
-
     "deleteMessage": "Are you certain you want to delete this Vehicle?"
   },
 

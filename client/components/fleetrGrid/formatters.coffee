@@ -27,16 +27,30 @@ FleetrGrid.Formatters =
       @_blazeCache.templates["#{row}:#{cell}"] = blazeTemplate
       setTimeout (=> @_renderBlazeTemplates(row,cell)), 0
       "<div class='blazeTemplate cell#{row}-#{cell}'></div>"
-  decoratedNumberFormatter: (numberError, numberWarning, decimals=0 ) -> (row, cell, value) ->
+  decoratedLessThanTFormatter: (numberError, numberWarning, decimals=0 ) -> (row, cell, value) ->
     if value >= 0
       v = Number((Number(value)).toFixed(decimals))
+      vStr = if v == 0 then "" else v
       attnIcon = ""
       if v < numberError
-        attnIcon = "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{v}'></i>"
+        attnIcon = "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{vStr}'></i>"
       else 
          if v < numberWarning 
-          attnIcon = "<i class='fa fa-exclamation-triangle' style='color:orange;' title='#{v}'></i>"
-      "<span>#{attnIcon}<div class='pull-right'>#{v}</div></span>"      
+          attnIcon = "<i class='fa fa-exclamation-triangle' style='color:orange;' title='#{vStr}'></i>"
+      
+      "<span>#{attnIcon}<div class='pull-right'>#{vStr}</div></span>"
+  decoratedGreaterThanFormatter: (numberError, numberWarning, decimals=0 ) -> (row, cell, value) ->
+    if value >= 0
+      v = Number((Number(value)).toFixed(decimals))
+      vStr = if v == 0 then "" else v
+      attnIcon = ""
+      if v > numberError
+        attnIcon = "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{vStr}'></i>"
+      else 
+         if v > numberWarning 
+          attnIcon = "<i class='fa fa-exclamation-triangle' style='color:orange;' title='#{vStr}'></i>"
+      
+      "<span>#{attnIcon}<div class='pull-right'>#{vStr}</div></span>"           
         
 
 FleetrGrid.Formatters.sumEuroTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '&euro;'
