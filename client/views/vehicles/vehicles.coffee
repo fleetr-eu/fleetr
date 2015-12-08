@@ -44,7 +44,7 @@ Template.vehicles.helpers
       columns: [
         id: "state"
         field: "state"
-        name: ""
+        name: TAPi18n.__('vehicles.stateShort')
         maxWidth: 38
         sortable: true
         search: where: 'client'
@@ -62,14 +62,14 @@ Template.vehicles.helpers
       ,
         id: "map"
         field: "_id"
-        name: ''
+        name: TAPi18n.__('vehicles.mapShort')
         maxWidth: 31
         formatter: mapLinkFormatter
         align: 'left'
       ,
         id: "logbook"
         field: "_id"
-        name: ''
+        name: TAPi18n.__('vehicles.logbookShort')
         maxWidth: 31
         formatter: logbookLinkFormatter
         align: 'left'
@@ -125,13 +125,14 @@ Template.vehicles.helpers
         search: where: 'client'
       ,
         id: "odometer"
-        field: "odometer"
+        field: "odo"
         name: TAPi18n.__('vehicles.odometer')
         width:50
         align: 'right'
         sortable: true
         hidden: hiddenOnMobile()
         search: where: 'client'
+        formatter: FleetrGrid.Formatters.roundFloat(0)
       ,
         id: "lastUpdate"
         field: "lastUpdate"
@@ -163,3 +164,4 @@ Template.vehicles.helpers
         transform: (doc) -> _.extend doc,
             fleetName: Fleets.findOne(_id: doc.allocatedToFleet)?.name
             vehicleShowName: doc.name + ' (' + doc.licensePlate + ')'
+            odo: doc.odometer / 1000
