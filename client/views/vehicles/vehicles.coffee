@@ -54,8 +54,8 @@ Template.vehicles.helpers
       ,
         id: "speed"
         field: "speed"
-        name: TAPi18n.__('vehicles.speed')
-        width: 40
+        name: TAPi18n.__('vehicles.speedShort')
+        width: 1
         sortable: true
         align: 'right'
         search: where: 'client'

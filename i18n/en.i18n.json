@@ -55,6 +55,7 @@
     "remainingKm": "Km",
     "engineHours": "Engine hours",
     "speed": "Speed",
+    "speedShort": "km/h",
     "seen" : "Seen",
     "seenTime" : "Date/time",
     "active" : "Active",

@@ -56,6 +56,7 @@
     "remainingKm": "Км",
     "engineHours": "Двг. часове",
     "speed": "Скорост",
+    "speedShort": "км/ч",
     "seen" : "Видяна",
     "seenTime" : "Дата/час",
     "active" : "Активно",
