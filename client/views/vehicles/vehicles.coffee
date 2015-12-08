@@ -18,8 +18,8 @@ lastUpdateFormatter = (daysAgo) -> (row, cell, value) ->
 statusFormatter = (row, cell, value) ->
   color = 'grey'
   if value
-    if value == "blue"
-      color = 'green'
+    if value == "stop"
+      color = "blue"
       if value == "start"
         color = 'green'
   "<img src='/images/truck-state-#{color}.png'></img>"  

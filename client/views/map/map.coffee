@@ -1,14 +1,11 @@
 statusFormatter = (row, cell, value) ->
+  color = 'grey'
   if value
     if value == "stop"
-      "<img src='/images/truck-state-blue.png'}'></img> "
-    else
+      color = "blue"
       if value == "start"
-        "<img src='/images/truck-state-green.png'}'></img> "
-      else
-        "<img src='/images/truck-state-grey.png'}'></img> "
-  else
-    "<img src='/images/truck-state-grey.png'}'></img> "
+        color = 'green'
+  "<img src='/images/truck-state-#{color}.png'></img>"  
 
 showFilterBox = new ReactiveVar false
 
