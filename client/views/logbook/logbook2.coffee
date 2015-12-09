@@ -1,3 +1,6 @@
+mapLinkFormatter = (row, cell, value) ->
+  "<a href='/vehicles/map/#{value}'><img src='/images/Google-Maps-icon.png' height='22'}'></img></a>" 
+
 toTime = FleetrGrid.Formatters.timeFormatter
 aggregators = [
   new Slick.Data.Aggregators.Sum 'distance'
@@ -15,7 +18,8 @@ Template.logbook2.onRendered ->
 
 Template.logbook2.helpers
   vehicleName: ->
-    Vehicles.findOne(_id: Template.instance().data.vehicleId).name
+    v = Vehicles.findOne(_id: Template.instance().data.vehicleId)
+    v.name + " (" + v.licensePlate + ')'
 
 # Tracker.autorun ->
 #   console.log Session.get 'date'
@@ -25,29 +29,30 @@ Template.logbook2.helpers
     columns: [
       id: "date"
       field: "date"
-      name: "Date"
-      width: 50
+      name: "Дата"
+      width: 35
       sortable: true
       groupable:
         aggregators: aggregators
     ,
       id: 'fromTo'
-      name: 'From / To'
+      name: 'От / До'
       field: 'start.time'
       sortable: true
       formatter: (row, cell, value, column, rowObject) ->
         "#{toTime(row,cell,rowObject.start.time)}<br />#{toTime(row, cell, rowObject.stop.time)}"
-      width: 40
+      width: 35
     ,
       id: 'beginEnd'
-      name: 'Begin / End'
+      name: 'Старт / Финиш'
       formatter: (row, cell, value, column, rowObject) ->
         "#{rowObject.start.address}<br />#{rowObject.stop.address}"
-      width: 100
+      width: 80
+      search: where: 'client'
     ,
       id: 'distance'
       field: 'distance'
-      name: 'Distance'
+      name: 'Разстояние'
       formatter: FleetrGrid.Formatters.roundFloat 2
       width: 20
       align: 'right'
@@ -55,10 +60,12 @@ Template.logbook2.helpers
     ,
       id: 'fuel'
       field: 'fuelConsumed'
-      name: 'Fuel'
-      formatter: (row, cell, value) ->
-        FleetrGrid.Formatters.roundFloat(2) row, cell, value/1000 if value
-      width: 20
+      name: 'Гориво / на 100км'
+      formatter: (row, cell, value, column, rowObject) ->
+        fc = if rowObject.fuelConsumed then FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.fuelConsumed/1000 else ''
+        fp100 = if rowObject.fuelPer100 then FleetrGrid.Formatters.roundFloat(2) row, cell, (rowObject.fuelPer100/rowObject.distance)/10 else ''
+        "#{fc}<br />#{fp100}"
+      width: 30
       align: 'right'
       groupTotalsFormatter: (totals, columnDef) ->
         val = totals.sum && totals.sum[columnDef.field];
@@ -66,34 +73,21 @@ Template.logbook2.helpers
           "<b>#{(Math.round(parseFloat(val)*100)/100)/1000}</b>"
         else ''
     ,
-      id: 'fuelPer100'
-      field: 'fuelConsumed'
-      name: 'per 100km'
-      formatter: (row, cell, value, column, rowObject) ->
-        FleetrGrid.Formatters.roundFloat(2) row, cell, (value/rowObject.distance)/10 if value
-      width: 20
-      align: 'right'
-    ,
       id: 'speed'
       field: 'avgSpeed'
-      name: 'Speed'
-      formatter: FleetrGrid.Formatters.roundFloat 0
-      width: 20
+      name: 'Скорост / Макс'
+      formatter: (row, cell, value, column, rowObject) ->
+        s = if rowObject.avgSpeed then FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.avgSpeed else '' 
+        ms = if rowObject.maxSpeed then FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.maxSpeed else ''
+        "#{s}<br />#{ms}"
+      width: 30
       cssClass: 'from'
-      align: 'right'
-    ,
-      id: 'maxSpeed'
-      field: 'maxSpeed'
-      name: 'Max Speed'
-      formatter: FleetrGrid.Formatters.roundFloat 0
-      width: 20
-      cssClass: 'to'
       align: 'right'
     ,
       id: 'simpleMapLink'
       field: 'deviceId'
-      name: 'Max Speed'
-      width: 20
+      name: 'М'
+      maxWidth: 31
       align: 'center'
       formatter: (row, cell, value, column, rowObject) ->
         q = encodeURIComponent EJSON.stringify
@@ -111,7 +105,7 @@ Template.logbook2.helpers
 
         """
         <a href='/map/#{q}'>
-          Map
+          <img src='/images/Google-Maps-icon.png' height='22'/>
         </a>
         """
     ]

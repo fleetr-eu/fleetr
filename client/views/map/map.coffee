@@ -3,6 +3,7 @@ statusFormatter = (row, cell, value) ->
   if value
     if value == "stop"
       color = "blue"
+    else  
       if value == "start"
         color = 'green'
   "<img src='/images/truck-state-#{color}.png'></img>"  
@@ -46,7 +47,7 @@ Template.map.helpers
       sortable: true
       align: 'right'
       search: where: 'client'
-      formatter: FleetrGrid.Formatters.roundFloat(2)
+      formatter: FleetrGrid.Formatters.decoratedGreaterThanFormatter(50, 100, 0)
     ,  
       id: "name"
       field: "name"

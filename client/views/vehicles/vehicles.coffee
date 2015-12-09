@@ -20,8 +20,9 @@ statusFormatter = (row, cell, value) ->
   if value
     if value == "stop"
       color = "blue"
+    else  
       if value == "start"
-        color = 'green'
+        color = 'green'   
   "<img src='/images/truck-state-#{color}.png'></img>"  
 
 logbookLinkFormatter = (row, cell, value) ->

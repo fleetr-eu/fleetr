@@ -1309,7 +1309,7 @@ Gritter notification modify
 }
 
 .gritter-title {
-  font-family: "Open Sans";
+  font-family: 'Play', sans-serif;
   font-size: 18px;
   font-weight: 300;
 }
@@ -1676,7 +1676,7 @@ Jstree
   min-width: 125px;
   background-color: #ffffff;
   font-size: 14px;
-  font-family: "Segoe UI",Helvetica, Arial, sans-serif;
+  font-family: 'Play', sans-serif;
   box-shadow: 5px 5px rgba(102, 102, 102, 0.1);
   border: 1px solid #efefef;
 }
@@ -2072,13 +2072,13 @@ Morris Charts
   font-weight: 400;
   font-size: 15px;
   color: #7D8C9D;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Play', sans-serif;
 }
 .morris-hover.morris-default-style .morris-hover-point {
   text-align: left;
   font-size: 14px;
   font-weight: 400;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Play', sans-serif;
 }
 
 /***
