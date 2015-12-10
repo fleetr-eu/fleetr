@@ -10,6 +10,12 @@ Schema.vehicle = new SimpleSchema
 
   lastUpdate:
     type: Date, optional: true, label: "Last Update"
+ 
+  restTime:
+    type: Number, optional: true, label: "Rest time" 
+  
+  tripTime:
+    type: Number, optional: true, label: "Trip time" 
 
   lat:
     type: Number, decimal: true, optional: true, label: "Lat"
@@ -21,6 +27,18 @@ Schema.vehicle = new SimpleSchema
     type: Number, decimal: true, optional: true, label: "Speed"
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+
+  maxMeasuredSpeed: 
+    type: Number, decimal: true, optional: true, label: "Max Speed"  
+
+  avgMeasuredSpeed: 
+    type: Number, decimal: true, optional: true, label: "Avg Speed"
+
+  measuredDistance: 
+    type: Number, decimal: true, optional: true, label: "Distance"
+
+  measuredFuel:
+    type: Number, decimal: true, optional: true, label: "Fuel"
 
   tags:
     type: String, optional: true, label: ()->TAPi18n.__('vehicles.tags')
@@ -178,18 +196,6 @@ Schema.vehicle = new SimpleSchema
   mass:
     type: Number, optional: true, label:()->TAPi18n.__('vehicles.mass')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
-
-  workingSchedule:
-    type: [Object], optional:true
-
-  "workingSchedule.$.from":
-    type: String, optional:true
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
-
-  "workingSchedule.$.to":
-    type: String, optional:true, autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
   "alarms.speedingAlarmActive":

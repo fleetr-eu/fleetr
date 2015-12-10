@@ -16,14 +16,29 @@ Logbook.after.insert (userId, e) ->
       return
     # console.log 'Vehicle: ' + JSON.stringify(v)
     if e.type == 30 # trackpoint
-      update = {lastUpdate: e.recordTime, speed: e.speed, lat: e.lat, lon: e.lon, odometer: e.tacho}
+      if v.state == 'start'
+        maxMeasuredSpeed = if e.speed > v.maxMeasuredSpeed then e.speed else v.maxMeasuredSpeed
+        measuredDistance = v.measuredDistance + (e.tacho - v.odometer)
+        tripTime = tripTime + (e.recordTime - v.lastUpdate)
+        avgSpeed = (measuredDistance / 1000) / (tripTime / 1000 * 60 * 60)
+        measuredFuel = v.measuredFuel + e.fuel
+        restTime = 0
+        update = {lastUpdate: e.recordTime, speed: e.speed, v.maxMeasuredSpeed: maxMeasuredSpeed, v.avgMeasuredSpeed: avgMeasuredSpeed, v.measuredDistance: measuredDistance, v.measuredFuel: measuredFuel, v.restTime: 0, lat: e.lat, lon: e.lon, odometer: e.tacho}
+      else 
+        restTime = v.restTime + (e.recordTime - v.lastUpdate)
+        update = {lastUpdate: e.recordTime, v.restTime: restTime }
       Vehicles.update v._id, {$set: update}, ->
         console.log 'updated vehicle trackpoint status: ' + id + ' ' + JSON.stringify(update)
     if e.type == 29 # start/stop
       stop = e.io % 2 == 0
-      status = if stop then 'stop' else 'start'
-      speed = if stop then 0 else (if e.speed < 0.1 then 0 else e.speed)
-      update = {lastUpdate: e.recordTime, speed: speed, lat: e.lat, lon: e.lon, odometer: e.tacho, state: status}
+      if stop
+        status = 'stop'
+        # ******** UPDATE current logbook record from Vehicle maxMeasuredSpeed, avgMeasuredSpeed, v.measuredDistance, v.measuredFuel, v.restTime
+        update = {lastUpdate: e.recordTime, speed: 0, maxMeasuredSpeed: 0, avgMeasuredSpeed: 0, measuredDistance: 0, measuredFuel: 0, v.restTime: 0, lat: e.lat, lon: e.lon, odometer: e.tacho}
+      else  
+        status = 'start'
+        # update this logbook record: set v.maxMeasuredSpeed: 0, v.avgMeasuredSpeed:0, v.measuredDistance:0, v.measuredFuel:0, v.restTime:0 
+      update = {lastUpdate: e.recordTime, speed: 0, v.maxMeasuredSpeed: 0, v.avgMeasuredSpeed: 0, v.measuredDistance: 0, v.measuredFuel: 0, v.restTime: 0, lat: e.lat, lon: e.lon, odometer: e.tacho, state: status}
       Vehicles.update v._id, {$set: update}, ->
         console.log 'updated vehicle start/stop status: ' + id + ' ' + JSON.stringify(update)
 
