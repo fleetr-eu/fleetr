@@ -18,12 +18,14 @@ Logbook.after.insert (userId, e) ->
     if e.type == 30 # trackpoint
       if v.state == 'start'
         maxMeasuredSpeed = if e.speed > v.maxMeasuredSpeed then e.speed else v.maxMeasuredSpeed
-        measuredDistance = v.measuredDistance + (e.tacho - v.odometer)
+        distance = e.tacho - v.odometer
+        measuredDistance = v.measuredDistance + distance
+        if distance < 5 then idleTime = v.idleTime + (e.recordTime - v.lastUpdate)
         tripTime = tripTime + (e.recordTime - v.lastUpdate)
         avgSpeed = (measuredDistance / 1000) / (tripTime / 1000 * 60 * 60)
         measuredFuel = v.measuredFuel + e.fuel
         restTime = 0
-        update = {lastUpdate: e.recordTime, speed: e.speed, v.maxMeasuredSpeed: maxMeasuredSpeed, v.avgMeasuredSpeed: avgMeasuredSpeed, v.measuredDistance: measuredDistance, v.measuredFuel: measuredFuel, v.restTime: 0, lat: e.lat, lon: e.lon, odometer: e.tacho}
+        update = {lastUpdate: e.recordTime, speed: e.speed, maxMeasuredSpeed: maxMeasuredSpeed, avgMeasuredSpeed: avgMeasuredSpeed, measuredDistance: measuredDistance, measuredFuel: measuredFuel, restTime: 0, idleTime: idleTime, lat: e.lat, lon: e.lon, odometer: e.tacho}
       else 
         restTime = v.restTime + (e.recordTime - v.lastUpdate)
         update = {lastUpdate: e.recordTime, v.restTime: restTime }
@@ -33,12 +35,10 @@ Logbook.after.insert (userId, e) ->
       stop = e.io % 2 == 0
       if stop
         status = 'stop'
-        # ******** UPDATE current logbook record from Vehicle maxMeasuredSpeed, avgMeasuredSpeed, v.measuredDistance, v.measuredFuel, v.restTime
-        update = {lastUpdate: e.recordTime, speed: 0, maxMeasuredSpeed: 0, avgMeasuredSpeed: 0, measuredDistance: 0, measuredFuel: 0, v.restTime: 0, lat: e.lat, lon: e.lon, odometer: e.tacho}
+        # ******** UPDATE current logbook record from Vehicle: add: maxMeasuredSpeed, avgMeasuredSpeed, v.measuredDistance, v.measuredFuel, v.restTime, v.idleTime
       else  
         status = 'start'
-        # update this logbook record: set v.maxMeasuredSpeed: 0, v.avgMeasuredSpeed:0, v.measuredDistance:0, v.measuredFuel:0, v.restTime:0 
-      update = {lastUpdate: e.recordTime, speed: 0, v.maxMeasuredSpeed: 0, v.avgMeasuredSpeed: 0, v.measuredDistance: 0, v.measuredFuel: 0, v.restTime: 0, lat: e.lat, lon: e.lon, odometer: e.tacho, state: status}
+      update = {lastUpdate: e.recordTime, speed: 0, maxMeasuredSpeed: 0, avgMeasuredSpeed: 0, measuredDistance: 0, measuredFuel: 0, restTime: 0, idleTime: 0, lat: e.lat, lon: e.lon, odometer: e.tacho, state: status}
       Vehicles.update v._id, {$set: update}, ->
         console.log 'updated vehicle start/stop status: ' + id + ' ' + JSON.stringify(update)
 
