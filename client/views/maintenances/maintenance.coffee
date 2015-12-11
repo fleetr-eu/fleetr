@@ -5,7 +5,7 @@ Template.maintenance.events
       if $("input[name='maintenanceDate']").val()
         if mt.nextMaintenanceMonths
           nmd = moment($("input[name='maintenanceDate']").val()).add(mt.nextMaintenanceMonths, "months")
-          $("input[name='nextMaintenanceDate']").val(nmd)
+          $("input[name='nextMaintenanceDate']").datepicker('update', nmd.toDate())
 
       if $("input[name='odometer']").val()
         if mt.nextMaintenanceKMs
@@ -18,7 +18,7 @@ Template.maintenance.events
           $("input[name='nextMaintenanceEngineHours']").val(nmeo)
 
   "click .btn-get-current" : (e) ->
-     $("input[name='maintenanceDate']").val(moment())
+     $("input[name='maintenanceDate']").datepicker('update', new Date())
      v = Vehicles.findOne _id: Template.instance().vehicleId
      if v
        $("input[name='odometer']").val(parseInt(v.odometer))
