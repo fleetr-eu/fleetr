@@ -344,22 +344,26 @@ Schema.expenses = new SimpleSchema
        autoform:
          firstOption: ()->TAPi18n.__('dropdown.select')
          options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
+         optional: true
          allowOptions: "true"
          template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
    location:
        type:String
        label: ()->TAPi18n.__('expenses.location')
+       optional: true
        autoform:
          template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
    odometer:
       type: Number
       decimal:true
       label: ()->TAPi18n.__('expenses.odometer')
+      optional: true
       autoform:
         template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
    driver:
       type: String
       label: ()->TAPi18n.__('expenses.driver')
+      optional: true
       autoform:
         firstOption: ()->TAPi18n.__('dropdown.select')
         options: -> Drivers.find().map (driver) -> label: driver.firstName+" "+driver.name, value: driver._id
@@ -368,6 +372,7 @@ Schema.expenses = new SimpleSchema
    invoiceNr:
       type:String
       label: ()->TAPi18n.__('expenses.invoiceNr')
+      optional: true
       autoform:
         template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
    date:

@@ -271,7 +271,9 @@
   },
 
   "dropdown": {
-    "select": "(Изберете)"  
+    "select": "(Изберете)",
+    "allFleetGrous" : "Всички групи",
+    "allFleets": "Всички автопаркове" 
   },
 
   "button" : {

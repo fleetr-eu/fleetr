@@ -268,7 +268,9 @@
   },
 
   "dropdown": {
-    "select": "(Select)"
+    "select": "(Select)",
+    "allFleetGrous" : "All Fleet Grous",
+    "allFleets": "All Fleets" 
   },
 
   "button" : {

@@ -2,7 +2,7 @@
     <div class="row form-group">
       <div class="col-xs-6">
         <select class="form-control vehicle-filter fleet-group">
-            <option value="">All fleet groups</option>
+            <option value="">{{_ "dropdown.allFleetGrous"}}</option>
             {{#each fleetGroups}}
             <option value="{{_id}}">{{name}}</option>
             {{/each}}
@@ -10,7 +10,7 @@
       </div>
       <div class="col-xs-6">
         <select class="form-control vehicle-filter fleet">
-            <option value="">All fleets</option>
+            <option value="">{{_ "dropdown.allFleets"}}</option>
             {{#each fleets}}
             <option value="{{_id}}">{{name}}</option>
             {{/each}}
