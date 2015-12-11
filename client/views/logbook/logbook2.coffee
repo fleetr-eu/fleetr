@@ -1,5 +1,5 @@
 mapLinkFormatter = (row, cell, value) ->
-  "<a href='/vehicles/map/#{value}'><img src='/images/Google-Maps-icon.png' height='22'}'></img></a>" 
+  "<a href='/vehicles/map/#{value}'><img src='/images/Google-Maps-icon.png' height='22'}'></img></a>"
 
 toTime = FleetrGrid.Formatters.timeFormatter
 aggregators = [
@@ -40,7 +40,7 @@ Template.logbook2.helpers
       field: 'start.time'
       sortable: true
       formatter: (row, cell, value, column, rowObject) ->
-        "#{toTime(row,cell,rowObject.start.time)}<br />#{toTime(row, cell, rowObject.stop.time)}"
+        "#{toTime(row,cell,rowObject.start?.time)}<br />#{toTime(row, cell, rowObject.stop?.time)}"
       width: 35
     ,
       id: 'beginEnd'
@@ -68,7 +68,7 @@ Template.logbook2.helpers
       width: 30
       align: 'right'
       groupTotalsFormatter: (totals, columnDef) ->
-        val = totals.sum && totals.sum[columnDef.field];
+        val = totals.sum && totals.sum[columnDef.field]
         if val
           "<b>#{(Math.round(parseFloat(val)*100)/100)/1000}</b>"
         else ''
@@ -77,7 +77,7 @@ Template.logbook2.helpers
       field: 'avgSpeed'
       name: 'Скорост / Макс'
       formatter: (row, cell, value, column, rowObject) ->
-        s = if rowObject.avgSpeed then FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.avgSpeed else '' 
+        s = if rowObject.avgSpeed then FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.avgSpeed else ''
         ms = if rowObject.maxSpeed then FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.maxSpeed else ''
         "#{s}<br />#{ms}"
       width: 30
@@ -93,12 +93,12 @@ Template.logbook2.helpers
         q = encodeURIComponent EJSON.stringify
           deviceId: value
           start:
-            time: moment(rowObject.start.time).valueOf()
+            time: moment(rowObject.start?.time).valueOf()
             position:
               lat: rowObject.start.lat
               lng: rowObject.start.lng
           stop:
-            time: moment(rowObject.stop.time).valueOf()
+            time: moment(rowObject.stop?.time).valueOf()
             position:
               lat: rowObject.stop.lat
               lng: rowObject.stop.lng

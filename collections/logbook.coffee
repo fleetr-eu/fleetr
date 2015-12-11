@@ -8,7 +8,7 @@ Logbook.after.insert (userId, e) ->
   # console.log JSON.stringify(e)
   id = e.deviceId
 
-  Partitioner.directOperation ()->
+  Partitioner.directOperation ->
     v = Vehicles.findOne {unitId: id}
     # console.log 'Vehicle: ' + v
     if not v
@@ -26,9 +26,9 @@ Logbook.after.insert (userId, e) ->
         measuredFuel = v.measuredFuel + e.fuel
         restTime = 0
         update = {lastUpdate: e.recordTime, speed: e.speed, maxMeasuredSpeed: maxMeasuredSpeed, avgMeasuredSpeed: avgMeasuredSpeed, measuredDistance: measuredDistance, measuredFuel: measuredFuel, restTime: 0, idleTime: idleTime, lat: e.lat, lon: e.lon, odometer: e.tacho}
-      else 
+      else
         restTime = v.restTime + (e.recordTime - v.lastUpdate)
-        update = {lastUpdate: e.recordTime, v.restTime: restTime }
+        update = {lastUpdate: e.recordTime, restTime: restTime }
       Vehicles.update v._id, {$set: update}, ->
         console.log 'updated vehicle trackpoint status: ' + id + ' ' + JSON.stringify(update)
     if e.type == 29 # start/stop
@@ -36,7 +36,7 @@ Logbook.after.insert (userId, e) ->
       if stop
         status = 'stop'
         # ******** UPDATE current logbook record from Vehicle: add: maxMeasuredSpeed, avgMeasuredSpeed, v.measuredDistance, v.measuredFuel, v.restTime, v.idleTime
-      else  
+      else
         status = 'start'
       update = {lastUpdate: e.recordTime, speed: 0, maxMeasuredSpeed: 0, avgMeasuredSpeed: 0, measuredDistance: 0, measuredFuel: 0, restTime: 0, idleTime: 0, lat: e.lat, lon: e.lon, odometer: e.tacho, state: status}
       Vehicles.update v._id, {$set: update}, ->
