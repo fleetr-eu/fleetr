@@ -6,13 +6,6 @@
     Logbook.insert record, ->
       console.log "Inserted logbook record #{EJSON.stringify record}"
 
-toAddress = (loc) ->
-  return undefined if not loc
-  addr = loc.country
-  addr += ', ' + loc.city
-  addr += ', ' + loc.zipcode if loc.zipcode
-  addr += ', ' + loc.streetName
-
 nullRecord =
   speed: 0
   trip:
