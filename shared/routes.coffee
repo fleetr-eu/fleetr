@@ -176,7 +176,6 @@ Meteor.startup ->
     @route 'logbookReport',
       path: '/reports/logbook'
       template: 'logbook'
-      # subscriptions: -> Meteor.subscribe 'mycodes'
     @route 'vehicleLogbook',
       path: '/vehicles/:vehicleId/logbook'
       template: 'logbook2'
@@ -189,13 +188,11 @@ Meteor.startup ->
     @route 'logbookReportStartStop',
       path: '/reports/logbook/detailed/:selectedDate'
       template: 'logbookStartStop'
-      # waitOn: -> Meteor.subscribe('mycodes')
       data: -> {'selectedDate' : @params.selectedDate}
 
     @route 'logbookReportIdle',
       path: '/reports/logbook/idle/:selectedDate/:xxx?'
       template: 'logbookIdle'
-      # waitOn: -> Meteor.subscribe('mycodes')
       data: -> {'selectedDate': @params.selectedDate, 'xxx': @params.xxx}
 
     @route 'reclogReport',

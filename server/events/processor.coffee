@@ -6,6 +6,13 @@
     Logbook.insert record, ->
       console.log "Inserted logbook record #{EJSON.stringify record}"
 
+toAddress = (loc) ->
+  return undefined if not loc
+  addr = loc.country
+  addr += ', ' + loc.city
+  addr += ', ' + loc.zipcode if loc.zipcode
+  addr += ', ' + loc.streetName
+
 nullRecord =
   speed: 0
   trip:
@@ -46,6 +53,7 @@ updateVehicle = (rec, updater, cb) ->
             fuel: rec.fuelc
             lat: rec.lat
             lon: rec.lon
+            address: Geocoder.reverse rec.lat, rec.lon
             odometer: rec.tacho
 
   deviceStop: (rec) ->
@@ -56,6 +64,7 @@ updateVehicle = (rec, updater, cb) ->
           time: rec.recordTime
           lat: rec.lat
           lng: rec.lon
+          address: Geocoder.reverse rec.lat, rec.lon
           odometer: rec.tacho
           fuel: rec.fuelc
       Trips.insert trip, (err) ->

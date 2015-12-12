@@ -1,17 +1,8 @@
 Fiber = Npm.require('fibers')
 
-toAddress = (loc)->
-  return undefined if not loc
-  addr = loc.country
-  addr += ', ' + loc.city
-  addr += ', ' + loc.zipcode if loc.zipcode
-  addr += ', ' + loc.streetName
-
 Meteor.startup ->
   console.log 'MQTT URL: ' + Meteor.settings.mqttUrl
   client = mqtt.connect Meteor.settings.mqttUrl || 'mqtt://mqtt:1883'
-
-  idleDetectors = {}
 
   client.on 'connect', ->
     console.log 'MQTT CONNECTED OK'
