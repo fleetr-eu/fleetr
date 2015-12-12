@@ -51,6 +51,7 @@ Template.expenses.helpers
         hidden: true
         width: 40
         sortable: true
+        align : "right"
         search: where: 'client'
       ,
         id: "invoiceNr"
@@ -81,6 +82,7 @@ Template.expenses.helpers
         field: "quantity"
         name: "#{TAPi18n.__('expenses.quantity')}"
         width: 40
+        align : "right"
         sortable: true
         search: where: 'client'
       ,  
@@ -89,6 +91,7 @@ Template.expenses.helpers
         name: "#{TAPi18n.__('expenses.totalVATIncluded')}"
         width: 40
         hidden: true
+        align : "right"
         sortable: true
         search: where: 'client'   
       ,  
@@ -97,6 +100,7 @@ Template.expenses.helpers
         name: "#{TAPi18n.__('expenses.vat')}"
         width: 40
         hidden: true
+        align : "right"
         sortable: true
         search: where: 'client'   
       ,  
@@ -105,6 +109,7 @@ Template.expenses.helpers
         name: "#{TAPi18n.__('expenses.discount')}"
         width: 40
         hidden: true
+        align : "right"
         sortable: true
         search: where: 'client'   
       ,  
@@ -112,6 +117,7 @@ Template.expenses.helpers
         field: "total"
         name: "#{TAPi18n.__('expenses.total')}"
         width: 40
+        align : "right"
         sortable: true
         search: where: 'client' 
       ]

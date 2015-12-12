@@ -16,14 +16,14 @@ Template.maintenances.helpers
         id: "maintenanceTypeName"
         field: "maintenanceTypeName"
         name: "#{TAPi18n.__('maintenances.maintenanceType')}"
-        width:80
+        width:100
         sortable: true
         search: where: 'client'
       ,
         id: "maintenanceDate"
         field: "maintenanceDate"
         name: "#{TAPi18n.__('maintenances.maintenanceDate')}"
-        width:50
+        width:40
         sortable: true
         search: where: 'client'
         formatter: FleetrGrid.Formatters.dateFormatter
@@ -31,7 +31,8 @@ Template.maintenances.helpers
         id: "odometer"
         field: "odometer"
         name: "#{TAPi18n.__('maintenances.odometer')}"
-        width:50
+        width:40
+        align : "right"
         sortable: true
         search: where: 'client'
         align: "right"
@@ -39,23 +40,26 @@ Template.maintenances.helpers
         id: "nextKm"
         field: "nextKm"
         name: "#{TAPi18n.__('maintenances.nextKm')}"
-        width:50
+        width:40
         sortable: true
+        align : "right"
         search: where: 'client'
         align: "right"
       ,
         id: "engineHours"
         field: "engineHours"
         name: "#{TAPi18n.__('maintenances.engineHours')}"
-        width:50
+        width:40
         sortable: true
+        align : "right"
+        hidden: true
         search: where: 'client'
         align: "right"
       ,
         id: "nextMaintenanceDate"
         field: "nextMaintenanceDate"
         name: "#{TAPi18n.__('maintenances.nextMaintenanceDate')}"
-        width:50
+        width:40
         sortable: true
         search: where: 'client'
         formatter: FleetrGrid.Formatters.dateFormatter
@@ -63,16 +67,19 @@ Template.maintenances.helpers
         id: "nextMaintenanceOdometer"
         field: "nextMaintenanceOdometer"
         name: "#{TAPi18n.__('maintenances.nextMaintenanceOdometer')}"
-        width:50
+        width:40
         sortable: true
+        align : "right"
         search: where: 'client'
         align: "right"
       ,
         id: "nextMaintenanceEngineHours"
         field: "nextMaintenanceEngineHours"
         name: "#{TAPi18n.__('maintenances.nextMaintenanceEngineHours')}"
-        width:50
+        width:40
+        align : "right"
         sortable: true
+        hidden: true
         search: where: 'client'
         align: "right"
       ]
