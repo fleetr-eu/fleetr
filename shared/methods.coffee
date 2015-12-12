@@ -62,7 +62,7 @@ Meteor.methods
   removeExpenseType: removeItem ExpenseTypes
 
   submitExpense: submitItem Expenses
-  removeExpenses: removeItem Expenses
+  removeExpense: removeItem Expenses
 
   submitDocumentType: submitItem DocumentTypes
   removeDocumentType: removeItem DocumentTypes

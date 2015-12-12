@@ -142,6 +142,7 @@
     "title" :"Expense Group",
     "listTitle" : "Expense Groups",
     "name" : "Name",
+    "fines" : "Fines",
     "description" : "Description",
     "deleteMessage": "Are you certain you want to delete this Expense Group?"
   },
@@ -189,6 +190,7 @@
     "listTitle" : "Maintenance Types",
     "nextMaintenanceAfter" : "Next Maintenance After",
     "name" : "Name",
+    "technicalCheck" : "Тechnical Check",
     "description" : "Description",
     "nextMaintenanceMonths" : "Months",
     "nextMaintenanceKMs" : "Kilometers",

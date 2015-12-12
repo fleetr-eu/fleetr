@@ -143,6 +143,7 @@
     "title" :"Група разходи",
     "listTitle" : "Групи разходи",
     "name" : "Име",
+    "fines" : "Глоби",    
     "description" : "Описание",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете тази група раходи?"
   },
@@ -190,6 +191,7 @@
     "listTitle" : "Видове поддръжки",
     "nextMaintenanceAfter" : "Следваща поддръжка след",
     "name" : "Вид",
+    "technicalCheck" : "Технически преглед",
     "description" : "Описание",
     "nextMaintenanceMonths" : "Месеци",
     "nextMaintenanceKMs" : "Километри",

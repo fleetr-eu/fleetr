@@ -2,8 +2,9 @@
   {{#autoForm collection="Expenses" doc=doc id="expenseForm" type="method" meteormethod="submitExpense"}}
      <fieldset>
         <legend></legend>
-        {{> afQuickField name="expenseType" autofocus=true}}
-        {{> afQuickField name="expenseGroup"}}
+        {{> afFieldInput type="hidden" name="_id" value=_id}}
+        {{> afQuickField name="expenseGroup" autofocus=true}}
+        {{> afQuickField name="expenseType" }}
         {{> afQuickField name="vehicle"}}
         {{> afQuickField name="driver"}}
         {{> afQuickField name="odometer"}}
