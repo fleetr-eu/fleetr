@@ -25,7 +25,8 @@ Template.logbook2.helpers
 #   console.log Session.get 'date'
 Template.logbook2.helpers
   fleetrGridConfig: ->
-    cursor: Trips.find()
+    v = Vehicles.findOne(_id: Template.instance().data.vehicleId)
+    cursor: Trips.find(deviceId: v.unitId)
     columns: [
       id: "date"
       field: "date"

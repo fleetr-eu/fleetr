@@ -51,7 +51,14 @@ updateVehicle = (rec, updater, cb) ->
   deviceStop: (rec) ->
     console.log "device stopped #{rec.deviceId}"
     updateVehicle rec, (v) ->
-      Trips.insert (v.trip or nullRecord.trip), (err) ->
+      trip = _.extend (v.trip or nullRecord.trip),
+        stop:
+          time: rec.recordTime
+          lat: rec.lat
+          lng: rec.lon
+          odometer: rec.tacho
+          fuel: rec.fuelc
+      Trips.insert trip, (err) ->
         if err
           console.error "Failed inserting trip #{EJSON.stringify trip}"
           console.error "Error was #{err}"
