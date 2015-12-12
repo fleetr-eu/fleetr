@@ -24,7 +24,8 @@ Schema.trips = new SimpleSchema
   stop:
     type: startStopSchema
   distance: optional Number
-  fuelConsumed: optional Number
+  consumedFuel: optional Number
   avgSpeed: optional Number
+  maxSpeed: optional Number
 
 Trips.attachSchema Schema.trips

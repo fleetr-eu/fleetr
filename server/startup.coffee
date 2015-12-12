@@ -125,14 +125,14 @@ class LogbookEnhancer extends RecordProcessor
       loc = [rec.lon, rec.lat]
       Logbook.update {_id: rec._id}, {$set: {loc: loc}}
 
-upgradeDatabase = () ->
-  console.log 'ENHANCE DB'
-  new LogbookEnhancer().process()
-  new StartStopGeocoder().process()
-  new AggByDateGeocoder().process()
-  new IdleGeocoder().process()
-  console.log 'DB UPGRADE DONE'
-
-Meteor.startup ->
-  Fiber = Npm.require('fibers')
-  Fiber(upgradeDatabase).run()
+# upgradeDatabase = () ->
+#   console.log 'ENHANCE DB'
+#   new LogbookEnhancer().process()
+#   new StartStopGeocoder().process()
+#   new AggByDateGeocoder().process()
+#   new IdleGeocoder().process()
+#   console.log 'DB UPGRADE DONE'
+#
+# Meteor.startup ->
+#   Fiber = Npm.require('fibers')
+#   Fiber(upgradeDatabase).run()

@@ -4,13 +4,13 @@ mapLinkFormatter = (row, cell, value) ->
 toTime = FleetrGrid.Formatters.timeFormatter
 aggregators = [
   new Slick.Data.Aggregators.Sum 'distance'
-  new Slick.Data.Aggregators.Sum 'fuelConsumed'
+  new Slick.Data.Aggregators.Sum 'consumedFuel'
 ]
 
-Template.logbook2.onRendered ->
-  vehicle = Vehicles.findOne(_id: @data.vehicleId)
-  @deviceId = vehicle.unitId
-  Meteor.call 'createTrips', @deviceId
+# Template.logbook2.onRendered ->
+#   vehicle = Vehicles.findOne(_id: @data.vehicleId)
+#   @deviceId = vehicle.unitId
+#   Meteor.call 'createTrips', @deviceId
 
 # Template.logbook2.events
 #   'input #startDate': (e, t) ->
@@ -59,10 +59,10 @@ Template.logbook2.helpers
       groupTotalsFormatter: FleetrGrid.Formatters.sumTotalsFormatterNoSign
     ,
       id: 'fuel'
-      field: 'fuelConsumed'
+      field: 'consumedFuel'
       name: 'Гориво / на 100км'
       formatter: (row, cell, value, column, rowObject) ->
-        fc = if rowObject.fuelConsumed then FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.fuelConsumed/1000 else ''
+        fc = if rowObject.consumedFuel then FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.consumedFuel/1000 else ''
         fp100 = if rowObject.fuelPer100 then FleetrGrid.Formatters.roundFloat(2) row, cell, (rowObject.fuelPer100/rowObject.distance)/10 else ''
         "#{fc}<br />#{fp100}"
       width: 30

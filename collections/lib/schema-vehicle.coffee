@@ -10,12 +10,12 @@ Schema.vehicle = new SimpleSchema
 
   lastUpdate:
     type: Date, optional: true, label: "Last Update"
- 
+
   restTime:
-    type: Number, optional: true, label: "Rest time" 
-  
+    type: Number, optional: true, label: "Rest time"
+
   tripTime:
-    type: Number, optional: true, label: "Trip time" 
+    type: Number, optional: true, label: "Trip time"
 
   lat:
     type: Number, decimal: true, optional: true, label: "Lat"
@@ -28,17 +28,10 @@ Schema.vehicle = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
-  maxMeasuredSpeed: 
-    type: Number, decimal: true, optional: true, label: "Max Speed"  
-
-  avgMeasuredSpeed: 
-    type: Number, decimal: true, optional: true, label: "Avg Speed"
-
-  measuredDistance: 
-    type: Number, decimal: true, optional: true, label: "Distance"
-
-  measuredFuel:
-    type: Number, decimal: true, optional: true, label: "Fuel"
+  trip:
+    type: Object
+    optional: true
+    blackbox: true
 
   tags:
     type: String, optional: true, label: ()->TAPi18n.__('vehicles.tags')
