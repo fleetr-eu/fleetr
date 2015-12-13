@@ -108,5 +108,6 @@ updateVehicle = (rec, updater, cb) ->
       speed: rec.speed
       lat: rec.lat
       lon: rec.lon
+      loc: [rec.lon, rec.lat]
       odometer: rec.tacho
       trip: trip

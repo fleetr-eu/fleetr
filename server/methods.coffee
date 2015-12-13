@@ -9,11 +9,8 @@ Meteor.methods
     newSeenState = !oldSeenState
     Alarms.update {_id: id}, {$set: {seen: newSeenState}}
 
-  removeLocation: (locationId) -> Locations.remove _id: locationId
-
   reset: () ->
     @unblock()
-    Locations.remove {}
     Alarms.remove {}
     Notifications.remove {}
     Drivers.find().forEach (doc) ->

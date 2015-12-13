@@ -17,5 +17,3 @@
             ]
     Countries:
       icon: 'flag'
-    Locations:
-      icon: 'map-marker'

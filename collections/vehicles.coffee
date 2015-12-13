@@ -2,10 +2,6 @@
 Partitioner.partitionCollection Vehicles
 Vehicles.attachSchema Schema.vehicle
 
-Vehicles.after.remove (userId, doc) ->
-  if doc._id
-    Locations.remove {vehicleId:doc._id}
-
 Vehicles.getAssignedDriver = (vehicle, timestamp) ->
   dvAssignment = DriverVehicleAssignments.findOne {vehicle:vehicle},  {sort: {moment: -1}}
   if (dvAssignment?.date <= timestamp) and (dvAssignment?.event=='begin')

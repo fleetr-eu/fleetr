@@ -38,9 +38,6 @@ Meteor.publish 'tripsOfVehicle', (vehicleId) ->
   deviceId = Vehicles.findOne(_id: vehicleId).unitId
   Trips.find {deviceId: deviceId}, {sort: {startTime: 1}}
 
-Meteor.publish 'locations', (vehicleId, dtFrom, dtTo) ->
-  Locations.find {vehicleId: vehicleId, timestamp: {$gte: dtFrom*1000, $lte: dtTo*1000}}, {sort: {timestamp: -1}}
-
 Meteor.publish 'alarm-definitions', -> AlarmDefinitions.find {}
 
 Meteor.publish 'logbook', (searchArgs = {}) -> Logbook.find searchArgs, {sort: recordTime: -1}

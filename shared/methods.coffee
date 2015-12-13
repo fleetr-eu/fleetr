@@ -7,17 +7,13 @@ removeItem = (collection) -> (doc) ->
   collection.remove _id: doc
 
 Meteor.methods
+
   submitGeofence: (doc) ->
     if Geofences.findOne(_id: doc._id)
       Geofences.update {_id: doc._id}, {$set: _.omit(doc, '_id')}
     else
       Geofences.insert doc
-
   removeGeofence: removeItem Geofences
-
-  addLocation: (doc) ->
-    @unblock()
-    Locations.insert doc
 
   submitCustomEvent: submitItem CustomEvents
   removeCustomEvent: removeItem CustomEvents
