@@ -1,5 +1,9 @@
 mapLinkFormatter = (row, cell, value) ->
-  "<a href='/vehicles/map/#{value}'><img src='/images/Google-Maps-icon.png' height='22'}'></img></a>"
+  """
+    <a href='/vehicles/map/#{value}'>
+      <img src='/images/Google-Maps-icon.png' height='22'}'></img>
+    </a>
+  """
 
 toTime = FleetrGrid.Formatters.timeFormatter
 aggregators = [
@@ -41,7 +45,11 @@ Template.logbook2.helpers
       field: 'start.time'
       sortable: true
       formatter: (row, cell, value, column, rowObject) ->
-        "#{toTime(row,cell,rowObject.start?.time)}<br />#{toTime(row, cell, rowObject.stop?.time)}"
+        """
+          #{toTime(row, cell, rowObject.start?.time)}
+          <br />
+          #{toTime(row, cell, rowObject.stop?.time)}
+        """
       width: 35
     ,
       id: 'beginEnd'
