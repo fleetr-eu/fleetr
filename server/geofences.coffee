@@ -10,4 +10,4 @@ Meteor.startup ->
 
       cursor.observe
         added: (doc) ->
-          console.log "Vehicle #{v.name} stayed over limit in #{gf.name}!"
+          console.log "Vehicle #{doc.name} stayed over limit in #{gf.name}!"
