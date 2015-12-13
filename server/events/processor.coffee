@@ -38,12 +38,12 @@ updateVehicle = (rec, updater, cb) ->
         lastUpdate: rec.recordTime
         odometer: rec.tacho
         trip:
+          date: moment(rec.recordTime).format('DD-MM-YYYY')
           start:
-            date: moment(rec.recordTime).format('DD-MM-YYYY')
             time: rec.recordTime
             fuel: rec.fuelc
             lat: rec.lat
-            lon: rec.lon
+            lng: rec.lon
             address: Geocoder.reverse(rec.lat, rec.lon)?[0]
             odometer: rec.tacho
 

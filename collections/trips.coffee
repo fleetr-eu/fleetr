@@ -4,7 +4,6 @@ optional = (type) ->
   decimal: true
 
 @Trips = new Mongo.Collection 'trips'
-Partitioner.partitionCollection Trips
 
 startStopSchema = new SimpleSchema
   lat: optional Number

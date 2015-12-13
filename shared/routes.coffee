@@ -180,10 +180,12 @@ Meteor.startup ->
       path: '/vehicles/:vehicleId/logbook'
       template: 'logbook2'
       data: -> vehicleId: @params.vehicleId
-      waitOn: -> [
-        Meteor.subscribe('tripsOfVehicle', @params.vehicleId)
-        Meteor.subscribe('vehicleById', @params.vehicleId)
-      ]
+      waitOn: ->
+        console.log 'subscribing for trips with vehicleId', @params.vehicleId
+        [
+          Meteor.subscribe('tripsOfVehicle', @params.vehicleId)
+          Meteor.subscribe('vehicleById', @params.vehicleId)
+        ]
 
     @route 'logbookReportStartStop',
       path: '/reports/logbook/detailed/:selectedDate'

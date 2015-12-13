@@ -11,22 +11,11 @@ aggregators = [
   new Slick.Data.Aggregators.Sum 'consumedFuel'
 ]
 
-# Template.logbook2.onRendered ->
-#   vehicle = Vehicles.findOne(_id: @data.vehicleId)
-#   @deviceId = vehicle.unitId
-#   Meteor.call 'createTrips', @deviceId
-
-# Template.logbook2.events
-#   'input #startDate': (e, t) ->
-#     Session.set 'startDate', e.target.value
-
 Template.logbook2.helpers
   vehicleName: ->
     v = Vehicles.findOne(_id: Template.instance().data.vehicleId)
-    v.name + " (" + v.licensePlate + ')'
+    "#{v.name} (#{v.licensePlate})"
 
-# Tracker.autorun ->
-#   console.log Session.get 'date'
 Template.logbook2.helpers
   fleetrGridConfig: ->
     v = Vehicles.findOne(_id: Template.instance().data.vehicleId)
