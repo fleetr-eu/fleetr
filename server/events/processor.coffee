@@ -4,7 +4,7 @@
       record.recordTime = new Date(record.recordTime)
     record.loc = [record.lon, record.lat]
     Logbook.insert record, ->
-      console.log "Inserted logbook record #{EJSON.stringify record}"
+      console.log "Inserted logbook record type #{record.type}: #{EJSON.stringify record}"
 
 nullRecord =
   speed: 0
@@ -33,38 +33,58 @@ updateVehicle = (rec, updater, cb) ->
   deviceStart: (rec) ->
     console.log "device started #{rec.deviceId}"
     updateVehicle rec, ->
+      data =
+        time: rec.recordTime
+        fuel: rec.fuelc
+        lat: rec.lat
+        lng: rec.lon
+        address: Geocoder.reverse(rec.lat, rec.lon)?[0]
+        odometer: rec.tacho
+
+      if v.rest
+        Rests.insert _.extend (v.rest or {}),
+          stop: data
+          duration: moment.duration(moment(rec.recordTime).diff(v.rest.start?.time))
+      else
+        console.warn "Rest stop without a corresponding start!"
+
       _.extend nullRecord,
         state: 'start'
         lastUpdate: rec.recordTime
         odometer: rec.tacho
         trip:
           date: moment(rec.recordTime).format('DD-MM-YYYY')
-          start:
-            time: rec.recordTime
-            fuel: rec.fuelc
-            lat: rec.lat
-            lng: rec.lon
-            address: Geocoder.reverse(rec.lat, rec.lon)?[0]
-            odometer: rec.tacho
+          start: data
+
 
   deviceStop: (rec) ->
     console.log "device stopped #{rec.deviceId}"
     updateVehicle rec, (v) ->
-      trip = _.extend (v.trip or nullRecord.trip),
-        stop:
-          time: rec.recordTime
-          lat: rec.lat
-          lng: rec.lon
-          address: Geocoder.reverse(rec.lat, rec.lon)?[0]
-          odometer: rec.tacho
-          fuel: rec.fuelc
-      Trips.insert trip, (err) ->
-        if err
-          console.error "Failed inserting trip #{EJSON.stringify trip}"
-          console.error "Error was #{err}"
-        else
-          console.log "Inserted trip #{EJSON.stringify trip}"
-      nullRecord
+      data =
+        time: rec.recordTime
+        lat: rec.lat
+        lng: rec.lon
+        address: Geocoder.reverse(rec.lat, rec.lon)?[0]
+        odometer: rec.tacho
+        fuel: rec.fuelc
+
+      if v.trip
+        trip = _.extend v.trip,
+          stop: data
+        Trips.insert trip, (err) ->
+          if err
+            console.error "Failed inserting trip #{EJSON.stringify trip}"
+            console.error "Error was #{err}"
+          else
+            console.log "Inserted trip #{EJSON.stringify trip}"
+      else
+        console.warn "Trip stop without a corresponding start!"
+
+      _.extend nullRecord,
+        rest:
+          date: moment(rec.recordTime).format('DD-MM-YYYY')
+          start: data
+
 
   deviceMove: (rec) ->
     console.log "device moved #{rec.deviceId}"
