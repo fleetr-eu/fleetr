@@ -13,8 +13,6 @@ nullRecord =
     avgSpeed: 0
     distance: 0
     consumedFuel: 0
-  restTime: 0
-  idleTime: 0
   state: 'stop'
 
 updateVehicle = (rec, updater, cb) ->
@@ -72,7 +70,6 @@ updateVehicle = (rec, updater, cb) ->
     console.log "device moved #{rec.deviceId}"
     updateVehicle rec, (v) ->
       trip = v.trip or nullRecord.trip
-      # if v.state == 'start'
       distance = rec.tacho - (trip.start?.odometer or 0)
       duration = moment.duration(moment(rec.recordTime)
         .diff(trip.start?.time or 0)).asHours()
@@ -80,8 +77,6 @@ updateVehicle = (rec, updater, cb) ->
         rec.speed
       else
         trip.maxSpeed
-      if distance < 5
-        idleTime = v.idleTime + (rec.recordTime - v.lastUpdate)
       trip = _.extend trip,
         deviceId: v.unitId
         distance: distance / 1000
@@ -91,13 +86,7 @@ updateVehicle = (rec, updater, cb) ->
 
       lastUpdate: rec.recordTime
       speed: rec.speed
-      restTime: 0
-      idleTime: idleTime or 0
       lat: rec.lat
       lon: rec.lon
       odometer: rec.tacho
       trip: trip
-
-      # else
-      #   lastUpdate: rec.recordTime
-        # restTime: v.restTime + rec.recordTime - v.lastUpdate
