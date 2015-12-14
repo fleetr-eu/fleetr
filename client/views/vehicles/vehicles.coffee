@@ -160,6 +160,8 @@ Template.vehicles.helpers
         explicitInitialization: true
         forceFitColumns: true
       cursor: Vehicles.find {},
+        sort:
+          name: 1
         transform: (doc) -> _.extend doc,
             fleetName: Fleets.findOne(_id: doc.allocatedToFleet)?.name
             vehicleShowName: doc.name + ' (' + doc.licensePlate + ')'
