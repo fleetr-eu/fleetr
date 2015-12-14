@@ -20,11 +20,26 @@
   background: white;
   background: rgba(255,255,255, .7);
   padding: 15px;
+  z-index: 999;
+  height: 100%;
 }
 #vehicle-filter-box.open {
     -ms-transform: translate(-100%); /* IE 9 */
    	-webkit-transform: translate(-100%); /* Safari */
     transform: translate(-100%);
+}
+@media (max-width: 992px) {
+    #vehicle-filter-box {
+      display: none;
+      position: relative;
+      left: 0;
+    }
+    #vehicle-filter-box.open {
+      display: block;
+      -ms-transform: none;
+     	-webkit-transform: none;
+      transform: none;
+    }
 }
 
 .controls {

@@ -9,6 +9,9 @@ Meteor.startup ->
   console.log "MQTT: URL #{mqttUrl}, options #{EJSON.stringify opts}"
   client = mqtt.connect mqttUrl, opts
 
+  client.on 'error', (err) ->
+    console.error 'MQTT: Could not connect to server!', err
+
   client.on 'connect', ->
     console.log 'MQTT CONNECTED OK'
     #subscribe at QoS level 2

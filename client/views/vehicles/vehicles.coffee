@@ -1,4 +1,4 @@
-hiddenOnMobile = () -> 
+hiddenOnMobile = () ->
   Session.get('device-screensize') is 'small'
 
 lastUpdateFormatter = (daysAgo) -> (row, cell, value) ->
@@ -13,23 +13,21 @@ lastUpdateFormatter = (daysAgo) -> (row, cell, value) ->
     "<span>#{attnIcon}#{lastUpdate.format('DD/MM/YYYY HH:mm:ss')}</span>"
   else
     noDataWarning = TAPi18n.__('vehicles.lastUpdateNoDataWarning')
-    "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{noDataWarning}'></i>" 
+    "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{noDataWarning}'></i>"
 
 statusFormatter = (row, cell, value) ->
   color = 'grey'
-  if value
-    if value == "stop"
-      color = "blue"
-    else  
-      if value == "start"
-        color = 'green'   
-  "<img src='/images/truck-state-#{color}.png'></img>"  
+  if value is "stop"
+    color = "blue"
+  if value is "start"
+    color = 'green'
+  "<img src='/images/truck-state-#{color}.png'></img>"
 
 logbookLinkFormatter = (row, cell, value) ->
   "<a href='/vehicles/#{value}/logbook'><img src='/images/logbook-icon.png' height='22' }'></img></a>"
- 
+
 mapLinkFormatter = (row, cell, value) ->
-  "<a href='/vehicles/map/#{value}'><img src='/images/Google-Maps-icon.png' height='22'}'></img></a>" 
+  "<a href='/vehicles/map/#{value}'><img src='/images/Google-Maps-icon.png' height='22'}'></img></a>"
 
 Template.maintenancesButton.helpers
   vehicleId: => Session.get "selectedItemId"
@@ -91,7 +89,7 @@ Template.vehicles.helpers
         width:100
         sortable: true
         hidden: not hiddenOnMobile()
-        search: where: 'client'    
+        search: where: 'client'
       ,
         id: "name"
         field: "name"

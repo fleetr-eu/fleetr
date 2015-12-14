@@ -19,6 +19,10 @@
             </div>
             <div class="portlet-body" id="map-container">
               <div class="row">
+                <div class="col-md-5 map-filter {{#if showFilterBox}}open{{/if}}" id="vehicle-filter-box">
+                   {{> vehicleFilter selectedVehicleIdVar="selectedVehicleId" filterVar="vehicleFilter" options=filterOptions}}
+                   {{> fleetrGrid id="driversList" config=fleetrGridConfig }}
+                </div>
                  <div class="col-md-12">
                    <section class="content">
                      <div id="pac-search" class="input-icon right" style="margin-top: 6px;">
@@ -28,10 +32,7 @@
                      <div id="map-canvas"></div>
                    </section>
                  </div>
-                 <div class="col-md-5 map-filter {{#if showFilterBox}}open{{/if}}" id="vehicle-filter-box">
-                    {{> vehicleFilter selectedVehicleIdVar="selectedVehicleId" filterVar="vehicleFilter" options=filterOptions}}
-                    {{> fleetrGrid id="driversList" config=fleetrGridConfig }}
-                 </div>
+
                </div>
             </div>
          </div>
