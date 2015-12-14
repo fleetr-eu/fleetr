@@ -6,7 +6,7 @@
     Logbook.insert record, ->
       console.log "Inserted logbook record type #{record.type}: #{EJSON.stringify record}"
 
-nullRecord =
+nullRecord = ->
   speed: 0
   trip:
     maxSpeed: 0
@@ -48,7 +48,7 @@ updateVehicle = (rec, updater, cb) ->
       else
         console.warn "Rest stop without a corresponding start!"
 
-      _.extend nullRecord,
+      _.extend nullRecord(),
         state: 'start'
         lastUpdate: rec.recordTime
         odometer: rec.tacho
@@ -80,7 +80,7 @@ updateVehicle = (rec, updater, cb) ->
       else
         console.warn "Trip stop without a corresponding start!"
 
-      _.extend nullRecord,
+      _.extend nullRecord(),
         rest:
           date: moment(rec.recordTime).format('DD-MM-YYYY')
           start: data
@@ -89,7 +89,7 @@ updateVehicle = (rec, updater, cb) ->
   deviceMove: (rec) ->
     console.log "device moved #{rec.deviceId}"
     updateVehicle rec, (v) ->
-      trip = v.trip or nullRecord.trip
+      trip = v.trip or nullRecord().trip
       distance = rec.tacho - (trip.start?.odometer or 0)
       duration = moment.duration(moment(rec.recordTime)
         .diff(trip.start?.time or 0)).asHours()
