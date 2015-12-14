@@ -42,3 +42,11 @@ Meteor.startup ->
       else
         console.warn "MQTT: Unhandled record type #{record.type}."
     ).run()
+
+  Meteor.methods
+    replayLogbook: (dt, type = 29) ->
+      date = if dt then new Date(dt) else new Date()
+      Partitioner.directOperation ->
+        Logbook.find({type: type, recordTime: $gt: date}, {sort: recordTime: 1}).forEach (l) ->
+          client.publish '/fleetr/records', EJSON.stringify(_.omit(l, '_id'))
+      "Resending events of type #{type} from #{date}."

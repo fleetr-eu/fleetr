@@ -3,11 +3,11 @@
     if typeof record.recordTime is 'string'
       record.recordTime = new Date(record.recordTime)
     record.loc = [record.lon, record.lat]
-    Logbook.insert record, ->
-      console.log "Inserted logbook record type #{record.type}: #{EJSON.stringify record}"
+    unless Logbook.findOne(deviceId: record.deviceId, offset: record.offset)
+      Logbook.insert record, ->
+        console.log "Inserted logbook record type #{record.type}: #{EJSON.stringify record}"
 
 nullRecord = ->
-  speed: 0
   trip:
     maxSpeed: 0
     avgSpeed: 0
@@ -32,7 +32,7 @@ updateVehicle = (rec, updater, cb) ->
 @TripProcessor =
   deviceStart: (rec) ->
     console.log "device started #{rec.deviceId}"
-    updateVehicle rec, ->
+    updateVehicle rec, (v) ->
       data =
         time: rec.recordTime
         fuel: rec.fuelc
@@ -44,7 +44,7 @@ updateVehicle = (rec, updater, cb) ->
       if v.rest
         Rests.insert _.extend (v.rest or {}),
           stop: data
-          duration: moment.duration(moment(rec.recordTime).diff(v.rest.start?.time))
+          duration: moment.duration(moment(rec.recordTime).diff(v.rest.start?.time)).asMinutes()
       else
         console.warn "Rest stop without a corresponding start!"
 
@@ -53,6 +53,7 @@ updateVehicle = (rec, updater, cb) ->
         lastUpdate: rec.recordTime
         odometer: rec.tacho
         trip:
+          deviceId: rec.deviceId
           date: moment(rec.recordTime).format('DD-MM-YYYY')
           start: data
 
@@ -81,6 +82,8 @@ updateVehicle = (rec, updater, cb) ->
         console.warn "Trip stop without a corresponding start!"
 
       _.extend nullRecord(),
+        lastUpdate: rec.recordTime
+        odometer: rec.tacho
         rest:
           date: moment(rec.recordTime).format('DD-MM-YYYY')
           start: data
@@ -98,7 +101,6 @@ updateVehicle = (rec, updater, cb) ->
       else
         trip.maxSpeed
       trip = _.extend trip,
-        deviceId: v.unitId
         distance: distance / 1000
         consumedFuel: rec.fuelc - (trip.start?.fuel or 0)
         avgSpeed: (distance / 1000)/duration
