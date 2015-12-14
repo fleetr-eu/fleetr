@@ -59,7 +59,7 @@ Template.vehicles.helpers
         sortable: true
         align: 'right'
         search: where: 'client'
-        formatter: FleetrGrid.Formatters.decoratedGreaterThanFormatter(50, 100, 0)
+        formatter: FleetrGrid.Formatters.decoratedGreaterThanFormatter(120, 80, 0)
       ,
         id: "map"
         field: "_id"
