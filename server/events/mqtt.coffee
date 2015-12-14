@@ -33,12 +33,12 @@ Meteor.startup ->
     Fiber(-> LogbookProcessor.insertRecord(record)).run()
 
     Fiber(->
-      if isStart(record)
+      if isTracking(record)
+        TripProcessor.deviceMove record
+      else if isStart(record)
         TripProcessor.deviceStart record
       else if isStop(record)
         TripProcessor.deviceStop record
-      else if isTracking(record)
-        TripProcessor.deviceMove record
       else
         console.warn "MQTT: Unhandled record type #{record.type}."
     ).run()
