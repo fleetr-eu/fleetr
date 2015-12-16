@@ -8,12 +8,13 @@
         console.log "Inserted logbook record type #{record.type}: #{EJSON.stringify record}"
 
 nullRecord = ->
+  state: 'stop'
+  speed: 0
   trip:
     maxSpeed: 0
     avgSpeed: 0
     distance: 0
     consumedFuel: 0
-  state: 'stop'
 
 updateVehicle = (rec, updater, cb) ->
   Partitioner.directOperation ->
