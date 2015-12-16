@@ -1,4 +1,5 @@
 Fiber = Npm.require('fibers')
+slowPublish = lodash.throttle client.publish, 100
 
 Meteor.startup ->
   opts = if Meteor.settings.mqttUrl
@@ -49,5 +50,4 @@ Meteor.startup ->
       date = if dt then new Date(dt) else new Date()
       Partitioner.directOperation ->
         Logbook.find({recordTime: $gt: date}, {sort: recordTime: 1}).forEach (l) ->
-          console.log "Replaying record #{l._id}"
-          client.publish '/fleetr/records', l
+          slowPublish '/fleetr/records', _.omit(l, '_id')
