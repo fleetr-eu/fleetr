@@ -98,10 +98,8 @@ updateVehicle = (rec, updater, cb) ->
   deviceMove: (rec) ->
     console.log "device moved #{rec.deviceId}"
     updateVehicle rec, (v) ->
-      maxSpeed = if rec.speed >= (trip?.maxSpeed or 0)
-        rec.speed
-      else
-        trip.maxSpeed
+      maxSpeed = trip?.maxSpeed or 0
+      maxSpeed = rec.speed if rec.speed > maxSpeed
 
       'trip.maxSpeed': maxSpeed
       lastUpdate: rec.recordTime
