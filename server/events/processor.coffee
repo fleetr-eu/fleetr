@@ -62,9 +62,9 @@ updateVehicle = (rec, updater, cb) ->
   deviceStop: (rec) ->
     console.log "device stopped #{rec.deviceId}"
     updateVehicle rec, (v) ->
-      distance = rec.tacho - (trip.start?.odometer or 0)
+      distance = rec.tacho - (trip?.start?.odometer or 0)
       duration = moment.duration(moment(rec.recordTime)
-        .diff(trip.start?.time or 0)).asHours()
+        .diff(trip?.start?.time or 0)).asHours()
       data =
         time: rec.recordTime
         lat: rec.lat
@@ -75,7 +75,7 @@ updateVehicle = (rec, updater, cb) ->
       if v.trip
         trip = _.extend v.trip,
           distance: distance / 1000
-          consumedFuel: rec.fuelc - (trip.start?.fuel or 0)
+          consumedFuel: rec.fuelc - (trip?.start?.fuel or 0)
           avgSpeed: (distance / 1000)/duration
           stop: data
         Trips.insert trip, (err) ->
