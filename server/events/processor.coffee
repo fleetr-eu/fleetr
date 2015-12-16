@@ -62,6 +62,9 @@ updateVehicle = (rec, updater, cb) ->
   deviceStop: (rec) ->
     console.log "device stopped #{rec.deviceId}"
     updateVehicle rec, (v) ->
+      distance = rec.tacho - (trip.start?.odometer or 0)
+      duration = moment.duration(moment(rec.recordTime)
+        .diff(trip.start?.time or 0)).asHours()
       data =
         time: rec.recordTime
         lat: rec.lat
@@ -69,9 +72,11 @@ updateVehicle = (rec, updater, cb) ->
         address: Geocoder.reverse(rec.lat, rec.lon)?[0]
         odometer: rec.tacho
         fuel: rec.fuelc
-
       if v.trip
         trip = _.extend v.trip,
+          distance: distance / 1000
+          consumedFuel: rec.fuelc - (trip.start?.fuel or 0)
+          avgSpeed: (distance / 1000)/duration
           stop: data
         Trips.insert trip, (err) ->
           if err
@@ -93,24 +98,15 @@ updateVehicle = (rec, updater, cb) ->
   deviceMove: (rec) ->
     console.log "device moved #{rec.deviceId}"
     updateVehicle rec, (v) ->
-      trip = v.trip or nullRecord().trip
-      distance = rec.tacho - (trip.start?.odometer or 0)
-      duration = moment.duration(moment(rec.recordTime)
-        .diff(trip.start?.time or 0)).asHours()
-      maxSpeed = if rec.speed > trip.maxSpeed
+      maxSpeed = if rec.speed >= (trip?.maxSpeed or 0)
         rec.speed
       else
         trip.maxSpeed
-      trip = _.extend trip,
-        distance: distance / 1000
-        consumedFuel: rec.fuelc - (trip.start?.fuel or 0)
-        avgSpeed: (distance / 1000)/duration
-        maxSpeed: v.maxMeasuredSpeed
 
+      'trip.maxSpeed': maxSpeed
       lastUpdate: rec.recordTime
       speed: rec.speed
       lat: rec.lat
       lon: rec.lon
       loc: [rec.lon, rec.lat]
       odometer: rec.tacho
-      trip: trip
