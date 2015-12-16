@@ -4,7 +4,7 @@
       record.recordTime = new Date(record.recordTime)
     record.loc = [record.lon, record.lat]
     unless Logbook.findOne(deviceId: record.deviceId, offset: record.offset)
-      Logbook.insert record, ->
+      Logbook.insert _.omit(record, '_id'), ->
         console.log "Inserted logbook record type #{record.type}: #{EJSON.stringify record}"
 
 nullRecord = ->
@@ -39,7 +39,7 @@ updateVehicle = (rec, updater, cb) ->
         fuel: rec.fuelc
         lat: rec.lat
         lng: rec.lon
-        address: Geocoder.reverse(rec.lat, rec.lon)?[0]
+        address: (Geocoder.reverse(rec.lat, rec.lon)?[0] unless rec._id)
         odometer: rec.tacho
 
       if v.rest
@@ -69,7 +69,7 @@ updateVehicle = (rec, updater, cb) ->
         time: rec.recordTime
         lat: rec.lat
         lng: rec.lon
-        address: Geocoder.reverse(rec.lat, rec.lon)?[0]
+        address: (Geocoder.reverse(rec.lat, rec.lon)?[0] unless rec._id)
         odometer: rec.tacho
         fuel: rec.fuelc
       if v.trip

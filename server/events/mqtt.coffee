@@ -44,9 +44,10 @@ Meteor.startup ->
     ).run()
 
   Meteor.methods
-    replayLogbook: (dt, type = 29) ->
+    replayLogbook: (dt) ->
+      console.log "Resending events from #{dt}."
       date = if dt then new Date(dt) else new Date()
       Partitioner.directOperation ->
-        Logbook.find({type: type, recordTime: $gt: date}, {sort: recordTime: 1}).forEach (l) ->
-          client.publish '/fleetr/records', EJSON.stringify(_.omit(l, '_id'))
-      "Resending events of type #{type} from #{date}."
+        Logbook.find({recordTime: $gt: date}, {sort: recordTime: 1}).forEach (l) ->
+          console.log "Replaying record #{l._id}"
+          client.publish '/fleetr/records', l
