@@ -1,5 +1,4 @@
 Fiber = Npm.require('fibers')
-slowPublish = lodash.throttle client.publish, 100
 
 Meteor.startup ->
   opts = if Meteor.settings.mqttUrl
@@ -9,6 +8,7 @@ Meteor.startup ->
   mqttUrl = Meteor.settings.mqttUrl || 'mqtt://mqtt:1883'
   console.log "MQTT: URL #{mqttUrl}, options #{EJSON.stringify opts}"
   client = mqtt.connect mqttUrl, opts
+  slowPublish = lodash.throttle client.publish, 100
 
   client.on 'error', (err) ->
     console.error 'MQTT: Could not connect to server!', err
