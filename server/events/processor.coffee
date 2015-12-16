@@ -43,9 +43,9 @@ updateVehicle = (rec, updater, cb) ->
         odometer: rec.tacho
 
       if v.rest
-        Rests.insert lodash.merge.extend (v.rest or {}),
+        Rests.insert lodash.merge (v.rest or {}),
           stop: data
-          duration: moment.duration(moment(rec.recordTime).diff(v.rest.start?.time)).asMinutes()
+          duration: moment.duration(moment(rec.recordTime).diff(v.rest?.start?.time or 0)).asMinutes()
       else
         console.warn "Rest stop without a corresponding start!"
 
