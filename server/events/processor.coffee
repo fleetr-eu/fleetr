@@ -43,13 +43,13 @@ updateVehicle = (rec, updater, cb) ->
         odometer: rec.tacho
 
       if v.rest
-        Rests.insert _.extend (v.rest or {}),
+        Rests.insert lodash.merge.extend (v.rest or {}),
           stop: data
           duration: moment.duration(moment(rec.recordTime).diff(v.rest.start?.time)).asMinutes()
       else
         console.warn "Rest stop without a corresponding start!"
 
-      _.extend nullRecord(),
+      lodash.merge nullRecord(),
         state: 'start'
         lastUpdate: rec.recordTime
         odometer: rec.tacho
@@ -73,7 +73,7 @@ updateVehicle = (rec, updater, cb) ->
         odometer: rec.tacho
         fuel: rec.fuelc
       if v.trip
-        trip = _.extend v.trip,
+        trip = lodash.merge v.trip,
           distance: distance / 1000
           consumedFuel: rec.fuelc - (trip?.start?.fuel or 0)
           avgSpeed: (distance / 1000)/duration
@@ -87,7 +87,7 @@ updateVehicle = (rec, updater, cb) ->
       else
         console.warn "Trip stop without a corresponding start!"
 
-      _.extend nullRecord(),
+      lodash.merge nullRecord(),
         lastUpdate: rec.recordTime
         odometer: rec.tacho
         rest:
