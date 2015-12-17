@@ -62,9 +62,6 @@ updateVehicle = (rec, updater, cb) ->
   deviceStop: (rec) ->
     console.log "device stopped #{rec.deviceId}"
     updateVehicle rec, (v) ->
-      distance = rec.tacho - (trip?.start?.odometer or 0)
-      duration = moment.duration(moment(rec.recordTime)
-        .diff(trip?.start?.time or 0)).asHours()
       data =
         time: rec.recordTime
         lat: rec.lat
@@ -72,8 +69,13 @@ updateVehicle = (rec, updater, cb) ->
         address: Geocoder.reverse(rec.lat, rec.lon)?[0]
         odometer: rec.tacho
         fuel: rec.fuelc
-      if v.trip
-        trip = lodash.merge v.trip,
+
+      trip = v.trip
+      if trip
+        distance = rec.tacho - (trip?.start?.odometer or 0)
+        duration = moment.duration(moment(rec.recordTime)
+          .diff(trip?.start?.time or 0)).asHours()
+        trip = lodash.merge trip,
           distance: distance / 1000
           consumedFuel: rec.fuelc - (trip?.start?.fuel or 0)
           avgSpeed: (distance / 1000)/duration
