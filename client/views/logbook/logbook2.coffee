@@ -19,7 +19,9 @@ Template.logbook2.helpers
 Template.logbook2.helpers
   fleetrGridConfig: ->
     v = Vehicles.findOne(_id: Template.instance().data.vehicleId)
-    cursor: Trips.find(deviceId: v.unitId)
+    cursor: Trips.find {deviceId: v.unitId},
+      transform: (doc) -> _.extend doc,
+          fuelPer100: doc.consumedFuel / (doc.distance / 100)
     columns: [
       id: "date"
       field: "date"
@@ -61,7 +63,7 @@ Template.logbook2.helpers
       name: 'Гориво / на 100км'
       formatter: (row, cell, value, column, rowObject) ->
         fc = if rowObject.consumedFuel then FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.consumedFuel/1000 else ''
-        fp100 = if rowObject.fuelPer100 then FleetrGrid.Formatters.roundFloat(2) row, cell, (rowObject.fuelPer100/rowObject.distance)/10 else ''
+        fp100 = FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.fuelPer100/1000
         "#{fc}<br />#{fp100}"
       width: 30
       align: 'right'
