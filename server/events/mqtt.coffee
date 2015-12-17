@@ -43,11 +43,14 @@ Meteor.startup ->
         console.warn "MQTT: Unhandled record type #{record.type}."
     ).run()
 
-  slowPublish = lodash.throttle client.publish, 100
   Meteor.methods
     replayLogbook: (dt) ->
       console.log "Resending events from #{dt}."
       date = if dt then new Date(dt) else new Date()
       Partitioner.directOperation ->
         Logbook.find({recordTime: $gt: date}, {sort: recordTime: 1}).forEach (l) ->
-          slowPublish '/fleetr/records', _.omit(l, '_id')
+          i = 0
+          pub = ->
+            client.publish '/fleetr/records', _.omit(l, '_id')
+            i++
+          Meteor.setTimeout pub, i*50
