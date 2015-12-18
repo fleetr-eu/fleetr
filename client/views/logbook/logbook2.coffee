@@ -4,6 +4,12 @@ mapLinkFormatter = (row, cell, value) ->
       <img src='/images/Google-Maps-icon.png' height='22'}'></img>
     </a>
   """
+addressFormatter = (row, cell, value, column, rowObject) ->
+  """
+    #{rowObject.start.address.replace('България, ', '').replace(/null/g, '')}
+    <br />
+    #{rowObject.stop.address.replace('България, ', '').replace(/null/g, '')}
+  """
 
 toTime = FleetrGrid.Formatters.timeFormatter
 aggregators = [
@@ -45,8 +51,7 @@ Template.logbook2.helpers
     ,
       id: 'beginEnd'
       name: 'Старт / Финиш'
-      formatter: (row, cell, value, column, rowObject) ->
-        "#{rowObject.start.address}<br />#{rowObject.stop.address}"
+      formatter: addressFormatter
       width: 80
       search: where: 'client'
     ,
