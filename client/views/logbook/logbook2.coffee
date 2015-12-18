@@ -5,11 +5,20 @@ mapLinkFormatter = (row, cell, value) ->
     </a>
   """
 addressFormatter = (row, cell, value, column, rowObject) ->
-  """
-    #{rowObject.start.address.replace('България, ', '').replace(/null/g, '')}
-    <br />
-    #{rowObject.stop.address.replace('България, ', '').replace(/null/g, '')}
-  """
+  from = rowObject.start.address
+  to = rowObject.stop.address
+  if typeof from is 'object'
+    """
+      #{from?.city or ''}, #{from?.streetName or ''} #{from?.streetNumber or ''}
+      <br />
+      #{to?.city or ''}, #{to?.streetName or ''} #{to?.streetNumber or ''}
+    """
+  else
+    """
+      #{rowObject.start.address.replace('България, ', '').replace(/null/g, '')}
+      <br />
+      #{rowObject.stop.address.replace('България, ', '').replace(/null/g, '')}
+    """
 
 toTime = FleetrGrid.Formatters.timeFormatter
 aggregators = [
