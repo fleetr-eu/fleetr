@@ -4,8 +4,8 @@ isnum = (input)->
 
 
 class TableFilter
-  
-  constructor: (columns)->  
+
+  constructor: (columns)->
     @columns = columns
     @selector = new ReactiveVar({})
 
@@ -15,7 +15,7 @@ class TableFilter
       sel.maxSpeed = {$gt:speed}
     else
       delete sel.maxSpeed
-    @selector.set(sel)      
+    @selector.set(sel)
 
   range: (range) ->
     sel = @selector.get()
@@ -23,7 +23,7 @@ class TableFilter
       sel.date = range
     else
       delete sel.date
-    @selector.set(sel)      
+    @selector.set(sel)
 
   value: (value) ->
     sel = @selector.get()
@@ -44,14 +44,14 @@ total = new ReactiveVar({})
 
 
 Template.logbook.helpers
-  selector: ()-> daterange.get() 
+  selector: ()-> daterange.get()
   totalDistance: -> total.get().distance?.toFixed(0)
   totalFuel: -> (total.get().fuel/1000)?.toFixed(0)
   totalTravelTime: -> moment.duration(total.get().travelTime, "seconds").format('HH:mm:ss', {trim: false})
   totalIdleTime: -> moment.duration(total.get().idleTime, "seconds").format('HH:mm:ss', {trim: false})
   currentSelector: ()->  Template.instance().filter.selector.get()
   currentSelectorStr: ()->  JSON.stringify(Template.instance().filter.selector.get())
-    
+
 Template.logbook.events
   'click .table tr': (event,p)->
     td = $('td', event.currentTarget).eq(0).text()
@@ -92,27 +92,24 @@ Template.logbook.rendered = ()->
       self.filter.value @value
       self.filter.maxspeed undefined
 
-  Meteor.call 'aggByDateTotals', (err, res)-> 
+  Meteor.call 'aggByDateTotals', (err, res)->
     total.set(res[0]) if not err
   $('#logbook-date-range').daterangepicker
-    startDate: moment().subtract('days', 29)
+    startDate: moment().subtract(29, 'days')
     endDate: moment()
-    ranges: 
+    ranges:
       'Today': [moment(), moment()],
-      'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
-      'Last 7 Days': [moment().subtract('days', 6), moment()],
-      'Last 30 Days': [moment().subtract('days', 29), moment()],
+      'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+      'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+      'Last 30 Days': [moment().subtract(29, 'days'), moment()],
       'This Month': [moment().startOf('month'), moment().endOf('month')],
-      'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+      'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
     buttonClasses: ['btn btn-sm']
     applyClass: ' blue'
     cancelClass: 'default'
     format: 'DD/DD/YYYY'
-    locale: 
+    locale:
       cancelLabel: 'Clear'
       daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
       monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
       firstDay: 1
-
-
-

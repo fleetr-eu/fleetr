@@ -62,9 +62,9 @@ Template.logbook2.helpers
       field: 'consumedFuel'
       name: 'Гориво / на 100км'
       formatter: (row, cell, value, column, rowObject) ->
-        fc = if rowObject.consumedFuel then FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.consumedFuel/1000 else ''
+        fc = FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.consumedFuel/1000
         fp100 = FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.fuelPer100/1000
-        "#{fc}<br />#{fp100}"
+        "#{fc or ''}<br />#{fp100 or ''}"
       width: 30
       align: 'right'
       groupTotalsFormatter: (totals, columnDef) ->
