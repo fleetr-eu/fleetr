@@ -91,8 +91,12 @@ Template.logbook2.helpers
       field: 'avgSpeed'
       name: 'Скорост / Макс'
       formatter: (row, cell, value, column, rowObject) ->
-        s = if rowObject.avgSpeed then FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.avgSpeed else ''
-        ms = if rowObject.maxSpeed then FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.maxSpeed else ''
+        s = if rowObject.avgSpeed
+          FleetrGrid.Formatters.roundFloat(0)(row, cell, rowObject.avgSpeed)
+        else ''
+        ms = if rowObject.maxSpeed
+          FleetrGrid.Formatters.roundFloat(0)(row, cell, rowObject.maxSpeed)
+        else ''
         "#{s}<br />#{ms}"
       width: 30
       cssClass: 'from'
