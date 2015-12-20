@@ -21,6 +21,8 @@ statusFormatter = (row, cell, value) ->
     color = "blue"
   if value is "start"
     color = 'green'
+    if vehicle.speed > Settings.maxSpeed
+      color = 'red'
   "<img src='/images/truck-state-#{color}.png'></img>"
 
 logbookLinkFormatter = (row, cell, value) ->
