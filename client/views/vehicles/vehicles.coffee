@@ -15,16 +15,6 @@ lastUpdateFormatter = (daysAgo) -> (row, cell, value) ->
     noDataWarning = TAPi18n.__('vehicles.lastUpdateNoDataWarning')
     "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{noDataWarning}'></i>"
 
-statusFormatter = (speed) -> (row, cell, value) ->
-  color = 'grey'
-  if value is 'stop'
-    color =  'blue'
-  if value is 'start'
-    color = 'green'
-#   if speed > Settings.maxSpeed
-#    color = 'red'
-  "<img src='/images/truck-state-#{color}.png'></img>"
-
 logbookLinkFormatter = (row, cell, value) ->
   "<a href='/vehicles/#{value}/logbook'><img src='/images/logbook-icon.png' height='22' }'></img></a>"
 
@@ -49,7 +39,7 @@ Template.vehicles.helpers
         maxWidth: 38
         sortable: true
         search: where: 'client'
-        formatter: statusFormatter(0)
+        formatter: FleetrGrid.Formatters.statusFormatter
         align: 'left'
       ,
         id: "speed"

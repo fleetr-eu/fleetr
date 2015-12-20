@@ -1,13 +1,3 @@
-statusFormatter = (speed) -> (row, cell, value) ->
-  color = 'grey'
-  if value is 'stop'
-    color =  'blue'
-  if value is 'start'
-    color = 'green'
-#   if speed > Settings.maxSpeed
-#    color = 'red'
-  "<img src='/images/truck-state-#{color}.png'></img>"
-
 showFilterBox = new ReactiveVar false
 
 Template.map.onRendered ->
@@ -38,7 +28,7 @@ Template.map.helpers
       width: 1
       sortable: true
       search: where: 'client'
-      formatter: statusFormatter(0)
+      formatter: FleetrGrid.Formatters.statusFormatter
     ,
       id: "speed"
       field: "speed"
