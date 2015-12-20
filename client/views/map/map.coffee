@@ -1,12 +1,12 @@
-statusFormatter = (row, cell, value) ->
+statusFormatter (speed) -> = (row, cell, value) ->
   color = 'grey'
-  if value
-    if value == "stop"
-      color = "blue"
-    else  
-      if value == "start"
-        color = 'green'
-  "<img src='/images/truck-state-#{color}.png'></img>"  
+  if value is 'stop'
+    color =  'blue'
+  if value is 'start'
+    color = 'green'
+#   if speed > Settings.maxSpeed
+#    color = 'red'
+  "<img src='/images/truck-state-#{color}.png'></img>"
 
 showFilterBox = new ReactiveVar false
 
@@ -38,7 +38,7 @@ Template.map.helpers
       width: 1
       sortable: true
       search: where: 'client'
-      formatter: statusFormatter
+      formatter: statusFormatter(0)
     ,
       id: "speed"
       field: "speed"
