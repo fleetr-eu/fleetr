@@ -27,6 +27,18 @@ FleetrGrid.Formatters =
       @_blazeCache.templates["#{row}:#{cell}"] = blazeTemplate
       setTimeout (=> @_renderBlazeTemplates(row,cell)), 0
       "<div class='blazeTemplate cell#{row}-#{cell}'></div>"
+  statusFormatter: (row, cell, value, column, rowObject) ->
+    color = 'grey'
+    if value is 'stop'
+      color =  'blue'
+    if value is 'start'
+      color = 'green'
+      if rowObject.speed > Settings.maxSpeed
+        color = 'red'
+      else 
+        if rowObject.speed < Settings.minSpeed
+          color = 'cyan'
+    "<img src='/images/truck-state-#{color}.png'></img>"      
   decoratedLessThanFormatter: (numberError, numberWarning, decimals=0 ) -> (row, cell, value) -> 
     if value >= 0
       v = Number((Number(value)).toFixed(decimals))
