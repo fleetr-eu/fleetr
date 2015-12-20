@@ -1,4 +1,4 @@
-statusFormatter (speed) -> = (row, cell, value) ->
+statusFormatter = (speed) -> (row, cell, value) ->
   color = 'grey'
   if value is 'stop'
     color =  'blue'
