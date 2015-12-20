@@ -19,6 +19,8 @@ Meteor.startup ->
 
   Template.fleetrGrid.onRendered ->
     @grid.install()
+  Template.fleetrGrid.onDestroyed ->
+    @grid.destroy()
 
   grid = -> Template.instance().grid
 

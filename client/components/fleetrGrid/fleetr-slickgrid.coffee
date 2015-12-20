@@ -135,6 +135,7 @@ Helpers =
     @loadingIndicator?.fadeOut()
 
   @_renderBlazeTemplates = (row, col) ->
+    #console.log '_renderBlazeTemplates', row, col
     node = $(".cell#{row}-#{col}")
     rowObject = @grid.getData().getItem(row)
     column = @grid.getColumns()[col]
@@ -148,11 +149,25 @@ Helpers =
     tpl = @_blazeCache.templates["#{row}:#{col}"]
     # remove the view if it had already been rendered before
     # rendering it again
-    if @_blazeCache.views["#{row}:#{col}"]
-      Blaze.remove @_blazeCache.views["#{row}:#{col}"]
-    # render the view
-    view = Blaze.renderWithData tpl, ctx, node.get(0)
-    @_blazeCache.views["#{row}:#{col}"] = view
+    if domNode = node.get(0)
+      if view = @_blazeCache.views["#{row}:#{col}"]
+        console.log "view exists for #{row}:#{col}", view
+        if view._domrange.parentElement != domNode
+          console.log "reattach view for #{row}:#{col}", domNode
+          $(".cell#{row}-#{col}").empty()
+          view._domrange.attach domNode
+        view.dataVar.set ctx
+      else
+        # render the view
+        $(".cell#{row}-#{col}").empty()
+        console.log "render view of #{row}:#{col}", domNode, @_blazeCache.views["#{row}:#{col}"]
+        view = Blaze.renderWithData tpl, ctx, domNode
+        @_blazeCache.views["#{row}:#{col}"] = view
+
+  @destroy = ->
+    Blaze.remove(@_blazeCache.views[key]) for key of @_blazeCache.views
+    @_blazeCache.views = {}
+    @_blazeCache.templates = {}
 
   @install = (initializeData = true) ->
 
