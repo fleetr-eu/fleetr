@@ -1,5 +1,6 @@
 @Settings =
   maxSpeed: 100
+  minSpeed: 0.1
   maxStay: 30
   zeroSpeed: 0.1
   locale: 'bg'

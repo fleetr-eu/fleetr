@@ -45,7 +45,10 @@ Meteor.startup ->
         color = 'green'
         if vehicle.speed > Settings.maxSpeed
           color = 'red'
-      truckIcon = "/images/truck-state-#{color}.png"
+        else 
+          if vehicle.speed < Settings.minSpeed
+            color = 'cyan'
+      truckIcon = "/images/truck-#{color}.png"
 
       super
         position: new FleetrLatLng [vehicle.lat, vehicle.lon]

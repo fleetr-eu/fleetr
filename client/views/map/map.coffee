@@ -6,6 +6,9 @@ statusFormatter = (row, cell, value, column, rowObject) ->
     color = 'green'
    if rowObject.speed > Settings.maxSpeed
     color = 'red'
+   else 
+    if rowObject.speed < Settings.minSpeed
+      color = 'cyan'
   "<img src='/images/truck-state-#{color}.png'></img>"
 
 showFilterBox = new ReactiveVar false
