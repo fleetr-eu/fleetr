@@ -39,12 +39,12 @@ Meteor.startup ->
   class @VehicleMarker extends FleetrMarker
     constructor: (vehicle) ->
       color = 'grey'
-        if value is "stop"
-          color = "blue"
-        if value is "start"
-          color = 'green'
-          if vehicle.speed > Settings.maxSpeed
-            color = 'red'
+      if value is "stop"
+        color = "blue"
+      if value is "start"
+        color = 'green'
+        if vehicle.speed > Settings.maxSpeed
+          color = 'red'
       truckIcon = "/images/truck-state-#{color}.png"
 
       super
