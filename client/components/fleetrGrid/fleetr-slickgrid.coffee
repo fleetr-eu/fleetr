@@ -135,7 +135,6 @@ Helpers =
     @loadingIndicator?.fadeOut()
 
   @_renderBlazeTemplates = (row, col) ->
-    #console.log '_renderBlazeTemplates', row, col
     node = $(".cell#{row}-#{col}")
     rowObject = @grid.getData().getItem(row)
     column = @grid.getColumns()[col]
@@ -147,20 +146,22 @@ Helpers =
       rowObject: rowObject
       grid: @
     tpl = @_blazeCache.templates["#{row}:#{col}"]
-    # remove the view if it had already been rendered before
-    # rendering it again
+
+    # ensure that the parent node exists
     if domNode = node.get(0)
+      # check if we can reuse the view
       if view = @_blazeCache.views["#{row}:#{col}"]
-        console.log "view exists for #{row}:#{col}", view
+        # check if the view's parent element is different than the current one
+        # this can happen when slickgrid discards the old dom element
         if view._domrange.parentElement != domNode
-          console.log "reattach view for #{row}:#{col}", domNode
+          # if so, ensure that the node is empty and reattach the view
           $(".cell#{row}-#{col}").empty()
           view._domrange.attach domNode
-        view.dataVar.set ctx
+        view.dataVar.set ctx # update the data of the view
       else
-        # render the view
+        # ensure the parent node is empty
         $(".cell#{row}-#{col}").empty()
-        console.log "render view of #{row}:#{col}", domNode, @_blazeCache.views["#{row}:#{col}"]
+        # render the view
         view = Blaze.renderWithData tpl, ctx, domNode
         @_blazeCache.views["#{row}:#{col}"] = view
 
