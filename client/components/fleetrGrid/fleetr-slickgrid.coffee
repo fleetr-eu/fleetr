@@ -12,7 +12,6 @@ Helpers =
   if serverMethodOrCursor.observe
     @cursor = serverMethodOrCursor
   else if typeof serverMethodOrCursor == 'function'
-    console.log 'serverMethodOrCursor is function'
     @cursor = serverMethodOrCursor()
   else if typeof serverMethodOrCursor == 'string'
     @serverMethod = serverMethodOrCursor
