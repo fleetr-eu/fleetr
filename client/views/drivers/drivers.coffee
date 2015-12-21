@@ -1,4 +1,4 @@
-Template.documentsButton.helpers 
+Template.documentsButton.helpers
   driverId: => Session.get "selectedItemId"
 
 Template.drivers.helpers
@@ -29,7 +29,10 @@ Template.drivers.helpers
         name: "#{TAPi18n.__('drivers.tags')}"
         width:80
         sortable: true
-        search: where: 'client'
+        search:
+          where: 'client'
+          filter: (search) -> (item) ->
+            _.contains item.split(',').map((e)->e.trim()), search
         formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags
       ]
       options:
