@@ -12,7 +12,9 @@ Helpers =
   if serverMethodOrCursor.observe
     @cursor = serverMethodOrCursor
   else if typeof serverMethodOrCursor == 'function'
-    @cursor = serverMethodOrCursor()
+    Tracker.autorun =>
+      @cursor = serverMethodOrCursor()
+      @_refreshData() if @_refreshData
   else if typeof serverMethodOrCursor == 'string'
     @serverMethod = serverMethodOrCursor
   else
