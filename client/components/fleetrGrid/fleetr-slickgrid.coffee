@@ -12,7 +12,6 @@ Helpers =
   if serverMethodOrCursor.observe
     @cursor = serverMethodOrCursor
   else if typeof serverMethodOrCursor == 'function'
-    console.log 'serverMethodOrCursor is function'
     @cursor = serverMethodOrCursor()
   else if typeof serverMethodOrCursor == 'string'
     @serverMethod = serverMethodOrCursor
@@ -82,9 +81,11 @@ Helpers =
     for filter in filters
       for field of filter.spec
         return false if item[field] == undefined
-        regex = new RegExp filter.spec[field].regex, 'i'
-        if !"#{item[field]}".match regex
-          return false
+        if filter.spec[field].filter
+          return false if !filter.spec[field].filter "#{item[field]}"
+        else if filter.spec[field].regex
+          regex = new RegExp filter.spec[field].regex, 'i'
+          return false if !"#{item[field]}".match regex
     true
   # <-- column filters
 
@@ -135,7 +136,6 @@ Helpers =
     @loadingIndicator?.fadeOut()
 
   @_renderBlazeTemplates = (row, col) ->
-    #console.log '_renderBlazeTemplates', row, col
     node = $(".cell#{row}-#{col}")
     rowObject = @grid.getData().getItem(row)
     column = @grid.getColumns()[col]
@@ -147,20 +147,22 @@ Helpers =
       rowObject: rowObject
       grid: @
     tpl = @_blazeCache.templates["#{row}:#{col}"]
-    # remove the view if it had already been rendered before
-    # rendering it again
+
+    # ensure that the parent node exists
     if domNode = node.get(0)
+      # check if we can reuse the view
       if view = @_blazeCache.views["#{row}:#{col}"]
-        console.log "view exists for #{row}:#{col}", view
+        # check if the view's parent element is different than the current one
+        # this can happen when slickgrid discards the old dom element
         if view._domrange.parentElement != domNode
-          console.log "reattach view for #{row}:#{col}", domNode
+          # if so, ensure that the node is empty and reattach the view
           $(".cell#{row}-#{col}").empty()
           view._domrange.attach domNode
-        view.dataVar.set ctx
+        view.dataVar.set ctx # update the data of the view
       else
-        # render the view
+        # ensure the parent node is empty
         $(".cell#{row}-#{col}").empty()
-        console.log "render view of #{row}:#{col}", domNode, @_blazeCache.views["#{row}:#{col}"]
+        # render the view
         view = Blaze.renderWithData tpl, ctx, domNode
         @_blazeCache.views["#{row}:#{col}"] = view
 
@@ -252,7 +254,10 @@ Helpers =
         if $(e.target).val().length
           @addFilter where, column.name, $(e.target).val(),
             fltr = {}
-            fltr[column.field] = regex: "#{$(e.target).val()}"
+            if column.search.filter and where is 'client'
+              fltr[column.field] = filter: column.search.filter "#{$(e.target).val()}"
+            else
+              fltr[column.field] = regex: "#{$(e.target).val()}"
             fltr
         else
           @removeFilter where, column.name
