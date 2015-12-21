@@ -59,3 +59,25 @@ The listing below shows an example filter implementation that matches on an item
         _.contains columnValue.map((e)->e.trim()), searchText
 
 ### <a name="data-formatters"></a>Data formatters
+A data formatter formats the data for rendering in a cell. FleetrGrid comes with a couple of build-in formatters. All build-in formatters reside in the `FleetrGrid.Formatters` object. To use them, prepend the formatter name with `FleetrGrid.Formatters`.
+
+| Formatter | Description
+|-----------|--------------
+| dateFormatter | Formats the cell value as a date (DD/MM/YYYY)
+| timeFormatter | Formats the cell value as a time (HH:mm:ss)
+| dateTimeFormatter| Formats the cell as date+time (DD/MM/YYYY HH:mm:ss)
+| roundFloat | Rounds a floating point number. This formatter takes an optional argument to configure the number of decimals to round by. E.g. `roundFloat(2)`.
+| euroFormatter | Prepends the cell value with a Euro currency symbol.
+| blazeFormatter | Renders a Blaze template. See [Blaze templates in columns](#blaze-templates-in-columns)
+
+#### <a name="laze-templates-in-columns"></a>Blaze templates in columns
+FleetrGrid supports the rendering of Blaze templates in cell's. To render a template you must use the blazeFormatter. The blazeFormatter requires the template instance as argument. When the template is rendered FleetrGrid passes the following properties as the data-context to the Template.
+
+    row: /row in the grid
+    col: /column in the grid
+    value: /the column value
+    column: /the column instance
+    rowObject: /the row object
+    grid: /an instance to fleetrGrid
+
+FleetrGrid manages the lifecycle of the Blaze view. All normal Blaze functionality is supported, including helpers, events and the created/destroyed callbacks.
