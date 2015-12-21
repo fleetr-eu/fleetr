@@ -21,7 +21,7 @@ Destroys this grid instance, be sure to call this method in order to correctly u
 A column definition describes one column in the grid. You pass an *Array* of column definitions to the [constructor](#constructor) of FleetrGrid to define the functionality and dimension of the grid.
 
 | Property  | Required? | Example / Possible values | Description
-|-----------------------------------------------------------------
+|-----------|-----------|---------------------------|------------
 | id        | Y         |                             | unique identification
 | name      | Y         |                             | column name
 | field     | N         |                             | name of field in dataset, visible in header cell
@@ -41,7 +41,7 @@ correctly filtering the data.
 When the filter is run on the client, a custom filter function can be configured to be applied. By default a regular expression filter is executed.
 
 | Property  | Required? | Example / Possible values | Description
-|-----------------------------------------------------------------
+|-----------|-----------|---------------------------|-------------
 | where     | Y         | 'client' / 'server'       | where the filter is executed.
 | dateRange | N         | [moment().startOf('month'), moment().endOf('month')] | [Moment.js](http://momentjs.com/) date range
 | filter    | N         |  | See [custom filter](#custom-filter).
