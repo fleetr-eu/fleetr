@@ -81,9 +81,11 @@ Helpers =
     for filter in filters
       for field of filter.spec
         return false if item[field] == undefined
-        regex = new RegExp filter.spec[field].regex, 'i'
-        if !"#{item[field]}".match regex
-          return false
+        if filter.spec[field].filter
+          return false if !filter.spec[field].filter "#{item[field]}"
+        else if filter.spec[field].regex
+          regex = new RegExp filter.spec[field].regex, 'i'
+          return false if !"#{item[field]}".match regex
     true
   # <-- column filters
 
@@ -252,7 +254,10 @@ Helpers =
         if $(e.target).val().length
           @addFilter where, column.name, $(e.target).val(),
             fltr = {}
-            fltr[column.field] = regex: "#{$(e.target).val()}"
+            if column.search.filter and where is 'client'
+              fltr[column.field] = filter: column.search.filter "#{$(e.target).val()}"
+            else
+              fltr[column.field] = regex: "#{$(e.target).val()}"
             fltr
         else
           @removeFilter where, column.name
