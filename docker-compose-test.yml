@@ -1,0 +1,21 @@
+web:
+  image: greyarch/fleetr
+  restart: unless-stopped
+  links:
+   - db
+   - mqtt
+  ports:
+   - "10025:80"
+  environment:
+   - ROOT_URL=http://fleetr.eu
+   - MONGO_URL=mongodb://db:27017
+   - METEOR_SETTINGS={"mqttUrl" : "mqtt://gps.kale-bg.com:10013"}
+
+db:
+  image: mongo:2.6
+  restart: unless-stopped
+  ports:
+   - "27017:27017"
+   - "28017:28017"
+  volumes:
+   - /media/data/fleetr:/data/db
