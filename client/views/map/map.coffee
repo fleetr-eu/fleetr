@@ -12,8 +12,19 @@ Template.map.onRendered ->
           Map.setCenter [selectedVehicle.lat, selectedVehicle.lon]
         else
           Alerts.set 'This vehicle has no known position.'
+      Map.renderMarkers()
 
-    @autorun -> Map.renderMarkers(); Session.get 'vehicleFilter'
+      if selectedVehicle.trip?.start
+        searchArgs =
+          recordTime:
+            $gte: selectedVehicle.trip.start.time
+          deviceId: selectedVehicle.unitId
+          type: 30
+
+        Meteor.subscribe 'logbook', searchArgs, ->
+          path = Logbook.find(searchArgs, {sort: recordTime: -1}).map (point) ->
+            lat: point.lat, lng: point.lon, id: point._id
+          Map.renderPath(path)
 
 Template.map.helpers
   filterOptions: -> vehicleDisplayStyle: 'none'
@@ -38,7 +49,7 @@ Template.map.helpers
       align: 'right'
       search: where: 'client'
       formatter: FleetrGrid.Formatters.decoratedGreaterThanFormatter(50, 100, 0)
-    ,  
+    ,
       id: "name"
       field: "name"
       name: TAPi18n.__('vehicles.name')

@@ -4,7 +4,7 @@ Template.simpleMap.onCreated ->
   unitId = deviceId
 
 Template.simpleMap.onRendered ->
-  mapCanvasHeight = $(document).height() - 180
+  mapCanvasHeight = $(document).height() - 150
   $('#simpleMap').height mapCanvasHeight
   {deviceId, start, stop, idle} =  EJSON.parse decodeURIComponent @data
   start.time = moment(start.time).toDate()
@@ -43,8 +43,7 @@ Template.simpleMap.onRendered ->
 
     Meteor.subscribe 'logbook', searchArgs, ->
       path = Logbook.find(searchArgs, {sort: recordTime: -1}).map (point) ->
-        color = 'red' if point.speed >= Settings.maxSpeed
-        color = 'blue' if point.speed <= Settings.zeroSpeed
+        color = if point.speed >= Settings.maxSpeed then 'red' else 'blue'
         if color
           opts =
             position: new google.maps.LatLng(point.lat, point.lon)

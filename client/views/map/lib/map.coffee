@@ -34,6 +34,16 @@ Meteor.startup ->
       Map.deleteVehicleMarkers()
       Map.showVehicleMarkers markers
 
+    renderPath: (path) ->
+      Map.deleteCurrentPath()
+      Map.showPath path
+
+    showPath: (path) ->
+      Map.currentPath = new FleetrPolyline Map.map, path
+
+    deleteCurrentPath: ->
+      Map.currentPath?.setMap null
+
     addListener: (event, listener) ->
       google.maps.event.addListener Map.map, event, listener
 
