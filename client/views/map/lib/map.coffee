@@ -23,7 +23,8 @@ Meteor.startup ->
 
       google.maps.event.addListenerOnce Map.map, 'idle', Map.renderMarkers
 
-      Map.addListener 'zoom_changed', -> Session.set('zoomLevel', Map.map.getZoom())
+      Map.addListener 'zoom_changed', ->
+        Session.set('zoomLevel', Map.map.getZoom())
 
       Autocomplete.init Map.map
       cb && cb()

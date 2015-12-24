@@ -22,9 +22,16 @@ Template.map.onRendered ->
           type: 30
 
         Meteor.subscribe 'logbook', searchArgs, ->
-          path = Logbook.find(searchArgs, {sort: recordTime: -1}).map (point) ->
-            lat: point.lat, lng: point.lon, id: point._id
-          Map.renderPath(path)
+          points = Logbook.find searchArgs,
+            sort: recordTime: -1,
+            fields:
+              lat: 1
+              lon: 1
+
+          points.observe
+            added: ->
+              Map.renderPath points.map (point) ->
+                lat: point.lat, lng: point.lon, id: point._id
 
 Template.map.helpers
   filterOptions: -> vehicleDisplayStyle: 'none'
