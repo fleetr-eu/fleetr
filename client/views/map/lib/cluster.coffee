@@ -23,3 +23,6 @@ Meteor.startup ->
     removeMarker: (id) ->
       marker = _.find @getMarkers(), (m) -> m.id is id
       @removeMarker marker
+
+    removeAllMarkers: ->
+      @clearMarkers() if @getMarkers()?.length

@@ -54,7 +54,7 @@ Meteor.startup ->
     setCenter: (location) ->
       Map.map?.setCenter(new FleetrLatLng(location)) if location
 
-    deleteVehicleMarkers: -> Map.vehicleClusterer?.clearMarkers()
+    deleteVehicleMarkers: -> Map.vehicleClusterer?.removeAllMarkers()
 
     getSearchArea: ->
       try
