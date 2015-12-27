@@ -309,6 +309,9 @@
       "odometerToMaintenance" : "Оставащи км",
       "nextMaintenanceEngineHours" : "Д-ни часове",
       "engineHoursToMaintenance" : "Оставащи часове"
+    },
+    "upcomingEvents": {
+        "title" : "Предстоящи събития"
     }
   },
 
