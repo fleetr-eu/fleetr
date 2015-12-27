@@ -81,8 +81,8 @@ Template.maintenanceReport.helpers
       explicitInitialization: true
       forceFitColumns: true
     remoteMethod: 'getMaintenanceVehicles'
-    # customize: (grid) ->
-    #   now = moment()
-    #   future = moment().add(1, 'months')
-    #   grid.addFilter 'server', TAPi18n.__('reports.maintenance.nextMaintenanceDate'), "#{now.format('YYYY-MM-DD')} - #{future.format('YYYY-MM-DD')}",
-    #     {maintenanceDateMin: now.toISOString(), maintenanceDateMax: future.toISOString()}, false
+    customize: (grid) ->
+      now = moment()
+      future = moment().add(1, 'months')
+      grid.addFilter 'server', TAPi18n.__('reports.maintenance.nextMaintenanceDate'), "#{now.format('YYYY-MM-DD')} - #{future.format('YYYY-MM-DD')}",
+        {maintenanceDateMin: now.toISOString(), maintenanceDateMax: future.toISOString()}, false
