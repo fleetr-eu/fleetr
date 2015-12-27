@@ -395,6 +395,7 @@ Schema.expenses = new SimpleSchema
         template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
    quantity:
       type: Number
+      decimal:true
       label: ()->TAPi18n.__('expenses.quantity')
       autoform:
         template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
@@ -413,6 +414,7 @@ Schema.expenses = new SimpleSchema
        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
    VATIncluded:
       type: Boolean
+      decimal:true
       label: ()->TAPi18n.__('expenses.VATIncluded')
       optional: true
       autoform:
@@ -426,6 +428,7 @@ Schema.expenses = new SimpleSchema
         template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
    total:
       type:Number
+      decimal:true
       label: ()->TAPi18n.__('expenses.total')
       autoform:
         template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"

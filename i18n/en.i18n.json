@@ -306,6 +306,9 @@
       "odometerToMaintenance" : "Remaining km",
       "nextMaintenanceEngineHours" : "Engine hours",
       "engineHoursToMaintenance" : "Remaining hours"
+    },
+    "upcomingEvents": {
+        "title" : "Upcoming Events"
     }
   },
 

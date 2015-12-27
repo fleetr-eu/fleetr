@@ -87,3 +87,4 @@ Meteor.methods
       maintenance.vehicleName = vehicle.name
       maintenance.fleetName = Fleets.findOne(_id: vehicle?.allocatedToFleet)?.name
       maintenance
+
