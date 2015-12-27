@@ -13,7 +13,6 @@ fleetrGridConfig =
       dateRange: DateRanges.history
     groupable:
       transform: getDateRow 'timestamp'
-      aggregators: aggregatorsBasic
   ,
     id: "description"
     field: "description"
@@ -27,8 +26,8 @@ fleetrGridConfig =
     name: "Days to"
     width:20
     hidden:true
-    search: where: 'client'  
-  , 
+    search: where: 'client'
+  ,
     id: "vehicle"
     field: "vehicleName"
     name: "#{TAPi18n.__('expenses.vehicle')}"
