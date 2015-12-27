@@ -1,11 +1,14 @@
 Meteor.publish 'drivers', -> Drivers.find {}
 Meteor.publish 'driver', (filter) -> if filter then Drivers.find(filter) else []
 Meteor.publish 'countries', -> Countries.find {}
-Meteor.publish 'vehicles', (filter) -> if filter then Vehicles.find filter else Vehicles.find {}
-Meteor.publish 'tyres', (filter) -> if filter then Tyres.find filter else Tyres.find {}
-Meteor.publish 'vehicle', (filter) -> if filter then Vehicles.find(filter) else []
+Meteor.publish 'vehicles', (filter = {}, opts = {}) ->
+  Vehicles.find filter, opts
+Meteor.publish 'tyres', (filter = {}) -> Tyres.find filter
+Meteor.publish 'vehicle', (filter) ->
+  if filter then Vehicles.find(filter) else []
 Meteor.publish 'vehiclesMakes', -> Vehicles.find {}, {fields: makeAndModel: 1}
-Meteor.publish 'fleetGroups', (filter) -> FleetGroups.find filter or {}, {$sort: {name: 1}}
+Meteor.publish 'fleetGroups', (filter = {}) ->
+  FleetGroups.find filter, {$sort: {name: 1}}
 Meteor.publish 'fleetGroup', (gid) -> FleetGroups.find {_id: gid}
 Meteor.publish 'fleets', (filter) -> Fleets.find filter or {}
 Meteor.publish 'fleet', (fid) -> Fleets.find {_id: fid}
@@ -22,14 +25,13 @@ Meteor.publish 'insurancePayments', -> InsurancePayments.find {}
 Meteor.publish 'insurances', -> Insurances.find {}
 Meteor.publish 'maintenanceType', (id) -> MaintenanceTypes.find _id: id
 Meteor.publish 'vehicleMaintenances', (vehicleId)-> Maintenances.find {vehicle: vehicleId}
-Meteor.publish 'vehicleById', (vehicleId)-> Vehicles.find {_id: vehicleId}
 Meteor.publish 'alarms', -> Alarms.find {}
 Meteor.publish 'notifications', -> Notifications.find {}
 Meteor.publish 'geofences', (filter) -> Geofences.findFiltered filter, ['name', 'tags']
 Meteor.publish 'driverVehicleAssignments', -> DriverVehicleAssignments.find {}
 Meteor.publish 'driverVehicleAssignment', (filter) -> if filter then DriverVehicleAssignments.find filter else []
-
-Meteor.publish 'startstop', (args) -> StartStop.find(args || {}, {sort: {startTime: 1}} )
+Meteor.publish 'startstop', (args = {}) ->
+  StartStop.find args, {sort: {startTime: 1}}
 Meteor.publish 'aggbydate', (args) -> AggByDate.find(args || {})
 Meteor.publish 'latest device position', (deviceId) -> Logbook.find {deviceId: deviceId}, {sort: {recordTime: -1}, limit: 1}
 Meteor.publish 'idlebook'  , (args) -> IdleBook.find(args || {}, {sort: {startTime: 1}} )

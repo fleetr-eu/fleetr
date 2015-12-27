@@ -9,11 +9,31 @@
                   </div>
               </div>
               <div class="actions">
-                <a href="#" id="toggle-filter" class="btn btn-circle btn-default {{#if showFilterBox}}active{{/if}}">
-                  <i class="glyphicon glyphicon-filter"></i>
-                  {{_ "button.filter"}}
-                </a>
-                <a href="#" class="btn btn-circle btn-icon-only btn-default fullscreen"></a>
+								<div class="btn-group">
+                  <a class="btn btn-circle btn-default"
+										href="#" data-toggle="dropdown"
+										data-hover="dropdown"
+										data-close-others="true">
+											Select a vehicle
+                      <i class="fa fa-angle-down"></i>
+                  </a>
+                  <ul class="dropdown-menu">
+										{{#each vehicles}}
+										<li><a href={{pathFor 'vehicleLogbook' vehicleId=_id}}>{{name}}</a></li>
+										{{/each}}
+                  </ul>
+								</div>
+									<!-- <select class="form-control" id="logbookVehicleFilter">
+										<option value="" disabled selected>Select a vehicle</option>
+										{{#each vehicles}}
+										<option value={{_id}} data-unit-id={{unitId}}>{{name}}</option>
+										{{/each}}
+									</select> -->
+	                <!-- <a href="#" id="toggle-filter" class="btn btn-circle btn-default {{#if showFilterBox}}active{{/if}}">
+	                  <i class="glyphicon glyphicon-filter"></i>
+	                  {{_ "button.filter"}}
+	                </a> -->
+	                <a href="#" class="form-control btn btn-circle btn-icon-only btn-default fullscreen"></a>
               </div>
             </div>
             <div class="portlet-body" id="map-container">

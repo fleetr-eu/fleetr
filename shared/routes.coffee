@@ -121,7 +121,10 @@ Meteor.startup ->
       path: '/vehicle/:vehicleId/maintenance/list'
       template: 'maintenances'
       data: -> {'vehicleId' : @params.vehicleId}
-      waitOn: -> [Meteor.subscribe('vehicleById', @params.vehicleId), Meteor.subscribe('vehicleMaintenances', @params.vehicleId), Meteor.subscribe('maintenanceTypes')]
+      waitOn: ->
+        [Meteor.subscribe('vehicle', _id: @params.vehicleId)
+        Meteor.subscribe('vehicleMaintenances', @params.vehicleId)
+        Meteor.subscribe('maintenanceTypes')]
 
     @route 'listMaintenanceType',
       path: '/maintenance/types/list'
@@ -138,13 +141,17 @@ Meteor.startup ->
     @route 'listInsurances',
       path: '/insurance/list'
       template: 'insurances'
-      waitOn: -> [Meteor.subscribe('insurances', @params.insuranceId), Meteor.subscribe('vehicles'), Meteor.subscribe('insuranceTypes')]
+      waitOn: ->
+        [Meteor.subscribe('insurances', @params.insuranceId)
+        Meteor.subscribe('vehicles')
+        Meteor.subscribe('insuranceTypes')]
 
     @route 'listInsurancePayments',
       path: '/insurance/:insuranceId/payment/list'
       template: 'insurancePayments'
       data: -> {'insuranceId' : @params.insuranceId}
-      waitOn: -> [Meteor.subscribe('insurancePayments', @params.insurancePaymentId)]
+      waitOn: ->
+        Meteor.subscribe('insurancePayments', @params.insurancePaymentId)
 
     @route 'geofences',
       path: '/geofences'
@@ -153,7 +160,10 @@ Meteor.startup ->
     @route 'listDriverVehicleAssignments',
       path: '/assignments/driver/vehicle/list'
       template: 'driverVehicleAssignments'
-      waitOn: -> [Meteor.subscribe('vehicles'), Meteor.subscribe('drivers'), Meteor.subscribe('driverVehicleAssignments')]
+      waitOn: ->
+        [Meteor.subscribe('vehicles')
+        Meteor.subscribe('drivers')
+        Meteor.subscribe('driverVehicleAssignments')]
     @route 'addDriverVehicleAssignment',
       path: '/assignments/driver/vehicle/add'
       template: 'driverVehicleAssignment'
@@ -184,7 +194,8 @@ Meteor.startup ->
         console.log 'subscribing for trips with vehicleId', @params.vehicleId
         [
           Meteor.subscribe('tripsOfVehicle', @params.vehicleId)
-          Meteor.subscribe('vehicleById', @params.vehicleId)
+          Meteor.subscribe('vehicle', _id: @params.vehicleId)
+          Meteor.subscribe('vehicles', {}, {fields: {name: 1, unitId: 1}})
         ]
 
     @route 'logbookReportStartStop',

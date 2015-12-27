@@ -28,13 +28,15 @@ aggregators = [
   new Slick.Data.Aggregators.Sum 'consumedFuel'
 ]
 
-
 Template.logbook2.events
   'click #toggle-filter': (e, t) ->
     showFilterBox.set not showFilterBox.get()
     Meteor.defer -> t.grid.resize()
+  'change #logbookVehicleFilter': (e, t) ->
+    Router.go 'vehicleLogbook', vehicleId: e.target.value
 
 Template.logbook2.helpers
+  vehicles: -> Vehicles.find()
   vehicleName: ->
     v = Vehicles.findOne(_id: Template.instance().data.vehicleId)
     "#{v.name} (#{v.licensePlate})"
@@ -60,7 +62,7 @@ Template.logbook2.helpers
       align: 'right'
       search: where: 'client'
       formatter: FleetrGrid.Formatters.decoratedGreaterThanFormatter(50, 100, 0)
-    ,  
+    ,
       id: "name"
       field: "name"
       name: TAPi18n.__('vehicles.name')
