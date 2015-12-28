@@ -34,10 +34,16 @@ Template.logbook2.events
     Meteor.defer -> t.grid.resize()
   'change #logbookVehicleFilter': (e, t) ->
     Router.go 'vehicleLogbook', vehicleId: e.target.value
+  'rowsSelected': (e, t) ->
+    Router.go 'vehicleLogbook', vehicleId: e.fleetrGrid.data[e.rowIndex]._id
+    # Session.set 'selectedVehicleId', e.fleetrGrid.data[e.rowIndex]._id
+
+Template.logbook2.onRendered ->
+  Session.set 'selectedVehicleId', Template.instance().data.vehicleId
 
 Template.logbook2.helpers
-  vehicles: -> Vehicles.find()
   vehicleName: ->
+    # v = Vehicles.findOne(_id: Session.get('selectedVehicleId'))
     v = Vehicles.findOne(_id: Template.instance().data.vehicleId)
     "#{v.name} (#{v.licensePlate})"
   filterOptions: -> vehicleDisplayStyle: 'none'

@@ -195,7 +195,6 @@ Meteor.startup ->
         [
           Meteor.subscribe('tripsOfVehicle', @params.vehicleId)
           Meteor.subscribe('vehicle', _id: @params.vehicleId)
-          Meteor.subscribe('vehicles', {}, {fields: {name: 1, unitId: 1}})
         ]
 
     @route 'logbookReportStartStop',
