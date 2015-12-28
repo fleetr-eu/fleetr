@@ -11,7 +11,7 @@ web:
    - 'METEOR_SETTINGS={"mqttUrl" : "mqtt://gps.kale-bg.com:10013"}'
 
 db:
-  image: mongo:2.6
+  image: mongo:3
   restart: unless-stopped
   ports:
    - "27017:27017"
