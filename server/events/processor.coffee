@@ -1,3 +1,7 @@
+@EventProcessor =
+  devicePing: (record) ->
+    console.log 'Received event type 0, just logging.', record
+
 @LogbookProcessor =
   insertRecord: (record) ->
     if typeof record.recordTime is 'string'
