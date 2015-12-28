@@ -2,7 +2,7 @@ Helpers =
   addId: (item) -> item.id = item._id; item;
 
 # Component that wraps SlickGrid and uses Meteorish constructs
-@FleetrGrid = (options, columns, serverMethodOrCursor) ->
+@FleetrGrid = (gridId, options, columns, serverMethodOrCursor) ->
 
   @grid = null
   @_dataView = null
@@ -228,13 +228,13 @@ Helpers =
 
     grandTotalsColumns = (column for column in columns when column.grandTotal)
     @totalsDataProvider = TotalsDataProvider @_dataView, columns, grandTotalsColumns
-    @grid = new Slick.Grid '#slickgrid', @totalsDataProvider, columns, options
+    @grid = new Slick.Grid "#slickgrid-#{gridId}", @totalsDataProvider, columns, options
     @grid.setSelectionModel new Slick.RowSelectionModel()
     @grid.registerPlugin headerButtonsPlugin
 
     @grid.onSelectedRowsChanged.subscribe (err, args) =>
       if args?.rows?.length > 0
-        $('#slickgrid').trigger $.Event 'rowsSelected',
+        $("#slickgrid-#{gridId}").trigger $.Event 'rowsSelected',
           rowIndex: args.rows[0]
           fleetrGrid: @
 

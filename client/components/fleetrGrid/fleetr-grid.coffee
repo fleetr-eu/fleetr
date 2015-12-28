@@ -1,3 +1,8 @@
+guid = ->
+  s4 = ->
+    Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
+  "#{s4()}#{s4()}-#{s4()}-#{s4()}-#{s4()}-#{s4()}#{s4()}#{s4()}"
+
 Meteor.startup ->
   options = (config) ->
     _.extend
@@ -8,8 +13,9 @@ Meteor.startup ->
 
   Template.fleetrGrid.onCreated ->
     Session.set 'selectedDocument', null
+    @data.uuid = guid()
     config = @data.config
-    @grid = new FleetrGrid options(config), config.columns, config.remoteMethod or config.cursor
+    @grid = new FleetrGrid @data.uuid, options(config), config.columns, config.remoteMethod or config.cursor
     if config.customize and typeof config.customize == 'function'
       config.customize @grid
     for column in config.columns when column.formatter
@@ -25,6 +31,7 @@ Meteor.startup ->
   grid = -> Template.instance().grid
 
   Template.fleetrGrid.helpers
+    id:              -> @uuid
     activeGroupings: -> grid()?.activeGroupingsCursor
     activeFilters:   -> grid()?.activeFiltersCursor
     displayGrouping: -> grid()?.hasGroupableColumns()

@@ -1,5 +1,5 @@
 <template name="fleetrGrid">
-  <div id="{{id}}">
+  <div id="fleetrgrid-{{id}}">
     <ol class="list-inline">
     {{#if displayGrouping}}
       <li><strong>{{_ "slickgrid.groupedBy"}}:</strong></li>
@@ -18,6 +18,6 @@
       {{/each}}
     {{/if}}
     </ol>
-    <div id="slickgrid" class="slickfleetr" style="width:100%; height:{{height}};"></div>
+    <div id="slickgrid-{{id}}" class="slickfleetr" style="width:100%; height:{{height}};"></div>
   </div>
 </template>
