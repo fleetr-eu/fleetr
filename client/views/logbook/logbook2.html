@@ -39,10 +39,10 @@
             <div class="portlet-body" id="map-container">
               <div class="row">
                 <div class="col-md-5 map-filter {{#if showFilterBox}}open{{/if}}" id="vehicle-filter-box">
-                   <!-- {{> vehicleFilter selectedVehicleIdVar="selectedVehicleId" filterVar="vehicleFilter" options=filterOptions}}
-                   {{> fleetrGrid id="filterVehiclesList" config=filterVehiclesGridConfig }} -->
+                   {{> vehicleFilter selectedVehicleIdVar="selectedVehicleId" filterVar="vehicleFilter" options=filterOptions}}
+                   {{> fleetrGrid id="filterVehiclesList" config=filterVehiclesGridConfig }}
                 </div>
-                 <div class="col-md-12">
+                 <div class="col-md-7">
                    <section class="content">
                      {{> fleetrReportGrid id="logbookGrid" config=fleetrGridConfig }}
                    </section>
