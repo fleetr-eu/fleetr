@@ -1,13 +1,13 @@
-#logbookGrid .from {
+.logbook-grid .from {
   border-left: 1px solid grey;
   border-right: 0;
   border-bottom: 1px solid grey;
 }
-#logbookGrid .to {
+.logbook-grid .to {
   border-right: 1px solid grey;
   border-left: 0;
   border-bottom: 1px solid grey;
 }
-#logbookGrid .slickfleetr .slick-cell {
+.logbook-grid .slickfleetr .slick-cell {
   height: 50px !important;
 }
