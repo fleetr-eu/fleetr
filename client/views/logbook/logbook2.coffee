@@ -37,9 +37,12 @@ Template.logbook2.events
   'rowsSelected': (e, t) ->
     Router.go 'vehicleLogbook', vehicleId: e.fleetrGrid.data[e.rowIndex]._id
     # Session.set 'selectedVehicleId', e.fleetrGrid.data[e.rowIndex]._id
+  'change input[name="dateFilter"]': (e, t) ->
+    Session.set 'logbookDateFilterPeriod', e.target.id
 
 Template.logbook2.onRendered ->
   Session.set 'selectedVehicleId', Template.instance().data.vehicleId
+  Session.set 'logbookDateFilterPeriod', 'week'
 
 Template.logbook2.helpers
   vehicleName: ->
@@ -103,7 +106,10 @@ Template.logbook2.helpers
 
   fleetrGridConfig: ->
     v = Vehicles.findOne(_id: Template.instance().data.vehicleId)
-    cursor: Trips.find {deviceId: v.unitId},
+    cursor: -> Trips.find
+      deviceId: v.unitId
+      'start.time': $gte: moment().startOf(Session.get('logbookDateFilterPeriod')).toDate()
+    ,
       transform: (doc) -> _.extend doc,
           fuelPer100: doc.consumedFuel / (doc.distance / 100)
     columns: [

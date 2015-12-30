@@ -1,4 +1,9 @@
 {
+  "time": {
+    "day" : "Day",
+    "week" : "Week",
+    "month" : "Month"
+  },
 
   "slickgrid": {
     "groupedBy": "Grouped by",
@@ -272,7 +277,7 @@
   "dropdown": {
     "select": "(Select)",
     "allFleetGrous" : "All Fleet Grous",
-    "allFleets": "All Fleets" 
+    "allFleets": "All Fleets"
   },
 
   "button" : {
