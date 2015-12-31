@@ -18,7 +18,7 @@ fleetrGridConfig =
     sortable: true
     formatter: FleetrGrid.Formatters.dateFormatter
     search:
-      where: 'server'
+      where: 'client'
       dateRange: DateRanges.history
     groupable:
       transform: getDateRow 'timestamp'
