@@ -65,10 +65,10 @@ Helpers =
     @setGridData (@data.filter @_filter), false
   @_refreshData = =>
     @_beforeDataRefresh()
-    serverFilterSpec = {}
-    items = @_activeFilters.find(type: 'server').fetch()
-    _.extend serverFilterSpec, item.spec for item in items
-    console.log 'refreshData with serverFilter', serverFilterSpec
+      serverFilterSpec = {}
+      items = @_activeFilters.find(type: 'server').fetch()
+      _.extend serverFilterSpec, item.spec for item in items
+      console.log 'refreshData with serverFilter', serverFilterSpec
     if @serverMethod
       Meteor.call @serverMethod, serverFilterSpec, (err, items) =>
         @setGridData( items.map Helpers.addId )
