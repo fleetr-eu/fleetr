@@ -45,6 +45,10 @@
     "geofenceNotifications":"Geofence Events"
   },
 
+  "simpleMap": {
+    "showMarkers": "Show info points"
+  },
+
   "customEvents": {
     "title": "Event",
     "listTitle" : "Events",

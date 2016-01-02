@@ -45,6 +45,9 @@
     "geofenceNotifications":"Напомняния за обекти"
   },
 
+  "simpleMap": {
+    "showMarkers": "Покажи инфо точки"
+  },
 
   "customEvents": {
     "title": "Събитие",

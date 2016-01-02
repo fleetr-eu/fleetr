@@ -2,6 +2,7 @@ unitId = null
 Template.simpleMap.onCreated ->
   {deviceId} =  EJSON.parse decodeURIComponent @data
   unitId = deviceId
+  Session.set 'simpleMapShowInfoMarkers', false
 
 Template.simpleMap.onRendered ->
   mapCanvasHeight = $(document).height() - 150
@@ -9,7 +10,10 @@ Template.simpleMap.onRendered ->
   {deviceId, start, stop, idle} =  EJSON.parse decodeURIComponent @data
   start.time = moment(start.time).toDate()
   stop.time = moment(stop.time).toDate()
-  map = new google.maps.Map document.getElementById("simpleMap"), Map.options
+  map = @map = new google.maps.Map document.getElementById("simpleMap"), Map.options
+  showMarkersCheckbox = document.getElementById("show-info-markers")
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push showMarkersCheckbox
+
   if idle
     searchArgs =
       startTime: start.time
@@ -41,22 +45,37 @@ Template.simpleMap.onRendered ->
       deviceId: deviceId
       type: $ne: 35
 
-    Meteor.subscribe 'logbook', searchArgs, ->
-      path = Logbook.find(searchArgs, {sort: recordTime: -1}).map (point) ->
-        color = if point.speed >= Settings.maxSpeed then 'red' else 'blue'
-        if color
-          opts =
-            position: new google.maps.LatLng(point.lat, point.lon)
-            icon: "/images/icons/#{color}-circle.png"
-            map: map
-          info =
-            speed: point.speed?.toFixed(0)
-            distance: (point.tacho/1000)?.toFixed(0)
-          new InfoMarker opts, info
+    @autorun =>
+      Meteor.subscribe 'logbook', searchArgs, =>
+        path = @path = Logbook.find(searchArgs, {sort: recordTime: -1}).map (point) ->
+          lat: point.lat, lng: point.lon, id: point._id, data: point
+        pointsWithLocation = (p) -> !(isNaN(p.lat) || isNaN(p.lng))
+        new FleetrPolyline map, _.filter(path, pointsWithLocation)
 
-        lat: point.lat, lng: point.lon, id: point._id
-
-      new FleetrPolyline map, _.filter(path, (p) -> !(isNaN(p.lat) || isNaN(p.lng)))
+Template.simpleMap.events
+  'change #show-info-markers-check': (e) ->
+    Session.set 'simpleMapShowInfoMarkers', e.target.checked
 
 Template.simpleMap.helpers
   unitId: -> unitId
+  showInfoMarkers: ->
+    t = Template.instance()
+    if Session.get('simpleMapShowInfoMarkers')
+      if t.markers
+        m.setMap t.map for m in t.markers
+      else
+        t.markers = []
+        t.path?.map (p) ->
+          point = p.data
+          color = if point.speed >= Settings.maxSpeed then 'red' else 'blue'
+          opts =
+            position: new google.maps.LatLng(point.lat, point.lon)
+            icon: "/images/icons/#{color}-circle.png"
+            map: t.map
+          info =
+            speed: point.speed?.toFixed(0)
+            distance: (point.tacho/1000)?.toFixed(0)
+          t.markers.push new InfoMarker opts, info
+    else
+      m.setMap(null) for m in t.markers if t.markers
+    !!Session.get('simpleMapShowInfoMarkers')
