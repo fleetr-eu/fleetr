@@ -183,9 +183,6 @@ Meteor.startup ->
         Meteor.call 'reset'
         @next()
 
-    @route 'logbookReport',
-      path: '/reports/logbook'
-      template: 'logbook'
     @route 'vehicleLogbook',
       path: '/vehicles/:vehicleId/logbook'
       template: 'logbook2'
@@ -197,6 +194,23 @@ Meteor.startup ->
           Meteor.subscribe('vehicle', _id: @params.vehicleId)
         ]
 
+    @route 'vehicleRests',
+      path: '/vehicles/:vehicleId/rests'
+      template: 'logbookRests'
+      data: -> vehicleId: @params.vehicleId
+      waitOn: ->
+        console.log 'subscribing for rests with vehicleId', @params.vehicleId
+        [
+          Meteor.subscribe('restsOfVehicle', @params.vehicleId)
+          Meteor.subscribe('vehicle', _id: @params.vehicleId)
+        ]
+
+
+# old logbooks
+    @route 'logbookReport',
+      path: '/reports/logbook'
+      template: 'logbook'
+
     @route 'logbookReportStartStop',
       path: '/reports/logbook/detailed/:selectedDate'
       template: 'logbookStartStop'
@@ -206,6 +220,7 @@ Meteor.startup ->
       path: '/reports/logbook/idle/:selectedDate/:xxx?'
       template: 'logbookIdle'
       data: -> {'selectedDate': @params.selectedDate, 'xxx': @params.xxx}
+#================
 
     @route 'reclogReport',
       path: '/reports/reclog/:date?/:startTime?/:stopTime?'
@@ -214,6 +229,7 @@ Meteor.startup ->
         'date': @params.date
         'startTime': @params.startTime
         'stopTime': @params.stopTime
+
 
     @route 'expenseReport',
       path: '/reports/expenses'

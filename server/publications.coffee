@@ -39,6 +39,9 @@ Meteor.publish 'trips', (args) -> Trips.find(args || {}, {sort: {startTime: 1}} 
 Meteor.publish 'tripsOfVehicle', (vehicleId) ->
   deviceId = Vehicles.findOne(_id: vehicleId).unitId
   Trips.find {deviceId: deviceId}, {sort: {startTime: 1}}
+Meteor.publish 'restsOfVehicle', (vehicleId) ->
+  deviceId = Vehicles.findOne(_id: vehicleId).unitId
+  Rests.find {deviceId: deviceId}, {sort: {startTime: 1}}
 
 Meteor.publish 'alarm-definitions', -> AlarmDefinitions.find {}
 
