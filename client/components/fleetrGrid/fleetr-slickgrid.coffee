@@ -58,18 +58,17 @@ Helpers =
   @removeFilter = (type, name) ->
     @_activeFilters.remove name: name, type: type
     @_refreshData() if type == 'server'
-    $('#date-range-filter').val('')
+    $("#date-range-filter-#{name}").val('')
   @setColumnFilterValue = (column, filterValue)->
     $("#searchbox-#{column.field}").val(filterValue).trigger('change')
   @_applyClientFilters = =>
     @setGridData (@data.filter @_filter), false
   @_refreshData = =>
     @_beforeDataRefresh()
+    if @serverMethod
       serverFilterSpec = {}
       items = @_activeFilters.find(type: 'server').fetch()
       _.extend serverFilterSpec, item.spec for item in items
-      console.log 'refreshData with serverFilter', serverFilterSpec
-    if @serverMethod
       Meteor.call @serverMethod, serverFilterSpec, (err, items) =>
         @setGridData( items.map Helpers.addId )
         @_applyClientFilters()
@@ -88,6 +87,10 @@ Helpers =
         else if filter.spec[field].regex
           regex = new RegExp filter.spec[field].regex, 'i'
           return false if !"#{item[field]}".match regex
+        else if filter.spec[field].date
+          filterDates = filter.spec[field].date
+          itemDate = moment item[field]
+          return false if not (itemDate.isAfter(filterDates.min) and itemDate.isBefore(filterDates.max))
     true
   # <-- column filters
 
@@ -122,7 +125,6 @@ Helpers =
 
   # handler which is called before data is refreshed from the server
   @_beforeDataRefresh = =>
-    console.log '_beforeDataRefresh'
     if not @loadingIndicator
       if $('#fleetrGridSpinner').length # reuse the element if it's already available in the dom
         @loadingIndicator = $ 'fleetrGridSpinner'
@@ -178,7 +180,7 @@ Helpers =
     # Handle changes to client rendered filters
     @_activeFilters.find(type: 'client').observe
       removed: (filter) =>
-         $("#searchbox-#{field}").val('') for field of filter.spec
+         $("#searchbox-#{filter.name}").val('')
          @_applyClientFilters()
       added: @_applyClientFilters
       changed: @_applyClientFilters
@@ -266,17 +268,27 @@ Helpers =
 
     $(@grid.getHeaderRow()).delegate ":input", "change keyup", _.debounce(searchInputHandler, 500)
 
-    @grid.onHeaderRowCellRendered.subscribe (e, args) ->
+    @grid.onHeaderRowCellRendered.subscribe (e, args) =>
       $(args.node).empty()
       if args.column.search
+        where = args.column.search.where or 'client'
         if args.column.search.dateRange
-          $('<input id="date-range-filter" class="searchbox" type="text" placeholder="Търсене по дата">').appendTo args.node
-          # TODO: use input id that includes the column fieldname so in principal it would be
-          #       possible to have more than 1 date range filter
-          DateRangeFilter.install $('#date-range-filter'), args.column.search.dateRange
+          $("<input id=\"date-range-filter-#{args.column.name}\" class=\"searchbox\" type=\"text\" placeholder=\"Търсене по дата\">").appendTo args.node
+          DateRangeFilter.install $("#date-range-filter-#{args.column.name}"), args.column.search.dateRange
+          $("#date-range-filter-#{args.column.name}").on 'apply.daterangepicker', (e, daterangepicker) =>
+            startDate = daterangepicker.startDate
+            endDate = daterangepicker.endDate
+            start = startDate.format('YYYY-MM-DD')
+            stop = endDate.format('YYYY-MM-DD')
+            @addFilter where, args.column.name, "#{start} - #{stop}",
+              fltr = {}
+              fltr[args.column.field] = date:
+                min: startDate#.toISOString()
+                max: endDate#.toISOString()
+              fltr
         else
           $('<span class="glyphicon glyphicon-search searchbox" aria-hidden="true"></span>').appendTo(args.node)
-          $("<input id='searchbox-#{args.column.field}' type='text' class='searchbox'>")
+          $("<input id='searchbox-#{args.column.name}' type='text' class='searchbox'>")
              .data("columnId", args.column.id)
              .appendTo(args.node)
       else
@@ -309,14 +321,8 @@ Helpers =
     # populated with the corresponding filter value. Otherwise filters will
     # be in place, but the searchboxes remain empty.
     for activeFilter in @_activeFilters.find().fetch()
-      if Object.keys(activeFilter.spec).length == 2
-        # hacky; assume date filter when filter has two properties
-        # TODO: fix this!
-        console.warn 'Ass-uming this is a date filter:', activeFilter
-        $('#date-range-filter').val activeFilter.text
-      else
-        for field of activeFilter.spec
-          $("#searchbox-#{field}").val activeFilter.spec[field].regex
+      for field of activeFilter.spec
+        $("#searchbox-#{field}").val activeFilter.spec[field].text
 
     # ensure the ui that controls grouping is in sync with existing active
     # groupings. this can happen when the grid has been previously been rendered
