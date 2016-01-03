@@ -282,9 +282,13 @@ Helpers =
             stop = endDate.format('YYYY-MM-DD')
             @addFilter where, args.column.name, "#{start} - #{stop}",
               fltr = {}
-              fltr[args.column.field] = date:
-                min: startDate#.toISOString()
-                max: endDate#.toISOString()
+              dateObject = date:
+                min: startDate
+                max: endDate
+              if args.column.search.filter and where is 'client'
+                fltr[args.column.field] = filter: args.column.search.filter dateObject
+              else
+                fltr[args.column.field] = dateObject
               fltr
         else
           $('<span class="glyphicon glyphicon-search searchbox" aria-hidden="true"></span>').appendTo(args.node)
