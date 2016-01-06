@@ -27,6 +27,10 @@ Template.maintenancesButton.helpers
 Template.vehicles.onRendered ->
   Session.set 'vehiclesFleetName', @data.fleetName
 
+Template.vehicles.events
+  'fleetr-grid-removed-filter': (e, t) ->
+    console.log @, e, t
+
 Template.vehicles.helpers
   options: ->
     i18nRoot: 'vehicles'

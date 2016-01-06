@@ -1,5 +1,5 @@
 Helpers =
-  addId: (item) -> item.id = item._id; item;
+  addId: (item) -> item.id = item._id; item
 
 # Component that wraps SlickGrid and uses Meteorish constructs
 @FleetrGrid = (gridId, options, columns, serverMethodOrCursor) ->
@@ -23,16 +23,17 @@ Helpers =
   # populates the data for the grid
   @setGridData = (data, store = true) =>
     @data = data if store
-    @_dataView.beginUpdate()
-    @_dataView.setItems data
-    @grid.autosizeColumns()
-    @_dataView.endUpdate()
+    if @_dataView
+      @_dataView.beginUpdate()
+      @_dataView.setItems data
+      @grid.autosizeColumns()
+      @_dataView.endUpdate()
 
-    # update and render totals row
-    @totalsDataProvider.updateTotals()
-    length = @dataViewLength()
-    @grid.invalidateRows [0..length + 1]
-    @grid.render()
+      # update and render totals row
+      @totalsDataProvider.updateTotals()
+      length = @dataViewLength()
+      @grid.invalidateRows [0..length + 1]
+      @grid.render()
 
   @resize = => @grid.resizeCanvas()
 
@@ -63,6 +64,7 @@ Helpers =
     $("#searchbox-#{column.field}").val(filterValue).trigger('change')
   @_applyClientFilters = =>
     @setGridData (@data.filter @_filter), false
+    $(".slickfleetr").trigger $.Event('fleetr-grid-changed-filter', @data.filter)
   @_refreshData = =>
     @_beforeDataRefresh()
     if @serverMethod
@@ -180,8 +182,8 @@ Helpers =
     # Handle changes to client rendered filters
     @_activeFilters.find(type: 'client').observe
       removed: (filter) =>
-         $("#searchbox-#{filter.name}").val('')
-         @_applyClientFilters()
+        $("#searchbox-#{filter?.name}").val('')
+        @_applyClientFilters()
       added: @_applyClientFilters
       changed: @_applyClientFilters
 
