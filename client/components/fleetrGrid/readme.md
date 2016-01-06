@@ -49,7 +49,7 @@ When the filter is run on the client, a custom filter function can be configured
 #### <a name="custom-filter"></a>Custom filter
 Client filters can be customized by supplying a filter implementation. By default client filters use regular expressions to filter data, if you don't wan this then you need to implement a custom filter.
 
-The signature of the filter implementaton is `(searchText) -> (columnValue) ->`.
+The signature of the filter implementation is `(searchText) -> (columnValue) ->`.
 
 The listing below shows an example filter implementation that matches on an item in an array. It also lists the example configuration.
 
