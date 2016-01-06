@@ -23,9 +23,50 @@
 						</li>
 					</ul>
 				</li>
-				<li class="{{isActivePath regex='fleet|vehicles|mapVehicles|tyres'}}">
+				<li class="{{isActiveRoute regex='listVehicles'}}">
 					<a href="#">
 					<i class="fa fa-car"></i>
+					<span class="title">{{_ "menu.listVehicles"}}</span>
+					<span class="arrow"></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a class="show-all-vehicles" href="/vehicles/list">
+							<span class="title">{{_ "menu.vehicles.all"}}</span>
+							<span class="arrow"></span>
+							</a>
+						</li>
+						{{#each fleetGroups}}
+						<li>
+							<a href="#">
+							<span class="title">{{name}}</span>
+							<span class="arrow"></span>
+							</a>
+							<ul class="sub-menu">
+								{{#each fleets}}
+									<li>
+										<a class="show-fleet-vehicles" href="{{pathFor 'listVehicles' fleetName=name}}">
+										<span class="title">{{name}}</span>
+										<span class="arrow"></span>
+										</a>
+									</li>
+								{{/each}}
+							</ul>
+						</li>
+						{{/each}}
+					</ul>
+				</li>
+
+				<li class="{{isActiveRoute regex='mapVehicles'}}">
+					<a href="{{pathFor 'mapVehicles'}}">
+					<i class="fa fa-map-marker"></i>
+					<span class="title">{{_ "menu.map"}}</span>
+					</a>
+				</li>
+
+				<li class="{{isActiveRoute regex='listFleet'}}">
+					<a href="#">
+					<i class="fa fa-pie-chart"></i>
 					<span class="title">{{_ "menu.fleets"}}</span>
 					<span class="arrow"></span>
 					</a>
@@ -37,18 +78,6 @@
 						<li class="{{isActiveRoute regex='listFleets'}}">
 							<a href="{{pathFor 'listFleets'}}">
 								{{_ "menu.listFleets"}}</a>
-						</li>
-						<li class="{{isActiveRoute regex='listVehicles'}}">
-							<a href="{{pathFor 'listVehicles'}}">
-								{{_ "menu.listVehicles"}}</a>
-						</li>
-						<li class="{{isActiveRoute regex='listTyres'}}">
-							<a href="{{pathFor 'listTyres'}}">
-								{{_ "menu.listTyres"}}</a>
-						</li>
-						<li class="{{isActiveRoute regex='mapVehicles'}}">
-							<a href="{{pathFor 'mapVehicles'}}">
-								{{_ "menu.map"}}</a>
 						</li>
 					</ul>
 				</li>
@@ -106,7 +135,7 @@
 					</ul>
 					</li>
 
-					<li class="{{isActiveRoute regex='maintenanceType'}}">
+					<li class="{{isActiveRoute regex='maintenanceType|listTyres'}}">
 						<a href="#">
 							<i class="fa fa-wrench"></i>
 							<span class="title">{{_ "menu.maintenances"}}</span>
@@ -116,6 +145,11 @@
 							<li class="{{isActiveRoute regex='maintenance'}}">
 								<a href="{{pathFor 'listMaintenanceType'}}">
 									{{_ "menu.listMaintenanceTypes"}}</a>
+							</li>
+
+							<li class="{{isActiveRoute regex='listTyres'}}">
+								<a href="{{pathFor 'listTyres'}}">
+									{{_ "menu.listTyres"}}</a>
 							</li>
 						</ul>
 					</li>
