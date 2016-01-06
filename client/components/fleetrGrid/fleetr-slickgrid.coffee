@@ -54,17 +54,24 @@ Helpers =
   @_activeFilters = new Mongo.Collection null
   @activeFiltersCursor = @_activeFilters.find()
   @addFilter = (type, name, text, spec, refreshData = true) ->
-    @_activeFilters.upsert {name: name, type: type}, {name: name, type: type, text: text, spec:spec}
+    data = name: name, type: type, text: text, spec: spec
+    @_activeFilters.upsert {name: name, type: type}, data
     @_refreshData() if refreshData and type == 'server'
+    event = $.Event 'fleetr-grid-added-filter',
+      filter: data
+    $(".slickfleetr").trigger event
   @removeFilter = (type, name) ->
-    @_activeFilters.remove name: name, type: type
+    data = name: name, type: type
+    @_activeFilters.remove data
     @_refreshData() if type == 'server'
     $("#date-range-filter-#{name}").val('')
+    event = $.Event 'fleetr-grid-removed-filter',
+      filter: data
+    $(".slickfleetr").trigger event
   @setColumnFilterValue = (column, filterValue)->
     $("#searchbox-#{column.field}").val(filterValue).trigger('change')
   @_applyClientFilters = =>
     @setGridData (@data.filter @_filter), false
-    $(".slickfleetr").trigger $.Event('fleetr-grid-changed-filter', @data.filter)
   @_refreshData = =>
     @_beforeDataRefresh()
     if @serverMethod

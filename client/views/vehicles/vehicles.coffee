@@ -29,7 +29,8 @@ Template.vehicles.onRendered ->
 
 Template.vehicles.events
   'fleetr-grid-removed-filter': (e, t) ->
-    console.log @, e, t
+    if e.filter.name is TAPi18n.__('fleet.name')
+      Session.set 'vehiclesFleetName', null
 
 Template.vehicles.helpers
   options: ->
