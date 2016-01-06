@@ -8,6 +8,7 @@ Template.map.onRendered ->
     @autorun ->
       selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
       if selectedVehicle
+        Session.set 'fleetrTitle', "#{selectedVehicle.name} (#{selectedVehicle.licensePlate})"
         if selectedVehicle.lat && selectedVehicle.lon
           Map.setCenter [selectedVehicle.lat, selectedVehicle.lon]
         else
