@@ -14,7 +14,7 @@ Template.map.onRendered ->
           Alerts.set 'This vehicle has no known position.'
       Map.renderMarkers()
 
-      if selectedVehicle.trip?.start
+      if selectedVehicle?.trip?.start
         searchArgs =
           recordTime:
             $gte: selectedVehicle.trip.start.time
