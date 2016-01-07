@@ -3,11 +3,9 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
 aldeed:collection2
 aldeed:autoform
 coffeescript
-yogiben:admin
 accounts-base
 accounts-password
 iron:router
@@ -16,9 +14,7 @@ accounts-ui
 anti:fake
 mrt:flash-messages
 matb33:collection-hooks
-mrt:moment
 zimme:iron-router-active
-joshowens:accounts-entry
 dburles:collection-helpers
 aldeed:autoform-bs-datepicker
 rajit:bootstrap3-datepicker
@@ -28,7 +24,6 @@ mizzao:partitioner
 tap:i18n
 tap:i18n-ui
 alethes:pages
-msavin:mongol
 meteorhacks:fast-render
 mkarliner:mqtt
 meteorhacks:aggregate
@@ -48,3 +43,19 @@ peppelg:bootstrap-3-modal
 comerc:bs-typeahead
 comerc:autoform-typeahead
 ctjp:autoform-bootstrap-switch
+selaias:accounts-entry
+standard-minifiers
+meteor-base
+mobile-experience
+mongo
+blaze-html-templates
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+spacebars
+check
+momentjs:moment

@@ -9,15 +9,19 @@ Meteor.startup ->
   # Accounts.emailTemplates.verifyEmail.text = (user, url) ->
   #   "Click on the following link to verify your email address: #{url}"
 
-  AccountsEntry.config
-    privacyUrl: '/privacy-policy',
-    termsUrl: '/terms-of-use',
-    homeRoute: '/',
-    dashboardRoute: '/',
-    emailToLower: true,
-    profileRoute: 'profile',
-    showSignupCode: false
-    forbidClientAccountCreation: false
+  if Meteor.isClient
+    AccountsEntry.config
+      privacyUrl: '/privacy-policy'
+      termsUrl: '/terms-of-use'
+      homeRoute: '/sign-in'
+      dashboardRoute: '/'
+      emailToLower: true
+      profileRoute: 'profile'
+      showSignupCode: true
+  if Meteor.isServer
+    AccountsEntry.config
+      signupCode: 's3cr3t'
+      showSignupCode: true
 
   openRoutes = [
     "notFound",
@@ -30,6 +34,7 @@ Meteor.startup ->
 
   Router.onBeforeAction ->
     AccountsEntry.signInRequired @
+    @next()
   , {except: openRoutes}
   Router.onBeforeAction ->
     @layout("open")
