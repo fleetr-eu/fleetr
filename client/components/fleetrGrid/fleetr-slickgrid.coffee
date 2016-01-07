@@ -256,7 +256,8 @@ Helpers =
 
     @grid.onSort.subscribe (e, args) =>
       sortcol = args.sortCol.field
-      @_dataView.sort(comparer(sortcol), args.sortAsc)
+      customStort = args.sortCol.sort
+      @_dataView.sort( customStort(args) or comparer(sortcol), args.sortAsc)
       @grid.setSelectedRows([-1])
 
     searchInputHandler = (e) =>
