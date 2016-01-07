@@ -14,6 +14,9 @@
   },
 
   "menu": {
+    "vehicles": {
+      "all": "Всички"
+    },
     "dashboard": "Статистики",
     "fleets": "Автопаркове",
     "listFleetGroups": "Групи автопаркове",

@@ -1,5 +1,5 @@
 Helpers =
-  addId: (item) -> item.id = item._id; item;
+  addId: (item) -> item.id = item._id; item
 
 # Component that wraps SlickGrid and uses Meteorish constructs
 @FleetrGrid = (gridId, options, columns, serverMethodOrCursor) ->
@@ -23,16 +23,17 @@ Helpers =
   # populates the data for the grid
   @setGridData = (data, store = true) =>
     @data = data if store
-    @_dataView.beginUpdate()
-    @_dataView.setItems data
-    @grid.autosizeColumns()
-    @_dataView.endUpdate()
+    if @_dataView
+      @_dataView.beginUpdate()
+      @_dataView.setItems data
+      @grid.autosizeColumns()
+      @_dataView.endUpdate()
 
-    # update and render totals row
-    @totalsDataProvider.updateTotals()
-    length = @dataViewLength()
-    @grid.invalidateRows [0..length + 1]
-    @grid.render()
+      # update and render totals row
+      @totalsDataProvider.updateTotals()
+      length = @dataViewLength()
+      @grid.invalidateRows [0..length + 1]
+      @grid.render()
 
   @resize = => @grid.resizeCanvas()
 
@@ -53,12 +54,20 @@ Helpers =
   @_activeFilters = new Mongo.Collection null
   @activeFiltersCursor = @_activeFilters.find()
   @addFilter = (type, name, text, spec, refreshData = true) ->
-    @_activeFilters.upsert {name: name, type: type}, {name: name, type: type, text: text, spec:spec}
+    data = name: name, type: type, text: text, spec: spec
+    @_activeFilters.upsert {name: name, type: type}, data
     @_refreshData() if refreshData and type == 'server'
+    event = $.Event 'fleetr-grid-added-filter',
+      filter: data
+    $(".slickfleetr").trigger event
   @removeFilter = (type, name) ->
-    @_activeFilters.remove name: name, type: type
+    data = name: name, type: type
+    @_activeFilters.remove data
     @_refreshData() if type == 'server'
     $("#date-range-filter-#{name}").val('')
+    event = $.Event 'fleetr-grid-removed-filter',
+      filter: data
+    $(".slickfleetr").trigger event
   @setColumnFilterValue = (column, filterValue)->
     $("#searchbox-#{column.field}").val(filterValue).trigger('change')
   @_applyClientFilters = =>
@@ -180,8 +189,8 @@ Helpers =
     # Handle changes to client rendered filters
     @_activeFilters.find(type: 'client').observe
       removed: (filter) =>
-         $("#searchbox-#{filter.name}").val('')
-         @_applyClientFilters()
+        $("#searchbox-#{filter?.name}").val('')
+        @_applyClientFilters()
       added: @_applyClientFilters
       changed: @_applyClientFilters
 
@@ -247,7 +256,8 @@ Helpers =
 
     @grid.onSort.subscribe (e, args) =>
       sortcol = args.sortCol.field
-      @_dataView.sort(comparer(sortcol), args.sortAsc)
+      customStort = args.sortCol.sort
+      @_dataView.sort( customStort(args) or comparer(sortcol), args.sortAsc)
       @grid.setSelectedRows([-1])
 
     searchInputHandler = (e) =>

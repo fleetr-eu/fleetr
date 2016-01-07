@@ -22,7 +22,15 @@ mapLinkFormatter = (row, cell, value) ->
   "<a href='/vehicles/map/#{value}'><img src='/images/Google-Maps-icon.png' height='22'}'></img></a>"
 
 Template.maintenancesButton.helpers
-  vehicleId: => Session.get "selectedItemId"
+  vehicleId: -> Session.get "selectedItemId"
+
+Template.vehicles.onRendered ->
+  Session.set 'vehiclesFleetName', @data.fleetName
+
+Template.vehicles.events
+  'fleetr-grid-removed-filter': (e, t) ->
+    if e.filter.name is TAPi18n.__('fleet.name')
+      Session.set 'vehiclesFleetName', null
 
 Template.vehicles.helpers
   options: ->
@@ -70,7 +78,7 @@ Template.vehicles.helpers
         name: TAPi18n.__('fleet.name')
         width:80
         sortable: true
-        hidden:true
+        # hidden:true
         search: where: 'client'
         groupable:
           aggregators: []
@@ -151,10 +159,18 @@ Template.vehicles.helpers
         showHeaderRow: true
         explicitInitialization: true
         forceFitColumns: true
-      cursor: Vehicles.find {},
+      cursor: -> Vehicles.find {},
         sort:
           name: 1
         transform: (doc) -> _.extend doc,
             fleetName: Fleets.findOne(_id: doc.allocatedToFleet)?.name
             vehicleShowName: doc.name + ' (' + doc.licensePlate + ')'
             odo: doc.odometer / 1000
+      customize: (grid) ->
+        Tracker.autorun ->
+          fleetName = Session.get 'vehiclesFleetName'
+          if fleetName
+            grid.addFilter 'client', TAPi18n.__('fleet.name'), fleetName,
+              fleetName: regex: fleetName
+          else
+            grid.removeFilter 'client', TAPi18n.__('fleet.name')

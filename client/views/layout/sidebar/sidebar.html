@@ -12,7 +12,7 @@
 				</li>
 				<li  class="{{isActiveRoute regex='dashboard'}}">
 					<a href="#">
-					<i class="icon-bar-chart"></i>
+					<img src="/images/menu-dashboard.png"/>
 					<span class="title">{{_ "menu.dashboard"}}</span>
 					<span class="selected"></span>
 					</a>
@@ -23,9 +23,50 @@
 						</li>
 					</ul>
 				</li>
-				<li class="{{isActivePath regex='fleet|vehicles|mapVehicles|tyres'}}">
+				<li class="{{isActiveRoute regex='listVehicles'}}">
 					<a href="#">
-					<i class="fa fa-car"></i>
+					<img src="/images/menu-vehicles.png"/>
+					<span class="title">{{_ "menu.listVehicles"}}</span>
+					<span class="arrow"></span>
+					</a>
+					<ul class="sub-menu">
+						<li>
+							<a class="show-all-vehicles" href="/vehicles/list">
+							<span class="title">{{_ "menu.vehicles.all"}}</span>
+							<span class="arrow"></span>
+							</a>
+						</li>
+						{{#each fleetGroups}}
+						<li>
+							<a href="#">
+							<span class="title">{{name}}</span>
+							<span class="arrow"></span>
+							</a>
+							<ul class="sub-menu">
+								{{#each fleets}}
+									<li>
+										<a class="show-fleet-vehicles" href="{{pathFor 'listVehicles' fleetName=name}}">
+										<span class="title">{{name}}</span>
+										<span class="arrow"></span>
+										</a>
+									</li>
+								{{/each}}
+							</ul>
+						</li>
+						{{/each}}
+					</ul>
+				</li>
+
+				<li class="{{isActiveRoute regex='mapVehicles'}}">
+					<a href="{{pathFor 'mapVehicles'}}">
+					<img src="/images/menu-map.png"/>
+					<span class="title">{{_ "menu.map"}}</span>
+					</a>
+				</li>
+
+				<li class="{{isActiveRoute regex='listFleet'}}">
+					<a href="#">
+					<img src="/images/menu-fleets.png"/>
 					<span class="title">{{_ "menu.fleets"}}</span>
 					<span class="arrow"></span>
 					</a>
@@ -38,24 +79,12 @@
 							<a href="{{pathFor 'listFleets'}}">
 								{{_ "menu.listFleets"}}</a>
 						</li>
-						<li class="{{isActiveRoute regex='listVehicles'}}">
-							<a href="{{pathFor 'listVehicles'}}">
-								{{_ "menu.listVehicles"}}</a>
-						</li>
-						<li class="{{isActiveRoute regex='listTyres'}}">
-							<a href="{{pathFor 'listTyres'}}">
-								{{_ "menu.listTyres"}}</a>
-						</li>
-						<li class="{{isActiveRoute regex='mapVehicles'}}">
-							<a href="{{pathFor 'mapVehicles'}}">
-								{{_ "menu.map"}}</a>
-						</li>
 					</ul>
 				</li>
 
 				<li class="{{isActiveRoute regex='driver|mapDrivers|assignments'}}">
 					<a href="#">
-					<i class="icon-user"></i>
+					<img src="/images/menu-drivers.png"/>
 					<span class="title">{{_ "menu.drivers"}}</span>
 					<span class="arrow "></span>
 					</a>
@@ -75,7 +104,7 @@
 				</li>
 				<li class="{{isActiveRoute regex='geofences'}}">
 					<a href="#">
-					<i class="icon-home"></i>
+					<img src="/images/menu-geofences.png"/>
 					<span class="title">{{_ "menu.objects"}}</span>
 					<span class="arrow "></span>
 					</a>
@@ -89,7 +118,7 @@
 
 				<li class="{{isActiveRoute regex='listExpenses|listExpenseTypes|listExpenseGroups'}}">
 					<a href="#">
-						<i class="fa fa-dollar"></i>
+						<img src="/images/menu-expenses.png"/>
 						<span class="title">{{_ "menu.expenses"}}</span>
 						<span class="arrow "></span>
 					</a>
@@ -106,9 +135,9 @@
 					</ul>
 					</li>
 
-					<li class="{{isActiveRoute regex='maintenanceType'}}">
+					<li class="{{isActiveRoute regex='maintenanceType|listTyres'}}">
 						<a href="#">
-							<i class="fa fa-wrench"></i>
+							<img src="/images/menu-maintenances.png"/>
 							<span class="title">{{_ "menu.maintenances"}}</span>
 							<span class="arrow "></span>
 						</a>
@@ -117,12 +146,17 @@
 								<a href="{{pathFor 'listMaintenanceType'}}">
 									{{_ "menu.listMaintenanceTypes"}}</a>
 							</li>
+
+							<li class="{{isActiveRoute regex='listTyres'}}">
+								<a href="{{pathFor 'listTyres'}}">
+									{{_ "menu.listTyres"}}</a>
+							</li>
 						</ul>
 					</li>
 
 					<li class="{{isActiveRoute regex='insurance'}}">
 						<a href="#">
-							<i class="fa fa-university"></i>
+							<img src="/images/menu-insurances.png"/>
 							<span class="title">{{_ "menu.insurances"}}</span>
 							<span class="arrow "></span>
 						</a>
@@ -140,7 +174,7 @@
 
 				<li class="{{isActiveRoute regex='Report'}}">
 					<a href="#">
-					<i class="icon-docs"></i>
+					<img src="/images/menu-reports.png"/>
 					<span class="title">{{_ "menu.reports"}}</span>
 					<span class="arrow "></span>
 					</a>
@@ -161,7 +195,7 @@
 				</li>
 				<li class="{{isActiveRoute regex='events'}}">
 					<a href="#">
-					<i class="icon-calendar"></i>
+					<img src="/images/menu-events.png"/>
 					<span class="title">{{_ "menu.notifications"}}</span>
 					<span class="arrow "></span>
 					</a>

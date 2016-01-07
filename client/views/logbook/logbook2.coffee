@@ -131,6 +131,8 @@ Template.logbook2.helpers
           <br />
           #{toTime(row, cell, rowObject.stop?.time)}
         """
+      sort: (args) -> (a,b) ->
+        if a.start?.time > b.start?.time then 1 else -1
       width: 35
     ,
       id: 'beginEnd'
