@@ -131,7 +131,7 @@ Template.logbook2.helpers
           <br />
           #{toTime(row, cell, rowObject.stop?.time)}
         """
-      sort: (args) -> (a,b) ->
+      sorter: (sortCol) -> (a,b) ->
         if a.start?.time > b.start?.time then 1 else -1
       width: 35
     ,
@@ -205,6 +205,7 @@ Template.logbook2.helpers
         """
     ]
     options:
+      multiColumnSort: true
       enableCellNavigation: false
       enableColumnReorder: false
       showHeaderRow: false
