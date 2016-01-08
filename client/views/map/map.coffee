@@ -101,4 +101,4 @@ Template.map.events
     Meteor.defer -> t.grid.resize()
 
   'rowsSelected': (e, t) ->
-    Session.set 'selectedVehicleId', e.fleetrGrid.data[e.rowIndex]._id
+    Session.set 'selectedVehicleId', e.fleetrGrid.data[e.rowIndex]?._id
