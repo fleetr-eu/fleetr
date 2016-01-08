@@ -10,19 +10,14 @@
 					</div>
 					<!-- END SIDEBAR TOGGLER BUTTON -->
 				</li>
-				<li  class="{{isActiveRoute regex='dashboard'}}">
-					<a href="#">
+
+				<li class="{{isActiveRoute regex='dashboard'}}">
+					<a href="{{pathFor 'dashboard'}}">
 					<i class="icon-bar-chart"></i>
 					<span class="title">{{_ "menu.dashboard"}}</span>
-					<span class="selected"></span>
 					</a>
-					<ul class="sub-menu">
-						<li class="active">
-							<a href="{{pathFor 'dashboard'}}">
-								{{_ "menu.dashboard"}}</a>
-						</li>
-					</ul>
 				</li>
+
 				<li class="{{isActiveRoute regex='listVehicles'}}">
 					<a href="#">
 					<i class="fa fa-car"></i>
@@ -102,18 +97,12 @@
 						</li>
 					</ul>
 				</li>
+
 				<li class="{{isActiveRoute regex='geofences'}}">
-					<a href="#">
+					<a href="{{pathFor 'geofences'}}">
 					<i class="icon-home"></i>
 					<span class="title">{{_ "menu.objects"}}</span>
-					<span class="arrow "></span>
 					</a>
-					<ul class="sub-menu">
-						<li class="{{isActiveRoute regex='geofences'}}">
-							<a href="{{pathFor 'geofences'}}">
-								{{_ "menu.map"}}</a>
-						</li>
-					</ul>
 				</li>
 
 				<li class="{{isActiveRoute regex='listExpenses|listExpenseTypes|listExpenseGroups'}}">
