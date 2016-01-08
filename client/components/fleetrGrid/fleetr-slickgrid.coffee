@@ -40,12 +40,15 @@ Helpers =
   # updates a document in the grid
   @updateDocument = (doc) =>
     @setGridData(@data.map (d) -> if d._id == doc._id then Helpers.addId doc else d)
+    @_applyClientFilters()
   # add a new document into the grid
   @addDocument = (doc) =>
     @setGridData _.union([Helpers.addId doc], @data)
+    @_applyClientFilters()
   # remove a document from the grid
   @removeDocument = (doc) =>
     @setGridData(_.reject @data, (d) -> d._id == doc._id)
+    @_applyClientFilters()
 
   @dataViewLength = -> if @_dataView.getLength() then @_dataView.getLength() else 0
 
@@ -249,15 +252,26 @@ Helpers =
           rowIndex: args.rows[0]
           fleetrGrid: @
 
-    comparer = (sortcol) -> (a, b) ->
-      x = a[sortcol]
-      y = b[sortcol]
-      if x == y then 0 else if x > y then 1 else -1
-
     @grid.onSort.subscribe (e, args) =>
-      sortcol = args.sortCol.field
-      customStort = args.sortCol.sort
-      @_dataView.sort( customStort(args) or comparer(sortcol), args.sortAsc)
+      # sort implementation that supports multi-column sort and custom
+      # sorter functions per column
+      if args.sortCol then sortCols = [sortAsc: args.sortAsc, sortCol: args.sortCol]
+      else sortCols = args.sortCols
+
+      @_dataView.sort (a, b) ->
+        for sortColSpec in sortCols
+          sortCol = sortColSpec.sortCol
+          result =
+            if sortCol.sorter
+              n = sortCol.sorter(sortCol) a, b
+              if n is undefined then 0 else n
+            else
+              valueA = a[sortCol.field]
+              valueB = b[sortCol.field]
+              if valueA == valueB then 0 else (if valueA > valueB then 1 else -1)
+          result = result * (if sortColSpec.sortAsc then 1 else -1)
+          return result if result isnt 0
+        0
       @grid.setSelectedRows([-1])
 
     searchInputHandler = (e) =>
