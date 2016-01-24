@@ -1,44 +1,65 @@
 <template name="geofences">
-    <h1 class="bold">Обекти</h1>
-
     <div class="row">
         <div class="col-md-12">
-            <div class="portlet box blue">
-                <div class="portlet-title">
-                    <div class="caption" id="mapGeofences">
-                        {{> filter sessionVar='geofenceFilter' placeholder='Търсене...'}}
-                    </div>
-                    <div class="tools">
-                        <a href="#" class="addGeofence"><span class="glyphicon glyphicon-plus"></span></a>
-                        {{#if selectedGeofenceId}}
-                        <a href="#" class="editGeofence"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a href="#" class="deleteGeofence"><span class="glyphicon glyphicon-trash"></span></a>
-                        {{/if}}
-                        <a href="#" class="fullscreen"></a>
-                    </div>
-                </div>
-                <div class="portlet-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <section class="content">
-                                {{> geofencesTable}}
-                                {{> editGeofence}}
-                            </section>
-                        </div>
-                        <div class="col-md-8">
-                            <section class="content">
-                                <div id="map-canvas">{{renderGeofences}}</div>
-                            </section>
-                        </div>
-                    </div>
-                </div>
+          <div class="portlet light">
+            <div class="portlet-title">
+              <div class="caption" id="geofenceList">
+                  <div class="caption-subject">
+                    <h1 class="bold">
+                      Обекти
+                      {{#if selectedGeofenceId}}
+                      ({{selectedGeofenceName}})
+                      {{/if}}
+                    </h1>
+                  </div>
+              </div>
+              <div class="actions">
+                <a href="#" class="addGeofence btn btn-circle btn-default add-item">
+                  <i class="fa fa-plus"></i>
+                  {{_ "button.add"}}
+                </a>
+                {{#if selectedGeofenceId}}
+                  <a href="#" class="editGeofence btn btn-circle btn-default edit-item">
+                    <i class="icon-pencil"></i>
+                    {{_ "button.edit"}}
+                  </a>
+                  <a href="#" class="deleteGeofence btn btn-circle btn-default delete-item">
+                    <i class="icon-trash"></i>
+                    {{_ "button.delete"}}
+                  </a>
+                {{/if}}
+
+                <a href="#" id="toggle-filter" class="btn btn-circle btn-default {{#if showGfList}}active{{/if}}">
+                  <i class="glyphicon glyphicon-list"></i>
+                  Списък обекти
+                </a>
+                <a href="#" class="btn btn-circle btn-icon-only btn-default fullscreen"></a>
+              </div>
             </div>
-        </div>
-    </div>
+
+            <div class="portlet-body" id="map-container">
+              <div class="row">
+                <div class="col-md-5 map-filter {{#if showGfList}}open{{/if}}" id="gf-list-box">
+                  {{> geofencesTable}}
+                  {{#if inEditMode}}
+                    {{> editGeofence doc=selectedGeofence}}
+                  {{/if}}
+
+                </div>
+                 <div class="col-md-12">
+                   <section class="content">
+                     <div id="map-canvas">{{renderGeofences}}</div>
+                   </section>
+                 </div>
+
+               </div>
+            </div>
+         </div>
+       </div>
+     </div>
 </template>
 
 <template name="editGeofence">
-    {{#if editGeofence}}
     <hr>
     {{#autoForm collection="Geofences" id="geofenceForm" doc=doc}}
         {{> afFieldInput type="hidden" name="_id" value=_id}}
@@ -46,12 +67,11 @@
         {{> afQuickField name="tags"}}
     {{/autoForm}}
     <div class="actions">
-        <a href="#" class="btn btn-default btn-primary btn-sm">
+        <a href="#" class="btn btn-default btn-primary btn-submit btn-circle">
             <i class="fa fa-check"></i> Запиши </a>
-        <a href="#" class="btn btn-default btn-reset">
+        <a href="#" class="btn btn-default btn-reset btn-circle">
             <i class="fa fa-close"></i> Анулирай </a>
     </div>
-    {{/if}}
 </template>
 
 <template name="geofencesTable">

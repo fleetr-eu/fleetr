@@ -11,7 +11,7 @@
   overflow: hidden;
 }
 
-#vehicle-filter-box {
+.map-filter {
   -webkit-transition: all .5s; /* Safari */
    transition: all .5s;;
   position: absolute;
@@ -23,18 +23,18 @@
   z-index: 999;
   height: 100%;
 }
-#vehicle-filter-box.open {
+.map-filter.open {
     -ms-transform: translate(-100%); /* IE 9 */
    	-webkit-transform: translate(-100%); /* Safari */
     transform: translate(-100%);
 }
 @media (max-width: 992px) {
-    #vehicle-filter-box {
+    .map-filter {
       display: none;
       position: relative;
       left: 0;
     }
-    #vehicle-filter-box.open {
+    .map-filter.open {
       display: block;
       -ms-transform: none;
      	-webkit-transform: none;
