@@ -1,4 +1,25 @@
-<template name="dashboard">	
+<template name="dashboardItem">
+	<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+		<div class="dashboard-stat {{color}}">
+			<div class="visual">
+				<i class="fa fa-car"></i>
+			</div>
+			<div class="details">
+				<div class="number">
+					 {{data}}
+				</div>
+				<div class="desc">
+					 {{text}}
+				</div>
+			</div>
+			<a class="more" href={{pathFor 'listVehicles'}}>
+			Виж повече <i class="m-icon-swapright m-icon-white"></i>
+			</a>
+		</div>
+	</div>
+</template>
+
+<template name="dashboard">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="portlet light">
@@ -11,80 +32,12 @@
 				</div>
 
 				<div class="row">
-					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-						<div class="dashboard-stat green-haze">
-							<div class="visual">
-								<i class="fa fa-globe"></i>
-							</div>
-							<div class="details">
-								<div class="number">
-									 {{movingVehicles}}
-								</div>
-								<div class="desc">
-									 в движение
-								</div>
-							</div>
-							<a class="more" href="#">
-							Виж повече <i class="m-icon-swapright m-icon-white"></i>
-							</a>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-						<div class="dashboard-stat blue-madison">
-							<div class="visual">
-								<i class="fa fa-globe"></i>
-							</div>
-							<div class="details">
-								<div class="number">
-									 {{restingVehicles}}
-								</div>
-								<div class="desc">
-									 с изключен двигател
-								</div>
-							</div>
-							<a class="more" href="#">
-							Виж повече <i class="m-icon-swapright m-icon-white"></i>
-							</a>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-						<div class="dashboard-stat purple-plum">
-							<div class="visual">
-								<i class="fa fa-globe"></i>
-							</div>
-							<div class="details">
-								<div class="number">
-									 {{idlingVehicles}}
-								</div>
-								<div class="desc">
-									 без движение
-								</div>
-							</div>
-							<a class="more" href="#">
-							Виж повече <i class="m-icon-swapright m-icon-white"></i>
-							</a>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-						<div class="dashboard-stat red-intense">
-							<div class="visual">
-								<i class="fa fa-globe"></i>
-							</div>
-							<div class="details">
-								<div class="number">
-									 {{overspeedingVehicles}}
-								</div>
-								<div class="desc">
-									 с превишена скорост
-								</div>
-							</div>
-							<a class="more" href="#">
-							Виж повече <i class="m-icon-swapright m-icon-white"></i>
-							</a>
-						</div>
-					</div>
+					{{> dashboardItem color='green-haze' text='в движение' data=movingVehicles}}
+					{{> dashboardItem color='blue-madison' text='с изключен двигател' data=restingVehicles}}
+					{{> dashboardItem color='purple-plum' text='без движение' data=idlingVehicles}}
+					{{> dashboardItem color='red-intense' text='с превишена скорост' data=overspeedingVehicles}}
 				</div>
 			</div>
 		</div>
-	</div>	
+	</div>
 </template>
