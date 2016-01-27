@@ -163,6 +163,7 @@ Template.vehicles.helpers
         sort:
           name: 1
         transform: (doc) -> _.extend doc,
+            speed: if doc.state is 'stop' then 0 else doc.speed
             fleetName: Fleets.findOne(_id: doc.allocatedToFleet)?.name
             vehicleShowName: doc.name + ' (' + doc.licensePlate + ')'
             odo: doc.odometer / 1000
