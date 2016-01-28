@@ -1,29 +1,31 @@
 Meteor.startup ->
   Partitioner.directOperation ->
-    Geofences.find().forEach (gf) ->
-      cursor = Vehicles.find
+    console.log 'registering geofences'
+    geofences = Geofences.find()
+    geofences.forEach (gf) ->
+      vehicles = Vehicles.find
         _groupId: gf._groupId
         state: 'stop'
         loc:
           $geoWithin:
             $centerSphere: [ gf.center, gf.radius / 6378100 ]
         # "rest.duration":
-        #   $gt: 1 
+        #   $gt: 1
 
-      cursor.observe
+      addAlarm = (type, v) ->
+        Partitioner.bindGroup gf._groupId, ->
+          Alarms.insert
+            type: 'leaveGeofence'
+            time: new Date()
+            geofenceId: gf._id
+            vehicleId: v._id
+
+      vehicles.observe
         added: (doc) ->
           console.log '++++++++++++++++++++++++++++++++++++++++++++++++++++'
           console.log "Vehicle #{doc.name} entered #{gf.name}!"
-          Partitioner.bindGroup doc._groupId, ->
-            Alarms.insert
-              type: 'enterGeofence'
-              geofenceId: gf._id
-              vehicleId: doc._id
+          addAlarm 'enterGeofence', doc
         removed: (doc) ->
           console.log '----------------------------------------------------'
           console.log "Vehicle #{doc.name} left #{gf.name}!"
-          Partitioner.bindGroup doc._groupId, ->
-            Alarms.insert
-              type: 'leaveGeofence'
-              geofenceId: gf._id
-              vehicleId: doc._id
+          addAlarm 'leaveGeofence', doc
