@@ -211,3 +211,5 @@ Template.logbook2.helpers
       explicitInitialization: true
       forceFitColumns: true
       rowHeight: 50
+    customize: (grid) ->
+      grid.addGroupBy 'date', 'Дата', aggregators

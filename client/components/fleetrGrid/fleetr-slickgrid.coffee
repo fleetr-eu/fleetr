@@ -132,7 +132,7 @@ Helpers =
     delete @_groupings[name]
     @_effectuateGroupings()
   @_effectuateGroupings = ->
-    @_dataView.setGrouping (val for key, val of @_groupings)
+    @_dataView?.setGrouping (val for key, val of @_groupings)
   # <-- grouping
 
   # handler which is called before data is refreshed from the server
