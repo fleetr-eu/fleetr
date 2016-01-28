@@ -19,6 +19,11 @@ nullRecord = ->
     avgSpeed: 0
     distance: 0
     consumedFuel: 0
+  rest:
+    duration: 0
+
+calcDuration = (startTime, stopTime) ->
+  moment.duration(moment(stopTime).diff(startTime or 0))
 
 updateVehicle = (rec, updater, cb) ->
   Partitioner.directOperation ->
@@ -49,7 +54,7 @@ updateVehicle = (rec, updater, cb) ->
       if v.rest
         Rests.insert lodash.merge (v.rest or {}),
           stop: data
-          duration: moment.duration(moment(rec.recordTime).diff(v.rest?.start?.time or 0)).asMinutes()
+          duration: calcDuration(v.rest?.start?.time, rec.recordTime).asSeconds()
       else
         console.warn "Rest stop without a corresponding start!"
 
@@ -77,8 +82,7 @@ updateVehicle = (rec, updater, cb) ->
       trip = v.trip
       if trip
         distance = rec.tacho - (trip?.start?.odometer or 0)
-        duration = moment.duration(moment(rec.recordTime)
-          .diff(trip?.start?.time or 0)).asHours()
+        duration = calcDuration(trip?.start?.time, rec.recordTime).asHours()
         trip = lodash.merge trip,
           distance: distance / 1000
           consumedFuel: rec.fuelc - (trip?.start?.fuel or 0)
@@ -107,9 +111,14 @@ updateVehicle = (rec, updater, cb) ->
       maxSpeed = v.trip?.maxSpeed or 0
       maxSpeed = rec.speed if rec.speed > maxSpeed
 
+      restDuration = if v.rest?.start?.time and v.state is 'stop'
+        calcDuration(v.rest?.start?.time, rec.recordTime).asSeconds()
+      else 0
+
       'trip.maxSpeed': maxSpeed
+      'rest.duration': restDuration
       lastUpdate: rec.recordTime
-      speed: rec.speed
+      speed: if v.state is 'stop' then 0 else rec.speed
       lat: rec.lat
       lon: rec.lon
       loc: [rec.lon, rec.lat]
