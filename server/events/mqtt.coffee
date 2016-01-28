@@ -2,9 +2,12 @@ Fiber = Npm.require('fibers')
 
 Meteor.startup ->
   opts = if Meteor.settings.mqttUrl
-    {}
+    if Meteor.settings.mqttClientId
+      clientId: Meteor.settings.mqttClientId
+    else
+      {}
   else
-    clientId: 'fleetr_eu'
+    clientId: Meteor.settings.mqttClientId or 'fleetr_eu'
   mqttUrl = Meteor.settings.mqttUrl || 'mqtt://mqtt:1883'
   console.log "MQTT: URL #{mqttUrl}, options #{EJSON.stringify opts}"
   client = mqtt.connect mqttUrl, opts
