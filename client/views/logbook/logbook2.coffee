@@ -166,6 +166,10 @@ Template.logbook2.helpers
       id: 'speed'
       field: 'avgSpeed'
       name: 'Скорост / Макс'
+      search:
+        where: 'client'
+        filter: (filterText) -> (columnValue) ->
+          console.log 'filter', filterText, columnValue
       formatter: (row, cell, value, column, rowObject) ->
         s = if rowObject.avgSpeed
           FleetrGrid.Formatters.roundFloat(0)(row, cell, rowObject.avgSpeed)
