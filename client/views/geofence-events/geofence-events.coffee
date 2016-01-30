@@ -13,6 +13,15 @@ Template.geofenceEvents.helpers
           vehicleName: Vehicles.findOne(_id: doc.vehicleId)?.name
           driverName: Drivers.findOne(_id: doc.driverId)?.name
       columns: [
+        id: "active"
+        field: "active"
+        name: "#{TAPi18n.__('geofenceEvents.active')}"
+        width:20
+        sortable: true
+        search: false
+        align: 'center'
+        formatter: FleetrGrid.Formatters.blazeFormatter Template.seenNotification
+      ,
         id: "geofenceName"
         field: "geofenceName"
         name: "#{TAPi18n.__('geofenceEvents.geofence')}"
@@ -20,7 +29,7 @@ Template.geofenceEvents.helpers
         sortable: true
         search: where: 'client'
         groupable: true
-      ,  
+      ,
         id: "fleetGroupName"
         field: "fleetGroupName"
         name: "#{TAPi18n.__('geofenceEvents.fleetGroup')}"
@@ -38,7 +47,7 @@ Template.geofenceEvents.helpers
         sortable: true
         search: where: 'client'
         groupable: true
-      ,    
+      ,
         id: "vehicleName"
         field: "vehicleName"
         name: "#{TAPi18n.__('geofenceEvents.vehicle')}"
@@ -96,7 +105,7 @@ Template.geofenceEvents.helpers
         name: "#{TAPi18n.__('geofenceEvents.minutes')}"
         width:20
         sortable: true
-        search: where: 'client'  
+        search: where: 'client'
       ,
         id: "seen"
         field: "seen"
@@ -115,7 +124,7 @@ Template.geofenceEvents.helpers
         forceFitColumns: true
 
 Template.seenNotification.helpers
-  checked: -> 
+  checked: ->
     console.log "Helper --->"
     if @value then 'checked' else ''
 
@@ -123,4 +132,4 @@ Template.seenNotification.events
   'change .active': (e, t) ->
     Meteor.call 'submitGeofenceEvent', @rowObject,
       $set:
-        active: e.target.checked        
+        active: e.target.checked
