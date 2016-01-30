@@ -83,7 +83,7 @@ Template.geofenceEvents.helpers
         formatter: FleetrGrid.Formatters.blazeFormatter Template.seenNotification
       ,
         id: "stay"
-        field: "exit"
+        field: "stay"
         name: TAPi18n.__('geofenceEvents.stay')
         width:20
         sortable: true
