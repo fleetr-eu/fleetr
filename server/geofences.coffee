@@ -1,31 +1,52 @@
+observers =
+  gfe: {}
+  gf: {}
+
 Meteor.startup ->
   Partitioner.directOperation ->
-    console.log 'registering geofences'
-    geofences = Geofences.find()
-    geofences.forEach (gf) ->
-      vehicles = Vehicles.find
-        _groupId: gf._groupId
-        state: 'stop'
-        loc:
-          $geoWithin:
-            $centerSphere: [ gf.center, gf.radius / 6378100 ]
-        # "rest.duration":
-        #   $gt: 1
+    GeofenceEvents.find().observe
+      added: (gfe) ->
+        observers.gfe[gfe._id] = createGfObserver gfe
+      removed: (gfe) ->
+        observers.gfe[gfe._id].stop()
+        delete observers.gfe[gfe._id]
+      changed: (gfe) ->
+        observers.gfe[gfe._id].stop()
+        observers.gfe[gfe._id] = createGfObserver gfe
 
-      addAlarm = (type, v) ->
-        Partitioner.bindGroup gf._groupId, ->
-          Alarms.insert
-            type: 'leaveGeofence'
-            time: new Date()
-            geofenceId: gf._id
-            vehicleId: v._id
+createGfObserver = (gfe) ->
+  createVehicleObserver = (gf) ->
+    vehiclesCursor =
+      Partitioner.bindGroup gf._groupId, ->
+        Vehicles.find
+          loc:
+            $geoWithin:
+              $centerSphere: [ gf.center, gf.radius / 6378100 ]
+        ,
+          fields:
+            name: 1
 
-      vehicles.observe
-        added: (doc) ->
-          console.log '++++++++++++++++++++++++++++++++++++++++++++++++++++'
-          console.log "Vehicle #{doc.name} entered #{gf.name}!"
-          addAlarm 'enterGeofence', doc
-        removed: (doc) ->
-          console.log '----------------------------------------------------'
-          console.log "Vehicle #{doc.name} left #{gf.name}!"
-          addAlarm 'leaveGeofence', doc
+    vehiclesCursor.observe
+      added: (v) -> addAlarm 'geofence:enter', gf, v
+      removed: (v) -> addAlarm 'geofence:leave', gf, v
+
+  Geofences.find({_id: gfe.geofenceId}, {fields: tags: 0}).observe
+    added: (gf) ->
+      observers.gf[gf._id] = createVehicleObserver gf
+    removed: (gf) ->
+      observers.gf[gf._id].stop()
+      delete observers.gf[gf._id]
+    changed: (gf) ->
+      observers.gf[gf._id].stop()
+      observers.gf[gf._id] = createVehicleObserver gf
+
+addAlarm = (type, gf, v) ->
+  console.log """
+    Event '#{type}' occurred:
+    vehicle '#{v.name}', geofence '#{gf.name}'"""
+  Partitioner.bindGroup gf._groupId, ->
+    Alarms.insert
+      type: type
+      time: new Date()
+      geofenceId: gf._id
+      vehicleId: v._id
