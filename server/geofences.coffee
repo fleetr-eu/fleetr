@@ -19,6 +19,7 @@ createGfObserver = (gfe) ->
     vehiclesCursor =
       Partitioner.bindGroup gf._groupId, ->
         Vehicles.find
+          _id: gfe.vehicleId
           loc:
             $geoWithin:
               $centerSphere: [ gf.center, gf.radius / 6378100 ]
@@ -27,8 +28,8 @@ createGfObserver = (gfe) ->
             name: 1
 
     vehiclesCursor.observe
-      added: (v) -> addAlarm 'geofence:enter', gf, v
-      removed: (v) -> addAlarm 'geofence:leave', gf, v
+      added: (v) -> addAlarm 'geofence:enter', gf, v if gfe.enter
+      removed: (v) -> addAlarm 'geofence:exit', gf, v if gfe.exit
 
   Geofences.find({_id: gfe.geofenceId}, {fields: tags: 0}).observe
     added: (gf) ->
