@@ -6,8 +6,13 @@ Meteor.startup ->
       mapTypeId: google.maps.MapTypeId.ROADMAP
       disableDefaultUI: true
       zoomControl: true
+      mapTypeControl: true
+      mapTypeControlOptions:
+        # style: google.maps.MapTypeControlStyle.VERTICAL_BAR
+        position: google.maps.ControlPosition.LEFT_TOP
       zoomControlOptions:
-          style: google.maps.ZoomControlStyle.SMALL
+        style: google.maps.ZoomControlStyle.SMALL
+        position: google.maps.ControlPosition.LEFT_BOTTOM
 
     init: (cb) ->
       navigator.geolocation.getCurrentPosition @setup(cb), @setup(cb)
