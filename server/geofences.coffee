@@ -8,7 +8,7 @@ Meteor.startup ->
       active: true
     ,
       fields:
-        _groupId: 1
+        active: 1
         geofenceId: 1
         vehicleId: 1
         enter: 1
@@ -28,6 +28,19 @@ Meteor.startup ->
 createGfObserver = (gfe) ->
   Partitioner.bindGroup gfe._groupId, ->
     createVehicleObserver = (gf) ->
+
+      addAlarm = (type, v) ->
+        console.log """
+          Event '#{type}' occurred (geofence event id #{gfe._id}):
+          vehicle id '#{v._id}', geofence id '#{gf._id}'"""
+        Partitioner.bindGroup gf._groupId, ->
+          Alarms.insert
+            type: type
+            time: new Date()
+            geofenceEventId: gfe._id
+            geofenceId: gf._id
+            vehicleId: v._id
+
       vehiclesCursor = Vehicles.find
         _id: gfe.vehicleId
         loc:
@@ -35,16 +48,17 @@ createGfObserver = (gfe) ->
             $centerSphere: [ gf.center, gf.radius / 6378100 ]
       ,
         fields:
-          name: 1
+          _id: 1
 
       vehiclesCursor.observe
-        added: (v) -> addAlarm 'geofence:enter', gf, v if gfe.enter
-        removed: (v) -> addAlarm 'geofence:exit', gf, v if gfe.exit
+        added: (v) -> addAlarm 'geofence:enter', v if gfe.enter
+        removed: (v) -> addAlarm 'geofence:exit', v if gfe.exit
 
     gfCursor = Geofences.find
       _id: gfe.geofenceId
     ,
       fields:
+        name: 0
         tags: 0
 
     gfCursor.observe
@@ -56,15 +70,3 @@ createGfObserver = (gfe) ->
       changed: (gf) ->
         observers.gf[gf._id].stop()
         observers.gf[gf._id] = createVehicleObserver gf
-
-
-addAlarm = (type, gf, v) ->
-  console.log """
-    Event '#{type}' occurred:
-    vehicle '#{v.name}', geofence '#{gf.name}'"""
-  Partitioner.bindGroup gf._groupId, ->
-    Alarms.insert
-      type: type
-      time: new Date()
-      geofenceId: gf._id
-      vehicleId: v._id
