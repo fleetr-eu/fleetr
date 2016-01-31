@@ -26,47 +26,46 @@ Meteor.startup ->
 
 
 createGfObserver = (gfe) ->
-  Partitioner.bindGroup gfe._groupId, ->
-    createVehicleObserver = (gf) ->
+  createVehicleObserver = (gf) ->
 
-      addAlarm = (type, v) ->
-        console.log """
-          Event '#{type}' occurred (geofence event id #{gfe._id}):
-          vehicle id '#{v._id}', geofence id '#{gf._id}'"""
-        Partitioner.bindGroup gf._groupId, ->
-          Alarms.insert
-            type: type
-            time: new Date()
-            geofenceEventId: gfe._id
-            geofenceId: gf._id
-            vehicleId: v._id
+    addAlarm = (type, v) ->
+      console.log """
+        Event '#{type}' occurred (geofence event id #{gfe._id}):
+        vehicle id '#{v._id}', geofence id '#{gf._id}'"""
+      Partitioner.bindGroup gf._groupId, ->
+        Alarms.insert
+          type: type
+          time: new Date()
+          geofenceEventId: gfe._id
+          geofenceId: gf._id
+          vehicleId: v._id
 
-      vehiclesCursor = Vehicles.find
-        _id: gfe.vehicleId
-        loc:
-          $geoWithin:
-            $centerSphere: [ gf.center, gf.radius / 6378100 ]
-      ,
-        fields:
-          _id: 1
-
-      vehiclesCursor.observe
-        added: (v) -> addAlarm 'geofence:enter', v if gfe.enter
-        removed: (v) -> addAlarm 'geofence:exit', v if gfe.exit
-
-    gfCursor = Geofences.find
-      _id: gfe.geofenceId
+    vehiclesCursor = Vehicles.find
+      _id: gfe.vehicleId
+      loc:
+        $geoWithin:
+          $centerSphere: [ gf.center, gf.radius / 6378100 ]
     ,
       fields:
-        name: 0
-        tags: 0
+        _id: 1
 
-    gfCursor.observe
-      added: (gf) ->
-        observers.gf[gf._id] = createVehicleObserver gf
-      removed: (gf) ->
-        observers.gf[gf._id].stop()
-        delete observers.gf[gf._id]
-      changed: (gf) ->
-        observers.gf[gf._id].stop()
-        observers.gf[gf._id] = createVehicleObserver gf
+    vehiclesCursor.observe
+      added: (v) -> addAlarm 'geofence:enter', v if gfe.enter
+      removed: (v) -> addAlarm 'geofence:exit', v if gfe.exit
+
+  gfCursor = Geofences.find
+    _id: gfe.geofenceId
+  ,
+    fields:
+      name: 0
+      tags: 0
+
+  gfCursor.observe
+    added: (gf) ->
+      observers.gf[gf._id] = createVehicleObserver gf
+    removed: (gf) ->
+      observers.gf[gf._id].stop()
+      delete observers.gf[gf._id]
+    changed: (gf) ->
+      observers.gf[gf._id].stop()
+      observers.gf[gf._id] = createVehicleObserver gf
