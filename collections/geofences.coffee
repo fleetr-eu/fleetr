@@ -7,11 +7,11 @@ Schema.geofences = new SimpleSchema
 
   name:
     type: String
-    label: 'Обект'
+    label: -> TAPi18n.__('common.name')
 
   tags:
     type: String
-    label: 'Етикети'
+    label: -> TAPi18n.__('common.tags')
     optional: true
 
   center:

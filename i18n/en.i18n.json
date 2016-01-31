@@ -1,4 +1,9 @@
 {
+  "common": {
+    "name": "Name",
+    "tags": "Tags"
+  },
+
   "time": {
     "day" : "Day",
     "week" : "Week",
