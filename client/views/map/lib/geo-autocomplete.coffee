@@ -6,7 +6,7 @@ Meteor.startup ->
       map.controls[google.maps.ControlPosition.TOP_LEFT].push pacSearch
 
       autocomplete = new google.maps.places.Autocomplete(input)
-      autocomplete.bindTo "bounds", Map.map
+      autocomplete.bindTo "bounds", map
       infowindow = new google.maps.InfoWindow()
       searchMarker = new google.maps.Marker
         map: map

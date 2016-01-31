@@ -8,8 +8,10 @@ Meteor.startup ->
       zoomControl: true
       mapTypeControl: true
       mapTypeControlOptions:
-        # style: google.maps.MapTypeControlStyle.VERTICAL_BAR
         position: google.maps.ControlPosition.LEFT_TOP
+      streetViewControl: true
+      streetViewControlOptions:
+        position: google.maps.ControlPosition.LEFT_BOTTOM
       zoomControlOptions:
         style: google.maps.ZoomControlStyle.SMALL
         position: google.maps.ControlPosition.LEFT_BOTTOM
@@ -27,6 +29,7 @@ Meteor.startup ->
           @circle?.setMap null
           @circle = @drawCircle(e.latLng, 100)
 
+      Autocomplete.init GeofenceMap.map
       cb && cb()
 
     addListener: (event, listener) ->

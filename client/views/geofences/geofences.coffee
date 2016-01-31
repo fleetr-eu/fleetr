@@ -27,7 +27,6 @@ renderGeofence = (id) ->
   GeofenceMap.circle = GeofenceMap.drawCircle new google.maps.LatLng(lat, lng), geo.radius, {editable: true, id: geo._id}
 
 renderGeofences = (center) ->
-  console.log 'rendering'
   GeofenceMap?.clear()
   Geofences.find().forEach (geo) ->
     [lng, lat] = geo.center
