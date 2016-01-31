@@ -211,7 +211,7 @@ Template.logbook2.helpers
       multiColumnSort: true
       enableCellNavigation: false
       enableColumnReorder: false
-      showHeaderRow: false
+      showHeaderRow: true
       explicitInitialization: true
       forceFitColumns: true
       rowHeight: 50
