@@ -35,10 +35,11 @@ createGfObserver = (gfe) ->
       Partitioner.bindGroup gf._groupId, ->
         Alarms.insert
           type: type
-          time: new Date()
-          geofenceEventId: gfe._id
-          geofenceId: gf._id
-          vehicleId: v._id
+          timestamp: new Date()
+          data:
+            geofenceEventId: gfe._id
+            geofenceId: gf._id
+            vehicleId: v._id
 
     vehiclesCursor = Vehicles.find
       _id: gfe.vehicleId
