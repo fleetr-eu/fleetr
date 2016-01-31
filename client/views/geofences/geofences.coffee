@@ -15,9 +15,8 @@ Template.geofences.onRendered ->
   @autorun ->
     Meteor.subscribe 'geofences'
   @autorun ->
-    if Session.get('addGeofence') or Session.get('editGeofence')
-      GeofenceMap?.clear()
-      renderGeofence Session.get('selectedGeofenceId') if Session.get('editGeofence')
+    if Session.get('editGeofence')
+      renderGeofence Session.get('selectedGeofenceId')
     else
       GeofenceMap?.circle?.setMap(null)
       GeofenceMap?.circle = null

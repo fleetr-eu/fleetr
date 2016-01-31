@@ -40,9 +40,10 @@
             <div class="portlet-body" id="map-container">
               <div class="row">
                 <div class="col-md-5 map-filter {{#if showGfList}}open{{/if}}" id="gf-list-box">
-                  {{> geofencesTable}}
                   {{#if inEditMode}}
                     {{> editGeofence doc=selectedGeofence}}
+                  {{else}}
+                    {{> geofencesTable}}
                   {{/if}}
 
                 </div>

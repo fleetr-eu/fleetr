@@ -37,15 +37,16 @@ Meteor.startup ->
       @geofences = []
 
     drawCircle: (center, radius, options) ->
+      color = if options?.editable is false then 'blue' else 'red'
       opts =
         map: @map
         center: center
         radius: radius
         editable: true
-        strokeColor: '#FF0000'
+        strokeColor: color
         strokeOpacity: 0.8
         strokeWeight: 2
-        fillColor: '#FF0000'
+        fillColor: color
         fillOpacity: 0.35
       opts = _.extend(opts, options)
       circle = new google.maps.Circle opts
