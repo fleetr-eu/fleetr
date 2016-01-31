@@ -55,7 +55,8 @@
 
   "geofences": {
     "title": "Objects",
-    "list": "List objects"
+    "list": "List objects",
+    "deleteMessage": "Are you certain you want to delete this object?"
   },
 
   "simpleMap": {

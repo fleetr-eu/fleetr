@@ -54,8 +54,12 @@ Template.geofences.events
     Session.set 'editGeofence', true
     Session.set 'showGfList', true
   'click .deleteGeofence': ->
-    Meteor.call 'removeGeofence', Session.get('selectedGeofenceId')
-    Session.set 'selectedGeofenceId', null
+    Modal.show 'confirmDelete',
+      title: 'geofences.title'
+      message: 'geofences.deleteMessage'
+      action: ->
+        Meteor.call 'removeGeofence', Session.get('selectedGeofenceId')
+        Session.set 'selectedGeofenceId', null
 
 Template.editGeofence.events
   'click .btn-submit': (e, template) ->
