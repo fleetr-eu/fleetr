@@ -48,6 +48,11 @@
     "geofenceNotifications":"Geofence Events"
   },
 
+  "geofences": {
+    "title": "Objects",
+    "list": "List objects"
+  },
+
   "simpleMap": {
     "showMarkers": "Show info points"
   },
