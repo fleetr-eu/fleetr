@@ -164,12 +164,12 @@ Template.logbook2.helpers
         else ''
     ,
       id: 'speed'
-      field: 'avgSpeed'
+      field: 'maxSpeed'
       name: 'Скорост / Макс'
       search:
         where: 'client'
         filter: (filterText) -> (columnValue) ->
-          console.log 'filter', filterText, columnValue
+          if columnValue >= parseInt(filterText) then columnValue else ''
       formatter: (row, cell, value, column, rowObject) ->
         s = if rowObject.avgSpeed
           FleetrGrid.Formatters.roundFloat(0)(row, cell, rowObject.avgSpeed)
