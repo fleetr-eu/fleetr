@@ -5,8 +5,6 @@ Template.simpleMap.onCreated ->
   Session.set 'simpleMapShowInfoMarkers', false
 
 Template.simpleMap.onRendered ->
-  mapCanvasHeight = $(document).height() - 150
-  $('#simpleMap').height mapCanvasHeight
   {deviceId, start, stop, idle} =  EJSON.parse decodeURIComponent @data
   start.time = moment(start.time).toDate()
   stop.time = moment(stop.time).toDate()

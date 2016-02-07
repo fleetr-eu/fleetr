@@ -1,8 +1,15 @@
 #map-canvas, #simpleMap {
     width: 100%;
-    height: calc(100vh - 225px);
     margin: 0px;
     padding: 0px;
+}
+
+#map-canvas {
+    height: calc(100vh - 225px);
+}
+
+#simpleMap {
+    height: calc(100vh - 150px);
 }
 
 #map-container {
