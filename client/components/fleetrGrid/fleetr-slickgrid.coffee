@@ -1,5 +1,6 @@
 Helpers =
   addId: (item) -> item.id = item._id; item
+  columnId: (column) -> column.id or column.field
 
 # Component that wraps SlickGrid and uses Meteorish constructs
 @FleetrGrid = (gridId, options, columns, serverMethodOrCursor) ->
@@ -67,12 +68,11 @@ Helpers =
     data = name: name, type: type
     @_activeFilters.remove data
     @_refreshData() if type == 'server'
-    $("#date-range-filter-#{name}").val('')
     event = $.Event 'fleetr-grid-removed-filter',
       filter: data
     $(".slickfleetr").trigger event
   @setColumnFilterValue = (column, filterValue)->
-    $("#searchbox-#{column.field}").val(filterValue).trigger('change')
+    $("#searchbox-#{Helpers.columnId args.column}").val(filterValue).trigger('change')
   @_applyClientFilters = =>
     @setGridData (@data.filter @_filter), false
   @_refreshData = =>
@@ -192,7 +192,8 @@ Helpers =
     # Handle changes to client rendered filters
     @_activeFilters.find(type: 'client').observe
       removed: (filter) =>
-        $("#searchbox-#{filter?.name}").val('')
+        console.log filter
+        $("#searchbox-#{field}").val('') for field of filter.spec
         @_applyClientFilters()
       added: @_applyClientFilters
       changed: @_applyClientFilters
@@ -277,7 +278,7 @@ Helpers =
     searchInputHandler = (e) =>
       columnId = $(e.target).data("columnId");
       if columnId
-        column = (columns.filter (column) -> column.id == columnId)[0]
+        column = (columns.filter (column) -> Helpers.columnId(column) == columnId)[0]
         where = column.search.where or 'client'
         if $(e.target).val().length
           @addFilter where, column.name, $(e.target).val(),
@@ -297,9 +298,9 @@ Helpers =
       if args.column.search
         where = args.column.search.where or 'client'
         if args.column.search.dateRange
-          $("<input id=\"date-range-filter-#{args.column.name}\" class=\"searchbox\" type=\"text\" placeholder=\"Търсене по дата\">").appendTo args.node
-          DateRangeFilter.install $("#date-range-filter-#{args.column.name}"), args.column.search.dateRange
-          $("#date-range-filter-#{args.column.name}").on 'apply.daterangepicker', (e, daterangepicker) =>
+          $("<input id=\"searchbox-#{Helpers.columnId args.column}\" class=\"searchbox\" type=\"text\" placeholder=\"Търсене по дата\">").appendTo args.node
+          DateRangeFilter.install $("#searchbox-#{Helpers.columnId args.column}"), args.column.search.dateRange
+          $("#searchbox-#{Helpers.columnId args.column}").on 'apply.daterangepicker', (e, daterangepicker) =>
             startDate = daterangepicker.startDate
             endDate = daterangepicker.endDate
             start = startDate.format('YYYY-MM-DD')
@@ -315,9 +316,10 @@ Helpers =
                 fltr[args.column.field] = dateObject
               fltr
         else
+          console.log "searchbox-#{Helpers.columnId args.column}", args.column
           $('<span class="glyphicon glyphicon-search searchbox" aria-hidden="true"></span>').appendTo(args.node)
-          $("<input id='searchbox-#{args.column.name}' type='text' class='searchbox'>")
-             .data("columnId", args.column.id)
+          $("<input id='searchbox-#{Helpers.columnId args.column}' type='text' class='searchbox'>")
+             .data("columnId", Helpers.columnId args.column)
              .appendTo(args.node)
       else
         $("<div class='searchdisabled'>&nbsp;</div>").appendTo args.node
