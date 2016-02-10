@@ -93,6 +93,7 @@ Meteor.startup ->
       path: '/vehicles/map/:vehicleId?'
       template: 'map'
       data: -> vehicleId: @params.vehicleId
+      waitOn: -> Meteor.subscribe('geofences')
 
     @route 'drilldownReport',
       path: '/reports/drilldown'

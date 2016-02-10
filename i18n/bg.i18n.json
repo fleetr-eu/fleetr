@@ -309,7 +309,8 @@
     "add": "Добави",
     "edit": "Промени",
     "delete": "Изтрий",
-    "filter": "Филтър"
+    "filter": "Филтър",
+    "showGeofences": "Покажи обекти"
   },
 
   "general" : {

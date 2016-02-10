@@ -1,8 +1,14 @@
 showFilterBox = new ReactiveVar false
+showGeofences = new ReactiveVar false
 
 Template.map.onRendered ->
   Session.set 'selectedVehicleId', @data.vehicleId
   Map.init =>
+    @autorun ->
+      if showGeofences.get()
+        Map.renderGeofences()
+      else
+        Map.removeGeofences()
     @autorun ->
       selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
       if selectedVehicle
@@ -36,6 +42,7 @@ Template.map.helpers
   filterOptions: -> vehicleDisplayStyle: 'none'
   selectedVehicleId: -> Session.get('selectedVehicleId')
   showFilterBox: -> showFilterBox.get()
+  showGeofences: -> showGeofences.get()
 
   fleetrGridConfig: ->
     columns: [
@@ -94,9 +101,13 @@ Template.map.helpers
 
 Template.map.events
   'click #pac-input-clear': -> $('#pac-input').val('')
+
   'click #toggle-filter': (e, t) ->
     showFilterBox.set not showFilterBox.get()
     Meteor.defer -> t.grid.resize()
+
+  'click #toggle-geofences': (e, t) ->
+    showGeofences.set not showGeofences.get()
 
   'rowsSelected': (e, t) ->
     Session.set 'selectedVehicleId', e.fleetrGrid.data[e.rowIndex]?._id

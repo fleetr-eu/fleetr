@@ -307,7 +307,8 @@
     "add": "Add",
     "edit": "Edit",
     "delete": "Delete",
-    "filter": "Filter"
+    "filter": "Filter",
+    "showGeofences": "Show objects"
   },
 
   "general" : {

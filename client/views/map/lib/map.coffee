@@ -1,5 +1,6 @@
 Meteor.startup ->
   @Map =
+    geofences: []
     options:
       zoom: 12
       mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -35,6 +36,53 @@ Meteor.startup ->
 
       Autocomplete.init Map.map
       cb && cb()
+
+    renderGeofences: ->
+      Map.renderGeofence(gf) for gf in Geofences.find().fetch()
+
+    removeGeofences: ->
+      for gf in Map.geofences
+        gf.circle.setMap null
+        gf.label.close()
+      Map.geofences = []
+
+    renderGeofence: (gf) ->
+      center = new google.maps.LatLng gf.center[1], gf.center[0]
+      circle = @drawCircle center, gf.radius, Map.map
+      label = @drawLabel center, gf.name, Map.map
+      Map.geofences.push
+        circle: circle
+        label: label
+
+    drawCircle: (center, radius, map) ->
+      opts =
+        map: map
+        center: center
+        radius: radius
+        editable: false
+        strokeColor: 'blue'
+        strokeOpacity: 0.8
+        strokeWeight: 2
+        fillColor: 'blue'
+        fillOpacity: 0.35
+      new google.maps.Circle opts
+
+    drawLabel: (center, text, map) ->
+      opts =
+        content: text
+        boxStyle:
+          textAlign: "center"
+          fontSize: "8pt"
+          width: "90px"
+        disableAutoPan: true
+        pixelOffset: new google.maps.Size(-45, 0)
+        position: center
+        closeBoxURL: ""
+        isHidden: false
+        enableEventPropagation: true
+      label = new InfoBox opts
+      label.open(map)
+      label
 
     renderMarkers: ->
       markers = Vehicles.find().map (vehicle) ->
