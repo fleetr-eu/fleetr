@@ -3,7 +3,8 @@ showGeofences = new ReactiveVar false
 
 Template.map.onRendered ->
   Session.set 'selectedVehicleId', @data.vehicleId
-  Map.init =>
+  position = Vehicles.findOne(_id: @data.vehicleId)?.selectedVehicle?.loc
+  Map.init position, =>
     @autorun ->
       if showGeofences.get()
         Map.renderGeofences()

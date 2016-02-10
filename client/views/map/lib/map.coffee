@@ -16,8 +16,11 @@ Meteor.startup ->
           style: google.maps.ZoomControlStyle.SMALL
           position: google.maps.ControlPosition.LEFT_BOTTOM
 
-    init: (cb) ->
-      navigator.geolocation.getCurrentPosition Map.setup(cb), Map.setup(cb)
+    init: (pos, cb) ->
+      if pos
+        Map.setup(cb) {coords: {latitude: pos[1], longitude: pos[0]}}
+      else
+        navigator.geolocation.getCurrentPosition Map.setup(cb), Map.setup(cb)
 
     # Location defaults to Sofia
     setup: (cb) -> (position = {coords: {latitude: 42.6959214, longitude: 23.3198662}}) ->
