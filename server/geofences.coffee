@@ -34,6 +34,7 @@ createGfObserver = (gfe) ->
         vehicle id '#{v._id}', geofence id '#{gf._id}'"""
       Partitioner.bindGroup gf._groupId, ->
         Alarms.insert
+          seen: false
           type: type
           timestamp: new Date()
           data:
@@ -41,7 +42,7 @@ createGfObserver = (gfe) ->
             geofenceId: gf._id
             vehicleId: v._id
 
-    vehiclesCursor = Vehicles.find
+    vehiclesCursor = Partitioner.bindGroup gf._groupId, -> Vehicles.find
       _id: gfe.vehicleId
       loc:
         $geoWithin:

@@ -313,6 +313,16 @@
     "showGeofences": "Покажи обекти"
   },
 
+  "alarms" : {
+    "title":"Аларма",
+    "listTitle":"Аларми",
+    "type":"Вид",
+    "description":"Описание",
+    "timestamp": "Време",
+    "seen" : "Видяна",
+    "data" : "Данни"
+  },
+
   "general" : {
     "search":"Търси ...",
     "yes": "да",

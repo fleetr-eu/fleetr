@@ -1,59 +1,7 @@
-<template name="alarmsList">
-
-	<h3 class="page-title">
-		Аларми
-	</h3>
-	<div class="page-bar">
-		<ul class="page-breadcrumb">
-			<li>
-				<i class="fa fa-home"></i>
-				<a href="/">Начало</a>
-				<i class="fa fa-angle-right"></i>
-			</li>
-			<li>
-				<a href="#">Аларми</a>
-			</li>
-		</ul>
-	</div>
-	<!-- END PAGE HEADER-->
-
-	<div class="row">
-			<div class="col-md-12">
-				<div class="portlet box blue">
-					<div class="portlet-title">
-						<div class="caption" id="alarms">
-		            {{> filter sessionVar='filterAlarms' placeholder='Търсене...'}}
-						</div>
-					</div>
-					<div class="portlet-body">
-				    <section class="content">
-				        <table class="table table-striped">
-				            <thead>
-				                <tr>
-				                    <th>Аларми</th>
-														<th>Етикети</th>
-														<th><i class="fa {{toggleSeenIcon}} toggleSeen"></i></th>
-				         				</tr>
-				            </thead>
-				            <tbody>
-				                {{#each alarms}} {{>alarmTableRow}} {{/each}}
-				            </tbody>
-				        </table>
-				    </section>
-				 </div>
-			</div>
-		</div>
-	</div>
+<template name="alarms">
+	{{> crud options }}
 </template>
 
-<template name="alarmTableRow">
-    <tr>
-        <td>{{alarmText}}&nbsp;<small style="{{style}}">{{timeAgo}}</small></td>
-				<td>
-					{{#each tagsArray}}
-						<span class="label label-danger filter-tag">{{this}}</span>
-					{{/each}}
-				</td>
-				<td><i class="fa {{seenIcon}} markSeen"></i></td>
-    </tr>
+<template name="seenAlarm">
+	<input type="checkbox" class="active" {{checked}}>
 </template>

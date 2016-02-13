@@ -1,38 +1,59 @@
-Template.alarmsList.created = -> Session.set 'filterAlarms', ''
+Template.alarms.helpers
+  options: ->
+    i18nRoot: 'alarms'
+    collection: Alarms
+    editItemTemplate: 'alarm'
+    gridConfig:
+      cursor: Alarms.find {},
+        transform: (doc) -> _.extend doc,
+          description: 'Описание на алармата'
+      columns: [
+        id: "timestamp"
+        field: "timestamp"
+        name: "#{TAPi18n.__('alarms.timestamp')}"
+        width:20
+        sortable: true
+        search: where: 'client'
+        formatter: FleetrGrid.Formatters.dateFormatter
+      ,  
+        id: "type"
+        field: "type"
+        name: "#{TAPi18n.__('alarms.type')}"
+        width:50
+        sortable: true
+        search: where: 'client'
+        groupable: true
+      ,  
+        id: "description"
+        field: "description"
+        name: "#{TAPi18n.__('alarms.description')}"
+        width:100
+        sortable: true
+        search: where: 'client'
+      ,    
+        id: "seen"
+        field: "seen"
+        name: "#{TAPi18n.__('alarms.seen')}"
+        width:5
+        sortable: true
+        search: where: 'client'
+        groupable: true
+        formatter: FleetrGrid.Formatters.blazeFormatter Template.seenNotification
+      ]
+      options:
+        enableCellNavigation: true
+        enableColumnReorder: false
+        showHeaderRow: true
+        explicitInitialization: true
+        forceFitColumns: true
 
-Template.alarmsList.helpers
-  toggleSeenIcon: ->
-    if Session.get('showSeenAlarms')
-      'fa-bell'
-    else
-      'fa-bell-slash'
-  alarms: ->
-    Alarms.findFiltered(Session.get('filterAlarms').trim(), Session.get('showSeenAlarms'))
+Template.seenAlarm.helpers
+  checked: -> 
+    console.log "Helper --->"
+    if @value then 'checked' else ''
 
-Template.alarmsList.events
-  'click .toggleSeen': (e) ->
-      Session.set 'showSeenAlarms', ! Session.get('showSeenAlarms')
-
-Template.alarmTableRow.helpers
-
-  seenIcon: ->
-    if @seen
-      'fa-bell-slash-o'
-    else
-      'fa-bell-o'
-
-  timeAgo: -> moment(@timestamp).locale(Settings.locale).from(moment())
-
-  tagsArray: ->
-    if @tags
-      @tags.split(",")
-    else
-      []
-
-  style: -> Alarms.timeAgoStyle(@timestamp)
-
-Template.alarmTableRow.events
-  'click .filter-tag': (e) ->
-    Session.set 'filterAlarms', e.target.innerText || e.target.textContent || ''
-  'click .markSeen': (e) ->
-    Meteor.call 'toggleAlarmSeen', @_id, @seen
+Template.seenAlarm.events
+  'change .active': (e, t) ->
+    Meteor.call 'submitAlarm', @rowObject,
+      $set:
+        seen: e.target.checked        

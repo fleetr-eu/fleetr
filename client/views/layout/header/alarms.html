@@ -1,4 +1,4 @@
-<template name="alarms">
+<template name="headerAlarms">
   <!-- BEGIN EVENTS DROPDOWN -->
   <li class="dropdown dropdown-extended dropdown-alarms" id="header_alarm_bar">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
@@ -16,7 +16,7 @@
         <li>
           <ul class="dropdown-menu-list scroller" style="height: 250px;">
             {{#each unseenAlarms}}
-              {{> alarm}}
+              {{> headerAlarm}}
             {{/each}}
           </ul>
         </li>
@@ -30,7 +30,7 @@
   <!-- END EVENTS DROPDOWN -->
 </template>
 
-<template name="alarm">
+<template name="headerAlarm">
   <li>
     <a href="#">
     <span class="label label-sm label-icon label-danger">

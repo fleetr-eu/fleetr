@@ -52,6 +52,12 @@ Meteor.startup ->
       fastRender: true
       waitOn: -> Meteor.subscribe('vehicles')
 
+
+    @route 'listAlarms',
+      path: '/alarms/list'
+      template: 'alarms'
+      waitOn: -> [Meteor.subscribe('alarms'), Meteor.subscribe('geofenceEvents'), Meteor.subscribe('customEvents')]
+
     @route 'listDrivers',
       path: '/drivers/list'
       template: 'drivers'

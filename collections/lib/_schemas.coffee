@@ -1,5 +1,33 @@
 @Schema = {};
 
+Schema.alarms = new SimpleSchema
+  _id:
+    type: String, optional: true
+  type:
+    type: String, label: ()->TAPi18n.__('alarms.type')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  timestamp: 
+    type: Date, label: ()->TAPi18n.__('alarms.timestamp')
+    autoform:
+      type: "bootstrap-datepicker"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  seen:
+    type: Boolean, optional: true, label: ()->TAPi18n.__('alarms.seen')
+    autoform:
+      type: 'bootstrap-switch'
+      afFieldInput: 
+        switchOptions:
+          size: 'normal'
+          onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
+      template: "bootstrap3-horizontal"
+      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"  
+  data:
+    type: Object, label: ()->TAPi18n.__('alarms.data')
+
+
 Schema.customEvents = new SimpleSchema
   _id:
     type: String, optional: true

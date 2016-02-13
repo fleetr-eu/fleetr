@@ -311,6 +311,16 @@
     "showGeofences": "Show objects"
   },
 
+ "alarms" : {
+    "title":"Alarm",
+    "listTitle":"Alarms",
+    "type":" Type",
+    "description":"Description",
+    "timestamp": "Timestamp",
+    "seen" : "Seen",
+    "data" : "Data"
+  },
+
   "general" : {
     "search":"Search ...",
     "yes": "да",

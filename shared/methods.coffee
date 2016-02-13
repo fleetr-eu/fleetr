@@ -15,6 +15,9 @@ Meteor.methods
       Geofences.insert doc
   removeGeofence: removeItem Geofences
 
+  submitAlarm: submitItem Alarms
+  removeAlarm: removeItem Alarms
+
   submitCustomEvent: submitItem CustomEvents
   removeCustomEvent: removeItem CustomEvents
 
