@@ -325,6 +325,7 @@
     "listTitle":"Аларми",
     "type":"Вид",
     "description":"Описание",
+    "timeAgo": "От",
     "timestamp": "Време",
     "seen" : "Видяна",
     "data" : "Данни"

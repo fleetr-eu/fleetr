@@ -7,7 +7,8 @@ Template.alarms.helpers
     gridConfig:
       cursor: Alarms.find {},
         transform: (doc) -> _.extend doc,
-            typeName: TAPi18n.__("alarmTypes.#{doc.type}")
+            typeName: TAPi18n.__("alarmTypes.#{doc.type}"),
+            timeAgo: moment(doc.timestamp).from(moment())
       columns: [
         id: "timestamp"
         field: "timestamp"
@@ -16,6 +17,13 @@ Template.alarms.helpers
         sortable: true
         search: where: 'client'
         formatter: FleetrGrid.Formatters.dateFormatter
+      ,
+        id: "timeAgo"
+        field: "timeAgo"
+        name: "#{TAPi18n.__('alarms.timeAgo')}"
+        width:20
+        sortable: true
+        search: where: 'client'
       ,
         id: "typeName"
         field: "typeName"

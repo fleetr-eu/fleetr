@@ -324,6 +324,7 @@
     "type":" Type",
     "description":"Description",
     "timestamp": "Timestamp",
+    "timeAgo": "From",
     "seen" : "Seen",
     "data" : "Data"
   },
