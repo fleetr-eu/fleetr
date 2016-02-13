@@ -2,6 +2,14 @@
 Partitioner.partitionCollection Alarms
 Alarms.attachSchema Schema.alarms
 
+Alarms.timeAgoStyle = (timestamp) ->
+  if moment(timestamp).add(1, "hours").toDate() < moment()
+    "color:red;"
+  else
+    if moment(timestamp).add(30, "minutes").toDate() < moment()
+      "color:orange;"
+    else
+      "color:navy;"
 
 fetchGfAlarmObjects = (alarm) ->
   vehicle: Vehicles.findOne(_id: alarm.data.vehicleId)
