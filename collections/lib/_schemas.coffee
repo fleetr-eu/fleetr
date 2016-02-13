@@ -25,7 +25,7 @@ Schema.alarms = new SimpleSchema
       template: "bootstrap3-horizontal"
       leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   data:
-    type: Object, label: ->TAPi18n.__('alarms.data')
+    type: Object, optional: true, label: ->TAPi18n.__('alarms.data')
   description:
     type: String, label: ->TAPi18n.__('alarms.description')
     autoform:
