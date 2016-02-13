@@ -50,8 +50,8 @@ createGfObserver = (gfe) ->
         _id: 1
 
     vehiclesCursor.observe
-      added: (v) -> addAlarm 'geofence:enter', v if gfe.enter
-      removed: (v) -> addAlarm 'geofence:exit', v if gfe.exit
+      added: (v) -> addAlarm 'geofence.enter', v if gfe.enter
+      removed: (v) -> addAlarm 'geofence.exit', v if gfe.exit
 
   gfCursor = Geofences.find
     _id: gfe.geofenceId

@@ -7,7 +7,7 @@ Template.alarms.helpers
     gridConfig:
       cursor: Alarms.find {},
         transform: (doc) -> _.extend doc,
-          typeName: TAPi18n.__("alarmTypes.#{doc.type}")
+            typeName: TAPi18n.__("alarmTypes.#{doc.type}")
       columns: [
         id: "timestamp"
         field: "timestamp"

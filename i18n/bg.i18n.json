@@ -314,8 +314,10 @@
   },
 
   "alarmTypes" : {
-    "geoefence:enter":"Влизане в обект",
-    "geoefence:exit":"Излизане от обект"
+    "geofence": {
+      "enter": "Влизане в обект",
+      "exit": "Излизане от обект"
+    }
   },
 
   "alarms" : {

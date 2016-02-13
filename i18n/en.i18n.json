@@ -312,8 +312,10 @@
   },
 
   "alarmTypes" : {
-    "geoefence:enter":"Enter Geofence",
-    "geoefence:exit":"Exit Geofence"
+    "geofence": {
+      "enter": "Enter Geofence",
+      "exit": "Exit Geofence"
+    }
   },
 
   "alarms" : {

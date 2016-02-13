@@ -17,10 +17,10 @@ fetchGfAlarmObjects = (alarm) ->
 
 makeAlarmText = (alarm) ->
   switch alarm.type
-    when 'geofence:enter'
+    when 'geofence.enter'
       {vehicle, geofence} = fetchGfAlarmObjects alarm
       "Автомобил #{vehicle.name} (#{vehicle.licensePlate}) влезе в обект #{geofence.name}."
-    when 'geofence:exit'
+    when 'geofence.exit'
       {vehicle, geofence} = fetchGfAlarmObjects alarm
       "Автомобил #{vehicle.name} (#{vehicle.licensePlate}) излезе от обект #{geofence.name}."
 
