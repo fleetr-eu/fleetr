@@ -1,3 +1,8 @@
+# Autopublish
+Meteor.publish null, -> Alarms.find {}
+# /Autopublish
+
+
 Meteor.publish 'drivers', -> Drivers.find {}
 Meteor.publish 'driver', (filter) -> if filter then Drivers.find(filter) else []
 Meteor.publish 'countries', -> Countries.find {}
