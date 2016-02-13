@@ -19,10 +19,10 @@ makeAlarmText = (alarm) ->
   switch alarm.type
     when 'geofence:enter'
       {vehicle, geofence} = fetchGfAlarmObjects alarm
-      "Автомобил #{vehicle.name} влезе в обект #{geofence.name}."
+      "Автомобил #{vehicle.name} (#{vehicle.licensePlate}) влезе в обект #{geofence.name}."
     when 'geofence:exit'
       {vehicle, geofence} = fetchGfAlarmObjects alarm
-      "Автомобил #{vehicle.name} излезе от обект #{geofence.name}."
+      "Автомобил #{vehicle.name} (#{vehicle.licensePlate}) излезе от обект #{geofence.name}."
 
 Alarms.add = (alarm) ->
   Alarms.insert _.extend alarm,
