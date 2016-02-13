@@ -6,6 +6,12 @@ Meteor.startup ->
     selectedItemId: -> Session.get('selectedItemId')
     gridConfig: -> Template.instance().data.gridConfig
     title: -> "#{Template.instance().data.i18nRoot}.listTitle"
+    show: ->
+      buttons = Template.instance().data?.buttons
+
+      add: if buttons?.add is undefined then true else buttons.add
+      edit: if buttons?.edit is undefined then true else buttons.edit
+      delete: if buttons?.delete is undefined then true else buttons.delete
 
   Template.crud.events
     'click .delete-item': (e, t) ->
