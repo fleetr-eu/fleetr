@@ -2,6 +2,15 @@
 Partitioner.partitionCollection Vehicles
 Vehicles.attachSchema Schema.vehicle
 
+Vehicles.after.update (userId, doc, fieldNames, modifier, options) ->
+  if doc.alarms?.speedingAlarmActive and doc.speed > doc.alarms?.speedingAlarmSpeed
+    Alarms.add
+      type: 'vehicle.speeding'
+      data:
+        vehicleId: doc._id
+        speed: doc.speed
+        limit: doc.alarms.speedingAlarmSpeed
+
 Vehicles.getAssignedDriver = (vehicle, timestamp) ->
   dvAssignment = DriverVehicleAssignments.findOne {vehicle:vehicle},  {sort: {moment: -1}}
   if (dvAssignment?.date <= timestamp) and (dvAssignment?.event=='begin')
