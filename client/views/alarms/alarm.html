@@ -2,9 +2,9 @@
   {{#autoForm collection="Alarms" doc=doc id="alarmForm" type="method" meteormethod="submitAlarm"}}
     <fieldset>
 	    {{> afFieldInput type="hidden" name="_id" value=_id}}
-	    {{> afQuickField name="type" autofocus=true}}
-	    {{> afQuickField name="timestamp"}}
-	    {{> afQuickField name="description"}}
+	    {{> afQuickField name="type" autofocus=true readonly=true}}
+	    {{> afQuickField name="timestamp" readonly=true}}
+	    {{> afQuickField name="description" readonly=true rows=3}}
 	    {{> afQuickField name="seen"}}
     </fieldset>
   {{/autoForm}}
