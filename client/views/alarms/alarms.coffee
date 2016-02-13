@@ -3,6 +3,7 @@ Template.alarms.helpers
     i18nRoot: 'alarms'
     collection: Alarms
     editItemTemplate: 'alarm'
+    removeItemMethod: 'removeAlarm'
     gridConfig:
       cursor: Alarms.find {},
         transform: (doc) -> _.extend doc,
