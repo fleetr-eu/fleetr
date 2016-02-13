@@ -38,7 +38,7 @@ Template.vehicles.helpers
     collection: Vehicles
     editItemTemplate: 'vehicle'
     removeItemMethod: 'removeVehicle'
-    additionalItemActionsTemaplate: 'maintenancesButton'
+    additionalItemActionsTemplate: 'maintenancesButton'
     gridConfig:
       columns: [
         id: "state"

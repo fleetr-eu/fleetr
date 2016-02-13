@@ -7,7 +7,7 @@ Template.insurances.helpers
     i18nRoot: 'insurances'
     collection: Insurances
     editItemTemplate: 'insurance'
-    additionalItemActionsTemaplate: 'paymentsButton'
+    additionalItemActionsTemplate: 'paymentsButton'
     removeItemMethod: 'removeInsurance'
     gridConfig:
       columns: [
@@ -74,8 +74,8 @@ Template.insurances.helpers
         name: TAPi18n.__('insurances.remainingDays')
         width:40
         sortable: true
-        search: where: 'client' 
-        formatter: FleetrGrid.Formatters.decoratedLessThanFormatter(2, 16) 
+        search: where: 'client'
+        formatter: FleetrGrid.Formatters.decoratedLessThanFormatter(2, 16)
       ]
       options:
         enableCellNavigation: true

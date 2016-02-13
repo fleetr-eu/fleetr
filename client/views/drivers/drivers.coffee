@@ -7,7 +7,7 @@ Template.drivers.helpers
     collection: Drivers
     editItemTemplate: 'driver'
     removeItemMethod: 'removeDriver'
-    additionalItemActionsTemaplate: 'documentsButton'
+    additionalItemActionsTemplate: 'documentsButton'
     gridConfig:
       columns: [
         id: "firstName"

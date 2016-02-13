@@ -28,9 +28,12 @@
         						{{_ "button.delete"}}
   						</a>
 							{{/if}}
-							{{#if additionalItemActionsTemaplate}}
-								{{> Template.dynamic template=additionalItemActionsTemaplate }}
+							{{#if additionalItemActionsTemplate}}
+								{{> Template.dynamic template=additionalItemActionsTemplate }}
 							{{/if}}
+						{{/if}}
+						{{#if additionalActionsTemplate}}
+							{{> Template.dynamic template=additionalActionsTemplate }}
 						{{/if}}
 					</div>
 				</div>
