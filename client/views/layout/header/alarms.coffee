@@ -8,4 +8,4 @@ Template.headerAlarms.helpers
 Template.headerAlarm.helpers
   timeAgo: -> moment(@timestamp).from(moment())
   style: -> Alarms.timeAgoStyle(@timestamp)
-  alarmText: -> @type
+  alarmText: -> @description

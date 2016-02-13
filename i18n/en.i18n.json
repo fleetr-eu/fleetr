@@ -311,7 +311,12 @@
     "showGeofences": "Show objects"
   },
 
- "alarms" : {
+  "alarmTypes" : {
+    "geoefence:enter":"Enter Geofence",
+    "geoefence:exit":"Exit Geofence"
+  },
+
+  "alarms" : {
     "title":"Alarm",
     "listTitle":"Alarms",
     "type":" Type",

@@ -5,7 +5,9 @@ Template.alarms.helpers
     editItemTemplate: 'alarm'
     removeItemMethod: 'removeAlarm'
     gridConfig:
-      cursor: Alarms.find {}
+      cursor: Alarms.find {},
+        transform: (doc) -> _.extend doc,
+          typeName: TAPi18n.__("alarmTypes.#{doc.type}")
       columns: [
         id: "timestamp"
         field: "timestamp"
@@ -15,8 +17,8 @@ Template.alarms.helpers
         search: where: 'client'
         formatter: FleetrGrid.Formatters.dateFormatter
       ,
-        id: "type"
-        field: "type"
+        id: "typeName"
+        field: "typeName"
         name: "#{TAPi18n.__('alarms.type')}"
         width:50
         sortable: true

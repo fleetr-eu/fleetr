@@ -313,6 +313,11 @@
     "showGeofences": "Покажи обекти"
   },
 
+  "alarmTypes" : {
+    "geoefence:enter":"Влизане в обект",
+    "geoefence:exit":"Излизане от обект"
+  },
+
   "alarms" : {
     "title":"Аларма",
     "listTitle":"Аларми",
