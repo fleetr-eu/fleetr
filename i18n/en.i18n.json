@@ -50,7 +50,8 @@
     "maintenanceReport": "Maintenance",
     "listTyres": "Tyres",
     "notifications":"Notifications",
-    "geofenceNotifications":"Geofence Events"
+    "geofenceNotifications":"Geofence Events",
+    "alarms":"Alarms"
   },
 
   "geofences": {
@@ -323,9 +324,11 @@
     "listTitle":"Alarms",
     "type":" Type",
     "description":"Description",
-    "timestamp": "Timestamp",
+    "timestamp": "Date",
+    "timestampTime": "Time",
     "timeAgo": "From",
     "seen" : "Seen",
+    "seenShort" : "S",
     "data" : "Data"
   },
 

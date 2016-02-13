@@ -50,7 +50,8 @@
     "maintenanceReport": "Поддръжка",
     "listTyres": "Гуми",
     "notifications":"Напомняния",
-    "geofenceNotifications":"Напомняния за обекти"
+    "geofenceNotifications":"Напомняния за обекти",
+    "alarms":"Аларми"
   },
 
   "geofences": {
@@ -326,8 +327,10 @@
     "type":"Вид",
     "description":"Описание",
     "timeAgo": "От",
-    "timestamp": "Време",
+    "timestamp": "Дата",
+    "timestampTime": "Час",
     "seen" : "Видяна",
+    "seenShort" : "В",
     "data" : "Данни"
   },
 

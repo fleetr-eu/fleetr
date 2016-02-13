@@ -8,27 +8,37 @@ Template.alarms.helpers
       cursor: Alarms.find {},
         transform: (doc) -> _.extend doc,
             typeName: TAPi18n.__("alarmTypes.#{doc.type}"),
-            timeAgo: moment(doc.timestamp).from(moment())
+            timeAgo: moment(doc.timestamp).from(moment()),
+            date: if doc.timestamp then moment(doc.timestamp).format('DD/MM/YYYY') else ''
+            time: if doc.timestamp then moment(doc.timestamp).format('HH:mm:ss') else ''
       columns: [
-        id: "timestamp"
-        field: "timestamp"
+        id: "date"
+        field: "date"
         name: "#{TAPi18n.__('alarms.timestamp')}"
-        width:20
+        maxWidth:100
         sortable: true
         search: where: 'client'
-        formatter: FleetrGrid.Formatters.dateFormatter
+        groupable: true
+      ,
+        id: "time"
+        field: "time"
+        name: "#{TAPi18n.__('alarms.timestampTime')}"
+        maxWidth:80
+        sortable: true
+        search: where: 'client'
+        groupable: true
       ,
         id: "timeAgo"
         field: "timeAgo"
         name: "#{TAPi18n.__('alarms.timeAgo')}"
-        width:20
+        maxWidth:150
         sortable: true
         search: where: 'client'
       ,
         id: "typeName"
         field: "typeName"
         name: "#{TAPi18n.__('alarms.type')}"
-        width:50
+        maxWidth:150
         sortable: true
         search: where: 'client'
         groupable: true
@@ -36,14 +46,15 @@ Template.alarms.helpers
         id: "description"
         field: "description"
         name: "#{TAPi18n.__('alarms.description')}"
-        width:100
+        maxWidth:450
         sortable: true
+        groupable: true
         search: where: 'client'
       ,
         id: "seen"
         field: "seen"
-        name: "#{TAPi18n.__('alarms.seen')}"
-        width:5
+        name: "#{TAPi18n.__('alarms.seenShort')}"
+        maxWidth:30
         sortable: true
         search: where: 'client'
         groupable: true
