@@ -33,10 +33,8 @@ createGfObserver = (gfe) ->
         Event '#{type}' occurred (geofence event id #{gfe._id}):
         vehicle id '#{v._id}', geofence id '#{gf._id}'"""
       Partitioner.bindGroup gf._groupId, ->
-        Alarms.insert
-          seen: false
+        Alarms.add
           type: type
-          timestamp: new Date()
           data:
             geofenceEventId: gfe._id
             geofenceId: gf._id

@@ -21,7 +21,7 @@ Template.customEvents.helpers
         sortable: true
         search: where: 'client'
         groupable: true
-      ,  
+      ,
         id: "fleetGroupName"
         field: "fleetGroupName"
         name: "#{TAPi18n.__('customEvents.fleetGroup')}"
@@ -39,7 +39,7 @@ Template.customEvents.helpers
         sortable: true
         search: where: 'client'
         groupable: true
-      ,    
+      ,
         id: "vehicleName"
         field: "vehicleName"
         name: "#{TAPi18n.__('customEvents.vehicle')}"
@@ -72,11 +72,11 @@ Template.customEvents.helpers
         sortable: true
         search: where: 'client'
         formatter: FleetrGrid.Formatters.dateFormatter
-        search: 
+        search:
             where: 'server'
             dateRange: DateRanges.future
         groupable: true
-      ,  
+      ,
         id: "remainingDays"
         field: "remainingDays"
         name: "#{TAPi18n.__('customEvents.remainingDays')}"
@@ -93,7 +93,7 @@ Template.customEvents.helpers
         width:40
         sortable: true
         search: where: 'client'
-      ,  
+      ,
         id: "remainingKm"
         field: "remainingKm"
         name: "#{TAPi18n.__('customEvents.remainingKm')}"
@@ -101,7 +101,7 @@ Template.customEvents.helpers
         sortable: true
         search: where: 'client'
         formatter: FleetrGrid.Formatters.decoratedLessThanFormatter(101, 501)
-        search: where: 'client'  
+        search: where: 'client'
       ,
         id: "engineHours"
         field: "engineHours"
@@ -109,14 +109,14 @@ Template.customEvents.helpers
         width:40
         sortable: true
         search: where: 'client'
-        hidden: true 
+        hidden: true
       ,
         id: "speed"
         field: "speed"
         name: "#{TAPi18n.__('customEvents.speed')}"
         width:40
         sortable: true
-        search: where: 'client'   
+        search: where: 'client'
       ,
         id: "seen"
         field: "seen"
@@ -135,12 +135,11 @@ Template.customEvents.helpers
         forceFitColumns: true
 
 Template.seenNotification.helpers
-  checked: -> 
-    console.log "Helper --->"
+  checked: ->
     if @value then 'checked' else ''
 
 Template.seenNotification.events
   'change .active': (e, t) ->
     Meteor.call 'submitCustomEvent', @rowObject,
       $set:
-        active: e.target.checked        
+        active: e.target.checked

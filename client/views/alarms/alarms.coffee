@@ -5,9 +5,7 @@ Template.alarms.helpers
     editItemTemplate: 'alarm'
     removeItemMethod: 'removeAlarm'
     gridConfig:
-      cursor: Alarms.find {},
-        transform: (doc) -> _.extend doc,
-          description: 'Описание на алармата'
+      cursor: Alarms.find {}
       columns: [
         id: "timestamp"
         field: "timestamp"
@@ -16,7 +14,7 @@ Template.alarms.helpers
         sortable: true
         search: where: 'client'
         formatter: FleetrGrid.Formatters.dateFormatter
-      ,  
+      ,
         id: "type"
         field: "type"
         name: "#{TAPi18n.__('alarms.type')}"
@@ -24,14 +22,14 @@ Template.alarms.helpers
         sortable: true
         search: where: 'client'
         groupable: true
-      ,  
+      ,
         id: "description"
         field: "description"
         name: "#{TAPi18n.__('alarms.description')}"
         width:100
         sortable: true
         search: where: 'client'
-      ,    
+      ,
         id: "seen"
         field: "seen"
         name: "#{TAPi18n.__('alarms.seen')}"
@@ -49,12 +47,11 @@ Template.alarms.helpers
         forceFitColumns: true
 
 Template.seenAlarm.helpers
-  checked: -> 
-    console.log "Helper --->"
+  checked: ->
     if @value then 'checked' else ''
 
 Template.seenAlarm.events
   'change .active': (e, t) ->
     Meteor.call 'submitAlarm', @rowObject,
       $set:
-        seen: e.target.checked        
+        seen: e.target.checked

@@ -125,7 +125,6 @@ Template.geofenceEvents.helpers
 
 Template.seenNotification.helpers
   checked: ->
-    console.log "Helper --->"
     if @value then 'checked' else ''
 
 Template.seenNotification.events

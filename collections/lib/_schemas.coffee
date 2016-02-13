@@ -7,7 +7,7 @@ Schema.alarms = new SimpleSchema
     type: String, label: ()->TAPi18n.__('alarms.type')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  timestamp: 
+  timestamp:
     type: Date, label: ()->TAPi18n.__('alarms.timestamp')
     autoform:
       type: "bootstrap-datepicker"
@@ -16,16 +16,18 @@ Schema.alarms = new SimpleSchema
     type: Boolean, optional: true, label: ()->TAPi18n.__('alarms.seen')
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
           onText: ()->TAPi18n.__('general.yes')
           offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
-      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"  
+      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   data:
-    type: Object, label: ()->TAPi18n.__('alarms.data')
+    type: Object, label: ->TAPi18n.__('alarms.data')
+  description:
+    type: String, label: ->TAPi18n.__('alarms.description')
 
 
 Schema.customEvents = new SimpleSchema
@@ -40,13 +42,13 @@ Schema.customEvents = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
       firstOption: ()->TAPi18n.__('dropdown.select')
-      options: -> FleetGroups.find().map (group) -> label: group.name, value: group._id  
+      options: -> FleetGroups.find().map (group) -> label: group.name, value: group._id
   fleetId:
     type: String, optional: true, label: ()->TAPi18n.__('customEvents.fleet')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
       firstOption: ()->TAPi18n.__('dropdown.select')
-      options: -> Fleets.find().map (fleet) -> label: fleet.name, value: fleet._id  
+      options: -> Fleets.find().map (fleet) -> label: fleet.name, value: fleet._id
   vehicleId:
     type: String, optional: true, label: ()->TAPi18n.__('customEvents.vehicle')
     autoform:
@@ -58,7 +60,7 @@ Schema.customEvents = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
       firstOption: ()->TAPi18n.__('dropdown.select')
-      options: -> Drivers.find().map (driver) -> label: driver.name, value: driver._id      
+      options: -> Drivers.find().map (driver) -> label: driver.name, value: driver._id
   description:
     type: String, optional: true, label: ()->TAPi18n.__('customEvents.description')
     autoform:
@@ -67,7 +69,7 @@ Schema.customEvents = new SimpleSchema
     type: Date, optional: true, label: ()->TAPi18n.__('customEvents.date')
     autoform:
       type: "bootstrap-datepicker"
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   odometer:
     optional: true
     type: Number
@@ -81,7 +83,7 @@ Schema.customEvents = new SimpleSchema
       decimal:true
     label: ()->TAPi18n.__('customEvents.engineHours')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"            
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   speed:
     optional: true
     type: Number
@@ -95,29 +97,29 @@ Schema.customEvents = new SimpleSchema
     optional: true
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
           onText: ()->TAPi18n.__('general.yes')
           offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
-      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
+      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   active:
     type: Boolean
     label: "Активен"
     optional: true
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
           onText: ()->TAPi18n.__('general.yes')
           offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
-      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"     
- 
+      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+
 Schema.geofenceEvents = new SimpleSchema
   _id:
     type: String, optional: true
@@ -126,13 +128,13 @@ Schema.geofenceEvents = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
       firstOption: ()->TAPi18n.__('dropdown.select')
-      options: -> FleetGroups.find().map (group) -> label: group.name, value: group._id  
+      options: -> FleetGroups.find().map (group) -> label: group.name, value: group._id
   fleetId:
     type: String, optional: true, label: ()->TAPi18n.__('geofenceEvents.fleet')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
       firstOption: ()->TAPi18n.__('dropdown.select')
-      options: -> Fleets.find().map (fleet) -> label: fleet.name, value: fleet._id  
+      options: -> Fleets.find().map (fleet) -> label: fleet.name, value: fleet._id
   vehicleId:
     type: String, optional: true, label: ()->TAPi18n.__('geofenceEvents.vehicle')
     autoform:
@@ -144,13 +146,13 @@ Schema.geofenceEvents = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
       firstOption: ()->TAPi18n.__('dropdown.select')
-      options: -> Drivers.find().map (driver) -> label: driver.name, value: driver._id            
+      options: -> Drivers.find().map (driver) -> label: driver.name, value: driver._id
   geofenceId:
     type: String, label: ()->TAPi18n.__('geofenceEvents.geofence')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
       firstOption: ()->TAPi18n.__('dropdown.select')
-      options: -> Geofences.find().map (geofence) -> label: geofence.name, value: geofence._id 
+      options: -> Geofences.find().map (geofence) -> label: geofence.name, value: geofence._id
   description:
     type: String, optional: true, label: ()->TAPi18n.__('geofenceEvents.description')
     autoform:
@@ -161,42 +163,42 @@ Schema.geofenceEvents = new SimpleSchema
     optional: true
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
           onText: ()->TAPi18n.__('general.yes')
           offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
-      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"  
+      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   exit:
     type: Boolean
     label: ()->TAPi18n.__('geofenceEvents.exit')
     optional: true
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
           onText: ()->TAPi18n.__('general.yes')
           offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
-      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"  
+      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   stay:
     type: Boolean
     label: ()->TAPi18n.__('geofenceEvents.stay')
     optional: true
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
           onText: ()->TAPi18n.__('general.yes')
           offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
-      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-4"       
+      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-4"
   minutes:
     optional: true
     type: Number
@@ -210,21 +212,21 @@ Schema.geofenceEvents = new SimpleSchema
     optional: true
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
           onText: ()->TAPi18n.__('general.yes')
           offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
-      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
+      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   active:
     type: Boolean
     label: "Активен"
     optional: true
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
@@ -279,7 +281,7 @@ Schema.documents = new SimpleSchema
   _id:
     type: String, optional: true
   driverId:
-    type: String, optional: true  
+    type: String, optional: true
   type:
     type: String
     label: ()->TAPi18n.__('documents.type')
@@ -291,7 +293,7 @@ Schema.documents = new SimpleSchema
   number:
     type: String, label: ()->TAPi18n.__('documents.number')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"    
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   validFrom:
     type: Date, label: ()->TAPi18n.__('documents.validFrom')
     autoform:
@@ -305,7 +307,7 @@ Schema.documents = new SimpleSchema
   issuedBy:
     type: String, label: ()->TAPi18n.__('documents.issuedBy')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"       
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 
 
 Schema.insuranceTypes = new SimpleSchema
@@ -318,7 +320,7 @@ Schema.insuranceTypes = new SimpleSchema
   description:
     type: String, optional: true, label: ()->TAPi18n.__('insuranceTypes.description')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"  
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 
 Schema.expenseGroups = new SimpleSchema
   _id:
@@ -336,13 +338,13 @@ Schema.expenseGroups = new SimpleSchema
     optional: true
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
           onText: ()->TAPi18n.__('general.yes')
           offText: ()->TAPi18n.__('general.no')
-      template: "bootstrap3-horizontal", leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
+      template: "bootstrap3-horizontal", leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 
 Schema.expenseTypes = new SimpleSchema
   _id:
@@ -477,13 +479,13 @@ Schema.maintenanceTypes = new SimpleSchema
     optional: true
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
           onText: ()->TAPi18n.__('general.yes')
           offText: ()->TAPi18n.__('general.no')
-      template: "bootstrap3-horizontal", leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
+      template: "bootstrap3-horizontal", leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   description:
     type: String, optional: true, label: ()-> TAPi18n.__('maintenanceTypes.description')
     autoform:
@@ -516,7 +518,7 @@ Schema.maintenances = new SimpleSchema
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   description:
     type: String, decimal:true, optional: true, label: ()-> TAPi18n.__('maintenances.description')
-    autoform: 
+    autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   maintenanceDate:
     type:Date, label: ()-> TAPi18n.__('maintenances.maintenanceDate')
