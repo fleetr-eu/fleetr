@@ -39,7 +39,7 @@ Template.alarms.helpers
         sortable: true
         search: where: 'client'
         groupable: true
-        formatter: FleetrGrid.Formatters.blazeFormatter Template.seenNotification
+        formatter: FleetrGrid.Formatters.blazeFormatter Template.seenAlarm
       ]
       options:
         enableCellNavigation: true

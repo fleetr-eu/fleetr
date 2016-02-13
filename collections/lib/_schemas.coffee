@@ -10,7 +10,7 @@ Schema.alarms = new SimpleSchema
   timestamp:
     type: Date, label: ()->TAPi18n.__('alarms.timestamp')
     autoform:
-      type: "bootstrap-datepicker"
+      type: "datetime-local"
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   seen:
     type: Boolean, optional: true, label: ()->TAPi18n.__('alarms.seen')
@@ -28,6 +28,8 @@ Schema.alarms = new SimpleSchema
     type: Object, label: ->TAPi18n.__('alarms.data')
   description:
     type: String, label: ->TAPi18n.__('alarms.description')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 
 
 Schema.customEvents = new SimpleSchema
