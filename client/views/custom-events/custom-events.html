@@ -2,7 +2,6 @@
 	{{> crud options }}
 </template>
 
-
 <template name="seenNotification">
-	<input type="checkbox" class="active" {{checked}}>
+	{{> checkboxCell submitMethod='submitCustomEvent' field='active' data=this}}
 </template>

@@ -20,7 +20,7 @@ Template.geofenceEvents.helpers
         sortable: true
         search: false
         align: 'center'
-        formatter: FleetrGrid.Formatters.blazeFormatter Template.seenNotification
+        formatter: FleetrGrid.Formatters.blazeFormatter Template.activeEvent
       ,
         id: "geofenceName"
         field: "geofenceName"
@@ -80,7 +80,7 @@ Template.geofenceEvents.helpers
         sortable: true
         search: false
         align: 'center'
-        formatter: FleetrGrid.Formatters.blazeFormatter Template.seenNotification
+        formatter: FleetrGrid.Formatters.blazeFormatter Template.activeEvent
       ,
         id: "exit"
         field: "exit"
@@ -89,7 +89,7 @@ Template.geofenceEvents.helpers
         sortable: true
         search: false
         align: 'center'
-        formatter: FleetrGrid.Formatters.blazeFormatter Template.seenNotification
+        formatter: FleetrGrid.Formatters.blazeFormatter Template.activeEvent
       ,
         id: "stay"
         field: "stay"
@@ -98,7 +98,7 @@ Template.geofenceEvents.helpers
         sortable: true
         search: false
         align: 'center'
-        formatter: FleetrGrid.Formatters.blazeFormatter Template.seenNotification
+        formatter: FleetrGrid.Formatters.blazeFormatter Template.activeEvent
       ,
         id: "minutes"
         field: "minutes"
@@ -114,7 +114,7 @@ Template.geofenceEvents.helpers
         sortable: true
         search: false
         align: 'center'
-        formatter: FleetrGrid.Formatters.blazeFormatter Template.seenNotification
+        formatter: FleetrGrid.Formatters.blazeFormatter Template.activeEvent
       ]
       options:
         enableCellNavigation: true
@@ -122,13 +122,3 @@ Template.geofenceEvents.helpers
         showHeaderRow: true
         explicitInitialization: true
         forceFitColumns: true
-
-Template.seenNotification.helpers
-  checked: ->
-    if @value then 'checked' else ''
-
-Template.seenNotification.events
-  'change .active': (e, t) ->
-    Meteor.call 'submitGeofenceEvent', @rowObject,
-      $set:
-        active: e.target.checked

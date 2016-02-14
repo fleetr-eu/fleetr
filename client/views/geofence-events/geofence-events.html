@@ -1,3 +1,7 @@
 <template name="geofenceEvents">
 	{{> crud options }}
 </template>
+
+<template name="activeEvent">
+	{{> checkboxCell submitMethod='submitGeofenceEvent' field='active' data=this}}
+</template>

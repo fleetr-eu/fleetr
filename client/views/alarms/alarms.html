@@ -3,5 +3,5 @@
 </template>
 
 <template name="seenAlarm">
-	<input type="checkbox" class="active" {{checked}}>
+	{{> checkboxCell submitMethod='submitAlarm' field='seen' data=this}}
 </template>

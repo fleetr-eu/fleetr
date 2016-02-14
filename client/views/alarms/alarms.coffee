@@ -66,13 +66,3 @@ Template.alarms.helpers
         showHeaderRow: true
         explicitInitialization: true
         forceFitColumns: true
-
-Template.seenAlarm.helpers
-  checked: ->
-    if @value then 'checked' else ''
-
-Template.seenAlarm.events
-  'change .active': (e, t) ->
-    Meteor.call 'submitAlarm', @rowObject,
-      $set:
-        seen: e.target.checked
