@@ -119,6 +119,7 @@ Schema.driver = new SimpleSchema
     type: Date
     label: "Валиден от"
     optional: true
+    custom: -> 'invalidFromToDates' if (@value and @field('validTo').value) and (@value > @field('validTo').value)
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"
@@ -128,7 +129,7 @@ Schema.driver = new SimpleSchema
     type: Date
     label: "Валиден до"
     optional: true
-    custom: -> if @value < @field('validFrom').value then 'validToBeforeValidFrom'
+    custom: -> 'invalidFromToDates' if (@value and @field('validFrom').value) and (@value < @field('validFrom').value) 
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal"

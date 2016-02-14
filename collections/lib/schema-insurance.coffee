@@ -51,6 +51,8 @@ Schema.insurance = new SimpleSchema
   policyValidFrom:
     type: Date
     label: ()->TAPi18n.__('insurances.policyValidFrom')
+    custom: ->
+      "invalidFromToDates" if (@value and @field('policyValidTo').value) and (@value > @field('policyValidTo').value)
     optional: true
     autoform:
       type: "bootstrap-datepicker"
@@ -59,6 +61,8 @@ Schema.insurance = new SimpleSchema
     type: Date
     label: ()->TAPi18n.__('insurances.policyValidTo')
     optional: true
+    custom: ->
+      "invalidFromToDates" if (@value and @field('policyValidFrom').value) and (@value < @field('policyValidFrom').value)
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"

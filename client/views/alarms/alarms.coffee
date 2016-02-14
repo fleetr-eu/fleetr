@@ -4,6 +4,7 @@ Template.alarms.helpers
     collection: Alarms
     editItemTemplate: 'alarm'
     removeItemMethod: 'removeAlarm'
+    additionalActionsTemplate: "additionalActionsTemplate"
     gridConfig:
       cursor: Alarms.find {},
         transform: (doc) -> _.extend doc,

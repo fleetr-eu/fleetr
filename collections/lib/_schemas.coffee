@@ -298,11 +298,15 @@ Schema.documents = new SimpleSchema
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   validFrom:
     type: Date, label: ()->TAPi18n.__('documents.validFrom')
+    custom: ->
+      "invalidFromToDates" if (@value and @field('validTo').value) and (@value > @field('validTo').value)
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   validTo:
     type: Date, label: ()->TAPi18n.__('documents.validTo')
+    custom: -> 
+        "invalidFromToDates" if (@value and @field('validFrom').value) and (@value < @field('validFrom').value)
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
@@ -310,7 +314,6 @@ Schema.documents = new SimpleSchema
     type: String, label: ()->TAPi18n.__('documents.issuedBy')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-
 
 Schema.insuranceTypes = new SimpleSchema
   _id:
@@ -524,32 +527,44 @@ Schema.maintenances = new SimpleSchema
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   maintenanceDate:
     type:Date, label: ()-> TAPi18n.__('maintenances.maintenanceDate')
+    custom: ->
+      "invalidFromToDates" if (@value and @field('nextMaintenanceDate').value) and (@value > @field('nextMaintenanceDate').value)
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   odometer:
     type: Number, decimal:true, label: ()-> TAPi18n.__('maintenances.odometer')
+    custom: ->
+      "invalidFromToKM" if (@value and @field('nextMaintenanceOdometer').value) and (@value > @field('nextMaintenanceOdometer').value)
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   engineHours:
     type: Number, decimal:true, optional: true
     label: ()-> TAPi18n.__('maintenances.engineHours')
+    custom: ->
+      "invalidFromToHours" if (@value and @field('nextMaintenanceEngineHours').value) and (@value > @field('nextMaintenanceEngineHours').value)
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   nextMaintenanceDate:
     type:Date, optional: true, label: ()-> TAPi18n.__('maintenances.nextMaintenanceDate')
+    custom: ->
+      "invalidFromToDates" if (@value and @field('maintenanceDate').value) and (@value < @field('maintenanceDate').value)
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   nextMaintenanceOdometer:
     type: Number
     optional: true
+    custom: ->
+      "invalidFromToKM" if (@value and @field('odometer').value) and (@value < @field('odometer').value)
     label: ()-> TAPi18n.__('maintenances.nextMaintenanceOdometer')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   nextMaintenanceEngineHours:
     type: Number, decimal:true, optional: true
     label: ()-> TAPi18n.__('maintenances.nextMaintenanceEngineHours')
+    custom: ->
+      "invalidFromToHours" if (@value and @field('engineHours').value) and (@value < @field('engineHours').value)
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 

@@ -1,4 +1,7 @@
 SimpleSchema.messages
+  invalidFromToDates: "Несъответствие в датите"
+  invalidFromToKM: "Несъответствие в километрите"
+  invalidFromToHours: "Несъответствие в часовете"
   required: "'[label]' е задължително поле"
   minString: "'[label]' трябва да бъде поне [min] символа"
   maxString: "'[label]' не може да бъде повече от [max] символа"

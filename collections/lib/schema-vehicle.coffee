@@ -121,6 +121,8 @@ Schema.vehicle = new SimpleSchema
 
   nextTechnicalCheck:
     type: Date, label:()->TAPi18n.__('vehicles.nextTechnicalCheck')
+    custom: ->
+      "invalidFromToDates" if (@value and @value < (new Date()))
     autoform:
       type: "bootstrap-datepicker",
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
