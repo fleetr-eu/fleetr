@@ -316,7 +316,6 @@ Helpers =
                 fltr[args.column.field] = dateObject
               fltr
         else
-          console.log "searchbox-#{Helpers.columnId args.column}", args.column
           $('<span class="glyphicon glyphicon-search searchbox" aria-hidden="true"></span>').appendTo(args.node)
           $("<input id='searchbox-#{Helpers.columnId args.column}' type='text' class='searchbox'>")
              .data("columnId", Helpers.columnId args.column)
