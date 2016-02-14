@@ -66,12 +66,3 @@ Template.tyres.helpers
       cursor: Tyres.find {},
         transform: (doc) -> _.extend doc,
           vehicleLicensePlate: Vehicles.findOne(_id: doc.vehicle)?.licensePlate
-
-Template.activeTyre.helpers
-  checked: -> if @value then 'checked' else ''
-
-Template.activeTyre.events
-  'change .active': (e, t) ->
-    Meteor.call 'submitTyre', @rowObject,
-      $set:
-        active: e.target.checked

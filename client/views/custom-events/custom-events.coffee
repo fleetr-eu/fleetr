@@ -133,13 +133,3 @@ Template.customEvents.helpers
         showHeaderRow: true
         explicitInitialization: true
         forceFitColumns: true
-
-Template.seenNotification.helpers
-  checked: ->
-    if @value then 'checked' else ''
-
-Template.seenNotification.events
-  'change .active': (e, t) ->
-    Meteor.call 'submitCustomEvent', @rowObject,
-      $set:
-        active: e.target.checked

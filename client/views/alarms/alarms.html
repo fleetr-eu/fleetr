@@ -3,15 +3,5 @@
 </template>
 
 <template name="seenAlarm">
-	<input type="checkbox" class="active" {{checked}}>
+	{{> checkboxCell submitMethod='submitAlarm' field='seen' data=this}}
 </template>
-
-<template name="additionalActionsTemplate">
-	
-  		<label>
-  			Само невидяни
-    		<input type="checkbox" value="">
- 		 </label>
-
-</template>
-

@@ -3,5 +3,5 @@
 </template>
 
 <template name="activeTyre">
-	<input type="checkbox" class="active" {{checked}}>
+	{{> checkboxCell submitMethod='submitTyre' field='active' data=this}}
 </template>
