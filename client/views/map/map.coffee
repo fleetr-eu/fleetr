@@ -3,41 +3,77 @@ showGeofences = new ReactiveVar false
 
 Template.map.onRendered ->
   Session.set 'selectedVehicleId', @data.vehicleId
-  position = Vehicles.findOne(_id: @data.vehicleId)?.selectedVehicle?.loc
-  Map.init position, =>
-    @autorun ->
-      if showGeofences.get()
-        Map.renderGeofences()
+  # position = Vehicles.findOne(_id: @data.vehicleId)?.selectedVehicle?.loc
+
+  @map = new FleetrMap '#map-canvas'
+
+  Vehicles.find().observe
+    added: (v) => @map.addVehicleMarker v
+    removed: (v) => @map.removeVehicleMarker v
+    changed: (v) => @map.moveVehicleMarker v
+
+
+  @autorun =>
+    if showGeofences.get()
+      @geofences = {}
+      map = @map.map
+      Geofences.find().observe
+        added: (gf) =>
+          @geofences[gf._id] = new Geofence gf, map
+        removed: (gf) =>
+          @geofences[gf._id].destroy()
+          delete @geofences[gf._id]
+        changed: (gf) =>
+          @geofences[gf._id].destroy()
+          delete @geofences[gf._id]
+          @geofences[gf._id] = new Geofence gf, map
+    else
+      gf.destroy() for id, gf of @geofences
+      @geofences = []
+
+
+  @autorun =>
+    Session.get('selectedVehicleId')
+    @map.removeCurrentPath()
+
+  @autorun =>
+    selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
+    if selectedVehicle
+      Session.set 'fleetrTitle',
+        "#{selectedVehicle.name} (#{selectedVehicle.licensePlate})"
+      if selectedVehicle.lat && selectedVehicle.lon
+        @map.map.setCenter
+          lat: selectedVehicle.lat
+          lng: selectedVehicle.lon
       else
-        Map.removeGeofences()
-    @autorun ->
-      selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
-      if selectedVehicle
-        Session.set 'fleetrTitle', "#{selectedVehicle.name} (#{selectedVehicle.licensePlate})"
-        if selectedVehicle.lat && selectedVehicle.lon
-          Map.setCenter [selectedVehicle.lat, selectedVehicle.lon]
-        else
-          Alerts.set 'This vehicle has no known position.'
-      Map.renderMarkers()
+        Alerts.set 'This vehicle has no known position.'
 
-      if selectedVehicle?.trip?.start
-        searchArgs =
-          recordTime:
-            $gte: selectedVehicle.trip.start.time
-          deviceId: selectedVehicle.unitId
-          type: 30
+    if selectedVehicle?.trip?.start
+      searchArgs = (startTime = selectedVehicle.trip.start.time) ->
+        recordTime:
+          $gte: startTime
+        deviceId: selectedVehicle.unitId
+        type: 30
 
-        Meteor.subscribe 'logbook', searchArgs, ->
-          points = Logbook.find searchArgs,
-            sort: recordTime: -1,
-            fields:
-              lat: 1
-              lon: 1
+      options =
+        sort: recordTime: 1
+        fields:
+          recordTime: 1
+          lat: 1
+          lon: 1
 
-          points.observe
-            added: ->
-              Map.renderPath points.map (point) ->
-                lat: point.lat, lng: point.lon, id: point._id
+      Meteor.subscribe 'logbook', searchArgs, =>
+        addPointToPath = (point) =>
+          @map.extendCurrentPath new google.maps.LatLng
+            lat: point.lat, lng: point.lon, id: point._id
+
+        currentPoints = Logbook.find searchArgs(), options
+        currentPoints.map addPointToPath
+
+        futurePoints = Logbook.find searchArgs(new Date()), options
+        futurePoints.observe
+          added: (point) ->
+            addPointToPath(point) if isNewPoint
 
 Template.map.helpers
   filterOptions: -> vehicleDisplayStyle: 'none'

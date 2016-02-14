@@ -4,12 +4,12 @@ Meteor.startup ->
       super
         icons: [
           icon:
-            path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW
+            path: google.maps.SymbolPath.FORWARD_OPEN_ARROW
             strokeWeight: 2
             strokeColor: 'white'
             scale: 1
-          offset: '100px'
-          repeat: '100px'
+          offset: '30px'
+          repeat: '30px'
         ]
         map: @map
         path: path
