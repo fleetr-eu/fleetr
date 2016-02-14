@@ -1,5 +1,5 @@
 # Autopublish
-Meteor.publish null, -> Alarms.find {}
+Meteor.publish null, -> Alarms.find {seen: false}
 # /Autopublish
 
 
