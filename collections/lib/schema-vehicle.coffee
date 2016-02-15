@@ -111,6 +111,10 @@ Schema.vehicle = new SimpleSchema
 
   unitId:
     type: Number, optional: true, label:()->TAPi18n.__('vehicles.unitId')
+    custom: ->
+      if @field("_id")?.value
+        v = Vehicles.findOne({"unitId" : @value, "_id": {$ne: @field("_id").value}})
+        "unitAlreadyExists" if v
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
