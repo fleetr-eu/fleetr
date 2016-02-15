@@ -6,6 +6,6 @@ Template.headerAlarms.helpers
   unseenAlarmsExist: -> Alarms.find({seen:false}).count() > 0
 
 Template.headerAlarm.helpers
-  timeAgo: -> moment(@timestamp).from(moment())
+  timeAgo: -> moment(@timestamp).from(moment.utc())
   style: -> Alarms.timeAgoStyle(@timestamp)
   alarmText: -> @description

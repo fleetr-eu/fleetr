@@ -9,7 +9,7 @@ Template.alarms.helpers
       cursor: Alarms.find {},
         transform: (doc) -> _.extend doc,
             typeName: TAPi18n.__("alarmTypes.#{doc.type}"),
-            timeAgo: moment(doc.timestamp).from(moment()),
+            timeAgo: moment(doc.timestamp).from(moment.utc()),
             date: if doc.timestamp then moment(doc.timestamp).format('DD/MM/YYYY') else ''
             time: if doc.timestamp then moment(doc.timestamp).format('HH:mm:ss') else ''
       columns: [
