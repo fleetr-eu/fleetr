@@ -71,8 +71,9 @@ Template.simpleMap.helpers
             icon: "/images/icons/#{color}-circle.png"
             map: t.map
           info =
-            speed: point.speed?.toFixed(0)
+            speed: (point.speed or 0).toFixed(0)
             distance: (point.tacho/1000)?.toFixed(0)
+            time: point.recordTime
           t.markers.push new InfoMarker opts, info
     else
       m.setMap(null) for m in t.markers if t.markers
