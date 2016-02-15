@@ -45,7 +45,7 @@ Meteor.startup ->
         color = 'green'
         if vehicle.speed > Settings.maxSpeed
           color = 'red'
-        else 
+        else
           if vehicle.speed < Settings.minSpeed
             color = 'cyan'
       truckIcon = "/images/truck-#{color}.png"
@@ -77,6 +77,7 @@ Meteor.startup ->
     constructor: (data) ->
       super
         content: """
+                  <p>Дата, час: #{moment(data.time).format('DD-MM-YYYY, HH:mm:ss')}</p>
                   <p>Скорост: #{data.speed} км/ч</p>
                   <p>Километраж: #{data.distance} км</p>
                 """
