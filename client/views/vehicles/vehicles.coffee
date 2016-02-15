@@ -1,19 +1,11 @@
 hiddenOnMobile = () ->
   Session.get('device-screensize') is 'small'
 
-lastUpdateFormatter = (daysAgo) -> (row, cell, value) ->
+timeAgoFormatter = (row, cell, value) ->
   if value
-    lastUpdate = moment value
-    aWeekAgo = moment().subtract(daysAgo, 'days')
-    longAgoWarning = TAPi18n.__('vehicles.lastUpdateTooLongAgoWarning')
-    attnIcon = if lastUpdate.isBefore(aWeekAgo)
-      "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{longAgoWarning}'></i> "
-    else
-      ''
-    "<span>#{attnIcon}#{lastUpdate.format('DD/MM/YYYY HH:mm:ss')}</span>"
+    moment(value).from(moment.utc())
   else
-    noDataWarning = TAPi18n.__('vehicles.lastUpdateNoDataWarning')
-    "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{noDataWarning}'></i>"
+    ''
 
 logbookLinkFormatter = (row, cell, value) ->
   "<a href='/vehicles/#{value}/logbook'><img src='/images/logbook-icon.png' height='22' }'></img></a>"
@@ -138,11 +130,10 @@ Template.vehicles.helpers
         name: TAPi18n.__('vehicles.lastUpdate')
         width:60
         sortable: true
-        formatter: lastUpdateFormatter(7)
+        formatter: timeAgoFormatter
         hidden: hiddenOnMobile()
-        search:
-          where: 'server'
-          dateRange: DateRanges.history
+        search: where: 'client'
+          
       ,
         id: "tags"
         field: "tags"
