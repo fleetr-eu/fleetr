@@ -108,6 +108,12 @@
     "title": "Drivers",
     "listTitle" : "Drivers",
     "firstName": "First name",
+    "fullName" :"Full Name",
+    "address":"Address",
+    "mobile":"Mobile",
+    "phone":"Home",
+    "officePhone" :"Office",
+    "email" :"Email",
     "name" : "Last name",
     "tags": "Tags",
     "deleteMessage": "Are you certain you want to delete this Driver?"

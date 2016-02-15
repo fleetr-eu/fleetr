@@ -56,7 +56,7 @@ Schema.customEvents = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
       firstOption: ()->TAPi18n.__('dropdown.select')
-      options: -> Vehicles.find().map (vehicle) -> label: vehicle.name, value: vehicle._id
+      options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
   driverId:
     type: String, optional: true, label: ()->TAPi18n.__('customEvents.driver')
     autoform:
@@ -142,7 +142,7 @@ Schema.geofenceEvents = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
       firstOption: ()->TAPi18n.__('dropdown.select')
-      options: -> Vehicles.find().map (vehicle) -> label: vehicle.name, value: vehicle._id
+      options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
   driverId:
     type: String, optional: true, label: ()->TAPi18n.__('geofenceEvents.driver')
     autoform:
@@ -390,7 +390,7 @@ Schema.expenses = new SimpleSchema
        label: ()->TAPi18n.__('expenses.vehicle')
        autoform:
          firstOption: ()->TAPi18n.__('dropdown.select')
-         options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
+         options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
          optional: true
          allowOptions: "true"
          template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
@@ -612,7 +612,7 @@ Schema.driverVehicleAssignments = new SimpleSchema
       label: "Vehicle"
       autoform:
         firstOption: "(Изберете)"
-        options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
+        options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
         template: "bootstrap3-horizontal"
         "label-class":"col-sm-4"
         "input-col-class": "col-sm-8"

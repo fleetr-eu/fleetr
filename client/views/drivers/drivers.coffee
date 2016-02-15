@@ -1,3 +1,6 @@
+hiddenOnMobile = () ->
+  Session.get('device-screensize') is 'small'
+
 Template.documentsButton.helpers
   driverId: => Session.get "selectedItemId"
 
@@ -10,19 +13,51 @@ Template.drivers.helpers
     additionalItemActionsTemplate: 'documentsButton'
     gridConfig:
       columns: [
-        id: "firstName"
-        field: "firstName"
-        name: "#{TAPi18n.__('drivers.firstName')}"
-        width:80
+        id: "fullName"
+        field: "fullName"
+        name: "#{TAPi18n.__('drivers.fullName')}"
+        width:100
         sortable: true
         search: where: 'client'
       ,
-        id: "name"
-        field: "name"
-        name: "#{TAPi18n.__('drivers.name')}"
-        width:80
+        id: "fullAddress"
+        field: "fullAddress"
+        name: "#{TAPi18n.__('drivers.address')}"
+        width:100
+        hidden: hiddenOnMobile()
         sortable: true
-        search: where: 'client'
+        search: where: 'client'  
+      ,
+        id: "mobile"
+        field: "mobile"
+        name: "#{TAPi18n.__('drivers.mobile')}"
+        width:60
+        sortable: true
+        search: where: 'client'  
+      ,
+        id: "officePhone"
+        field: "officePhone"
+        name: "#{TAPi18n.__('drivers.officePhone')}"
+        width:60
+        hidden: hiddenOnMobile()
+        sortable: true
+        search: where: 'client'  
+      ,
+        id: "phone"
+        field: "phone"
+        name: "#{TAPi18n.__('drivers.phone')}"
+        width:60
+        hidden: hiddenOnMobile()
+        sortable: true
+        search: where: 'client'    
+      ,
+        id: "email"
+        field: "email"
+        name: "#{TAPi18n.__('drivers.email')}"
+        width:80
+        hidden: hiddenOnMobile()
+        sortable: true
+        search: where: 'client'  
       ,
         id: "tags"
         field: "tags"
@@ -41,4 +76,8 @@ Template.drivers.helpers
         showHeaderRow: true
         explicitInitialization: true
         forceFitColumns: true
-      cursor: Drivers.find()
+      cursor: Drivers.find {},
+        transform: (doc) -> _.extend doc,
+          fullName: (if doc.firstName then doc.firstName+" " else "") + (if doc.name then doc.name else "")
+          fullAddress: (if doc.city then doc.city+", " else "") +  (if doc.address then doc.address else "")
+

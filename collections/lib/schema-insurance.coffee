@@ -7,7 +7,7 @@ Schema.insurance = new SimpleSchema
     label: ()->TAPi18n.__('insurances.vehicle')
     autoform:
       firstOption: "(Изберете)"
-      options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
+      options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
      
   insuranceCompany:
@@ -53,14 +53,12 @@ Schema.insurance = new SimpleSchema
     label: ()->TAPi18n.__('insurances.policyValidFrom')
     custom: ->
       "invalidFromToDates" if (@value and @field('policyValidTo').value) and (@value > @field('policyValidTo').value)
-    optional: true
     autoform:
       type: "bootstrap-datepicker"
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   policyValidTo:
     type: Date
     label: ()->TAPi18n.__('insurances.policyValidTo')
-    optional: true
     custom: ->
       "invalidFromToDates" if (@value and @field('policyValidFrom').value) and (@value < @field('policyValidFrom').value)
     autoform:

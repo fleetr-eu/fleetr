@@ -14,41 +14,31 @@ Schema.driver = new SimpleSchema
     optional: true
     label: 'Етикети'
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7"
   name:
     type: String
     label: 'Фамилия'
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7"
   firstName:
     type: String
     label: "Име"
     optional: true
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7"
   ssn:
     type: Number
     label: "ЕГН / Личен номер"
     optional: true
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7"
   birthDate:
     type: Date
     label: "Дата на раждане"
     optional: true
     autoform:
       type: "bootstrap-datepicker"
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7"
   sex:
     type: String
     label: "Пол"
@@ -56,9 +46,7 @@ Schema.driver = new SimpleSchema
     allowedValues: ['Мъж', 'Жена']
     autoform:
       firstOption: "(Изберете)"
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7"
 
   education:
     type: String
@@ -67,9 +55,7 @@ Schema.driver = new SimpleSchema
     allowedValues: ['', 'Предучилищно', 'Основно', 'Средно', 'Висше']
     autoform:
       firstOption: "(Изберете)"
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7"
 
   active:
     type: Boolean
@@ -84,9 +70,7 @@ Schema.driver = new SimpleSchema
           onText: ()->TAPi18n.__('general.yes')
           offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
-      leftLabel:"true"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      leftLabel:"true", "label-class": "col-sm-5", "input-col-class": "col-sm-7"
 
   idType:
     type: String
@@ -96,9 +80,7 @@ Schema.driver = new SimpleSchema
     autoform:
       firstOption: "(Изберете)"
       options: "allowed"
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7"
   idSerial:
     type: String
     label: "Серия"
@@ -427,10 +409,8 @@ Schema.driver = new SimpleSchema
     optional: true
     autoform:
       firstOption: "(Изберете)"
-      options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      options: -> Vehicles.find({}, {$sort: {"name": 1}}).map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7"
   vehicle_id:
     type: String
     optional: true

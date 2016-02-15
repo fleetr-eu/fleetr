@@ -107,8 +107,14 @@
   "drivers": {
     "title": "Шофьор",
     "listTitle" : "Шофьори",
+    "fullName" :"Име и фамилия",
+    "address":"Адрес",
     "name" : "Фамилия",
     "firstName": "Име",
+    "mobile":"Мобилен",
+    "phone":"Домашен",
+    "officePhone" :"Служебен",
+    "email" :"Имейл",
     "tags": "Етикети",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете този шофьор?"
   },
