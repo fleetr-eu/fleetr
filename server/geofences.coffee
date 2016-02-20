@@ -42,6 +42,7 @@ createGfObserver = (gfe) ->
 
     vehiclesCursor = Partitioner.bindGroup gf._groupId, -> Vehicles.find
       _id: gfe.vehicleId
+      lastUpdate: $gte: new Date()
       loc:
         $geoWithin:
           $centerSphere: [ gf.center, gf.radius / 6378100 ]
