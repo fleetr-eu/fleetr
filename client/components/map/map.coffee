@@ -65,6 +65,12 @@ Meteor.startup ->
       Autocomplete.init @map
       @clusterer = new FleetrClusterer @map
 
+      if options?.showVehicles
+        Vehicles.find().observe
+          added: (v) => @addVehicleMarker v
+          removed: (v) => @removeVehicleMarker v
+          changed: (v) => @moveVehicleMarker v
+
     addVehicleMarker: (vehicle) ->
       marker = new VehicleMarker(vehicle, @map).withInfo(vehicle, @map)
       @vehicleMarkers[vehicle._id] = marker

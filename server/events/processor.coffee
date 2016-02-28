@@ -19,6 +19,7 @@ nullRecord = ->
     avgSpeed: 0
     distance: 0
     consumedFuel: 0
+    path: null
   rest:
     duration: 0
 
@@ -66,6 +67,14 @@ updateVehicle = (rec, updater, cb) ->
           deviceId: rec.deviceId
           date: moment(rec.recordTime).format('DD-MM-YYYY')
           start: data
+          path: [
+            lat: rec.lat
+            lng: rec.lon
+            time: rec.recordTime
+            speed: rec.speed
+            odometer: rec.tacho
+          ]
+
 
 
   deviceStop: (rec) ->
@@ -115,7 +124,16 @@ updateVehicle = (rec, updater, cb) ->
         calcDuration(v.rest?.start?.time, rec.recordTime).asSeconds()
       else 0
 
+      path = v.trip?.path
+      path?.push
+        lat: rec.lat
+        lng: rec.lon
+        time: rec.recordTime
+        speed: rec.speed
+        odometer: rec.tacho
+
       'trip.maxSpeed': maxSpeed
+      'trip.path': path
       'rest.duration': restDuration
       lastUpdate: rec.recordTime
       speed: if v.state is 'stop' then 0 else rec.speed

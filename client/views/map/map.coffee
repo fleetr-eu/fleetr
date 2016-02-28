@@ -5,13 +5,8 @@ Template.map.onRendered ->
   Session.set 'selectedVehicleId', @data.vehicleId
   # position = Vehicles.findOne(_id: @data.vehicleId)?.selectedVehicle?.loc
 
-  @map = new FleetrMap '#map-canvas'
-
-  Vehicles.find().observe
-    added: (v) => @map.addVehicleMarker v
-    removed: (v) => @map.removeVehicleMarker v
-    changed: (v) => @map.moveVehicleMarker v
-
+  @map = new FleetrMap '#map-canvas',
+    showVehicles: true
 
   @autorun =>
     if showGeofences.get()
@@ -33,53 +28,62 @@ Template.map.onRendered ->
 
 
   @autorun =>
-    Session.get('selectedVehicleId')
-    @map.removeCurrentPath()
+    if @selectedVehicle?._id isnt Session.get('selectedVehicleId')
+      @map.removeCurrentPath()
+      @selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
+      console.log 'vehicle', @selectedVehicle.trip?.path
+      if @selectedVehicle
+        Session.set 'fleetrTitle',
+          "#{@selectedVehicle.name} (#{@selectedVehicle.licensePlate})"
+        if @selectedVehicle.lat && @selectedVehicle.lon
+          @map.map.setCenter
+            lat: @selectedVehicle.lat
+            lng: @selectedVehicle.lon
+        else
+          Alerts.set 'This vehicle has no known position.'
 
-  @autorun =>
-    selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
-    if selectedVehicle
-      Session.set 'fleetrTitle',
-        "#{selectedVehicle.name} (#{selectedVehicle.licensePlate})"
-      if selectedVehicle.lat && selectedVehicle.lon
-        @map.map.setCenter
-          lat: selectedVehicle.lat
-          lng: selectedVehicle.lon
-      else
-        Alerts.set 'This vehicle has no known position.'
 
-    if selectedVehicle?.trip?.start
-      searchArgs = (startTime = selectedVehicle.trip.start.time) ->
-        recordTime:
-          $gte: startTime
-        deviceId: selectedVehicle.unitId
-        type: 30
 
-      options =
-        sort: recordTime: 1
-        fields:
-          recordTime: 1
-          lat: 1
-          lon: 1
-
-      Meteor.subscribe 'logbook', searchArgs, =>
-        addPointToPath = (point) =>
-          @map.extendCurrentPath new google.maps.LatLng
-            lat: point.lat, lng: point.lon, id: point._id
-
-        currentPoints = Logbook.find searchArgs(), options
-        currentPoints.map addPointToPath
-
-        futurePoints = Logbook.find searchArgs(new Date()), options
-        futurePoints.observe
-          added: (point) ->
-            addPointToPath(point) if isNewPoint
+      # if @selectedVehicle?.trip?.start
+      #   searchArgs = (startTime = {$gte: @selectedVehicle.trip.start.time}) =>
+      #     deviceId: @selectedVehicle.unitId
+      #     type: 30
+      #     recordTime: startTime
+      #
+      #   options =
+      #     sort: recordTime: 1
+      #     fields:
+      #       lat: 1
+      #       lon: 1
+      #
+        # Meteor.subscribe 'logbook', searchArgs(), options, =>
+        #   addPointToPath = (point) =>
+        #     @map.extendCurrentPath new google.maps.LatLng
+        #       lat: point.lat, lng: point.lon, id: point._id
+        #
+        #   currentPoints = Logbook.find searchArgs(), options
+        #   currentPoints.map addPointToPath
+        #
+        #   @pathObserver?.stop()
+        #   # futurePoints = Vehicles.find {_id: @selectedVehicle._id},
+        #   #   fields:
+        #   #     lat: 1
+        #   #     lon: 1
+        #   futurePoints = Logbook.find searchArgs({$gt: new Date()}), options
+        #   @pathObserver = futurePoints.observe
+        #     added: (point) -> console.log point; addPointToPath point
 
 Template.map.helpers
   filterOptions: -> vehicleDisplayStyle: 'none'
   selectedVehicleId: -> Session.get('selectedVehicleId')
   showFilterBox: -> showFilterBox.get()
   showGeofences: -> showGeofences.get()
+  selectedVehiclePath: ->
+    selectedVehicle = Vehicles.findOne {_id: Session.get('selectedVehicleId')},
+      fields: trip: 1
+    map = Template.instance().map
+    map?.renderPath selectedVehicle?.trip?.path or []
+    ''
 
   fleetrGridConfig: ->
     columns: [
