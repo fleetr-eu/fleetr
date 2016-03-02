@@ -30,12 +30,11 @@ updateVehicle = (rec, updater, cb) ->
   Partitioner.directOperation ->
     if v = Vehicles.findOne {unitId: rec.deviceId}
       update = updater?(v)
-      console.log "Updating vehicle #{v._id} with #{EJSON.stringify update}"
+      console.log "Updating vehicle #{v._id}"
       Vehicles.update {_id: v._id}, $set: update, {}, (err) ->
         if err
           console.error "Failed updating vehicle #{v._id}! #{err}"
         else
-          console.log "Updated vehicle #{v._id} with data from #{EJSON.stringify rec}"
           cb?(v)
     else
       console.log "No vehicle found for unit id #{rec.deviceId}"
