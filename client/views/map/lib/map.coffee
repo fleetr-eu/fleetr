@@ -13,8 +13,8 @@ Meteor.startup ->
         position: google.maps.ControlPosition.LEFT_BOTTOM
       zoomControl: true
       zoomControlOptions:
-          style: google.maps.ZoomControlStyle.SMALL
-          position: google.maps.ControlPosition.LEFT_BOTTOM
+        style: google.maps.ZoomControlStyle.SMALL
+        position: google.maps.ControlPosition.LEFT_BOTTOM
 
     init: (pos, cb) ->
       if pos
