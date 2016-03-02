@@ -131,6 +131,7 @@ updateVehicle = (rec, updater, cb) ->
         time: rec.recordTime
         speed: rec.speed
         odometer: rec.tacho
+      path = _.sortBy path, (p) -> p.time
 
       'trip.maxSpeed': maxSpeed
       'trip.path': path

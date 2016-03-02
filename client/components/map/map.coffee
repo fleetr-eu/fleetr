@@ -1,98 +1,52 @@
-Meteor.startup ->
-  class @Geofence
-    constructor: (@gf, @map) ->
-      @center = new google.maps.LatLng @gf.center[1], @gf.center[0]
-      @circle = @_drawCircle()
-      @label = @_drawLabel()
+Template.fleetrMap.onCreated ->
+  @showGeofences = new ReactiveVar false
 
-    destroy: ->
-      @circle.setMap null
-      @label.close()
+Template.fleetrMap.onRendered ->
+  console.log @
+  @map = new FleetrMap '#map-canvas',
+    showVehicles: @data.showVehicles
 
-    _drawCircle: ->
-      opts =
-        map: @map
-        center: @center
-        radius: @gf.radius
-        editable: false
-        strokeColor: 'blue'
-        strokeOpacity: 0.8
-        strokeWeight: 2
-        fillColor: 'blue'
-        fillOpacity: 0.35
-      new google.maps.Circle opts
-
-    _drawLabel: ->
-      opts =
-        content: @gf.name
-        boxStyle:
-          textAlign: "center"
-          fontSize: "8pt"
-          width: "90px"
-        disableAutoPan: true
-        pixelOffset: new google.maps.Size(-45, 0)
-        position: @center
-        closeBoxURL: ""
-        isHidden: false
-        enableEventPropagation: true
-      label = new InfoBox opts
-      label.open(@map)
-      label
-
-  class @FleetrMap
-    options:
-      center: # Sofia, Bulgaria
-        lat: 42.6959214
-        lng: 23.3198662
-      zoom: 12
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-      disableDefaultUI: true
-      streetViewControl: true
-      mapTypeControl: true
-      mapTypeControlOptions:
-        position: google.maps.ControlPosition.LEFT_TOP
-      streetViewControlOptions:
-        position: google.maps.ControlPosition.LEFT_BOTTOM
-      zoomControl: true
-      zoomControlOptions:
-        style: google.maps.ZoomControlStyle.SMALL
-        position: google.maps.ControlPosition.LEFT_BOTTOM
-
-    constructor: (container, options) ->
-      @vehicleMarkers = []
-      @geofences = {}
-      @map = new google.maps.Map $(container)[0], _.extend @options, options
-      Autocomplete.init @map
-      @clusterer = new FleetrClusterer @map
-
-      if options?.showVehicles
-        Vehicles.find().observe
-          added: (v) => @addVehicleMarker v
-          removed: (v) => @removeVehicleMarker v
-          changed: (v) => @moveVehicleMarker v
-
-    addVehicleMarker: (vehicle) ->
-      marker = new VehicleMarker(vehicle, @map).withInfo(vehicle, @map)
-      @vehicleMarkers[vehicle._id] = marker
-      @clusterer.addMarker marker
-
-    removeVehicleMarker: (vehicle) ->
-      @clusterer.removeMarker vehicle._id
-      delete @vehicleMarkers[vehicle._id]
-
-    moveVehicleMarker: (vehicle) ->
-      @vehicleMarkers[vehicle._id].setPosition
-        lat: vehicle.lat, lng: vehicle.lon
-
-    renderPath: (path) ->
-      @currentPath = new FleetrPolyline @map, path
-
-    extendCurrentPath: (point) ->
-      if @currentPath
-        @currentPath.getPath().push point
+  @autorun =>
+    if @selectedVehicle?._id isnt Session.get('selectedVehicleId')
+      @selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
+      if @selectedVehicle?.lat
+        @map.map.setCenter
+          lat: @selectedVehicle.lat
+          lng: @selectedVehicle.lon
       else
-        @currentPath = new FleetrPolyline @map, [point]
+        Alerts.set 'This vehicle has no known position.'
 
-    removeCurrentPath: ->
-      @currentPath?.setMap null
-      @currentPath = null
+  @autorun =>
+    if @showGeofences.get()
+      @geofences = {}
+      map = @map.map
+      Geofences.find().observe
+        added: (gf) =>
+          @geofences[gf._id] = new Geofence gf, map
+        removed: (gf) =>
+          @geofences[gf._id].destroy()
+          delete @geofences[gf._id]
+        changed: (gf) =>
+          @geofences[gf._id].destroy()
+          delete @geofences[gf._id]
+          @geofences[gf._id] = new Geofence gf, map
+    else
+      gf.destroy() for id, gf of @geofences
+      @geofences = []
+
+Template.fleetrMap.helpers
+  selectedVehiclePath: ->
+    selectedVehicle = Vehicles.findOne {_id: Session.get('selectedVehicleId')},
+      fields: trip: 1
+    map = Template.instance().map
+    map?.removeCurrentPath()
+    path = selectedVehicle?.trip?.path or []
+    path = _.sortBy path, (p) -> p.time
+    map?.renderPath path
+    ''
+
+Template.fleetrMap.events
+  'click #pac-input-clear': -> $('#pac-input').val('')
+
+  'click #show-geofences-check': (e, t) ->
+    t.showGeofences.set e.target.checked

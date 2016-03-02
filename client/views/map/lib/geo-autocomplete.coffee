@@ -1,10 +1,6 @@
 Meteor.startup ->
   @Autocomplete =
-    init: (map) ->
-      input = document.getElementById("pac-input")
-      pacSearch = document.getElementById("pac-search")
-      map.controls[google.maps.ControlPosition.TOP_LEFT].push pacSearch
-
+    init: (map, input) ->
       autocomplete = new google.maps.places.Autocomplete(input)
       autocomplete.bindTo "bounds", map
       infowindow = new google.maps.InfoWindow()
