@@ -60,6 +60,7 @@ Meteor.startup ->
 
     constructor: (container, options) ->
       @vehicleMarkers = []
+      @pathMarkers = []
       @geofences = {}
       @map = new google.maps.Map $(container)[0], _.extend @options, options
 
@@ -100,3 +101,27 @@ Meteor.startup ->
     removeCurrentPath: ->
       @currentPath?.setMap null
       @currentPath = null
+      @removePathMarkers()
+
+    showPathMarkers: (path) ->
+      if @pathMarkers.length
+        m.setMap @map for m in @pathMarkers
+      else
+        path?.map (point) =>
+          color = if point.speed >= Settings.maxSpeed then 'red' else 'blue'
+          opts =
+            position: new google.maps.LatLng(point.lat, point.lng)
+            icon: "/images/icons/#{color}-circle.png"
+            map: @map
+          info =
+            speed: (point.speed or 0).toFixed(0)
+            distance: (point.odometer/1000)?.toFixed(0)
+            time: point.time
+          @pathMarkers.push new InfoMarker opts, info
+
+    hidePathMarkers: ->
+      m.setMap(null) for m in @pathMarkers if @pathMarkers
+
+    removePathMarkers: ->
+      @hidePathMarkers()
+      @pathMarkers = []

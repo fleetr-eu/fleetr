@@ -7,7 +7,11 @@
     <div id="show-geofences" class="input-icon right" style="margin-top: 8px;">
       <input id="show-geofences-check" type="checkbox"> {{_ "button.showGeofences"}}
     </div>
+    <div id="show-info-markers" class="input-icon right" style="margin-top: 5px;">
+        <input id="show-info-markers-check" type="checkbox"> {{_ "simpleMap.showMarkers"}}
+    </div>
   </div>
   <div id="map-canvas"></div>
   {{selectedVehiclePath}}
+  {{selectedVehicleInfoMarkers}}
 </template>

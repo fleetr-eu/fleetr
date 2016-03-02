@@ -1,20 +1,20 @@
 Template.fleetrMap.onCreated ->
   @showGeofences = new ReactiveVar false
+  @showInfoMarkers = new ReactiveVar false
 
 Template.fleetrMap.onRendered ->
-  console.log @
   @map = new FleetrMap '#map-canvas',
-    showVehicles: @data.showVehicles
+    showVehicles: if @data.showVehicles is undefined then true else @data.showVehicles
 
   @autorun =>
-    if @selectedVehicle?._id isnt Session.get('selectedVehicleId')
-      @selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
-      if @selectedVehicle?.lat
+    selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
+    if selectedVehicle
+      if selectedVehicle.lat
         @map.map.setCenter
-          lat: @selectedVehicle.lat
-          lng: @selectedVehicle.lon
+          lat: selectedVehicle.lat
+          lng: selectedVehicle.lon
       else
-        Alerts.set 'This vehicle has no known position.'
+        sAlert.warning 'This vehicle has no known position.'
 
   @autorun =>
     if @showGeofences.get()
@@ -38,11 +38,16 @@ Template.fleetrMap.helpers
   selectedVehiclePath: ->
     selectedVehicle = Vehicles.findOne {_id: Session.get('selectedVehicleId')},
       fields: trip: 1
-    map = Template.instance().map
+    t = Template.instance()
+    map = t.map
     map?.removeCurrentPath()
     path = selectedVehicle?.trip?.path or []
     path = _.sortBy path, (p) -> p.time
     map?.renderPath path
+    if t.showInfoMarkers.get()
+      map?.showPathMarkers path
+    else
+      map?.hidePathMarkers()
     ''
 
 Template.fleetrMap.events
@@ -50,3 +55,6 @@ Template.fleetrMap.events
 
   'click #show-geofences-check': (e, t) ->
     t.showGeofences.set e.target.checked
+
+  'click #show-info-markers-check': (e, t) ->
+    t.showInfoMarkers.set e.target.checked
