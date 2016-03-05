@@ -42,14 +42,17 @@ Helpers =
   @updateDocument = (doc) =>
     @setGridData(@data.map (d) -> if d._id == doc._id then Helpers.addId doc else d)
     @_applyClientFilters()
+    @_performSort()
   # add a new document into the grid
   @addDocument = (doc) =>
     @setGridData _.union([Helpers.addId doc], @data)
     @_applyClientFilters()
+    @_performSort()
   # remove a document from the grid
   @removeDocument = (doc) =>
     @setGridData(_.reject @data, (d) -> d._id == doc._id)
     @_applyClientFilters()
+    @_performSort()
 
   @dataViewLength = -> if @_dataView.getLength() then @_dataView.getLength() else 0
 
@@ -134,6 +137,33 @@ Helpers =
   @_effectuateGroupings = ->
     @_dataView?.setGrouping (val for key, val of @_groupings)
   # <-- grouping
+
+  # sorting -->
+  @_sortArgs = null
+  @_performSort = (args = @_sortArgs) ->
+    return unless args
+    @_sortArgs = args
+    # sort implementation that supports multi-column sort and custom
+    # sorter functions per column
+    if args.sortCol then sortCols = [sortAsc: args.sortAsc, sortCol: args.sortCol]
+    else sortCols = args.sortCols
+
+    @_dataView.sort (a, b) ->
+      for sortColSpec in sortCols
+        sortCol = sortColSpec.sortCol
+        result =
+          if sortCol.sorter
+            n = sortCol.sorter(sortCol) a, b
+            if n is undefined then 0 else n
+          else
+            valueA = a[sortCol.field]
+            valueB = b[sortCol.field]
+            if valueA == valueB then 0 else (if valueA > valueB then 1 else -1)
+        result = result * (if sortColSpec.sortAsc then 1 else -1)
+        return result if result isnt 0
+      0
+    @grid.setSelectedRows([-1])
+  # <-- sorting
 
   # handler which is called before data is refreshed from the server
   @_beforeDataRefresh = =>
@@ -254,26 +284,7 @@ Helpers =
           fleetrGrid: @
 
     @grid.onSort.subscribe (e, args) =>
-      # sort implementation that supports multi-column sort and custom
-      # sorter functions per column
-      if args.sortCol then sortCols = [sortAsc: args.sortAsc, sortCol: args.sortCol]
-      else sortCols = args.sortCols
-
-      @_dataView.sort (a, b) ->
-        for sortColSpec in sortCols
-          sortCol = sortColSpec.sortCol
-          result =
-            if sortCol.sorter
-              n = sortCol.sorter(sortCol) a, b
-              if n is undefined then 0 else n
-            else
-              valueA = a[sortCol.field]
-              valueB = b[sortCol.field]
-              if valueA == valueB then 0 else (if valueA > valueB then 1 else -1)
-          result = result * (if sortColSpec.sortAsc then 1 else -1)
-          return result if result isnt 0
-        0
-      @grid.setSelectedRows([-1])
+      @_performSort args
 
     searchInputHandler = (e) =>
       columnId = $(e.target).data("columnId");
