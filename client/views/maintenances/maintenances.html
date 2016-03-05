@@ -1,3 +1,7 @@
 <template name="maintenances">
 	{{> crud options }}
 </template>
+
+<template name="performedMaintenance">
+	{{> checkboxCell submitMethod='submitMaintenance' field='performed' data=this}}
+</template>

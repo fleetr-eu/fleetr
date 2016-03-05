@@ -247,6 +247,7 @@
     "odometerToMaintenance" : "Оставащи км",
     "nextMaintenanceEngineHours" : "Следващи часове",
     "engineHoursToMaintenance" : "Оставащи часове",
+    "performed" : "Извършена",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете тази поддръжка?"
   },
 

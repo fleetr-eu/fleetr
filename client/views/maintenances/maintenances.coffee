@@ -82,6 +82,15 @@ Template.maintenances.helpers
         hidden: true
         search: where: 'client'
         align: "right"
+      ,
+        id: "performed"
+        field: "performed"
+        name: "#{TAPi18n.__('maintenances.performed')}"
+        maxWidth:30
+        sortable: true
+        search: where: 'client'
+        groupable: true
+        formatter: FleetrGrid.Formatters.blazeFormatter Template.performedMaintenance
       ]
       options:
         enableCellNavigation: true

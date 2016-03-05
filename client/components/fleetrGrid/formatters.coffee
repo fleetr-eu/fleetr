@@ -44,7 +44,7 @@ FleetrGrid.Formatters =
           title = "Работещ на място"
     "<img src='/images/truck-state-#{color}.png' rel='tooltip' title='#{title}'></img>"
   decoratedLessThanFormatter: (numberError, numberWarning, decimals=0 ) -> (row, cell, value) ->
-    if value >= 0
+    if value > 0
       v = Number((Number(value)).toFixed(decimals))
       vStr = if v == 0 then "" else v
       attnIcon = ""
@@ -56,7 +56,7 @@ FleetrGrid.Formatters =
 
       "<span>#{attnIcon}<div class='pull-right'>#{vStr}</div></span>"
   decoratedGreaterThanFormatter: (numberError, numberWarning, decimals=0 ) -> (row, cell, value) ->
-    if value >= 0
+    if value > 0
       v = Number((Number(value)).toFixed(decimals))
       vStr = if v == 0 then "" else v
       attnIcon = ""

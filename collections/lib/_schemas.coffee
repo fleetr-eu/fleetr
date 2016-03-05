@@ -567,6 +567,20 @@ Schema.maintenances = new SimpleSchema
       "invalidFromToHours" if (@value and @field('engineHours').value) and (@value < @field('engineHours').value)
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  performed:
+    type: Boolean
+    label: ()->TAPi18n.__('maintenances.performed')
+    optional: true
+    autoform:
+      type: 'bootstrap-switch'
+      afFieldInput:
+        switchOptions:
+          size: 'normal'
+          onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
+      template: "bootstrap3-horizontal"
+      leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
 
 Schema.driverEvents = new SimpleSchema
   driver:

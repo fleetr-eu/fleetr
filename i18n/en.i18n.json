@@ -247,6 +247,7 @@
     "odometerToMaintenance" : "Remaining км",
     "nextMaintenanceEngineHours" : "Engine hours",
     "engineHoursToMaintenance" : "Remaining часове",
+     "performed" : "Performed",
     "deleteMessage": "Are you certain you want to delete this maintenance?"
   },
 
