@@ -24,7 +24,7 @@
                 </div>
                  <div class="col-md-12">
                    <section class="content">
-                     {{> fleetrMap}}
+                     {{> fleetrMap vehicleId=selectedVehicleId}}
                    </section>
                  </div>
 
@@ -36,8 +36,6 @@
 </template>
 
 <template name="simpleMap">
-  <div id="show-info-markers" class="input-icon right" style="margin-top: 5px; margin-left: 5px;">
-      <input id="show-info-markers-check" type="checkbox"> {{_ "simpleMap.showMarkers"}}
-  </div>
-  <div id="simpleMap" data-show-info-markers={{showInfoMarkers}}></div>
+  {{> fleetrMap showVehicles=false enableVehicleSelection=false}}
+  {{showInfoMarkers}}
 </template>

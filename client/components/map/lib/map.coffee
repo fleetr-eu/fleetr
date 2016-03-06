@@ -1,3 +1,6 @@
+map = null
+clusterer = null
+
 Meteor.startup ->
   class @Geofence
     constructor: (@gf, @map) ->
@@ -58,6 +61,8 @@ Meteor.startup ->
         style: google.maps.ZoomControlStyle.SMALL
         position: google.maps.ControlPosition.LEFT_BOTTOM
 
+    @currentMap: -> map
+
     constructor: (container, options) ->
       @vehicleMarkers = []
       @pathMarkers = []
@@ -68,13 +73,21 @@ Meteor.startup ->
       @map.controls[google.maps.ControlPosition.TOP_LEFT].push showGeofences
 
       Autocomplete.init @map, document.getElementById("pac-input")
-      @clusterer = new FleetrClusterer @map
+
+      if clusterer
+        @clusterer = clusterer
+        @clusterer.setMap @map
+        @clusterer.removeAllMarkers()
+      else
+        clusterer = @clusterer = new FleetrClusterer @map
 
       if options?.showVehicles
         Vehicles.find().observe
           added: (v) => @addVehicleMarker v
           removed: (v) => @removeVehicleMarker v
           changed: (v) => @moveVehicleMarker v
+
+      map = @
 
     addVehicleMarker: (vehicle) ->
       marker = new VehicleMarker(vehicle, @map).withInfo(vehicle, @map)
@@ -89,8 +102,8 @@ Meteor.startup ->
       @vehicleMarkers[vehicle._id].setPosition
         lat: vehicle.lat, lng: vehicle.lon
 
-    renderPath: (path) ->
-      @currentPath = new FleetrPolyline @map, path
+    renderPath: (@path) ->
+      @currentPath = new FleetrPolyline @map, @path
 
     extendCurrentPath: (point) ->
       if @currentPath
@@ -103,11 +116,11 @@ Meteor.startup ->
       @currentPath = null
       @removePathMarkers()
 
-    showPathMarkers: (path) ->
+    showPathMarkers: ->
       if @pathMarkers.length
         m.setMap @map for m in @pathMarkers
       else
-        path?.map (point) =>
+        @path.map (point) =>
           color = if point.speed >= Settings.maxSpeed then 'red' else 'blue'
           opts =
             position: new google.maps.LatLng(point.lat, point.lng)

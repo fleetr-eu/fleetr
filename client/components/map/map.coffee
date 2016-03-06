@@ -7,16 +7,6 @@ Template.fleetrMap.onRendered ->
     showVehicles: if @data.showVehicles is undefined then true else @data.showVehicles
 
   @autorun =>
-    selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
-    if selectedVehicle
-      if selectedVehicle.lat
-        @map.map.setCenter
-          lat: selectedVehicle.lat
-          lng: selectedVehicle.lon
-      else
-        sAlert.warning 'This vehicle has no known position.'
-
-  @autorun =>
     if @showGeofences.get()
       @geofences = {}
       map = @map.map
@@ -35,20 +25,44 @@ Template.fleetrMap.onRendered ->
       @geofences = []
 
 Template.fleetrMap.helpers
+  enableVehicleSelection: ->
+    if Template.instance().data.enableVehicleSelection is undefined
+      true
+    else
+      Template.instance().data.enableVehicleSelection
   selectedVehiclePath: ->
-    selectedVehicle = Vehicles.findOne {_id: Session.get('selectedVehicleId')},
-      fields: trip: 1
     t = Template.instance()
+    selectedVehicle = Vehicles.findOne {_id: t.data.vehicleId},
+      fields: trip: 1
     map = t.map
-    map?.removeCurrentPath()
     path = selectedVehicle?.trip?.path or []
     path = _.sortBy path, (p) -> p.time
+    map?.removeCurrentPath()
     map?.renderPath path
-    if t.showInfoMarkers.get()
-      map?.showPathMarkers path
-    else
-      map?.hidePathMarkers()
     ''
+
+  infoMarkers: ->
+    t = Template.instance()
+    if t.showInfoMarkers.get()
+      t.map?.showPathMarkers()
+    else
+      t.map?.hidePathMarkers()
+    ''
+
+  centerMapOnVehicleSelection: ->
+    t = Template.instance()
+    selectedVehicle = Vehicles.findOne {_id: t.data.vehicleId},
+      fields:
+        lat: 1
+        lon: 1
+      reactive: false
+    if selectedVehicle
+      if selectedVehicle.lat
+        t.map?.map.setCenter
+          lat: selectedVehicle.lat
+          lng: selectedVehicle.lon
+      else
+        sAlert.warning 'This vehicle has no known position.'
 
 Template.fleetrMap.events
   'click #pac-input-clear': -> $('#pac-input').val('')

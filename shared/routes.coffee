@@ -279,3 +279,4 @@ Meteor.startup ->
       path: '/map/:data?'
       template: 'simpleMap'
       data: -> @params?.data
+      waitOn: -> Meteor.subscribe('geofences')

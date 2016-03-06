@@ -12,6 +12,9 @@
     </div>
   </div>
   <div id="map-canvas"></div>
-  {{selectedVehiclePath}}
-  {{selectedVehicleInfoMarkers}}
+  {{#if enableVehicleSelection}}
+    {{centerMapOnVehicleSelection}}
+    {{selectedVehiclePath}}
+  {{/if}}
+  {{infoMarkers}}
 </template>
