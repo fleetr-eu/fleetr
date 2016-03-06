@@ -19,7 +19,8 @@ Template.expenses.helpers
         sortable: true
         groupable:
           headerFormatter: (group, defaultFormatter) ->
-            "#{defaultFormatter()}<div style='float:right'><img src=\"/images/Google-Maps-icon.png\" height=\"22\" /></div>"
+            ids = group.rows.map (item) -> item._id
+            "#{defaultFormatter()}<div style='float:right'><a href='/expenses/types/list?ids=#{ids}'><img src=\"/images/Google-Maps-icon.png\" height=\"22\" /></a></div>"
         search: where: 'client'
       ,
         id: "expenseType"
