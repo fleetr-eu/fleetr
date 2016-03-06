@@ -118,12 +118,13 @@ Helpers =
     @_groupings = {}
     @_activeGroupings.remove {}
     @_effectuateGroupings()
-  @addGroupBy = (field, fieldName, aggregators = []) ->
+  @addGroupBy = (field, fieldName, aggregators = [], formatter = null) ->
     if @_activeGroupings.findOne(name: fieldName) then return
+    defaultFormatter = (g) ->
+      "<strong>#{fieldName}:</strong> " + g.value + "  <span style='color:green'>(" + g.count + " items)</span>"
     @_groupings[fieldName] =
       getter: field
-      formatter: (g) ->
-        "<strong>#{fieldName}:</strong> " + g.value + "  <span style='color:green'>(" + g.count + " items)</span>"
+      formatter: (group) -> if formatter then formatter group, (-> defaultFormatter group) else defaultFormatter group
       aggregators: aggregators
       collapsed: Object.keys(@_groupings).length > 0
       aggregateCollapsed: true
@@ -262,7 +263,7 @@ Helpers =
           button.cssClass = "icon-highlight-off"
           button.tooltip = "Group table by #{column.name}"
         else
-          @addGroupBy (column.groupable.transform or column.field), column.name, (column.groupable.aggregators or [])
+          @addGroupBy (column.groupable.transform or column.field), column.name, (column.groupable.aggregators or []), (column.groupable.headerFormatter)
           button.cssClass = "icon-highlight-on"
           button.tooltip = "Remove group #{column.name}"
 
