@@ -2,6 +2,9 @@ Template.fleetrMap.onCreated ->
   @showGeofences = new ReactiveVar false
   @showInfoMarkers = new ReactiveVar false
 
+Template.fleetrMap.onDestroyed ->
+  @map.destroy()
+
 Template.fleetrMap.onRendered ->
   @map = new FleetrMap '#map-canvas',
     showVehicles: if @data.showVehicles is undefined then true else @data.showVehicles
@@ -39,6 +42,9 @@ Template.fleetrMap.helpers
     path = _.sortBy path, (p) -> p.time
     map?.removeCurrentPath()
     map?.renderPath path
+    # if path[0] and map?.map
+    #   console.log 'render start'
+    #   new google.maps.Marker _.extend(path[0], {title: 'Start', icon: '/images/icons/start.png', map: map.map})
     ''
 
   infoMarkers: ->

@@ -82,12 +82,16 @@ Meteor.startup ->
         clusterer = @clusterer = new FleetrClusterer @map
 
       if options?.showVehicles
-        Vehicles.find().observe
+        @vehicleObserver = Vehicles.find().observe
           added: (v) => @addVehicleMarker v
           removed: (v) => @removeVehicleMarker v
           changed: (v) => @moveVehicleMarker v
 
       map = @
+
+    destroy: ->
+      @removeAllMarkers()
+      @vehicleObserver?.stop()
 
     addVehicleMarker: (vehicle) ->
       marker = new VehicleMarker(vehicle, @map).withInfo(vehicle, @map)
@@ -97,6 +101,10 @@ Meteor.startup ->
     removeVehicleMarker: (vehicle) ->
       @clusterer.removeMarker vehicle._id
       delete @vehicleMarkers[vehicle._id]
+
+    removeAllMarkers: ->
+      @clusterer.removeAllMarkers()
+      @removePathMarkers()
 
     moveVehicleMarker: (vehicle) ->
       @vehicleMarkers[vehicle._id].setPosition
