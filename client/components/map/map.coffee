@@ -33,6 +33,7 @@ Template.fleetrMap.helpers
       true
     else
       Template.instance().data.enableVehicleSelection
+
   selectedVehiclePath: ->
     t = Template.instance()
     selectedVehicle = Vehicles.findOne {_id: t.data.vehicleId},
@@ -42,13 +43,12 @@ Template.fleetrMap.helpers
     path = _.sortBy path, (p) -> p.time
     map?.removeCurrentPath()
     map?.renderPath path
-    # if path[0] and map?.map
-    #   console.log 'render start'
-    #   new google.maps.Marker _.extend(path[0], {title: 'Start', icon: '/images/icons/start.png', map: map.map})
     ''
 
   infoMarkers: ->
     t = Template.instance()
+    selectedVehicle = Vehicles.findOne {_id: t.data.vehicleId},
+      fields: trip: 1
     if t.showInfoMarkers.get()
       t.map?.showPathMarkers()
     else
