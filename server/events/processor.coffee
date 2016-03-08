@@ -19,6 +19,7 @@ nullRecord = ->
     avgSpeed: 0
     distance: 0
     consumedFuel: 0
+    path: null
   rest:
     duration: 0
 
@@ -29,12 +30,11 @@ updateVehicle = (rec, updater, cb) ->
   Partitioner.directOperation ->
     if v = Vehicles.findOne {unitId: rec.deviceId}
       update = updater?(v)
-      console.log "Updating vehicle #{v._id} with #{EJSON.stringify update}"
+      console.log "Updating vehicle #{v._id}"
       Vehicles.update {_id: v._id}, $set: update, {}, (err) ->
         if err
           console.error "Failed updating vehicle #{v._id}! #{err}"
         else
-          console.log "Updated vehicle #{v._id} with data from #{EJSON.stringify rec}"
           cb?(v)
     else
       console.log "No vehicle found for unit id #{rec.deviceId}"
@@ -66,6 +66,14 @@ updateVehicle = (rec, updater, cb) ->
           deviceId: rec.deviceId
           date: moment(rec.recordTime).format('DD-MM-YYYY')
           start: data
+          path: [
+            lat: rec.lat
+            lng: rec.lon
+            time: rec.recordTime
+            speed: rec.speed
+            odometer: rec.tacho
+          ]
+
 
 
   deviceStop: (rec) ->
@@ -115,7 +123,17 @@ updateVehicle = (rec, updater, cb) ->
         calcDuration(v.rest?.start?.time, rec.recordTime).asSeconds()
       else 0
 
+      path = v.trip?.path
+      path?.push
+        lat: rec.lat
+        lng: rec.lon
+        time: rec.recordTime
+        speed: rec.speed
+        odometer: rec.tacho
+      path = _.sortBy path, (p) -> p.time
+
       'trip.maxSpeed': maxSpeed
+      'trip.path': path
       'rest.duration': restDuration
       lastUpdate: rec.recordTime
       speed: if v.state is 'stop' then 0 else rec.speed

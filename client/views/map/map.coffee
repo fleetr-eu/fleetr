@@ -1,49 +1,21 @@
 showFilterBox = new ReactiveVar false
-showGeofences = new ReactiveVar false
 
 Template.map.onRendered ->
   Session.set 'selectedVehicleId', @data.vehicleId
-  position = Vehicles.findOne(_id: @data.vehicleId)?.selectedVehicle?.loc
-  Map.init position, =>
-    @autorun ->
-      if showGeofences.get()
-        Map.renderGeofences()
-      else
-        Map.removeGeofences()
-    @autorun ->
-      selectedVehicle = Vehicles.findOne _id: Session.get('selectedVehicleId')
-      if selectedVehicle
-        Session.set 'fleetrTitle', "#{selectedVehicle.name} (#{selectedVehicle.licensePlate})"
-        if selectedVehicle.lat && selectedVehicle.lon
-          Map.setCenter [selectedVehicle.lat, selectedVehicle.lon]
-        else
-          Alerts.set 'This vehicle has no known position.'
-      Map.renderMarkers()
+  @autorun =>
+    @selectedVehicle = Vehicles.findOne {_id: Session.get('selectedVehicleId')},
+      fields:
+        name: 1
+        licensePlate: 1
+    if @selectedVehicle
+      Session.set 'fleetrTitle',
+        "#{@selectedVehicle.name} (#{@selectedVehicle.licensePlate})"
 
-      if selectedVehicle?.trip?.start
-        searchArgs =
-          recordTime:
-            $gte: selectedVehicle.trip.start.time
-          deviceId: selectedVehicle.unitId
-          type: 30
-
-        Meteor.subscribe 'logbook', searchArgs, ->
-          points = Logbook.find searchArgs,
-            sort: recordTime: -1,
-            fields:
-              lat: 1
-              lon: 1
-
-          points.observe
-            added: ->
-              Map.renderPath points.map (point) ->
-                lat: point.lat, lng: point.lon, id: point._id
 
 Template.map.helpers
   filterOptions: -> vehicleDisplayStyle: 'none'
   selectedVehicleId: -> Session.get('selectedVehicleId')
   showFilterBox: -> showFilterBox.get()
-  showGeofences: -> showGeofences.get()
 
   fleetrGridConfig: ->
     columns: [
@@ -101,14 +73,9 @@ Template.map.helpers
 
 
 Template.map.events
-  'click #pac-input-clear': -> $('#pac-input').val('')
-
   'click #toggle-filter': (e, t) ->
     showFilterBox.set not showFilterBox.get()
     Meteor.defer -> t.grid.resize()
-
-  'click #toggle-geofences': (e, t) ->
-    showGeofences.set not showGeofences.get()
 
   'rowsSelected': (e, t) ->
     Session.set 'selectedVehicleId', e.fleetrGrid.data[e.rowIndex]?._id

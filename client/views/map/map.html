@@ -1,5 +1,4 @@
 <template name="map">
-    {{> BootstrapAlerts}}
     <div class="row">
         <div class="col-md-12">
           <div class="portlet light">
@@ -10,10 +9,6 @@
                   </div>
               </div>
               <div class="actions">
-                <a href="#" id="toggle-geofences" class="btn btn-circle btn-default {{#if showGeofences}}active{{/if}}">
-                  <i class="icon-home"></i>
-                  {{_ "button.showGeofences"}}
-                </a>
                 <a href="#" id="toggle-filter" class="btn btn-circle btn-default {{#if showFilterBox}}active{{/if}}">
                   <i class="glyphicon glyphicon-filter"></i>
                   {{_ "button.filter"}}
@@ -29,11 +24,7 @@
                 </div>
                  <div class="col-md-12">
                    <section class="content">
-                     <div id="pac-search" class="input-icon right" style="margin-top: 6px;">
-                         <i id="pac-input-clear" class="fa fa-close"></i>
-                         <input id="pac-input" type="text" class="form-control input-circle">
-                     </div>
-                     <div id="map-canvas"></div>
+                     {{> fleetrMap vehicleId=selectedVehicleId}}
                    </section>
                  </div>
 
@@ -45,8 +36,6 @@
 </template>
 
 <template name="simpleMap">
-  <div id="show-info-markers" class="input-icon right" style="margin-top: 5px; margin-left: 5px;">
-      <input id="show-info-markers-check" type="checkbox"> {{_ "simpleMap.showMarkers"}}
-  </div>
-  <div id="simpleMap" data-show-info-markers={{showInfoMarkers}}></div>
+  {{> fleetrMap showVehicles=false enableVehicleSelection=false}}
+  {{showInfoMarkers}}
 </template>

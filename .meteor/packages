@@ -33,7 +33,6 @@ aldeed:tabular
 aldeed:geocoder
 reactive-var
 sacha:spin
-bojicas:bootstrap-alerts
 phuocd:slickgrid
 twbs:bootstrap
 stevezhu:lodash
@@ -59,3 +58,4 @@ ejson
 spacebars
 check
 momentjs:moment
+kadira:debug

@@ -17,9 +17,12 @@ Template.expenses.helpers
         name: "#{TAPi18n.__('expenses.expenseGroup')}"
         width: 60
         sortable: true
-        groupable: true
+        groupable:
+          headerFormatter: (group, defaultFormatter) ->
+            ids = group.rows.map (item) -> item._id
+            "#{defaultFormatter()}<div style='float:right'><a href='/expenses/types/list?ids=#{ids}'><img src=\"/images/Google-Maps-icon.png\" height=\"22\" /></a></div>"
         search: where: 'client'
-      , 
+      ,
         id: "expenseType"
         field: "expenseTypeName"
         name: "#{TAPi18n.__('expenses.expenseType')}"
@@ -27,7 +30,7 @@ Template.expenses.helpers
         sortable: true
         groupable: true
         search: where: 'client'
-      , 
+      ,
         id: "vehicle"
         field: "vehicleName"
         name: "#{TAPi18n.__('expenses.vehicle')}"
@@ -43,7 +46,7 @@ Template.expenses.helpers
         hidden: true
         sortable: true
         groupable: true
-        search: where: 'client'  
+        search: where: 'client'
       ,
         id: "odometer"
         field: "odometer"
@@ -68,7 +71,7 @@ Template.expenses.helpers
         width: 40
         sortable: true
         groupable: true
-        search: where: 'client'  
+        search: where: 'client'
         formatter: FleetrGrid.Formatters.dateFormatter
       ,
         id: "location"
@@ -76,7 +79,7 @@ Template.expenses.helpers
         name: "#{TAPi18n.__('expenses.location')}"
         width: 40
         sortable: true
-        search: where: 'client'    
+        search: where: 'client'
       ,
         id: "quantity"
         field: "quantity"
@@ -85,7 +88,7 @@ Template.expenses.helpers
         align : "right"
         sortable: true
         search: where: 'client'
-      ,  
+      ,
         id: "totalVATIncluded"
         field: "totalVATIncluded"
         name: "#{TAPi18n.__('expenses.totalVATIncluded')}"
@@ -93,8 +96,8 @@ Template.expenses.helpers
         hidden: true
         align : "right"
         sortable: true
-        search: where: 'client'   
-      ,  
+        search: where: 'client'
+      ,
         id: "vat"
         field: "vat"
         name: "#{TAPi18n.__('expenses.vat')}"
@@ -102,8 +105,8 @@ Template.expenses.helpers
         hidden: true
         align : "right"
         sortable: true
-        search: where: 'client'   
-      ,  
+        search: where: 'client'
+      ,
         id: "discount"
         field: "discount"
         name: "#{TAPi18n.__('expenses.discount')}"
@@ -111,15 +114,15 @@ Template.expenses.helpers
         hidden: true
         align : "right"
         sortable: true
-        search: where: 'client'   
-      ,  
+        search: where: 'client'
+      ,
         id: "total"
         field: "total"
         name: "#{TAPi18n.__('expenses.total')}"
         width: 40
         align : "right"
         sortable: true
-        search: where: 'client' 
+        search: where: 'client'
       ]
       options:
         enableCellNavigation: true

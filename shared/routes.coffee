@@ -46,6 +46,12 @@ Meteor.startup ->
     loadingTemplate: 'loading'
 
   Router.map ->
+    @route 'test',
+      path: '/test'
+      template: 'fleetrMap'
+      fastRender: true
+      waitOn: -> Meteor.subscribe('vehicles')
+
     @route 'dashboard',
       path: '/'
       template: 'dashboard'
@@ -273,3 +279,4 @@ Meteor.startup ->
       path: '/map/:data?'
       template: 'simpleMap'
       data: -> @params?.data
+      waitOn: -> Meteor.subscribe('geofences')
