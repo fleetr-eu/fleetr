@@ -23,3 +23,4 @@ Template.modalForm.onRendered ->
 
 Template.modalForm.events
   "click .submit" : (e, t) -> t.$('form').submit()
+  "keyup" : (e, t) -> ModalForm.hide() if e.keyCode is 27
