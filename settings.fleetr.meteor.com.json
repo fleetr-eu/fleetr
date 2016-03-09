@@ -1,4 +1,3 @@
 {
-  "mqttUrl" : "mqtt://gps.kale-bg.com:10013",
-  "mqttClientId" : "gantcho@mbpro"
+  "mqttUrl" : "mqtt://gps.kale-bg.com:10013"
 }
