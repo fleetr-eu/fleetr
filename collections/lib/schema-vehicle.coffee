@@ -26,6 +26,16 @@ Schema.vehicle = new SimpleSchema
   loc:
     type: [Number], decimal: true, optional: true
 
+  course:
+    type: Number, optional: true
+
+  courseCorrection:
+    type: Number
+    optional: true
+    label: -> TAPi18n.__('vehicles.courseCorrection')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+
   speed:
     type: Number, decimal: true, optional: true, label: "Speed"
     autoform:
