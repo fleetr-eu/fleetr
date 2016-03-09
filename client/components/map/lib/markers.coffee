@@ -53,7 +53,13 @@ Meteor.startup ->
       super
         position: new FleetrLatLng [vehicle.lat, vehicle.lon]
         title: "#{vehicle?.name} (#{vehicle?.licensePlate})"
-        icon: truckIcon
+        icon: #truckIcon
+          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+          scale: 4
+          strokeWeight: 2
+          fillOpacity: 0.8
+          fillColor: color
+          rotation: (vehicle?.course or 0) + (vehicle?.courseCorrection or 0)
         zIndex: 100
         id: vehicle?._id
 

@@ -124,13 +124,16 @@ updateVehicle = (rec, updater, cb) ->
       else 0
 
       path = v.trip?.path
-      path?.push
-        lat: rec.lat
-        lng: rec.lon
-        time: rec.recordTime
-        speed: rec.speed
-        odometer: rec.tacho
-      path = _.sortBy path, (p) -> p.time
+      if v.state is 'start'
+        path?.push
+          lat: rec.lat
+          lng: rec.lon
+          time: rec.recordTime
+          speed: rec.speed
+          odometer: rec.tacho
+        path = _.sortBy path, (p) -> p.time
+      else
+        path = null
 
       'trip.maxSpeed': maxSpeed
       'trip.path': path
@@ -141,3 +144,4 @@ updateVehicle = (rec, updater, cb) ->
       lon: rec.lon
       loc: [rec.lon, rec.lat]
       odometer: rec.tacho
+      course: rec.course

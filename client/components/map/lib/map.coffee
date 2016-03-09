@@ -85,7 +85,9 @@ Meteor.startup ->
         @vehicleObserver = Vehicles.find().observe
           added: (v) => @addVehicleMarker v
           removed: (v) => @removeVehicleMarker v
-          changed: (v) => @moveVehicleMarker v
+          changed: (v) =>
+            @removeVehicleMarker v
+            @addVehicleMarker v
 
       map = @
 
