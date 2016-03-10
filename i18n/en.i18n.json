@@ -61,7 +61,8 @@
   },
 
   "simpleMap": {
-    "showMarkers": "Show info points"
+    "showMarkers": "Show info points",
+    "showLabels": "Show vehicle names"
   },
 
   "customEvents": {

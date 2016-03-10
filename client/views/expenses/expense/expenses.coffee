@@ -1,3 +1,13 @@
+aggregatorsBasic = [
+  new Slick.Data.Aggregators.Sum 'total'
+  new Slick.Data.Aggregators.Sum 'totalVATIncluded'
+  new Slick.Data.Aggregators.Sum 'discount'
+  new Slick.Data.Aggregators.Sum 'vat'
+]
+aggregatorsQuantity = aggregatorsBasic.concat [
+  new Slick.Data.Aggregators.Sum 'quantity'
+]
+
 Template.expenses.helpers
   options: ->
     i18nRoot: 'expenses'
@@ -21,6 +31,7 @@ Template.expenses.helpers
           headerFormatter: (group, defaultFormatter) ->
             ids = group.rows.map (item) -> item._id
             "#{defaultFormatter()}<div style='float:right'><a href='/expenses/types/list?ids=#{ids}'><img src=\"/images/Google-Maps-icon.png\" height=\"22\" /></a></div>"
+          aggregators: aggregatorsQuantity
         search: where: 'client'
       ,
         id: "expenseType"
@@ -28,7 +39,8 @@ Template.expenses.helpers
         name: "#{TAPi18n.__('expenses.expenseType')}"
         width:60
         sortable: true
-        groupable: true
+        groupable:
+          aggregators: aggregatorsQuantity
         search: where: 'client'
       ,
         id: "vehicle"
@@ -36,7 +48,8 @@ Template.expenses.helpers
         name: "#{TAPi18n.__('expenses.vehicle')}"
         width:60
         sortable: true
-        groupable: true
+        groupable:
+          aggregators: aggregatorsQuantity
         search: where: 'client'
       ,
         id: "driver"
@@ -45,7 +58,8 @@ Template.expenses.helpers
         width:80
         hidden: true
         sortable: true
-        groupable: true
+        groupable:
+          aggregators: aggregatorsQuantity
         search: where: 'client'
       ,
         id: "odometer"
@@ -70,7 +84,8 @@ Template.expenses.helpers
         name: "#{TAPi18n.__('expenses.date')}"
         width: 40
         sortable: true
-        groupable: true
+        groupable:
+          aggregators: aggregatorsQuantity
         search: where: 'client'
         formatter: FleetrGrid.Formatters.dateFormatter
       ,
@@ -88,6 +103,7 @@ Template.expenses.helpers
         align : "right"
         sortable: true
         search: where: 'client'
+        groupTotalsFormatter: FleetrGrid.Formatters.sumTotalsQuantity
       ,
         id: "totalVATIncluded"
         field: "totalVATIncluded"
@@ -97,6 +113,8 @@ Template.expenses.helpers
         align : "right"
         sortable: true
         search: where: 'client'
+        formatter: FleetrGrid.Formatters.euroFormatter
+        groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
       ,
         id: "vat"
         field: "vat"
@@ -106,6 +124,8 @@ Template.expenses.helpers
         align : "right"
         sortable: true
         search: where: 'client'
+        formatter: FleetrGrid.Formatters.euroFormatter
+        groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
       ,
         id: "discount"
         field: "discount"
@@ -115,6 +135,8 @@ Template.expenses.helpers
         align : "right"
         sortable: true
         search: where: 'client'
+        formatter: FleetrGrid.Formatters.euroFormatter
+        groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
       ,
         id: "total"
         field: "total"
@@ -123,6 +145,8 @@ Template.expenses.helpers
         align : "right"
         sortable: true
         search: where: 'client'
+        formatter: FleetrGrid.Formatters.euroFormatter
+        groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
       ]
       options:
         enableCellNavigation: true

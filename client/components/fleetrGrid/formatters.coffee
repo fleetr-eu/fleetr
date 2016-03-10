@@ -9,11 +9,11 @@ FleetrGrid.Formatters =
   roundFloat: (decimals = 0) -> (row, cell, value) ->
     Number((Number(value)).toFixed(decimals)) if value
   euroFormatter: (row, cell, value) ->
-    "&euro; #{if value then value else '0'}"
-  sumTotalsFormatter: (sign = '') -> (totals, columnDef) ->
+    "&euro; #{if value then parseFloat(value).toFixed(2) else '0.00'}"
+  sumTotalsFormatter: (sign = '', decimals = 0) -> (totals, columnDef) ->
     val = totals.sum && totals.sum[columnDef.field];
     if val
-      "<b>#{sign} #{Math.round(parseFloat(val)*100)/100}</b>"
+      "<b>#{sign} #{parseFloat(val).toFixed(decimals)}</b>"
     else ''
   buttonFormatter: (row, cell, value, column, rowObject) ->
     render = (button) ->
@@ -69,5 +69,6 @@ FleetrGrid.Formatters =
       "<span>#{attnIcon}<div class='pull-right'>#{vStr}</div></span>"
 
 
-FleetrGrid.Formatters.sumEuroTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '&euro;'
+FleetrGrid.Formatters.sumEuroTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '&euro;', 2
 FleetrGrid.Formatters.sumTotalsFormatterNoSign = FleetrGrid.Formatters.sumTotalsFormatter ''
+FleetrGrid.Formatters.sumTotalsQuantity = FleetrGrid.Formatters.sumTotalsFormatter '', 0

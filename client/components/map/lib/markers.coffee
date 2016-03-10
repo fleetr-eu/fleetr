@@ -4,7 +4,7 @@ Meteor.startup ->
       [lat, lng] = @location
       super lat, lng
 
-  class FleetrMarker extends google.maps.Marker
+  class FleetrMarker extends MarkerWithLabel
     addListener: (event, handler) ->
       google.maps.event.addListener @, event, handler
       @
@@ -54,12 +54,15 @@ Meteor.startup ->
         position: new FleetrLatLng [vehicle.lat, vehicle.lon]
         title: "#{vehicle?.name} (#{vehicle?.licensePlate})"
         icon: #truckIcon
-          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW 
           scale: 4
           strokeWeight: 2
           fillOpacity: 0.8
           fillColor: color
           rotation: (vehicle?.course or 0) + (vehicle?.courseCorrection or 0)
+        labelContent: vehicle?.name + ' ('+vehicle?.licensePlate+')'
+        labelAnchor: new google.maps.Point(-15, 20)
+        labelClass: "navy-bold-semitransparent" # the CSS class for the label
         zIndex: 100
         id: vehicle?._id
 

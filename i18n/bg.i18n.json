@@ -61,7 +61,8 @@
   },
 
   "simpleMap": {
-    "showMarkers": "Покажи инфо точки"
+    "showMarkers": "Покажи инфо точки",
+    "showLabels": "Покажи имена на автомобили"
   },
 
   "customEvents": {

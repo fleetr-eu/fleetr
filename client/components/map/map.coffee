@@ -1,6 +1,7 @@
 Template.fleetrMap.onCreated ->
   @showGeofences = new ReactiveVar false
   @showInfoMarkers = new ReactiveVar false
+  @showMarkerLabels = new ReactiveVar true
 
 Template.fleetrMap.onDestroyed ->
   @map.destroy()
@@ -78,3 +79,6 @@ Template.fleetrMap.events
 
   'click #show-info-markers-check': (e, t) ->
     t.showInfoMarkers.set e.target.checked
+
+  'click #show-marker-labels-check': (e, t) ->
+    t.showMarkerLabels.set e.target.checked 
