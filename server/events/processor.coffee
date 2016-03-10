@@ -119,7 +119,7 @@ updateVehicle = (rec, updater, cb) ->
       maxSpeed = v.trip?.maxSpeed or 0
       maxSpeed = rec.speed if rec.speed > maxSpeed
 
-      bearing = if (v.lat.toFixed(5) != rec.lat.toFixed(5)) or (v.lon.toFixed(5) != rec.lon.toFixed(5)) 
+      bearing = if (v?.lat?.toFixed(5) != rec.lat.toFixed(5)) or (v?.lon?.toFixed(5) != rec.lon.toFixed(5)) 
         dLon = (rec.lon - v.lon)
 
         y = Math.sin(dLon) * Math.cos(rec.lat)
