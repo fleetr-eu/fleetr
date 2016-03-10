@@ -119,6 +119,22 @@ updateVehicle = (rec, updater, cb) ->
       maxSpeed = v.trip?.maxSpeed or 0
       maxSpeed = rec.speed if rec.speed > maxSpeed
 
+      bearing = if (v.lat.toFixed(5) != rec.lat.toFixed(5)) or (v.lon.toFixed(5) != rec.lon.toFixed(5)) 
+        dLon = (rec.lon - v.lon)
+
+        y = Math.sin(dLon) * Math.cos(rec.lat)
+        x = Math.cos(v.lat) * Math.sin(rec.lat) - Math.sin(v.lat) * Math.cos(rec.lat) * Math.cos(dLon)
+
+        brng = Math.atan2(y, x)
+
+        brng = brng* (180 / Math.PI)
+        brng = (brng + 360) % 360
+        brng = Math.round(360 - brng)
+        console.log "course changed: #{brng} degrees"
+        brng
+
+      else v.course
+
       restDuration = if v.rest?.start?.time and v.state is 'stop'
         calcDuration(v.rest?.start?.time, rec.recordTime).asSeconds()
       else 0
@@ -144,4 +160,4 @@ updateVehicle = (rec, updater, cb) ->
       lon: rec.lon
       loc: [rec.lon, rec.lat]
       odometer: rec.tacho
-      course: rec.course
+      course: bearing
