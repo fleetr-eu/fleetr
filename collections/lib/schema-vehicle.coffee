@@ -102,6 +102,7 @@ Schema.vehicle = new SimpleSchema
     type: Date, label:()->TAPi18n.__('vehicles.allocatedToFleetFromDate')
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
   color:
@@ -138,7 +139,8 @@ Schema.vehicle = new SimpleSchema
     custom: ->
       "invalidFromToDates" if (@value and @value < (new Date()))
     autoform:
-      type: "bootstrap-datepicker",
+      type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
   category:

@@ -1,11 +1,11 @@
 # Default column formatters
 FleetrGrid.Formatters =
   dateFormatter: (row, cell, value) ->
-    if value then moment(value).format('DD/MM/YYYY') else ''
+    if value then moment(value).format('DD.MM.YYYY') else ''
   timeFormatter: (row, cell, value) ->
     moment(value).format('HH:mm:ss') if value
   dateTimeFormatter: (row, cell, value) ->
-    moment(value).format('DD/MM/YYYY HH:mm:ss') if value
+    moment(value).format('DD.MM.YYYY HH:mm:ss') if value
   roundFloat: (decimals = 0) -> (row, cell, value) ->
     Number((Number(value)).toFixed(decimals)) if value
   euroFormatter: (row, cell, value) ->

@@ -20,6 +20,7 @@ SimpleSchema.messages
   expectedArray: "'[label]' трябва да бъде масив"
   expectedObject: "'[label]' трябва да бъде обект"
   expectedConstructor: "'[label]' трябва да е от тип [type]"
+  keyNotInSchema: "'[label]'не е позволено от дефиниращата схема"
   regEx: [
     msg: "[label] failed regular expression validation"
     exp: SimpleSchema.RegEx.Email, msg: "'[label]'трябва да бъде валиден е-мейл адрес"
@@ -32,4 +33,4 @@ SimpleSchema.messages
     exp: SimpleSchema.RegEx.Url, msg: "'[label]' трябва да бъде валиден URL"
     exp: SimpleSchema.RegEx.Id, msg: "'[label]' трябва да съдържа само букви и чифри"
   ]
-  keyNotInSchema: "'[label]'не е позволено от дефиниращата схема"
+  

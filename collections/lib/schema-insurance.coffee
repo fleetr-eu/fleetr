@@ -47,6 +47,7 @@ Schema.insurance = new SimpleSchema
     optional: true
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   policyValidFrom:
     type: Date
@@ -55,6 +56,7 @@ Schema.insurance = new SimpleSchema
       "invalidFromToDates" if (@value and @field('policyValidTo').value) and (@value > @field('policyValidTo').value)
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   policyValidTo:
     type: Date
@@ -63,6 +65,7 @@ Schema.insurance = new SimpleSchema
       "invalidFromToDates" if (@value and @field('policyValidFrom').value) and (@value < @field('policyValidFrom').value)
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   validityMonths:
     type: Number
@@ -119,6 +122,7 @@ Schema.insurancePayment = new SimpleSchema
     optional: true
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"   
   actualDate:
     type: Date
@@ -126,6 +130,7 @@ Schema.insurancePayment = new SimpleSchema
     optional: true
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   currency:
     type: String

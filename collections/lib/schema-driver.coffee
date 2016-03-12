@@ -38,6 +38,7 @@ Schema.driver = new SimpleSchema
     optional: true
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7"
   sex:
     type: String
@@ -104,6 +105,7 @@ Schema.driver = new SimpleSchema
     custom: -> 'invalidFromToDates' if (@value and @field('validTo').value) and (@value > @field('validTo').value)
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7"
@@ -114,6 +116,7 @@ Schema.driver = new SimpleSchema
     custom: -> 'invalidFromToDates' if (@value and @field('validFrom').value) and (@value < @field('validFrom').value) 
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7"
@@ -215,6 +218,7 @@ Schema.driver = new SimpleSchema
     optional: true
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7"
@@ -224,6 +228,7 @@ Schema.driver = new SimpleSchema
     optional: true
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7"
@@ -248,6 +253,7 @@ Schema.driver = new SimpleSchema
     label: 'от дата'
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-2"
       "input-col-class": "col-sm-7"
@@ -273,6 +279,7 @@ Schema.driver = new SimpleSchema
     label: 'от дата'
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-2"
       "input-col-class": "col-sm-7"
@@ -298,6 +305,7 @@ Schema.driver = new SimpleSchema
     label: 'от дата'
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-2"
       "input-col-class": "col-sm-7"
@@ -323,6 +331,7 @@ Schema.driver = new SimpleSchema
     label: 'от дата'
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-2"
       "input-col-class": "col-sm-7"
@@ -348,6 +357,7 @@ Schema.driver = new SimpleSchema
     label: 'от дата'
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-2"
       "input-col-class": "col-sm-7"
@@ -358,6 +368,7 @@ Schema.driver = new SimpleSchema
     optional: true
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7"
@@ -367,6 +378,7 @@ Schema.driver = new SimpleSchema
     optional: true
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7"
@@ -376,6 +388,7 @@ Schema.driver = new SimpleSchema
     optional: true
     autoform:
       type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7"

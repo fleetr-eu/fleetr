@@ -1,7 +1,3 @@
-Template.driverVehicleAssignments.onRendered ->
-  Template.document.helpers
-    driverId: => @data.driverId
-
 Template.driverVehicleAssignments.helpers
   options: ->
     i18nRoot: 'driverVehicleAssignments'
