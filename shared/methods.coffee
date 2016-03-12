@@ -71,8 +71,13 @@ Meteor.methods
 
   submitDriverVehicleAssignment: (doc, diff) ->
     @unblock
-    DriverVehicleAssignments.submit(doc, diff)
+    DriverVehicleAssignments.submit doc, diff
     Drivers.update {_id: doc.driver}, {$set: vehicle_id: doc.vehicle}
-    Vehicles.update {_id: doc.vehicle}, {$set: driver_id: doc.driver}
+    Vehicles.update {_id: doc.vehicle}, {$set: driver_id: doc.driver} 
+  removeDriverVehicleAssignment: (doc) ->
+    @unblock
+    DriverVehicleAssignments.remove _id: doc
+    Drivers.update {_id: doc.driver}, {$unset: vehicle_id: ""}
+    Vehicles.update {_id: doc.vehicle}, {$unset: driver_id: ""}
+       
 
-  removeDriverVehicleAssignment: removeItem DriverVehicleAssignments

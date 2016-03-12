@@ -80,23 +80,14 @@ Template.vehicles.helpers
         name: TAPi18n.__('vehicles.name')
         width:100
         sortable: true
-        hidden: not hiddenOnMobile()
         search: where: 'client'
       ,
-        id: "name"
-        field: "name"
-        name: TAPi18n.__('vehicles.name')
+        id: "driverName"
+        field: "driverName"
+        name: TAPi18n.__('vehicles.driverName')
         width:100
-        sortable: true
         hidden: hiddenOnMobile()
-        search: where: 'client'
-      ,
-        id: "licensePlate"
-        field: "licensePlate"
-        name: TAPi18n.__('vehicles.licensePlate')
-        width:50
         sortable: true
-        hidden: hiddenOnMobile()
         search: where: 'client'
       ,
         id: "unitId"
@@ -153,8 +144,11 @@ Template.vehicles.helpers
       cursor: -> Vehicles.find {},
         sort:
           name: 1
-        transform: (doc) -> _.extend doc,
+        transform: (doc) -> 
+          driver = Drivers.findOne(_id: doc.driver_id)
+          _.extend doc,
             fleetName: Fleets.findOne(_id: doc.allocatedToFleet)?.name
+            driverName: if driver then driver.firstName + " " + driver.name else ""
             vehicleShowName: doc.name + ' (' + doc.licensePlate + ')'
             odo: doc.odometer / 1000
       customize: (grid) ->

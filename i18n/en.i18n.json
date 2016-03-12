@@ -120,6 +120,19 @@
     "deleteMessage": "Are you certain you want to delete this Driver?"
   },
 
+  "driverVehicleAssignments" : {
+    "title": "Associate driver and vehicle",
+    "listTitle" : "Associated drivers and vehicles",
+    "driverName": "Driver",
+    "vehicleName" : "Vehicle",
+    "date" :"Date",
+    "time":"Time",
+    "event" : "event",
+    "associate" : "Associate",
+    "disassociate" : "Disassociate",
+    "deleteMessage": "Are you certain you want to delete this Association?"
+  },
+
   "fleetGroups": {
     "title" : "Fleet Group",
     "listTitle" : "Fleet Groups",
@@ -299,7 +312,8 @@
     "maxAllowedSpeed":"Max allowed speed (km/h)",
     "mass" : "Mass (kg)",
     "deleteMessage": "Are you certain you want to delete this Vehicle?",
-    "courseCorrection": "Course correction"
+    "courseCorrection": "Course correction",
+     "driverName" : "Driver"
   },
 
   "dropdown": {

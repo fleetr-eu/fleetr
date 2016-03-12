@@ -46,12 +46,7 @@ Meteor.startup ->
     loadingTemplate: 'loading'
 
   Router.map ->
-    @route 'test',
-      path: '/test'
-      template: 'fleetrMap'
-      fastRender: true
-      waitOn: -> Meteor.subscribe('vehicles')
-
+    
     @route 'dashboard',
       path: '/'
       template: 'dashboard'
@@ -105,7 +100,7 @@ Meteor.startup ->
       path: '/vehicles/map/:vehicleId?'
       template: 'map'
       data: -> vehicleId: @params.vehicleId
-      waitOn: -> [Meteor.subscribe('geofences'), Meteor.subscribe('vehicle', {_id: @params.vehicleId})]
+      waitOn: -> [Meteor.subscribe('geofences'), Meteor.subscribe('vehicle', {_id: @params.vehicleId}), Meteor.subscribe('drivers')]
 
     @route 'drilldownReport',
       path: '/reports/drilldown'
@@ -180,21 +175,8 @@ Meteor.startup ->
       path: '/assignments/driver/vehicle/list'
       template: 'driverVehicleAssignments'
       waitOn: ->
-        [Meteor.subscribe('vehicles')
-        Meteor.subscribe('drivers')
-        Meteor.subscribe('driverVehicleAssignments')]
-    @route 'addDriverVehicleAssignment',
-      path: '/assignments/driver/vehicle/add'
-      template: 'driverVehicleAssignment'
-      waitOn: -> [Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
-    @route 'editDriverVehicleAssignment',
-      path: '/assignments/driver/vehicle/:driverVehicleAssignmentId'
-      template: 'driverVehicleAssignment'
-      data: -> {'driverVehicleAssignmentId' : @params.driverVehicleAssignmentId}
-      waitOn: ->
-        [Meteor.subscribe('vehicles')
-        Meteor.subscribe('drivers')
-        Meteor.subscribe('driverVehicleAssignment', _id: @params.driverVehicleAssignmentId)]
+        [ Meteor.subscribe('vehicles'), Meteor.subscribe('drivers'), Meteor.subscribe('driverVehicleAssignments')]
+
     @route 'resetAll',
       path: '/reset'
       template: 'dashboard'
@@ -279,4 +261,4 @@ Meteor.startup ->
       path: '/map/:data?'
       template: 'simpleMap'
       data: -> @params?.data
-      waitOn: -> Meteor.subscribe('geofences')
+      waitOn: -> [ Meteor.subscribe('geofences'), Meteor.subscribe('drivers')] 

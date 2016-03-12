@@ -69,16 +69,20 @@ Meteor.startup ->
   class @FleetrInfoWindow extends google.maps.InfoWindow
     constructor: (vehicle) ->
       vehicle = vehicle || Vehicles.findOne(_id: Session.get('selectedVehicleId'))
+      driver = Drivers.findOne(_id: vehicle?.driver_id)
+      driverName = if driver then "#{driver.firstName} #{driver.name}" else ""
       speed = vehicle.speed?.toFixed(2) || 'Unknown'
-      km = (vehicle.odometer / 1000)?.toFixed(3) || 'Unknown'
+      km = (vehicle.odometer / 1000)?.toFixed(0) || 'Unknown'
       super
         content: """
                 <div style='width:11em;'>
-                  <p>Име: #{vehicle.name}</p>
-                  <p>Номер: #{vehicle.licensePlate}</p>
-                  <p>Скорост: #{speed} км/ч</p>
-                  <p>Километраж: #{km} км</p>
-                  <p>Престой: #{moment.duration(location.stay,'seconds').humanize()}</p>
+                  <p>
+                  <b>#{vehicle.name} (#{vehicle.licensePlate})</b><br/>
+                  Шофьор: #{driverName}<br/>
+                  Скорост: #{speed} км/ч<br/>
+                  Километраж: #{km} км<br/>
+                  Престой: #{moment.duration(location.stay,'seconds').humanize()}
+                  </p>
                 </div>"""
 
 
@@ -86,9 +90,9 @@ Meteor.startup ->
     constructor: (data) ->
       super
         content: """
-                  <p>Дата, час: #{moment(data.time).format('DD-MM-YYYY, HH:mm:ss')}</p>
-                  <p>Скорост: #{data.speed} км/ч</p>
-                  <p>Километраж: #{data.distance} км</p>
+                  <p>Дата, час: #{moment(data.time).format('DD-MM-YYYY, HH:mm:ss')}<br/>
+                  Скорост: #{data.speed} км/ч<br/>
+                  Километраж: #{data.distance} км</p>
                 """
 
   class @InfoMarker extends google.maps.Marker

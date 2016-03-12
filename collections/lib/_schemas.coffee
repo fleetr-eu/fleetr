@@ -612,51 +612,41 @@ Schema.driverVehicleAssignments = new SimpleSchema
       optional: true
    driver:
       type: String
-      label: 'Driver'
+      label: ()->TAPi18n.__('driverVehicleAssignments.driverName')
       autoform:
         firstOption: "(Select)"
         options: -> Drivers.find().map (driver) ->
           label: driver.firstName+" "+driver.name
           value: driver._id
-        template: "bootstrap3-horizontal"
-        "label-class":"col-sm-4"
-        "input-col-class": "col-sm-8"
+        template: "bootstrap3-horizontal", "label-class":"col-sm-4", "input-col-class": "col-sm-8"
    vehicle:
       type:String
-      label: "Vehicle"
+      label: ()->TAPi18n.__('driverVehicleAssignments.vehicleName')
       autoform:
         firstOption: "(Изберете)"
         options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
-        template: "bootstrap3-horizontal"
-        "label-class":"col-sm-4"
-        "input-col-class": "col-sm-8"
+        template: "bootstrap3-horizontal", "label-class":"col-sm-4", "input-col-class": "col-sm-8"
    date:
       type: Date
-      label: "Date"
+      label: ()->TAPi18n.__('driverVehicleAssignments.date')
       optional: true
       autoform:
         type: "bootstrap-datepicker"
-        template: "bootstrap3-horizontal"
-        "label-class": "col-sm-4"
-        "input-col-class": "col-sm-8"
+        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
    time:
       type: String
-      label: "Time"
+      label: ()->TAPi18n.__('driverVehicleAssignments.time')
       optional: true
       autoform:
-        template: "bootstrap3-horizontal"
-        "label-class": "col-sm-4"
-        "input-col-class": "col-sm-8"
+        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 
    event:
       type:String
-      label:"Event"
+      label: ()->TAPi18n.__('driverVehicleAssignments.event')
       autoform:
         type: "select-radio-inline"
-        template: "bootstrap3-horizontal"
-        "label-class":"col-sm-4"
-        "input-col-class": "col-sm-8"
+        template: "bootstrap3-horizontal", "label-class":"col-sm-4", "input-col-class": "col-sm-8"
         options: () -> [
-          {label: "associate", value: "begin"},
-          {label: "disassociate", value: "end"}
+          { label: TAPi18n.__('driverVehicleAssignments.associate'), value: "begin"},
+          { label: TAPi18n.__('driverVehicleAssignments.disassociate'), value: "end"}
         ]

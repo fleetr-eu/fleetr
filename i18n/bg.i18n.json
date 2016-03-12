@@ -120,6 +120,19 @@
     "deleteMessage": "Сигурен ли сте, че искате да изтриете този шофьор?"
   },
 
+  "driverVehicleAssignments" : {
+    "title": "Асоцииране на шофьор и кола",
+    "listTitle" : "Асоциирани коли и шофьори",
+    "driverName": "Шофьор",
+    "vehicleName" : "Автомобил",
+    "date" :"Дата",
+    "time":"Час",
+    "event" : "Събитие",
+    "associate" : "Асоцииране",
+    "disassociate" : "Деасоцииране",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете тази асоциация?"
+  },
+
   "fleetGroups": {
     "title" : "Група автопаркове",
     "listTitle" : "Групи автопаркове",
@@ -300,7 +313,8 @@
     "maxAllowedSpeed":"Разрешена скорост (км/ч)",
     "mass" : "Маса (кг)",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете тази автомобил?",
-    "courseCorrection": "Корекция на курса"
+    "courseCorrection": "Корекция на курса",
+    "driverName" : "Шофьор"
   },
 
   "dropdown": {
