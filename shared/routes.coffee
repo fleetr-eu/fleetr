@@ -191,7 +191,8 @@ Meteor.startup ->
       waitOn: ->
         console.log 'subscribing for trips with vehicleId', @params.vehicleId
         [
-          Meteor.subscribe('tripsOfVehicle', @params.vehicleId)
+          # Meteor.subscribe('tripsOfVehicle', @params.vehicleId)
+          Meteor.subscribe('startstop', @params.vehicleId),
           Meteor.subscribe('vehicle', _id: @params.vehicleId)
         ]
 

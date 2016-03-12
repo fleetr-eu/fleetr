@@ -7,6 +7,8 @@
     if typeof record.recordTime is 'string'
       record.recordTime = new Date(record.recordTime)
     record.loc = [record.lon, record.lat]
+    if record.type is 29
+      record.address = Geocoder.reverse(record.lat, record.lon)?[0]
     unless Logbook.findOne(deviceId: record.deviceId, offset: record.offset)
       Logbook.insert record, ->
         console.log "Inserted logbook record type #{record.type}: #{EJSON.stringify record}"
@@ -132,8 +134,8 @@ updateVehicle = (rec, updater, cb) ->
         brng = Math.round(360 - brng)
         console.log "course changed: #{brng} degrees"
         brng
-      else 
-        v?.course or 0  
+      else
+        v?.course or 0
 
       restDuration = if v.rest?.start?.time and v.state is 'stop'
         calcDuration(v.rest?.start?.time, rec.recordTime).asSeconds()
