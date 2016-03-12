@@ -26,6 +26,7 @@ toTime = FleetrGrid.Formatters.timeFormatter
 aggregators = [
   new Slick.Data.Aggregators.Sum 'distance'
   new Slick.Data.Aggregators.Sum 'consumedFuel'
+  new Slick.Data.Aggregators.Sum 'duration'
 ]
 
 Template.logbook2.events
@@ -105,7 +106,8 @@ Template.logbook2.helpers
 
   fleetrGridConfig: ->
     v = Vehicles.findOne(_id: Template.instance().data.vehicleId)
-    cursor: -> Trips.find
+    Meteor.call 'createTrips', v.unitId
+    cursor: -> StartStop.find
       deviceId: v.unitId
       'start.time': $gte: moment().startOf(Session.get('logbookDateFilterPeriod')).toDate()
     ,
@@ -147,6 +149,19 @@ Template.logbook2.helpers
       width: 20
       align: 'right'
       groupTotalsFormatter: FleetrGrid.Formatters.sumTotalsFormatterNoSign
+    ,
+      id: 'duration'
+      field: 'duration'
+      name: 'Продължителност'
+      formatter: (row, cell, value) ->
+        moment.duration(value, 'seconds').humanize()
+      width: 20
+      align: 'right'
+      groupTotalsFormatter: (totals, columnDef) ->
+        val = totals.sum && totals.sum[columnDef.field]
+        if val
+          "<b>#{moment.duration(val, 'seconds').humanize()}</b>"
+        else ''
     ,
       id: 'fuel'
       field: 'consumedFuel'

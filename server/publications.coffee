@@ -3,6 +3,8 @@ Meteor.publish null, -> Alarms.find {seen: false}
 # /Autopublish
 
 
+Meteor.publish 'startstop', (vehicleId) ->
+  StartStop.find unitId: Vehicles.findOne(_id: vehicleId).deviceId
 Meteor.publish 'drivers', -> Drivers.find {}
 Meteor.publish 'driver', (filter) -> if filter then Drivers.find(filter) else []
 Meteor.publish 'countries', -> Countries.find {}
