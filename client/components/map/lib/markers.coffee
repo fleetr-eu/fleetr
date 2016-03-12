@@ -73,6 +73,7 @@ Meteor.startup ->
       driverName = if driver then "#{driver.firstName} #{driver.name}" else ""
       speed = vehicle.speed?.toFixed(2) || 'Unknown'
       km = (vehicle.odometer / 1000)?.toFixed(0) || 'Unknown'
+      stayText = if (vehicle.state is "stop") then "Престой: #{moment.duration(location.stay,'seconds').humanize()}" else ""
       super
         content: """
                 <div style='width:11em;'>
@@ -81,7 +82,7 @@ Meteor.startup ->
                   Шофьор: #{driverName}<br/>
                   Скорост: #{speed} км/ч<br/>
                   Километраж: #{km} км<br/>
-                  Престой: #{moment.duration(location.stay,'seconds').humanize()}
+                  #{stayText}
                   </p>
                 </div>"""
 
