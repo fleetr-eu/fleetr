@@ -117,10 +117,13 @@ Template.logbook2.helpers
       id: "date"
       field: "date"
       name: "Дата"
-      width: 35
+      maxWidth: 90
       sortable: true
       groupable:
         aggregators: aggregators
+        headerFormatter: (group, defaultFormatter) ->
+          ids = group.rows.map (item) -> item._id
+          "#{defaultFormatter()}<div style='float:right'><a href='#'><img src=\"/images/Google-Maps-icon.png\" height=\"22\" /></a></div>"
     ,
       id: 'fromTo'
       name: 'От / До'
@@ -134,7 +137,7 @@ Template.logbook2.helpers
         """
       sorter: (sortCol) -> (a,b) ->
         if a.start?.time > b.start?.time then 1 else -1
-      width: 35
+      maxWidth: 80
     ,
       id: 'beginEnd'
       name: 'Старт / Финиш'
@@ -148,6 +151,10 @@ Template.logbook2.helpers
       formatter: FleetrGrid.Formatters.roundFloat 2
       width: 20
       align: 'right'
+      search:
+        where: 'client'
+        filter: (filterText) -> (columnValue) ->
+          if columnValue >= parseFloat(filterText) then columnValue else ''
       groupTotalsFormatter: FleetrGrid.Formatters.sumTotalsFormatterNoSign
     ,
       id: 'duration'
@@ -156,6 +163,10 @@ Template.logbook2.helpers
       formatter: (row, cell, value) ->
         moment.duration(value, 'seconds').humanize()
       width: 20
+      search:
+        where: 'client'
+        filter: (filterText) -> (columnValue) ->
+          if moment.duration(columnValue, 'minutes') >= parseInt(filterText) then columnValue else ''
       align: 'right'
       groupTotalsFormatter: (totals, columnDef) ->
         val = totals.sum && totals.sum[columnDef.field]
@@ -172,6 +183,10 @@ Template.logbook2.helpers
         "#{fc or ''}<br />#{fp100 or ''}"
       width: 30
       align: 'right'
+      search:
+        where: 'client'
+        filter: (filterText) -> (columnValue) ->
+          if columnValue >= parseFloat(filterText) then columnValue else ''
       groupTotalsFormatter: (totals, columnDef) ->
         val = totals.sum && totals.sum[columnDef.field]
         if val

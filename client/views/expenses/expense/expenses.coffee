@@ -28,9 +28,6 @@ Template.expenses.helpers
         width: 60
         sortable: true
         groupable:
-          headerFormatter: (group, defaultFormatter) ->
-            ids = group.rows.map (item) -> item._id
-            "#{defaultFormatter()}<div style='float:right'><a href='/expenses/types/list?ids=#{ids}'><img src=\"/images/Google-Maps-icon.png\" height=\"22\" /></a></div>"
           aggregators: aggregatorsQuantity
         search: where: 'client'
       ,

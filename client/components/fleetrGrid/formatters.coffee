@@ -70,5 +70,5 @@ FleetrGrid.Formatters =
 
 
 FleetrGrid.Formatters.sumEuroTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '&euro;', 2
-FleetrGrid.Formatters.sumTotalsFormatterNoSign = FleetrGrid.Formatters.sumTotalsFormatter ''
+FleetrGrid.Formatters.sumTotalsFormatterNoSign = FleetrGrid.Formatters.sumTotalsFormatter '', 2
 FleetrGrid.Formatters.sumTotalsQuantity = FleetrGrid.Formatters.sumTotalsFormatter '', 0
