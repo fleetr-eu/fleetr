@@ -82,7 +82,19 @@ Meteor.startup ->
         clusterer = @clusterer = new FleetrClusterer @map
 
       if options?.showVehicles
-        @vehicleObserver = Vehicles.find().observe
+        @vehicleObserver = Vehicles.find {},
+          fields:
+            state: 1
+            name: 1
+            lat: 1
+            lon: 1
+            speed: 1
+            odometer: 1
+            licensePlate: 1
+            course: 1
+            courseCorrection: 1
+            driver_id: 1
+        .observe
           added: (v) => @addVehicleMarker v
           removed: (v) => @removeVehicleMarker v
           changed: (v) =>
@@ -96,9 +108,11 @@ Meteor.startup ->
       @vehicleObserver?.stop()
 
     addVehicleMarker: (vehicle) ->
-      marker = new VehicleMarker(vehicle, @map).withInfo(vehicle, @map)
-      @vehicleMarkers[vehicle._id] = marker
-      @clusterer.addMarker marker
+      Tracker.autorun =>
+        @removeVehicleMarker(vehicle) if @vehicleMarkers[vehicle._id]
+        marker = new VehicleMarker(vehicle, Session.get('FleetrMap.showMarkerLabels')).withInfo(vehicle, @map)
+        @vehicleMarkers[vehicle._id] = marker
+        @clusterer.addMarker marker
 
     removeVehicleMarker: (vehicle) ->
       @clusterer.removeMarker vehicle._id

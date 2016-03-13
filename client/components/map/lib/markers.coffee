@@ -37,7 +37,7 @@ Meteor.startup ->
         zIndex: 15
 
   class @VehicleMarker extends FleetrMarker
-    constructor: (vehicle) ->
+    constructor: (vehicle, showLabel) ->
       color = 'grey'
       if vehicle.state is "stop"
         color = "blue"
@@ -50,21 +50,26 @@ Meteor.startup ->
             color = 'cyan'
       truckIcon = "/images/truck-#{color}.png"
 
-      super
+      opts =
         position: new FleetrLatLng [vehicle.lat, vehicle.lon]
         title: "#{vehicle?.name} (#{vehicle?.licensePlate})"
-        icon: #truckIcon
-          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW 
+        icon:
+          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
           scale: 4
           strokeWeight: 2
           fillOpacity: 0.8
           fillColor: color
           rotation: (vehicle?.course or 0) + (vehicle?.courseCorrection or 0)
-        labelContent: vehicle?.name + ' ('+vehicle?.licensePlate+')'
-        labelAnchor: new google.maps.Point(-15, 20)
-        labelClass: "navy-bold-semitransparent" # the CSS class for the label
         zIndex: 100
         id: vehicle?._id
+
+      if showLabel
+        opts = _.extend opts,
+          labelContent: vehicle?.name + ' ('+vehicle?.licensePlate+')'
+          labelAnchor: new google.maps.Point(-15, 20)
+          labelClass: "navy-bold-semitransparent" # the CSS class for the label
+
+      super opts
 
   class @FleetrInfoWindow extends google.maps.InfoWindow
     constructor: (vehicle) ->
