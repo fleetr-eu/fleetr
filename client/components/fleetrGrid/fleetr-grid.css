@@ -1,3 +1,8 @@
+.slickfleetr .slick-header-columns {
+  background-color: #F5F5F5;
+  background-image: none;
+}
+
 .slickfleetr .slick-header-column.ui-state-default {
   height: 35px; /* by default height is too small to show text */
 }
