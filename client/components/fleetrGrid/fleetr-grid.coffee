@@ -36,6 +36,7 @@ Meteor.startup ->
     activeFilters:   -> grid()?.activeFiltersCursor
     displayGrouping: -> grid()?.hasGroupableColumns()
     displayFilters:  -> grid()?.hasFilterableColumns()
+    grid:            -> grid()
     height: -> Template.currentData().height or '500px'
 
   Template.fleetrGrid.events
