@@ -45,12 +45,3 @@ Meteor.startup ->
 
     'click .removeFilter': (e, tpl) ->
       grid().removeFilter @type, @name
-
-    # 'apply.daterangepicker #date-range-filter': (event, tpl) ->
-    #   startDate = $('#date-range-filter').data('daterangepicker').startDate
-    #   endDate = $('#date-range-filter').data('daterangepicker').endDate
-    #   start = startDate.format('YYYY-MM-DD')
-    #   stop = endDate.format('YYYY-MM-DD')
-      # range = {$gte: start, $lte: stop}
-      # grid().addFilter 'server', 'Maintenance Date', "#{start} - #{stop}",
-      #   {maintenanceDateMin: startDate.toISOString(), maintenanceDateMax: endDate.toISOString()}
