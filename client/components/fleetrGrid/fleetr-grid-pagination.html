@@ -2,17 +2,15 @@
   <nav style="text-align:center;">
     <ul class="pagination">
       <li class="disabled">
-        <a href="#" aria-label="Previous">
+        <a class="previousPageButton" href="#" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
-      <li class="active"><a href="#">1</a></li>
-      <li><a href="#">2</a></li>
-      <li><a href="#">3</a></li>
-      <li><a href="#">4</a></li>
-      <li><a href="#">5</a></li>
+      {{#each pageNumbers}}
+        <li><a class="pageNumberButton" href="#">{{this}}</a></li>
+      {{/each}}
       <li>
-        <a href="#" aria-label="Next">
+        <a class="nextPageButton" href="#" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>
