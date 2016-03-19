@@ -38,7 +38,7 @@ Meteor.startup ->
     displayFilters:  -> grid()?.hasFilterableColumns()
     grid:            -> grid()
     height:          -> Template.currentData().height or '500px'
-    usePagination:   -> false
+    usePagination:   -> true
 
   Template.fleetrGrid.events
     'click .removeGroupBy': (e, tpl) ->

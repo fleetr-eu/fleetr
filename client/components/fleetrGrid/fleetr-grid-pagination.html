@@ -1,15 +1,17 @@
 <template name="fleetrGridPagination">
   <nav style="text-align:center;">
     <ul class="pagination">
-      <li class="disabled">
+      <li class="{{previousPageButtonClass}}">
         <a class="previousPageButton" href="#" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
       {{#each pageNumbers}}
-        <li><a class="pageNumberButton" href="#">{{this}}</a></li>
+      <li class="{{pageNumberButtonClass}}">
+        <a class="pageNumberButton" href="#">{{this}}</a>
+      </li>
       {{/each}}
-      <li>
+      <li class="{{nextPageButtonClass}}">
         <a class="nextPageButton" href="#" aria-label="Next">
           <span aria-hidden="true">&raquo;</span>
         </a>

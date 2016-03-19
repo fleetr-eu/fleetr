@@ -1,11 +1,15 @@
+Template.fleetrGridPagination.onCreated ->
+  @navState = new ReactiveVar {}
+
 Template.fleetrGridPagination.onRendered ->
   Meteor.defer =>
     dataView = @data.grid._dataView
     setPageSize dataView, @data.pageSize or 10
 
-    console.log 'pagingInfo', dataView.getPagingInfo()
-    dataView.onPagingInfoChanged.subscribe (e, pagingInfo) ->
-      console.log 'onPagingInfoChanged', pagingInfo
+    dataView.onPagingInfoChanged.subscribe (e, pagingInfo) =>
+      updatePager @, pagingInfo
+
+    updatePager @, dataView.getPagingInfo()
 
 Template.fleetrGridPagination.events
   'click .nextPageButton': ->
@@ -16,8 +20,23 @@ Template.fleetrGridPagination.events
     console.log 'clicked for page', @
 
 Template.fleetrGridPagination.helpers
-  pageNumbers: -> [0...2].map (x) -> x+1
+  pageNumbers: -> [0...Template.instance().navState.get()?.pagingInfo?.totalPages].map (x) -> x+1
+  # navState: -> navState.get()
+  pageNumberButtonClass: ->
+    if Template.instance().navState.get()?.pagingInfo?.pageNum + 1 is @valueOf() then 'active' else ''
+  previousPageButtonClass: -> if Template.instance().navState.get()?.canGotoPrev then '' else 'disabled'
+  nextPageButtonClass: -> if Template.instance().navState.get()?.canGotoNext then '' else 'disabled'
 
 setPageSize = (dataView, n) ->
   dataView.setRefreshHints isFilterUnchanged: true
   dataView.setPagingOptions pageSize: n
+
+updatePager = (tpl, pagingInfo) ->
+  console.log pagingInfo
+  lastPage = pagingInfo.totalPages - 1
+  tpl.navState.set
+    canGotoFirst: pagingInfo.pageSize != 0 and pagingInfo.pageNum > 0
+    canGotoLast: pagingInfo.pageSize != 0 and pagingInfo.pageNum != lastPage
+    canGotoPrev: pagingInfo.pageSize != 0 and pagingInfo.pageNum > 0
+    canGotoNext: pagingInfo.pageSize != 0 and pagingInfo.pageNum < lastPage
+    pagingInfo: pagingInfo
