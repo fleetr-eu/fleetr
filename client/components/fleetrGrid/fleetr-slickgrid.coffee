@@ -75,7 +75,7 @@ Helpers =
       filter: data
     $(".slickfleetr").trigger event
   @setColumnFilterValue = (column, filterValue)->
-    $("#searchbox-#{Helpers.columnId args.column}").val(filterValue).trigger('change')
+    $("#searchbox-#{Helpers.columnId column}").val(filterValue).trigger('change')
   @_applyClientFilters = =>
     @setGridData (@data.filter @_filter), false
   @_refreshData = =>
