@@ -29,7 +29,9 @@ Meteor.startup ->
           @circle?.setMap null
           @circle = @drawCircle(e.latLng, 100)
 
-      Autocomplete.init GeofenceMap.map
+      @map.controls[google.maps.ControlPosition.TOP_LEFT].push document.getElementById("custom-map-controls")
+      Autocomplete.init @map, document.getElementById("pac-input")
+
       cb && cb()
 
     addListener: (event, listener) ->

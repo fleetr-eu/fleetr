@@ -49,11 +49,14 @@
                 </div>
                  <div class="col-md-12">
                    <section class="content">
-                     <div id="pac-search" class="input-icon right" style="margin-top: 6px;">
+                     <div id="custom-map-controls">
+                       <div id="pac-search" class="input-icon right" style="margin-top: 6px;">
                          <i id="pac-input-clear" class="fa fa-close"></i>
                          <input id="pac-input" type="text" class="form-control input-circle">
+                       </div>
                      </div>
-                     <div id="map-canvas">{{renderGeofences}}</div>
+                     <div id="map-canvas"></div>
+                     {{renderGeofences}}
                    </section>
                  </div>
 
