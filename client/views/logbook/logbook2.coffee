@@ -106,7 +106,7 @@ Template.logbook2.helpers
 
   fleetrGridConfig: ->
     v = Vehicles.findOne(_id: Template.instance().data.vehicleId)
-    Meteor.call 'createTrips', v.unitId
+    Meteor.call 'createTrips', v.unitId, moment().startOf('month').toDate()
     cursor: -> StartStop.find
       deviceId: v.unitId
       'start.time': $gte: moment().startOf(Session.get('logbookDateFilterPeriod')).toDate()

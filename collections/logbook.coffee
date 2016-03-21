@@ -10,10 +10,11 @@ calcDuration = (startTime, stopTime) ->
   moment.duration(moment(stopTime).diff(startTime or 0))
 
 Meteor.methods
-  createTrips: (deviceId) ->
+  createTrips: (deviceId, startDate) ->
     edgeRecs = Logbook.find
       deviceId: deviceId
       type: 29
+      'start.time': $gte: startDate
     ,
       sort:
         recordTime: 1
