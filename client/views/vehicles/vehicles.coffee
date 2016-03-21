@@ -124,7 +124,7 @@ Template.vehicles.helpers
         formatter: timeAgoFormatter
         hidden: hiddenOnMobile()
         search: where: 'client'
-          
+
       ,
         id: "tags"
         field: "tags"
@@ -144,7 +144,7 @@ Template.vehicles.helpers
       cursor: -> Vehicles.find {},
         sort:
           name: 1
-        transform: (doc) -> 
+        transform: (doc) ->
           driver = Drivers.findOne(_id: doc.driver_id)
           _.extend doc,
             fleetName: Fleets.findOne(_id: doc.allocatedToFleet)?.name
@@ -155,7 +155,6 @@ Template.vehicles.helpers
         Tracker.autorun ->
           fleetName = Session.get 'vehiclesFleetName'
           if fleetName
-            grid.addFilter 'client', TAPi18n.__('fleet.name'), fleetName,
-              fleetName: regex: fleetName
+            grid.setColumnFilterValue {id: 'fleetName'}, fleetName
           else
             grid.removeFilter 'client', TAPi18n.__('fleet.name')
