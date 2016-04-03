@@ -13,15 +13,21 @@ Template.fleetrGridPagination.onRendered ->
 
 Template.fleetrGridPagination.events
   'click .nextPageButton': ->
-    console.log 'next'
+    state = Template.instance().navState.get()
+    if state?.canGotoNext
+      dataView = Template.instance().data.grid._dataView
+      dataView.setPagingOptions pageNum: state.pagingInfo.pageNum + 1
   'click .previousPageButton': ->
-    console.log 'prev'
+    state = Template.instance().navState.get()
+    if state?.canGotoPrev
+      dataView = Template.instance().data.grid._dataView
+      dataView.setPagingOptions pageNum: state.pagingInfo.pageNum - 1
   'click .pageNumberButton': ->
-    console.log 'clicked for page', @
+    dataView = Template.instance().data.grid._dataView
+    dataView.setPagingOptions pageNum: @valueOf() - 1
 
 Template.fleetrGridPagination.helpers
-  pageNumbers: -> [0...Template.instance().navState.get()?.pagingInfo?.totalPages].map (x) -> x+1
-  # navState: -> navState.get()
+  pageNumbers: -> [0...Template.instance().navState.get()?.pagingInfo?.totalPages].map (x) -> x + 1
   pageNumberButtonClass: ->
     if Template.instance().navState.get()?.pagingInfo?.pageNum + 1 is @valueOf() then 'active' else ''
   previousPageButtonClass: -> if Template.instance().navState.get()?.canGotoPrev then '' else 'disabled'
@@ -32,7 +38,6 @@ setPageSize = (dataView, n) ->
   dataView.setPagingOptions pageSize: n
 
 updatePager = (tpl, pagingInfo) ->
-  console.log pagingInfo
   lastPage = pagingInfo.totalPages - 1
   tpl.navState.set
     canGotoFirst: pagingInfo.pageSize != 0 and pagingInfo.pageNum > 0
