@@ -113,6 +113,7 @@ Template.logbook2.helpers
     ,
       transform: (doc) -> _.extend doc,
           fuelPer100: doc.consumedFuel / (doc.distance / 100)
+    pagination: true  # or pagination: pageSize: 15 (default=10)
     columns: [
       id: "date"
       field: "date"
