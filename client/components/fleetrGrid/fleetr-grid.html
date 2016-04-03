@@ -19,8 +19,8 @@
     {{/if}}
     </ol>
     <div id="slickgrid-{{id}}" class="slickfleetr" style="width:100%; height:{{height}};"></div>
-    {{#if usePagination}}
-    {{> fleetrGridPagination grid=grid }}
+    {{#if paginationConfig}}
+    {{> fleetrGridPagination grid=grid config=paginationConfig }}
     {{/if}}
   </div>
 </template>

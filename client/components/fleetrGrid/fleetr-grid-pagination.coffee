@@ -4,7 +4,7 @@ Template.fleetrGridPagination.onCreated ->
 Template.fleetrGridPagination.onRendered ->
   Meteor.defer =>
     dataView = @data.grid._dataView
-    setPageSize dataView, @data.pageSize or 10
+    setPageSize dataView, @data.config.pageSize or 10
 
     dataView.onPagingInfoChanged.subscribe (e, pagingInfo) =>
       updatePager @, pagingInfo
