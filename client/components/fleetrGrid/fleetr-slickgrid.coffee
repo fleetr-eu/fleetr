@@ -8,7 +8,7 @@ Helpers =
   @grid = null
   @_dataView = null
   @_blazeCache = templates: {}, views: {}
-  @data = []
+  @_data = []
 
   if serverMethodOrCursor.observe
     @cursor = serverMethodOrCursor
@@ -23,7 +23,7 @@ Helpers =
 
   # populates the data for the grid
   @setGridData = (data, store = true) =>
-    @data = data if store
+    @_data = data if store
     if @_dataView
       @_dataView.beginUpdate()
       @_dataView.setItems data
@@ -40,17 +40,17 @@ Helpers =
 
   # updates a document in the grid
   @updateDocument = (doc) =>
-    @setGridData(@data.map (d) -> if d._id == doc._id then Helpers.addId doc else d)
+    @setGridData(@_data.map (d) -> if d._id == doc._id then Helpers.addId doc else d)
     @_applyClientFilters()
     @_performSort()
   # add a new document into the grid
   @addDocument = (doc) =>
-    @setGridData _.union([Helpers.addId doc], @data)
+    @setGridData _.union([Helpers.addId doc], @_data)
     @_applyClientFilters()
     @_performSort()
   # remove a document from the grid
   @removeDocument = (doc) =>
-    @setGridData(_.reject @data, (d) -> d._id == doc._id)
+    @setGridData(_.reject @_data, (d) -> d._id == doc._id)
     @_applyClientFilters()
     @_performSort()
 
@@ -77,7 +77,7 @@ Helpers =
   @setColumnFilterValue = (column, filterValue)->
     $("#searchbox-#{Helpers.columnId column}").val(filterValue).trigger('change')
   @_applyClientFilters = =>
-    @setGridData (@data.filter @_filter), false
+    @setGridData (@_data.filter @_filter), false
   @_refreshData = =>
     @_beforeDataRefresh()
     if @serverMethod
@@ -378,6 +378,9 @@ Helpers =
         headerButton.removeClass 'icon-highlight-off'
         headerButton.attr 'title', "Remove group #{column.name}"
         headerButton.data 'button', {cssClass: "icon-highlight-on", command: "toggle-grouping", tooltip: "Remove group #{column.name}"}
+
+
+    @getItemByRowId = (rowId) => @_dataView.getItem rowId
 
     if @cursor
       @cursor.observe
