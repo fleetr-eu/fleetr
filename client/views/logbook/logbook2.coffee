@@ -36,7 +36,7 @@ Template.logbook2.events
   'change #logbookVehicleFilter': (e, t) ->
     Router.go 'vehicleLogbook', vehicleId: e.target.value
   'rowsSelected': (e, t) ->
-    Router.go 'vehicleLogbook', vehicleId: e.fleetrGrid.data[e.rowIndex]?._id
+    Router.go 'vehicleLogbook', vehicleId: e.fleetrGrid.getItemByRowId(e.rowIndex)?._id
   'change input[name="dateFilter"]': (e, t) ->
     Session.set 'logbookDateFilterPeriod', e.target.id
 

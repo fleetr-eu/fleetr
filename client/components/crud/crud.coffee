@@ -21,11 +21,11 @@ Meteor.startup ->
         action: ->
           Meteor.call t.data.removeItemMethod, Session.get('selectedItemId'), ->
             Meteor.defer ->
-              Session.set 'selectedItemId', t.grid.data[t.row]?._id
+              Session.set 'selectedItemId', t.grid.getItemByRowId(t.row)?._id
     'rowsSelected': (e, t) ->
       unless e.rowIndex is -1
         [t.grid, t.row] = [e.fleetrGrid, e.rowIndex]
-        Session.set 'selectedItemId', t.grid.data[t.row]?._id
+        Session.set 'selectedItemId', t.grid.getItemByRowId(t.row)?._id
       else Session.set 'selectedItemId', null
     'click .edit-item': (e, t) ->
       ModalForm.show t.data.editItemTemplate,
