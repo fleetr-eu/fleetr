@@ -41,8 +41,13 @@ Template.logbook2.events
     Session.set 'logbookDateFilterPeriod', e.target.id
 
 Template.logbook2.onRendered ->
-  Session.set 'selectedVehicleId', Template.instance().data.vehicleId
+  vid = Template.instance().data.vehicleId
+  Session.set 'selectedVehicleId', vid
   Session.set 'logbookDateFilterPeriod', 'week'
+
+  @autorun ->
+    since = moment().startOf(Session.get('logbookDateFilterPeriod')).toDate()
+    Meteor.subscribe 'tripsOfVehicle', vid, since
 
 Template.logbook2.helpers
   vehicleName: ->
@@ -106,14 +111,15 @@ Template.logbook2.helpers
 
   fleetrGridConfig: ->
     v = Vehicles.findOne(_id: Template.instance().data.vehicleId)
-    Meteor.call 'createTrips', v.unitId, moment().startOf('month').toDate()
-    cursor: -> StartStop.find
+    # Meteor.call 'createTrips', v.unitId, moment().startOf('month').toDate()
+    cursor: -> Trips.find
       deviceId: v.unitId
       'start.time': $gte: moment().startOf(Session.get('logbookDateFilterPeriod')).toDate()
     ,
       transform: (doc) -> _.extend doc,
           fuelPer100: doc.consumedFuel / (doc.distance / 100)
-    pagination: true  # or pagination: pageSize: 15 (default=10)
+    # pagination:
+    #   pageSize: 100 #(default=10)
     columns: [
       id: "date"
       field: "date"

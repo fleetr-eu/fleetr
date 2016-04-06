@@ -46,7 +46,7 @@ Meteor.startup ->
     loadingTemplate: 'loading'
 
   Router.map ->
-    
+
     @route 'dashboard',
       path: '/'
       template: 'dashboard'
@@ -192,7 +192,7 @@ Meteor.startup ->
         console.log 'subscribing for trips with vehicleId', @params.vehicleId
         [
           # Meteor.subscribe('tripsOfVehicle', @params.vehicleId)
-          Meteor.subscribe('startstop', @params.vehicleId),
+          # Meteor.subscribe('startstop', @params.vehicleId),
           Meteor.subscribe('vehicle', _id: @params.vehicleId)
         ]
 
@@ -262,4 +262,4 @@ Meteor.startup ->
       path: '/map/:data?'
       template: 'simpleMap'
       data: -> @params?.data
-      waitOn: -> [ Meteor.subscribe('geofences'), Meteor.subscribe('drivers')] 
+      waitOn: -> [ Meteor.subscribe('geofences'), Meteor.subscribe('drivers')]

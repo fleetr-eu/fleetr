@@ -7,7 +7,8 @@
   "time": {
     "day" : "Day",
     "week" : "Week",
-    "month" : "Month"
+    "month" : "Month",
+    "year" : "Year"
   },
 
   "slickgrid": {
