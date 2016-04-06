@@ -40,7 +40,8 @@ Template.logbook2.events
   'change input[name="dateFilter"]': (e, t) ->
     Session.set 'logbookDateFilterPeriod', e.target.id
 
-Template.logbook2.onRendered ->
+Template.logbook2.onCreated ->
+# Template.logbook2.onRendered ->
   vid = Template.instance().data.vehicleId
   Session.set 'selectedVehicleId', vid
   Session.set 'logbookDateFilterPeriod', 'week'
