@@ -15,7 +15,7 @@ Meteor.startup ->
     Session.set 'selectedDocument', null
     @data.uuid = guid()
     config = @data.config
-    @grid = new FleetrGrid @data.uuid, options(config), config.columns, config.remoteMethod or config.cursor
+    @grid = new FleetrGrid @data.uuid, options(config), config.columns, config.remoteMethod or config.cursor, config.remoteMethodParams
     if config.customize and typeof config.customize == 'function'
       config.customize @grid
     for column in config.columns when column.formatter

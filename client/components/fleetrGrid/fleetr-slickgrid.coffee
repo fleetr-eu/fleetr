@@ -3,7 +3,7 @@ Helpers =
   columnId: (column) -> column.id or column.field
 
 # Component that wraps SlickGrid and uses Meteorish constructs
-@FleetrGrid = (gridId, options, columns, serverMethodOrCursor) ->
+@FleetrGrid = (gridId, options, columns, serverMethodOrCursor, remoteMethodParams) ->
 
   @grid = null
   @_dataView = null
@@ -84,7 +84,7 @@ Helpers =
       serverFilterSpec = {}
       items = @_activeFilters.find(type: 'server').fetch()
       _.extend serverFilterSpec, item.spec for item in items
-      Meteor.call @serverMethod, serverFilterSpec, (err, items) =>
+      Meteor.call @serverMethod, serverFilterSpec, remoteMethodParams, (err, items) =>
         @setGridData( items.map Helpers.addId )
         @_applyClientFilters()
         @_afterDataRefresh()
