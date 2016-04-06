@@ -1,4 +1,32 @@
+# methods = {}
+# Partitioner.directOperation ->
+#   Vehicles.find({}, {fields: unitId: 1}).forEach (v) ->
+#     if v.unitId
+#       methods["aggregateLogbookFor_#{v.unitId}"] = aggregateLogbook(v.unitId)
+# Meteor.methods methods
+
 Meteor.methods
+  aggregateLogbook: (filter, deviceId) ->
+    pipeline =
+      [
+        {$match: deviceId: deviceId}
+        {$sort: recordTime: 1}
+        {$group:
+          _id:
+            deviceId: "$deviceId"
+            month: $month: "$recordTime"
+            day: $dayOfMonth: "$recordTime"
+            year: $year: "$recordTime"
+          id: $min: "$_id"
+          startOdometer: $min: "$tacho"
+          endOdometer: $max: "$tacho"
+          maxSpeed: $max: "$speed"
+          recordTime: $min: "$recordTime"
+          endTime: $max: "$recordTime"
+        }
+      ]
+    Logbook.aggregate(pipeline).map (r) -> r._id = r.id; r
+
   getUser: -> Meteor.user()
 
   toggleNotificationSeen: (id, oldSeenState) ->
@@ -84,9 +112,8 @@ Meteor.methods
     if filter.maintenanceDateMin and filter.maintenanceDateMax
       pipeline.push $match: nextMaintenanceDate: $gte: new Date(filter.maintenanceDateMin), $lte: new Date(filter.maintenanceDateMax)
 
-    Maintenances.aggregate(pipeline).map (maintenance) ->
+    m = Maintenances.aggregate(pipeline).map (maintenance) ->
       vehicle = Vehicles.findOne _id: maintenance.vehicle
       maintenance.vehicleName = vehicle.name
       maintenance.fleetName = Fleets.findOne(_id: vehicle?.allocatedToFleet)?.name
       maintenance
-

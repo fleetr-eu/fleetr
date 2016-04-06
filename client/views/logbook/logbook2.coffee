@@ -111,7 +111,6 @@ Template.logbook2.helpers
 
   fleetrGridConfig: ->
     v = Vehicles.findOne(_id: Template.instance().data.vehicleId)
-    # Meteor.call 'createTrips', v.unitId, moment().startOf('month').toDate()
     cursor: -> Trips.find
       deviceId: v.unitId
       'start.time': $gte: moment().startOf(Session.get('logbookDateFilterPeriod')).toDate()
@@ -119,8 +118,6 @@ Template.logbook2.helpers
       transform: (doc) -> _.extend doc,
           fuelPer100: doc.consumedFuel / (doc.distance / 100)
           duration: moment.duration(moment(doc.stop.time).diff(doc.start.time or 0))
-    # pagination:
-    #   pageSize: 100 #(default=10)
     columns: [
       id: "date"
       field: "date"

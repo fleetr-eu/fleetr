@@ -1,53 +1,27 @@
 <template name="logbook">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="portlet box blue">
-				<div class="portlet-title">
-					<div class="caption" id="logbook">
-						Logbook
-					</div>
-				</div>
-				<div class="portlet-body">
-					<section class="content" id="aggregated-table-section">
-						<!-- <a href="{{pathFor 'logbookStartStop' selectedDate=selectedDate}}">Click me</a> -->
-						<!-- {{> tabular table=TabularTables.LogbookAggregated selector=selector class="table table-striped table-bordered table-condensed"}} -->
-					</section>
-					<section class="content" id="totals-section">
-					
-						<div class="form-inline">
-							<div class="form-group">
-							    <input id="logbook-date-range" class="form-control" type="text" placeholder="Choose date">
-						    </div>
-							<div class="form-group">
-							   <input id="filter" name="type" class="form-control" type="text" placeholder="Filter" />
-						    </div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="portlet light">
+						<div class="portlet-title">
+							<div class="caption" id="fleets">
+									<div class="caption-subject">
+										<h1 class="page-title">История на {{vehicleName}}</h1>
+									</div>
+							</div>
+							<div class="actions">
+								<a href="#" class="form-control btn btn-circle btn-icon-only btn-default fullscreen"></a>
+							</div>
 						</div>
-
-						<!-- Selector: {{currentSelectorStr}} -->
-						{{> tabular table=TabularTables.LogbookAggByDate selector=currentSelector class="table table-bordered table-condensed table-striped"}}
-
-						<ul class="list-unstyled">
-							<li><span class="fa  fa-truck"></span> Total Distance: {{totalDistance}} km</li>
-							<li><span class="fa fa-clock-o"></span> Total Travel Time: {{totalTravelTime}}</li>
-							<li><span class="fa fa-coffee"></span> Total Idle Time: {{totalIdleTime}}</li>
-							<li><span class="fa  fa-plug"></span> Total Fuel: {{totalFuel}}</li>
-						</ul>
-
-					</section>
-				</div>
-			</div>
-		</div>
-	</div>
-</template>
-
-<template name="detailsCellTemplate">
-	<a href="{{pathFor 'logbookReportStartStop' selectedDate=rowDate}}">
-		Details
-	</a>
-</template>
-
-<template name="idleCellTemplate">
-	<a href="{{pathFor 'logbookReportIdle' selectedDate=rowDate}}">
-		Idle
-	</a>
+						<div class="portlet-body" id="map-container">
+							<div class="row">
+								 <div class="col-md-12">
+									 <section class="content">
+										 {{> fleetrReportGrid id="logbookGrid" config=fleetrGridConfig }}
+									 </section>
+								 </div>
+							 </div>
+						</div>
+				 </div>
+			 </div>
+		 </div>
 </template>
