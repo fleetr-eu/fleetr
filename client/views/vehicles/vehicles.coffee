@@ -32,6 +32,7 @@ Template.vehicles.helpers
     removeItemMethod: 'removeVehicle'
     additionalItemActionsTemplate: 'maintenancesButton'
     gridConfig:
+      pagination: true
       columns: [
         id: "state"
         field: "state"
