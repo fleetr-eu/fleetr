@@ -310,6 +310,7 @@
     "speedShort": "км/ч",
     "mapShort": "К",
     "logbookShort": "Ж",
+    "historyShort": "И",
     "maxSpeed":"Макс скорост (км/ч)",
     "maxAllowedSpeed":"Разрешена скорост (км/ч)",
     "mass" : "Маса (кг)",

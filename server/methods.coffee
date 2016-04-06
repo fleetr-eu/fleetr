@@ -1,10 +1,3 @@
-# methods = {}
-# Partitioner.directOperation ->
-#   Vehicles.find({}, {fields: unitId: 1}).forEach (v) ->
-#     if v.unitId
-#       methods["aggregateLogbookFor_#{v.unitId}"] = aggregateLogbook(v.unitId)
-# Meteor.methods methods
-
 Meteor.methods
   aggregateLogbook: (filter, deviceId) ->
     pipeline =

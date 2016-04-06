@@ -207,12 +207,17 @@ Meteor.startup ->
           Meteor.subscribe('vehicle', _id: @params.vehicleId)
         ]
 
+    @route 'vehicleHistory',
+      path: '/vehicles/:vehicleId/history'
+      template: 'logbook'
+      waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
+      data: ->
+        'vehicle': Vehicles.findOne {_id: @params.vehicleId},
+          fields:
+            unitId: 1
+            name: 1
 
 # old logbooks
-    @route 'logbookReport',
-      path: '/reports/logbook'
-      template: 'logbook'
-
     @route 'logbookReportStartStop',
       path: '/reports/logbook/detailed/:selectedDate'
       template: 'logbookStartStop'

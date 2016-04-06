@@ -309,6 +309,7 @@
     "speedShort": "km/h",
     "mapShort": "M",
     "logbookShort": "L",
+    "historyShort": "H",
     "maxSpeed":"Max speed (km/h)",
     "maxAllowedSpeed":"Max allowed speed (km/h)",
     "mass" : "Mass (kg)",
