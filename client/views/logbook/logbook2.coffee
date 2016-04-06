@@ -118,6 +118,7 @@ Template.logbook2.helpers
     ,
       transform: (doc) -> _.extend doc,
           fuelPer100: doc.consumedFuel / (doc.distance / 100)
+          duration: moment.duration(moment(doc.stop.time).diff(doc.start.time or 0))
     # pagination:
     #   pageSize: 100 #(default=10)
     columns: [
