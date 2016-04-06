@@ -48,7 +48,11 @@ Meteor.publish 'tripsOfVehicle', (vehicleId, since) ->
   query = deviceId: deviceId
   if since
     query['start.time'] = $gte: since
-  Trips.find query, {sort: {startTime: 1}}
+  Trips.find query,
+    sort:
+      startTime: 1
+    fields:
+      path: 0
 Meteor.publish 'restsOfVehicle', (vehicleId) ->
   deviceId = Vehicles.findOne(_id: vehicleId).unitId
   Rests.find {deviceId: deviceId}, {sort: {startTime: 1}}
