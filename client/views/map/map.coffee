@@ -75,7 +75,7 @@ Template.map.helpers
 Template.map.events
   'click #toggle-filter': (e, t) ->
     showFilterBox.set not showFilterBox.get()
-    Meteor.defer -> t.grid.resize()
+    Meteor.defer -> t.grid?.resize()
 
   'rowsSelected': (e, t) ->
     Session.set 'selectedVehicleId', e.fleetrGrid.getItemByRowId(e.rowIndex)?._id

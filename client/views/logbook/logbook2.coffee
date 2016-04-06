@@ -32,7 +32,7 @@ aggregators = [
 Template.logbook2.events
   'click #toggle-filter': (e, t) ->
     showFilterBox.set not showFilterBox.get()
-    Meteor.defer -> t.grid.resize()
+    Meteor.defer -> t.grid?.resize()
   'change #logbookVehicleFilter': (e, t) ->
     Router.go 'vehicleLogbook', vehicleId: e.target.value
   'rowsSelected': (e, t) ->
@@ -41,7 +41,6 @@ Template.logbook2.events
     Session.set 'logbookDateFilterPeriod', e.target.id
 
 Template.logbook2.onCreated ->
-# Template.logbook2.onRendered ->
   vid = Template.instance().data.vehicleId
   Session.set 'selectedVehicleId', vid
   Session.set 'logbookDateFilterPeriod', 'week'
