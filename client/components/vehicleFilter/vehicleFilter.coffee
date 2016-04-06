@@ -29,8 +29,17 @@ Template.vehicleFilter.helpers
   displayVehiclesList: -> @options.vehicleDisplayStyle is 'list'
   displayVehiclesSelect: -> @options.vehicleDisplayStyle is 'select'
   fleetGroups: -> FleetGroups.find {}, sortByName
-  fleets: -> Fleets.find {}, sortByName
-  vehicles: -> Vehicles.find {}, sortByName
+  fleets: ->
+    groupId = Template.instance().selectedGroupId.get()
+    filter = if groupId then parent: groupId else {}
+    Fleets.find filter, sortByName
+  vehicles: ->
+    fleetId = Template.instance().selectedFleetId.get()
+    filter = if fleetId
+        allocatedToFleet: fleetId
+      else
+        allocatedToFleet: $in: _.pluck(Fleets.find().fetch(), '_id')
+    Vehicles.find filter, sortByName
   active: -> if @_id is Session.get(Template.instance().data.selectedVehicleIdVar) then 'active' else ''
   tags: -> @tags?.split(",") || []
 
