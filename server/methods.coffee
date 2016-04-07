@@ -14,11 +14,11 @@ Meteor.methods
           startOdometer: $min: "$tacho"
           endOdometer: $max: "$tacho"
           maxSpeed: $max: "$speed"
-          recordTime: $min: "$recordTime"
-          endTime: $max: "$recordTime"
+          recordTime: $max: "$recordTime"
         }
       ]
-    Logbook.aggregate(pipeline).map (r) -> r._id = r.id; r
+    _.sortBy(Logbook.aggregate(pipeline).map( (r) -> r._id = r.id; r), (r) ->
+      moment(r.recordTime).unix()).reverse()
 
   getUser: -> Meteor.user()
 
