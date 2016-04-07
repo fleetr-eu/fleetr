@@ -10,15 +10,17 @@ Meteor.methods
             month: $month: "$recordTime"
             day: $dayOfMonth: "$recordTime"
             year: $year: "$recordTime"
-          id: $min: "$_id"
+          id: $first: "$_id"
           startOdometer: $min: "$tacho"
           endOdometer: $max: "$tacho"
           maxSpeed: $max: "$speed"
-          recordTime: $max: "$recordTime"
         }
       ]
-    _.sortBy(Logbook.aggregate(pipeline).map( (r) -> r._id = r.id; r), (r) ->
-      moment(r.recordTime).unix()).reverse()
+    result = Logbook.aggregate(pipeline).map (r) ->
+      [r._id, r.date] = [r.id, r._id]
+      r
+    _.sortBy(result, (r) ->
+      moment([r.date.year, r.date.month - 1, r.date.day]).unix()).reverse()
 
   getUser: -> Meteor.user()
 

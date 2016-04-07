@@ -7,8 +7,9 @@ Template.logbook.helpers
     columns: [
       id: 'date'
       name: 'Дата'
-      field: 'recordTime'
-      formatter: FleetrGrid.Formatters.dateFormatter
+      field: 'date'
+      formatter: (row, cell, value) ->
+        moment([value.year, value.month - 1, value.day]).format('DD.MM.YYYY')
       width: 80
     ,
       id: 'Odometer'
