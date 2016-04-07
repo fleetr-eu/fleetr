@@ -188,20 +188,13 @@ Meteor.startup ->
       path: '/vehicles/:vehicleId/logbook'
       template: 'logbook2'
       data: -> vehicleId: @params.vehicleId
-      waitOn: ->
-        console.log 'subscribing for trips with vehicleId', @params.vehicleId
-        [
-          # Meteor.subscribe('tripsOfVehicle', @params.vehicleId)
-          # Meteor.subscribe('startstop', @params.vehicleId),
-          Meteor.subscribe('vehicle', _id: @params.vehicleId)
-        ]
+      waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
 
     @route 'vehicleRests',
       path: '/vehicles/:vehicleId/rests'
       template: 'logbookRests'
       data: -> vehicleId: @params.vehicleId
       waitOn: ->
-        console.log 'subscribing for rests with vehicleId', @params.vehicleId
         [
           Meteor.subscribe('restsOfVehicle', @params.vehicleId)
           Meteor.subscribe('vehicle', _id: @params.vehicleId)
