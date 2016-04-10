@@ -1,6 +1,8 @@
 web:
   image: greyarch/fleetr
   restart: unless-stopped
+  extra_hosts:
+   - "traccar:192.168.40.50"
   ports:
    - "80:80"
   environment:
