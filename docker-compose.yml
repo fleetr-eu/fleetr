@@ -1,26 +1,10 @@
 web:
   image: greyarch/fleetr
   restart: unless-stopped
-  links:
-   - db
-   - mqtt
   ports:
-   - "10025:80"
+   - "80:80"
   environment:
    - ROOT_URL=http://fleetr.eu
-   - MONGO_URL=mongodb://db:27017
-
-mqtt:
-  image: villlem/mqtt-server:latest
-  restart: unless-stopped
-  ports:
-   - "10013:1883"
-
-db:
-  image: mongo:3
-  restart: unless-stopped
-  ports:
-   - "27017:27017"
-   - "28017:28017"
-  volumes:
-   - /media/data/fleetr:/data/db
+   - MONGO_URL=mongodb://traccar:27017/admin
+   - MONGO_OPLOG_URL=mongodb://traccar:27017/local?authSource=admin
+   - 'METEOR_SETTINGS={"mqttUrl" : "mqtt://traccar:10028"}'
