@@ -38,6 +38,10 @@ Helpers =
 
   @resize = => @grid.resizeCanvas()
 
+  @_ensureCorrectRowSelection = ->
+    if @_selectedItem? then for i in [0..@grid.getDataLength()] when @grid.getDataItem(i)._id is @_selectedItem._id
+      @grid.setSelectedRows [i]
+
   # updates a document in the grid
   @updateDocument = (doc) =>
     @setGridData(@_data.map (d) -> if d._id == doc._id then Helpers.addId doc else d)
@@ -137,6 +141,7 @@ Helpers =
     @_effectuateGroupings()
   @_effectuateGroupings = ->
     @_dataView?.setGrouping (val for key, val of @_groupings)
+    @_ensureCorrectRowSelection()
   # <-- grouping
 
   # sorting -->
@@ -163,7 +168,7 @@ Helpers =
         result = result * (if sortColSpec.sortAsc then 1 else -1)
         return result if result isnt 0
       0
-    @grid.setSelectedRows([-1])
+    @_ensureCorrectRowSelection()
   # <-- sorting
 
   # handler which is called before data is refreshed from the server
@@ -280,6 +285,7 @@ Helpers =
 
     @grid.onSelectedRowsChanged.subscribe (err, args) =>
       if args?.rows?.length > 0
+        @_selectedItem = @getItemByRowId(args.rows[0])
         $("#slickgrid-#{gridId}").trigger $.Event 'rowsSelected',
           rowIndex: args.rows[0]
           fleetrGrid: @
