@@ -39,8 +39,11 @@ Helpers =
   @resize = => @grid.resizeCanvas()
 
   @_ensureCorrectRowSelection = ->
+    selectionSet = false
     if @_selectedItem? then for i in [0..@grid.getDataLength()] when @grid.getDataItem(i)._id is @_selectedItem._id
       @grid.setSelectedRows [i]
+      selectionSet = true
+    @grid.setSelectedRows [] unless selectionSet
 
   # updates a document in the grid
   @updateDocument = (doc) =>
@@ -82,6 +85,7 @@ Helpers =
     $("#searchbox-#{Helpers.columnId column}").val(filterValue).trigger('change')
   @_applyClientFilters = =>
     @setGridData (@_data.filter @_filter), false
+    @_ensureCorrectRowSelection()
   @_refreshData = =>
     @_beforeDataRefresh()
     if @serverMethod
@@ -228,7 +232,6 @@ Helpers =
     # Handle changes to client rendered filters
     @_activeFilters.find(type: 'client').observe
       removed: (filter) =>
-        console.log filter
         $("#searchbox-#{field}").val('') for field of filter.spec
         @_applyClientFilters()
       added: @_applyClientFilters
@@ -284,11 +287,13 @@ Helpers =
     @grid.registerPlugin headerButtonsPlugin
 
     @grid.onSelectedRowsChanged.subscribe (err, args) =>
+      rowIndex = -1
       if args?.rows?.length > 0
-        @_selectedItem = @getItemByRowId(args.rows[0])
-        $("#slickgrid-#{gridId}").trigger $.Event 'rowsSelected',
-          rowIndex: args.rows[0]
-          fleetrGrid: @
+        @_selectedItem = @getItemByRowId args.rows[0]
+        rowIndex = args.rows[0]
+      $("#slickgrid-#{gridId}").trigger $.Event 'rowsSelected',
+        rowIndex: rowIndex
+        fleetrGrid: @
 
     @grid.onSort.subscribe (e, args) =>
       @_performSort args
