@@ -5,7 +5,8 @@ Template.fleetrListGrid.onCreated ->
 
 Template.fleetrListGrid.events
   'rowsSelected .fleetrListGrid': (event, tpl) ->
-    tpl.selectedDocument.set event.fleetrGrid.getItemByRowId event.rowIndex
+    unless e.rowIndex is -1
+      tpl.selectedDocument.set event.fleetrGrid.getItemByRowId event.rowIndex
   'click #createLink': -> $('#slickgrid').trigger $.Event 'createLinkClicked'
   'click #editLink': -> $('#slickgrid').trigger $.Event 'editLinkClicked', document: getSelectedDocument()
   'click #deleteLink': -> $('#slickgrid').trigger $.Event 'deleteLinkClicked', document: getSelectedDocument()

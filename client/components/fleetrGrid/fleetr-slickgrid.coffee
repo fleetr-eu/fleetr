@@ -43,7 +43,7 @@ Helpers =
     if @_selectedItem? then for i in [0..@grid.getDataLength()] when @grid.getDataItem(i)._id is @_selectedItem._id
       @grid.setSelectedRows [i]
       selectionSet = true
-    @grid.setSelectedRows [] unless selectionSet
+    @grid?.setSelectedRows [] unless selectionSet
 
   # updates a document in the grid
   @updateDocument = (doc) =>
