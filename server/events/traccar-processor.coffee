@@ -11,7 +11,7 @@
           currentRecord: rec
           time: rec.recordTime
           lat: rec.lat
-          lng: rec.lon
+          lng: rec.lng
           loc: rec.loc
           address: rec.address
           odometer: odometer
