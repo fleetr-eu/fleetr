@@ -2,27 +2,25 @@
   insertRecord: (record) ->
     if typeof record.recordTime is 'string'
       record.recordTime = new Date(record.recordTime)
-    unless Logbook.findOne(deviceId: record.deviceId, offset: record.offset)
-      Logbook.insert record, ->
-        console.log "Inserted logbook record type #{record.type}: #{EJSON.stringify record}"
-      updateVehicle1 record, (v) ->
-        odometer = v.odometer + rec.distance
-        data = 
-          currentRecord: rec
-          time: rec.recordTime
-          lat: rec.lat
-          lng: rec.lng
-          loc: rec.loc
-          address: rec.address
-          odometer: odometer
-          state: rec.state
-          idleTime: rec.idleTime
-          restTime: rec.restTime
-          speed: rec.speed
-          course: rec.course
-        # ToDo: all the code needs to be updated to read from vehicle.currentRecord instead of vehicle, e.g., vehicle.currentRecord.state instead of vehicle.state
+    # unless Logbook.findOne(deviceId: record.deviceId, offset: record.offset)
+    Logbook.insert record, ->
+      console.log "Inserted logbook record type #{record.type}: #{EJSON.stringify record}"
 
-updateVehicle1 = (rec, updater, cb) ->
+    updateVehicle record, (v) ->
+      trip: updateTrip(v, record)
+      lastUpdate: record.recordTime
+      lat: record.lat
+      lng: record.lng
+      loc: record.loc
+      address: record.address
+      odometer: (v.odometer or 0) + record.distance
+      state: record.state
+      idleTime: record.idleTime
+      restTime: record.restTime
+      speed: record.speed
+      course: record.course
+
+updateVehicle = (rec, updater, cb) ->
   Partitioner.directOperation ->
     if v = Vehicles.findOne {unitId: rec.deviceId}
       update = updater?(v)
@@ -33,4 +31,21 @@ updateVehicle1 = (rec, updater, cb) ->
         else
           cb?(v)
     else
-      console.log "No vehicle found for unit id #{rec.deviceId}"          
+      console.log "No vehicle found for unit id #{rec.deviceId}"
+
+
+updateTrip = (v, rec) ->
+  trip = v.trip or {path: []}
+  if rec.attributes?.trip
+    unless trip.id is rec.attributes?.trip
+      trip.path = []
+      trip.id = rec.attributes?.trip
+    trip.path.push
+      lat: rec.lat
+      lng: rec.lng
+      time: rec.recordTime
+      speed: rec.speed
+      odometer: rec.tacho
+  else
+    trip.path = []
+  trip
