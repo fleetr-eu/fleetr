@@ -18,39 +18,44 @@ Meteor.startup ->
   client.on 'connect', ->
     console.log 'MQTT CONNECTED OK'
     #subscribe at QoS level 2
-    client.subscribe '/fleetr/records': 2, (err, granted) ->
+    client.subscribe '/fleetr/records': 2, '/fleetr/traccar-records': 2, (err, granted) ->
       if err
-        console.log "MQTT Error: #{err}"
+        console.log "MQTT ERROR: #{err}"
       else
         console.log 'MQTT SUBSCRIBED: ' + JSON.stringify(granted)
 
   client.on 'disconnect', -> console.log '*** MQTT DISCONNECTED'
 
+
   client.on 'message', (_topic, msg) ->
-    isEven = (n) -> (n % 2) is 0
-    isOdd = (n) -> not isEven(n)
-
-    isStart = (r) -> r.type is 29 and isOdd(r.io)
-    isStop = (r) -> r.type is 29 and isEven(r.io)
-    isTracking = (r) -> r.type is 30
-    isPing = (r) -> r.type is 0
-
     record = EJSON.parse msg.toString()
-    console.log "MQTT: Message received, #{EJSON.stringify record}"
-    Fiber(-> LogbookProcessor.insertRecord(record)).run()
+    console.log "MQTT: MESSAGE RECEIVED ON TOPIC #{_topic}: #{EJSON.stringify record}"
 
-    Fiber(->
-      if isTracking(record)
-        TripProcessor.deviceMove record
-      else if isStart(record)
-        TripProcessor.deviceStart record
-      else if isStop(record)
-        TripProcessor.deviceStop record
-      else if isPing(record)
-        EventProcessor.devicePing record
-      else
-        console.warn "MQTT: Unhandled record type #{record.type}."
-    ).run()
+    if _topic is '/fleetr/traccar-records'
+      Fiber(-> TraccarLogbookProcessor.insertRecord(record)).run()
+    else  
+      isEven = (n) -> (n % 2) is 0
+      isOdd = (n) -> not isEven(n)
+
+      isStart = (r) -> r.type is 29 and isOdd(r.io)
+      isStop = (r) -> r.type is 29 and isEven(r.io)
+      isTracking = (r) -> r.type is 30
+      isPing = (r) -> r.type is 0
+
+      Fiber(-> LogbookProcessor.insertRecord(record)).run()
+
+      Fiber(->
+        if isTracking(record)
+          TripProcessor.deviceMove record
+        else if isStart(record)
+          TripProcessor.deviceStart record
+        else if isStop(record)
+          TripProcessor.deviceStop record
+        else if isPing(record)
+          EventProcessor.devicePing record
+        else
+          console.warn "MQTT: Unhandled record type #{record.type}."
+      ).run()
 
   Meteor.methods
     replayLogbook: (dt) ->
