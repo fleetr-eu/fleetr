@@ -7,7 +7,19 @@
         console.log "Inserted logbook record type #{record.type}: #{EJSON.stringify record}"
       updateVehicle1 record, (v) ->
         odometer = v.odometer + rec.distance
-        data = currentRecord: rec, loc: rec.loc, odometer: odometer
+        data = 
+          currentRecord: rec
+          time: rec.recordTime
+          lat: rec.lat
+          log: rec.lon
+          loc: rec.loc
+          address: rec.address
+          odometer: odometer
+          state: rec.state
+          idleTime: rec.idleTime
+          restTime: rec.restTime
+          speed: rec.speed
+          course: rec.course
         # ToDo: all the code needs to be updated to read from vehicle.currentRecord instead of vehicle, e.g., vehicle.currentRecord.state instead of vehicle.state
 
 updateVehicle1 = (rec, updater, cb) ->
