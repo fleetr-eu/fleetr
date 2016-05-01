@@ -47,7 +47,8 @@ updateTrip = (v, rec) ->
       lng: rec.lng
       time: rec.recordTime
       speed: rec.speed
-      odometer: rec.tacho
+      odometer: (v.odometer or 0) + rec.distance
+      address: rec.address
   else
     trip.path = []
   trip
