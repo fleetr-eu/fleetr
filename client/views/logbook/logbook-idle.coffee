@@ -84,12 +84,12 @@ Template.mapIdleCellTemplate.helpers
       time: moment(@startTime).valueOf()
       position:
         lat: @lat
-        lng: @lon
+        lng: @lng
     stop:
       time: moment(@stopTime).valueOf()
       position:
         lat: @lat
-        lng: @lon
+        lng: @lng
 
 Template.idleDetailsCellTemplate.helpers
   datetime: ->

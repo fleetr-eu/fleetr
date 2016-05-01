@@ -87,7 +87,7 @@ Meteor.startup ->
             state: 1
             name: 1
             lat: 1
-            lon: 1
+            lng: 1
             speed: 1
             odometer: 1
             licensePlate: 1
@@ -124,7 +124,7 @@ Meteor.startup ->
 
     moveVehicleMarker: (vehicle) ->
       @vehicleMarkers[vehicle._id].setPosition
-        lat: vehicle.lat, lng: vehicle.lon
+        lat: vehicle.lat, lng: vehicle.lng
 
     renderPath: (@path) ->
       @currentPath = new FleetrPolyline @map, @path

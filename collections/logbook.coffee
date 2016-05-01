@@ -32,7 +32,7 @@ Meteor.methods
               time: rec.recordTime
               fuel: rec.fuelc
               lat: rec.lat
-              lng: rec.lon
+              lng: rec.lng
               odometer: rec.tacho
               address: rec.address
         else if isStop(rec) and trip.start
@@ -46,7 +46,7 @@ Meteor.methods
             stop:
               time: rec.recordTime
               lat: rec.lat
-              lng: rec.lon
+              lng: rec.lng
               address: rec.address
               odometer: rec.tacho
               fuel: rec.fuelc

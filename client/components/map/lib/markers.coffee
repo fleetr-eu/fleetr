@@ -51,7 +51,7 @@ Meteor.startup ->
       truckIcon = "/images/truck-#{color}.png"
 
       opts =
-        position: new FleetrLatLng [vehicle.lat, vehicle.lon]
+        position: new FleetrLatLng [vehicle.lat, vehicle.lng]
         title: "#{vehicle?.name} (#{vehicle?.licensePlate})"
         icon:
           path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW

@@ -55,8 +55,8 @@ Meteor.startup ->
       {$project : {
           startLat  : "$start.lat"
           stopLat   : "$stop.lat"
-          startLon  : "$start.lon"
-          stopLon   : "$stop.lon"
+          startLon  : "$start.lng"
+          stopLon   : "$stop.lng"
 
           startOdo  : "$start.tacho"
           stopOdo   : "$stop.tacho"

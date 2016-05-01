@@ -4,7 +4,9 @@
       record.recordTime = new Date(record.recordTime)
     # unless Logbook.findOne(deviceId: record.deviceId, offset: record.offset)
     Logbook.insert record, ->
-      console.log "Inserted logbook record type #{record.type}: #{EJSON.stringify record}"
+      console.log """Inserted logbook record:
+        #{EJSON.stringify record}
+      """
 
     updateVehicle record, (v) ->
       trip: updateTrip(v, record)

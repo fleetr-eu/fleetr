@@ -34,31 +34,31 @@ class @IdleDetector
     seconds = 0
     resetTime = record.recordTime
     resetLat = record.lat
-    resetLon = record.lon
+    resetLon = record.lng
     idleStartTime = null
 
   process: (record)->
     if record.type is 29
       stopped = record.io == 254
-      @reset(record) 
+      @reset(record)
     if record.type is 35 and record.event is 1 #idle
       stopTime = moment(record.stime).toDate()
       seconds = (record.recordTime.getTime() - stopTime.getTime())/1000
-      idle = 
+      idle =
         date     : @isodate(record.stime)
         startTime: record.stime
         stopTime : record.recordTime
         distance : undefined
         duration : seconds
         lat      : record.slat
-        lon      : record.slon
+        lng      : record.slon
         deviceId : record.deviceId
       interval = moment.duration(seconds, "seconds").format('HH:mm:ss', {trim: false})
-      console.log 'IDLE DETECTED(EV35): ' + @date(record.stime) + ' [' + @time(record.stime) + ' - ' + @time(record.recordTime) + '] ' + interval + ' seconds: ' + seconds 
+      console.log 'IDLE DETECTED(EV35): ' + @date(record.stime) + ' [' + @time(record.stime) + ' - ' + @time(record.recordTime) + '] ' + interval + ' seconds: ' + seconds
       @reset(record)
       return idle
     return if record.type isnt 30
-    
+
     distance += record.distance
     seconds += record.interval
 
@@ -71,17 +71,17 @@ class @IdleDetector
       if idleStartTime
         interval = moment.duration(seconds, "seconds").format('HH:mm:ss', {trim: false})
         seconds = (record.recordTime.getTime() - idleStartTime.getTime())/1000
-        idle = 
+        idle =
           date     : @isodate(idleStartTime)
           startTime: idleStartTime
           stopTime : record.recordTime
           distance : distance
           duration : seconds
           lat      : resetLat
-          lon      : resetLon
+          lng      : resetLon
           deviceId : record.deviceId
         console.log 'IDLE DETECTED: ' + @date(idleStartTime) + ' [' + @time(idleStartTime) + ' - ' + @time(record.recordTime) + '] ' + interval + ' seconds: ' + seconds + ' distance: ' + distance
-        idle.location = geocode(idle.lat, idle.lon)
+        idle.location = geocode(idle.lat, idle.lng)
       @reset(record)
       return idle
     else if seconds > TimeLimit and not stopped

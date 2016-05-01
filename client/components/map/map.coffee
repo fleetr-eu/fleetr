@@ -61,13 +61,13 @@ Template.fleetrMap.helpers
     selectedVehicle = Vehicles.findOne {_id: t.data.vehicleId},
       fields:
         lat: 1
-        lon: 1
+        lng: 1
       reactive: false
     if selectedVehicle
       if selectedVehicle.lat
         t.map?.map.setCenter
           lat: selectedVehicle.lat
-          lng: selectedVehicle.lon
+          lng: selectedVehicle.lng
       else
         sAlert.warning 'This vehicle has no known position.'
 

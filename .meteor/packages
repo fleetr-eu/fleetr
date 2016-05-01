@@ -59,3 +59,4 @@ spacebars
 check
 momentjs:moment
 kadira:debug
+percolate:migrations

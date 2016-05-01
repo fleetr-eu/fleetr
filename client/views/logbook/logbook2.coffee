@@ -7,8 +7,8 @@ mapLinkFormatter = (row, cell, value) ->
     </a>
   """
 addressFormatter = (row, cell, value, column, rowObject) ->
-  from = rowObject.start.address
-  to = rowObject.stop.address
+  from = rowObject.start?.address
+  to = rowObject.stop?.address
   if typeof from is 'object'
     """
       #{from?.city or ''}, #{from?.streetName or ''} #{from?.streetNumber or ''}
@@ -17,9 +17,9 @@ addressFormatter = (row, cell, value, column, rowObject) ->
     """
   else
     """
-      #{rowObject.start.address.replace('България, ', '').replace(/null/g, '')}
+      #{rowObject.start?.address?.replace('България, ', '').replace(/null/g, '')}
       <br />
-      #{rowObject.stop.address.replace('България, ', '').replace(/null/g, '')}
+      #{rowObject.stop?.address?.replace('България, ', '').replace(/null/g, '')}
     """
 
 toTime = FleetrGrid.Formatters.timeFormatter
@@ -112,19 +112,24 @@ Template.logbook2.helpers
 
   fleetrGridConfig: ->
     v = Vehicles.findOne(_id: Template.instance().data.vehicleId)
-    cursor: -> Trips.find
-      deviceId: v.unitId
-      'start.time': $gte: moment().startOf(Session.get('logbookDateFilterPeriod')).toDate()
-    ,
-      transform: (doc) -> _.extend doc,
-          fuelPer100: doc.consumedFuel / (doc.distance / 100)
-          duration: moment.duration(moment(doc.stop.time).diff(doc.start.time or 0))
+
+    remoteMethod: "aggregateTrips"
+    remoteMethodParams: v.unitId
+    # cursor: -> Trips.find
+    #   deviceId: v.unitId
+    #   'start.time': $gte: moment().startOf(Session.get('logbookDateFilterPeriod')).toDate()
+    # ,
+    #   transform: (doc) -> _.extend doc,
+    #       fuelPer100: doc.consumedFuel / (doc.distance / 100)
+    #       duration: moment.duration(moment(doc.stop.time).diff(doc.start.time or 0))
     columns: [
       id: "date"
-      field: "date"
+      field: "startTime"
       name: "Дата"
       maxWidth: 90
       sortable: true
+      formatter: (row, cell, value) ->
+        moment(value).format('DD-MM-YYYY')
       groupable:
         aggregators: aggregators
         headerFormatter: (group, defaultFormatter) ->
@@ -166,8 +171,8 @@ Template.logbook2.helpers
       id: 'duration'
       field: 'duration'
       name: 'Продължителност'
-      formatter: (row, cell, value) ->
-        moment.duration(value, 'seconds').humanize()
+      formatter: (row, cell, value, column, rowObject) ->
+        moment.duration(moment(rowObject.stop.time).diff(rowObject.start.time or 0), 'seconds').humanize()
       width: 20
       search:
         where: 'client'
@@ -229,13 +234,13 @@ Template.logbook2.helpers
           start:
             time: moment(rowObject.start?.time).valueOf()
             position:
-              lat: rowObject.start.lat
-              lng: rowObject.start.lng
+              lat: rowObject.start?.lat
+              lng: rowObject.start?.lng
           stop:
             time: moment(rowObject.stop?.time).valueOf()
             position:
-              lat: rowObject.stop.lat
-              lng: rowObject.stop.lng
+              lat: rowObject.stop?.lat
+              lng: rowObject.stop?.lng
 
         """
         <a href='/map/#{q}'>

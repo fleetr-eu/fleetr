@@ -1,6 +1,6 @@
 class TableFilter
-  
-  constructor: (selectedDate, columns)->  
+
+  constructor: (selectedDate, columns)->
     @columns = columns
     @selector = new ReactiveVar({date: selectedDate})
 
@@ -39,9 +39,9 @@ Template.logbookStartStop.created = ()->
 
 Template.logbookStartStop.rendered = ()->
   self = this
-  Meteor.call 'detailedTotals', Template.currentData().selectedDate, (err, res)-> 
+  Meteor.call 'detailedTotals', Template.currentData().selectedDate, (err, res)->
     total.set(res[0]) if not err
-  
+
   $input = $('#filter')
   $input.on 'keyup', ->
     console.log 'Search: ' + @value
@@ -55,10 +55,9 @@ Template.mapCellTemplate.helpers
       time: moment(@start.recordTime).valueOf()
       position:
         lat: @start.lat
-        lng: @start.lon
+        lng: @start.lng
     stop:
       time: moment(@stop.recordTime).valueOf()
       position:
         lat: @stop.lat
-        lng: @stop.lon
-
+        lng: @stop.lng

@@ -20,7 +20,7 @@ Template.simpleMap.onRendered ->
       idleRec = IdleBook.findOne searchArgs
       if idleRec
         lat = idleRec.latitude || idleRec.lat || idleRec.location?.latitude
-        lng = idleRec.longitude || idleRec.lon || idleRec.location?.longitude
+        lng = idleRec.longitude || idleRec.lng || idleRec.location?.longitude
         pos = new google.maps.LatLng(lat, lng)
         @map.panTo pos
         new google.maps.Marker
@@ -44,7 +44,7 @@ Template.simpleMap.onRendered ->
 
     Meteor.subscribe 'logbook', searchArgs, =>
       @path = Logbook.find(searchArgs, {sort: recordTime: 1}).map (point) ->
-        point.lng = point.lon
+        point.lng = point.lng
         point.odometer = point.tacho
         _.pick point, 'lat', 'lng', 'speed', 'odometer', 'time'
       FleetrMap.currentMap().renderPath @path

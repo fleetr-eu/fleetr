@@ -6,9 +6,9 @@
   insertRecord: (record) ->
     if typeof record.recordTime is 'string'
       record.recordTime = new Date(record.recordTime)
-    record.loc = [record.lon, record.lat]
+    record.loc = [record.lng, record.lat]
     if record.type is 29
-      record.address = Geocoder.reverse(record.lat, record.lon)?[0]
+      record.address = Geocoder.reverse(record.lat, record.lng)?[0]
     unless Logbook.findOne(deviceId: record.deviceId, offset: record.offset)
       Logbook.insert record, ->
         console.log "Inserted logbook record type #{record.type}: #{EJSON.stringify record}"
@@ -49,8 +49,8 @@ updateVehicle = (rec, updater, cb) ->
         time: rec.recordTime
         fuel: rec.fuelc
         lat: rec.lat
-        lng: rec.lon
-        address: Geocoder.reverse(rec.lat, rec.lon)?[0]
+        lng: rec.lng
+        address: Geocoder.reverse(rec.lat, rec.lng)?[0]
         odometer: rec.tacho
 
       if v.rest
@@ -70,7 +70,7 @@ updateVehicle = (rec, updater, cb) ->
           start: data
           path: [
             lat: rec.lat
-            lng: rec.lon
+            lng: rec.lng
             time: rec.recordTime
             speed: rec.speed
             odometer: rec.tacho
@@ -84,8 +84,8 @@ updateVehicle = (rec, updater, cb) ->
       data =
         time: rec.recordTime
         lat: rec.lat
-        lng: rec.lon
-        address: Geocoder.reverse(rec.lat, rec.lon)?[0]
+        lng: rec.lng
+        address: Geocoder.reverse(rec.lat, rec.lng)?[0]
         odometer: rec.tacho
         fuel: rec.fuelc
 
@@ -121,8 +121,8 @@ updateVehicle = (rec, updater, cb) ->
       maxSpeed = v.trip?.maxSpeed or 0
       maxSpeed = rec.speed if rec.speed > maxSpeed
 
-      bearing = if (v?.lat isnt undefined) and ((v?.lon isnt undefined)) and ((v.lat.toFixed(5) != rec.lat.toFixed(5)) or (v.lon.toFixed(5) != rec.lon.toFixed(5)))
-        dLon = (rec.lon - v.lon)
+      bearing = if (v?.lat isnt undefined) and ((v?.lng isnt undefined)) and ((v.lat.toFixed(5) != rec.lat.toFixed(5)) or (v.lng.toFixed(5) != rec.lng.toFixed(5)))
+        dLon = (rec.lng - v.lng)
 
         y = Math.sin(dLon) * Math.cos(rec.lat)
         x = Math.cos(v.lat) * Math.sin(rec.lat) - Math.sin(v.lat) * Math.cos(rec.lat) * Math.cos(dLon)
@@ -145,7 +145,7 @@ updateVehicle = (rec, updater, cb) ->
       if v.state is 'start'
         path?.push
           lat: rec.lat
-          lng: rec.lon
+          lng: rec.lng
           time: rec.recordTime
           speed: rec.speed
           odometer: rec.tacho
@@ -159,7 +159,7 @@ updateVehicle = (rec, updater, cb) ->
       lastUpdate: rec.recordTime
       speed: if v.state is 'stop' then 0 else rec.speed
       lat: rec.lat
-      lon: rec.lon
-      loc: [rec.lon, rec.lat]
+      lng: rec.lng
+      loc: [rec.lng, rec.lat]
       odometer: rec.tacho
       course: bearing

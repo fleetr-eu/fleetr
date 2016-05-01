@@ -1,4 +1,30 @@
 Meteor.methods
+  aggregateTrips: (filter, deviceId) ->
+    pipeline =
+      [
+        {$match: deviceId: deviceId}
+        {$sort: recordTime: 1}
+        {$group:
+          _id:
+            deviceId: "$deviceId"
+            trip: "$attributes.trip"
+          id: $first: "$_id"
+          startTime: $min: "$recordTime"
+          stopTime: $max: "$recordTime"
+          startOdometer: $min: "$tacho"
+          endOdometer: $max: "$tacho"
+          maxSpeed: $max: "$speed"
+        }
+      ]
+    result = Logbook.aggregate(pipeline).map (r) ->
+      r._id = r.id
+      r.start = {time: r.startTime}
+      r.stop = {time: r.stopTime}
+      delete r.id
+      r
+    _.sortBy(result, (r) ->
+      moment(r.recordTime).unix()).reverse()
+
   aggregateLogbook: (filter, deviceId) ->
     pipeline =
       [

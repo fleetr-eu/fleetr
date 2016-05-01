@@ -18,10 +18,14 @@ Schema.vehicle = new SimpleSchema
     type: Number, optional: true, label: "Trip time"
 
   lat:
-    type: Number, decimal: true, optional: true, label: "Lat"
+    type: Number, decimal: true, optional: true, label: "Latitude"
 
+  lng:
+    type: Number, decimal: true, optional: true, label: "Longitude"
+
+  # DEPRECATED
   lon:
-    type: Number, decimal: true, optional: true, label: "Lon"
+    type: Number, decimal: true, optional: true, label: "Longitude"
 
   loc:
     type: [Number], decimal: true, optional: true
