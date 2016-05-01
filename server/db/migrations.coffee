@@ -1,5 +1,6 @@
 logMigrationErrors = (err) ->
-  console.error 'MIGRATION ERROR: ', err
+  if err
+    console.error 'MIGRATION ERROR: ', err
 
 Migrations.add
   version: 1
