@@ -9,18 +9,11 @@ mapLinkFormatter = (row, cell, value) ->
 addressFormatter = (row, cell, value, column, rowObject) ->
   from = rowObject.start?.address
   to = rowObject.stop?.address
-  if typeof from is 'object'
-    """
-      #{from?.city or ''}, #{from?.streetName or ''} #{from?.streetNumber or ''}
-      <br />
-      #{to?.city or ''}, #{to?.streetName or ''} #{to?.streetNumber or ''}
-    """
-  else
-    """
-      #{rowObject.start?.address?.replace('България, ', '').replace(/null/g, '')}
-      <br />
-      #{rowObject.stop?.address?.replace('България, ', '').replace(/null/g, '')}
-    """
+  address = """
+    #{from or ''}
+    <br />
+    #{to or ''}
+  """
 
 toTime = FleetrGrid.Formatters.timeFormatter
 aggregators = [
@@ -115,21 +108,14 @@ Template.logbook2.helpers
 
     remoteMethod: "aggregateTrips"
     remoteMethodParams: v.unitId
-    # cursor: -> Trips.find
-    #   deviceId: v.unitId
-    #   'start.time': $gte: moment().startOf(Session.get('logbookDateFilterPeriod')).toDate()
-    # ,
-    #   transform: (doc) -> _.extend doc,
-    #       fuelPer100: doc.consumedFuel / (doc.distance / 100)
-    #       duration: moment.duration(moment(doc.stop.time).diff(doc.start.time or 0))
     columns: [
       id: "date"
-      field: "startTime"
+      field: "date"
       name: "Дата"
       maxWidth: 90
       sortable: true
-      formatter: (row, cell, value) ->
-        moment(value).format('DD-MM-YYYY')
+      formatter: (row, cell, value, column, rowObject) ->
+        moment(rowObject.startTime).format('DD-MM-YYYY')
       groupable:
         aggregators: aggregators
         headerFormatter: (group, defaultFormatter) ->
@@ -142,9 +128,9 @@ Template.logbook2.helpers
       sortable: true
       formatter: (row, cell, value, column, rowObject) ->
         """
-          #{toTime(row, cell, rowObject.start?.time)}
+          #{toTime(row, cell, rowObject.startTime)}
           <br />
-          #{toTime(row, cell, rowObject.stop?.time)}
+          #{toTime(row, cell, rowObject.stopTime)}
         """
       sorter: (sortCol) -> (a,b) ->
         if a.start?.time > b.start?.time then 1 else -1
@@ -172,7 +158,7 @@ Template.logbook2.helpers
       field: 'duration'
       name: 'Продължителност'
       formatter: (row, cell, value, column, rowObject) ->
-        moment.duration(moment(rowObject.stop.time).diff(rowObject.start.time or 0), 'seconds').humanize()
+        moment.duration(moment(rowObject.stopTime).diff(rowObject.startTime)).humanize()
       width: 20
       search:
         where: 'client'

@@ -2,7 +2,10 @@ Meteor.methods
   aggregateTrips: (filter, deviceId) ->
     pipeline =
       [
-        {$match: deviceId: deviceId}
+        {$match:
+          deviceId: deviceId
+          'attributes.trip': $exists: true
+        }
         {$sort: recordTime: 1}
         {$group:
           _id:
@@ -18,8 +21,7 @@ Meteor.methods
       ]
     result = Logbook.aggregate(pipeline).map (r) ->
       r._id = r.id
-      r.start = {time: r.startTime}
-      r.stop = {time: r.stopTime}
+      r.date = moment(r.startTime).format('DD-MM-YYYY')
       delete r.id
       r
     _.sortBy(result, (r) ->
