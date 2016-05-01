@@ -7,8 +7,8 @@ mapLinkFormatter = (row, cell, value) ->
     </a>
   """
 addressFormatter = (row, cell, value, column, rowObject) ->
-  from = rowObject.start?.address
-  to = rowObject.stop?.address
+  from = rowObject.startAddress
+  to = rowObject.stopAddress
   address = """
     #{from or ''}
     <br />
@@ -114,8 +114,8 @@ Template.logbook2.helpers
       name: "Дата"
       maxWidth: 90
       sortable: true
-      formatter: (row, cell, value, column, rowObject) ->
-        moment(rowObject.startTime).format('DD-MM-YYYY')
+      # formatter: (row, cell, value, column, rowObject) ->
+      #   moment(rowObject.startTime).format('DD-MM-YYYY')
       groupable:
         aggregators: aggregators
         headerFormatter: (group, defaultFormatter) ->

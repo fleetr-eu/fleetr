@@ -12,16 +12,20 @@ Meteor.methods
             deviceId: "$deviceId"
             trip: "$attributes.trip"
           id: $first: "$_id"
-          startTime: $min: "$recordTime"
-          stopTime: $max: "$recordTime"
-          startOdometer: $min: "$tacho"
-          endOdometer: $max: "$tacho"
+          startTime: $first: "$recordTime"
+          stopTime: $last: "$recordTime"
+          startAddress: $first: "$address"
+          stopAddress: $last: "$address"
+          startOdometer: $first: "$tacho"
+          stopOdometer: $last: "$tacho"
           maxSpeed: $max: "$speed"
+          avgSpeed: $avg: "$speed"
         }
       ]
     result = Logbook.aggregate(pipeline).map (r) ->
       r._id = r.id
       r.date = moment(r.startTime).format('DD-MM-YYYY')
+      r.distance = r.stopOdometer - r.startOdometer
       delete r.id
       r
     _.sortBy(result, (r) ->
@@ -39,8 +43,8 @@ Meteor.methods
             day: $dayOfMonth: "$recordTime"
             year: $year: "$recordTime"
           id: $first: "$_id"
-          startOdometer: $min: "$tacho"
-          endOdometer: $max: "$tacho"
+          startOdometer: $min: "$odometer"
+          endOdometer: $max: "$odometer"
           maxSpeed: $max: "$speed"
         }
       ]
