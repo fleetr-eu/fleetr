@@ -18,7 +18,7 @@
       idleTime: record.idleTime
       restTime: record.restTime
       speed: record.speed
-      course: record.course
+      course: Math.round(record.course)
 
 updateVehicle = (rec, updater, cb) ->
   Partitioner.directOperation ->
