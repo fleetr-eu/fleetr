@@ -210,20 +210,21 @@ Template.logbook2.helpers
       align: 'right'
     ,
       id: 'simpleMapLink'
-      field: 'deviceId'
+      field: 'tripId'
       name: 'М'
       maxWidth: 31
       align: 'center'
       formatter: (row, cell, value, column, rowObject) ->
         q = encodeURIComponent EJSON.stringify
-          deviceId: value
+          tripId: value
+          deviceId: rowObject.deviceId
           start:
-            time: moment(rowObject.startTime).valueOf()
+            # time: moment(rowObject.startTime).valueOf()
             position:
               lat: rowObject.startLat
               lng: rowObject.startLng
           stop:
-            time: moment(rowObject.stopTime).valueOf()
+            # time: moment(rowObject.stopTime).valueOf()
             position:
               lat: rowObject.stopLat
               lng: rowObject.stopLng

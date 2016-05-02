@@ -1,11 +1,9 @@
 unitId = null
 Template.simpleMap.onCreated ->
-  {deviceId} =  EJSON.parse decodeURIComponent @data
-  unitId = deviceId
   Session.set 'simpleMapShowInfoMarkers', false
 
 Template.simpleMap.onRendered ->
-  {deviceId, start, stop, idle} =  EJSON.parse decodeURIComponent @data
+  {deviceId, tripId, start, stop, idle} =  EJSON.parse decodeURIComponent @data
   start.time = moment(start.time).toDate()
   stop.time = moment(stop.time).toDate()
 
@@ -36,19 +34,10 @@ Template.simpleMap.onRendered ->
     @map.fitBounds bounds
 
     searchArgs =
-      recordTime:
-        $gte: start.time
-        $lte: stop.time
-      deviceId: deviceId
-      type: $ne: 35
+      'attributes.trip': tripId
 
     Meteor.subscribe 'logbook', searchArgs, =>
       @path = Logbook.find(searchArgs, {sort: recordTime: 1}).map (point) ->
-        point.lng = point.lng
         point.odometer = point.tacho
         _.pick point, 'lat', 'lng', 'speed', 'odometer', 'time'
       FleetrMap.currentMap().renderPath @path
-
-
-Template.simpleMap.helpers
-  unitId: -> unitId

@@ -24,6 +24,8 @@ Meteor.methods
           stopLng: $last: "$lng"
           maxSpeed: $max: "$speed"
           avgSpeed: $avg: "$speed"
+          deviceId: $first: "$deviceId"
+          tripId: $first: "$attributes.trip"
         }
       ]
     result = Logbook.aggregate(pipeline).map (r) ->
