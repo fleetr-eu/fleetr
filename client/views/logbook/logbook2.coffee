@@ -124,7 +124,7 @@ Template.logbook2.helpers
     ,
       id: 'fromTo'
       name: 'От / До'
-      field: 'start.time'
+      field: 'startTime'
       sortable: true
       formatter: (row, cell, value, column, rowObject) ->
         """
@@ -218,15 +218,15 @@ Template.logbook2.helpers
         q = encodeURIComponent EJSON.stringify
           deviceId: value
           start:
-            time: moment(rowObject.start?.time).valueOf()
+            time: moment(rowObject.startTime).valueOf()
             position:
-              lat: rowObject.start?.lat
-              lng: rowObject.start?.lng
+              lat: rowObject.startLat
+              lng: rowObject.startLng
           stop:
-            time: moment(rowObject.stop?.time).valueOf()
+            time: moment(rowObject.stopTime).valueOf()
             position:
-              lat: rowObject.stop?.lat
-              lng: rowObject.stop?.lng
+              lat: rowObject.stopLat
+              lng: rowObject.stopLng
 
         """
         <a href='/map/#{q}'>

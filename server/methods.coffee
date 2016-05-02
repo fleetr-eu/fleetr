@@ -18,6 +18,10 @@ Meteor.methods
           stopAddress: $last: "$address"
           startOdometer: $first: "$tacho"
           stopOdometer: $last: "$tacho"
+          startLat: $first: "$lat"
+          startLng: $first: "$lng"
+          stopLat: $last: "$lat"
+          stopLng: $last: "$lng"
           maxSpeed: $max: "$speed"
           avgSpeed: $avg: "$speed"
         }
