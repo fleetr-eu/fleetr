@@ -24,10 +24,3 @@ Vehicles.getAssignedDriverByUnitId = (unitId, timestamp) ->
   driverId = Vehicles.getAssignedDriver(vehicle._id, timestamp)
   return undefined if not driverId
   Drivers.findOne({_id: driverId})
-
-Vehicles.helpers
-  lastLocations: (limit) ->
-    if limit
-      Logbook.find {unitId: @deviceId}, {sort: {recordTime: -1}, limit: limit}
-    else
-      Logbook.find {unitId: @deviceId}, {sort: {recordTime: -1}}

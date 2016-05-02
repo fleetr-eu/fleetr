@@ -7,9 +7,8 @@ Meteor.startup ->
     offset: 1
 
   Logbook._ensureIndex
-    type: 1
+    'attributes.trip': 1
 
   Logbook._ensureIndex
     deviceId: 1
-    type: 1
     recordTime: 1
