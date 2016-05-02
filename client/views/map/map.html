@@ -36,6 +36,7 @@
 </template>
 
 <template name="simpleMap">
+  <h2>{{vehicle.name}} ({{vehicle.licensePlate}})</h2>
   {{> fleetrMap showVehicles=false enableVehicleSelection=false}}
   {{showInfoMarkers}}
 </template>

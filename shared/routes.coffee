@@ -264,4 +264,6 @@ Meteor.startup ->
       path: '/map/:data?'
       template: 'simpleMap'
       data: -> @params?.data
-      waitOn: -> [ Meteor.subscribe('geofences'), Meteor.subscribe('drivers')]
+      waitOn: -> [ Meteor.subscribe('geofences')
+                  Meteor.subscribe('drivers')
+                  Meteor.subscribe('vehicle', {unitId: JSON.parse(@params.data).deviceId})]

@@ -41,3 +41,8 @@ Template.simpleMap.onRendered ->
         point.odometer = point.tacho
         _.pick point, 'lat', 'lng', 'speed', 'odometer', 'time'
       FleetrMap.currentMap().renderPath @path
+
+Template.simpleMap.helpers
+  vehicle: ->
+    data = JSON.parse Template.instance().data
+    Vehicles.findOne unitId: data.deviceId
