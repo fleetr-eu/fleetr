@@ -33,10 +33,10 @@ Meteor.methods
               fuel: rec.fuelc
               lat: rec.lat
               lng: rec.lng
-              odometer: rec.tacho
+              odometer: rec.odometer
               address: rec.address
         else if isStop(rec) and trip.start
-          distance = rec.tacho - (trip?.start?.odometer or 0)
+          distance = rec.odometer - (trip?.start?.odometer or 0)
           duration = calcDuration(trip?.start?.time, rec.recordTime)
           trip = lodash.merge trip,
             distance: distance / 1000
@@ -48,7 +48,7 @@ Meteor.methods
               lat: rec.lat
               lng: rec.lng
               address: rec.address
-              odometer: rec.tacho
+              odometer: rec.odometer
               fuel: rec.fuelc
 
 

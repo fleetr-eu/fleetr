@@ -58,8 +58,8 @@ Meteor.startup ->
           startLon  : "$start.lng"
           stopLon   : "$stop.lng"
 
-          startOdo  : "$start.tacho"
-          stopOdo   : "$stop.tacho"
+          startOdo  : "$start.odometer"
+          stopOdo   : "$stop.odometer"
 
 
           date      : "$date"

@@ -38,7 +38,6 @@ Template.simpleMap.onRendered ->
 
     Meteor.subscribe 'logbook', searchArgs, =>
       @path = Logbook.find(searchArgs, {sort: recordTime: 1}).map (point) ->
-        point.odometer = point.tacho
         _.pick point, 'lat', 'lng', 'speed', 'odometer', 'time'
       FleetrMap.currentMap().renderPath @path
 

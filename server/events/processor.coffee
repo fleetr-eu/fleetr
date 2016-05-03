@@ -51,7 +51,7 @@ updateVehicle = (rec, updater, cb) ->
         lat: rec.lat
         lng: rec.lng
         address: Geocoder.reverse(rec.lat, rec.lng)?[0]
-        odometer: rec.tacho
+        odometer: rec.odometer
 
       if v.rest
         Rests.insert lodash.merge (v.rest or {}),
@@ -63,7 +63,7 @@ updateVehicle = (rec, updater, cb) ->
       lodash.merge nullRecord(),
         state: 'start'
         lastUpdate: rec.recordTime
-        odometer: rec.tacho
+        odometer: rec.odometer
         trip:
           deviceId: rec.deviceId
           date: moment(rec.recordTime).format('DD-MM-YYYY')
@@ -73,7 +73,7 @@ updateVehicle = (rec, updater, cb) ->
             lng: rec.lng
             time: rec.recordTime
             speed: rec.speed
-            odometer: rec.tacho
+            odometer: rec.odometer
           ]
 
 
@@ -86,12 +86,12 @@ updateVehicle = (rec, updater, cb) ->
         lat: rec.lat
         lng: rec.lng
         address: Geocoder.reverse(rec.lat, rec.lng)?[0]
-        odometer: rec.tacho
+        odometer: rec.odometer
         fuel: rec.fuelc
 
       trip = v.trip
       if trip
-        distance = rec.tacho - (trip?.start?.odometer or 0)
+        distance = rec.odometer - (trip?.start?.odometer or 0)
         duration = calcDuration(trip?.start?.time, rec.recordTime).asHours()
         trip = lodash.merge trip,
           distance: distance / 1000
@@ -109,7 +109,7 @@ updateVehicle = (rec, updater, cb) ->
 
       lodash.merge nullRecord(),
         lastUpdate: rec.recordTime
-        odometer: rec.tacho
+        odometer: rec.odometer
         rest:
           date: moment(rec.recordTime).format('DD-MM-YYYY')
           start: data
@@ -148,7 +148,7 @@ updateVehicle = (rec, updater, cb) ->
           lng: rec.lng
           time: rec.recordTime
           speed: rec.speed
-          odometer: rec.tacho
+          odometer: rec.odometer
         path = _.sortBy path, (p) -> p.time
       else
         path = null
@@ -161,5 +161,5 @@ updateVehicle = (rec, updater, cb) ->
       lat: rec.lat
       lng: rec.lng
       loc: [rec.lng, rec.lat]
-      odometer: rec.tacho
+      odometer: rec.odometer
       course: bearing
