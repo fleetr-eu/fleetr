@@ -31,8 +31,7 @@ Meteor.methods
       r.date = moment(r.startTime).format('YYYY-MM-DD')
       r.distance = r.stopOdometer - r.startOdometer
       r
-    _.sortBy(result, (r) ->
-      moment(r.recordTime).unix()).reverse()
+    _.sortBy(result, (r) -> moment(r.startTime).unix()).reverse()
 
   aggregateLogbook: (filter, deviceId) ->
     pipeline =
@@ -45,17 +44,15 @@ Meteor.methods
             month: $month: "$recordTime"
             day: $dayOfMonth: "$recordTime"
             year: $year: "$recordTime"
-          id: $first: "$_id"
           startOdometer: $min: "$odometer"
           endOdometer: $max: "$odometer"
           maxSpeed: $max: "$speed"
         }
       ]
     result = Logbook.aggregate(pipeline).map (r) ->
-      [r._id, r.date] = [r.id, r._id]
+      r._id = moment([r._id.year, r._id.month - 1, r._id.day]).format('YYYY-MM-DD')
       r
-    _.sortBy(result, (r) ->
-      moment([r.date.year, r.date.month - 1, r.date.day]).unix()).reverse()
+    _.sortBy(result, (r) -> r._id).reverse()
 
   getUser: -> Meteor.user()
 
