@@ -45,7 +45,6 @@ Template.logbook2.onCreated ->
 
 Template.logbook2.helpers
   vehicleName: ->
-    # v = Vehicles.findOne(_id: Session.get('selectedVehicleId'))
     v = Vehicles.findOne(_id: Template.instance().data.vehicleId)
     "#{v.name} (#{v.licensePlate})"
   filterOptions: -> vehicleDisplayStyle: 'none'
@@ -114,8 +113,6 @@ Template.logbook2.helpers
       name: "Дата"
       maxWidth: 90
       sortable: true
-      # formatter: (row, cell, value, column, rowObject) ->
-      #   moment(rowObject.startTime).format('DD-MM-YYYY')
       groupable:
         aggregators: aggregators
         headerFormatter: (group, defaultFormatter) ->
@@ -210,7 +207,7 @@ Template.logbook2.helpers
       align: 'right'
     ,
       id: 'simpleMapLink'
-      field: 'tripId'
+      field: '_id'
       name: 'М'
       maxWidth: 31
       align: 'center'
