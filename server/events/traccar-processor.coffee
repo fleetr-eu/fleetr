@@ -10,23 +10,6 @@ updateVehicle = (v, rec, updater, cb) ->
   else
     console.log "No vehicle found for unit id #{rec.deviceId}"
 
-updateTrip = (v, rec) ->
-  trip = v.trip or {path: []}
-  if rec.attributes?.trip
-    unless trip.id is rec.attributes?.trip
-      trip.path = []
-      trip.id = rec.attributes?.trip
-    trip.path.push
-      lat: rec.lat
-      lng: rec.lng
-      time: rec.recordTime
-      speed: rec.speed
-      odometer: (v.odometer or 0) + rec.distance
-      address: rec.address
-  else
-    trip.path = []
-  trip
-
 @TraccarLogbookProcessor =
   insertRecord: (record) ->
     Partitioner.directOperation ->
@@ -42,7 +25,7 @@ updateTrip = (v, rec) ->
         """
 
       updateVehicle v, record, ->
-        trip: updateTrip(v, record)
+        'trip.id': record.attributes?.trip
         lastUpdate: record.recordTime
         lat: record.lat
         lng: record.lng

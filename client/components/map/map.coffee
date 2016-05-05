@@ -40,10 +40,10 @@ Template.fleetrMap.helpers
     selectedVehicle = Vehicles.findOne {_id: t.data.vehicleId},
       fields: trip: 1
     map = t.map
-    path = selectedVehicle?.trip?.path or []
-    path = _.sortBy path, (p) -> p.time
-    map?.removeCurrentPath()
-    map?.renderPath path
+    if selectedVehicle?.trip?.id
+      path = Logbook.find({'attributes.trip': selectedVehicle?.trip?.id}, {sort: recordTime: 1}).fetch()
+      map?.removeCurrentPath()
+      map?.renderPath path
     ''
 
   infoMarkers: ->
