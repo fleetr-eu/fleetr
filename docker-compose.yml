@@ -10,3 +10,14 @@ web:
    - MONGO_URL=mongodb://traccar:27017/admin
    - MONGO_OPLOG_URL=mongodb://traccar:27017/local?authSource=admin
    - 'METEOR_SETTINGS={"mqttUrl" : "mqtt://traccar:10028"}'
+
+logspout:
+  image: ictu/logspout
+  restart: unless-stopped
+  hostname: logspout
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  extra_hosts:
+    - "elk:192.168.40.70"
+  environment:
+    ROUTE_URIS: logstash://elk:5454
