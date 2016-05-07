@@ -9,7 +9,7 @@ web:
    - ROOT_URL=http://fleetr.eu
    - MONGO_URL=mongodb://traccar:27017/admin
    - MONGO_OPLOG_URL=mongodb://traccar:27017/local?authSource=admin
-   - 'METEOR_SETTINGS={"mqttUrl" : "mqtt://traccar:10028"}'
+   - 'METEOR_SETTINGS={"mqttUrl" : "mqtt://traccar:10028", "mqttClientId": "fleetr@prod"}'
 
 logspout:
   image: ictu/logspout
