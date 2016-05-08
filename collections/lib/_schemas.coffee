@@ -341,18 +341,7 @@ Schema.expenseGroups = new SimpleSchema
     type: String, optional: true, label: ()->TAPi18n.__('expenseGroups.description')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  fines:
-    type: Boolean, label: ()->TAPi18n.__('expenseGroups.fines')
-    optional: true
-    autoform:
-      type: 'bootstrap-switch'
-      afFieldInput:
-        switchOptions:
-          size: 'normal'
-          onColor: 'success'
-          onText: ()->TAPi18n.__('general.yes')
-          offText: ()->TAPi18n.__('general.no')
-      template: "bootstrap3-horizontal", leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  
 
 Schema.expenseTypes = new SimpleSchema
   _id:
@@ -365,6 +354,30 @@ Schema.expenseTypes = new SimpleSchema
     type: String, label: ()->TAPi18n.__('expenseTypes.unitOfMeasure')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  fuels:
+    type: Boolean, label: ()->TAPi18n.__('expenseTypes.fuels')
+    optional: true
+    autoform:
+      type: 'bootstrap-switch'
+      afFieldInput:
+        switchOptions:
+          size: 'normal'
+          onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
+      template: "bootstrap3-horizontal", leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
+  fines:
+    type: Boolean, label: ()->TAPi18n.__('expenseTypes.fines')
+    optional: true
+    autoform:
+      type: 'bootstrap-switch'
+      afFieldInput:
+        switchOptions:
+          size: 'normal'
+          onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
+      template: "bootstrap3-horizontal", leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
   description:
     type: String, optional: true, label: ()->TAPi18n.__('expenseTypes.description')
     autoform:

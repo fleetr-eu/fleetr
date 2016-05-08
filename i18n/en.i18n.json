@@ -186,7 +186,6 @@
   "expenseGroups": {
     "title" :"Expense Group",
     "listTitle" : "Expense Groups",
-    "name" : "Name",
     "fines" : "Fines",
     "description" : "Description",
     "deleteMessage": "Are you certain you want to delete this Expense Group?"
@@ -205,6 +204,8 @@
     "listTitle" : "Expense Types",
     "name" : "Name",
     "unitOfMeasure":"Unit of measure",
+    "name" : "Name",
+    "fuels" : "Fuels",
     "description" : "Description",
     "deleteMessage": "Are you certain you want to delete this Expense Type?"
   },
