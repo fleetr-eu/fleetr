@@ -14,8 +14,11 @@ updateVehicle = (v, rec, updater, cb) ->
   insertRecord: (record) ->
     Partitioner.directOperation ->
       v = Vehicles.findOne {unitId: record.deviceId}
-      if v and not record.odometer
-        record.odometer = (v.odometer or 0) + (record.distance or 0)
+
+      record.odometer = if record?.attributes?.odometer
+        record.attributes.odometer
+      else
+        (v.odometer or 0) + (record.distance or 0)
 
       if typeof record.recordTime is 'string'
         record.recordTime = new Date(record.recordTime)
@@ -31,10 +34,7 @@ updateVehicle = (v, rec, updater, cb) ->
         lng: record.lng
         loc: record.loc
         address: record.address
-        odometer: if v.odometer
-          v.odometer + (record.distance + 0)
-        else
-          record.odometer or record.distance
+        odometer: record.odometer
         state: record.state
         idleTime: record.idleTime
         restTime: record.restTime
