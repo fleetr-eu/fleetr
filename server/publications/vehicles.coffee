@@ -39,5 +39,9 @@ Meteor.publish 'vehicles', (filter = {}, opts = {}) ->
   Vehicles.find filter, opts
 Meteor.publish 'vehicle', (filter) ->
   if filter then Vehicles.find(filter) else []
-Meteor.publish '/vehicles/list', ->
-  Vehicles.find {}, opts
+Meteor.publish 'vehicles/list', ->
+  Vehicles.find {}
+Meteor.publish 'vehicle/history', (vehicleId) ->
+  if v = Vehicles.findOne(_id: vehicleId)
+    VehicleHistory.find {deviceId: v.unitId}, {sort: date: -1}
+  else []

@@ -69,7 +69,7 @@ Meteor.startup ->
       template: 'vehicles'
       data: -> fleetName: @params.fleetName
       waitOn: -> [
-        Meteor.subscribe('/vehicles/list')
+        Meteor.subscribe('vehicles/list')
         Meteor.subscribe('fleetsForVehicleList')
         Meteor.subscribe('drivers')
       ]
@@ -214,7 +214,10 @@ Meteor.startup ->
     @route 'vehicleHistory',
       path: '/vehicles/:vehicleId/history'
       template: 'logbook'
-      waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
+      waitOn: -> [
+        Meteor.subscribe('vehicle', _id: @params.vehicleId)
+        Meteor.subscribe('vehicle/history', @params.vehicleId)
+      ]
       data: ->
         'vehicle': Vehicles.findOne {_id: @params.vehicleId},
           fields:

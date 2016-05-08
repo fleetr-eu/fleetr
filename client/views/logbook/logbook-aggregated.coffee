@@ -1,13 +1,15 @@
+Template.logbook.onRendered ->
+  Meteor.call 'vehicle/history', @data.vehicle.unitId
+
 Template.logbook.helpers
   vehicleName: -> Template.instance().data.vehicle.name
   fleetrGridConfig: ->
-    remoteMethod: "aggregateLogbook"
-    remoteMethodParams: Template.instance().data.vehicle.unitId
+    cursor: VehicleHistory.find {deviceId: Template.instance().data.vehicle.unitId}, {sort: date: -1}
     pagination: true
     columns: [
       id: 'date'
       name: 'Дата'
-      field: '_id'
+      field: 'date'
       width: 80
     ,
       id: 'Odometer'
@@ -32,13 +34,10 @@ Template.logbook.helpers
       formatter: (row, cell, value) -> Math.round value
       width: 80
     ]
-    # customize: (grid) ->
-    #   grid.setColumnFilterValue {id: 'deviceId'}, 7660420
     options:
       multiColumnSort: true
       enableCellNavigation: false
       enableColumnReorder: false
-      # showHeaderRow: true
       explicitInitialization: true
       forceFitColumns: true
       rowHeight: 30

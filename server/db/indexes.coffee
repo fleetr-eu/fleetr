@@ -12,3 +12,7 @@ Meteor.startup ->
   Logbook._ensureIndex
     deviceId: 1
     recordTime: 1
+
+  VehicleHistory._ensureIndex
+    deviceId: 1
+    date: 1
