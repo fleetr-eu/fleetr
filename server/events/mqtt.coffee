@@ -9,6 +9,10 @@ Meteor.startup ->
   else
     clientId: Meteor.settings.mqttClientId or 'fleetr_eu'
   mqttUrl = Meteor.settings.mqttUrl || 'mqtt://mqtt:1883'
+
+  opts = _.extend opts,
+    clean: false
+
   console.log "MQTT: URL #{mqttUrl}, options #{EJSON.stringify opts}"
   client = mqtt.connect mqttUrl, opts
 
@@ -33,7 +37,7 @@ Meteor.startup ->
 
     if _topic is '/fleetr/traccar-records'
       Fiber(-> TraccarLogbookProcessor.insertRecord(record)).run()
-    else  
+    else
       isEven = (n) -> (n % 2) is 0
       isOdd = (n) -> not isEven(n)
 
