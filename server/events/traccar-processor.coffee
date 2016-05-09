@@ -18,7 +18,7 @@ updateVehicle = (v, rec, updater, cb) ->
       record.odometer = if record?.attributes?.odometer
         record.attributes.odometer
       else
-        (v.odometer or 0) + (record.distance or 0)
+        (v?.odometer or 0) + (record?.distance or 0)
 
       if typeof record.recordTime is 'string'
         record.recordTime = new Date(record.recordTime)
