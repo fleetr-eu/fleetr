@@ -22,7 +22,7 @@ Meteor.startup ->
   client.on 'connect', ->
     console.log 'MQTT CONNECTED OK'
     #subscribe at QoS level 2
-    client.subscribe '/fleetr/records': 2, '/fleetr/traccar-records': 2, (err, granted) ->
+    client.subscribe '/fleetr/traccar-records': 2, (err, granted) ->
       if err
         console.log "MQTT ERROR: #{err}"
       else
