@@ -22,7 +22,7 @@ updateVehicle = (v, rec, updater, cb) ->
 
       if typeof record.recordTime is 'string'
         record.recordTime = new Date(record.recordTime)
-      Logbook.insert record, ->
+      Logbook.upsert {deviceId: record.deviceId, recordTime: record.recordTime}, {$set: record}, ->
         console.log """Inserted logbook record:
           #{EJSON.stringify record}
         """

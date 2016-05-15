@@ -10,8 +10,8 @@ Meteor.startup ->
     clientId: Meteor.settings.mqttClientId or 'fleetr_eu'
   mqttUrl = Meteor.settings.mqttUrl || 'mqtt://mqtt:1883'
 
-  opts = _.extend opts,
-    reconnectPeriod: 5000
+  # opts = _.extend opts,
+  #   reconnectPeriod: 5000
 
   console.log "MQTT: URL #{mqttUrl}, options #{EJSON.stringify opts}"
   client = mqtt.connect mqttUrl, opts
@@ -21,8 +21,8 @@ Meteor.startup ->
 
   client.on 'connect', ->
     console.log 'MQTT CONNECTED OK'
-    #subscribe at QoS level 2
-    client.subscribe '/fleetr/traccar-records': 2, (err, granted) ->
+    #subscribe at QoS level 1
+    client.subscribe '/fleetr/traccar-records': 1, (err, granted) ->
       if err
         console.log "MQTT ERROR: #{err}"
       else
