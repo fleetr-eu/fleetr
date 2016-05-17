@@ -39,17 +39,12 @@ Template.logbook2.onCreated ->
   Session.set 'selectedVehicleId', vid
   Session.set 'logbookDateFilterPeriod', 'week'
 
-  @autorun ->
-    since = moment().startOf(Session.get('logbookDateFilterPeriod')).toDate()
-    Meteor.subscribe 'tripsOfVehicle', vid, since
-
 Template.logbook2.helpers
-  vehicleName: ->
-    v = Vehicles.findOne(_id: Template.instance().data.vehicleId)
-    "#{v.name} (#{v.licensePlate})"
+  vehicle: -> Vehicles.findOne(_id: Template.instance().data.vehicleId)
   filterOptions: -> vehicleDisplayStyle: 'none'
   selectedVehicleId: -> Session.get('selectedVehicleId')
   showFilterBox: -> showFilterBox.get()
+  timeRange: -> console.log Session.get 'logbookDateFilterPeriod'; Session.get 'logbookDateFilterPeriod'
 
   filterVehiclesGridConfig: ->
     columns: [
@@ -102,11 +97,10 @@ Template.logbook2.helpers
 
     cursor: Vehicles.find {}, sort: name: 1
 
+Template.logbookGrid.helpers
   fleetrGridConfig: ->
-    v = Vehicles.findOne(_id: Template.instance().data.vehicleId)
-
-    remoteMethod: "aggregateTrips"
-    remoteMethodParams: v.unitId
+    remoteMethod: 'vehicle/trips'
+    remoteMethodParams: Template.instance().data
     columns: [
       id: "date"
       field: "date"

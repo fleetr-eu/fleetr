@@ -5,7 +5,7 @@
             <div class="portlet-title">
               <div class="caption" id="fleets">
                   <div class="caption-subject">
-                    <h1 class="page-title">Журнал за {{vehicleName}}</h1>
+                    <h1 class="page-title">Журнал за {{vehicle.name}} {{vehicle.licensePlate}}</h1>
                   </div>
               </div>
               <div class="actions">
@@ -38,7 +38,7 @@
                 </div>
                  <div class="col-md-12">
                    <section class="content logbook-grid">
-                     {{> fleetrReportGrid id="logbookGrid" config=fleetrGridConfig }}
+										 {{> logbookGrid timeRange=timeRange deviceId=vehicle.unitId}}
                    </section>
                  </div>
                </div>
@@ -46,4 +46,8 @@
          </div>
        </div>
      </div>
+</template>
+
+<template name="logbookGrid">
+	{{> fleetrReportGrid id="logbookGrid" config=fleetrGridConfig}}
 </template>

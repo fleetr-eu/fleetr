@@ -10,9 +10,6 @@ Meteor.startup ->
     clientId: Meteor.settings.mqttClientId or 'fleetr_eu'
   mqttUrl = Meteor.settings.mqttUrl || 'mqtt://mqtt:1883'
 
-  # opts = _.extend opts,
-  #   reconnectPeriod: 5000
-
   console.log "MQTT: URL #{mqttUrl}, options #{EJSON.stringify opts}"
   client = mqtt.connect mqttUrl, opts
 
