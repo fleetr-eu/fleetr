@@ -13,30 +13,36 @@ updateVehicle = (v, rec, updater, cb) ->
 @TraccarLogbookProcessor =
   insertRecord: (record) ->
     Partitioner.directOperation ->
-      v = Vehicles.findOne {unitId: record.deviceId}
-
-      record.odometer = if record?.attributes?.odometer
-        record.attributes.odometer
+      existing =
+        deviceId: record.deviceId
+        recordTime: record.recordTime
+      if Logbook.find existing
+        console.warn 'Duplicate record received:', existing
       else
-        (v?.odometer or 0) + (record?.distance or 0)
+        v = Vehicles.findOne {unitId: record.deviceId}
 
-      if typeof record.recordTime is 'string'
-        record.recordTime = new Date(record.recordTime)
-      Logbook.upsert {deviceId: record.deviceId, recordTime: record.recordTime}, {$set: record}, ->
-        console.log """Inserted logbook record:
-          #{EJSON.stringify record}
-        """
+        record.odometer = if record?.attributes?.odometer
+          record.attributes.odometer
+        else
+          (v?.odometer or 0) + (record?.distance or 0)
 
-      updateVehicle v, record, ->
-        'trip.id': record.attributes?.trip
-        lastUpdate: record.recordTime
-        lat: record.lat
-        lng: record.lng
-        loc: record.loc
-        address: record.address
-        odometer: record.odometer
-        state: record.state
-        idleTime: record.idleTime
-        restTime: record.restTime
-        speed: record.speed
-        course: Math.round(record.course)
+        if typeof record.recordTime is 'string'
+          record.recordTime = new Date(record.recordTime)
+        Logbook.insert record, ->
+          console.log """Inserted logbook record:
+            #{EJSON.stringify record}
+          """
+
+        updateVehicle v, record, ->
+          'trip.id': record.attributes?.trip
+          lastUpdate: record.recordTime
+          lat: record.lat
+          lng: record.lng
+          loc: record.loc
+          address: record.address
+          odometer: record.odometer
+          state: record.state
+          idleTime: record.idleTime
+          restTime: record.restTime
+          speed: record.speed
+          course: Math.round(record.course)
