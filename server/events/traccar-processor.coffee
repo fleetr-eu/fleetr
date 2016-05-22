@@ -16,7 +16,7 @@ updateVehicle = (v, rec, updater, cb) ->
       existing =
         deviceId: record.deviceId
         recordTime: record.recordTime
-      if Logbook.find existing
+      if Logbook.findOne(existing)
         console.warn 'Duplicate record received:', existing
       else
         v = Vehicles.findOne {unitId: record.deviceId}
