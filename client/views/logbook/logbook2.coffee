@@ -37,7 +37,7 @@ Template.logbook2.events
 Template.logbook2.onCreated ->
   vid = Template.instance().data.vehicleId
   Session.set 'selectedVehicleId', vid
-  Session.set 'logbookDateFilterPeriod', 'week'
+  Session.set 'logbookDateFilterPeriod', 'year'
 
 Template.logbook2.helpers
   vehicle: -> Vehicles.findOne(_id: Template.instance().data.vehicleId)
