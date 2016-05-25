@@ -1,6 +1,9 @@
 Meteor.methods
   'vehicle/history': (deviceId) ->
     @unblock
+    VehicleHistory.update {deviceId: deviceId}, {$set: expenses: {}}, {multi: true}
+
+    data = {}
     odometer =
       [
         {$match: deviceId: deviceId}
@@ -18,20 +21,16 @@ Meteor.methods
     Logbook.aggregate(odometer).map (r) ->
       r.date = moment([r._id.year, r._id.month - 1, r._id.day]).format('YYYY-MM-DD')
       r.deviceId = deviceId
-      r.total = 0
-      r.totalVATIncluded = 0
+      r.expenses = {}
       delete r._id
-      VehicleHistory.upsert {deviceId: deviceId, date: r.date}, {$set: r}
+      data[r.date] = r
 
-
-    fuelTypes = _.pluck(ExpenseTypes.find({fuels: true}, {fields: _id: 1}).fetch(), '_id')
-    fineTypes = _.pluck(ExpenseTypes.find({fines: true}, {fields: _id: 1}).fetch(), '_id')
-
-    fuelExpenses =
+    expensesPipeline = (query) ->
+      types = _.pluck(ExpenseTypes.find(query, {fields: _id: 1}).fetch(), '_id')
       [
         {$match:
           vehicle: Vehicles.findOne(unitId: deviceId)._id
-          expenseType: $in: fuelTypes
+          expenseType: $in: types
         }
         {$group:
           _id:
@@ -41,10 +40,20 @@ Meteor.methods
           totalVATIncluded: $sum: "$totalVATIncluded"
         }
       ]
-    Expenses.aggregate(fuelExpenses).map (r) ->
+
+    createExpenses = (type) -> (r) ->
       date = moment(r._id.date).format('YYYY-MM-DD')
-      VehicleHistory.update {deviceId: deviceId, date: date}, $set: expenses: fuels:
-        _.pick(r, 'total', 'totalVATIncluded')
+      exp = _.pick(r, 'total', 'totalVATIncluded')
+      if data[date]
+        data[date].expenses[type] = exp
+      else
+        VehicleHistory.update {deviceId: deviceId, date: date}, $set:
+          "expenses.#{type}": exp
+    Expenses.aggregate(expensesPipeline({fuels: true})).map createExpenses('fuels')
+    Expenses.aggregate(expensesPipeline({fines: true})).map createExpenses('fines')
+
+    for date, record of data
+      VehicleHistory.upsert {deviceId: deviceId, date: date}, {$set: record}
 
 
   'vehicle/trips': (filter, aggParams) ->

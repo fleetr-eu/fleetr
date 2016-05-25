@@ -44,12 +44,22 @@ Template.logbook.helpers
       formatter: (row, cell, value, column, rowObject) ->
         # total = if value?.fuels?.total then Math.round value?.fuels?.total else ''
         totalVATIncluded = if value?.fuels?.totalVATIncluded
-          "#{value.fuels.totalVATIncluded.toFixed(2)}"
+          value.fuels.totalVATIncluded.toFixed(2)
         else ''
         per100km = if rowObject.distance and value?.fuels?.totalVATIncluded
           " / #{(value.fuels.totalVATIncluded / (rowObject.distance / 100000)).toFixed(2)}"
         else ''
         "#{totalVATIncluded}#{per100km}"
+      width: 80
+    ,
+      id: 'fineExpenses'
+      name: 'Разходи от глоби (лв с ДДС)'
+      field: 'expenses'
+      align: 'right'
+      formatter: (row, cell, value, column, rowObject) ->
+        if value?.fines?.totalVATIncluded
+          value.fines.totalVATIncluded.toFixed(2)
+        else ''
       width: 80
     ]
     options:
