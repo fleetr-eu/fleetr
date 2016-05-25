@@ -1,7 +1,7 @@
 Meteor.methods
   'vehicle/history': (deviceId) ->
     @unblock
-    pipeline =
+    odometer =
       [
         {$match: deviceId: deviceId}
         {$group:
@@ -15,11 +15,31 @@ Meteor.methods
           maxSpeed: $max: "$speed"
         }
       ]
-    Logbook.aggregate(pipeline).map (r) ->
+    Logbook.aggregate(odometer).map (r) ->
       r.date = moment([r._id.year, r._id.month - 1, r._id.day]).format('YYYY-MM-DD')
-      r.deviceId = r._id.deviceId
+      r.deviceId = deviceId
+      r.total = 0
+      r.totalVATIncluded = 0
       delete r._id
-      VehicleHistory.upsert {deviceId: r.deviceId, date: r.date}, {$set: r}
+      VehicleHistory.upsert {deviceId: deviceId, date: r.date}, {$set: r}
+
+    expenses =
+      [
+        {$match: vehicle: Vehicles.findOne(unitId: deviceId)._id}
+        {$group:
+          _id:
+            vehicleId: "$vehicle"
+            date: "$date"
+          total: $sum: "$total"
+          totalVATIncluded: $sum: "$totalVATIncluded"
+        }
+      ]
+    Expenses.aggregate(expenses).map (r) ->
+      date = moment(r._id.date).format('YYYY-MM-DD')
+      console.log 'expenses date', date, r._id.date
+      VehicleHistory.update {deviceId: deviceId, date: date}, $set:
+        _.pick(r, 'total', 'totalVATIncluded')
+
 
   'vehicle/trips': (filter, aggParams) ->
     pipeline =

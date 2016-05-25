@@ -33,6 +33,18 @@ Template.logbook.helpers
       align: 'right'
       formatter: (row, cell, value) -> Math.round value
       width: 80
+    ,
+      id: 'total'
+      name: 'Разходи / с ДДС (лв)'
+      field: 'total'
+      align: 'right'
+      formatter: (row, cell, value, column, rowObject) ->
+        total = if value then Math.round value else ''
+        totalVATIncluded = if rowObject.totalVATIncluded
+          " / #{Math.round rowObject.totalVATIncluded}"
+        else ''
+        "#{total}#{totalVATIncluded}"
+      width: 80
     ]
     options:
       multiColumnSort: true
