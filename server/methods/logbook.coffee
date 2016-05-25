@@ -23,9 +23,16 @@ Meteor.methods
       delete r._id
       VehicleHistory.upsert {deviceId: deviceId, date: r.date}, {$set: r}
 
-    expenses =
+
+    fuelTypes = _.pluck(ExpenseTypes.find({fuels: true}, {fields: _id: 1}).fetch(), '_id')
+    fineTypes = _.pluck(ExpenseTypes.find({fines: true}, {fields: _id: 1}).fetch(), '_id')
+
+    fuelExpenses =
       [
-        {$match: vehicle: Vehicles.findOne(unitId: deviceId)._id}
+        {$match:
+          vehicle: Vehicles.findOne(unitId: deviceId)._id
+          expenseType: $in: fuelTypes
+        }
         {$group:
           _id:
             vehicleId: "$vehicle"
@@ -34,10 +41,9 @@ Meteor.methods
           totalVATIncluded: $sum: "$totalVATIncluded"
         }
       ]
-    Expenses.aggregate(expenses).map (r) ->
+    Expenses.aggregate(fuelExpenses).map (r) ->
       date = moment(r._id.date).format('YYYY-MM-DD')
-      console.log 'expenses date', date, r._id.date
-      VehicleHistory.update {deviceId: deviceId, date: date}, $set:
+      VehicleHistory.update {deviceId: deviceId, date: date}, $set: expenses: fuels:
         _.pick(r, 'total', 'totalVATIncluded')
 
 
