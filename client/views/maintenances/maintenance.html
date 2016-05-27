@@ -5,12 +5,12 @@
           {{> afFieldInput type="hidden" name="vehicle" value=vehicleId}}
           {{> afFieldInput type="hidden" name="_id" value=_id}}
           {{> afQuickField name="maintenanceType" autofocus=true}}
-          {{> afQuickField name="maintenanceDate" buttonClasses="fa fa-calendar"}}
+          {{> afQuickField name="maintenanceDate"}}
           {{> afQuickField name="odometer"}}
           {{> afQuickField name="engineHours"}}
           <a href="#" class="btn btn-primary btn-get-current pull-right">{{_ "button.getCurrent"}}</a>
           <legend>{{_ "maintenances.nextMaintenance"}}</legend>
-          {{> afQuickField name="nextMaintenanceDate" buttonClasses="fa fa-calendar"}}
+          {{> afQuickField name="nextMaintenanceDate"}}
           {{> afQuickField name="nextMaintenanceOdometer"}}
           {{> afQuickField name="nextMaintenanceEngineHours"}}
           <a href="#" class="btn btn-primary btn-calculate-next pull-right">{{_ "button.calculate"}}</a>

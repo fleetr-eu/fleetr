@@ -413,10 +413,10 @@ Schema.expenses = new SimpleSchema
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   location:
     type:String
-      label: ()->TAPi18n.__('expenses.location')
-      optional: true
-      autoform:
-        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+    label: ()->TAPi18n.__('expenses.location')
+    optional: true
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   odometer:
     type: Number
     decimal:true

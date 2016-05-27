@@ -11,7 +11,7 @@
   unitTimezone: '+0300'
   dpOptions:
     format: "dd.mm.yyyy"
-    language: "bg-BG"
+    language: "bg"
     autoclose: true
     todayHighlight: true
     todayBtn: true
