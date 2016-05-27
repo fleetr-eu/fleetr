@@ -16,4 +16,4 @@
               {label: 'Allocated from',name:'allocatedToFleetFrom'}
             ]
     Countries:
-      icon: 'flag'
+      icon: 'flag' 
