@@ -10,6 +10,17 @@ updateVehicle = (v, rec, updater, cb) ->
   else
     console.log "No vehicle found for unit id #{rec.deviceId}"
 
+updateTyres = (v, distance, cb) ->
+  if v
+    console.log "Updating tyres for vehicle #{v._id}"
+    Tyres.update {vehicle: v._id, active: true}, {$inc: {usedKm: distance}}, {multi: true}, (err) ->
+      if err
+        console.error "Failed updating tyres of vehicle #{v._id}! #{err}"
+      else
+        cb?(v)
+  else
+    console.log "No vehicle found for unit id #{rec.deviceId}"    
+
 @TraccarLogbookProcessor =
   insertRecord: (record) ->
     Partitioner.directOperation ->
@@ -47,3 +58,5 @@ updateVehicle = (v, rec, updater, cb) ->
           restTime: record.attributes?.restTime
           speed: record.speed
           course: Math.round(record.course)
+
+        updateTyres v, (record?.distance or 0)

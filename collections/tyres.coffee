@@ -37,6 +37,20 @@ Tyres.attachSchema new SimpleSchema
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7"
+  usedKm:
+    type: Number
+    optional: true
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"
+  changeKm:
+    type: Number
+    optional: true
+    autoform:
+      template: "bootstrap3-horizontal"
+      "label-class": "col-sm-5"
+      "input-col-class": "col-sm-7"          
   active:
     type: Boolean
     autoform:

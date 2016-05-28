@@ -31,7 +31,6 @@ Schema.alarms = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 
-
 Schema.customEvents = new SimpleSchema
   _id:
     type: String, optional: true
@@ -342,7 +341,6 @@ Schema.expenseGroups = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   
-
 Schema.expenseTypes = new SimpleSchema
   _id:
     type: String, optional: true
