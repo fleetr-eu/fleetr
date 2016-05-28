@@ -10,10 +10,6 @@ Template.simpleMap.onRendered ->
   @map = FleetrMap.currentMap().map
 
   if idle
-    searchArgs =
-      startTime: start.time
-      stopTime: stop.time
-      deviceId: deviceId
     Meteor.subscribe 'idlebook', searchArgs, ->
       idleRec = IdleBook.findOne searchArgs
       if idleRec
@@ -26,19 +22,24 @@ Template.simpleMap.onRendered ->
           position: pos
           icon: '/images/truck-blue.png'
   else
-    bounds = new google.maps.LatLngBounds()
-    [_.extend(start, {title: 'Start', icon: '/images/icons/start.png'}),
-    _.extend(stop, {title: 'Stop', icon: '/images/icons/finish.png'})].forEach (point) =>
-      new google.maps.Marker _.extend(point, {map: @map})
-      bounds.extend new google.maps.LatLng(point.position.lat, point.position.lng)
-    @map.fitBounds bounds
-
-    searchArgs =
+    searchArgs = if tripId
       'attributes.trip': tripId
+    else
+      recordTime:
+        $gte: start.time
+        $lte: stop.time
+      deviceId: deviceId
 
+    bounds = new google.maps.LatLngBounds()
     Meteor.subscribe 'logbook', searchArgs, =>
       @path = Logbook.find(searchArgs, {sort: recordTime: 1}).map (point) ->
         _.pick point, 'lat', 'lng', 'speed', 'odometer', 'time'
+      [start, ..., stop] = @path
+      [_.extend(start, {title: 'Start', icon: '/images/icons/start.png'}),
+      _.extend(stop, {title: 'Stop', icon: '/images/icons/finish.png'})].forEach (point) =>
+        new google.maps.Marker _.extend(point, {map: @map})
+        bounds.extend new google.maps.LatLng(point.lat, point.lng)
+      @map.fitBounds bounds
       FleetrMap.currentMap().renderPath @path
 
 Template.simpleMap.helpers
