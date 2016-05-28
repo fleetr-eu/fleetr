@@ -14,9 +14,9 @@ Template.vehicleFilter.onRendered ->
     @subscribe 'fleets', if groupId then parent: groupId else {}
     fleetId = @selectedFleetId.get()
     vehiclesFilter = if fleetId
-        allocatedToFleet: fleetId
-      else
-        allocatedToFleet: $in: _.pluck(Fleets.find().fetch(), '_id')
+      allocatedToFleet: fleetId
+    else
+      allocatedToFleet: $in: _.pluck(Fleets.find().fetch(), '_id')
     if filter = Session.get(@data.filterVar)?.trim()
       rx =
         $regex: filter
@@ -36,9 +36,9 @@ Template.vehicleFilter.helpers
   vehicles: ->
     fleetId = Template.instance().selectedFleetId.get()
     filter = if fleetId
-        allocatedToFleet: fleetId
-      else
-        allocatedToFleet: $in: _.pluck(Fleets.find().fetch(), '_id')
+      allocatedToFleet: fleetId
+    else
+      allocatedToFleet: $in: _.pluck(Fleets.find().fetch(), '_id')
     Vehicles.find filter, sortByName
   active: -> if @_id is Session.get(Template.instance().data.selectedVehicleIdVar) then 'active' else ''
   tags: -> @tags?.split(",") || []

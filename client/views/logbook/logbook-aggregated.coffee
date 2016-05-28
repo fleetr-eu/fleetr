@@ -61,6 +61,24 @@ Template.logbook.helpers
           value.fines.totalVATIncluded.toFixed(2)
         else ''
       width: 80
+    ,
+      id: 'simpleMapLink'
+      field: 'date'
+      name: 'М'
+      maxWidth: 31
+      align: 'center'
+      formatter: (row, cell, value, column, rowObject) ->
+        m = moment value
+        q = encodeURIComponent EJSON.stringify
+          deviceId: rowObject.deviceId
+          start: time: m.startOf('day').valueOf()
+          stop: time: m.endOf('day').valueOf()
+
+        """
+        <a href='/map/#{q}'>
+          <img src='/images/Google-Maps-icon.png' height='22'/>
+        </a>
+        """
     ]
     options:
       multiColumnSort: true

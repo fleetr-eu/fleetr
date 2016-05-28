@@ -9,7 +9,7 @@ Template.tyres.helpers
         id: "active"
         field: "active"
         name: TAPi18n.__ 'tyre.active'
-        width:20
+        width:5
         sortable: true
         search: false
         align: 'center'
@@ -22,6 +22,13 @@ Template.tyres.helpers
         sortable: true
         search: where: 'client'
       ,
+        id: "brand"
+        field: "brand"
+        name: TAPi18n.__ 'tyre.brand'
+        width:20
+        sortable: true
+        search: where: 'client'
+      ,  
         id: "width"
         field: "width"
         name: TAPi18n.__ 'tyre.width'
@@ -55,7 +62,21 @@ Template.tyres.helpers
         name: TAPi18n.__ 'tyre.speedIndex'
         width:20
         sortable: true
-        search: where: 'client',
+        search: where: 'client'
+      ,
+        id: "usedKm"
+        field: "usedKm"
+        name: TAPi18n.__ 'tyre.usedKm'
+        width:20
+        sortable: true
+        search: where: 'client'
+      ,
+        id: "changeKm"
+        field: "changeKm"
+        name: TAPi18n.__ 'tyre.changeKm'
+        width:20
+        sortable: true
+        search: where: 'client'    
       ]
       options:
         enableCellNavigation: true

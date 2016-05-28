@@ -173,12 +173,15 @@
   "tyre": {
     "title" : "Tyre",
     "listTitle" : "Tyres",
+    "brand" : "Brand",
     "width" : "Width",
     "height" : "Height",
     "innerDiameter" : "Inner diameter",
     "loadIndex" : "Load index",
     "speedIndex" : "Speed index",
     "vehicle" : "Vehicle",
+    "usedKm" : "Used km",
+    "chnageKm" : "Change km",
     "active" : "Active",
     "deleteMessage": "Are you certain you want to delete this Tyre?"
   },
