@@ -42,7 +42,8 @@ updateVehicle = (v, rec, updater, cb) ->
           address: record.address
           odometer: record.odometer
           state: record.state
-          idleTime: record.idleTime
-          restTime: record.restTime
+          tripTime: record.attributes?.tripTime
+          idleTime: record.attributes?.idleTime
+          restTime: record.attributes?.restTime
           speed: record.speed
           course: Math.round(record.course)

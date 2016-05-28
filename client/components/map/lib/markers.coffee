@@ -74,11 +74,18 @@ Meteor.startup ->
   class @FleetrInfoWindow extends google.maps.InfoWindow
     constructor: (vehicle) ->
       vehicle = vehicle || Vehicles.findOne(_id: Session.get('selectedVehicleId'))
+      tripTime = vehicle.tripTime
+      idleTime = vehicle.idleTime
+      restTime = vehicle.restTime
+      console.log vehicle
+      console.log "tripTime="+tripTime+", idleTime="+idleTime+", restTime="+restTime
       driver = Drivers.findOne(_id: vehicle?.driver_id)
       driverName = if driver then "#{driver.firstName} #{driver.name}" else ""
-      speed = vehicle.speed?.toFixed(2) || 'Unknown'
+      speed = vehicle.speed?.toFixed(2) || 0
       km = (vehicle.odometer / 1000)?.toFixed(0) || 'Unknown'
-      stayText = if (vehicle.state is "stop") then "Престой: #{moment.duration(location.stay,'seconds').humanize()}" else ""
+      restText = if (vehicle.state is "stop") then "Престой: #{moment.duration(restTime,'milliseconds')}" else ""
+      idleText = if (vehicle.state is "start") and (speed < Settings.minSpeed) then "На място: #{moment.duration(vehicle.idleime,'milliseconds')}" else ""
+      tripText = if (vehicle.state is "start") and (speed >= Settings.minSpeed) then "В движение: #{moment.duration(vehicle.tripTime,'milliseconds')}" else ""
       super
         content: """
                 <div style='width:11em;'>
@@ -87,7 +94,9 @@ Meteor.startup ->
                   Шофьор: #{driverName}<br/>
                   Скорост: #{speed} км/ч<br/>
                   Километраж: #{km} км<br/>
-                  #{stayText}
+                  #{tripText}
+                  #{idleText}
+                  #{restText}
                   </p>
                 </div>"""
 
@@ -99,6 +108,7 @@ Meteor.startup ->
                   <p>Дата, час: #{moment(data.time).format('DD-MM-YYYY, HH:mm:ss')}<br/>
                   Скорост: #{data.speed} км/ч<br/>
                   Километраж: #{data.distance} км</p>
+                  #{tripText}
                 """
 
   class @InfoMarker extends google.maps.Marker
