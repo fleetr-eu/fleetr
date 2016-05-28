@@ -3,7 +3,7 @@ Template.simpleMap.onCreated ->
   Session.set 'simpleMapShowInfoMarkers', false
 
 Template.simpleMap.onRendered ->
-  {deviceId, tripId, start, stop, idle} =  EJSON.parse decodeURIComponent @data
+  {deviceId, tripId, start, stop, idle} = EJSON.parse decodeURIComponent @data
   start.time = moment(start.time).toDate()
   stop.time = moment(stop.time).toDate()
 
@@ -33,16 +33,24 @@ Template.simpleMap.onRendered ->
     bounds = new google.maps.LatLngBounds()
     Meteor.subscribe 'logbook', searchArgs, =>
       @path = Logbook.find(searchArgs, {sort: recordTime: 1}).map (point) ->
-        _.pick point, 'lat', 'lng', 'speed', 'odometer', 'time'
-      [start, ..., stop] = @path
-      [_.extend(start, {title: 'Start', icon: '/images/icons/start.png'}),
-      _.extend(stop, {title: 'Stop', icon: '/images/icons/finish.png'})].forEach (point) =>
-        new google.maps.Marker _.extend(point, {map: @map})
         bounds.extend new google.maps.LatLng(point.lat, point.lng)
+        _.pick point, 'lat', 'lng', 'speed', 'odometer', 'time'
       @map.fitBounds bounds
+
+      [start, ..., stop] = @path
+      [_.extend({}, start, {title: 'Start', icon: '/images/icons/start.png'}),
+      _.extend({}, stop, {title: 'Stop', icon: '/images/icons/finish.png'})].forEach (point) =>
+        position =
+          lat: point.lat
+          lng: point.lng
+        marker = _.extend({position: position}, point, {map: @map})
+        console.log 'marker', marker
+        new google.maps.Marker marker
       FleetrMap.currentMap().renderPath @path
 
 Template.simpleMap.helpers
   vehicle: ->
     data = JSON.parse Template.instance().data
     Vehicles.findOne unitId: data.deviceId
+  data: ->
+    JSON.parse Template.instance().data
