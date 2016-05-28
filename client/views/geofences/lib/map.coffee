@@ -20,7 +20,7 @@ Meteor.startup ->
       navigator.geolocation.getCurrentPosition @setup(cb), @setup(cb)
 
     setup: (cb) -> (position) =>
-      position ?= {coords: {latitude: 42.6959214, longitude: 23.3198662}}
+      position.coords ?= {latitude: 42.6959214, longitude: 23.3198662}
       @options.center = lat: position.coords.latitude, lng: position.coords.longitude
       @map = new google.maps.Map document.getElementById("map-canvas"), @options
 
