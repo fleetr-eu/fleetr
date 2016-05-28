@@ -94,6 +94,9 @@ Meteor.startup ->
             course: 1
             courseCorrection: 1
             driver_id: 1
+            tripTime: 1
+            idleTime: 1
+            restTime: 1
         .observe
           added: (v) => @addVehicleMarker v
           removed: (v) => @removeVehicleMarker v
