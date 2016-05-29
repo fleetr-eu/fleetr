@@ -108,7 +108,6 @@ Meteor.startup ->
                   <p>Дата, час: #{moment(data.time).format('DD-MM-YYYY, HH:mm:ss')}<br/>
                   Скорост: #{data.speed} км/ч<br/>
                   Километраж: #{data.distance} км</p>
-                  #{tripText}
                 """
 
   class @InfoMarker extends google.maps.Marker
