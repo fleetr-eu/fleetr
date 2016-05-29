@@ -42,6 +42,9 @@ updateTyres = (v, distance, cb) ->
 
         if typeof record.recordTime is 'string'
           record.recordTime = new Date(record.recordTime)
+
+        record.speed = knotsToKph(record.speed)
+        record.maxSpeed = knotsToKph(record.maxSpeed)
         Logbook.insert record, ->
           console.log """Inserted logbook record:
             #{EJSON.stringify record}
@@ -59,7 +62,7 @@ updateTyres = (v, distance, cb) ->
           tripTime: record.attributes?.tripTime
           idleTime: record.attributes?.idleTime
           restTime: record.attributes?.restTime
-          speed: knotsToKph(record.speed)
+          speed: record.speed
           course: Math.round(record.course)
 
         updateTyres v, (record?.distance or 0)
