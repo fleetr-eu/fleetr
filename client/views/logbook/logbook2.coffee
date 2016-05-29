@@ -210,12 +210,12 @@ Template.logbookGrid.helpers
           tripId: value
           deviceId: rowObject.deviceId
           start:
-            # time: moment(rowObject.startTime).valueOf()
+            time: moment(rowObject.startTime).valueOf()
             position:
               lat: rowObject.startLat
               lng: rowObject.startLng
           stop:
-            # time: moment(rowObject.stopTime).valueOf()
+            time: moment(rowObject.stopTime).valueOf()
             position:
               lat: rowObject.stopLat
               lng: rowObject.stopLng

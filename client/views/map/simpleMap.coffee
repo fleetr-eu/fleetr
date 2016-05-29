@@ -44,13 +44,18 @@ Template.simpleMap.onRendered ->
           lat: point.lat
           lng: point.lng
         marker = _.extend({position: position}, point, {map: @map})
-        console.log 'marker', marker
         new google.maps.Marker marker
       FleetrMap.currentMap().renderPath @path
 
+formatTime = (time) ->
+  moment(time).format('DD/MM/YYYY, HH:mm:ss')
+
 Template.simpleMap.helpers
-  vehicle: ->
-    data = JSON.parse Template.instance().data
-    Vehicles.findOne unitId: data.deviceId
-  data: ->
+  data: data = ->
     JSON.parse Template.instance().data
+  vehicle: ->
+    Vehicles.findOne unitId: data().deviceId
+  startTime: ->
+    formatTime data().start.time
+  stopTime: ->
+    formatTime data().stop.time
