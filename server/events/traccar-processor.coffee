@@ -1,3 +1,6 @@
+knotsToKph = (speed) ->
+  (speed or 0) * 1.852
+
 updateVehicle = (v, rec, updater, cb) ->
   if v
     update = updater?()
@@ -56,7 +59,7 @@ updateTyres = (v, distance, cb) ->
           tripTime: record.attributes?.tripTime
           idleTime: record.attributes?.idleTime
           restTime: record.attributes?.restTime
-          speed: record.speed
+          speed: knotsToKph(record.speed)
           course: Math.round(record.course)
 
         updateTyres v, (record?.distance or 0)
