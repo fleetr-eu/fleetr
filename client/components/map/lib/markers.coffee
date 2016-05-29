@@ -84,7 +84,7 @@ Meteor.startup ->
       speed = vehicle.speed?.toFixed(2) || 0
       km = (vehicle.odometer / 1000)?.toFixed(0) || 'Unknown'
       restText = if (vehicle.state is "stop") then "Престой: #{moment.duration(restTime,'milliseconds').humanize()}" else ""
-      idleText = if (vehicle.state is "start") and (speed < Settings.minSpeed) then "На място: #{moment.duration(vehicle.idleime,'milliseconds').humanize()}" else ""
+      idleText = if (vehicle.state is "start") and (speed < Settings.minSpeed) then "На място: #{moment.duration(vehicle.idleTime,'milliseconds').humanize()}" else ""
       tripText = if (vehicle.state is "start") and (speed >= Settings.minSpeed) then "В движение: #{moment.duration(vehicle.tripTime,'milliseconds').humanize()}" else ""
       super
         content: """
