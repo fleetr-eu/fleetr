@@ -22,7 +22,7 @@ updateTyres = (v, distance, cb) ->
       else
         cb?(v)
   else
-    console.log "No vehicle found for unit id #{v.unitId}"
+    console.log "No vehicle found while trying to update tyres."
 
 @TraccarLogbookProcessor =
   insertRecord: (record) ->
