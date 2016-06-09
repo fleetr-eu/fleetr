@@ -77,8 +77,6 @@ Meteor.startup ->
       tripTime = vehicle.tripTime
       idleTime = vehicle.idleTime
       restTime = vehicle.restTime
-      console.log vehicle
-      console.log "tripTime="+tripTime+", idleTime="+idleTime+", restTime="+restTime
       driver = Drivers.findOne(_id: vehicle?.driver_id)
       driverName = if driver then "#{driver.firstName} #{driver.name}" else ""
       speed = vehicle.speed?.toFixed(2) || 0

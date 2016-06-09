@@ -32,9 +32,10 @@ Template.simpleMap.onRendered ->
 
     bounds = new google.maps.LatLngBounds()
     Meteor.subscribe 'logbook', searchArgs, =>
+
       @path = Logbook.find(searchArgs, {sort: recordTime: 1}).map (point) ->
         bounds.extend new google.maps.LatLng(point.lat, point.lng)
-        _.pick point, 'lat', 'lng', 'speed', 'odometer', 'time'
+        _.pick point, 'lat', 'lng', 'speed', 'odometer', 'recordTime'
       @map.fitBounds bounds
 
       [start, ..., stop] = @path
