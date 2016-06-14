@@ -223,6 +223,7 @@ Helpers =
         @_blazeCache.views["#{row}:#{col}"] = view
 
   @destroy = ->
+    @cursorHandle.stop() if @cursorHandle?.stop
     Blaze.remove(@_blazeCache.views[key]) for key of @_blazeCache.views
     @_blazeCache.views = {}
     @_blazeCache.templates = {}
@@ -393,13 +394,15 @@ Helpers =
 
     @getItemByRowId = (rowId) => @_dataView.getItem rowId
 
-    if @cursor
-      @cursor.observe
-        added: @addDocument
-        changed: @updateDocument
-        removed: @removeDocument
-
     @_effectuateGroupings()
     @_refreshData() if initializeData
+
+    if @cursor
+      flag = false
+      @cursorHandle = @cursor.observe
+        added: (doc) => @addDocument(doc) if flag
+        changed: (newDoc, oldDoc) => @updateDocument(newDoc, oldDoc) if flag
+        removed: (oldDoc) => @removeDocument(oldDoc) if flag
+      flag = true
 
   @ # return this object
