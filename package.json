@@ -1,0 +1,25 @@
+{
+  "name": "fleetr",
+  "version": "1.0.0",
+  "description": "fleetr",
+  "main": "index.js",
+  "dependencies": {
+    "jquery": "^3.0.0",
+    "meteor-node-stubs": "^0.2.3",
+    "moment": "^2.13.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greyarch/fleetr.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/greyarch/fleetr/issues"
+  },
+  "homepage": "https://github.com/greyarch/fleetr#readme"
+}
