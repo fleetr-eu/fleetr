@@ -1,4 +1,4 @@
-var Index = function () {
+module.exports = function () {
 
     return {
 

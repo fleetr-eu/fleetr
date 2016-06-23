@@ -1,7 +1,7 @@
 /**
 Core script to handle the entire theme and core functions
 **/
-var Metronic = function() {
+module.exports = function() {
 
     // IE mode
     var isRTL = false;
@@ -73,7 +73,7 @@ var Metronic = function() {
                 }
                 resize = setTimeout(function() {
                     _runResizeHandlers();
-                }, 50); // wait 50ms until window resize finishes.                
+                }, 50); // wait 50ms until window resize finishes.
                 currheight = document.documentElement.clientHeight; // store last body client height
             });
         } else {
@@ -109,17 +109,17 @@ var Metronic = function() {
                 $('body').removeClass('page-portlet-fullscreen');
                 portlet.children('.portlet-body').css('height', 'auto');
             } else {
-                var height = Metronic.getViewPort().height - 
-                    portlet.children('.portlet-title').outerHeight() - 
-                    parseInt(portlet.children('.portlet-body').css('padding-top')) - 
+                var height = Metronic.getViewPort().height -
+                    portlet.children('.portlet-title').outerHeight() -
+                    parseInt(portlet.children('.portlet-body').css('padding-top')) -
                     parseInt(portlet.children('.portlet-body').css('padding-bottom'));
-                
+
                 $(this).addClass('on');
                 portlet.addClass('portlet-fullscreen');
-                $('body').addClass('page-portlet-fullscreen');                
+                $('body').addClass('page-portlet-fullscreen');
                 portlet.children('.portlet-body').css('height', height);
             }
-        }); 
+        });
 
         $('body').on('click', '.portlet > .portlet-title > .tools > a.reload', function(e) {
             e.preventDefault();
@@ -257,7 +257,7 @@ var Metronic = function() {
 
     // Handles Bootstrap Modals.
     var handleModals = function() {
-        // fix stackable modal issue: when 2 or more modals opened, closing one of modal will remove .modal-open class. 
+        // fix stackable modal issue: when 2 or more modals opened, closing one of modal will remove .modal-open class.
         $('body').on('hide.bs.modal', function() {
             if ($('.modal:visible').size() > 1 && $('html').hasClass('modal-open') === false) {
                 $('html').addClass('modal-open');
@@ -283,17 +283,17 @@ var Metronic = function() {
         $('.tooltips').tooltip();
 
         // portlet tooltips
-        $('.portlet > .portlet-title .fullscreen').tooltip({container: 'body', title: 'Fullscreen'}); 
+        $('.portlet > .portlet-title .fullscreen').tooltip({container: 'body', title: 'Fullscreen'});
         $('.portlet > .portlet-title > .tools > .reload').tooltip({container: 'body', title: 'Reload'});
         $('.portlet > .portlet-title > .tools > .remove').tooltip({container: 'body', title: 'Remove'});
         $('.portlet > .portlet-title > .tools > .config').tooltip({container: 'body', title: 'Settings'});
-        $('.portlet > .portlet-title > .tools > .collapse, .portlet > .portlet-title > .tools > .expand').tooltip({container: 'body', title: 'Collapse/Expand'});          
+        $('.portlet > .portlet-title > .tools > .collapse, .portlet > .portlet-title > .tools > .expand').tooltip({container: 'body', title: 'Collapse/Expand'});
     };
 
     // Handles Bootstrap Dropdowns
     var handleDropdowns = function() {
         /*
-          Hold dropdown on click  
+          Hold dropdown on click
         */
         $('body').on('click', '.dropdown-menu.hold-on-click', function(e) {
             e.stopPropagation();
@@ -309,9 +309,9 @@ var Metronic = function() {
 
     // Handle Hower Dropdowns
     var handleDropdownHover = function() {
-        $('[data-hover="dropdown"]').not('.hover-initialized').each(function() {   
-            $(this).dropdownHover(); 
-            $(this).addClass('hover-initialized'); 
+        $('[data-hover="dropdown"]').not('.hover-initialized').each(function() {
+            $(this).dropdownHover();
+            $(this).addClass('hover-initialized');
         });
     };
 
@@ -405,13 +405,13 @@ var Metronic = function() {
 
             //Core handlers
             handleInit(); // initialize core variables
-            handleOnResize(); // set and handle responsive    
+            handleOnResize(); // set and handle responsive
 
-            //UI Component handlers            
+            //UI Component handlers
             handleUniform(); // hanfle custom radio & checkboxes
             handleiCheck(); // handles custom icheck radio and checkboxes
             handleBootstrapSwitch(); // handle bootstrap switch plugin
-            handleScrollers(); // handles slim scrolling contents 
+            handleScrollers(); // handles slim scrolling contents
             handleFancybox(); // handle fancy box
             handleSelect2(); // handle custom Select2 dropdowns
             handlePortletTools(); // handles portlet action bar functionality(refresh, configure, toggle, remove)
@@ -420,7 +420,7 @@ var Metronic = function() {
             handleTabs(); // handle tabs
             handleTooltips(); // handle bootstrap tooltips
             handlePopovers(); // handles bootstrap popovers
-            handleAccordions(); //handles accordions 
+            handleAccordions(); //handles accordions
             handleModals(); // handle modals
 
             // Hacks
@@ -429,17 +429,17 @@ var Metronic = function() {
 
         //main function to initiate core javascript after ajax complete
         initAjax: function() {
-            handleUniform(); // handles custom radio & checkboxes     
+            handleUniform(); // handles custom radio & checkboxes
             handleiCheck(); // handles custom icheck radio and checkboxes
             handleBootstrapSwitch(); // handle bootstrap switch plugin
-            handleDropdownHover(); // handles dropdown hover       
-            handleScrollers(); // handles slim scrolling contents 
+            handleDropdownHover(); // handles dropdown hover
+            handleScrollers(); // handles slim scrolling contents
             handleSelect2(); // handle custom Select2 dropdowns
             handleFancybox(); // handle fancy box
             handleDropdowns(); // handle dropdowns
             handleTooltips(); // handle bootstrap tooltips
             handlePopovers(); // handles bootstrap popovers
-            handleAccordions(); //handles accordions 
+            handleAccordions(); //handles accordions
         },
 
         //public function to remember last opened popover that needs to be closed on click
@@ -620,7 +620,7 @@ var Metronic = function() {
         startPageLoading: function(options) {
             if (options && options.animate) {
                 $('.page-spinner-bar').remove();
-                $('body').append('<div class="page-spinner-bar"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>');                
+                $('body').append('<div class="page-spinner-bar"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>');
             } else {
                 $('.page-loading').remove();
                 $('body').append('<div class="page-loading"><img src="' + this.getGlobalImgPath() + 'loading-spinner-grey.gif"/>&nbsp;&nbsp;<span>' + (options && options.message ? options.message : 'Loading...') + '</span></div>');
@@ -635,7 +635,7 @@ var Metronic = function() {
 
             options = $.extend(true, {
                 container: "", // alerts parent container(by default placed after the page breadcrumbs)
-                place: "append", // append or prepent in container 
+                place: "append", // append or prepent in container
                 type: 'success', // alert's type
                 message: "", // alert's message
                 close: true, // make alert closable
@@ -818,7 +818,7 @@ var Metronic = function() {
                 if (!loadedResources[resource.path]) {
                     var el;
                     loadedResources[resource.path] = true;
-                    if (resource.type === 'js') {                        
+                    if (resource.type === 'js') {
                         counter++;
                         var body = document.getElementsByTagName("body")[0];
                         el = document.createElement("script");
@@ -842,7 +842,7 @@ var Metronic = function() {
                         head.appendChild(el);
                     }
 
-                   
+
                 }
             }
         }
