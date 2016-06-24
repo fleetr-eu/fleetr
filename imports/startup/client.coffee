@@ -10,10 +10,13 @@ require '../ui/third-party/markerwithlabel.js'
 require '../ui/third-party/jquery-ui-1.10.3.custom.min.js'
 require '../ui/third-party/jquery.slimscroll.min.js'
 
+# require '../ui/third-party/jquery.dataTables.min.js'
+# require '../ui/third-party/dataTables.bootstrap.js' #used?
+# require '../ui/third-party/dataTables.responsive.js' #used?
+
 ## Bootstrap Plugins
 require '../ui/third-party/bootstrap-switch.min.js'
-require '../ui/third-party/dataTables.bootstrap.js'
-require '../ui/third-party/dataTables.responsive.js'
+
 
 
 ## Metronic theme dependencies
