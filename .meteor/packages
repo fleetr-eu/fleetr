@@ -36,7 +36,6 @@ mkarliner:mqtt
 meteorhacks:aggregate
 loftsteinn:bootstrap3-daterangepicker
 wizonesolutions:moment-duration-format
-aldeed:tabular
 reactive-var
 sacha:spin
 phuocd:slickgrid

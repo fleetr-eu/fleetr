@@ -224,18 +224,6 @@ Meteor.startup ->
             unitId: 1
             name: 1
 
-# old logbooks
-    @route 'logbookReportStartStop',
-      path: '/reports/logbook/detailed/:selectedDate'
-      template: 'logbookStartStop'
-      data: -> {'selectedDate' : @params.selectedDate}
-
-    @route 'logbookReportIdle',
-      path: '/reports/logbook/idle/:selectedDate/:xxx?'
-      template: 'logbookIdle'
-      data: -> {'selectedDate': @params.selectedDate, 'xxx': @params.xxx}
-#================
-
     @route 'expenseReport',
       path: '/reports/expenses'
       waitOn: ->
