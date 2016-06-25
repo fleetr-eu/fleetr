@@ -236,15 +236,6 @@ Meteor.startup ->
       data: -> {'selectedDate': @params.selectedDate, 'xxx': @params.xxx}
 #================
 
-    @route 'reclogReport',
-      path: '/reports/reclog/:date?/:startTime?/:stopTime?'
-      template: 'reclog'
-      data: ->
-        'date': @params.date
-        'startTime': @params.startTime
-        'stopTime': @params.stopTime
-
-
     @route 'expenseReport',
       path: '/reports/expenses'
       waitOn: ->

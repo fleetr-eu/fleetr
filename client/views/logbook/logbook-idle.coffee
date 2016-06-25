@@ -90,9 +90,3 @@ Template.mapIdleCellTemplate.helpers
       position:
         lat: @lat
         lng: @lng
-
-Template.idleDetailsCellTemplate.helpers
-  datetime: ->
-    date     : @date
-    startTime: @from()
-    stopTime : @to()
