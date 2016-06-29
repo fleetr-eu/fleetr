@@ -25,6 +25,8 @@ Meteor.startup ->
 
   Template.fleetrGrid.onRendered ->
     @grid.install()
+    config = @data.config
+    config.onInstall @grid if config.onInstall
   Template.fleetrGrid.onDestroyed ->
     @grid.destroy()
 
