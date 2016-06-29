@@ -99,6 +99,7 @@ Helpers =
     if @cursor
       @setGridData @cursor.map(Helpers.addId)
       @_applyClientFilters()
+      @_performSort()
       @_afterDataRefresh()
   @_filter = (item) =>
     filters = @_activeFilters.find(type: 'client').fetch()
