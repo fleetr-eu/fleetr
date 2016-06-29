@@ -15,6 +15,7 @@ Template.logbook.helpers
       name: 'Дата'
       field: 'date'
       width: 20
+      sortable: true
     ,
       id: 'Distance'
       name: 'Разстояние (км)'
@@ -87,3 +88,13 @@ Template.logbook.helpers
       explicitInitialization: true
       forceFitColumns: true
       rowHeight: 30
+    onInstall: (fleetrgrid) ->
+      grid = fleetrgrid.grid
+      grid.setSortColumn 'date', false
+      fleetrgrid._performSort
+        grid: grid
+        multiColumnSort: false
+        sortCols: [
+          sortAsc: false
+          sortCol: grid.getColumns()[grid.getColumnIndex 'date']
+        ]
