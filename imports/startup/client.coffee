@@ -7,12 +7,12 @@ require '../ui/third-party/markerclusterer.js'
 require '../ui/third-party/markerwithlabel.js'
 
 ## JQuery Plugins
-require '../ui/third-party/jquery-ui-1.10.3.custom.min.js'
+# require '../ui/third-party/jquery-ui-1.10.3.custom.min.js'
 require '../ui/third-party/jquery.slimscroll.min.js'
 
 ## Bootstrap Plugins
 require '../ui/third-party/bootstrap-switch.min.js'
-
+require '../ui/third-party/bootstrap-datepicker.bg.js'
 
 
 ## Metronic theme dependencies
