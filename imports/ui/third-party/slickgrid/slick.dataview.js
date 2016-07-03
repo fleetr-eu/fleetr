@@ -53,7 +53,11 @@
     var groupingInfoDefaults = {
       getter: null,
       formatter: null,
-      comparer: function(a, b) { return a.value - b.value; },
+      comparer: function(a, b) {
+        return (a.value === b.value ? 0 :
+          (a.value > b.value ? 1 : -1)
+        );
+      },
       predefinedValues: [],
       aggregators: [],
       aggregateEmpty: false,
@@ -496,7 +500,7 @@
           group = groups[i];
           group.groups = extractGroups(group.rows, group);
         }
-      }      
+      }
 
       groups.sort(groupingInfos[level].comparer);
 
