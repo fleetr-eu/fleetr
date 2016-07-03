@@ -138,6 +138,11 @@ Helpers =
       collapsed: Object.keys(@_groupings).length > 0
       aggregateCollapsed: true
       lazyTotalsCalculation: true
+      comparer: (a, b) =>
+        sortAsc = @_columnSortOrder[field]
+        sortAsc = true if sortAsc is undefined
+        result = if a.value is b.value then 0 else (if a.value > b.value then 1 else -1)
+        result * (if sortAsc then 1 else -1)
     @_activeGroupings.insert name: fieldName
     @_effectuateGroupings()
   @removeGroupBy = (name) ->
@@ -151,6 +156,7 @@ Helpers =
 
   # sorting -->
   @_sortArgs = null
+  @_columnSortOrder = {}
   @_performSort = (args = @_sortArgs) ->
     return unless args
     @_sortArgs = args
@@ -159,9 +165,10 @@ Helpers =
     if args.sortCol then sortCols = [sortAsc: args.sortAsc, sortCol: args.sortCol]
     else sortCols = args.sortCols
 
-    @_dataView.sort (a, b) ->
+    @_dataView.sort (a, b) =>
       for sortColSpec in sortCols
         sortCol = sortColSpec.sortCol
+        @_columnSortOrder[sortCol.field] = sortColSpec.sortAsc
         result =
           if sortCol.sorter
             n = sortCol.sorter(sortCol) a, b
