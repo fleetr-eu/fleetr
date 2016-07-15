@@ -34,13 +34,11 @@ tap:i18n-ui
 meteorhacks:fast-render
 mkarliner:mqtt
 meteorhacks:aggregate
-loftsteinn:bootstrap3-daterangepicker
 wizonesolutions:moment-duration-format
 reactive-var
 sacha:spin
 phuocd:slickgrid
 twbs:bootstrap
-stevezhu:lodash
 juliancwirko:s-alert
 juliancwirko:s-alert-genie
 peppelg:bootstrap-3-modal
@@ -62,3 +60,5 @@ meteorhacks:kadira
 standard-minifier-css
 standard-minifier-js
 jquery
+loftsteinn:bootstrap3-daterangepicker
+stevezhu:lodash
