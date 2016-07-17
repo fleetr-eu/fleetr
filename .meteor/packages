@@ -12,7 +12,6 @@ es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 aldeed:collection2
-aldeed:autoform
 coffeescript
 accounts-base
 accounts-password
@@ -22,9 +21,7 @@ accounts-ui
 anti:fake
 mrt:flash-messages
 matb33:collection-hooks
-zimme:iron-router-active
 dburles:collection-helpers
-aldeed:autoform-bs-datepicker
 rajit:bootstrap3-datepicker
 tsega:bootstrap3-datetimepicker
 mizzao:partitioner
@@ -34,19 +31,15 @@ tap:i18n-ui
 meteorhacks:fast-render
 mkarliner:mqtt
 meteorhacks:aggregate
-loftsteinn:bootstrap3-daterangepicker
 wizonesolutions:moment-duration-format
 reactive-var
 sacha:spin
 phuocd:slickgrid
 twbs:bootstrap
-stevezhu:lodash
 juliancwirko:s-alert
 juliancwirko:s-alert-genie
 peppelg:bootstrap-3-modal
 comerc:bs-typeahead
-comerc:autoform-typeahead
-ctjp:autoform-bootstrap-switch
 selaias:accounts-entry
 blaze-html-templates
 session
@@ -62,3 +55,10 @@ meteorhacks:kadira
 standard-minifier-css
 standard-minifier-js
 jquery
+loftsteinn:bootstrap3-daterangepicker
+stevezhu:lodash
+zimme:iron-router-active
+aldeed:autoform
+aldeed:autoform-bs-datepicker
+comerc:autoform-typeahead
+fleetr:autoform-bootstrap-switch

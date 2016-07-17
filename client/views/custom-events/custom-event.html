@@ -1,5 +1,5 @@
 <template name="customEvent">
-  {{#autoForm collection="CustomEvents" doc=doc id="customEventForm" type="method" meteormethod="submitCustomEvent"}}
+  {{#autoForm collection="CustomEvents" doc=doc id="customEventForm" type="method-update" meteormethod="submitCustomEvent"}}
     <fieldset>
 	    {{> afFieldInput type="hidden" name="_id" value=_id}}
 	    {{> afQuickField name="name" autofocus=true}}

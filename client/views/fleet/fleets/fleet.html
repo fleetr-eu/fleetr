@@ -1,5 +1,5 @@
 <template name="fleet">
-  {{#autoForm collection="Fleets" doc=doc id="fleetForm" type="method" meteormethod="submitFleet"}}
+  {{#autoForm collection="Fleets" doc=doc id="fleetForm" type="method-update" meteormethod="submitFleet"}}
     <fieldset>
   	  {{> afFieldInput type="hidden" name="_id" value=_id}}
       {{> afQuickField name="name" autofocus=true}}

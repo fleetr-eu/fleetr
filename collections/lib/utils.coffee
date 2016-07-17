@@ -14,9 +14,9 @@ Mongo.Collection.prototype.findFiltered = (filter, fieldsToFilter, findOptions) 
   else
     @find {}, findOptions || {}
 
-Mongo.Collection.prototype.submit = (doc, diff) ->
-  # after.insert is not triggered. remove after issues is fixed: https://github.com/matb33/meteor-collection-hooks/issues/16
-  if @find({_id: doc._id}, {limit: 1}).count()
-    @update {_id: doc._id}, {$set: _.omit(diff.$set, '_id'), $unset: _.omit(diff.$unset, '_id')}
+Mongo.Collection.prototype.submit = (doc, id) ->
+  # can't do upsert, does not work well with the partiotioner
+  if id and @find({_id: id}, {limit: 1}).count()
+    @update {_id: id}, { $set: _.omit(doc.$set, '_id'), $unset: _.omit(doc.$unset, '_id')}
   else
-    @insert doc
+    @insert doc.$set or doc

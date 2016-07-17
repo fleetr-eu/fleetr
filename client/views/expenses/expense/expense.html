@@ -1,5 +1,5 @@
 <template name="expense">
-  {{#autoForm collection="Expenses" doc=doc id="expenseForm" type="method" meteormethod="submitExpense"}}
+  {{#autoForm collection="Expenses" doc=doc id="expenseForm" type="method-update" meteormethod="submitExpense"}}
      <fieldset>
         <legend></legend>
         {{> afFieldInput type="hidden" name="_id" value=_id}}

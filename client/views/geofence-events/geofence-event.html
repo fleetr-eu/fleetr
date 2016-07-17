@@ -1,5 +1,5 @@
 <template name="geofenceEvent">
-  {{#autoForm collection="GeofenceEvents" doc=doc id="geofenceEventForm" type="method" meteormethod="submitGeofenceEvent"}}
+  {{#autoForm collection="GeofenceEvents" doc=doc id="geofenceEventForm" type="method-update" meteormethod="submitGeofenceEvent"}}
     <fieldset>
 	    {{> afFieldInput type="hidden" name="_id" value=_id}}
 	    {{> afQuickField name="geofenceId" autofocus=true}}
