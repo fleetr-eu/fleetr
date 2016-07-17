@@ -4,6 +4,6 @@ Template.checkboxCell.helpers
 
 Template.checkboxCell.events
   'change .active': (e, t) ->
-    modifier = $set: {}
+    modifier = $set: @data.rowObject
     modifier['$set'][@field] = e.target.checked
-    Meteor.call @submitMethod, @data.rowObject, modifier
+    Meteor.call @submitMethod, modifier, @data.rowObject._id
