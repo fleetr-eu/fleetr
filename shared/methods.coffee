@@ -1,6 +1,6 @@
-submitItem = (collection) -> (doc, diff) ->
+submitItem = (collection) -> (doc, id) ->
   @unblock()
-  collection.submit doc, diff
+  collection.submit doc, id
 
 removeItem = (collection) -> (doc) ->
   @unblock()
@@ -69,15 +69,13 @@ Meteor.methods
   submitDocument: submitItem Documents
   removeDocument: removeItem Documents
 
-  submitDriverVehicleAssignment: (doc, diff) ->
+  submitDriverVehicleAssignment: (doc) ->
     @unblock
-    DriverVehicleAssignments.submit doc, diff
+    DriverVehicleAssignments.submit doc
     Drivers.update {_id: doc.driver}, {$set: vehicle_id: doc.vehicle}
-    Vehicles.update {_id: doc.vehicle}, {$set: driver_id: doc.driver} 
+    Vehicles.update {_id: doc.vehicle}, {$set: driver_id: doc.driver}
   removeDriverVehicleAssignment: (doc) ->
     @unblock
     DriverVehicleAssignments.remove _id: doc
     Drivers.update {_id: doc.driver}, {$unset: vehicle_id: ""}
     Vehicles.update {_id: doc.vehicle}, {$unset: driver_id: ""}
-       
-

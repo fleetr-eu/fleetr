@@ -1,5 +1,5 @@
 <template name="insurancePayment">
-  {{#autoForm collection="InsurancePayments" doc=doc id="insurancePaymentsForm" type="method" meteormethod="submitInsurancePayment"}}
+  {{#autoForm collection="InsurancePayments" doc=doc id="insurancePaymentsForm" type="method-update" meteormethod="submitInsurancePayment"}}
     <fieldset>
   	  {{> afFieldInput type="hidden" name="_id" value=_id}}
       {{> afFieldInput type="hidden" name="insuranceId" value=insuranceId}}

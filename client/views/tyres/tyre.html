@@ -1,6 +1,6 @@
 <template name="tyre">
   {{#autoForm collection="Tyres" template="bootstrap3-inline"
-            doc=doc id="tyreForm" type="method" meteormethod="submitTyre"}}
+            doc=doc id="tyreForm" type="method-update" meteormethod="submitTyre"}}
     <fieldset>
   	  {{> afFieldInput type="hidden" name="_id" value=_id}}
       {{> afQuickField name="brand" autofocus=true}}

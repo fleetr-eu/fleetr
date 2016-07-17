@@ -1,5 +1,5 @@
 <template name="maintenanceType">
-  {{#autoForm collection="MaintenanceTypes" doc=doc id="maintenanceTypeForm" type="method" meteormethod="submitMaintenanceType"}}
+  {{#autoForm collection="MaintenanceTypes" doc=doc id="maintenanceTypeForm" type="method-update" meteormethod="submitMaintenanceType"}}
     <fieldset>
       <legend></legend>
   	  {{> afFieldInput type="hidden" name="_id" value=_id}}

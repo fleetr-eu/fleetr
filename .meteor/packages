@@ -22,7 +22,6 @@ anti:fake
 mrt:flash-messages
 matb33:collection-hooks
 dburles:collection-helpers
-aldeed:autoform-bs-datepicker
 rajit:bootstrap3-datepicker
 tsega:bootstrap3-datetimepicker
 mizzao:partitioner
@@ -41,7 +40,6 @@ juliancwirko:s-alert
 juliancwirko:s-alert-genie
 peppelg:bootstrap-3-modal
 comerc:bs-typeahead
-ctjp:autoform-bootstrap-switch
 selaias:accounts-entry
 blaze-html-templates
 session
@@ -59,6 +57,8 @@ standard-minifier-js
 jquery
 loftsteinn:bootstrap3-daterangepicker
 stevezhu:lodash
-aldeed:autoform
-comerc:autoform-typeahead
 zimme:iron-router-active
+aldeed:autoform
+aldeed:autoform-bs-datepicker
+comerc:autoform-typeahead
+fleetr:autoform-bootstrap-switch
