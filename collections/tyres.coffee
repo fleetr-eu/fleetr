@@ -6,12 +6,12 @@ Tyres.attachSchema new SimpleSchema
     type: String
     optional: true
   brand:
-    type: Number
+    type: String
     label: ()->TAPi18n.__('tyre.brand')
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"  
+      "input-col-class": "col-sm-7"
   width:
     type: Number
     label: ()->TAPi18n.__('tyre.width')
@@ -64,7 +64,7 @@ Tyres.attachSchema new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"          
+      "input-col-class": "col-sm-7"
   active:
     label: ()->TAPi18n.__('tyre.active')
     type: Boolean
