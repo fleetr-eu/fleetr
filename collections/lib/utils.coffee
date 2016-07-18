@@ -20,3 +20,6 @@ Mongo.Collection.prototype.submit = (doc, id) ->
     @update {_id: id}, { $set: _.omit(doc.$set, '_id'), $unset: _.omit(doc.$unset, '_id')}
   else
     @insert doc.$set or doc
+
+Mongo.Collection.prototype.findIfPermitted = (args) ->
+  console.log 'findIfPermitted'

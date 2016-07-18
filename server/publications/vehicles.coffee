@@ -37,13 +37,13 @@ opts =
     maxSpeed: 1
     maxAllowedSpeed: 1
 
-Meteor.publish 'vehiclesMakes', -> Vehicles.find {}, {fields: makeAndModel: 1}
-Meteor.publish 'vehicles', (filter = {}, opts = {}) ->
-  Vehicles.find filter, opts
+findVehicles = (filter = {}) ->
+  Vehicles.find PermissionsManager.augment(filter, 'vehicles'), opts
+
+Meteor.publish 'vehicles', findVehicles
 Meteor.publish 'vehicle', (filter) ->
   if filter then Vehicles.find(filter) else []
-Meteor.publish 'vehicles/list', ->
-  Vehicles.find {}
+Meteor.publish 'vehicles/list', findVehicles
 Meteor.publish 'vehicle/history', (vehicleId) ->
   if v = Vehicles.findOne(_id: vehicleId)
     VehicleHistory.find {deviceId: v.unitId}, {sort: date: -1}

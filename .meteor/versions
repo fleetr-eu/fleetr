@@ -109,6 +109,7 @@ npm-bcrypt@0.8.6_2
 npm-mongo@1.4.45
 observe-sequence@1.0.12
 ordered-dict@1.0.8
+peerlibrary:user-extra@0.1.0
 peppelg:bootstrap-3-modal@1.0.4
 percolate:migrations@0.9.8
 phuocd:slickgrid@1.0.1
