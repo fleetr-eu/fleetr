@@ -3,6 +3,7 @@ Template.sidebar.onCreated ->
   Meteor.subscribe 'fleets'
 
 Template.sidebar.helpers
+  pathForAdminBoard: -> AdminDashboard.path('/')
   fleetGroups: ->
     FleetGroups.find {},
       transform: (fg) ->

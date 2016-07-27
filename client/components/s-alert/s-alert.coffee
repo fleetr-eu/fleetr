@@ -12,10 +12,8 @@ AutoForm.addHooks [
     'expenseGroupForm', 'expensesForm', 'driverForm', 'driverVehicleAssignmentForm', 'insertAlarmDefinition'
   ],
   onSuccess: (formType, result) ->
-    console.log "AutoForm::success formType='#{formType}'", result, @
     sAlert.success sAlertIcon: 'check', sAlertTitle: TAPi18n.__('alerts.saved.title'), message: TAPi18n.__('alerts.saved.message')
   onError: (formType, error) ->
-    console.log "AutoForm::error formType='#{formType}'", error, @
     if formType == 'pre-submit validation'
       sAlert.warning sAlertIcon: 'asterisk', sAlertTitle: TAPi18n.__('alerts.validation.title'), message: TAPi18n.__('alerts.validation.message')
     else

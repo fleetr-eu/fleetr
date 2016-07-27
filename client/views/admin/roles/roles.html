@@ -1,0 +1,11 @@
+<template name="roles">
+  {{#each users}}
+  <ul class="list-group">
+    <li class="list-group-item">{{email}}
+      {{#each groups}}
+      <span class="label label-default label-pill pull-right">{{group}}: {{stringify roles}}</span>
+      {{/each}}
+    </li>
+  </ul>
+  {{/each}}
+</template>

@@ -1,18 +1,35 @@
+doIfInRoles = (roles, cb) ->
+  if Roles.userIsInRole Meteor.user(), roles
+    cb?()
+  else
+    if Meteor.isClient
+      sAlert.error
+        sAlertIcon: 'exclamation'
+        sAlertTitle: TAPi18n.__ 'alerts.error.title'
+        message: TAPi18n.__ 'alerts.unauthorized.message'
+    else
+      throw new Meteor.Error TAPi18n.__('alerts.unauthorized.message')
+
+doIfEditor = (cb) -> doIfInRoles ['editor'], cb
+
 submitItem = (collection) -> (doc, id) ->
   @unblock()
-  collection.submit doc, id
+  doIfEditor ->
+    collection.submit doc, id
 
 removeItem = (collection) -> (doc) ->
   @unblock()
-  collection.remove _id: doc
+  doIfEditor ->
+    collection.remove _id: doc
 
 Meteor.methods
 
   submitGeofence: (doc) ->
-    if Geofences.findOne(_id: doc._id)
-      Geofences.update {_id: doc._id}, {$set: _.omit(doc, '_id')}
-    else
-      Geofences.insert doc
+    doIfEditor ->
+      if Geofences.findOne(_id: doc._id)
+        Geofences.update {_id: doc._id}, {$set: _.omit(doc, '_id')}
+      else
+        Geofences.insert doc
   removeGeofence: removeItem Geofences
 
   submitAlarm: submitItem Alarms
@@ -71,11 +88,13 @@ Meteor.methods
 
   submitDriverVehicleAssignment: (doc) ->
     @unblock
-    DriverVehicleAssignments.submit doc
-    Drivers.update {_id: doc.driver}, {$set: vehicle_id: doc.vehicle}
-    Vehicles.update {_id: doc.vehicle}, {$set: driver_id: doc.driver}
+    doIfEditor ->
+      DriverVehicleAssignments.submit doc
+      Drivers.update {_id: doc.driver}, {$set: vehicle_id: doc.vehicle}
+      Vehicles.update {_id: doc.vehicle}, {$set: driver_id: doc.driver}
   removeDriverVehicleAssignment: (doc) ->
     @unblock
-    DriverVehicleAssignments.remove _id: doc
-    Drivers.update {_id: doc.driver}, {$unset: vehicle_id: ""}
-    Vehicles.update {_id: doc.vehicle}, {$unset: driver_id: ""}
+    doIfEditor ->
+      DriverVehicleAssignments.remove _id: doc
+      Drivers.update {_id: doc.driver}, {$unset: vehicle_id: ""}
+      Vehicles.update {_id: doc.vehicle}, {$unset: driver_id: ""}

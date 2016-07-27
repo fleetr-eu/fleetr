@@ -20,6 +20,7 @@
   },
 
   "menu": {
+    "admin": "Administraion",
     "vehicles": {
       "all": "All"
     },
@@ -434,6 +435,9 @@
     "error": {
       "title": "Error",
       "message": "Could not save the data."
+    },
+    "unauthorized": {
+      "message": "You are not authorized to perform this operation."
     }
   }
 }
