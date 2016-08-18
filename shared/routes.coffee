@@ -201,6 +201,11 @@ Meteor.startup ->
       data: -> vehicleId: @params.vehicleId
       waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
 
+    @route 'vehicleLogbookReact',
+      path: '/vehicles/:vehicleId/logbook-react'
+      template: 'logbook-react'
+      data: -> vehicleId: @params.vehicleId
+
     @route 'vehicleRests',
       path: '/vehicles/:vehicleId/rests'
       template: 'logbookRests'

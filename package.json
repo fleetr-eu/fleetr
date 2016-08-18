@@ -4,9 +4,15 @@
   "description": "fleetr",
   "main": "index.js",
   "dependencies": {
-    "jquery": "^3.0.0",
+    "ag-grid": "^4.2.0",
+    "ag-grid-react": "^4.2.0",
+    "jquery": "^2.0.0",
     "meteor-node-stubs": "^0.2.3",
-    "moment": "^2.13.0"
+    "moment": "^2.13.0",
+    "orb": "^1.0.9",
+    "react": "^15.1.0",
+    "react-addons-pure-render-mixin": "^15.1.0",
+    "react-dom": "^15.1.0"
   },
   "devDependencies": {},
   "scripts": {
