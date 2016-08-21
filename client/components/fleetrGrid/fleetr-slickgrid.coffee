@@ -232,6 +232,8 @@ Helpers =
 
   @destroy = ->
     @cursorHandle.stop() if @cursorHandle?.stop
+    @_activeFiltersObserve.stop() if @_activeFiltersObserve?.stop
+    @_activeGroupingsObserve.stop() if @_activeGroupingsObserve?.stop
     Blaze.remove(@_blazeCache.views[key]) for key of @_blazeCache.views
     @_blazeCache.views = {}
     @_blazeCache.templates = {}
@@ -239,7 +241,7 @@ Helpers =
   @install = (initializeData = true) ->
 
     # Handle changes to client rendered filters
-    @_activeFilters.find(type: 'client').observe
+    @_activeFiltersObserve = @_activeFilters.find(type: 'client').observe
       removed: (filter) =>
         $("#searchbox-#{field}").val('') for field of filter.spec
         @_applyClientFilters()
@@ -264,7 +266,7 @@ Helpers =
       column = args.column
       button = args.button
       command = args.command
-      @_activeGroupings.find(name: column.name).observe
+      @_activeGroupingsObserve = @_activeGroupings.find(name: column.name).observe
         removed: ((column) => =>
           button.cssClass = "icon-highlight-off"
           button.tooltip = "Group table by #{column.name}"
