@@ -6,6 +6,7 @@
   "dependencies": {
     "ag-grid": "^4.2.0",
     "ag-grid-react": "^4.2.0",
+    "bcrypt": "^0.8.7",
     "jquery": "^2.0.0",
     "meteor-node-stubs": "^0.2.3",
     "moment": "^2.13.0",
