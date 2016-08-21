@@ -379,6 +379,16 @@ Helpers =
     @grid.init()
     columnpicker = new Slick.Controls.ColumnPicker columns, @grid, options
 
+    # get default sort settings for column
+    for column in columns when column.sorted
+      asc = column.sorted is true or not column.sorted.match /^desc/
+      @grid.setSortColumn column.id, asc
+      @_sortArgs =
+        grid: @grid
+        multiColumnSort: false
+        sortAsc: asc
+        sortCol: column
+
     # when this grid has previously been rendered, existing active filters
     # might still exist. This code ensures that the column searchbox values are
     # populated with the corresponding filter value. Otherwise filters will
