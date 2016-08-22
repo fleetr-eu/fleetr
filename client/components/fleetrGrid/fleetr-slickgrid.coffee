@@ -95,6 +95,7 @@ Helpers =
       Meteor.call @serverMethod, serverFilterSpec, remoteMethodParams, (err, items) =>
         @setGridData( items.map Helpers.addId )
         @_applyClientFilters()
+        @_performSort()
         @_afterDataRefresh()
     if @cursor
       @setGridData @cursor.map(Helpers.addId)
