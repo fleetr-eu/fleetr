@@ -106,6 +106,7 @@ Template.logbookGrid.helpers
       field: "date"
       name: "Дата"
       maxWidth: 90
+      sorted: 'desc'
       sortable: true
       groupable:
         aggregators: aggregators
