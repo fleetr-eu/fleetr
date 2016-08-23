@@ -1,2 +1,2 @@
-FROM meteorhacks/meteord
+FROM kadirahq/meteord:onbuild
 MAINTAINER Fleetr
