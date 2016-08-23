@@ -1,2 +1,2 @@
-FROM kadirahq/meteord:onbuild
+FROM abernix/meteord:onbuild
 MAINTAINER Fleetr
