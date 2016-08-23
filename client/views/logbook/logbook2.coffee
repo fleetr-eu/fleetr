@@ -136,7 +136,7 @@ Template.logbookGrid.helpers
     ,
       id: 'distance'
       field: 'distance'
-      name: 'Разстояние'
+      name: 'Разстояние (км)'
       formatter: FleetrGrid.Formatters.roundFloat 2
       width: 20
       align: 'right'
@@ -184,7 +184,7 @@ Template.logbookGrid.helpers
     ,
       id: 'speed'
       field: 'maxSpeed'
-      name: 'Скорост / Макс'
+      name: 'Скорост / Макс (км/ч)'
       search:
         where: 'client'
         filter: (filterText) -> (columnValue) ->

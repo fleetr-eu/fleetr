@@ -87,7 +87,7 @@ Meteor.methods
       r.deviceId = r._id.deviceId
       r._id = r._id.trip
       r.date = moment(r.startTime).format('YYYY-MM-DD')
-      r.distance = r.stopOdometer - r.startOdometer
+      r.distance = (r.stopOdometer - r.startOdometer) / 1000 # convert to kms
       r
     _.sortBy(result, (r) -> moment(r.startTime).unix()).reverse()
 
