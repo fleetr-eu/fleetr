@@ -159,6 +159,7 @@ Helpers =
   @_sortArgs = null
   @_columnSortOrder = {}
   @_performSort = (args = @_sortArgs) ->
+    console.log 'performSort', args
     return unless args
     @_sortArgs = args
     # sort implementation that supports multi-column sort and custom
@@ -381,14 +382,17 @@ Helpers =
     columnpicker = new Slick.Controls.ColumnPicker columns, @grid, options
 
     # get default sort settings for column
-    for column in columns when column.sorted
-      asc = column.sorted is true or not column.sorted.match /^desc/
-      @grid.setSortColumn column.id, asc
-      @_sortArgs =
-        grid: @grid
-        multiColumnSort: false
+    @_sortArgs =
+      grid: @grid
+      multiColumnSort: true
+      sortCols: []
+    @grid.setSortColumns (for info in options.defaultSort
+      asc = (info.direction?.match /^asc/i)?
+      @_sortArgs.sortCols.push
         sortAsc: asc
-        sortCol: column
+        sortCol: _.find @grid.getColumns(), (col) -> col.id is info.columnId
+      columnId: info.columnId, sortAsc: asc
+    )
 
     # when this grid has previously been rendered, existing active filters
     # might still exist. This code ensures that the column searchbox values are
