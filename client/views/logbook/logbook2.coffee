@@ -106,7 +106,6 @@ Template.logbookGrid.helpers
       field: "date"
       name: "Дата"
       maxWidth: 90
-      sorted: 'desc'
       sortable: true
       groupable:
         aggregators: aggregators
@@ -235,5 +234,12 @@ Template.logbookGrid.helpers
       explicitInitialization: true
       forceFitColumns: true
       rowHeight: 50
+      defaultSort: [
+        columnId: 'date'
+        direction: 'desc'
+      ,
+        columnId: 'fromTo'
+        direction: 'desc'
+      ]
     customize: (grid) ->
       grid.addGroupBy 'date', 'Дата', aggregators
