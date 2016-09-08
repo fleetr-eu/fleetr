@@ -386,7 +386,7 @@ Helpers =
       grid: @grid
       multiColumnSort: true
       sortCols: []
-    @grid.setSortColumns (for info in options.defaultSort
+    @grid.setSortColumns (for info in options.defaultSort or []
       asc = (info.direction?.match /^asc/i)?
       @_sortArgs.sortCols.push
         sortAsc: asc
