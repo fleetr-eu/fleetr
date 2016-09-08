@@ -124,7 +124,7 @@ Template.logbookGrid.helpers
           #{toTime(row, cell, rowObject.stopTime)}
         """
       sorter: (sortCol) -> (a,b) ->
-        if a.start?.time > b.start?.time then 1 else -1
+        if a.startTime > b.startTime then 1 else -1
       maxWidth: 80
     ,
       id: 'beginEnd'
