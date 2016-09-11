@@ -63,7 +63,7 @@ Template.vehicles.helpers
         field: "_id"
         name: TAPi18n.__('vehicles.logbookShort')
         maxWidth: 31
-        formatter:  linkFormatter if isAlpha() then 'logbook-react' else 'logbook'
+        formatter:  linkFormatter 'logbook'
         align: 'left'
       ,
         id: "history"
