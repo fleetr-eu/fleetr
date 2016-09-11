@@ -4,8 +4,9 @@
   "description": "fleetr",
   "main": "index.js",
   "dependencies": {
-    "ag-grid": "^5.0.0",
-    "ag-grid-react": "^5.0.0",
+    "ag-grid": "^5.3.x",
+    "ag-grid-enterprise": "^5.3.x",
+    "ag-grid-react": "^5.3.x",
     "bcrypt": "^0.8.7",
     "jquery": "^2.0.0",
     "meteor-node-stubs": "^0.2.3",

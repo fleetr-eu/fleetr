@@ -1,6 +1,8 @@
 React             = require 'react'
 {createContainer} = require 'meteor/react-meteor-data'
 {AgGridReact}     = require 'ag-grid-react'
+enterprise = require("ag-grid-enterprise");
+# enterprise.LicenseManager.setLicenseKey("your license key");
 
 
 Logbook = React.createClass
@@ -13,7 +15,7 @@ Logbook = React.createClass
       successCallback @props.data[startRow..endRow]
 
   columnDefs: -> [
-    {headerName: "Date", field: "date", width: 150},
+    {headerName: "Date", field: "date", width: 150, enableRowGroup: true},
     {headerName: "StartTime", field: "startTime", width: 200},
     {headerName: "StopTime", field: "stopTime", width: 200},
     {headerName: "StartAddress", field: "startAddress", width: 200},
