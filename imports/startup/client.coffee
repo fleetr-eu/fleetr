@@ -15,9 +15,7 @@ require '../ui/third-party/bootstrap-switch.min.js'
 require '../ui/third-party/bootstrap-datepicker.bg.js'
 
 ## Metronic theme dependencies
-@Metronic = require '../ui/third-party/metronic.js'
-@Layout   = require '../ui/third-party/layout.js'
-@Index    = require '../ui/third-party/index.js'
+
 
 ## Slickgrid dependencies
 require '../ui/third-party/slickgrid/slick.core.js'
