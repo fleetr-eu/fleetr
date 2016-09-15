@@ -52,6 +52,7 @@ Meteor.startup ->
       template: 'dashboard'
       fastRender: true
       waitOn: -> Meteor.subscribe('vehicles')
+      data: -> title: 'Dashboard'
 
 
     @route 'listAlarms',

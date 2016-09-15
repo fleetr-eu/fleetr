@@ -2,10 +2,8 @@ Meteor.startup ->
   $('html').attr  'class', 'no js'
   $('body').attr  'class', 'page-header-fixed'
 
-Template.layout.onRendered ->
-  Metronic.init()
-  Layout.init()
-  Index.init()
+Template.lb.onRendered ->
+  lbd.checkSidebarImage()
 
 Template.body.onRendered ->
   @autorun ->
