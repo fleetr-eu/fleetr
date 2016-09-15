@@ -22,21 +22,11 @@
 <template name="dashboard">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="portlet light">
-				<div class="portlet-title">
-				  	<div class="caption">
-						<div class="caption-subject">
-							<h1 class="bold">Статистики</h1>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					{{> dashboardItem color='green-haze' text='в движение' data=movingVehicles}}
-					{{> dashboardItem color='blue-madison' text='с изключен двигател' data=restingVehicles}}
-					{{> dashboardItem color='purple-plum' text='без движение' data=idlingVehicles}}
-					{{> dashboardItem color='red-intense' text='с превишена скорост' data=overspeedingVehicles}}
-				</div>
+			<div class="row">
+				{{> dashboardItem color='green-haze' text='в движение' data=movingVehicles}}
+				{{> dashboardItem color='blue-madison' text='с изключен двигател' data=restingVehicles}}
+				{{> dashboardItem color='purple-plum' text='без движение' data=idlingVehicles}}
+				{{> dashboardItem color='red-intense' text='с превишена скорост' data=overspeedingVehicles}}
 			</div>
 		</div>
 	</div>
