@@ -74,6 +74,7 @@ Meteor.startup ->
         Meteor.subscribe('fleetsForVehicleList')
         Meteor.subscribe('drivers')
       ]
+      data: -> title: TAPi18n.__('vehicles.listTitle')
 
     @route 'listFleetGroups',
       path: '/fleets/groups/list'
@@ -113,6 +114,7 @@ Meteor.startup ->
           Meteor.subscribe('drivers')
           Meteor.subscribe('logbook/trip', vehicle?.trip?.id)
         ]
+      data: -> title: 'Карта на автомобили'
 
     @route 'drilldownReport',
       path: '/reports/drilldown'

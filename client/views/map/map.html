@@ -1,21 +1,19 @@
 <template name="map">
-    <div class="row">
+    <div style="position:relative;width:100%;height: calc(100% - 60px);">
+      {{> fleetrMap vehicleId=selectedVehicleId}}
+    </div>
+    <!-- <div class="row">
         <div class="col-md-12">
           <div class="portlet light">
-            <div class="portlet-title">
-              <div class="caption" id="fleets">
-                  <div class="caption-subject">
-                    <h1 class="bold">Карта на автомобили</h1>
-                  </div>
-              </div>
-              <div class="actions">
-                <a href="#" id="toggle-filter" class="btn btn-circle btn-default {{#if showFilterBox}}active{{/if}}">
-                  <i class="glyphicon glyphicon-filter"></i>
-                  {{_ "button.filter"}}
-                </a>
-                <a href="#" class="btn btn-circle btn-icon-only btn-default fullscreen"></a>
-              </div>
+
+            <div class="actions">
+              <a href="#" id="toggle-filter" class="btn btn-circle btn-default {{#if showFilterBox}}active{{/if}}">
+                <i class="glyphicon glyphicon-filter"></i>
+                {{_ "button.filter"}}
+              </a>
+              <a href="#" class="btn btn-circle btn-icon-only btn-default fullscreen"></a>
             </div>
+
             <div class="portlet-body" id="map-container">
               <div class="row">
                 <div class="col-md-5 map-filter {{#if showFilterBox}}open{{/if}}" id="vehicle-filter-box">
@@ -23,7 +21,7 @@
                    {{> fleetrGrid id="driversList" config=fleetrGridConfig }}
                 </div>
                  <div class="col-md-12">
-                   <section class="content">
+                   <section class="content" s>
                      {{> fleetrMap vehicleId=selectedVehicleId}}
                    </section>
                  </div>
@@ -32,7 +30,7 @@
             </div>
          </div>
        </div>
-     </div>
+     </div> -->
 </template>
 
 <template name="simpleMap">
