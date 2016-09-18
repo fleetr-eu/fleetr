@@ -43,7 +43,7 @@
     </div>
     {{> footer}} -->
     <span class="light-bootstrap">
-    {{> lb title=title }}
+    {{> lb title=title contentClass=contentClass }}
     </span>
 </template>
 
@@ -73,7 +73,7 @@
       </div>
 
       <div class="main-panel">
-          <nav class="navbar navbar-default navbar-fixed">
+          <nav class="navbar navbar-default navbar-fixed" style="max-height: 61px;overflow: hidden;">
               <div class="container-fluid">
                   <div class="navbar-header">
                       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
@@ -151,7 +151,7 @@
           </nav>
 
 
-          <div class="content">
+          <div class="content {{contentClass}}">
               {{> yield}}
           </div>
 

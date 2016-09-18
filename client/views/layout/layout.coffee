@@ -5,6 +5,10 @@ Meteor.startup ->
 Template.lb.onRendered ->
   lbd.checkSidebarImage()
 
+Template.lb.helpers
+  contentClass: ->
+    @contentClass or ''
+
 Template.body.onRendered ->
   @autorun ->
     title = if t = Session.get('fleetrTitle') then " | #{t}" else ''
