@@ -115,3 +115,7 @@
     color: white;
     background-color: #e04a49;
 }
+
+.noPadding {
+  padding: 0px !important;
+}
