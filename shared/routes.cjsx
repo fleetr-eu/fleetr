@@ -1,3 +1,6 @@
+React       = require 'react'
+CrudButtons = require '/imports/ui/CrudButtons.cjsx'
+
 Meteor.startup ->
   Accounts.config
     sendVerificationEmail: true
@@ -76,7 +79,9 @@ Meteor.startup ->
         Meteor.subscribe('fleetsForVehicleList')
         Meteor.subscribe('drivers')
       ]
-      data: -> title: TAPi18n.__('vehicles.listTitle')
+      data: ->
+        title: TAPi18n.__('vehicles.listTitle')
+        topnav: <CrudButtons editItemTemplate='vehicle' i18nRoot='vehicles' />
 
     @route 'listCustomEvents',
       path: '/custom-events/list'
