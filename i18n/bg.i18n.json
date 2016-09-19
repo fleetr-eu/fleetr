@@ -54,6 +54,10 @@
     "geofenceNotifications":"Напомняния за обекти",
     "alarms":"Аларми"
   },
+  
+  "map": {
+    "title": "Карта на автомобили"
+  },
 
   "geofences": {
     "title": "Обекти",

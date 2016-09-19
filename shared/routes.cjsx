@@ -59,11 +59,13 @@ Meteor.startup ->
       path: '/alarms/list'
       template: 'alarms'
       waitOn: -> [Meteor.subscribe('alarms'), Meteor.subscribe('geofenceEvents'), Meteor.subscribe('customEvents')]
+      data: -> title: TAPi18n.__('alarms.listTitle')
 
     @route 'listDrivers',
       path: '/drivers/list'
       template: 'drivers'
       waitOn: -> [Meteor.subscribe('drivers'), Meteor.subscribe('vehicles')]
+      data: -> title: TAPi18n.__('drivers.listTitle')
 
     @route 'listVehicles',
       path: '/vehicles/list/:fleetName?'
@@ -76,31 +78,36 @@ Meteor.startup ->
       ]
       data: -> title: TAPi18n.__('vehicles.listTitle')
 
-    @route 'listFleetGroups',
-      path: '/fleets/groups/list'
-      template: 'fleetGroups'
-      waitOn: -> Meteor.subscribe('fleetGroups')
-
     @route 'listCustomEvents',
       path: '/custom-events/list'
       template: 'customEvents'
       waitOn: -> [Meteor.subscribe('customEvents'), Meteor.subscribe('fleetGroups'), Meteor.subscribe('fleets'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
+      data: -> title: TAPi18n.__ 'customEvents.listTitle'
 
     @route 'listGeofenceEvents',
       path: '/geofence-events/list'
       template: 'geofenceEvents'
       waitOn: -> [Meteor.subscribe('geofenceEvents'), Meteor.subscribe('fleetGroups'), Meteor.subscribe('fleets'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers'), Meteor.subscribe('geofences')]
+      data: -> title: TAPi18n.__ 'geofenceEvents.listTitle'
 
     @route 'listTyres',
       path: '/tyres/list'
       template: 'tyres'
       data: -> {pageTitle: 'Гуми'}
       waitOn: -> [Meteor.subscribe('tyres'), Meteor.subscribe('vehicles')]
+      data: -> title: TAPi18n.__('tyre.listTitle')
 
     @route 'listFleets',
       path: '/fleets/list'
       template: 'fleets'
       waitOn: -> [Meteor.subscribe('customEvents'), Meteor.subscribe('fleets'), Meteor.subscribe('fleetGroups'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
+      data: -> title: TAPi18n.__('fleet.listTitle')
+
+    @route 'listFleetGroups',
+      path: '/fleets/groups/list'
+      template: 'fleetGroups'
+      waitOn: -> Meteor.subscribe('fleetGroups')
+      data: -> title: TAPi18n.__('fleetGroups.listTitle')
 
     @route 'mapVehicles',
       path: '/vehicles/map/:vehicleId?'
@@ -114,36 +121,46 @@ Meteor.startup ->
           Meteor.subscribe('drivers')
           Meteor.subscribe('logbook/trip', vehicle?.trip?.id)
         ]
-      data: -> title: 'Карта на автомобили'
+      data: ->
+        #title: 'Карта на автомобили'
+        title: TAPi18n.__('map.title')
+        contentClass: 'noPadding'
+
 
     @route 'drilldownReport',
       path: '/reports/drilldown'
+      data: -> title: TAPi18n.__('reports.listTitle')
 
     @route 'listExpenseGroups',
       path: '/expenses/groups/list'
       template: 'expenseGroups'
       waitOn: -> Meteor.subscribe('expenseGroups')
+      data: -> title: TAPi18n.__('expenseGroups.listTitle')
 
     @route 'listExpenseTypes',
       path: '/expenses/types/list'
       template: 'expenseTypes'
       waitOn: -> Meteor.subscribe('expenseTypes')
+      data: -> title: TAPi18n.__('expenseTypes.listTitle')
 
     @route 'listExpenses',
       path: '/expenses/list'
       template: 'expenses'
       waitOn: -> [Meteor.subscribe('expenses'), Meteor.subscribe('expenseTypes'), Meteor.subscribe('expenseGroups'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
+      data: -> title: TAPi18n.__('expenses.listTitle')
 
     @route 'listDocumentTypes',
       path: '/documents/types/list'
       template: 'documentTypes'
       waitOn: -> Meteor.subscribe('documentTypes')
+      data: -> title: TAPi18n.__('documentTypes.listTitle')
 
     @route 'listDocuments',
       path: '/drivers/:driverId/documents/list'
       template: 'documents'
       data: -> {'driverId':@params.driverId}
       waitOn: -> [Meteor.subscribe('documents', @params.driverId), Meteor.subscribe('documentTypes')]
+      data: -> title: TAPi18n.__('drivers.listTitle')
 
     @route 'listMaintenances',
       path: '/vehicle/:vehicleId/maintenance/list'
@@ -153,18 +170,21 @@ Meteor.startup ->
         [Meteor.subscribe('vehicle', _id: @params.vehicleId)
         Meteor.subscribe('vehicleMaintenances', @params.vehicleId)
         Meteor.subscribe('maintenanceTypes')]
+      data: -> title: TAPi18n.__('vehicle.listTitle')
 
     @route 'listMaintenanceType',
       path: '/maintenance/types/list'
       template: 'maintenanceTypes'
       waitOn: ->
         Meteor.subscribe('maintenanceTypes')
+      data: -> title: TAPi18n.__('maintenanceTypes.listTitle')
 
     @route 'listInsuranceTypes',
       path: '/insurance/types/list'
       template: 'insuranceTypes'
       waitOn: ->
         Meteor.subscribe('insuranceTypes')
+      data: -> title: TAPi18n.__('insuranceTypes.listTitle')
 
     @route 'listInsurances',
       path: '/insurance/list'
@@ -173,23 +193,28 @@ Meteor.startup ->
         [Meteor.subscribe('insurances', @params.insuranceId)
         Meteor.subscribe('vehicles')
         Meteor.subscribe('insuranceTypes')]
+      data: -> title: TAPi18n.__('insurances.listTitle')
 
     @route 'listInsurancePayments',
       path: '/insurance/:insuranceId/payment/list'
       template: 'insurancePayments'
-      data: -> {'insuranceId' : @params.insuranceId}
+      data: ->
+        insuranceId : @params.insuranceId
+        title: TAPi18n.__('insurance.listTitle')
       waitOn: ->
         Meteor.subscribe('insurancePayments', @params.insurancePaymentId)
 
     @route 'geofences',
       path: '/geofences'
       template: 'geofences'
+      data: -> title: TAPi18n.__('geofences.title')
 
     @route 'listDriverVehicleAssignments',
       path: '/assignments/driver/vehicle/list'
       template: 'driverVehicleAssignments'
       waitOn: ->
         [ Meteor.subscribe('vehicles'), Meteor.subscribe('drivers'), Meteor.subscribe('driverVehicleAssignments')]
+      data: -> title: TAPi18n.__('driverVehicleAssignments.listTitle')
 
     @route 'resetAll',
       path: '/reset'
@@ -201,7 +226,9 @@ Meteor.startup ->
     @route 'vehicleLogbook',
       path: '/vehicles/:vehicleId/logbook'
       template: 'logbook2'
-      data: -> vehicleId: @params.vehicleId
+      data: ->
+        vehicleId: @params.vehicleId
+        title: TAPi18n.__('vehicles.listTitle')
       waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
 
     @route 'vehicleRests',
@@ -238,9 +265,11 @@ Meteor.startup ->
           Meteor.subscribe('expenseGroups')
           Meteor.subscribe('expenseTypes')
         ]
+      data: -> title: TAPi18n.__('expenses.listTitle')
 
     @route 'maintenanceReport',
       path: '/reports/maintenance'
+      data: -> title: TAPi18n.__('reports.maintenance.title')
 
     @route 'alarm-definitions-add',
       path: '/alarm-definitions/add'
