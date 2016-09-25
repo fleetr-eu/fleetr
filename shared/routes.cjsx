@@ -82,7 +82,7 @@ Meteor.startup ->
       ]
       data: ->
         title: TAPi18n.__('vehicles.listTitle')
-        topnav: <CrudButtons editItemTemplate='vehicle' i18nRoot='vehicles' />
+        topnav: <CrudButtons editItemTemplate='vehicle' i18nRoot='vehicles' showMaintenancesButton=true />
 
     @route 'listCustomEvents',
       path: '/custom-events/list'
