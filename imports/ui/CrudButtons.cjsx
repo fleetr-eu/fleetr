@@ -4,6 +4,9 @@ React               = require 'react'
 CrudButtons = React.createClass
   displayName: 'CrudButtons'
 
+  getDefaultProps: ->
+    showMaintenancesButton: false
+
   add: ->
     console.log 'Add clicked'
 
@@ -13,23 +16,28 @@ CrudButtons = React.createClass
 
   render: ->
     <ul className="nav navbar-nav navbar-left">
-      <li><a href="#" onClick={@add} className="btn btn-circle btn-default add-item">
-        <i className="fa fa-plus"></i>
-        Add
+      <li><a href="#" onClick={@add} style={padding:'5px'} title="New">
+        <i className="pe-7s-plus" style={fontSize:'30px'}></i>
       </a></li>
       {if @props.selectedItem
         [
-          <li key='edit'><a href="#" className="btn btn-circle btn-default edit-item">
-            <i className="icon-pencil"></i>
-              Edit
+          <li key='edit'><a href="#" style={padding:'5px'} title="Edit">
+            <i className="pe-7s-pen" style={fontSize:'30px'}></i>
           </a></li>
         ,
-          <li key='delete'><a href="#" className="btn btn-circle btn-default delete-item">
-            <i className="icon-trash"></i>
-            Delete
+          <li key='delete'><a href="#" style={padding:'5px'} title="Delete">
+            <i className="pe-7s-trash" style={fontSize:'30px'}></i>
           </a></li>
         ]
       }
+      {if @props.selectedItem and @props.showMaintenancesButton
+        <li>
+          <a href={Router.path 'listMaintenances', vehicleId: @props.selectedItem} style={padding:'5px'} title="Maintenance">
+            <i className="pe-7s-tools" style={fontSize:'30px'}></i>
+          </a>
+        </li>
+      }
+
     </ul>
 
 
