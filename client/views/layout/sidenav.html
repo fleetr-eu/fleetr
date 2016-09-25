@@ -29,12 +29,12 @@
           </a>
         </li>
         {{#each fleetGroups}}
-        <li>
+        <li data-toggle="collapse" data-target="#{{name}}Menu">
           <a href="#">
           <span class="title">{{name}}</span>
           <span class="arrow"></span>
           </a>
-          <ul class="sub-menu">
+          <ul class="sub-menu nav nav-list collapse" id="#{{name}}Menu">
             {{#each fleets}}
               <li>
                 <a class="show-fleet-vehicles" href="{{pathFor 'listVehicles' fleetName=name}}">
