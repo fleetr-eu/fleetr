@@ -14,6 +14,7 @@ Meteor.startup ->
 
   if Meteor.isClient
     AccountsEntry.config
+      logo: '/images/truck.png'
       privacyUrl: '/privacy-policy'
       termsUrl: '/terms-of-use'
       homeRoute: '/sign-in'
