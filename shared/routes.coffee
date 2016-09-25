@@ -116,6 +116,11 @@ Meteor.startup ->
     @route 'drilldownReport',
       path: '/reports/drilldown'
 
+    @route 'importExpenses',
+      path: '/expenses/import'
+      template: 'expensesImport'
+      waitOn: -> Meteor.subscribe('expenses')
+
     @route 'listExpenseGroups',
       path: '/expenses/groups/list'
       template: 'expenseGroups'

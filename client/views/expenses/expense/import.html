@@ -1,0 +1,13 @@
+<template name="expensesImport">
+  <h4 class="page-header">Import xlsx</h4>
+
+  {{#unless importing}}
+    <input type="file" name="importFile">
+  {{else}}
+    <p><i class="fa fa-spin fa-refresh"></i> Imporing ...</p>
+  {{/unless}}
+
+  <div>
+    {{> reactiveTable class="table table-bordered table-hover" settings=tableSettings collection=expenses}}
+  </div>
+</template>
