@@ -1,7 +1,7 @@
 ReactParent = require '/imports/ui/ReactParent.cjsx'
 
 Meteor.startup ->
-  $('html').attr  'class', 'no js'
+  $('html').attr  'class', 'no js light-bootstrap'  
   $('body').attr  'class', 'page-header-fixed'
 
 Template.lb.onRendered ->
