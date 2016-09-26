@@ -119,6 +119,12 @@ Meteor.startup ->
     @route 'importExpenses',
       path: '/expenses/import'
       template: 'expensesImport'
+      # waitOn: -> Meteor.subscribe('expenses')
+
+    @route 'importFuelExpenses',
+      path: 'expenses/import/fuel'
+      template: 'expensesImport'
+      yieldRegions: 'fuelExpenses': {to: 'fuelexpenses'}
       waitOn: -> Meteor.subscribe('expenses')
 
     @route 'listExpenseGroups',
