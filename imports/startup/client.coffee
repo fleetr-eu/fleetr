@@ -9,6 +9,7 @@ require '../ui/third-party/markerwithlabel.js'
 ## JQuery Plugins
 # require '../ui/third-party/jquery-ui-1.10.3.custom.min.js'
 require '../ui/third-party/jquery.slimscroll.min.js'
+require '../ui/third-party/typeahead.bundle.js'
 
 ## Bootstrap Plugins
 require '../ui/third-party/bootstrap-switch.min.js'
