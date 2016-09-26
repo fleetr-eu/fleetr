@@ -1399,7 +1399,7 @@
 .light-bootstrap .navbar-transparent .dropdown-menu .divider {
   background-color: rgba(255, 255, 255, 0.2);
 }
-.light-bootstrap .nav-open .nav .caret {
+.light-bootstrap.nav-open .nav .caret {
   border-bottom-color: #FFFFFF;
   border-top-color: #FFFFFF;
 }
@@ -2709,17 +2709,17 @@
     position: relative;
     z-index: 4;
   }
-  .light-bootstrap .nav-open .navbar-collapse {
+  .light-bootstrap.nav-open .navbar-collapse {
     -webkit-transform: translate3d(0px, 0, 0);
     -moz-transform: translate3d(0px, 0, 0);
     -o-transform: translate3d(0px, 0, 0);
     -ms-transform: translate3d(0px, 0, 0);
     transform: translate3d(0px, 0, 0);
   }
-  .light-bootstrap .nav-open .navbar .container {
+  .light-bootstrap.nav-open .navbar .container {
     left: -250px;
   }
-  .light-bootstrap .nav-open .wrapper {
+  .light-bootstrap.nav-open .wrapper {
     left: 0;
     -webkit-transform: translate3d(-250px, 0, 0);
     -moz-transform: translate3d(-250px, 0, 0);
