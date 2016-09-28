@@ -69,7 +69,9 @@ Meteor.startup ->
       path: '/drivers/list'
       template: 'drivers'
       waitOn: -> [Meteor.subscribe('drivers'), Meteor.subscribe('vehicles')]
-      data: -> title: TAPi18n.__('drivers.listTitle')
+      data: ->
+        title: TAPi18n.__('drivers.listTitle')
+        topnav: <CrudButtons editItemTemplate='driver' i18nRoot='drivers' collection=Drivers removeItemMethod='removeDriver'/>
 
     @route 'listVehicles',
       path: '/vehicles/list/:fleetName?'
@@ -107,13 +109,17 @@ Meteor.startup ->
       path: '/fleets/list'
       template: 'fleets'
       waitOn: -> [Meteor.subscribe('customEvents'), Meteor.subscribe('fleets'), Meteor.subscribe('fleetGroups'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
-      data: -> title: TAPi18n.__('fleet.listTitle')
+      data: ->
+        title: TAPi18n.__('fleet.listTitle')
+        topnav: <CrudButtons editItemTemplate='fleet' i18nRoot='fleet' collection=Fleets removeItemMethod='removeFleet'/>
 
     @route 'listFleetGroups',
       path: '/fleets/groups/list'
       template: 'fleetGroups'
       waitOn: -> Meteor.subscribe('fleetGroups')
-      data: -> title: TAPi18n.__('fleetGroups.listTitle')
+      data: ->
+        title: TAPi18n.__('fleetGroups.listTitle')
+        topnav: <CrudButtons editItemTemplate='fleetGroup' i18nRoot='fleetGroups' collection=FleetGroups removeItemMethod='removeFleetGroup'/>
 
     @route 'mapVehicles',
       path: '/vehicles/map/:vehicleId?'
@@ -176,7 +182,7 @@ Meteor.startup ->
         [Meteor.subscribe('vehicle', _id: @params.vehicleId)
         Meteor.subscribe('vehicleMaintenances', @params.vehicleId)
         Meteor.subscribe('maintenanceTypes')]
-      data: -> title: TAPi18n.__('vehicle.listTitle')
+      data: -> title: TAPi18n.__('maintenances.listTitle')
 
     @route 'listMaintenanceType',
       path: '/maintenance/types/list'
