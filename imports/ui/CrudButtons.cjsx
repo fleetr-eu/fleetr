@@ -24,10 +24,7 @@ CrudButtons = React.createClass
     Modal.show 'confirmDelete',
       title: => "#{@props.i18nRoot}.title"
       message: => "#{@props.i18nRoot}.deleteMessage"
-      action: =>
-        # Meteor.call @props.removeItemMethod, Session.get('selectedItemId'), ->
-          # Meteor.defer ->
-          #   Session.set 'selectedItemId', t.grid.getItemByRowId(t.row)?._id
+      action: => Meteor.call @props.removeItemMethod, @props.selectedItem
 
   render: ->
     <ul className="nav navbar-nav navbar-left">
