@@ -71,7 +71,7 @@ Meteor.startup ->
       waitOn: -> [Meteor.subscribe('drivers'), Meteor.subscribe('vehicles')]
       data: ->
         title: TAPi18n.__('drivers.listTitle')
-        topnav: <CrudButtons editItemTemplate='driver' i18nRoot='drivers' collection=Drivers removeItemMethod='removeDriver'/>
+        topnav: <CrudButtons editItemTemplate='driver' i18nRoot='drivers' collection=Drivers removeItemMethod='removeDriver' showDocumentsButton={true}/>
 
     @route 'listVehicles',
       path: '/vehicles/list/:fleetName?'
@@ -165,7 +165,10 @@ Meteor.startup ->
       path: '/documents/types/list'
       template: 'documentTypes'
       waitOn: -> Meteor.subscribe('documentTypes')
-      data: -> title: TAPi18n.__('documentTypes.listTitle')
+      data: ->
+        title: TAPi18n.__('documentTypes.listTitle')
+        topnav: <CrudButtons editItemTemplate='documentType' i18nRoot='documentTypes' collection=DocumentTypes removeItemMethod='removeDocumentType'/>
+
 
     @route 'listDocuments',
       path: '/drivers/:driverId/documents/list'
@@ -226,7 +229,9 @@ Meteor.startup ->
       template: 'driverVehicleAssignments'
       waitOn: ->
         [ Meteor.subscribe('vehicles'), Meteor.subscribe('drivers'), Meteor.subscribe('driverVehicleAssignments')]
-      data: -> title: TAPi18n.__('driverVehicleAssignments.listTitle')
+      data: ->
+        title: TAPi18n.__('driverVehicleAssignments.listTitle')
+        topnav: <CrudButtons editItemTemplate='driverVehicleAssignment' i18nRoot='driverVehicleAssignments' collection=DriverVehicleAssignments removeItemMethod='removeDriverVehicleAssignment'/>
 
     @route 'resetAll',
       path: '/reset'
