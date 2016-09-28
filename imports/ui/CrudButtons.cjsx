@@ -6,6 +6,7 @@ CrudButtons = React.createClass
 
   getDefaultProps: ->
     showMaintenancesButton: false
+    showDocumentsButton: false
 
   add: ->
     console.log 'Add clicked'
@@ -42,10 +43,17 @@ CrudButtons = React.createClass
           </a></li>
         ]
       }
-      {if @props.selectedItem and @props.showMaintenancesButton
+      {if @props.doc and @props.showMaintenancesButton
         <li>
           <a href={Router.path 'listMaintenances', vehicleId: @props.selectedItem} style={padding:'5px'} title="Maintenance">
             <i className="pe-7s-tools" style={fontSize:'30px'}></i>
+          </a>
+        </li>
+      }
+      {if @props.doc and @props.showDocumentsButton
+        <li>
+          <a href={Router.path 'listDocuments', driverId: @props.selectedItem}  style={padding:'5px'} title="Documents">
+            <i className="pe-7s-news-paper" style={fontSize:'30px'}></i>
           </a>
         </li>
       }
