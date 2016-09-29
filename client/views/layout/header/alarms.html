@@ -1,43 +1,31 @@
 <template name="headerAlarms">
   <!-- BEGIN EVENTS DROPDOWN -->
-  <li class="dropdown dropdown-extended dropdown-alarms" id="header_alarm_bar">
+
+  <li class="dropdown dropdown-alarms" id="header_alarm_bar">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-    <i class="pe-7s-bell" style="font-size: 25px;"></i>
-    {{#if unseenAlarmsExist }}
-      <span class="badge badge-danger">{{unseenAlarmsCount}}</span>
-    {{/if}}
+      <i class="pe-7s-bell" style="font-size: 25px;"></i>
+      <b class="caret"></b>
+      {{#if unseenAlarmsExist }}
+        <span class="notification">{{unseenAlarmsCount}}</span>
+      {{/if}}
     </a>
-      <ul class="dropdown-menu">
-        <li>
-          <p>
-             Имате {{unseenAlarmsCount}} нови аларми
-          </p>
-        </li>
-        <li>
-          <ul class="dropdown-menu-list scroller" style="height: 250px;">
-            {{#each unseenAlarms}}
-              {{> headerAlarm}}
-            {{/each}}
-          </ul>
-        </li>
-        <!-- <li class="external">
-          <a href="{{pathFor 'listAlarms'}}">Вижте всички аларми<i class="m-icon-swapright"></i>
-          </a>
-        </li> -->
-      </ul>
-    </li>
+    <ul class="dropdown-menu" style="width:450px">
+      <li style='padding:10px; font-weight:strong; font-size:120%;border-bottom: 1px solid #F7F7F8;margin-bottom: 5px;'>Имате {{unseenAlarmsCount}} нови аларми</li>
+      {{#each unseenAlarms}}
+        {{> headerAlarm}}
+      {{/each}}
+    </ul>
+  </li>
 
   <!-- END EVENTS DROPDOWN -->
 </template>
 
 <template name="headerAlarm">
   <li>
-    <a href="/alarms/list">
-    <span class="label label-sm label-icon label-danger">
-    <i class="icon-bell"></i>
-    </span>
+    <a href="/alarms/list" style="white-space: normal;">
+    <i class="pe-7s-bell" style='font-size: 120%'></i>
     {{alarmText}}
-    <span class="time" style="{{style}}"><small>{{timeAgo}}</small>
+    <span class="time" style="{{style}};"><small>{{timeAgo}}</small>
     </span>
     </a>
   </li>
