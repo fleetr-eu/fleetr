@@ -1,0 +1,5 @@
+.tap-i18n-dropdown>.form-control {
+  width: 100%;
+  border: none !important;
+  background-color: rgba(0,0,0,0) !important;
+}
