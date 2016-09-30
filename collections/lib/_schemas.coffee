@@ -340,7 +340,7 @@ Schema.expenseGroups = new SimpleSchema
     type: String, optional: true, label: ()->TAPi18n.__('expenseGroups.description')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  
+
 Schema.expenseTypes = new SimpleSchema
   _id:
     type: String, optional: true
@@ -363,7 +363,7 @@ Schema.expenseTypes = new SimpleSchema
           onColor: 'success'
           onText: ()->TAPi18n.__('general.yes')
           offText: ()->TAPi18n.__('general.no')
-      template: "bootstrap3-horizontal", leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
+      template: "bootstrap3-horizontal", leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   fines:
     type: Boolean, label: ()->TAPi18n.__('expenseTypes.fines')
     optional: true
@@ -375,7 +375,7 @@ Schema.expenseTypes = new SimpleSchema
           onColor: 'success'
           onText: ()->TAPi18n.__('general.yes')
           offText: ()->TAPi18n.__('general.no')
-      template: "bootstrap3-horizontal", leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
+      template: "bootstrap3-horizontal", leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   description:
     type: String, optional: true, label: ()->TAPi18n.__('expenseTypes.description')
     autoform:
@@ -392,14 +392,14 @@ Schema.expenses = new SimpleSchema
       options: -> ExpenseTypes.find().map (expenseType) -> label: expenseType.name, value: expenseType._id
       allowOptions: "true"
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-   expenseGroup:
-     type: String
-     label: ()->TAPi18n.__('expenses.expenseGroup')
-     autoform:
-       firstOption: ()->TAPi18n.__('dropdown.select')
-       options: -> ExpenseGroups.find().map (expenseGroup) -> label: expenseGroup.name, value: expenseGroup._id
-       allowOptions: "true"
-       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  expenseGroup:
+    type: String
+    label: ()->TAPi18n.__('expenses.expenseGroup')
+    autoform:
+      firstOption: ()->TAPi18n.__('dropdown.select')
+      options: -> ExpenseGroups.find().map (expenseGroup) -> label: expenseGroup.name, value: expenseGroup._id
+      allowOptions: "true"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   vehicle:
     type: String
     label: ()->TAPi18n.__('expenses.vehicle')

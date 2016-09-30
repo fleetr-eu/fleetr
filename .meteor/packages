@@ -71,3 +71,6 @@ react-meteor-data
 shell-server
 huaming:js-xlsx
 aslagle:reactive-table
+dbarrett:dropzonejs
+chfritz:filedrop
+hinas:meteor-bootstrap-confirmation

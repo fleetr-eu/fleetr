@@ -31,11 +31,13 @@ caching-html-compiler@1.0.7
 callback-hook@1.0.9
 cfs:http-methods@0.0.32
 check@1.2.3
+chfritz:filedrop@0.0.5
 chrismbeckett:fontawesome4@4.2.2
 chuangbo:cookie@1.1.0
 coffeescript@1.2.4_1
 comerc:autoform-typeahead@1.0.6
 comerc:bs-typeahead@1.0.2
+dbarrett:dropzonejs@4.2.1
 dburles:collection-helpers@1.0.4
 ddp@1.2.5
 ddp-client@1.3.1
@@ -53,6 +55,7 @@ fastclick@1.0.12
 fleetr:autoform-bootstrap-switch@0.1.0
 geojson-utils@1.0.9
 handlebars@1.0.7
+hinas:meteor-bootstrap-confirmation@0.9.0
 hot-code-push@1.0.4
 html-tools@1.0.11
 htmljs@1.0.11
