@@ -1,29 +1,36 @@
 Meteor.methods
-  'vehicle/history': (deviceId) ->
+  'vehicle/history': (filter, deviceId) ->
     @unblock
-    VehicleHistory.update {deviceId: deviceId}, {$set: expenses: {}}, {multi: true}
 
+    console.log 'vehicle/history'
     data = {}
     odometer =
       [
-        {$match: deviceId: deviceId}
+        {$match:
+          deviceId: deviceId}
+        {$project:
+          date:
+            $dateToString:
+              format: "%Y-%m-%d", date: "$recordTime"
+          odometer: "$odometer"
+          speed: "$speed"
+        }
         {$group:
-          _id:
-            deviceId: "$deviceId"
-            month: $month: "$recordTime"
-            day: $dayOfMonth: "$recordTime"
-            year: $year: "$recordTime"
+          _id: "$date"
           startOdometer: $min: "$odometer"
           endOdometer: $max: "$odometer"
           maxSpeed: $max: "$speed"
         }
+        {$project:
+          date: "$_id"
+          maxSpeed: $max: "$maxSpeed"
+          startOdometer: "$startOdometer"
+          endOdometer: "$endOdometer"
+          distance: $subtract: ["$endOdometer", "$startOdometer"]
+        }
+        {$sort: _id: -1}
       ]
-    Logbook.aggregate(odometer).map (r) ->
-      r.date = moment([r._id.year, r._id.month - 1, r._id.day]).format('YYYY-MM-DD')
-      r.deviceId = deviceId
-      r.expenses = {}
-      delete r._id
-      data[r.date] = r
+    data = Logbook.aggregate(odometer)
 
     expensesPipeline = (query) ->
       types = _.pluck(ExpenseTypes.find(query, {fields: _id: 1}).fetch(), '_id')
@@ -33,27 +40,26 @@ Meteor.methods
           expenseType: $in: types
         }
         {$group:
-          _id:
-            vehicleId: "$vehicle"
-            date: "$date"
+          _id: "$date"
           total: $sum: "$total"
           totalVATIncluded: $sum: "$totalVATIncluded"
         }
+        {$project:
+          expense:
+            total: "$total"
+            totalVATIncluded: "$totalVATIncluded"
+        }
       ]
 
-    createExpenses = (type) -> (r) ->
-      date = moment(r._id.date).format('YYYY-MM-DD')
-      exp = _.pick(r, 'total', 'totalVATIncluded')
-      if data[date]
-        data[date].expenses[type] = exp
-      else
-        VehicleHistory.update {deviceId: deviceId, date: date}, $set:
-          "expenses.#{type}": exp
-    Expenses.aggregate(expensesPipeline({fuels: true})).map createExpenses('fuels')
-    Expenses.aggregate(expensesPipeline({fines: true})).map createExpenses('fines')
-
-    for date, record of data
-      VehicleHistory.upsert {deviceId: deviceId, date: date}, {$set: record}
+    expTupple = (item) -> [moment(item._id).format('YYYY-MM-DD'), item.expense]
+    expenses =
+      fuels: _.object Expenses.aggregate(expensesPipeline({fuels: true})).map expTupple
+      fines: _.object Expenses.aggregate(expensesPipeline({fines: true})).map expTupple
+    data.map (item) ->
+      item.expenses =
+        fuels: expenses.fuels[item.date] or {}
+        fines: expenses.fines[item.date] or {}
+      item
 
 
   'vehicle/trips': (filter, aggParams) ->
