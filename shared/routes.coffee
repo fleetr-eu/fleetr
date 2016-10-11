@@ -119,7 +119,12 @@ Meteor.startup ->
     @route 'importExpenses',
       path: '/expenses/import'
       template: 'expensesImport'
-      waitOn: -> Meteor.subscribe('expenses')
+      waitOn: -> [
+        Meteor.subscribe('expenses')
+        Meteor.subscribe('expenseTypes')
+        Meteor.subscribe('expenseGroups')
+        Meteor.subscribe('vehicles/licensePlates')
+      ]
 
     @route 'listExpenseGroups',
       path: '/expenses/groups/list'

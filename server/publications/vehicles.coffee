@@ -40,6 +40,9 @@ opts =
 findVehicles = (filter = {}) ->
   Vehicles.find PermissionsManager.augment(filter, 'vehicles'), opts
 
+Meteor.publish 'vehicles/licensePlates', ->
+  Vehicles.find {}, fields:
+    licensePlate: 1
 Meteor.publish 'vehicles', findVehicles
 Meteor.publish 'vehicle', (filter) ->
   if filter then Vehicles.find(filter) else []

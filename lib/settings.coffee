@@ -1,4 +1,5 @@
 @Settings =
+  VAT: 0.2
   maxSpeed: 100
   minSpeed: 0.1
   maxStay: 30

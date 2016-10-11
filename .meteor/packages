@@ -74,3 +74,4 @@ aslagle:reactive-table
 dbarrett:dropzonejs
 chfritz:filedrop
 hinas:meteor-bootstrap-confirmation
+aldeed:simple-schema

@@ -39,6 +39,7 @@
     "addExpenseGroup": "Add Expense Group",
     "listExpenseTypes": "Expense Types",
     "listExpenses": "Expenses",
+    "importExpenses": "Import expenses",
     "maintenances" : "Maintenances",
     "insurances" : "Insurances",
     "listInsuranceTypes" : "Insurance Types",
@@ -231,7 +232,17 @@
     "discount" : "Discount",
     "total" : "Total",
     "description" : "Description",
-    "deleteMessage": "Are you certain you want to delete this expense?"
+    "deleteMessage": "Are you certain you want to delete this expense?",
+    "import": {
+      "title": "Import expenses",
+      "import": "Import",
+      "clear": "Clear",
+      "target": "Drop files here",
+      "drop": "Yes, drop them here!",
+      "missed": "Not there, here!",
+      "processed": "Processed files"
+    }
+
   },
 
   "maintenanceTypes": {

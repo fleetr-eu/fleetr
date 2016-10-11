@@ -40,6 +40,7 @@
     "addExpenseGroup": "Добави група разходи",
     "listExpenseTypes": "Видове разходи",
     "listExpenses": "Разходи",
+    "importExpenses": "Качи разходи",
     "insurances" : "Застраховки",
     "listInsuranceTypes" : "Видове застраховки",
     "addMaintenanceType" : "Добави вид поддръжка",
@@ -231,7 +232,16 @@
     "discount" : "Сума отстъпка",
     "total" : "Обща сума",
     "description" : "Описание",
-    "deleteMessage": "Сигурен ли сте, че искате да изтриете този разход?"
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете този разход?",
+    "import": {
+      "title": "Качване на разходи",
+      "import": "Качи",
+      "clear": "Изчисти",
+      "target": "Пуснете файловете тук",
+      "drop": "Да, точно тук!",
+      "missed": "Не там, тук!",
+      "processed": "Обработени файлове"
+    }
   },
 
   "maintenanceTypes": {
