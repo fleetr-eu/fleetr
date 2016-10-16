@@ -240,7 +240,9 @@
       "target": "Drop files here",
       "drop": "Yes, drop them here!",
       "missed": "Not there, here!",
-      "processed": "Processed files"
+      "processed": "Processed files",
+      "type": "Expense type",
+      "group": "Expense group"
     }
 
   },
