@@ -45,8 +45,8 @@ Template.expensesImport.events
       totalVATIncluded: totalVATIncluded
       vehicle: Vehicles.findOne(licensePlate: licensePlate)?._id
       # FIX: make the following user selectable
-      expenseType: 'HzLp488zyRHe9sEG3'
-      expenseGroup: '5jos5QuL2kLMvfjx5'
+      expenseType: tpl.$('#importedExpenseType').val()
+      expenseGroup: tpl.$('#importedExpenseGroup').val()
       # =======================================
 
     # context = Schema.expenses.namedContext("importingExpenses")
@@ -77,3 +77,5 @@ Template.expensesImport.helpers
     filters: ['expenseFilter']
   expenses: -> Template.instance().importedExpenses.get()
   processed: -> @processed
+  expenseTypes: -> ExpenseTypes.find()
+  expenseGroups: -> ExpenseGroups.find()

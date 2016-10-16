@@ -19,7 +19,7 @@
             </a>
           </div>
         </div>
-        <div class="portlet-body" id="map-container">
+        <div class="portlet-body">
           <div class="row">
              <div class="col-md-12">
                <section class="content">
@@ -38,7 +38,7 @@
                        {{/if}}
                      {{/if}}"
                      id="drop-zone"
-                     style="font-size:23px; text-align:center; border: 1px solid #e5e5e5;">
+                     style="font-size:30px; text-align:center; border: 1px solid #e5e5e5;">
                      {{#if filedrop_over}}
                        {{_ "expenses.import.drop"}}
                      {{else}}
@@ -52,6 +52,25 @@
                    {{/filedrop}}
                    <div class="col-md-6 col-md-offset-1">
                      {{> reactiveTableFilter id="expenseFilter" label="Filter" }}
+                     <form class="form-inline" style="margin-top:5px;">
+                       <div class="form-group">
+                         <label for="importedExpenseType">Expense type</label>
+                         <select class="form-control" id="importedExpenseType">
+                           {{#each expenseTypes}}
+                           <option value={{_id}}>{{name}}</option>
+                           {{/each}}
+                         </select>
+                       </div>
+                       <div class="form-group pull-right">
+                         <label for="importedExpenseGroup">Expense group</label>
+                         <select class="form-control" id="importedExpenseGroup">
+                           {{#each expenseGroups}}
+                           <option value={{_id}}>{{name}}</option>
+                           {{/each}}
+                         </select>
+                       </div>
+                     </form>
+
                    </div>
                  </div>
 
