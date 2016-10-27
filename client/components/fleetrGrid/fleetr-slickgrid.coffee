@@ -159,7 +159,6 @@ Helpers =
   @_sortArgs = null
   @_columnSortOrder = {}
   @_performSort = (args = @_sortArgs) ->
-    console.log 'performSort', args
     return unless args
     @_sortArgs = args
     # sort implementation that supports multi-column sort and custom
