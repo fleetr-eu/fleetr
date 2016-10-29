@@ -1,5 +1,4 @@
 map = null
-clusterer = null
 
 Meteor.startup ->
   class @Geofence
@@ -26,28 +25,16 @@ Meteor.startup ->
       new google.maps.Circle opts
 
     _drawLabel: ->
-      opts =
-        content: @gf.name
-        boxStyle:
-          textAlign: "center"
-          fontSize: "8pt"
-          width: "90px"
-        disableAutoPan: true
-        pixelOffset: new google.maps.Size(-45, 0)
+      label = new google.maps.InfoWindow
         position: @center
-        closeBoxURL: ""
-        isHidden: false
-        enableEventPropagation: true
-      label = new InfoBox opts
+        content: @gf.name
       label.open(@map)
       label
 
   class @FleetrMap
     options:
-      center: # Sofia, Bulgaria
-        lat: 42.6959214
-        lng: 23.3198662
-      zoom: 12
+      center: Settings.map.preferredLocation
+      zoom: Settings.map.initialZoom
       mapTypeId: google.maps.MapTypeId.ROADMAP
       disableDefaultUI: true
       streetViewControl: true
@@ -74,12 +61,7 @@ Meteor.startup ->
 
       Autocomplete.init @map, document.getElementById("pac-input")
 
-      if clusterer
-        @clusterer = clusterer
-        @clusterer.setMap @map
-        @clusterer.removeAllMarkers()
-      else
-        clusterer = @clusterer = new FleetrClusterer @map
+      @clusterer = FleetrClusterer @map
 
       if options?.showVehicles
         @vehicleObserver = Vehicles.find {},
@@ -100,22 +82,21 @@ Meteor.startup ->
         .observe
           added: (v) => @addVehicleMarker v
           removed: (v) => @removeVehicleMarker v
-          changed: (v) =>
-            @removeVehicleMarker v
-            @addVehicleMarker v
+          changed: (v) => @addVehicleMarker v
 
       map = @
 
     destroy: ->
-      @removeAllMarkers()
       @vehicleObserver?.stop()
+      @removeAllMarkers()
+      @clusterer = null
 
     addVehicleMarker: (vehicle) ->
-      Tracker.autorun =>
-        @removeVehicleMarker(vehicle) if @vehicleMarkers[vehicle._id]
-        marker = new VehicleMarker(vehicle, Session.get('FleetrMap.showMarkerLabels')).withInfo(vehicle, @map)
-        @vehicleMarkers[vehicle._id] = marker
-        @clusterer.addMarker marker
+      # Tracker.autorun =>
+      @removeVehicleMarker(vehicle) if @vehicleMarkers[vehicle._id]
+      marker = new VehicleMarker(vehicle, Session.get('FleetrMap.showMarkerLabels')).withInfo(vehicle, @map)
+      @vehicleMarkers[vehicle._id] = marker
+      @clusterer.addMarker marker
 
     removeVehicleMarker: (vehicle) ->
       @clusterer.removeMarker vehicle._id
@@ -147,7 +128,7 @@ Meteor.startup ->
       if @pathMarkers.length
         m.setMap @map for m in @pathMarkers
       else
-        @path.map (point) =>
+        @path?.map (point) =>
           color = if point.speed >= Settings.maxSpeed then 'red' else 'blue'
           opts =
             position: new google.maps.LatLng(point.lat, point.lng)

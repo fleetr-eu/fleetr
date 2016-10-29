@@ -129,7 +129,7 @@ Meteor.startup ->
         vehicle = Vehicles.findOne _id: @params.vehicleId
         [
           Meteor.subscribe('geofences')
-          Meteor.subscribe('vehicle', {_id: @params.vehicleId})
+          Meteor.subscribe('vehicles')
           Meteor.subscribe('drivers')
           Meteor.subscribe('logbook/trip', vehicle?.trip?.id)
         ]
@@ -142,6 +142,16 @@ Meteor.startup ->
     @route 'drilldownReport',
       path: '/reports/drilldown'
       data: -> title: TAPi18n.__('reports.listTitle')
+
+    @route 'importExpenses',
+      path: '/expenses/import'
+      template: 'expensesImport'
+      waitOn: -> [
+        Meteor.subscribe('expenses')
+        Meteor.subscribe('expenseTypes')
+        Meteor.subscribe('expenseGroups')
+        Meteor.subscribe('vehicles/licensePlates')
+      ]
 
     @route 'listExpenseGroups',
       path: '/expenses/groups/list'

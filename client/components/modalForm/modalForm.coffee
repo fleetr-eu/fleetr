@@ -18,7 +18,7 @@ Template.modalForm.onRendered ->
     onError: (formType, error) -> # on validation error jump to the panel where the validation failed
       Meteor.defer ->
         id = @$('.has-error').closest('div.tab-pane').attr('id')
-        @$("a[href=##{id}]").tab('show')
+        @$("a[href='##{id}']").tab('show')
   AutoForm.hooks autoformHooks
 
 Template.modalForm.events

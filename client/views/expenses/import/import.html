@@ -1,0 +1,98 @@
+<template name="expensesImport">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="portlet light">
+        <div class="portlet-title">
+          <div class="caption" id="fleets">
+              <div class="caption-subject">
+                <h1 class="page-title">{{_ "expenses.import.title"}}</h1>
+              </div>
+          </div>
+          <div class="actions">
+            <a href="#" id="importExpenses" class="btn btn-circle btn-default">
+                  <i class="fa fa-upload"></i>
+                  {{_ "expenses.import.import"}}
+            </a>
+            <a href="#" id="clearExpenses" class="btn btn-circle btn-default">
+                  <i class="icon-trash"></i>
+                  {{_ "expenses.import.clear"}}
+            </a>
+          </div>
+        </div>
+        <div class="portlet-body">
+          <div class="row">
+             <div class="col-md-12">
+               <section class="content">
+                 <div class="row" style="padding-bottom: 5px;">
+                   <!-- Drop Zone -->
+                   {{#filedrop dropHandlers}}
+                   <div class="col-md-4 col-md-offset-1
+                     upload-drop-zone
+                     {{#if filedrop_over}}
+                        bg-success
+                     {{else}}
+                       {{#if filedrop_window}}
+                          bg-danger
+                       {{else}}
+                          bg-warning
+                       {{/if}}
+                     {{/if}}"
+                     id="drop-zone"
+                     style="font-size:30px; text-align:center; border: 1px solid #e5e5e5;">
+                     {{#if filedrop_over}}
+                       {{_ "expenses.import.drop"}}
+                     {{else}}
+                     {{#if filedrop_window}}
+                       {{_ "expenses.import.missed"}}
+                     {{else}}
+                       {{_ "expenses.import.target"}}
+                     {{/if}}
+                     {{/if}}
+                   </div>
+                   {{/filedrop}}
+                   <div class="col-md-6 col-md-offset-1">
+                     {{> reactiveTableFilter id="expenseFilter" label="Filter" }}
+                     <form class="form-inline" style="margin-top:5px;">
+                       <div class="form-group">
+                         <label for="importedExpenseType">{{_ "expenses.import.type"}} </label>
+                         <select class="form-control" id="importedExpenseType">
+                           {{#each expenseTypes}}
+                           <option value={{_id}}>{{name}}</option>
+                           {{/each}}
+                         </select>
+                       </div>
+                       <div class="form-group pull-right">
+                         <label for="importedExpenseGroup">{{_ "expenses.import.group"}} </label>
+                         <select class="form-control" id="importedExpenseGroup">
+                           {{#each expenseGroups}}
+                           <option value={{_id}}>{{name}}</option>
+                           {{/each}}
+                         </select>
+                       </div>
+                     </form>
+
+                   </div>
+                 </div>
+
+                 {{#if droppedFiles}}
+                 <strong>{{_ "expenses.import.processed"}}: </strong>
+                 {{/if}}
+                 {{#each droppedFiles}}
+                 <span>
+                   {{#unless processed}}<i class="fa fa-spin fa-refresh"></i>{{/unless}}
+                   '{{this.name}}'
+                 </span>
+                 {{/each}}
+
+               <!-- Show data -->
+               <div class="processed-data">
+               {{> reactiveTable class="table table-bordered table-hover" settings=tableSettings collection=expenses}}
+               </div>
+               </section>
+             </div>
+           </div>
+        </div>
+     </div>
+   </div>
+ </div>
+</template>
