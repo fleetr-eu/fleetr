@@ -1,4 +1,9 @@
 @Settings =
+  map:
+    preferredLocation: # Sofia, Bulgaria
+      lat: 42.6959214
+      lng: 23.3198662
+    initialZoom: 12
   VAT: 0.2
   maxSpeed: 100
   minSpeed: 0.1

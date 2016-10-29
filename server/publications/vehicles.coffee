@@ -13,6 +13,9 @@ opts =
     tripTime: 1
     idleTime: 1
     restTime: 1
+    lat: 1
+    lng: 1
+    course: 1
     # for editing, needs another pub per vehicle
     active: 1
     allocatedToFleetFromDate: 1

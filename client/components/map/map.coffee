@@ -9,6 +9,7 @@ Template.fleetrMap.onDestroyed ->
 Template.fleetrMap.onRendered ->
   @map = new FleetrMap '#map-canvas',
     showVehicles: if @data.showVehicles is undefined then true else @data.showVehicles
+  centerMapOnVehicleSelection()
 
   @autorun =>
     if @showGeofences.get()
@@ -27,6 +28,7 @@ Template.fleetrMap.onRendered ->
     else
       gf.destroy() for id, gf of @geofences
       @geofences = []
+
 
 Template.fleetrMap.helpers
   enableVehicleSelection: ->
@@ -56,7 +58,7 @@ Template.fleetrMap.helpers
       t.map?.hidePathMarkers()
     ''
 
-  centerMapOnVehicleSelection: ->
+  centerMapOnVehicleSelection: centerMapOnVehicleSelection = ->
     t = Template.instance()
     selectedVehicle = Vehicles.findOne {_id: t.data.vehicleId},
       fields:
