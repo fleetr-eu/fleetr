@@ -108,6 +108,7 @@ Meteor.startup ->
         vehicle = Vehicles.findOne _id: @params.vehicleId
         [
           Meteor.subscribe('geofences')
+          Meteor.subscribe('vehicle', {_id: @params.vehicleId})
           Meteor.subscribe('vehicles')
           Meteor.subscribe('drivers')
           Meteor.subscribe('logbook/trip', vehicle?.trip?.id)
