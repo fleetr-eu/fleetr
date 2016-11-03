@@ -55,7 +55,6 @@ meteorhacks:kadira
 standard-minifier-css@1.3.2
 standard-minifier-js@1.2.1
 jquery@1.11.10
-loftsteinn:bootstrap3-daterangepicker
 stevezhu:lodash
 zimme:iron-router-active
 aldeed:autoform
@@ -75,3 +74,4 @@ dbarrett:dropzonejs
 chfritz:filedrop
 hinas:meteor-bootstrap-confirmation
 aldeed:simple-schema
+dangrossman:bootstrap-daterangepicker
