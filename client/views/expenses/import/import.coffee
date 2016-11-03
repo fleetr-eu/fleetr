@@ -13,13 +13,36 @@ Template.expensesImport.helpers
           sheetNames = workbook.SheetNames
           sheetNames.forEach (sheetName) ->
             sheet = workbook.Sheets[sheetName]
+            # console.log "#{cell}:#{JSON.stringify value.v, null, 3}" for cell, value of sheet
             if Object.keys(sheet)?.length
-              expenses = XLSX.utils.sheet_to_json(sheet)
+              expenses = XLSX.utils.sheet_to_json(sheet).map (exp) ->
+                licensePlate = exp['ДК Номер'] or exp.licensePlate
+                unitPriceWithVAT = parseInt exp['Единична стойност с ДДС']
+                quantity = parseInt exp['количество']
+                totalVATIncluded = unitPriceWithVAT * quantity
+                total = totalVATIncluded / (1 + Settings.VAT)
+                quantity: quantity
+                date: moment(exp['Дата на зареждане'], "DD.MM.YYYY").toDate()
+                odometer: parseInt exp['Одометър'] or 0
+                location: exp['Обект']
+                VATIncluded: true
+                invoiceNr: exp['№ фактура']
+                description: exp['Забележки']
+                total: total
+                totalVATIncluded: totalVATIncluded
+                vehicle: Vehicles.findOne(licensePlate: licensePlate)?._id
+                expenseType: tpl.$('#importedExpenseType').val()
+                expenseGroup: tpl.$('#importedExpenseGroup').val()
+
+              context = Schema.expenses.namedContext("importingExpenses")
+              for row, index in expenses
+                unless context.validate row
+                  console.log "Sheet '#{sheetName}' Row '#{index+2}': #{context.keyErrorMessage key.name}" for key, value in context.invalidKeys()
+
               tpl.importedExpenses.set tpl.importedExpenses.get().concat(expenses)
 
         reader.readAsBinaryString file
         file.processed = true
-
 
 Template.expensesImport.events
   'click #clearExpenses': (e, tpl) ->
@@ -32,7 +55,7 @@ Template.expensesImport.events
       totalVATIncluded = unitPriceWithVAT * quantity
       # FIX: Improve calculation or import
       total = totalVATIncluded / (1 + Settings.VAT)
-      console.log total, totalVATIncluded, quantity, Settings.VAT
+      # console.log total, totalVATIncluded, quantity, Settings.VAT
 
       quantity: quantity
       date: moment(exp['Дата на зареждане'], "DD.MM.YYYY").toDate()
