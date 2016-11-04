@@ -334,7 +334,7 @@ Helpers =
         where = args.column.search.where or 'client'
         if args.column.search.dateRange
           $("<input id=\"searchbox-#{Helpers.columnId args.column}\" class=\"searchbox\" type=\"text\" placeholder=\"Търсене по дата\">").appendTo args.node
-          DateRangeFilter.install $("#searchbox-#{Helpers.columnId args.column}"), args.column.search.dateRange
+          # DateRangeFilter.install $("#searchbox-#{Helpers.columnId args.column}"), args.column.search.dateRange
           $("#searchbox-#{Helpers.columnId args.column}").on 'apply.daterangepicker', (e, daterangepicker) =>
             startDate = daterangepicker.startDate
             endDate = daterangepicker.endDate

@@ -99,7 +99,8 @@ Meteor.startup ->
       @clusterer.addMarker marker
 
     removeVehicleMarker: (vehicle) ->
-      @clusterer.removeMarker vehicle._id
+      marker = _.findWhere @clusterer.getMarkers(), id: vehicle._id
+      @clusterer.removeMarker marker
       delete @vehicleMarkers[vehicle._id]
 
     removeAllMarkers: ->
