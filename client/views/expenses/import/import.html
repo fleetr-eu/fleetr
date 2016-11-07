@@ -76,7 +76,7 @@
               <!-- Show validation errors -->
               {{#if validationErrors}}
                <div class="validation-errors panel panel-danger">
-                 <div class="panel-heading"><strong>Validation Errors</strong></div>
+                 <div class="panel-heading"><strong>{{_ "expenses.import.validationErrors"}}</strong></div>
                  <div class="panel-body">
                   {{> reactiveTable class="table table-bordered table-hover" settings=tableSettingsValidationErrors collection=validationErrors}}
                 </div>
