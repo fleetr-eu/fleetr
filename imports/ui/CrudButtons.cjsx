@@ -57,7 +57,12 @@ CrudButtons = React.createClass
           </a>
         </li>
       }
-
+      {if @props.children
+        <li style={borderLeft:'1px solid #9A9A9A', height: 50, margin: 5} />
+      }
+      {if @props.children
+        @props.children
+      }
     </ul>
 
 

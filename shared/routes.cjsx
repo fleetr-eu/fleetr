@@ -1,4 +1,5 @@
 React       = require 'react'
+FleetsMenu  = require '/imports/ui/FleetsMenu.cjsx'
 CrudButtons = require '/imports/ui/CrudButtons.cjsx'
 
 Meteor.startup ->
@@ -111,7 +112,10 @@ Meteor.startup ->
       waitOn: -> [Meteor.subscribe('customEvents'), Meteor.subscribe('fleets'), Meteor.subscribe('fleetGroups'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
       data: ->
         title: TAPi18n.__('fleet.listTitle')
-        topnav: <CrudButtons editItemTemplate='fleet' i18nRoot='fleet' collection=Fleets removeItemMethod='removeFleet'/>
+        topnav: <CrudButtons editItemTemplate='fleet' i18nRoot='fleet' collection=Fleets removeItemMethod='removeFleet'>
+          <li><a href={Router.path 'listFleets'}>Fleets</a></li>
+          <li><a className='active' href={Router.path 'listFleetGroups'}>Fleet Groups</a></li>
+        </CrudButtons>
 
     @route 'listFleetGroups',
       path: '/fleets/groups/list'
@@ -119,7 +123,10 @@ Meteor.startup ->
       waitOn: -> Meteor.subscribe('fleetGroups')
       data: ->
         title: TAPi18n.__('fleetGroups.listTitle')
-        topnav: <CrudButtons editItemTemplate='fleetGroup' i18nRoot='fleetGroups' collection=FleetGroups removeItemMethod='removeFleetGroup'/>
+        topnav: <CrudButtons editItemTemplate='fleetGroup' i18nRoot='fleetGroups' collection=FleetGroups removeItemMethod='removeFleetGroup'>
+          <li><a href={Router.path 'listFleets'}>Fleets</a></li>
+          <li><a className='active' href={Router.path 'listFleetGroups'}>Fleet Groups</a></li>
+        </CrudButtons>
 
     @route 'mapVehicles',
       path: '/vehicles/map/:vehicleId?'
