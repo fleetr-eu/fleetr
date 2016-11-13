@@ -1,0 +1,19 @@
+build:
+  image: fleetr/build
+  commands:
+    - ls -la /drone/
+    - npm i --production
+    - meteor build /drone/target --unsafe-perm=true --allow-superuser --directory --server-only --architecture os.linux.x86_64
+    - ls -la /drone/target
+    - (cd /drone/target/bundle/programs/server && npm i --production)
+    - cp Dockerfile.prod /drone/target/Dockerfile
+
+publish:
+  docker:
+    context: /drone/target
+    username: fleetreu
+    password: $$DOCKER_PASS
+    email: dev@fleetr.eu
+    repo: fleetr/web
+    tag: latest
+    file: Dockerfile
