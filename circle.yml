@@ -1,0 +1,23 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  pre:
+    - curl https://install.meteor.com/ | sh
+  override:
+    - npm i --production
+    - meteor build /fleetr-build --allow-superuser --unsafe-perm=true --directory --server-only --architecture os.linux.x86_64
+    - (cd /fleetr-build/bundle/programs/server && npm i --production)
+    - cp Dockerfile.prod /fleetr-build/Dockerfile
+
+test:
+  override:
+    - echo "no tests!"
+
+deployment:
+  hub:
+    commands:
+      - docker build -t fleetr/web /fleetr-build
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push fleetr/web
