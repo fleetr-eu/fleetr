@@ -8,7 +8,6 @@ dependencies:
   override:
     - npm i --production
     - meteor build ../target --directory --server-only --architecture os.linux.x86_64
-    - (cd ../target/bundle/programs/server && sudo npm i --production)
     - cp Dockerfile.prod ../target/Dockerfile
 
 test:
