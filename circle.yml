@@ -7,9 +7,9 @@ dependencies:
     - curl https://install.meteor.com/ | sh
   override:
     - npm i --production
-    - meteor build /fleetr-build --directory --server-only --architecture os.linux.x86_64
-    - (cd /fleetr-build/bundle/programs/server && npm i --production)
-    - cp Dockerfile.prod /fleetr-build/Dockerfile
+    - meteor build ../target --directory --server-only --architecture os.linux.x86_64
+    - (cd ../target/bundle/programs/server && npm i --production)
+    - cp Dockerfile.prod ../target/Dockerfile
 
 test:
   override:
@@ -19,6 +19,6 @@ deployment:
   hub:
     branch: master
     commands:
-      - docker build -t fleetr/web /fleetr-build
+      - docker build -t fleetr/web ../target
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker push fleetr/web
