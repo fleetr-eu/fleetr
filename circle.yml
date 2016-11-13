@@ -7,7 +7,7 @@ dependencies:
     - curl https://install.meteor.com/ | sh
   override:
     - npm i --production
-    - meteor build /fleetr-build --allow-superuser --unsafe-perm=true --directory --server-only --architecture os.linux.x86_64
+    - meteor build /fleetr-build --directory --server-only --architecture os.linux.x86_64
     - (cd /fleetr-build/bundle/programs/server && npm i --production)
     - cp Dockerfile.prod /fleetr-build/Dockerfile
 
