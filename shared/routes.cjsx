@@ -1,6 +1,7 @@
 React       = require 'react'
 FleetsMenu  = require '/imports/ui/FleetsMenu.cjsx'
 CrudButtons = require '/imports/ui/CrudButtons.cjsx'
+MapAdditionalControls = require '/imports/ui/MapAdditionalControls.cjsx'
 
 Meteor.startup ->
   Accounts.config
@@ -145,7 +146,7 @@ Meteor.startup ->
         #title: 'Карта на автомобили'
         title: TAPi18n.__('map.title')
         contentClass: 'noPadding'
-
+        topnav: <MapAdditionalControls />
 
     @route 'drilldownReport',
       path: '/reports/drilldown'
