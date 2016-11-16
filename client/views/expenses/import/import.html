@@ -9,10 +9,10 @@
               </div>
           </div>
           <div class="actions">
-            <a href="#" id="importExpenses" class="btn btn-circle btn-default">
+            <button id="importExpenses" class="btn btn-circle btn-default" {{validated}}>
                   <i class="fa fa-upload"></i>
                   {{_ "expenses.import.import"}}
-            </a>
+            </button>
             <a href="#" id="clearExpenses" class="btn btn-circle btn-default">
                   <i class="icon-trash"></i>
                   {{_ "expenses.import.clear"}}
@@ -51,7 +51,6 @@
                    </div>
                    {{/filedrop}}
                    <div class="col-md-6 col-md-offset-1">
-                     {{> reactiveTableFilter id="expenseFilter" label="Filter" }}
                      <form class="form-inline" style="margin-top:5px;">
                        <div class="form-group">
                          <label for="importedExpenseType">{{_ "expenses.import.type"}} </label>
@@ -74,20 +73,40 @@
                    </div>
                  </div>
 
-                 {{#if droppedFiles}}
-                 <strong>{{_ "expenses.import.processed"}}: </strong>
-                 {{/if}}
-                 {{#each droppedFiles}}
-                 <span>
-                   {{#unless processed}}<i class="fa fa-spin fa-refresh"></i>{{/unless}}
-                   '{{this.name}}'
-                 </span>
-                 {{/each}}
+              <!-- Show validation errors -->
+              {{#if validationErrors}}
+               <div class="validation-errors panel panel-danger">
+                 <div class="panel-heading"><strong>{{_ "expenses.import.validationErrors"}}</strong></div>
+                 <div class="panel-body">
+                  {{> reactiveTable class="table table-bordered table-hover" settings=tableSettingsValidationErrors collection=validationErrors}}
+                </div>
+               </div>
+               {{/if}}
 
                <!-- Show data -->
-               <div class="processed-data">
-               {{> reactiveTable class="table table-bordered table-hover" settings=tableSettings collection=expenses}}
+               {{#unless validationErrors}}
+               {{#if importedExpenses}}
+               <div class="processed-data panel panel-default">
+                 <div class="panel-heading">
+                   <div class="row">
+                     <div class="col-sm-8" style="vertical- align:middle">
+                       <span>
+                         <strong>Imported data </strong>
+                         [{{#each droppedFiles}}
+                            {{#unless processed}}<i class="fa fa-spin fa-refresh"></i>{{/unless}}
+                            '{{this.name}}'
+                          {{/each}}]
+                      </span>
+                    </div>
+                    <div class="col-sm-4">{{> reactiveTableFilter id="expenseFilter" label="Filter" }}</div>
+                   </div>
+                 </div>
+                 <div class="panel-body">
+                   {{> reactiveTable class="table table-bordered table-hover" settings=tableSettingsImportedData collection=importedExpenses}}
+                 </div>
                </div>
+               {{/if}}
+               {{/unless}}
                </section>
              </div>
            </div>
