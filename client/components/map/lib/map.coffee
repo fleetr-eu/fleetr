@@ -38,6 +38,7 @@ Meteor.startup ->
       mapTypeId: google.maps.MapTypeId.ROADMAP
       disableDefaultUI: true
       streetViewControl: true
+      scaleControl: true
       mapTypeControl: true
       mapTypeControlOptions:
         position: google.maps.ControlPosition.LEFT_TOP
