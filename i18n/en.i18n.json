@@ -242,7 +242,8 @@
       "missed": "Not there, here!",
       "processed": "Processed files",
       "type": "Expense type",
-      "group": "Expense group"
+      "group": "Expense group",
+      "validationErrors": "Validation Errors"
     }
 
   },
