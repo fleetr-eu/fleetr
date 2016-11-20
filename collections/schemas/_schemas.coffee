@@ -38,6 +38,10 @@ Schema.customEvents = new SimpleSchema
     type: String, label: ()->TAPi18n.__('customEvents.name')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  kind:
+    type: String, optional: true, label: ()->TAPi18n.__('customEvents.kind')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4",      
   fleetGroupId:
     type: String, optional: true, label: ()->TAPi18n.__('customEvents.fleetGroup')
     autoform:
