@@ -1,36 +1,14 @@
 BigCalendar = require '/imports/ui/BigCalendar.cjsx'
-Template.crud.onRendered ->
-  Session.set 'selectedItemId', null
-
-Template.customEvents.events
-  'click .delete-item': (e, t) ->
-    Modal.show 'confirmDelete',
-      title: -> "customEvents.title"
-      message: -> "customEvents.deleteMessage"
-      action: ->
-        Meteor.call 'removeCustomEvent', Session.get('selectedItemId'), ->
-          Meteor.defer ->
-            Session.set 'selectedItemId', t.grid.getItemByRowId(t.row)?._id
-  'rowsSelected': (e, t) ->
-    unless e.rowIndex is -1
-      [t.grid, t.row] = [e.fleetrGrid, e.rowIndex]
-      Session.set 'selectedItemId', t.grid.getItemByRowId(t.row)?._id
-    else Session.set 'selectedItemId', null
-  'click .edit-item': (e, t) ->
-    ModalForm.show 'customEvent',
-      title: -> "customEvents.title"
-      data:
-        doc: -> CustomEvents.findOne(_id: Session.get('selectedItemId'))
-  'click .add-item': (e, t) ->
-    ModalForm.show 'customEvent',
-      title: -> "customEvents.title"
-      data: {}
 
 Template.customEvents.helpers
   BigCalendar: -> BigCalendar
-  onSelectEvent: -> (event) ->
-    Session.set 'selectedItemId', event.id
-  selectedItemId: -> Session.get('selectedItemId')
+  onSelectEvent: -> (event) -> Session.set 'selectedItemId', event.id
+  actions: ->
+    i18nRoot: 'customEvents'
+    collection: CustomEvents
+    selectedItemId: Session.get('selectedItemId')
+    editItemTemplate: 'customEvent'
+    removeItemMethod: 'removeCustomEvent'
   gridConfig: ->
     cursor: CustomEvents.find {},
       transform: (doc) -> _.extend doc,

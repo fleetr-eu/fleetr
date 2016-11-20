@@ -44,6 +44,12 @@ Meteor.startup ->
 
 
   Template.fleetrGrid.events
+    'rowsSelected': (e, t) ->
+      unless e.rowIndex is -1
+        [t.grid, t.row] = [e.fleetrGrid, e.rowIndex]
+        Session.set 'selectedItemId', t.grid.getItemByRowId(t.row)?._id
+      else Session.set 'selectedItemId', null
+
     'click .removeGroupBy': (e, tpl) ->
       grid().removeGroupBy @name
 

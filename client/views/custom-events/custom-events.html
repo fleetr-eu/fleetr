@@ -8,24 +8,7 @@
 							<h1 class="bold">{{_ "customEvents.listTitle"}}</h1>
 						</div>
 					</div>
-					<div class="actions">
-						{{#if isInRole 'admin,editor'}}
-							<a href="#" class="btn btn-circle btn-default add-item">
-	       						<i class="fa fa-plus"></i>
-	       						{{_ "button.add"}}
-	  					</a>
-							{{#if selectedItemId}}
-								<a href="#" class="btn btn-circle btn-default edit-item">
-	       							<i class="icon-pencil"></i>
-	        						{{_ "button.edit"}}
-	  						</a>
-								<a href="#" class="btn btn-circle btn-default delete-item">
-	       							<i class="icon-trash"></i>
-	        						{{_ "button.delete"}}
-	  						</a>
-							{{/if}}
-						{{/if}}
-					</div>
+					{{> actionButtons actions}}
 				</div>
 				<div class="portlet-body">
 		  		 	<section class="content">
