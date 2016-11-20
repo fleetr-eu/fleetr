@@ -47,6 +47,10 @@ Meteor.startup ->
 
   Router.map ->
 
+    @route 'calendar',
+      path: '/calendar'
+      template: 'calendar'
+
     @route 'dashboard',
       path: '/'
       template: 'dashboard'
