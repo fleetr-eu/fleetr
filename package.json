@@ -14,7 +14,7 @@
     "orb": "^1.0.9",
     "react": "^15.1.0",
     "react-addons-pure-render-mixin": "^15.1.0",
-    "react-big-calendar": "^0.11.0",
+    "react-big-calendar": "^0.11.1",
     "react-dom": "^15.1.0"
   },
   "devDependencies": {},
