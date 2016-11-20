@@ -7,6 +7,8 @@ module.exports = createContainer (props) ->
   timeslots: 1
   onSelectEvent: props.onSelectEvent
   views: ['month', 'agenda']
+  formats:
+    agendaDateFormat: "DD.MM.YYYY"
   events: CustomEvents.find().fetch().map (doc) ->
     id: doc._id
     title: doc.name,
