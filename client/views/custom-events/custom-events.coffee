@@ -1,11 +1,7 @@
-Template.customEvents.helpers
-  events: -> 
-    CustomEvents.find().map( (doc) ->
-        title: doc.name,
-        start: doc.date,
-        end: doc.date,
-        allDay: true)
+BigCalendar = require '/imports/ui/BigCalendar.coffee'
 
+Template.customEvents.helpers
+  BigCalendar: BigCalendar
   options: ->
     i18nRoot: 'customEvents'
     collection: CustomEvents
