@@ -4,7 +4,6 @@ styles = require 'react-big-calendar/lib/css/react-big-calendar.css'
 
 BigCalendar.momentLocalizer(require 'moment')
 module.exports = createContainer (props) ->
-  console.log props
   timeslots: 1
   onSelectEvent: props.onSelectEvent
   views: ['month', 'agenda']
