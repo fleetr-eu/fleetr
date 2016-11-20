@@ -50,6 +50,7 @@ Meteor.startup ->
     @route 'calendar',
       path: '/calendar'
       template: 'calendar'
+      waitOn: -> Meteor.subscribe('calendarEvents')
 
     @route 'dashboard',
       path: '/'

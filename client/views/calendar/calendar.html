@@ -1,5 +1,12 @@
 <template name="calendar">
 
-	{{> fullcalendar }}
-
+    <button class="addEvent">Add Event</button>
+    <button class="removeEvent">Remove Event</button>
+    {{> fullcalendar
+        class="mainCalendar"
+        defaultView='month'
+        height="100%"
+        events=events
+        eventClick=onEventClicked
+    }}
 </template>
