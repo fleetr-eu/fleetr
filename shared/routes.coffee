@@ -47,11 +47,6 @@ Meteor.startup ->
 
   Router.map ->
 
-    @route 'calendar',
-      path: '/calendar'
-      template: 'calendar'
-      waitOn: -> Meteor.subscribe('calendarEvents')
-
     @route 'dashboard',
       path: '/'
       template: 'dashboard'

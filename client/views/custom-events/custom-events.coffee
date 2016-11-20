@@ -1,4 +1,11 @@
 Template.customEvents.helpers
+  events: -> 
+    CustomEvents.find().map( (doc) ->
+        title: doc.name,
+        start: doc.date,
+        end: doc.date,
+        allDay: true)
+
   options: ->
     i18nRoot: 'customEvents'
     collection: CustomEvents
