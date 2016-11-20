@@ -1,5 +1,26 @@
 @Schema = {}
 
+
+Schema.calendarEvents = new SimpleSchema
+  _id:
+    type: String, optional: true
+  title:
+    type: String, label: ()->TAPi18n.__('calendarEvents.title')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"  
+  start:
+    type: Date, optional: true, label: ()->TAPi18n.__('calendarEvents.start')
+    autoform:
+      type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  end:
+    type: Date, optional: true, label: ()->TAPi18n.__('calendarEvents.end')
+    autoform:
+      type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
+
 Schema.alarms = new SimpleSchema
   _id:
     type: String, optional: true
