@@ -31,7 +31,6 @@ Template.customEvents.helpers
   onSelectEvent: -> (event) ->
     Session.set 'selectedItemId', event.id
   selectedItemId: -> Session.get('selectedItemId')
-  title: "customEvents.listTitle"
   gridConfig: ->
     cursor: CustomEvents.find {},
       transform: (doc) -> _.extend doc,

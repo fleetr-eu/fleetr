@@ -68,6 +68,10 @@
   },
 
   "customEvents": {
+    "tabs": {
+      "list": "Списък",
+      "calendar": "Календар"
+    },
     "title": "Събитие",
     "listTitle" : "Събития",
     "fleetGroup" : "Група",

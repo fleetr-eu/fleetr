@@ -68,6 +68,10 @@
   },
 
   "customEvents": {
+    "tabs": {
+      "list": "List",
+      "calendar": "Calendar"
+    },
     "title": "Event",
     "listTitle" : "Events",
     "fleetGroup" : "Group",
