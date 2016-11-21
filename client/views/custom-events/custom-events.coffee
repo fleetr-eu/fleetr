@@ -3,6 +3,8 @@ BigCalendar = require '/imports/ui/BigCalendar.cjsx'
 Template.customEvents.helpers
   BigCalendar: -> BigCalendar
   onSelectEvent: -> (event) -> Session.set 'selectedItemId', event.id
+  onSelectSlot: -> (event) -> 
+    console.log (event.start + "," + event.end)
   actions: ->
     i18nRoot: 'customEvents'
     collection: CustomEvents

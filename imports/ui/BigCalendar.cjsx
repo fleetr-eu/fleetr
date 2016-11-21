@@ -4,9 +4,14 @@ styles = require 'react-big-calendar/lib/css/react-big-calendar.css'
 
 BigCalendar.momentLocalizer(require 'moment')
 module.exports = createContainer (props) ->
+  setLocalizer:
+    BigCalendar.momentLocalizer(moment)
   timeslots: 1
+  popup: true
+  selectable: true
   onSelectEvent: props.onSelectEvent
-  views: ['month', 'agenda']
+  onSelectSlot: props.onSelectSlot
+  views: ['month', 'week', 'day']
   formats:
     agendaDateFormat: "DD.MM.YYYY"
   events: CustomEvents.find().fetch().map (doc) ->
@@ -15,4 +20,13 @@ module.exports = createContainer (props) ->
     start: doc.date,
     end: doc.date,
     allDay: true
+  messages:
+    allDay: 'цял ден'
+    previous: 'преден'
+    next: 'следващ'
+    today: 'днес'
+    month: 'месец'
+    week: 'седмица'
+    day: 'ден'
+    agenda: 'списък'
 , BigCalendar

@@ -24,7 +24,13 @@ Template.vehicles.events
     if e.filter.name is TAPi18n.__('fleet.name')
       Session.set 'vehiclesFleetName', null
 
+Template.vehicle.helpers
+
+  dayOfWeek: (dayOfWeek) -> 
+    moment().locale('bg').isoWeekday(parseInt(dayOfWeek.split('.')[1])+1).format('dddd')
+
 Template.vehicles.helpers
+
   options: ->
     i18nRoot: 'vehicles'
     collection: Vehicles

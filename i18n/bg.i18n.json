@@ -297,7 +297,8 @@
       "basicData" :"Основни данни",
       "vinData" :"VIN данни",
       "workSchedule" : "Работни часове",
-      "alarmsConfiguration" : "Настройка на аларми"
+      "alarmsConfiguration" : "Настройка на аларми",
+      "workHours" : "Работни часове"
     },
     "name": "Наименование",
     "licensePlate" :"Рег. No",
@@ -337,7 +338,9 @@
     "mass" : "Маса (кг)",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете тази автомобил?",
     "courseCorrection": "Корекция на курса",
-    "driverName" : "Шофьор"
+    "driverName" : "Шофьор",
+    "workHoursTo" : "До",
+    "workHoursFrom" : "От"
   },
 
   "dropdown": {

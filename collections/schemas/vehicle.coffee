@@ -260,3 +260,26 @@ Schema.vehicle = new SimpleSchema
   driver_id:
     type: String
     optional: true
+
+  workHours:
+      type: Array
+      minCount: 7
+      maxCount: 7
+
+  "workHours.$":
+    type: Object
+
+  "workHours.$.from":
+    type: String, optional: true, label:()->TAPi18n.__('vehicles.workHoursFrom')
+    autoform:
+      afFieldInput: 
+        type: "time"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-1", "input-col-class": "col-sm-3"  
+  
+  "workHours.$.to":
+    type: String, optional: true, label:()->TAPi18n.__('vehicles.workHoursTo')
+    autoform:
+      afFieldInput:
+        type: "time"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-1", "input-col-class": "col-sm-3"        
+ 

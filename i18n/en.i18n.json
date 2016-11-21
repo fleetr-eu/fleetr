@@ -293,7 +293,8 @@
       "basicData" :"Basic data",
       "vinData" :"VIN data",
       "workSchedule" : "Work Schedule",
-      "alarmsConfiguration" : "Alarms configuration"
+      "alarmsConfiguration" : "Alarms configuration",
+      "workHours" : "Working hours"
     },
     "title" : "Vehicle",
     "listTitle" : "Vehicles",
@@ -337,7 +338,9 @@
     "mass" : "Mass (kg)",
     "deleteMessage": "Are you certain you want to delete this Vehicle?",
     "courseCorrection": "Course correction",
-     "driverName" : "Driver"
+    "driverName" : "Driver",
+    "workHoursTo" : "To",
+    "workHoursFrom" : "From"
   },
 
   "dropdown": {
