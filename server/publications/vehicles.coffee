@@ -39,6 +39,7 @@ opts =
     courseCorrection: 1
     maxSpeed: 1
     maxAllowedSpeed: 1
+    workHours: 1
 
 findVehicles = (filter = {}) ->
   Vehicles.find PermissionsManager.augment(filter, 'vehicles'), opts
