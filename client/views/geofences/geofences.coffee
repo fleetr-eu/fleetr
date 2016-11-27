@@ -8,9 +8,6 @@ Template.geofences.helpers
   inEditMode: -> Session.get('addGeofence') || Session.get('editGeofence')
 
 Template.geofences.onRendered ->
-  mapCanvasHeight = $(document).height() - 230
-  $('#map-canvas').height mapCanvasHeight
-
   GeofenceMap.init -> renderGeofences getSelectedGf()?.center
   @autorun ->
     Meteor.subscribe 'geofences'
