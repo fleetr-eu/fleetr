@@ -9,8 +9,6 @@ CrudButtons = React.createClass
     showDocumentsButton: false
 
   add: ->
-    console.log 'Add clicked'
-
     ModalForm.show @props.editItemTemplate,
       title: => "#{@props.i18nRoot}.title"
       data: {}
