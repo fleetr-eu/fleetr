@@ -2,10 +2,9 @@
 BigCalendar = require 'react-big-calendar'
 styles = require 'react-big-calendar/lib/css/react-big-calendar.css'
 
-BigCalendar.momentLocalizer(require 'moment')
 module.exports = createContainer (props) ->
   setLocalizer:
-    BigCalendar.momentLocalizer(moment)
+    BigCalendar.momentLocalizer(require 'moment')
   timeslots: 1
   popup: true
   selectable: true
