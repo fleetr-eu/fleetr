@@ -1,3 +1,7 @@
+.content {
+  min-height: calc(100% - 61px) !important;
+}
+
 input[type='checkbox'] {
   margin-top: -5px;
 }
