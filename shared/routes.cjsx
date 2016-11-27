@@ -2,6 +2,7 @@ React       = require 'react'
 FleetsMenu  = require '/imports/ui/FleetsMenu.cjsx'
 CrudButtons = require '/imports/ui/CrudButtons.cjsx'
 MapAdditionalControls = require '/imports/ui/MapAdditionalControls.cjsx'
+GeofencesNav          = require '/imports/ui/navs/GeofencesNav.cjsx'
 
 Meteor.startup ->
   Accounts.config
@@ -241,7 +242,11 @@ Meteor.startup ->
     @route 'geofences',
       path: '/geofences'
       template: 'geofences'
-      data: -> title: TAPi18n.__('geofences.title')
+      data: ->
+        title: TAPi18n.__('geofences.title')
+        contentClass: 'noPadding'
+        topnav: <GeofencesNav />
+
 
     @route 'listDriverVehicleAssignments',
       path: '/assignments/driver/vehicle/list'
