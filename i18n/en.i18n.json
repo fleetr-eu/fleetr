@@ -8,7 +8,8 @@
     "day" : "Day",
     "week" : "Week",
     "month" : "Month",
-    "year" : "Year"
+    "year" : "Year",
+    "date" : "Date"
   },
 
   "slickgrid": {
@@ -417,6 +418,11 @@
     },
     "upcomingEvents": {
         "title" : "Upcoming Events"
+    },
+    "logbook": {
+      "distance": "Distance (km)",
+      "odometer": "Odometer (end of day)",
+      "maxSpeed": "Max speed (km/h)"
     }
   },
 

@@ -200,6 +200,9 @@
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
+						<li class="{{isActiveRoute regex='fullLogbookReport'}}">
+							<a href="{{pathFor 'fullLogbookReport'}}">{{_ "menu.logbook"}}</a>
+						</li>
 						<li class="{{isActiveRoute regex='expenseReport'}}">
 							<a href="{{pathFor 'expenseReport'}}">{{_ "menu.expenseReport"}}</a>
 						</li>

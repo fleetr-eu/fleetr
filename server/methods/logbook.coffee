@@ -23,9 +23,9 @@ Meteor.methods
         }
         {$project:
           date: "$_id"
-          maxSpeed: $max: "$maxSpeed"
-          startOdometer: "$startOdometer"
-          endOdometer: "$endOdometer"
+          maxSpeed: 1
+          startOdometer: 1
+          endOdometer: 1
           distance: $subtract: ["$endOdometer", "$startOdometer"]
         }
         {$sort: _id: -1}
@@ -117,3 +117,59 @@ Meteor.methods
       r._id = moment([r._id.year, r._id.month - 1, r._id.day]).format('YYYY-MM-DD')
       r
     _.sortBy(result, (r) -> r._id).reverse()
+
+  fullLogbook: (filter) ->
+    @unblock()
+    vehicles = {}
+    deviceIds = Vehicles.aggregate [
+      {$match: _groupId: Meteor.user().group}
+      {$lookup:
+        from: "fleets"
+        localField: "allocatedToFleet"
+        foreignField: "_id"
+        as: "fleets"
+      }
+    ]
+    .map (v) ->
+      vehicles[v.unitId] = v
+      v.unitId
+    pipeline =
+      [
+        {$match: deviceId: $in: deviceIds}
+        {$sort: recordTime: 1}
+        {$group:
+          _id:
+            deviceId: "$deviceId"
+            date:
+              $dateToString:
+                format: "%Y-%m-%d"
+                date: "$recordTime"
+          startOdometer: $min: "$odometer"
+          endOdometer: $max: "$odometer"
+          maxSpeed: $max: "$speed"
+        }
+        {$project:
+          date: "$_id.date"
+          deviceId: "$_id.deviceId"
+          startOdometer: 1
+          endOdometer: 1
+          distance:
+            $divide: [
+              $subtract: [
+                "$endOdometer"
+                "$startOdometer"
+              ]
+              1000
+          ]
+          maxSpeed: 1
+        }
+      ]
+    result = Logbook.aggregate(pipeline).map (r) ->
+      vehicle = vehicles[r.deviceId]
+      fleet = vehicle?.fleets?[0]
+      r._id = "#{r.deviceId}/#{r.date}"
+      r.vehicleName = vehicle?.name
+      r.fleetName = fleet?.name
+      r
+    result = _.sortBy(result, (r) -> r.date).reverse()
+    result
