@@ -148,6 +148,14 @@ Template.vehicles.helpers
         hidden: hiddenOnMobile()
         search: where: 'client'
         formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags
+      ,
+        id: "isBusinessTrip"
+        field: "isBusinessTrip"
+        name: TAPi18n.__('vehicles.isBusinessTrip')
+        width:10
+        sortable: true
+        hidden: hiddenOnMobile()
+        search: where: 'client'  
       ]
       options:
         enableCellNavigation: true
@@ -165,6 +173,7 @@ Template.vehicles.helpers
             driverName: if driver then driver.firstName + " " + driver.name else ""
             vehicleShowName: doc.name + ' (' + doc.licensePlate + ')'
             odo: doc.odometer / 1000
+            isBusinessTrip: isBusinessTrip(doc, moment())
       customize: (grid) ->
         Tracker.autorun ->
           fleetName = Session.get 'vehiclesFleetName'

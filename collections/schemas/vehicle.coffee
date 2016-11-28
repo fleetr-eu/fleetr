@@ -272,11 +272,11 @@ Schema.vehicle = new SimpleSchema
     autoform:
       afFieldInput:
         type: "time"
-      template: "bootstrap3-horizontal", "label-class": "col-sm-1", "input-col-class": "col-sm-3"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-2", "input-col-class": "col-sm-4"
 
   "workHours.$.to":
     type: String, optional: true, label:()->TAPi18n.__('vehicles.workHoursTo')
     autoform:
       afFieldInput:
         type: "time"
-      template: "bootstrap3-horizontal", "label-class": "col-sm-1", "input-col-class": "col-sm-3"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-2", "input-col-class": "col-sm-4"

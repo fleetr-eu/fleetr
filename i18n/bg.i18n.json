@@ -21,9 +21,11 @@
 
   "menu": {
     "admin": "Администрация",
+    "userAdmin": "Потребители",
     "vehicles": {
       "all": "Всички"
     },
+    "configurationSettings": "Настройки",
     "dashboard": "Статистики",
     "fleets": "Автопаркове",
     "listFleetGroups": "Групи автопаркове",
@@ -55,6 +57,17 @@
     "geofenceNotifications":"Напомняния за обекти",
     "alarms":"Аларми"
   },
+
+  "configurationSettings": {
+    "title": "Настройка",
+    "listTitle" : "Настройки",
+    "category" : "Категория",
+    "type" : "Тип",
+    "name" : "Име",
+    "value" : "Стойност",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете тази настройка?"
+  },
+
 
   "geofences": {
     "title": "Обекти",

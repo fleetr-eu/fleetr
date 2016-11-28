@@ -35,6 +35,9 @@ Meteor.methods
   submitAlarm: submitItem Alarms
   removeAlarm: removeItem Alarms
 
+  submitConfigurationSetting: submitItem ConfigurationSettings
+  removeConfigurationSetting: removeItem ConfigurationSettings
+
   submitCustomEvent: submitItem CustomEvents
   removeCustomEvent: removeItem CustomEvents
 
