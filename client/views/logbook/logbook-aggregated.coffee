@@ -2,7 +2,7 @@ Template.logbook.helpers
   vehicleName: -> Template.instance().data.vehicle.name
   fleetrGridConfig: ->
     remoteMethod: 'vehicle/history'
-    remoteMethodParams: Template.instance().data.vehicle.unitId
+    remoteMethodParams: @vehicle.unitId
     pagination: true
     columns: [
       id: 'date'
@@ -61,13 +61,12 @@ Template.logbook.helpers
       name: 'М'
       maxWidth: 31
       align: 'center'
-      formatter: (row, cell, value, column, rowObject) ->
+      formatter: (row, cell, value, column, rowObject) =>
         m = moment value
         q = encodeURIComponent EJSON.stringify
-          deviceId: rowObject.deviceId
+          deviceId: @vehicle.unitId
           start: time: m.startOf('day').valueOf()
           stop: time: m.endOf('day').valueOf()
-
         """
         <a href='/map/#{q}'>
           <img src='/images/Google-Maps-icon.png' height='22'/>

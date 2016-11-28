@@ -23,9 +23,9 @@ Meteor.methods
         }
         {$project:
           date: "$_id"
-          maxSpeed: $max: "$maxSpeed"
-          startOdometer: "$startOdometer"
-          endOdometer: "$endOdometer"
+          maxSpeed: 1
+          startOdometer: 1
+          endOdometer: 1
           distance: $subtract: ["$endOdometer", "$startOdometer"]
         }
         {$sort: _id: -1}
