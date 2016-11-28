@@ -355,7 +355,8 @@
     "courseCorrection": "Корекция на курса",
     "driverName" : "Шофьор",
     "workHoursTo" : "До",
-    "workHoursFrom" : "От"
+    "workHoursFrom" : "От",
+    "isBusinessTrip" : "Б?"
   },
 
   "dropdown": {

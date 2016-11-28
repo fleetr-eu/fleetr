@@ -147,15 +147,7 @@ Template.vehicles.helpers
         sortable: true
         hidden: hiddenOnMobile()
         search: where: 'client'
-        formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags
-      ,
-        id: "isBusinessTrip"
-        field: "isBusinessTrip"
-        name: TAPi18n.__('vehicles.isBusinessTrip')
-        width:10
-        sortable: true
-        hidden: hiddenOnMobile()
-        search: where: 'client'  
+        formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags  
       ]
       options:
         enableCellNavigation: true

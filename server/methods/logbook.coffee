@@ -115,6 +115,7 @@ Meteor.methods
       ]
     result = Logbook.aggregate(pipeline).map (r) ->
       r._id = moment([r._id.year, r._id.month - 1, r._id.day]).format('YYYY-MM-DD')
+      r.isBusinessTrip = true
       r
     _.sortBy(result, (r) -> r._id).reverse()
 

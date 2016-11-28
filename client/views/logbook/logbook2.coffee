@@ -200,6 +200,15 @@ Template.logbookGrid.helpers
       cssClass: 'from'
       align: 'right'
     ,
+      id: "isBusinessTrip"
+      field: "isBusinessTrip"
+      name: TAPi18n.__('vehicles.isBusinessTrip')
+      maxWidth:35
+      sortable: true
+      search: where: 'client'
+      formatter: FleetrGrid.Formatters.blazeFormatter Template.bussinesTrip
+    ,
+
       id: 'simpleMapLink'
       field: '_id'
       name: 'М'

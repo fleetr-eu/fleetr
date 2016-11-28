@@ -354,7 +354,8 @@
     "courseCorrection": "Course correction",
     "driverName" : "Driver",
     "workHoursTo" : "To",
-    "workHoursFrom" : "From"
+    "workHoursFrom" : "From",
+    "isBusinessTrip" : "B?"
   },
 
   "dropdown": {
