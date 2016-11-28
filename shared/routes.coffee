@@ -206,6 +206,11 @@ Meteor.startup ->
         Meteor.call 'reset'
         @next()
 
+    @route 'fullLogbookReport',
+      path: '/reports/logbook'
+      template: 'fullLogbookReport'
+      waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
+
     @route 'vehicleLogbook',
       path: '/vehicles/:vehicleId/logbook'
       template: 'logbook2'
