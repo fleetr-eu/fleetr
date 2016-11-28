@@ -77,7 +77,8 @@
 
   "simpleMap": {
     "showMarkers": "Покажи инфо точки",
-    "showLabels": "Покажи имена на автомобили"
+    "showLabels": "Покажи имена на автомобили",
+    "showTraffic" : "Покажи трафик"
   },
 
   "customEvents": {

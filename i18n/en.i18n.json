@@ -76,7 +76,8 @@
 
   "simpleMap": {
     "showMarkers": "Show info points",
-    "showLabels": "Show vehicle names"
+    "showLabels": "Show vehicle names",
+    "showTraffic" : "Show traffic"
   },
 
   "customEvents": {
