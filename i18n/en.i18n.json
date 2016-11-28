@@ -25,6 +25,8 @@
     "vehicles": {
       "all": "All"
     },
+    "configurationSettings": "Settings",
+    "userAdmin": "Users",
     "dashboard": "Dashboard",
     "fleets": "Fleets",
     "listFleetGroups": "Fleet Groups",
@@ -55,6 +57,16 @@
     "notifications":"Notifications",
     "geofenceNotifications":"Geofence Events",
     "alarms":"Alarms"
+  },
+
+  "configurationSettings": {
+    "title": "Setting",
+    "listTitle" : "Settings",
+    "category" : "Category",
+    "type" : "Type",
+    "name" : "Name",
+    "value" : "Value",
+    "deleteMessage": "Are you certain you want to delete this setting?"
   },
 
   "geofences": {

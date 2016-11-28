@@ -1,0 +1,12 @@
+<template name="configurationSetting">
+  {{#autoForm collection="ConfigurationSettings" doc=doc id="configurationSettingForm" type="method-update" meteormethod="submitConfigurationSetting"}}
+      <fieldset>
+        <legend></legend>
+         	{{> afFieldInput type="hidden" name="_id" value=_id}}
+            {{> afQuickField name="category" autofocus=true}}
+            {{> afQuickField name="type"}}
+            {{> afQuickField name="name"}}
+            {{> afQuickField name="value"}}
+     </fieldset>
+  {{/autoForm}}
+</template>

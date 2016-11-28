@@ -47,6 +47,11 @@ Meteor.startup ->
 
   Router.map ->
 
+    @route 'settings',
+      path: '/settings'
+      template: 'configurationSettings'
+      waitOn: -> [Meteor.subscribe('configurationSettings')]
+
     @route 'dashboard',
       path: '/'
       template: 'dashboard'
