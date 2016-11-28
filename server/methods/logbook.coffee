@@ -1,8 +1,6 @@
 Meteor.methods
   'vehicle/history': (filter, deviceId) ->
     @unblock
-
-    console.log 'vehicle/history'
     data = {}
     odometer =
       [
@@ -90,34 +88,18 @@ Meteor.methods
         }
       ]
     result = Logbook.aggregate(pipeline).map (r) ->
+      trip = Trips.findOne tripId: r._id.trip
+      r.isBusinessTrip =
+        if trip?.isBusinessTrip is undefined
+          true
+        else trip?.isBusinessTrip
+
       r.deviceId = r._id.deviceId
       r._id = r._id.trip
       r.date = moment(r.startTime).format('YYYY-MM-DD')
       r.distance = (r.stopOdometer - r.startOdometer) / 1000 # convert to kms
       r
     _.sortBy(result, (r) -> moment(r.startTime).unix()).reverse()
-
-  aggregateLogbook: (filter, deviceId) ->
-    pipeline =
-      [
-        {$match: deviceId: deviceId}
-        {$sort: recordTime: 1}
-        {$group:
-          _id:
-            deviceId: "$deviceId"
-            month: $month: "$recordTime"
-            day: $dayOfMonth: "$recordTime"
-            year: $year: "$recordTime"
-          startOdometer: $min: "$odometer"
-          endOdometer: $max: "$odometer"
-          maxSpeed: $max: "$speed"
-        }
-      ]
-    result = Logbook.aggregate(pipeline).map (r) ->
-      r._id = moment([r._id.year, r._id.month - 1, r._id.day]).format('YYYY-MM-DD')
-      r.isBusinessTrip = true
-      r
-    _.sortBy(result, (r) -> r._id).reverse()
 
   fullLogbook: (filter) ->
     @unblock()

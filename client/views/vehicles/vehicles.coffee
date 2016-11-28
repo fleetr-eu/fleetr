@@ -26,7 +26,7 @@ Template.vehicles.events
 
 Template.vehicle.helpers
 
-  dayOfWeek: (dayOfWeek) -> 
+  dayOfWeek: (dayOfWeek) ->
     moment().locale('bg').isoWeekday(parseInt(dayOfWeek.split('.')[1])+1).format('dddd')
 
 Template.vehicles.helpers
@@ -147,7 +147,7 @@ Template.vehicles.helpers
         sortable: true
         hidden: hiddenOnMobile()
         search: where: 'client'
-        formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags  
+        formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags
       ]
       options:
         enableCellNavigation: true

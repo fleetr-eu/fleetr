@@ -1,8 +1,8 @@
 Template.fleetrMap.onCreated ->
   @showGeofences = new ReactiveVar false
   @showInfoMarkers = new ReactiveVar false
-  @showTraffic = ReactiveVar false 
-  @trafficLayer = new google.maps.TrafficLayer();
+  @showTraffic = ReactiveVar false
+  @trafficLayer = new google.maps.TrafficLayer()
 
   Session.set 'FleetrMap.showMarkerLabels', true
 
@@ -18,7 +18,7 @@ Template.fleetrMap.onRendered ->
     if @showTraffic.get()
       map = @map.map
       @trafficLayer.setMap(map)
-    else 
+    else
       @trafficLayer.setMap(null)
 
     if @showGeofences.get()
@@ -95,4 +95,4 @@ Template.fleetrMap.events
     Session.set 'FleetrMap.showMarkerLabels', e.target.checked
 
   'click #show-traffic-check': (e, t) ->
-     t.showTraffic.set e.target.checked
+    t.showTraffic.set e.target.checked
