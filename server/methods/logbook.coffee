@@ -168,7 +168,7 @@ Meteor.methods
       vehicle = vehicles[r.deviceId]
       fleet = vehicle?.fleets?[0]
       r._id = "#{r.deviceId}/#{r.date}"
-      r.vehicleName = vehicle?.name
+      r.vehicleName = "#{vehicle?.name} (#{vehicle?.licensePlate})"
       r.fleetName = fleet?.name
       r
     result = _.sortBy(result, (r) -> r.date).reverse()

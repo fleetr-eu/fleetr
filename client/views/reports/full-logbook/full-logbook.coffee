@@ -14,19 +14,19 @@ Template.fullLogbookReport.helpers
       search: where: 'client'
       groupable:
         aggregators: aggregators
-    ,
-      id: "vehicleName"
-      field: "vehicleName"
-      name: TAPi18n.__('vehicles.title')
+    ,   
+      id: "fleetName"
+      field: "fleetName"
+      name: TAPi18n.__('fleet.title')
       width:50
       sortable: true
       search: where: 'client'
       groupable:
-        aggregators: aggregators
+        aggregators: aggregators  
     ,
-      id: "fleetName"
-      field: "fleetName"
-      name: TAPi18n.__('fleet.title')
+      id: "vehicleName"
+      field: "vehicleName"
+      name: TAPi18n.__('vehicles.title')
       width:50
       sortable: true
       search: where: 'client'

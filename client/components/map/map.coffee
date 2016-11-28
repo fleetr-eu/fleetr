@@ -19,7 +19,7 @@ Template.fleetrMap.onRendered ->
       map = @map.map
       @trafficLayer.setMap(map)
     else 
-      @trafficLayer.setMap (null)
+      @trafficLayer.setMap(null)
 
     if @showGeofences.get()
       @geofences = {}
