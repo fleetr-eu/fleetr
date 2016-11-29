@@ -3,13 +3,30 @@ Partitioner.partitionCollection Vehicles
 Vehicles.attachSchema Schema.vehicle
 
 Vehicles.after.update (userId, doc, fieldNames, modifier, options) ->
-  if doc.alarms?.speedingAlarmActive and doc.speed > doc.alarms?.speedingAlarmSpeed
-    Alarms.add
-      type: 'vehicle.speeding'
-      data:
+   if doc.nextTechnicalCheck
+    event = CustomEvents.findOne { sourceId: doc._id }
+    if event 
+      CustomEvents.update(event._id, { $set: { date: doc.nextTechnicalCheck, active: doc.active}} )
+    else
+      CustomEvents.insert
+        sourceId: doc._id
+        name: "Технически преглед"
+        kind: "Технически преглед"
+        date: doc.nextTechnicalCheck
         vehicleId: doc._id
-        speed: doc.speed
-        limit: doc.alarms.speedingAlarmSpeed
+        active: doc.active
+        seen: false  
+
+Vehicles.after.insert (userId, doc) ->
+  if doc.nextTechnicalCheck
+    CustomEvents.insert
+      sourceId: doc._id
+      name: "Технически преглед"
+      kind: "Технически преглед"
+      date: doc.nextTechnicalCheck
+      vehicleId: doc._id
+      active: doc.active
+      seen: false
 
 Vehicles.getAssignedDriver = (vehicle, timestamp) ->
   dvAssignment = DriverVehicleAssignments.findOne {vehicle:vehicle},  {sort: {moment: -1}}

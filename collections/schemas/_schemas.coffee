@@ -63,6 +63,8 @@ Schema.configurationSettings = new SimpleSchema
 Schema.customEvents = new SimpleSchema
   _id:
     type: String, optional: true
+  sourceId:
+    type: String, optional: true  
   name:
     type: String, label: ()->TAPi18n.__('customEvents.name')
     autoform:
@@ -70,7 +72,14 @@ Schema.customEvents = new SimpleSchema
   kind:
     type: String, optional: true, label: ()->TAPi18n.__('customEvents.kind')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4",      
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4"
+      options: () -> [
+          { label: "Технически преглед", value: "Технически преглед"}
+          { label: "Поддръжка", value: "Поддръжка"}
+          { label: "Документ", value: "Документ"}
+          { label: "Застраховка", value: "Застраховка"}
+          { label: "Друго", value: "Друго"}
+        ]      
   fleetGroupId:
     type: String, optional: true, label: ()->TAPi18n.__('customEvents.fleetGroup')
     autoform:
@@ -347,18 +356,6 @@ Schema.documents = new SimpleSchema
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
   issuedBy:
     type: String, label: ()->TAPi18n.__('documents.issuedBy')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-
-Schema.insuranceTypes = new SimpleSchema
-  _id:
-    type: String, optional: true
-  name:
-    type: String, label: ()->TAPi18n.__('insuranceTypes.name')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  description:
-    type: String, optional: true, label: ()->TAPi18n.__('insuranceTypes.description')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 
