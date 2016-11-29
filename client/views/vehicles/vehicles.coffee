@@ -58,27 +58,6 @@ Template.vehicles.helpers
         search: where: 'client'
         formatter: FleetrGrid.Formatters.decoratedGreaterThanFormatter(120, 110, 0)
       ,
-        id: "map"
-        field: "_id"
-        name: TAPi18n.__('vehicles.mapShort')
-        maxWidth: 31
-        formatter: mapLinkFormatter
-        align: 'left'
-      ,
-        id: "logbook"
-        field: "_id"
-        name: TAPi18n.__('vehicles.logbookShort')
-        maxWidth: 31
-        formatter:  linkFormatter 'logbook'
-        align: 'left'
-      ,
-        id: "history"
-        field: "_id"
-        name: TAPi18n.__('vehicles.historyShort')
-        maxWidth: 31
-        formatter: linkFormatter 'history'
-        align: 'left'
-      ,
         id: "fleetName"
         field: "fleetName"
         name: TAPi18n.__('fleet.name')
@@ -138,8 +117,28 @@ Template.vehicles.helpers
         formatter: timeAgoFormatter
         hidden: hiddenOnMobile()
         search: where: 'client'
-
       ,
+        id: "map"
+        field: "_id"
+        name: TAPi18n.__('vehicles.mapShort')
+        maxWidth: 31
+        formatter: mapLinkFormatter
+        align: 'left'
+      ,
+        id: "logbook"
+        field: "_id"
+        name: TAPi18n.__('vehicles.logbookShort')
+        maxWidth: 31
+        formatter:  linkFormatter 'logbook'
+        align: 'left'
+      ,
+        id: "history"
+        field: "_id"
+        name: TAPi18n.__('vehicles.historyShort')
+        maxWidth: 31
+        formatter: linkFormatter 'history'
+        align: 'left'
+      ,  
         id: "tags"
         field: "tags"
         name: TAPi18n.__('vehicles.tags')
