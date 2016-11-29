@@ -165,6 +165,13 @@ Schema.vehicle = new SimpleSchema
   kind:
     type: String, optional: true, label:()->TAPi18n.__('vehicles.kind')
     autoform:
+      firstOption: "(Изберете)"
+      options: [
+        { label:'Кола' , value: 'car'},
+        { label:'Ван' , value: 'van'},
+        { label:'Камион' , value: 'truck'},
+        { label:'Автобус' , value: 'bus'}
+      ]
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
 
   maxPower:

@@ -27,6 +27,7 @@ FleetrGrid.Formatters =
     setTimeout (=> @_renderBlazeTemplates(row,cell)), 0
     "<div class='blazeTemplate cell#{row}-#{cell}'></div>"
   statusFormatter: (row, cell, value, column, rowObject) ->
+    kind = if rowObject.kind then rowObject.kind else "car"
     color = 'grey'
     title = "Няма данни за състоянието!"
     if value is 'stop'
@@ -40,9 +41,9 @@ FleetrGrid.Formatters =
         title = "В движение с превишена скорост"
       else
         if rowObject.speed < Settings.minSpeed
-          color = 'cyan'
+          color = 'yellow'
           title = "Работещ на място"
-    "<img src='/images/truck-state-#{color}.png' rel='tooltip' title='#{title}'></img>"
+    "<img src='/images/cars/#{kind}-#{color}.png' rel='tooltip' title='#{title}' style='width:28px;'></img>"
   decoratedLessThanFormatter: (numberError, numberWarning, decimals=0 ) -> (row, cell, value) ->
     if value > 0
       v = Number((Number(value)).toFixed(decimals))
