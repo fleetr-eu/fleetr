@@ -8,7 +8,7 @@ Insurances.after.update (userId, doc, fieldNames, modifier, options) ->
   	insuranceName = insuranceType?.name
   	event = CustomEvents.findOne { sourceId: doc._id }
   	if event
-  	  CustomEvents.update(event._id, { $set: { date: doc.validTo, name: "Застраховка: " + insuranceName}} )
+  	  CustomEvents.update(event._id, { $set: { date: doc.policyValidTo, name: "Застраховка: " + insuranceName}} )
   	else
   	  CustomEvents.insert
   	    sourceId: doc._id
