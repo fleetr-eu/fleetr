@@ -16,7 +16,7 @@ Maintenances.after.update (userId, doc, fieldNames, modifier, options) ->
         name: "Поддръжка: " + maintenanceName
         kind: "Поддръжка"
         date: doc.nextMaintenanceDate
-        vehicleId: doc._id
+        vehicleId: doc.vehicle
         active: true
         seen: false  
 
@@ -29,6 +29,6 @@ Maintenances.after.insert (userId, doc) ->
       name: "Поддръжка: " + maintenanceName
       kind: "Поддръжка"
       date: doc.nextMaintenanceDate   
-      vehicleId: doc._id
+      vehicleId: doc.vehicle
       active: true
       seen: false
