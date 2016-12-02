@@ -36,6 +36,7 @@ Meteor.startup ->
     AccountsEntry.signInRequired @
     @next()
   , {except: openRoutes}
+
   Router.onBeforeAction ->
     @layout("open")
     @next()
@@ -51,6 +52,11 @@ Meteor.startup ->
       path: '/settings'
       template: 'configurationSettings'
       waitOn: -> [Meteor.subscribe('configurationSettings')]
+
+    @route 'odometers',
+      path: '/odometers'
+      template: 'odometerCorrections'
+      waitOn: -> [Meteor.subscribe('vehicles')]  
 
     @route 'dashboard',
       path: '/'
@@ -219,7 +225,9 @@ Meteor.startup ->
     @route 'vehicleLogbook',
       path: '/vehicles/:vehicleId/logbook'
       template: 'logbook2'
-      data: -> vehicleId: @params.vehicleId
+      data: -> 
+        vehicleId: @params.vehicleId
+        minTripDistance: @params.query.minTripDistance
       waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
 
     @route 'vehicleRests',

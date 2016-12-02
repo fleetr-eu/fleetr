@@ -22,6 +22,9 @@ aggregators = [
   new Slick.Data.Aggregators.Sum 'duration'
 ]
 
+Template.logbook2.onRendered ->
+  Session.set 'minTripDistance', @data.minTripDistance
+
 Template.logbook2.events
   'click #toggle-filter': (e, t) ->
     showFilterBox.set not showFilterBox.get()
@@ -96,6 +99,7 @@ Template.logbook2.helpers
       forceFitColumns: true
 
     cursor: Vehicles.find {}, sort: name: 1
+   
 
 Template.logbookGrid.helpers
   fleetrGridConfig: ->
@@ -251,4 +255,10 @@ Template.logbookGrid.helpers
         direction: 'desc'
       ]
     customize: (grid) ->
+      Tracker.autorun ->
+        minTripDistance = Session.get 'minTripDistance'
+        if minTripDistance
+          grid.setColumnFilterValue {id: 'distance'}, minTripDistance
+        else
+          grid.removeFilter 'client', 'Разстояние (км)'
       grid.addGroupBy 'date', 'Дата', aggregators

@@ -10,6 +10,9 @@ timeAgoFormatter = (row, cell, value) ->
 linkFormatter = (report) -> (row, cell, value) ->
   "<a href='/vehicles/#{value}/#{report}'><img src='/images/#{report}-icon.png' height='22' }'></img></a>"
 
+linkLoogbookFormatter = (report, minDistance) -> (row, cell, value) ->
+  "<a href='/vehicles/#{value}/#{report}?minTripDistance=#{minDistance}'><img src='/images/#{report}-icon.png' height='22' }'></img></a>"  
+
 mapLinkFormatter = (row, cell, value) ->
   "<a href='/vehicles/map/#{value}'><img src='/images/Google-Maps-icon.png' height='22'}'></img></a>"
 
@@ -129,7 +132,7 @@ Template.vehicles.helpers
         field: "_id"
         name: TAPi18n.__('vehicles.logbookShort')
         maxWidth: 31
-        formatter:  linkFormatter 'logbook'
+        formatter:  linkLoogbookFormatter('logbook', 0.05)
         align: 'left'
       ,
         id: "history"
