@@ -1,3 +1,15 @@
+Schema.insuranceTypes = new SimpleSchema
+  _id:
+    type: String, optional: true
+  name:
+    type: String, label: ()->TAPi18n.__('insuranceTypes.name')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  description:
+    type: String, optional: true, label: ()->TAPi18n.__('insuranceTypes.description')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+
 Schema.insurance = new SimpleSchema
   _id:
     type: String

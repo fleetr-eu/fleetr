@@ -31,13 +31,55 @@ Schema.alarms = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 
+Schema.configurationSettings = new SimpleSchema
+  _id:
+    type: String, optional: true
+  category:
+    type: String, label: ()->TAPi18n.__('configurationSettings.category')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  type:
+    type: String, label: ()->TAPi18n.__('configurationSettings.type')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+      firstOption: "(Изберете)"
+      options: ->  
+        [
+          { label: "Текс", value: 0 },
+          { label: "Число", value: 1 },
+          { label: "Дата", value: 2 },
+          { label: "JSON", value: 3 }
+        ]      
+  name:
+    type: String, label: ()->TAPi18n.__('configurationSettings.name')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  value:
+    type: String, label: ()->TAPi18n.__('configurationSettings.value')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+
+
 Schema.customEvents = new SimpleSchema
   _id:
     type: String, optional: true
+  sourceId:
+    type: String, optional: true  
   name:
     type: String, label: ()->TAPi18n.__('customEvents.name')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  kind:
+    type: String, optional: true, label: ()->TAPi18n.__('customEvents.kind')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4"
+      options: () -> [
+          { label: "Технически преглед", value: "Технически преглед"}
+          { label: "Поддръжка", value: "Поддръжка"}
+          { label: "Документ", value: "Документ"}
+          { label: "Застраховка", value: "Застраховка"}
+          { label: "Друго", value: "Друго"}
+        ]      
   fleetGroupId:
     type: String, optional: true, label: ()->TAPi18n.__('customEvents.fleetGroup')
     autoform:
@@ -317,18 +359,6 @@ Schema.documents = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 
-Schema.insuranceTypes = new SimpleSchema
-  _id:
-    type: String, optional: true
-  name:
-    type: String, label: ()->TAPi18n.__('insuranceTypes.name')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  description:
-    type: String, optional: true, label: ()->TAPi18n.__('insuranceTypes.description')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-
 Schema.maintenanceTypes = new SimpleSchema
   _id:
     type: String, optional: true
@@ -374,7 +404,7 @@ Schema.maintenances = new SimpleSchema
     type: String
     label: ()-> TAPi18n.__('maintenances.maintenanceType')
     autoform:
-      firstOption: "(Select)"
+      firstOption: "(Изберете)"
       options: -> MaintenanceTypes.find().map (maintenanceType) -> label: maintenanceType.name, value: maintenanceType._id
       allowOptions: "true"
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
@@ -474,7 +504,7 @@ Schema.driverVehicleAssignments = new SimpleSchema
       type: String
       label: ()->TAPi18n.__('driverVehicleAssignments.driverName')
       autoform:
-        firstOption: "(Select)"
+        firstOption: "(Изберете)"
         options: -> Drivers.find().map (driver) ->
           label: driver.firstName+" "+driver.name
           value: driver._id

@@ -9,7 +9,7 @@ aggregatorsBasic = [
 aggregatorsQuantity = aggregatorsBasic.concat [
   new Slick.Data.Aggregators.Sum 'quantity'
 ]
-fleetrGridConfig =
+fleetrGridConfig = ->
   columns: [
     id: "date"
     field: "timestamp"
@@ -145,5 +145,5 @@ fleetrGridConfig =
           fleetName: Fleets.findOne(_id: vehicle?.allocatedToFleet)?.name
 
 Template.expenseReport.helpers
-  fleetrGridConfig: -> fleetrGridConfig
+  fleetrGridConfig: fleetrGridConfig
   pageTitle: -> "#{TAPi18n.__('reports.expenses.title')}"

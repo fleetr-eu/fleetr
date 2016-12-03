@@ -6,6 +6,7 @@
   "dependencies": {
     "ag-grid": "^5.0.0",
     "ag-grid-react": "^5.0.0",
+    "babel-runtime": "^6.18.0",
     "bcrypt": "^0.8.7",
     "jquery": "^2.0.0",
     "meteor-node-stubs": "^0.2.3",
@@ -13,6 +14,7 @@
     "orb": "^1.0.9",
     "react": "^15.1.0",
     "react-addons-pure-render-mixin": "^15.1.0",
+    "react-big-calendar": "^0.11.1",
     "react-dom": "^15.1.0"
   },
   "devDependencies": {},

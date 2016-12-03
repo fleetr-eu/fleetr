@@ -11,16 +11,30 @@
 					<!-- END SIDEBAR TOGGLER BUTTON -->
 				</li>
 
+
 				{{#if isInRole 'admin'}}
-				<li class="{{isActiveRoute regex='admin'}}">
-					<a href="{{pathForAdminBoard}}">
-					<i class="fa fa-cog"></i>
+				<li class="{{isActiveRoute regex='admin|setings'}}">
+					<a href="#">
+					<i class="fa fa-gears"></i>
 					<span class="title">{{_ "menu.admin"}}</span>
+					<span class="arrow "></span>
 					</a>
+					<ul class="sub-menu">
+						<li class="{{isActiveRoute regex='admin'}}">
+							<a href="{{pathForAdminBoard}}">
+							<i class="fa fa-user"></i>
+							<span class="title">{{_ "menu.userAdmin"}}</span>
+							</a>
+						</li>
+						<li class="{{isActiveRoute regex='admin'}}">
+							<a href="{{pathFor 'settings'}}">
+							<i class="fa fa-gear"></i>
+							<span class="title">{{_ "menu.configurationSettings"}}</span>
+							</a>
+						</li>
+					</ul>
 				</li>
 				{{/if}}
-
-
 
 				<li class="{{isActiveRoute regex='dashboard'}}">
 					<a href="{{pathFor 'dashboard'}}">
@@ -184,6 +198,9 @@
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
+						<li class="{{isActiveRoute regex='fullLogbookReport'}}">
+							<a href="{{pathFor 'fullLogbookReport'}}">{{_ "menu.logbook"}}</a>
+						</li>
 						<li class="{{isActiveRoute regex='expenseReport'}}">
 							<a href="{{pathFor 'expenseReport'}}">{{_ "menu.expenseReport"}}</a>
 						</li>

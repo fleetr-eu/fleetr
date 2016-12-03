@@ -51,3 +51,7 @@
 <template name="logbookGrid">
 	{{> fleetrReportGrid id="logbookGrid" config=fleetrGridConfig}}
 </template>
+
+<template name="bussinesTrip">
+  {{> checkboxCell submitMethod='submitBusinessTrip' field='isBusinessTrip' data=this}}
+</template>

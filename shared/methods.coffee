@@ -30,10 +30,14 @@ Meteor.methods
         Geofences.update {_id: doc._id}, {$set: _.omit(doc, '_id')}
       else
         Geofences.insert doc
+
   removeGeofence: removeItem Geofences
 
   submitAlarm: submitItem Alarms
   removeAlarm: removeItem Alarms
+
+  submitConfigurationSetting: submitItem ConfigurationSettings
+  removeConfigurationSetting: removeItem ConfigurationSettings
 
   submitCustomEvent: submitItem CustomEvents
   removeCustomEvent: removeItem CustomEvents
@@ -85,6 +89,12 @@ Meteor.methods
 
   submitDocument: submitItem Documents
   removeDocument: removeItem Documents
+
+  submitBusinessTrip: (doc, id) ->
+    Trips.upsert tripId: id,
+      $set:
+        tripId: id
+        isBusinessTrip: doc.$set.isBusinessTrip
 
   submitDriverVehicleAssignment: (doc) ->
     @unblock
