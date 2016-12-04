@@ -107,7 +107,10 @@ Meteor.startup ->
       path: '/geofence-events/list'
       template: 'geofenceEvents'
       waitOn: -> [Meteor.subscribe('geofenceEvents'), Meteor.subscribe('fleetGroups'), Meteor.subscribe('fleets'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers'), Meteor.subscribe('geofences')]
-      data: -> title: TAPi18n.__ 'geofenceEvents.listTitle'
+      data: ->
+        title: TAPi18n.__ 'geofenceEvents.listTitle'
+        topnav: <CrudButtons editItemTemplate='geofenceEvent' i18nRoot='geofenceEvents' collection=GeofenceEvents removeItemMethod='removeGeofenceEvent'/>
+
 
     @route 'listTyres',
       path: '/tyres/list'
