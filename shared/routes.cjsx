@@ -238,7 +238,9 @@ Meteor.startup ->
       template: 'insuranceTypes'
       waitOn: ->
         Meteor.subscribe('insuranceTypes')
-      data: -> title: TAPi18n.__('insuranceTypes.listTitle')
+      data: -> 
+        title: TAPi18n.__('insuranceTypes.listTitle')
+        topnav: <CrudButtons editItemTemplate='insuranceType' i18nRoot='insuranceTypes' collection=InsuranceTypes removeItemMethod='removeInsuranceTypes'/>
 
     @route 'listInsurances',
       path: '/insurance/list'
