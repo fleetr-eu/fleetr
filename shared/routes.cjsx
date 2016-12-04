@@ -99,7 +99,9 @@ Meteor.startup ->
       path: '/custom-events/list'
       template: 'customEvents'
       waitOn: -> [Meteor.subscribe('customEvents'), Meteor.subscribe('fleetGroups'), Meteor.subscribe('fleets'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
-      data: -> title: TAPi18n.__ 'customEvents.listTitle'
+      data: ->
+        title: TAPi18n.__ 'customEvents.listTitle'
+        topnav: <CrudButtons editItemTemplate='customEvent' i18nRoot='customEvents' collection=CustomEvents removeItemMethod='removeCustomEvent'/>
 
     @route 'listGeofenceEvents',
       path: '/geofence-events/list'
@@ -238,7 +240,7 @@ Meteor.startup ->
       template: 'insuranceTypes'
       waitOn: ->
         Meteor.subscribe('insuranceTypes')
-      data: -> 
+      data: ->
         title: TAPi18n.__('insuranceTypes.listTitle')
         topnav: <CrudButtons editItemTemplate='insuranceType' i18nRoot='insuranceTypes' collection=InsuranceTypes removeItemMethod='removeInsuranceTypes'/>
 
