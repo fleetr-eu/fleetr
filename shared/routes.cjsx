@@ -72,7 +72,9 @@ Meteor.startup ->
       path: '/alarms/list'
       template: 'alarms'
       waitOn: -> [Meteor.subscribe('alarms'), Meteor.subscribe('geofenceEvents'), Meteor.subscribe('customEvents')]
-      data: -> title: TAPi18n.__('alarms.listTitle')
+      data: ->
+        title: TAPi18n.__('alarms.listTitle')
+        topnav: <CrudButtons editItemTemplate='alarm' i18nRoot='alarms' collection=Alarms removeItemMethod='removeAlarm' />
 
     @route 'listDrivers',
       path: '/drivers/list'
