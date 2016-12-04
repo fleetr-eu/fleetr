@@ -112,7 +112,10 @@ Meteor.startup ->
       template: 'tyres'
       data: -> {pageTitle: 'Гуми'}
       waitOn: -> [Meteor.subscribe('tyres'), Meteor.subscribe('vehicles')]
-      data: -> title: TAPi18n.__('tyre.listTitle')
+      data: ->
+        title: TAPi18n.__('tyre.listTitle')
+        topnav: <CrudButtons editItemTemplate='tyre' i18nRoot='tyre' collection=Tyres removeItemMethod='removeTyre' />
+
 
     @route 'listFleets',
       path: '/fleets/list'
