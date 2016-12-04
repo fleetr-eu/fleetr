@@ -3,7 +3,6 @@ Template.sidenav.onCreated ->
   Meteor.subscribe 'fleets'
 
 Template.sidenav.helpers
-  pathForAdminBoard: -> AdminDashboard.path('/')
   fleetGroups: ->
     FleetGroups.find {},
       transform: (fg) ->
