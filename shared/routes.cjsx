@@ -179,7 +179,10 @@ Meteor.startup ->
       path: '/expenses/types/list'
       template: 'expenseTypes'
       waitOn: -> Meteor.subscribe('expenseTypes')
-      data: -> title: TAPi18n.__('expenseTypes.listTitle')
+      data: ->
+        title: TAPi18n.__('expenseTypes.listTitle')
+        topnav: <CrudButtons editItemTemplate='expenseType' i18nRoot='expenseTypes' collection=ExpenseTypes removeItemMethod='removeExpenseType'/>
+
 
     @route 'listExpenses',
       path: '/expenses/list'
