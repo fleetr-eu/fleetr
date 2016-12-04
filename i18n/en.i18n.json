@@ -22,6 +22,7 @@
 
   "menu": {
     "admin": "Administration",
+    "signOut": "Sign Out",
     "vehicles": {
       "all": "All"
     },
