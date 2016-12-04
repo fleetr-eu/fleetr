@@ -63,15 +63,10 @@ Meteor.startup ->
     @route 'odometers',
       path: '/odometers'
       template: 'odometerCorrections'
-      waitOn: -> [Meteor.subscribe('vehicles')]  
+      waitOn: -> [Meteor.subscribe('vehicles')]
 
-    @route 'dashboard',
-      path: '/'
-      template: 'dashboard'
-      fastRender: true
-      waitOn: -> Meteor.subscribe('vehicles')
-      data: -> title: 'Dashboard'
-
+    @route '/', ->
+      @redirect '/vehicles/map'
 
     @route 'listAlarms',
       path: '/alarms/list'
@@ -283,7 +278,7 @@ Meteor.startup ->
     @route 'vehicleLogbook',
       path: '/vehicles/:vehicleId/logbook'
       template: 'logbook2'
-      data: -> 
+      data: ->
         vehicleId: @params.vehicleId
         minTripDistance: @params.query.minTripDistance
         title: TAPi18n.__('vehicles.listTitle')
