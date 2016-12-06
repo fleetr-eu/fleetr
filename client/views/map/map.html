@@ -1,34 +1,17 @@
 <template name="map">
-    {{> fleetrMap vehicleId=selectedVehicleId}}
-    <!-- <div class="row">
-        <div class="col-md-12">
-          <div class="portlet light">
-
-            <div class="actions">
-              <a href="#" id="toggle-filter" class="btn btn-circle btn-default {{#if showFilterBox}}active{{/if}}">
-                <i class="glyphicon glyphicon-filter"></i>
-                {{_ "button.filter"}}
-              </a>
-              <a href="#" class="btn btn-circle btn-icon-only btn-default fullscreen"></a>
-            </div>
-
-            <div class="portlet-body" id="map-container">
-              <div class="row">
-                <div class="col-md-5 map-filter {{#if showFilterBox}}open{{/if}}" id="vehicle-filter-box">
-                   {{> vehicleFilter selectedVehicleIdVar="selectedVehicleId" filterVar="vehicleFilter" options=filterOptions}}
-                   {{> fleetrGrid id="driversList" config=fleetrGridConfig }}
-                </div>
-                 <div class="col-md-12">
-                   <section class="content" s>
-                     {{> fleetrMap vehicleId=selectedVehicleId}}
-                   </section>
-                 </div>
-
-               </div>
-            </div>
-         </div>
-       </div>
-     </div> -->
+  <div class="portlet-body" id="map-container" style="width:100%; height:calc(100vh - 61px)">
+    <div class="row">
+      <div class="col-md-5 map-filter {{#if showFilterBox}}open{{/if}}" id="vehicle-filter-box">
+        {{> vehicleFilter selectedVehicleIdVar="selectedVehicleId" filterVar="vehicleFilter" options=filterOptions}}
+        {{> fleetrGrid id="driversList" config=fleetrGridConfig }}
+     </div>
+     <div class="col-md-12">
+       <section class="content">
+         {{> fleetrMap vehicleId=selectedVehicleId}}
+       </section>
+     </div>
+   </div>
+ </div>
 </template>
 
 <template name="simpleMap">
