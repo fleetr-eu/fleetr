@@ -1,4 +1,4 @@
-showFilterBox = new ReactiveVar false
+Session.set 'showFilterBox', false
 
 Template.map.onRendered ->
   Session.set 'selectedVehicleId', @data.vehicleId
@@ -15,7 +15,7 @@ Template.map.onRendered ->
 Template.map.helpers
   filterOptions: -> vehicleDisplayStyle: 'none'
   selectedVehicleId: -> Session.get('selectedVehicleId')
-  showFilterBox: -> showFilterBox.get()
+  showFilterBox: -> Session.get 'showFilterBox'
 
   fleetrGridConfig: ->
     columns: [
