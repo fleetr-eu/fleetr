@@ -1,5 +1,3 @@
-showFilterBox = new ReactiveVar false
-
 mapLinkFormatter = (row, cell, value) ->
   """
     <a href='/vehicles/map/#{value}'>
@@ -23,11 +21,12 @@ aggregators = [
 ]
 
 Template.logbook2.onRendered ->
+  Session.set 'showFilterBox', false
   Session.set 'minTripDistance', @data.minTripDistance
 
 Template.logbook2.events
   'click #toggle-filter': (e, t) ->
-    showFilterBox.set not showFilterBox.get()
+    Session.set 'showFilterBox', not Session.get 'showFilterBox'
     Meteor.defer -> t.grid?.resize()
   'change #logbookVehicleFilter': (e, t) ->
     Router.go 'vehicleLogbook', vehicleId: e.target.value
@@ -46,7 +45,7 @@ Template.logbook2.helpers
   vehicle: -> Vehicles.findOne(_id: Template.instance().data.vehicleId)
   filterOptions: -> vehicleDisplayStyle: 'none'
   selectedVehicleId: -> Session.get('selectedVehicleId')
-  showFilterBox: -> showFilterBox.get()
+  showFilterBox: -> Session.get 'showFilterBox'
   timeRange: -> console.log Session.get 'logbookDateFilterPeriod'; Session.get 'logbookDateFilterPeriod'
 
   filterVehiclesGridConfig: ->
@@ -99,7 +98,7 @@ Template.logbook2.helpers
       forceFitColumns: true
 
     cursor: Vehicles.find {}, sort: name: 1
-   
+
 
 Template.logbookGrid.helpers
   fleetrGridConfig: ->

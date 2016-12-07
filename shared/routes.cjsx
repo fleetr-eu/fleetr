@@ -3,6 +3,7 @@ FleetsMenu  = require '/imports/ui/FleetsMenu.cjsx'
 CrudButtons = require '/imports/ui/CrudButtons.cjsx'
 MapAdditionalControls = require '/imports/ui/MapAdditionalControls.cjsx'
 GeofencesNav          = require '/imports/ui/navs/GeofencesNav.cjsx'
+VehiclesLogbookNav    = require '/imports/ui/navs/VehiclesLogbookNav.cjsx'
 
 Meteor.startup ->
   Accounts.config
@@ -302,11 +303,13 @@ Meteor.startup ->
     @route 'vehicleLogbook',
       path: '/vehicles/:vehicleId/logbook'
       template: 'logbook2'
+      waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
       data: ->
+        vehicle = Vehicles.findOne(_id: @params.vehicleId)
         vehicleId: @params.vehicleId
         minTripDistance: @params.query.minTripDistance
-        title: TAPi18n.__('vehicles.listTitle')
-      waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
+        title: "Logbook for #{vehicle?.name} - #{vehicle?.licensePlate}" if vehicle
+        topnav: <VehiclesLogbookNav />
 
     @route 'vehicleRests',
       path: '/vehicles/:vehicleId/rests'
