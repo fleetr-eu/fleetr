@@ -4,6 +4,7 @@ CrudButtons = require '/imports/ui/CrudButtons.cjsx'
 MapAdditionalControls = require '/imports/ui/MapAdditionalControls.cjsx'
 GeofencesNav          = require '/imports/ui/navs/GeofencesNav.cjsx'
 VehiclesLogbookNav    = require '/imports/ui/navs/VehiclesLogbookNav.cjsx'
+ImportExpensesNav     = require '/imports/ui/navs/ImportExpensesNav.cjsx'
 
 Meteor.startup ->
   Accounts.config
@@ -179,6 +180,9 @@ Meteor.startup ->
         Meteor.subscribe('expenseGroups')
         Meteor.subscribe('vehicles/licensePlates')
       ]
+      data: ->
+        title: TAPi18n.__('expenses.import.title')
+        # topnav: <ImportExpensesNav />
 
     @route 'listExpenseGroups',
       path: '/expenses/groups/list'
@@ -230,14 +234,6 @@ Meteor.startup ->
         Meteor.subscribe('vehicleMaintenances', @params.vehicleId)
         Meteor.subscribe('maintenanceTypes')]
       data: -> title: TAPi18n.__('maintenances.listTitle')
-
-    @route 'listOdometers',
-      path: '/vehicle/:vehicleId/odometers/list'
-      template: 'odometers'
-      data: -> {'vehicleId' : @params.vehicleId}
-      waitOn: ->
-        [ Meteor.subscribe('vehicle', _id: @params.vehicleId)
-          Meteor.subscribe('vehicleOdometers', @params.vehicleId) ]    
 
     @route 'listMaintenanceType',
       path: '/maintenance/types/list'
