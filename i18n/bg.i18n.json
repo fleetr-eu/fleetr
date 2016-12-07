@@ -320,6 +320,13 @@
       "alarmsConfiguration" : "Настройка на аларми",
       "workHours" : "Работни часове"
     },
+    "odometers" : {
+      "title" : "Корекция на одометър",
+      "listTitle": "Корекции на одометър",
+      "listTitleShort": "Одометър",
+      "date" : "Дата и час",
+      "value" : "Одометър (км)"
+    },
     "name": "Наименование",
     "licensePlate" :"Рег. No",
     "identificationNumber":"Идентификационен No (VIN)",

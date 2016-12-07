@@ -287,3 +287,23 @@ Schema.vehicle = new SimpleSchema
       afFieldInput:
         type: "time"
       template: "bootstrap3-horizontal", "label-class": "col-sm-2", "input-col-class": "col-sm-4"
+
+
+Schema.odometers = new SimpleSchema
+  _id:
+    type: String, optional: true
+  vehicleId:
+    type: String, optional: true
+  dateTime:
+    type: Date, label:()->TAPi18n.__('vehicles.odometers.date')
+    autoform:
+      type: "bootstrap-datepicker"
+      datePickerOptions: Settings.dpOptions
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6" 
+  value:
+    type: Number, optional: true, label:()->TAPi18n.__('vehicles.odometers.value')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+  
+
+
