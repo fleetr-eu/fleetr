@@ -303,6 +303,8 @@ Meteor.startup ->
       path: '/reports/logbook'
       template: 'fullLogbookReport'
       waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
+      data:
+        title: TAPi18n.__('menu.logbook')
 
     @route 'vehicleLogbook',
       path: '/vehicles/:vehicleId/logbook'

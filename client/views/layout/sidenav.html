@@ -156,6 +156,9 @@
       <span class="arrow "></span>
       </a>
       <ul class="sub-menu nav nav-list collapse" id="reportsMenu">
+        <li class="{{isActiveRoute regex='fullLogbookReport'}}">
+          <a href="{{pathFor 'fullLogbookReport'}}">{{_ "menu.logbook"}}</a>
+        </li>
         <li class="{{isActiveRoute regex='expenseReport'}}">
           <a href="{{pathFor 'expenseReport'}}">{{_ "menu.expenseReport"}}</a>
         </li>
