@@ -86,16 +86,17 @@ Meteor.startup ->
       tripText = if (vehicle.state is "start") and (speed >= Settings.minSpeed) then "В движение: #{moment.duration(vehicle.tripTime,'milliseconds').humanize()}" else ""
       super
         content: """
-                <div style='width:11em;'>
+                <div style='width:15em;'>
                   <p>
                   <b>#{vehicle.name} (#{vehicle.licensePlate})</b><br/>
                   Шофьор: #{driverName}<br/>
                   Скорост: #{speed} км/ч<br/>
-                  Километраж: #{km} км<br/>
+                  Одометър: #{km} км<br/>
                   #{tripText}
                   #{idleText}
                   #{restText}
                   </p>
+                  <a href='/vehicles/#{vehicle._id}/logbook?minTripDistance=0.05'>Журнал</а>
                 </div>"""
 
 

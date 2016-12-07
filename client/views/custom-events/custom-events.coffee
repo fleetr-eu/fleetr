@@ -16,8 +16,12 @@ Template.customEvents.helpers
       transform: (doc) -> _.extend doc,
         fleetGroupName: FleetGroups.findOne(_id: doc.fleetGroupId)?.name
         fleetName: Fleets.findOne(_id: doc.fleetId)?.name
-        vehicleName: Vehicles.findOne(_id: doc.vehicleId)?.name
-        driverName: Drivers.findOne(_id: doc.driverId)?.name
+        vehicleName: do ->
+          v = Vehicles.findOne(_id: doc.vehicleId)
+          if v then v.name + " (" +v.licensePlate+ ")" else ""
+        driverName: do ->
+          d = Drivers.findOne(_id: doc.driverId)
+          if d then d.firstName+" "+d.name else ""
         remainingDays: if doc.date then moment(doc.date).diff(moment(), 'days') else -1
         remainingKm: if doc.odometer then doc.odometer - Vehicles.findOne(_id: doc.vehicleId)?.odometer else -1
     columns: [
@@ -117,13 +121,6 @@ Template.customEvents.helpers
       sortable: true
       search: where: 'client'
       hidden: true
-    ,
-      id: "speed"
-      field: "speed"
-      name: "#{TAPi18n.__('customEvents.speed')}"
-      width:40
-      sortable: true
-      search: where: 'client'
     ,
       id: "seen"
       field: "seen"

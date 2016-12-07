@@ -173,6 +173,14 @@ Meteor.startup ->
         Meteor.subscribe('vehicleMaintenances', @params.vehicleId)
         Meteor.subscribe('maintenanceTypes')]
 
+    @route 'listOdometers',
+      path: '/vehicle/:vehicleId/odometers/list'
+      template: 'odometers'
+      data: -> {'vehicleId' : @params.vehicleId}
+      waitOn: ->
+        [ Meteor.subscribe('vehicle', _id: @params.vehicleId)
+          Meteor.subscribe('vehicleOdometers', @params.vehicleId) ]    
+
     @route 'listMaintenanceType',
       path: '/maintenance/types/list'
       template: 'maintenanceTypes'

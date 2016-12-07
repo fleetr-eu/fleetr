@@ -310,6 +310,13 @@
       "alarmsConfiguration" : "Alarms configuration",
       "workHours" : "Working hours"
     },
+     "odometers" : {
+      "title" : "Odometer correction",
+      "listTitle": "Odometer corrections",
+      "listTitleShort": "Odometer",
+      "date" : "Date and Time",
+      "value" : "Odometer (km)"
+    },
     "title" : "Vehicle",
     "listTitle" : "Vehicles",
     "active" : "Active",

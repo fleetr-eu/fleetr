@@ -16,7 +16,7 @@ linkLoogbookFormatter = (report, minDistance) -> (row, cell, value) ->
 mapLinkFormatter = (row, cell, value) ->
   "<a href='/vehicles/map/#{value}'><img src='/images/Google-Maps-icon.png' height='22'}'></img></a>"
 
-Template.maintenancesButton.helpers
+Template.vehicleButtons.helpers
   vehicleId: -> Session.get "selectedItemId"
 
 Template.vehicles.onRendered ->
@@ -39,7 +39,7 @@ Template.vehicles.helpers
     collection: Vehicles
     editItemTemplate: 'vehicle'
     removeItemMethod: 'removeVehicle'
-    additionalItemActionsTemplate: 'maintenancesButton'
+    additionalItemActionsTemplate: 'vehicleButtons'
     gridConfig:
       pagination: true
       columns: [

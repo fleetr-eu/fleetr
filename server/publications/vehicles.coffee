@@ -17,6 +17,7 @@ opts =
     lng: 1
     course: 1
     # for editing, needs another pub per vehicle
+    address: 1
     active: 1
     allocatedToFleetFromDate: 1
     make: 1

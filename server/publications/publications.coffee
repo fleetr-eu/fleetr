@@ -18,6 +18,7 @@ Meteor.startup ->
   Meteor.publish 'insurances', -> Insurances.find {}
   Meteor.publish 'maintenanceType', (id) -> MaintenanceTypes.find _id: id
   Meteor.publish 'vehicleMaintenances', (vehicleId)-> Maintenances.find {vehicle: vehicleId}
+  Meteor.publish 'vehicleOdometers', (vehicleId)-> Odometers.find {vehicleId: vehicleId}
   Meteor.publish 'alarms', -> Alarms.find {}
   Meteor.publish 'notifications', -> Notifications.find {}
   Meteor.publish 'geofences', (filter) -> Geofences.findFiltered filter, ['name', 'tags']
