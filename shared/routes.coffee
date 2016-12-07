@@ -56,7 +56,7 @@ Meteor.startup ->
     @route 'odometers',
       path: '/odometers'
       template: 'odometerCorrections'
-      waitOn: -> [Meteor.subscribe('vehicles')]  
+      waitOn: -> [Meteor.subscribe('vehicles')]
 
     @route 'dashboard',
       path: '/'
@@ -179,7 +179,7 @@ Meteor.startup ->
       data: -> {'vehicleId' : @params.vehicleId}
       waitOn: ->
         [ Meteor.subscribe('vehicle', _id: @params.vehicleId)
-          Meteor.subscribe('vehicleOdometers', @params.vehicleId) ]    
+          Meteor.subscribe('vehicleOdometers', @params.vehicleId) ]
 
     @route 'listMaintenanceType',
       path: '/maintenance/types/list'
@@ -233,10 +233,17 @@ Meteor.startup ->
     @route 'vehicleLogbook',
       path: '/vehicles/:vehicleId/logbook'
       template: 'logbook2'
-      data: -> 
+      data: ->
         vehicleId: @params.vehicleId
         minTripDistance: @params.query.minTripDistance
       waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
+
+    @route 'vehicleLogbookReact',
+      path: '/vehicles/:vehicleId/logbook-react'
+      template: 'logbook-react'
+      data: ->
+        vehicleId: @params.vehicleId
+        minTripDistance: @params.query.minTripDistance
 
     @route 'vehicleRests',
       path: '/vehicles/:vehicleId/rests'
