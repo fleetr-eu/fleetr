@@ -329,10 +329,13 @@ Meteor.startup ->
         Meteor.subscribe('vehicle/history', @params.vehicleId)
       ]
       data: ->
-        'vehicle': Vehicles.findOne {_id: @params.vehicleId},
+        vehicle = Vehicles.findOne {_id: @params.vehicleId},
           fields:
             unitId: 1
             name: 1
+        vehicle: vehicle
+        title: "History for #{vehicle.name}" if vehicle
+
 
     @route 'expenseReport',
       path: '/reports/expenses'
