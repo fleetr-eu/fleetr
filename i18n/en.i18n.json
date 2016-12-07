@@ -22,6 +22,7 @@
 
   "menu": {
     "admin": "Administration",
+    "signOut": "Sign Out",
     "vehicles": {
       "all": "All"
     },
@@ -67,6 +68,10 @@
     "name" : "Name",
     "value" : "Value",
     "deleteMessage": "Are you certain you want to delete this setting?"
+  },
+
+  "map": {
+    "title": "Map"
   },
 
   "geofences": {

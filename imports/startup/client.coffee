@@ -10,15 +10,14 @@ require '../ui/third-party/markerwithlabel.js'
 ## JQuery Plugins
 # require '../ui/third-party/jquery-ui-1.10.3.custom.min.js'
 require '../ui/third-party/jquery.slimscroll.min.js'
+require '../ui/third-party/typeahead.bundle.js'
 
 ## Bootstrap Plugins
 require '../ui/third-party/bootstrap-switch.min.js'
 require '../ui/third-party/bootstrap-datepicker.bg.js'
 
 ## Metronic theme dependencies
-@Metronic = require '../ui/third-party/metronic.js'
-@Layout   = require '../ui/third-party/layout.js'
-@Index    = require '../ui/third-party/index.js'
+
 
 ## Slickgrid dependencies
 require '../ui/third-party/slickgrid/slick.core.js'

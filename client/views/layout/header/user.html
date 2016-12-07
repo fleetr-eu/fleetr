@@ -1,24 +1,26 @@
 <template name="user">
   <li class="dropdown dropdown-user">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-close-others="true">
     <span class="username username-hide-on-mobile">{{userEmail}}</span>
     <i class="fa fa-angle-down"></i>
     </a>
-    <ul class="dropdown-menu">
-      <!-- <li>
-        <a href="#">
-        <i class="icon-user"></i>Настройки</a>
-      </li>
+    <ul class="dropdown-menu" >
       <li>
-        <a href="#">
-        <i class="icon-calendar"></i>Календар</a>
+        {{> i18n_dropdown}}
       </li>
-
       <li class="divider">
-      </li> -->
+      </li>
+      {{#if isInRole 'admin'}}
+      <li>
+        <a href="{{pathForAdminBoard}}" target="_blank">
+          {{_ "menu.admin"}}
+        </a>
+      </li>
+      {{/if}}
       <li>
         <a href="{{pathFor 'entrySignOut'}}">
-        <i class="icon-key"></i> Излизане от системата </a>
+          {{_ "menu.signOut"}}
+        </a>
       </li>
     </ul>
   </li>

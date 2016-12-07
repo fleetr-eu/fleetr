@@ -1,46 +1,25 @@
 <template name="map">
+  <div class="portlet-body" id="map-container" style="width:100%; height:calc(100vh - 61px)">
     <div class="row">
-        <div class="col-md-12">
-          <div class="portlet light">
-            <div class="portlet-title">
-              <div class="caption" id="fleets">
-                  <div class="caption-subject">
-                    <h1 class="bold">Карта на автомобили</h1>
-                  </div>
-              </div>
-              <div class="actions">
-                <a href="#" id="toggle-filter" class="btn btn-circle btn-default {{#if showFilterBox}}active{{/if}}">
-                  <i class="glyphicon glyphicon-filter"></i>
-                  {{_ "button.filter"}}
-                </a>
-                <a href="#" class="btn btn-circle btn-icon-only btn-default fullscreen"></a>
-              </div>
-            </div>
-            <div class="portlet-body" id="map-container">
-              <div class="row">
-                <div class="col-md-5 map-filter {{#if showFilterBox}}open{{/if}}" id="vehicle-filter-box">
-                   {{> vehicleFilter selectedVehicleIdVar="selectedVehicleId" filterVar="vehicleFilter" options=filterOptions}}
-                   {{> fleetrGrid id="driversList" config=fleetrGridConfig }}
-                </div>
-                 <div class="col-md-12">
-                   <section class="content">
-                     {{> fleetrMap vehicleId=selectedVehicleId}}
-                   </section>
-                 </div>
-
-               </div>
-            </div>
-         </div>
-       </div>
+      <div class="col-md-5 map-filter {{#if showFilterBox}}open{{/if}}" id="vehicle-filter-box">
+        {{> vehicleFilter selectedVehicleIdVar="selectedVehicleId" filterVar="vehicleFilter" options=filterOptions}}
+        {{> fleetrGrid id="driversList" config=fleetrGridConfig }}
      </div>
+     <div class="col-md-12">
+       <section class="content">
+         {{> fleetrMap vehicleId=selectedVehicleId}}
+       </section>
+     </div>
+   </div>
+ </div>
 </template>
 
 <template name="simpleMap">
-  <h2>{{vehicle.name}} ({{vehicle.licensePlate}})
-    {{#if data.start.time}}
-    <small class="pull-right" style="padding-top: 10px;">{{startTime}} - {{stopTime}}</small>
-    {{/if}}
+  {{#if data.start.time}}
+  <h2 style="position: absolute;top: 30px;right: 0px;z-index: 100;background: white;padding: 10px;">
+    <small class="pull-right">{{startTime}} - {{stopTime}}</small>
   </h2>
+  {{/if}}
   {{> fleetrMap showVehicles=false enableVehicleSelection=false}}
   {{showInfoMarkers}}
 </template>

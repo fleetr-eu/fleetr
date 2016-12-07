@@ -1,41 +1,27 @@
 <template name="customEvents">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="portlet light">
-				<div class="portlet-title">
-					<div class="caption">
-						<div class="caption-subject">
-							<h1 class="bold">{{_ "customEvents.listTitle"}}</h1>
-						</div>
-					</div>
-					{{> actionButtons actions}}
-				</div>
-				<div class="portlet-body">
-		  		 	<section class="content">
-							<ul class="nav nav-tabs">
-								<li class="active">
-									<a href="#tab_1" data-toggle="tab">
-									{{_ "customEvents.tabs.calendar"}}</a>
-								</li>
-								<li>
-									<a href="#tab_2" data-toggle="tab">
-									{{_ "customEvents.tabs.list"}}</a>
-								</li>
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a href="#tab_1" data-toggle="tab">
+					{{_ "customEvents.tabs.calendar"}}</a>
+				</li>
+				<li>
+					<a href="#tab_2" data-toggle="tab">
+					{{_ "customEvents.tabs.list"}}</a>
+				</li>
 
-							</ul>
-							<div class="tab-content">
-								<div class="tab-pane active calendar-pane" id="tab_1">
-									{{> React component=BigCalendar onSelectEvent=onSelectEvent onSelectSlot=onSelectSlot}}
-								</div>
-								<div class="tab-pane" id="tab_2">
-									{{> fleetrGrid config=gridConfig }}
-								</div>
-							</div>
-		   			</section>
-		 		</div>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active calendar-pane" id="tab_1">
+					{{> React component=BigCalendar onSelectEvent=onSelectEvent onSelectSlot=onSelectSlot}}
+				</div>
+				<div class="tab-pane" id="tab_2">
+					{{> fleetrGrid config=gridConfig }}
+				</div>
 			</div>
 		</div>
-	 </div>
+	</div>
 </template>
 
 <template name="seenNotification">

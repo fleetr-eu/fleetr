@@ -8,25 +8,16 @@
 
     <link rel="icon" type="image/png" href="/images/truck-grey.png">
 
-    <!-- BEGIN GLOBAL MANDATORY STYLES -->
-    <link href='https://fonts.googleapis.com/css?family=Play&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+    <!-- Theme assets -->
+    <link href="/light-bootstrap/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="/light-bootstrap/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <link href="/light-bootstrap/css/custom.css" rel="stylesheet"/>
+    <script src="/light-bootstrap/js/jquery-1.10.2.js"></script>
+    <script src="/light-bootstrap/js/light-bootstrap-dashboard.js"></script>
 
-    <link href="/css/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="/css/uniform.default.css" rel="stylesheet" type="text/css" />
+    <!-- Bootstrap switch css -->
     <link href="/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
-    <!-- END GLOBAL MANDATORY STYLES -->
-
-    <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
-    <link href="/js/themes/default/style.min.css" rel="stylesheet" type="text/css" />
-    <!-- END PAGE LEVEL PLUGIN STYLES -->
-
-    <!-- BEGIN THEME STYLES -->
-    <link href="/css/components-blue.css" rel="stylesheet" type="text/css" />
-    <link href="/css/plugins.css" rel="stylesheet" type="text/css" />
-    <link href="/css/layout.css" rel="stylesheet" type="text/css" />
-    <link href="/css/themes/default-blue.css" rel="stylesheet" type="text/css" id="style_color" />
-    <link href="/css/custom.css" rel="stylesheet" type="text/css" />
-    <!-- <link href="/css/dataTables.responsive.css" rel="stylesheet" type="text/css" /> -->
 
     <!-- SlickGrid CSS -->
     <link href="/slickgrid/slick.grid.css" rel="stylesheet" type="text/css"/>
@@ -34,14 +25,6 @@
     <link href="/slickgrid/controls/slick.columnpicker.css" rel="stylesheet" type="text/css"/>
     <link href="/slickgrid/plugins/slick.headerbuttons.css" rel="stylesheet" type="text/css"/>
 
-    <!-- AG-Grid CSS -->
-
-    <!-- END THEME STYLES -->
-    <link href="/css/ag-grid/ag-grid.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/ag-grid/theme-fresh.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/ag-grid/theme-blue.css" rel="stylesheet" type="text/css"/>
-
-    <!-- END THEME STYLES -->
 
     <!-- BEGIN SCRIPTS -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCO_NvDDs6yqtWOiQS4ZFHWJquK_jjh2pM&libraries=places,geometry" type="text/javascript"></script>
@@ -57,14 +40,124 @@
 </body>
 
 <template name="layout">
-    {{> header}}
+    <!-- {{> header}}
     <div class="clearfix"></div>
     <div class="page-container">
         {{> sidebar}} {{> pageContent}}
     </div>
-    {{> footer}}
+    {{> footer}} -->
+    <span class="light-bootstrap">
+    {{> lb title=title contentClass=contentClass topnav=topnav }}
+    </span>
 </template>
 
 <template name="open">
     {{> yield}}
+</template>
+
+<template name="lb">
+  <div class="wrapper">
+      <div class="sidebar" style="overflow:visible" data-color="" data-image="">
+
+      <!--
+
+          Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+          Tip 2: you can also add an image using data-image tag
+
+      -->
+
+      	<div class="sidebar-wrapper" style="background: linear-gradient(to bottom, #787878 0%, #343434 100%);">
+              <div class="logo">
+                  <a href="/" class="simple-text">
+                      Fleetr
+                  </a>
+              </div>
+              {{> sidenav}}
+      	</div>
+      </div>
+
+      <div class="main-panel">
+          <nav class="navbar navbar-default navbar-fixed" style="max-height: 61px;">
+              <div class="container-fluid">
+                  <div class="navbar-header">
+                      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                      </button>
+                      <a class="navbar-brand" href="#">{{title}}</a>
+                  </div>
+                  <div class="collapse navbar-collapse">
+                      {{#if topnav}}
+                      <span>{{> React component=ReactParent child=topnav }}</span>
+                      {{/if}}
+                      <!-- <ul class="nav navbar-nav navbar-left">
+                          <li>
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                  <i class="fa fa-dashboard"></i>
+                              </a>
+                          </li>
+                          <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                      <i class="fa fa-globe"></i>
+                                      <b class="caret"></b>
+                                      <span class="notification">5</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                  <li><a href="#">Notification 1</a></li>
+                                  <li><a href="#">Notification 2</a></li>
+                                  <li><a href="#">Notification 3</a></li>
+                                  <li><a href="#">Notification 4</a></li>
+                                  <li><a href="#">Another notification</a></li>
+                                </ul>
+                          </li>
+                          <li>
+                             <a href="">
+                                  <i class="fa fa-search"></i>
+                              </a>
+                          </li>
+                      </ul> -->
+
+                      <ul class="nav navbar-nav navbar-right">
+                          <!-- <li>
+                             <a href="">
+                                 Account
+                              </a>
+                          </li>
+                          <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                      Dropdown
+                                      <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                  <li><a href="#">Action</a></li>
+                                  <li><a href="#">Another action</a></li>
+                                  <li><a href="#">Something</a></li>
+                                  <li><a href="#">Another action</a></li>
+                                  <li><a href="#">Something</a></li>
+                                  <li class="divider"></li>
+                                  <li><a href="#">Separated link</a></li>
+                                </ul>
+                          </li>
+                          <li>
+                              <a href="#">
+                                  Log out
+                              </a>
+                          </li> -->
+                					{{> headerAlarms}}
+                					{{> notifications}}
+                					{{> user}}
+                      </ul>
+                  </div>
+              </div>
+          </nav>
+
+
+          <div class="content {{contentClass}}">
+              {{> yield}}
+          </div>
+
+      </div>
+  </div>
 </template>

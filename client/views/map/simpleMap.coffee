@@ -3,7 +3,7 @@ Template.simpleMap.onCreated ->
   Session.set 'simpleMapShowInfoMarkers', false
 
 Template.simpleMap.onRendered ->
-  {deviceId, tripId, start, stop, idle} = EJSON.parse decodeURIComponent @data
+  {deviceId, tripId, start, stop, idle} = @data.parsed
   start.time = moment(start.time).toDate()
   stop.time = moment(stop.time).toDate()
 
@@ -53,7 +53,7 @@ formatTime = (time) ->
 
 Template.simpleMap.helpers
   data: data = ->
-    JSON.parse Template.instance().data
+    Template.instance().data.parsed
   vehicle: ->
     Vehicles.findOne unitId: data().deviceId
   startTime: ->

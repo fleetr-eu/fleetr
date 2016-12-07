@@ -1,21 +1,45 @@
 <template name="crud">
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-md-12">
 			<div class="portlet light">
 				<div class="portlet-title">
-					<div class="caption">
-						<div class="caption-subject">
-							<h1 class="bold">{{_ title}}</h1>
-						</div>
+					<div class="actions">
+						{{#if isInRole 'admin,editor'}}
+							{{#if show.add}}
+							<a href="#" class="btn btn-circle btn-default add-item">
+	       						<i class="fa fa-plus"></i>
+	       						{{_ "button.add"}}
+	  					</a>
+							{{/if}}
+							{{#if selectedItemId}}
+								{{#if show.edit}}
+								<a href="#" class="btn btn-circle btn-default edit-item">
+	       							<i class="icon-pencil"></i>
+	        						{{_ "button.edit"}}
+	  						</a>
+								{{/if}}
+								{{#if show.delete}}
+								<a href="#" class="btn btn-circle btn-default delete-item">
+	       							<i class="icon-trash"></i>
+	        						{{_ "button.delete"}}
+	  						</a>
+								{{/if}}
+								{{#if additionalItemActionsTemplate}}
+									{{> Template.dynamic template=additionalItemActionsTemplate }}
+								{{/if}}
+							{{/if}}
+							{{#if additionalActionsTemplate}}
+								{{> Template.dynamic template=additionalActionsTemplate }}
+							{{/if}}
+						{{/if}}
 					</div>
-					{{> actionButtons}}
 				</div>
 				<div class="portlet-body">
-		  		 	<section class="content">
+		  		 	<section class="content"> -->
 						{{> fleetrGrid config=gridConfig }}
-		   			</section>
+		   			<!-- </section>
 		 		</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </template>

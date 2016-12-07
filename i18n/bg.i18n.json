@@ -22,6 +22,7 @@
 
   "menu": {
     "admin": "Администрация",
+    "signOut": "Излизане от системата",
     "userAdmin": "Потребители",
     "vehicles": {
       "all": "Всички"
@@ -57,6 +58,10 @@
     "notifications":"Напомняния",
     "geofenceNotifications":"Напомняния за обекти",
     "alarms":"Аларми"
+  },
+
+  "map": {
+    "title": "Карта на автомобили"
   },
 
   "configurationSettings": {
