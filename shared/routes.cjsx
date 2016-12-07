@@ -317,6 +317,17 @@ Meteor.startup ->
         title: "Logbook for #{vehicle?.name} - #{vehicle?.licensePlate}" if vehicle
         topnav: <VehiclesLogbookNav />
 
+    @route 'vehicleLogbookReact',
+      path: '/vehicles/:vehicleId/logbook-react'
+      template: 'logbook-react'
+      waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
+      data: ->
+        vehicle = Vehicles.findOne(_id: @params.vehicleId)
+        vehicleId: @params.vehicleId
+        minTripDistance: @params.query.minTripDistance
+        title: "Logbook for #{vehicle?.name} - #{vehicle?.licensePlate}" if vehicle
+        topnav: <VehiclesLogbookNav />
+
     @route 'vehicleRests',
       path: '/vehicles/:vehicleId/rests'
       template: 'logbookRests'
