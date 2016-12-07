@@ -367,7 +367,12 @@ Meteor.startup ->
     @route 'simple-map',
       path: '/map/:data?'
       template: 'simpleMap'
-      data: -> @params?.data
+      data: ->
+        parsed = EJSON.parse decodeURIComponent @params?.data
+        vehicle = Vehicles.findOne unitId: parsed.deviceId
+        parsed: parsed
+        contentClass: 'noPadding'
+        title: "#{vehicle.name} - #{vehicle.licensePlate}" if vehicle
       waitOn: -> [ Meteor.subscribe('geofences')
                   Meteor.subscribe('drivers')
                   Meteor.subscribe('vehicle', {unitId: JSON.parse(@params.data).deviceId})]

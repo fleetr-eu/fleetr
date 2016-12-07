@@ -15,11 +15,11 @@
 </template>
 
 <template name="simpleMap">
-  <h2>{{vehicle.name}} ({{vehicle.licensePlate}})
-    {{#if data.start.time}}
-    <small class="pull-right" style="padding-top: 10px;">{{startTime}} - {{stopTime}}</small>
-    {{/if}}
+  {{#if data.start.time}}
+  <h2 style="position: absolute;top: 30px;right: 0px;z-index: 100;background: white;padding: 10px;">
+    <small class="pull-right">{{startTime}} - {{stopTime}}</small>
   </h2>
+  {{/if}}
   {{> fleetrMap showVehicles=false enableVehicleSelection=false}}
   {{showInfoMarkers}}
 </template>
