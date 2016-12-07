@@ -31,13 +31,55 @@ Schema.alarms = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 
+Schema.configurationSettings = new SimpleSchema
+  _id:
+    type: String, optional: true
+  category:
+    type: String, label: ()->TAPi18n.__('configurationSettings.category')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  type:
+    type: String, label: ()->TAPi18n.__('configurationSettings.type')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+      firstOption: "(Изберете)"
+      options: ->  
+        [
+          { label: "Текс", value: 0 },
+          { label: "Число", value: 1 },
+          { label: "Дата", value: 2 },
+          { label: "JSON", value: 3 }
+        ]      
+  name:
+    type: String, label: ()->TAPi18n.__('configurationSettings.name')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  value:
+    type: String, label: ()->TAPi18n.__('configurationSettings.value')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+
+
 Schema.customEvents = new SimpleSchema
   _id:
     type: String, optional: true
+  sourceId:
+    type: String, optional: true  
   name:
     type: String, label: ()->TAPi18n.__('customEvents.name')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
+  kind:
+    type: String, optional: true, label: ()->TAPi18n.__('customEvents.kind')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4"
+      options: () -> [
+          { label: "Технически преглед", value: "Технически преглед"}
+          { label: "Поддръжка", value: "Поддръжка"}
+          { label: "Документ", value: "Документ"}
+          { label: "Застраховка", value: "Застраховка"}
+          { label: "Друго", value: "Друго"}
+        ]      
   fleetGroupId:
     type: String, optional: true, label: ()->TAPi18n.__('customEvents.fleetGroup')
     autoform:
@@ -317,177 +359,6 @@ Schema.documents = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
 
-Schema.insuranceTypes = new SimpleSchema
-  _id:
-    type: String, optional: true
-  name:
-    type: String, label: ()->TAPi18n.__('insuranceTypes.name')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  description:
-    type: String, optional: true, label: ()->TAPi18n.__('insuranceTypes.description')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-
-Schema.expenseGroups = new SimpleSchema
-  _id:
-    type: String, optional: true
-  name:
-    type: String, label: ()->TAPi18n.__('expenseGroups.name')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  description:
-    type: String, optional: true, label: ()->TAPi18n.__('expenseGroups.description')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  
-Schema.expenseTypes = new SimpleSchema
-  _id:
-    type: String, optional: true
-  name:
-    type: String, label: ()->TAPi18n.__('expenseTypes.name')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  unitOfMeasure:
-    type: String, label: ()->TAPi18n.__('expenseTypes.unitOfMeasure')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  fuels:
-    type: Boolean, label: ()->TAPi18n.__('expenseTypes.fuels')
-    optional: true
-    autoform:
-      type: 'bootstrap-switch'
-      afFieldInput:
-        switchOptions:
-          size: 'normal'
-          onColor: 'success'
-          onText: ()->TAPi18n.__('general.yes')
-          offText: ()->TAPi18n.__('general.no')
-      template: "bootstrap3-horizontal", leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
-  fines:
-    type: Boolean, label: ()->TAPi18n.__('expenseTypes.fines')
-    optional: true
-    autoform:
-      type: 'bootstrap-switch'
-      afFieldInput:
-        switchOptions:
-          size: 'normal'
-          onColor: 'success'
-          onText: ()->TAPi18n.__('general.yes')
-          offText: ()->TAPi18n.__('general.no')
-      template: "bootstrap3-horizontal", leftLabel:"true", "label-class": "col-sm-4", "input-col-class": "col-sm-8"      
-  description:
-    type: String, optional: true, label: ()->TAPi18n.__('expenseTypes.description')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-
-Schema.expenses = new SimpleSchema
-  _id:
-    type: String, optional: true
-  expenseType:
-    type: String
-    label: () -> TAPi18n.__('expenses.expenseType')
-    autoform:
-      firstOption: ()->TAPi18n.__('dropdown.select')
-      options: -> ExpenseTypes.find().map (expenseType) -> label: expenseType.name, value: expenseType._id
-      allowOptions: "true"
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-   expenseGroup:
-     type: String
-     label: ()->TAPi18n.__('expenses.expenseGroup')
-     autoform:
-       firstOption: ()->TAPi18n.__('dropdown.select')
-       options: -> ExpenseGroups.find().map (expenseGroup) -> label: expenseGroup.name, value: expenseGroup._id
-       allowOptions: "true"
-       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  vehicle:
-    type: String
-    label: ()->TAPi18n.__('expenses.vehicle')
-    autoform:
-      firstOption: ()->TAPi18n.__('dropdown.select')
-      options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
-      optional: true
-      allowOptions: "true"
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  location:
-    type:String
-    label: ()->TAPi18n.__('expenses.location')
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  odometer:
-    type: Number
-    decimal:true
-    label: ()->TAPi18n.__('expenses.odometer')
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  driver:
-    type: String
-    label: ()->TAPi18n.__('expenses.driver')
-    optional: true
-    autoform:
-      firstOption: ()->TAPi18n.__('dropdown.select')
-      options: -> Drivers.find().map (driver) -> label: driver.firstName+" "+driver.name, value: driver._id
-      allowOptions: "true"
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  invoiceNr:
-    type:String
-    label: ()->TAPi18n.__('expenses.invoiceNr')
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  date:
-    type:Date
-    label: ()->TAPi18n.__('expenses.date')
-    autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  quantity:
-    type: Number
-    decimal:true
-    label: ()->TAPi18n.__('expenses.quantity')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  totalVATIncluded:
-    type: Number
-    decimal:true
-    label: ()->TAPi18n.__('expenses.totalVATIncluded')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  vat:
-    type: Number
-    decimal:true
-    label: ()->TAPi18n.__('expenses.vat')
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  VATIncluded:
-    type: Boolean
-    decimal: true
-    label: ()->TAPi18n.__('expenses.VATIncluded')
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8", "leftLabel": "true"
-  discount:
-    type: Number
-    decimal:true
-    label: ()->TAPi18n.__('expenses.discount')
-    optional: true
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  total:
-    type:Number
-    decimal:true
-    label: ()->TAPi18n.__('expenses.total')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-  description:
-    type: String, optional: true, label: ()->TAPi18n.__('expenses.description')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
-
 Schema.maintenanceTypes = new SimpleSchema
   _id:
     type: String, optional: true
@@ -533,7 +404,7 @@ Schema.maintenances = new SimpleSchema
     type: String
     label: ()-> TAPi18n.__('maintenances.maintenanceType')
     autoform:
-      firstOption: "(Select)"
+      firstOption: "(Изберете)"
       options: -> MaintenanceTypes.find().map (maintenanceType) -> label: maintenanceType.name, value: maintenanceType._id
       allowOptions: "true"
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8"
@@ -633,7 +504,7 @@ Schema.driverVehicleAssignments = new SimpleSchema
       type: String
       label: ()->TAPi18n.__('driverVehicleAssignments.driverName')
       autoform:
-        firstOption: "(Select)"
+        firstOption: "(Изберете)"
         options: -> Drivers.find().map (driver) ->
           label: driver.firstName+" "+driver.name
           value: driver._id

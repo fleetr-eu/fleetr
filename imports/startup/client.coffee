@@ -3,6 +3,7 @@
 # folder in /imports/.. and directly require the necessary libraries.
 
 ## Google maps markers
+# require '../ui/third-party/infobox_packed.js'
 require '../ui/third-party/markerclusterer.js'
 require '../ui/third-party/markerwithlabel.js'
 

@@ -1,2 +1,1 @@
-FROM abernix/meteord:onbuild
-MAINTAINER Fleetr
+FROM fuww/meteord:onbuild

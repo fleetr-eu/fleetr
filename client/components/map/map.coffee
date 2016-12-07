@@ -1,6 +1,9 @@
 Template.fleetrMap.onCreated ->
   @showGeofences = new ReactiveVar false
   @showInfoMarkers = new ReactiveVar false
+  @showTraffic = ReactiveVar false
+  @trafficLayer = new google.maps.TrafficLayer()
+
   Session.set 'FleetrMap.showMarkerLabels', true
 
 Template.fleetrMap.onDestroyed ->
@@ -9,8 +12,15 @@ Template.fleetrMap.onDestroyed ->
 Template.fleetrMap.onRendered ->
   @map = new FleetrMap '#map-canvas',
     showVehicles: if @data.showVehicles is undefined then true else @data.showVehicles
+  centerMapOnVehicleSelection()
 
   @autorun =>
+    if @showTraffic.get()
+      map = @map.map
+      @trafficLayer.setMap(map)
+    else
+      @trafficLayer.setMap(null)
+
     if @showGeofences.get()
       @geofences = {}
       map = @map.map
@@ -27,6 +37,7 @@ Template.fleetrMap.onRendered ->
     else
       gf.destroy() for id, gf of @geofences
       @geofences = []
+
 
 Template.fleetrMap.helpers
   enableVehicleSelection: ->
@@ -56,7 +67,7 @@ Template.fleetrMap.helpers
       t.map?.hidePathMarkers()
     ''
 
-  centerMapOnVehicleSelection: ->
+  centerMapOnVehicleSelection: centerMapOnVehicleSelection = ->
     t = Template.instance()
     selectedVehicle = Vehicles.findOne {_id: t.data.vehicleId},
       fields:
@@ -82,3 +93,6 @@ Template.fleetrMap.events
 
   'click #show-marker-labels-check': (e, t) ->
     Session.set 'FleetrMap.showMarkerLabels', e.target.checked
+
+  'click #show-traffic-check': (e, t) ->
+    t.showTraffic.set e.target.checked

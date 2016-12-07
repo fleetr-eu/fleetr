@@ -10,10 +10,13 @@ timeAgoFormatter = (row, cell, value) ->
 linkFormatter = (report) -> (row, cell, value) ->
   "<a href='/vehicles/#{value}/#{report}'><img src='/images/#{report}-icon.png' height='22' }'></img></a>"
 
+linkLoogbookFormatter = (report, minDistance) -> (row, cell, value) ->
+  "<a href='/vehicles/#{value}/#{report}?minTripDistance=#{minDistance}'><img src='/images/#{report}-icon.png' height='22' }'></img></a>"  
+
 mapLinkFormatter = (row, cell, value) ->
   "<a href='/vehicles/map/#{value}'><img src='/images/Google-Maps-icon.png' height='22'}'></img></a>"
 
-Template.maintenancesButton.helpers
+Template.vehicleButtons.helpers
   vehicleId: -> Session.get "selectedItemId"
 
 Template.vehicles.onRendered ->
@@ -24,13 +27,19 @@ Template.vehicles.events
     if e.filter.name is TAPi18n.__('fleet.name')
       Session.set 'vehiclesFleetName', null
 
+Template.vehicle.helpers
+
+  dayOfWeek: (dayOfWeek) ->
+    moment().locale('bg').isoWeekday(parseInt(dayOfWeek.split('.')[1])+1).format('dddd')
+
 Template.vehicles.helpers
+
   options: ->
     i18nRoot: 'vehicles'
     collection: Vehicles
     editItemTemplate: 'vehicle'
     removeItemMethod: 'removeVehicle'
-    additionalItemActionsTemplate: 'maintenancesButton'
+    additionalItemActionsTemplate: 'vehicleButtons'
     gridConfig:
       pagination: true
       columns: [
@@ -51,27 +60,6 @@ Template.vehicles.helpers
         align: 'right'
         search: where: 'client'
         formatter: FleetrGrid.Formatters.decoratedGreaterThanFormatter(120, 110, 0)
-      ,
-        id: "map"
-        field: "_id"
-        name: TAPi18n.__('vehicles.mapShort')
-        maxWidth: 31
-        formatter: mapLinkFormatter
-        align: 'left'
-      ,
-        id: "logbook"
-        field: "_id"
-        name: TAPi18n.__('vehicles.logbookShort')
-        maxWidth: 31
-        formatter:  linkFormatter if isAlpha() then 'logbook-react' else 'logbook'
-        align: 'left'
-      ,
-        id: "history"
-        field: "_id"
-        name: TAPi18n.__('vehicles.historyShort')
-        maxWidth: 31
-        formatter: linkFormatter 'history'
-        align: 'left'
       ,
         id: "fleetName"
         field: "fleetName"
@@ -132,8 +120,28 @@ Template.vehicles.helpers
         formatter: timeAgoFormatter
         hidden: hiddenOnMobile()
         search: where: 'client'
-
       ,
+        id: "map"
+        field: "_id"
+        name: TAPi18n.__('vehicles.mapShort')
+        maxWidth: 31
+        formatter: mapLinkFormatter
+        align: 'left'
+      ,
+        id: "logbook"
+        field: "_id"
+        name: TAPi18n.__('vehicles.logbookShort')
+        maxWidth: 31
+        formatter:  linkLoogbookFormatter('logbook', 0.05)
+        align: 'left'
+      ,
+        id: "history"
+        field: "_id"
+        name: TAPi18n.__('vehicles.historyShort')
+        maxWidth: 31
+        formatter: linkFormatter 'history'
+        align: 'left'
+      ,  
         id: "tags"
         field: "tags"
         name: TAPi18n.__('vehicles.tags')
@@ -159,6 +167,7 @@ Template.vehicles.helpers
             driverName: if driver then driver.firstName + " " + driver.name else ""
             vehicleShowName: doc.name + ' (' + doc.licensePlate + ')'
             odo: doc.odometer / 1000
+            isBusinessTrip: isBusinessTrip(doc, moment())
       customize: (grid) ->
         Tracker.autorun ->
           fleetName = Session.get 'vehiclesFleetName'

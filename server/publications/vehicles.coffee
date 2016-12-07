@@ -13,7 +13,11 @@ opts =
     tripTime: 1
     idleTime: 1
     restTime: 1
+    lat: 1
+    lng: 1
+    course: 1
     # for editing, needs another pub per vehicle
+    address: 1
     active: 1
     allocatedToFleetFromDate: 1
     make: 1
@@ -36,10 +40,14 @@ opts =
     courseCorrection: 1
     maxSpeed: 1
     maxAllowedSpeed: 1
+    workHours: 1
 
 findVehicles = (filter = {}) ->
   Vehicles.find PermissionsManager.augment(filter, 'vehicles'), opts
 
+Meteor.publish 'vehicles/licensePlates', ->
+  Vehicles.find {}, fields:
+    licensePlate: 1
 Meteor.publish 'vehicles', findVehicles
 Meteor.publish 'vehicle', (filter) ->
   if filter then Vehicles.find(filter) else []

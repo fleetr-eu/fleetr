@@ -1,6 +1,6 @@
 getDateRow = (field) -> (row) -> new Date(row[field]).toLocaleDateString 'en-US'
 
-fleetrGridConfig =
+fleetrGridConfig = ->
   columns: [
     id: "date"
     field: "timestamp"
@@ -63,5 +63,5 @@ fleetrGridConfig =
           fleetName: Fleets.findOne(_id: vehicle?.allocatedToFleet)?.name
 
 Template.upcomingEventsReport.helpers
-  fleetrGridConfig: -> fleetrGridConfig
+  fleetrGridConfig: fleetrGridConfig
   pageTitle: -> "#{TAPi18n.__('reports.upcomingEvents.title')}"

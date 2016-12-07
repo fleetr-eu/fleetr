@@ -1,14 +1,8 @@
-Template.logbook.onRendered ->
-  Meteor.call 'vehicle/history', @data.vehicle.unitId
-
 Template.logbook.helpers
   vehicleName: -> Template.instance().data.vehicle.name
   fleetrGridConfig: ->
-    cursor: VehicleHistory.find {deviceId: Template.instance().data.vehicle.unitId},
-      sort:
-        date: -1
-      transform: (doc) -> _.extend doc,
-        distance: doc.endOdometer - doc.startOdometer
+    remoteMethod: 'vehicle/history'
+    remoteMethodParams: @vehicle.unitId
     pagination: true
     columns: [
       id: 'date'
@@ -22,7 +16,7 @@ Template.logbook.helpers
       field: 'distance'
       formatter: (row, cell, value) -> Math.round(value / 1000)
       align: 'right'
-      width: 30
+      width: 40
     ,
       id: 'endOdometer'
       name: 'Одометър (км в края на деня)'
@@ -32,18 +26,17 @@ Template.logbook.helpers
       width: 60
     ,
       id: 'maxSpeed'
-      name: 'Максимална скорост (км/ч)'
+      name: 'Макс. скорост (км/ч)'
       field: 'maxSpeed'
       align: 'right'
       formatter: (row, cell, value) -> Math.round value
-      width: 60
+      width: 50
     ,
       id: 'fuelExpenses'
-      name: 'Разходи за гориво (лв с ДДС) / на 100км'
+      name: 'Гориво (лв с ДДС) / на 100км'
       field: 'expenses'
       align: 'right'
       formatter: (row, cell, value, column, rowObject) ->
-        # total = if value?.fuels?.total then Math.round value?.fuels?.total else ''
         totalVATIncluded = if value?.fuels?.totalVATIncluded
           value.fuels.totalVATIncluded.toFixed(2)
         else ''
@@ -51,30 +44,29 @@ Template.logbook.helpers
           " / #{(value.fuels.totalVATIncluded / (rowObject.distance / 100000)).toFixed(2)}"
         else ''
         "#{totalVATIncluded}#{per100km}"
-      width: 80
+      width: 60
     ,
       id: 'fineExpenses'
-      name: 'Разходи от глоби (лв с ДДС)'
+      name: 'Глоби (лв с ДДС)'
       field: 'expenses'
       align: 'right'
       formatter: (row, cell, value, column, rowObject) ->
         if value?.fines?.totalVATIncluded
           value.fines.totalVATIncluded.toFixed(2)
         else ''
-      width: 80
+      width: 40
     ,
       id: 'simpleMapLink'
       field: 'date'
       name: 'М'
       maxWidth: 31
       align: 'center'
-      formatter: (row, cell, value, column, rowObject) ->
+      formatter: (row, cell, value, column, rowObject) =>
         m = moment value
         q = encodeURIComponent EJSON.stringify
-          deviceId: rowObject.deviceId
+          deviceId: @vehicle.unitId
           start: time: m.startOf('day').valueOf()
           stop: time: m.endOf('day').valueOf()
-
         """
         <a href='/map/#{q}'>
           <img src='/images/Google-Maps-icon.png' height='22'/>

@@ -1,0 +1,23 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  pre:
+    - curl https://install.meteor.com/ | sh
+  override:
+    - npm i --production
+    - meteor build ../target --directory --server-only --architecture os.linux.x86_64
+    - cp Dockerfile.prod ../target/Dockerfile
+
+test:
+  override:
+    - echo "no tests!"
+
+deployment:
+  hub:
+    branch: master
+    commands:
+      - docker build -t fleetr/web ../target
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push fleetr/web

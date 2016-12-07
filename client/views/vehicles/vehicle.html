@@ -8,6 +8,9 @@
         <li>
           <a href="#tab_2" data-toggle="tab">{{_ "vehicles.tab.vinData"}}</a>
         </li>
+        <li>
+          <a href="#tab_3" data-toggle="tab">{{_ "vehicles.tab.workHours"}}</a>
+        </li>
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="tab_1">
@@ -46,6 +49,17 @@
                 {{> afQuickField name="maxAllowedSpeed"}}
                 {{> afQuickField name="mass"}}
                 {{> afQuickField name="courseCorrection"}}
+            </fieldset>
+        </div>
+        <div class="tab-pane" id="tab_3">
+            <fieldset>
+              {{#afEachArrayItem name="workHours"}}
+                 <div class="col-sm-4 control-label">{{ dayOfWeek(this.current.from)}}</div>  
+                 <div class="col-sm-1 control-label">От</div>
+                 <div class="col-sm-3">{{> afInputTime name=this.current.from}}</div>
+                 <div class="col-sm-1 control-label">До</div>
+                 <div class="col-sm-3">{{> afInputTime name=this.current.to}}</div>
+              {{/afEachArrayItem}}
             </fieldset>
         </div>
       </div>

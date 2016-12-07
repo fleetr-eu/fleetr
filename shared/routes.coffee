@@ -36,6 +36,7 @@ Meteor.startup ->
     AccountsEntry.signInRequired @
     @next()
   , {except: openRoutes}
+
   Router.onBeforeAction ->
     @layout("open")
     @next()
@@ -46,6 +47,16 @@ Meteor.startup ->
     loadingTemplate: 'loading'
 
   Router.map ->
+
+    @route 'settings',
+      path: '/settings'
+      template: 'configurationSettings'
+      waitOn: -> [Meteor.subscribe('configurationSettings')]
+
+    @route 'odometers',
+      path: '/odometers'
+      template: 'odometerCorrections'
+      waitOn: -> [Meteor.subscribe('vehicles')]  
 
     @route 'dashboard',
       path: '/'
@@ -109,12 +120,23 @@ Meteor.startup ->
         [
           Meteor.subscribe('geofences')
           Meteor.subscribe('vehicle', {_id: @params.vehicleId})
+          Meteor.subscribe('vehicles')
           Meteor.subscribe('drivers')
           Meteor.subscribe('logbook/trip', vehicle?.trip?.id)
         ]
 
     @route 'drilldownReport',
       path: '/reports/drilldown'
+
+    @route 'importExpenses',
+      path: '/expenses/import'
+      template: 'expensesImport'
+      waitOn: -> [
+        Meteor.subscribe('expenses')
+        Meteor.subscribe('expenseTypes')
+        Meteor.subscribe('expenseGroups')
+        Meteor.subscribe('vehicles/licensePlates')
+      ]
 
     @route 'listExpenseGroups',
       path: '/expenses/groups/list'
@@ -150,6 +172,14 @@ Meteor.startup ->
         [Meteor.subscribe('vehicle', _id: @params.vehicleId)
         Meteor.subscribe('vehicleMaintenances', @params.vehicleId)
         Meteor.subscribe('maintenanceTypes')]
+
+    @route 'listOdometers',
+      path: '/vehicle/:vehicleId/odometers/list'
+      template: 'odometers'
+      data: -> {'vehicleId' : @params.vehicleId}
+      waitOn: ->
+        [ Meteor.subscribe('vehicle', _id: @params.vehicleId)
+          Meteor.subscribe('vehicleOdometers', @params.vehicleId) ]    
 
     @route 'listMaintenanceType',
       path: '/maintenance/types/list'
@@ -195,16 +225,18 @@ Meteor.startup ->
         Meteor.call 'reset'
         @next()
 
+    @route 'fullLogbookReport',
+      path: '/reports/logbook'
+      template: 'fullLogbookReport'
+      waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
+
     @route 'vehicleLogbook',
       path: '/vehicles/:vehicleId/logbook'
       template: 'logbook2'
-      data: -> vehicleId: @params.vehicleId
+      data: -> 
+        vehicleId: @params.vehicleId
+        minTripDistance: @params.query.minTripDistance
       waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
-
-    @route 'vehicleLogbookReact',
-      path: '/vehicles/:vehicleId/logbook-react'
-      template: 'logbook-react'
-      data: -> vehicleId: @params.vehicleId
 
     @route 'vehicleRests',
       path: '/vehicles/:vehicleId/rests'

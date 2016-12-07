@@ -8,7 +8,8 @@
     "day" : "Ден",
     "week" : "Седмица",
     "month" : "Месец",
-    "year" : "Година"
+    "year" : "Година",
+    "date" : "Дата"
   },
 
   "slickgrid": {
@@ -21,9 +22,11 @@
 
   "menu": {
     "admin": "Администрация",
+    "userAdmin": "Потребители",
     "vehicles": {
       "all": "Всички"
     },
+    "configurationSettings": "Настройки",
     "dashboard": "Статистики",
     "fleets": "Автопаркове",
     "listFleetGroups": "Групи автопаркове",
@@ -40,6 +43,7 @@
     "addExpenseGroup": "Добави група разходи",
     "listExpenseTypes": "Видове разходи",
     "listExpenses": "Разходи",
+    "importExpenses": "Качи разходи",
     "insurances" : "Застраховки",
     "listInsuranceTypes" : "Видове застраховки",
     "addMaintenanceType" : "Добави вид поддръжка",
@@ -55,6 +59,17 @@
     "alarms":"Аларми"
   },
 
+  "configurationSettings": {
+    "title": "Настройка",
+    "listTitle" : "Настройки",
+    "category" : "Категория",
+    "type" : "Тип",
+    "name" : "Име",
+    "value" : "Стойност",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете тази настройка?"
+  },
+
+
   "geofences": {
     "title": "Обекти",
     "list": "Списък обекти",
@@ -63,10 +78,15 @@
 
   "simpleMap": {
     "showMarkers": "Покажи инфо точки",
-    "showLabels": "Покажи имена на автомобили"
+    "showLabels": "Покажи имена на автомобили",
+    "showTraffic" : "Покажи трафик"
   },
 
   "customEvents": {
+    "tabs": {
+      "list": "Списък",
+      "calendar": "Календар"
+    },
     "title": "Събитие",
     "listTitle" : "Събития",
     "fleetGroup" : "Група",
@@ -231,7 +251,19 @@
     "discount" : "Сума отстъпка",
     "total" : "Обща сума",
     "description" : "Описание",
-    "deleteMessage": "Сигурен ли сте, че искате да изтриете този разход?"
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете този разход?",
+    "import": {
+      "title": "Качване на разходи",
+      "import": "Качи",
+      "clear": "Изчисти",
+      "target": "Пуснете файловете тук",
+      "drop": "Да, точно тук!",
+      "missed": "Не там, тук!",
+      "processed": "Обработени файлове",
+      "type": "Вид разход",
+      "group": "Група разходи",
+      "validationErrors": "Грешки при валидиране"
+    }
   },
 
   "maintenanceTypes": {
@@ -280,7 +312,15 @@
       "basicData" :"Основни данни",
       "vinData" :"VIN данни",
       "workSchedule" : "Работни часове",
-      "alarmsConfiguration" : "Настройка на аларми"
+      "alarmsConfiguration" : "Настройка на аларми",
+      "workHours" : "Работни часове"
+    },
+    "odometers" : {
+      "title" : "Корекция на одометър",
+      "listTitle": "Корекции на одометър",
+      "listTitleShort": "Одометър",
+      "date" : "Дата и час",
+      "value" : "Одометър (км)"
     },
     "name": "Наименование",
     "licensePlate" :"Рег. No",
@@ -320,7 +360,10 @@
     "mass" : "Маса (кг)",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете тази автомобил?",
     "courseCorrection": "Корекция на курса",
-    "driverName" : "Шофьор"
+    "driverName" : "Шофьор",
+    "workHoursTo" : "До",
+    "workHoursFrom" : "От",
+    "isBusinessTrip" : "Б?"
   },
 
   "dropdown": {
@@ -384,6 +427,11 @@
     },
     "upcomingEvents": {
         "title" : "Предстоящи събития"
+    },
+    "logbook": {
+      "distance": "Разстояние (км)",
+      "odometer": "Одометър (в края на деня)",
+      "maxSpeed": "Макс. скорост (км/ч)"
     }
   },
 

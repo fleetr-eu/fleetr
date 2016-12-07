@@ -17,5 +17,12 @@ Migrations.add
     Partitioner.directOperation ->
       Logbook.update {tacho: $exists: true}, {$rename: 'tacho': 'odometer'}, {multi: true}, logMigrationErrors
 
+Migrations.add
+  version: 3
+  name: 'Remove all records in the Trips collection.'
+  up: ->
+    Partitioner.directOperation ->
+      Trips.remove()
+
 Meteor.startup ->
   Migrations.migrateTo 'latest'
