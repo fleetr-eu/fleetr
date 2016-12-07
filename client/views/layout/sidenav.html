@@ -90,7 +90,7 @@
       </a>
     </li>
 
-    <li class="{{isActiveRoute regex='listExpenses|listExpenseTypes|listExpenseGroups'}}">
+    <li class="{{isActiveRoute regex='listExpenses|listExpenseTypes|listExpenseGroups|importExpenses'}}">
       <a data-toggle="collapse" data-target="#expensesMenu">
         <i class="pe-7s-piggy"></i>
         <p class="title">{{_ "menu.expenses"}}</p>
@@ -99,6 +99,9 @@
       <ul class="sub-menu nav nav-list collapse" id="expensesMenu">
         <li class="{{isActiveRoute regex='listExpenses'}}">
           <a href="{{pathFor 'listExpenses'}}">{{_ "menu.listExpenses"}}</a>
+        </li>
+        <li class="{{isActiveRoute regex='importExpenses'}}">
+          <a href="{{pathFor 'importExpenses'}}">{{_ "menu.importExpenses"}}</a>
         </li>
         <li class="{{isActiveRoute regex='listExpenseTypes'}}">
           <a href="{{pathFor 'listExpenseTypes'}}">{{_ "menu.listExpenseTypes"}}</a>
