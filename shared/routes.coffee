@@ -60,7 +60,7 @@ Meteor.startup ->
 
     @route 'dashboard',
       path: '/'
-      template: 'dashboard'
+      template: 'menuBoard'
       fastRender: true
       waitOn: -> Meteor.subscribe('vehicles')
 
