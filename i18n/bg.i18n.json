@@ -28,7 +28,8 @@
       "all": "Всички"
     },
     "configurationSettings": "Настройки",
-    "dashboard": "Статистики",
+    "menuBoard": "Главно Меню",
+    "dashboard": "Дашборд",
     "fleets": "Автопаркове",
     "listFleetGroups": "Групи автопаркове",
     "listFleets": "Автопаркове",
