@@ -1,0 +1,192 @@
+<template name="menuBoard">
+	<div class="row">
+	
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+			<div class="panel panel-success fixed-panel">
+	  			<div class="panel-heading">
+	 		 	</div>
+	 		 	<div class="panel-body">
+		 			<ul>
+						<li>
+							<a href="{{pathFor 'mapVehicles'}}">Карта</a>
+						</li>
+						{{#if isInRole 'admin,editor'}}
+					 		<li>
+								<a href="{{pathFor 'listFleets'}}">Автопаркове</a>
+							</li>
+					 		<li>
+								<a href="{{pathFor 'listFleetGroups'}}">Групи автопаркове</a>
+							</li>
+						{{/if}}
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+		{{#if isInRole 'admin,editor'}}
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+			<div class="panel panel-info fixed-panel">
+	  			<div class="panel-heading">
+	   		 		<h3 class="panel-title">Шофьори</h3>
+	 		 	</div>
+	 		 	<div class="panel-body">
+		 			<ul>
+				 		<li>
+							<a href="{{pathFor 'listDrivers'}}">Списък</a>
+						</li>
+						<li>
+							<a href="{{pathFor 'mapVehicles'}}">Карта</a>
+						</li>
+						{{#if isInRole 'admin,editor'}}
+					 		<li>
+								<a href="{{pathFor 'listDocumentTypes'}}">Видове документи</a>
+							</li>
+							<li>
+								<a href="#">Събития</a>
+							</li>
+						{{/if}}
+					</ul>
+				</div>	
+			</div>
+		</div>
+		
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+			<div class="panel panel-warning fixed-panel">
+	  			<div class="panel-heading">
+	   		 		<h3 class="panel-title">Обекти</h3>
+	 		 	</div>
+	 		 	<div class="panel-body">
+		 			<ul>
+				 		<li>
+							<a href="{{pathFor 'geofences'}}">Списък</a>
+						</li>
+				 		<li>
+							<a href="{{pathFor 'geofences'}}">Карта</a>
+						</li>
+						<li>
+							<a href="{{pathFor 'listGeofenceEvents'}}">Събития</a>
+						</li>
+					</ul>
+				</div>	
+			</div>
+		</div>
+
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+			<div class="panel panel-default fixed-panel">
+	  			<div class="panel-heading">
+	   		 		<h3 class="panel-title">Поддръжки</h3>
+	 		 	</div>
+	 			<div class="panel-body">
+		 			<ul>
+				 		<li>
+							<a href="{{pathFor 'maintenanceReport'}}">Списък извършени</a>
+						</li>
+				 		<li>
+							<a href="{{pathFor 'maintenanceReport'}}">Списък предстоящи</a>
+						</li>
+						<li>
+							<a href="{{pathFor 'listTyres'}}">Гуми</a>
+						</li>
+						<li>
+							<a href="{{pathFor 'listMaintenanceType'}}">Видове поддръжки</a>
+						</li>
+					</ul>
+				</div>	
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+			<div class="panel panel-danger fixed-panel">
+	  			<div class="panel-heading">
+	   		 		<h3 class="panel-title">Разходи</h3>
+	 		 	</div>
+	 		 	<div class="panel-body">
+		 			<ul>
+				 		<li>
+							<a href="{{pathFor 'expenseReport'}}">Списък</a>
+						</li>
+						<li>
+							<a href="{{pathFor 'importExpenses'}}">Зареждане от файл</a>
+						</li>
+				 		<li>
+							<a href="{{pathFor 'listExpenseGroups'}}">Групи разходи</a>
+						</li>
+						<li>
+							<a href="{{pathFor 'listExpenseTypes'}}">Видове разходи</a>
+						</li>
+					</ul>
+				</div>	
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+			<div class="panel panel-success fixed-panel">
+	  			<div class="panel-heading">
+	   		 		<h3 class="panel-title">Застраховки</h3>
+	 		 	</div>
+	 			<div class="panel-body">
+		 			<ul>
+				 		<li>
+							<a href="{{pathFor 'listInsurances'}}">Списък</a>
+						</li>
+						<li>
+							<a href="{{pathFor 'listInsuranceTypes'}}">Видове</a>
+						</li>
+						<li>
+							<a href="#">Плащания</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+			<div class="panel panel-info fixed-panel">
+	  			<div class="panel-heading">
+	   		 		<h3 class="panel-title">Отчети</h3>
+	 		 	</div>
+	 			<div class="panel-body">
+		 			<ul>
+				 		<li>
+							<a href="{{pathFor 'fullLogbookReport'}}">Журнал</a>
+						</li>
+				 		<li>
+							<a href="#">Сравняване на шофьори</a>
+						</li>
+						<li>
+							<a href="#">...</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+			<div class="panel panel-warning fixed-panel">
+	  			<div class="panel-heading">
+	   		 		<h3 class="panel-title">Настройки</h3>
+	 		 	</div>
+	 		 	<div class="panel-body">
+		 			<ul>
+				 		<li>
+							<a href="#">...</a>
+						</li>
+						
+					</ul>
+				</div>	
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+			<div class="panel panel-default fixed-panel">
+	  			<div class="panel-heading">
+	   		 		<h3 class="panel-title">Други</h3>
+	 		 	</div>
+	 			<div class="panel-body">
+		 			<ul>
+				 		<li>
+							<a href="#">...</a>
+						</li>
+						
+					</ul>
+				</div>	
+			</div>
+		</div>
+		{{/if}}
+	</div>	
+</template>
