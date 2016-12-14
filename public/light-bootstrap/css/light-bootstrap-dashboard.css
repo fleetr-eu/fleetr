@@ -830,10 +830,10 @@
   top: 50%;
   vertical-align: middle;
 }
-/*.light-bootstrap .open .form-control {
+.light-bootstrap .open .form-control {
   border-radius: 4px 4px 0 0;
   border-bottom-color: transparent;
-}*/
+}
 .light-bootstrap .input-lg {
   height: 55px;
   padding: 14px 30px;

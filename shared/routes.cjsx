@@ -235,14 +235,6 @@ Meteor.startup ->
         Meteor.subscribe('maintenanceTypes')]
       data: -> title: TAPi18n.__('maintenances.listTitle')
 
-    @route 'listOdometers',
-      path: '/vehicle/:vehicleId/odometers/list'
-      template: 'odometers'
-      data: -> {'vehicleId' : @params.vehicleId}
-      waitOn: ->
-        [ Meteor.subscribe('vehicle', _id: @params.vehicleId)
-          Meteor.subscribe('vehicleOdometers', @params.vehicleId) ]
-
     @route 'listMaintenanceType',
       path: '/maintenance/types/list'
       template: 'maintenanceTypes'
@@ -317,17 +309,6 @@ Meteor.startup ->
     @route 'vehicleLogbook',
       path: '/vehicles/:vehicleId/logbook'
       template: 'logbook2'
-      waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
-      data: ->
-        vehicle = Vehicles.findOne(_id: @params.vehicleId)
-        vehicleId: @params.vehicleId
-        minTripDistance: @params.query.minTripDistance
-        title: "Logbook for #{vehicle?.name} - #{vehicle?.licensePlate}" if vehicle
-        topnav: <VehiclesLogbookNav />
-
-    @route 'vehicleLogbookReact',
-      path: '/vehicles/:vehicleId/logbook-react'
-      template: 'logbook-react'
       waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
       data: ->
         vehicle = Vehicles.findOne(_id: @params.vehicleId)
