@@ -85,6 +85,34 @@ Meteor.methods
           maxSpeed: $max: "$speed"
           avgSpeed: $avg: "$speed"
         }
+        {$project:
+          deviceId: "$_id.deviceId"
+          _id: "$_id.trip"
+          date:
+            $dateToString:
+              format: "%Y-%m-%d"
+              date: "$startTime"
+          distance:
+            $divide: [
+              $subtract: [
+                "$stopOdometer"
+                "$startOdometer"
+              ]
+              1000
+            ]
+          startTime: 1
+          stopTime: 1
+          startAddress: 1
+          stopAddress: 1
+          startOdometer: 1
+          stopOdometer: 1
+          startLat: 1
+          startLng: 1
+          stopLat: 1
+          stopLng: 1
+          maxSpeed: 1
+          avgSpeed: 1
+        }
         {$sort: startTime: -1}
       ]
     result = Logbook.aggregate(pipeline).map (r) ->
@@ -93,11 +121,6 @@ Meteor.methods
         if trip?.isBusinessTrip is undefined
           true
         else trip?.isBusinessTrip
-
-      r.deviceId = r._id.deviceId
-      r._id = r._id.trip
-      r.date = moment(r.startTime).format('YYYY-MM-DD')
-      r.distance = (r.stopOdometer - r.startOdometer) / 1000 # convert to kms
       r
 
   fullLogbook: (filter) ->
