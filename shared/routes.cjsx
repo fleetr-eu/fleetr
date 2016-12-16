@@ -57,6 +57,15 @@ Meteor.startup ->
 
   Router.map ->
 
+    @route '/', ->
+      @redirect '/vehicles/map'
+
+    # @route 'dashboard',
+    #   path: '/'
+    #   template: 'menuBoard'
+    #   fastRender: true
+    #   waitOn: -> Meteor.subscribe('vehicles')
+
     @route 'settings',
       path: '/settings'
       template: 'configurationSettings'
@@ -66,9 +75,6 @@ Meteor.startup ->
       path: '/odometers'
       template: 'odometerCorrections'
       waitOn: -> [Meteor.subscribe('vehicles')]
-
-    @route '/', ->
-      @redirect '/vehicles/map'
 
     @route 'listAlarms',
       path: '/alarms/list'
