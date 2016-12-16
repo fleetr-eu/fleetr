@@ -1,0 +1,195 @@
+<template name="sidenav">
+  <ul class="nav nav-list">
+
+    <li class="{{isActiveRoute regex='mapVehicles'}}">
+      <a href="{{pathFor 'mapVehicles'}}">
+      <i class="pe-7s-map-2"></i>
+      <p class="title">{{_ "menu.map"}}</p>
+      </a>
+    </li>
+
+    <li class="{{isActiveRoute regex='listVehicles'}}">
+      <a data-toggle="collapse" data-target="#vehiclesMenu">
+      <i class="pe-7s-car"></i>
+      <p class="title">{{_ "menu.listVehicles"}}</p>
+      <span class="arrow"></span>
+      </a>
+      <ul class="sub-menu nav nav-list collapse" id="vehiclesMenu">
+        <li>
+          <a class="show-all-vehicles" href="/vehicles/list">
+          <p class="title">{{_ "menu.vehicles.all"}}</p>
+          <span class="arrow"></span>
+          </a>
+        </li>
+        {{#each fleetGroups}}
+        <li>
+          <a data-toggle="collapse" data-target="#{{name}}Menu">
+          <span class="title">{{name}}</span>
+          <span class="arrow"></span>
+          </a>
+          <ul class="sub-menu nav nav-list collapse" id="{{name}}Menu">
+            {{#each fleets}}
+              <li class="{{isActivePath regex='{{name}}'}}">
+                <a class="show-fleet-vehicles" href="{{pathFor 'listVehicles' fleetName=name}}">
+                <span class="title">{{name}}</span>
+                <span class="arrow"></span>
+                </a>
+              </li>
+            {{/each}}
+          </ul>
+        </li>
+        {{/each}}
+      </ul>
+    </li>
+
+    {{#if isInRole 'admin,editor'}}
+
+    <li class="{{isActiveRoute regex='listFleet'}}">
+      <a data-toggle="collapse" data-target="#fleetsMenu">
+      <i class="pe-7s-helm"></i>
+      <p class="title">{{_ "menu.fleets"}}</p>
+      <span class="arrow"></span>
+      </a>
+      <ul class="sub-menu nav nav-list collapse" id="fleetsMenu">
+        <li class="{{isActiveRoute regex='listFleetGroups'}}">
+          <a href="{{pathFor 'listFleetGroups'}}">
+            {{_ "menu.listFleetGroups"}}</a>
+        </li>
+        <li class="{{isActiveRoute regex='listFleets'}}">
+          <a href="{{pathFor 'listFleets'}}">
+            {{_ "menu.listFleets"}}</a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="{{isActiveRoute regex='listDrivers|listDriverVehicleAssignments|listDocumentTypes'}}">
+      <a data-toggle="collapse" data-target="#driversMenu">
+      <i class="pe-7s-users"></i>
+      <p class="title">{{_ "menu.drivers"}}</p>
+      <span class="arrow "></span>
+      </a>
+      <ul class="sub-menu nav nav-list collapse" id="driversMenu">
+        <li class="{{isActiveRoute regex='listDrivers$'}}">
+          <a href="{{pathFor 'listDrivers'}}">
+            {{_ "menu.listDrivers"}}</a>
+        </li>
+        <li class="{{isActiveRoute regex='listDriverVehicleAssignments'}}">
+          <a href="{{pathFor 'listDriverVehicleAssignments'}}">
+            {{_ "menu.drivers_vehicles"}}</a>
+        </li>
+        <li class="{{isActiveRoute regex='listDocumentTypes'}}">
+          <a href="{{pathFor 'listDocumentTypes'}}">{{_ "menu.listDocumentTypes"}}</a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="{{isActiveRoute regex='geofences'}}">
+      <a href="{{pathFor 'geofences'}}">
+      <i class="pe-7s-home"></i>
+      <p class="title">{{_ "menu.objects"}}</p>
+      </a>
+    </li>
+
+    <li class="{{isActiveRoute regex='listExpenses|listExpenseTypes|listExpenseGroups|importExpenses'}}">
+      <a data-toggle="collapse" data-target="#expensesMenu">
+        <i class="pe-7s-piggy"></i>
+        <p class="title">{{_ "menu.expenses"}}</p>
+        <span class="arrow "></span>
+      </a>
+      <ul class="sub-menu nav nav-list collapse" id="expensesMenu">
+        <li class="{{isActiveRoute regex='listExpenses'}}">
+          <a href="{{pathFor 'listExpenses'}}">{{_ "menu.listExpenses"}}</a>
+        </li>
+        <li class="{{isActiveRoute regex='importExpenses'}}">
+          <a href="{{pathFor 'importExpenses'}}">{{_ "menu.importExpenses"}}</a>
+        </li>
+        <li class="{{isActiveRoute regex='listExpenseTypes'}}">
+          <a href="{{pathFor 'listExpenseTypes'}}">{{_ "menu.listExpenseTypes"}}</a>
+        </li>
+        <li class="{{isActiveRoute regex='listExpenseGroups'}}">
+          <a href="{{pathFor 'listExpenseGroups'}}">{{_ "menu.listExpenseGroups"}}</a>
+        </li>
+      </ul>
+      </li>
+
+      <li class="{{isActiveRoute regex='listMaintenanceType|listTyres'}}">
+        <a data-toggle="collapse" data-target="#tyresMenu">
+          <i class="pe-7s-tools"></i>
+          <p class="title">{{_ "menu.maintenances"}}</p>
+          <span class="arrow "></span>
+        </a>
+        <ul class="sub-menu nav nav-list collapse" id="tyresMenu">
+          <li class="{{isActiveRoute regex='maintenance'}}">
+            <a href="{{pathFor 'listMaintenanceType'}}">
+              {{_ "menu.listMaintenanceTypes"}}</a>
+          </li>
+
+          <li class="{{isActiveRoute regex='listTyres'}}">
+            <a href="{{pathFor 'listTyres'}}">
+              {{_ "menu.listTyres"}}</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="{{isActiveRoute regex='listInsurance'}}">
+        <a data-toggle="collapse" data-target="#insuranceMenu">
+          <i class="pe-7s-culture"></i>
+          <p class="title">{{_ "menu.insurances"}}</p>
+          <span class="arrow "></span>
+        </a>
+        <ul class="sub-menu nav nav-list collapse" id="insuranceMenu">
+          <li class="{{isActiveRoute regex='listInsurances'}}">
+            <a href="{{pathFor 'listInsurances'}}">
+            {{_ "menu.insurances"}}</a>
+          </li>
+          <li class="{{isActiveRoute regex='listInsuranceTypes'}}">
+            <a href="{{pathFor 'listInsuranceTypes'}}">
+            {{_ "menu.listInsuranceTypes"}}</a>
+          </li>
+        </ul>
+      </li>
+
+    <li class="{{isActiveRoute regex='Report'}}">
+      <a data-toggle="collapse" data-target="#reportsMenu">
+      <i class="pe-7s-copy-file"></i>
+      <p class="title">{{_ "menu.reports"}}</p>
+      <span class="arrow "></span>
+      </a>
+      <ul class="sub-menu nav nav-list collapse" id="reportsMenu">
+        <li class="{{isActiveRoute regex='fullLogbookReport'}}">
+          <a href="{{pathFor 'fullLogbookReport'}}">{{_ "menu.logbook"}}</a>
+        </li>
+        <li class="{{isActiveRoute regex='expenseReport'}}">
+          <a href="{{pathFor 'expenseReport'}}">{{_ "menu.expenseReport"}}</a>
+        </li>
+        <li class="{{isActiveRoute regex='maintenanceReport'}}">
+          <a href="{{pathFor 'maintenanceReport'}}">{{_ "menu.maintenanceReport"}}</a>
+        </li>
+      </ul>
+    </li>
+    <li class="{{isActiveRoute regex='Events'}}">
+      <a data-toggle="collapse" data-target="#eventsMenu">
+      <i class="pe-7s-alarm"></i>
+      <p class="title">{{_ "menu.notifications"}}</p>
+      <span class="arrow "></span>
+      </a>
+      <ul class="sub-menu nav nav-list collapse" id="eventsMenu">
+        <li class="{{isActiveRoute regex='listCustomEvents'}}">
+          <a href="{{pathFor 'listCustomEvents'}}">{{_ "menu.notifications"}}</a>
+        </li>
+        <li class="{{isActiveRoute regex='listGeofenceEvents'}}">
+          <a href="{{pathFor 'listGeofenceEvents'}}">{{_ "menu.geofenceNotifications"}}</a>
+        </li>
+      </ul>
+    </li>
+    <li class="{{isActiveRoute regex='listAlarms'}}">
+      <a href="{{pathFor 'listAlarms'}}">
+      <i class="pe-7s-bell"></i>
+      <p class="title">{{_ "menu.alarms"}}</p>
+      </a>
+    </li>
+
+    {{/if}}
+
+  </ul>
+</template>

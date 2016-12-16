@@ -3,7 +3,6 @@ aggregators = [
 ]
 
 Template.fullLogbookReport.helpers
-  pageTitle: -> TAPi18n.__('menu.logbook')
   fleetrGridConfig: ->
     columns: [
       id: "date"
@@ -14,7 +13,7 @@ Template.fullLogbookReport.helpers
       search: where: 'client'
       groupable:
         aggregators: aggregators
-    ,   
+    ,
       id: "fleetName"
       field: "fleetName"
       name: TAPi18n.__('fleet.title')
@@ -22,7 +21,7 @@ Template.fullLogbookReport.helpers
       sortable: true
       search: where: 'client'
       groupable:
-        aggregators: aggregators  
+        aggregators: aggregators
     ,
       id: "vehicleName"
       field: "vehicleName"
