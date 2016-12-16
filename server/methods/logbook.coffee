@@ -68,7 +68,6 @@ Meteor.methods
           recordTime: $gt: moment().startOf(aggParams.timeRange).toDate()
           'attributes.trip': $exists: true
         }
-        {$sort: recordTime: 1}
         {$group:
           _id:
             deviceId: "$deviceId"
@@ -86,6 +85,7 @@ Meteor.methods
           maxSpeed: $max: "$speed"
           avgSpeed: $avg: "$speed"
         }
+        {$sort: startTime: -1}
       ]
     result = Logbook.aggregate(pipeline).map (r) ->
       trip = Trips.findOne tripId: r._id.trip
@@ -99,7 +99,6 @@ Meteor.methods
       r.date = moment(r.startTime).format('YYYY-MM-DD')
       r.distance = (r.stopOdometer - r.startOdometer) / 1000 # convert to kms
       r
-    _.sortBy(result, (r) -> moment(r.startTime).unix()).reverse()
 
   fullLogbook: (filter) ->
     @unblock()
@@ -119,7 +118,6 @@ Meteor.methods
     pipeline =
       [
         {$match: deviceId: $in: deviceIds}
-        {$sort: recordTime: 1}
         {$group:
           _id:
             deviceId: "$deviceId"
@@ -146,6 +144,7 @@ Meteor.methods
           ]
           maxSpeed: 1
         }
+        {$sort: date: -1}
       ]
     result = Logbook.aggregate(pipeline).map (r) ->
       vehicle = vehicles[r.deviceId]
@@ -154,5 +153,3 @@ Meteor.methods
       r.vehicleName = "#{vehicle?.name} (#{vehicle?.licensePlate})"
       r.fleetName = fleet?.name
       r
-    result = _.sortBy(result, (r) -> r.date).reverse()
-    result
