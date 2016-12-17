@@ -1,5 +1,4 @@
 React       = require 'react'
-FleetsMenu  = require '/imports/ui/FleetsMenu.cjsx'
 CrudButtons = require '/imports/ui/CrudButtons.cjsx'
 MapAdditionalControls = require '/imports/ui/MapAdditionalControls.cjsx'
 GeofencesNav          = require '/imports/ui/navs/GeofencesNav.cjsx'
@@ -84,24 +83,16 @@ Meteor.startup ->
         title: TAPi18n.__('alarms.listTitle')
         topnav: <CrudButtons editItemTemplate='alarm' i18nRoot='alarms' collection=Alarms removeItemMethod='removeAlarm' />
 
-    @route 'listDrivers',
-      path: '/drivers/list'
-      template: 'drivers'
-      waitOn: -> [Meteor.subscribe('drivers'), Meteor.subscribe('vehicles')]
-      data: ->
-        title: TAPi18n.__('drivers.listTitle')
-        topnav: <CrudButtons editItemTemplate='driver' i18nRoot='drivers' collection=Drivers removeItemMethod='removeDriver' showDocumentsButton={true}/>
-
     @route 'listVehicles',
       path: '/vehicles/list/:fleetName?'
       template: 'vehicles'
-      data: -> fleetName: @params.fleetName
       waitOn: -> [
         Meteor.subscribe('vehicles/list')
         Meteor.subscribe('fleetsForVehicleList')
         Meteor.subscribe('drivers')
       ]
       data: ->
+        fleetName: @params.fleetName
         title: TAPi18n.__('vehicles.listTitle')
         topnav: <CrudButtons editItemTemplate='vehicle' i18nRoot='vehicles' showMaintenancesButton=true collection=Vehicles removeItemMethod='removeVehicle'/>
 
@@ -111,7 +102,10 @@ Meteor.startup ->
       waitOn: -> [Meteor.subscribe('customEvents'), Meteor.subscribe('fleetGroups'), Meteor.subscribe('fleets'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
       data: ->
         title: TAPi18n.__ 'customEvents.listTitle'
-        topnav: <CrudButtons editItemTemplate='customEvent' i18nRoot='customEvents' collection=CustomEvents removeItemMethod='removeCustomEvent'/>
+        topnav:
+          <CrudButtons editItemTemplate='customEvent' i18nRoot='customEvents' collection=CustomEvents removeItemMethod='removeCustomEvent'>
+            <li><a href={Router.path 'listGeofenceEvents'}>{TAPi18n.__("geofenceEvents.listTitle")}</a></li>
+          </CrudButtons>
 
     @route 'listGeofenceEvents',
       path: '/geofence-events/list'
@@ -119,18 +113,21 @@ Meteor.startup ->
       waitOn: -> [Meteor.subscribe('geofenceEvents'), Meteor.subscribe('fleetGroups'), Meteor.subscribe('fleets'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers'), Meteor.subscribe('geofences')]
       data: ->
         title: TAPi18n.__ 'geofenceEvents.listTitle'
-        topnav: <CrudButtons editItemTemplate='geofenceEvent' i18nRoot='geofenceEvents' collection=GeofenceEvents removeItemMethod='removeGeofenceEvent'/>
-
+        topnav:
+          <CrudButtons editItemTemplate='geofenceEvent' i18nRoot='geofenceEvents' collection=GeofenceEvents removeItemMethod='removeGeofenceEvent'>
+            <li><a href={Router.path 'listCustomEvents'}>{TAPi18n.__("customEvents.listTitle")}</a></li>
+          </CrudButtons>
 
     @route 'listTyres',
       path: '/tyres/list'
       template: 'tyres'
-      data: -> {pageTitle: 'Гуми'}
       waitOn: -> [Meteor.subscribe('tyres'), Meteor.subscribe('vehicles')]
       data: ->
         title: TAPi18n.__('tyre.listTitle')
-        topnav: <CrudButtons editItemTemplate='tyre' i18nRoot='tyre' collection=Tyres removeItemMethod='removeTyre' />
-
+        topnav:
+          <CrudButtons editItemTemplate='tyre' i18nRoot='tyre' collection=Tyres removeItemMethod='removeTyre'>
+            <li><a href={Router.path 'listMaintenanceType'}>{TAPi18n.__("menu.listMaintenanceTypes")}</a></li>
+          </CrudButtons>
 
     @route 'listFleets',
       path: '/fleets/list'
@@ -138,10 +135,10 @@ Meteor.startup ->
       waitOn: -> [Meteor.subscribe('customEvents'), Meteor.subscribe('fleets'), Meteor.subscribe('fleetGroups'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
       data: ->
         title: TAPi18n.__('fleet.listTitle')
-        topnav: <CrudButtons editItemTemplate='fleet' i18nRoot='fleet' collection=Fleets removeItemMethod='removeFleet'>
-          <li><a href={Router.path 'listFleets'}>Fleets</a></li>
-          <li><a className='active' href={Router.path 'listFleetGroups'}>Fleet Groups</a></li>
-        </CrudButtons>
+        topnav:
+          <CrudButtons editItemTemplate='fleet' i18nRoot='fleet' collection=Fleets removeItemMethod='removeFleet'>
+            <li><a href={Router.path 'listFleetGroups'}>{TAPi18n.__("menu.listFleetGroups")}</a></li>
+          </CrudButtons>
 
     @route 'listFleetGroups',
       path: '/fleets/groups/list'
@@ -149,15 +146,14 @@ Meteor.startup ->
       waitOn: -> Meteor.subscribe('fleetGroups')
       data: ->
         title: TAPi18n.__('fleetGroups.listTitle')
-        topnav: <CrudButtons editItemTemplate='fleetGroup' i18nRoot='fleetGroups' collection=FleetGroups removeItemMethod='removeFleetGroup'>
-          <li><a href={Router.path 'listFleets'}>Fleets</a></li>
-          <li><a className='active' href={Router.path 'listFleetGroups'}>Fleet Groups</a></li>
-        </CrudButtons>
+        topnav:
+          <CrudButtons editItemTemplate='fleetGroup' i18nRoot='fleetGroups' collection=FleetGroups removeItemMethod='removeFleetGroup'>
+            <li><a href={Router.path 'listFleets'}>{TAPi18n.__("menu.listFleets")}</a></li>
+          </CrudButtons>
 
     @route 'mapVehicles',
       path: '/vehicles/map/:vehicleId?'
       template: 'map'
-      data: -> vehicleId: @params.vehicleId
       waitOn: ->
         vehicle = Vehicles.findOne _id: @params.vehicleId
         [
@@ -168,7 +164,7 @@ Meteor.startup ->
           Meteor.subscribe('logbook/trip', vehicle?.trip?.id)
         ]
       data: ->
-        #title: 'Карта на автомобили'
+        vehicleId: @params.vehicleId
         title: TAPi18n.__('map.title')
         contentClass: 'noPadding'
         topnav: <MapAdditionalControls />
@@ -188,7 +184,14 @@ Meteor.startup ->
       ]
       data: ->
         title: TAPi18n.__('expenses.import.title')
-        # topnav: <ImportExpensesNav />
+        topnav:
+          #<ImportExpensesNav />
+          <ul className="nav navbar-nav navbar-left" style={height:60}>
+            <li style={borderLeft:'1px solid #9A9A9A', height: 50, margin: 5} />
+            <li><a href={Router.path 'listExpenses'}>{TAPi18n.__("expenses.listTitle")}</a></li>
+            <li><a href={Router.path 'listExpenseTypes'}>{TAPi18n.__("expenseTypes.listTitle")}</a></li>
+            <li><a href={Router.path 'listExpenseGroups'}>{TAPi18n.__("expenseGroups.listTitle")}</a></li>
+          </ul>
 
     @route 'listExpenseGroups',
       path: '/expenses/groups/list'
@@ -196,7 +199,12 @@ Meteor.startup ->
       waitOn: -> Meteor.subscribe('expenseGroups')
       data: ->
         title: TAPi18n.__('expenseGroups.listTitle')
-        topnav: <CrudButtons editItemTemplate='expenseGroup' i18nRoot='expenseGroups' collection=ExpenseGroups removeItemMethod='removeExpenseGroup'/>
+        topnav:
+          <CrudButtons editItemTemplate='expenseGroup' i18nRoot='expenseGroups' collection=ExpenseGroups removeItemMethod='removeExpenseGroup'>
+            <li><a href={Router.path 'listExpenses'}>{TAPi18n.__("expenses.listTitle")}</a></li>
+            <li><a href={Router.path 'listExpenseTypes'}>{TAPi18n.__("expenseTypes.listTitle")}</a></li>
+            <li><a href={Router.path 'importExpenses'}>{TAPi18n.__("expenses.import.title")}</a></li>
+          </CrudButtons>
 
     @route 'listExpenseTypes',
       path: '/expenses/types/list'
@@ -204,8 +212,12 @@ Meteor.startup ->
       waitOn: -> Meteor.subscribe('expenseTypes')
       data: ->
         title: TAPi18n.__('expenseTypes.listTitle')
-        topnav: <CrudButtons editItemTemplate='expenseType' i18nRoot='expenseTypes' collection=ExpenseTypes removeItemMethod='removeExpenseType'/>
-
+        topnav:
+          <CrudButtons editItemTemplate='expenseType' i18nRoot='expenseTypes' collection=ExpenseTypes removeItemMethod='removeExpenseType'>
+            <li><a href={Router.path 'listExpenses'}>{TAPi18n.__("expenses.listTitle")}</a></li>
+            <li><a href={Router.path 'listExpenseGroups'}>{TAPi18n.__("expenseGroups.listTitle")}</a></li>
+            <li><a href={Router.path 'importExpenses'}>{TAPi18n.__("expenses.import.title")}</a></li>
+          </CrudButtons>
 
     @route 'listExpenses',
       path: '/expenses/list'
@@ -213,7 +225,24 @@ Meteor.startup ->
       waitOn: -> [Meteor.subscribe('expenses'), Meteor.subscribe('expenseTypes'), Meteor.subscribe('expenseGroups'), Meteor.subscribe('vehicles'), Meteor.subscribe('drivers')]
       data: ->
         title: TAPi18n.__('expenses.listTitle')
-        topnav: <CrudButtons editItemTemplate='expense' i18nRoot='expenses' collection=Expenses removeItemMethod='removeExpense'/>
+        topnav:
+          <CrudButtons editItemTemplate='expense' i18nRoot='expenses' collection=Expenses removeItemMethod='removeExpense'>
+            <li><a href={Router.path 'listExpenseTypes'}>{TAPi18n.__("expenseTypes.listTitle")}</a></li>
+            <li><a href={Router.path 'listExpenseGroups'}>{TAPi18n.__("expenseGroups.listTitle")}</a></li>
+            <li><a href={Router.path 'importExpenses'}>{TAPi18n.__("expenses.import.title")}</a></li>
+          </CrudButtons>
+
+    @route 'listDrivers',
+      path: '/drivers/list'
+      template: 'drivers'
+      waitOn: -> [Meteor.subscribe('drivers'), Meteor.subscribe('vehicles')]
+      data: ->
+        title: TAPi18n.__('drivers.listTitle')
+        topnav:
+          <CrudButtons editItemTemplate='driver' i18nRoot='drivers' collection=Drivers removeItemMethod='removeDriver' showDocumentsButton={true}>
+            <li><a href={Router.path 'listDriverVehicleAssignments'}>{TAPi18n.__("driverVehicleAssignments.listTitle")}</a></li>
+            <li><a href={Router.path 'listDocumentTypes'}>{TAPi18n.__("documentTypes.listTitle")}</a></li>
+          </CrudButtons>
 
     @route 'listDocumentTypes',
       path: '/documents/types/list'
@@ -221,25 +250,44 @@ Meteor.startup ->
       waitOn: -> Meteor.subscribe('documentTypes')
       data: ->
         title: TAPi18n.__('documentTypes.listTitle')
-        topnav: <CrudButtons editItemTemplate='documentType' i18nRoot='documentTypes' collection=DocumentTypes removeItemMethod='removeDocumentType'/>
+        topnav:
+          <CrudButtons editItemTemplate='documentType' i18nRoot='documentTypes' collection=DocumentTypes removeItemMethod='removeDocumentType'>
+            <li><a href={Router.path 'listDrivers'}>{TAPi18n.__("drivers.listTitle")}</a></li>
+            <li><a href={Router.path 'listDriverVehicleAssignments'}>{TAPi18n.__("driverVehicleAssignments.listTitle")}</a></li>
+          </CrudButtons>
+
+    @route 'listDriverVehicleAssignments',
+      path: '/assignments/driver/vehicle/list'
+      template: 'driverVehicleAssignments'
+      waitOn: ->
+        [ Meteor.subscribe('vehicles'), Meteor.subscribe('drivers'), Meteor.subscribe('driverVehicleAssignments')]
+      data: ->
+        title: TAPi18n.__('driverVehicleAssignments.listTitle')
+        topnav:
+          <CrudButtons editItemTemplate='driverVehicleAssignment' i18nRoot='driverVehicleAssignments' collection=DriverVehicleAssignments removeItemMethod='removeDriverVehicleAssignment'>
+            <li><a href={Router.path 'listDrivers'}>{TAPi18n.__("drivers.listTitle")}</a></li>
+            <li><a href={Router.path 'listDocumentTypes'}>{TAPi18n.__("documentTypes.listTitle")}</a></li>
+          </CrudButtons>
 
 
     @route 'listDocuments',
       path: '/drivers/:driverId/documents/list'
       template: 'documents'
-      data: -> {'driverId':@params.driverId}
       waitOn: -> [Meteor.subscribe('documents', @params.driverId), Meteor.subscribe('documentTypes')]
-      data: -> title: TAPi18n.__('drivers.listTitle')
+      data: ->
+        title: TAPi18n.__('drivers.listTitle')
+        driverId: @params.driverId
 
     @route 'listMaintenances',
       path: '/vehicle/:vehicleId/maintenance/list'
       template: 'maintenances'
-      data: -> {'vehicleId' : @params.vehicleId}
       waitOn: ->
         [Meteor.subscribe('vehicle', _id: @params.vehicleId)
         Meteor.subscribe('vehicleMaintenances', @params.vehicleId)
         Meteor.subscribe('maintenanceTypes')]
-      data: -> title: TAPi18n.__('maintenances.listTitle')
+      data: ->
+        vehicleId: @params.vehicleId
+        title: TAPi18n.__('maintenances.listTitle')
 
     @route 'listOdometers',
       path: '/vehicle/:vehicleId/odometers/list'
@@ -256,7 +304,10 @@ Meteor.startup ->
         Meteor.subscribe('maintenanceTypes')
       data: ->
         title: TAPi18n.__('maintenanceTypes.listTitle')
-        topnav: <CrudButtons editItemTemplate='maintenanceType' i18nRoot='maintenanceTypes' collection=MaintenanceTypes removeItemMethod='removeMaintenanceType'/>
+        topnav:
+          <CrudButtons editItemTemplate='maintenanceType' i18nRoot='maintenanceTypes' collection=MaintenanceTypes removeItemMethod='removeMaintenanceType'>
+            <li><a href={Router.path 'listTyres'}>{TAPi18n.__("menu.listTyres")}</a></li>
+          </CrudButtons>
 
 
     @route 'listInsuranceTypes',
@@ -266,7 +317,10 @@ Meteor.startup ->
         Meteor.subscribe('insuranceTypes')
       data: ->
         title: TAPi18n.__('insuranceTypes.listTitle')
-        topnav: <CrudButtons editItemTemplate='insuranceType' i18nRoot='insuranceTypes' collection=InsuranceTypes removeItemMethod='removeInsuranceTypes'/>
+        topnav:
+          <CrudButtons editItemTemplate='insuranceType' i18nRoot='insuranceTypes' collection=InsuranceTypes removeItemMethod='removeInsuranceTypes'>
+            <li><a href={Router.path 'listInsurances'}>{TAPi18n.__("menu.insurances")}</a></li>
+          </CrudButtons>
 
     @route 'listInsurances',
       path: '/insurance/list'
@@ -277,7 +331,9 @@ Meteor.startup ->
         Meteor.subscribe('insuranceTypes')]
       data: ->
         title: TAPi18n.__('insurances.listTitle')
-        topnav: <CrudButtons editItemTemplate='insurance' i18nRoot='insurances' collection=Insurances removeItemMethod='removeInsurance'/>
+        topnav: <CrudButtons editItemTemplate='insurance' i18nRoot='insurances' collection=Insurances removeItemMethod='removeInsurance'>
+          <li><a href={Router.path 'listInsuranceTypes'}>{TAPi18n.__("menu.listInsuranceTypes")}</a></li>
+        </CrudButtons>
 
     @route 'listInsurancePayments',
       path: '/insurance/:insuranceId/payment/list'
@@ -296,15 +352,6 @@ Meteor.startup ->
         contentClass: 'noPadding'
         topnav: <GeofencesNav />
 
-
-    @route 'listDriverVehicleAssignments',
-      path: '/assignments/driver/vehicle/list'
-      template: 'driverVehicleAssignments'
-      waitOn: ->
-        [ Meteor.subscribe('vehicles'), Meteor.subscribe('drivers'), Meteor.subscribe('driverVehicleAssignments')]
-      data: ->
-        title: TAPi18n.__('driverVehicleAssignments.listTitle')
-        topnav: <CrudButtons editItemTemplate='driverVehicleAssignment' i18nRoot='driverVehicleAssignments' collection=DriverVehicleAssignments removeItemMethod='removeDriverVehicleAssignment'/>
 
     @route 'resetAll',
       path: '/reset'

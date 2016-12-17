@@ -56,6 +56,7 @@
     "expenseReport": "Expenses",
     "maintenanceReport": "Maintenance",
     "listTyres": "Tyres",
+    "events":"Events",
     "notifications":"Notifications",
     "geofenceNotifications":"Geofence Events",
     "alarms":"Alarms"
