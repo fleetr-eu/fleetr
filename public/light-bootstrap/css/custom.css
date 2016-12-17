@@ -1,5 +1,19 @@
+html {
+    color: #333333; 
+    font-family: 'Ubuntu', sans-serif;
+    padding: 0px !important;
+    margin: 0px !important;
+    font-size: 12px;
+    direction: ltr;
+}
+
 body {
-  font-family: Roboto, "Helvetica Neue", Arial, sans-serif !important;
+    color: #333333; 
+    font-family: 'Ubuntu', sans-serif;
+    padding: 0px !important;
+    margin: 0px !important;
+    font-size: 12px;
+    direction: ltr;
 }
 
 .control-label {

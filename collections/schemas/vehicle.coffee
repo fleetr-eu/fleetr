@@ -6,7 +6,7 @@ Schema.vehicle = new SimpleSchema
   state:
     optional: true, type: String, label: ()->TAPi18n.__('vehicles.state')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   lastUpdate:
     type: Date, optional: true, label: "Last Update"
@@ -38,12 +38,12 @@ Schema.vehicle = new SimpleSchema
     optional: true
     label: -> TAPi18n.__('vehicles.courseCorrection')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   speed:
     type: Number, decimal: true, optional: true, label: "Speed"
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   trip:
     type: Object
@@ -58,7 +58,7 @@ Schema.vehicle = new SimpleSchema
   tags:
     type: String, optional: true, label: ()->TAPi18n.__('vehicles.tags')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   active:
     type: Boolean, optional: true, label: ()->TAPi18n.__('vehicles.active')
@@ -76,53 +76,53 @@ Schema.vehicle = new SimpleSchema
   name:
     type: String, label: ()->TAPi18n.__('vehicles.name')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   licensePlate:
     type: String, label: ()->TAPi18n.__('vehicles.licensePlate')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   identificationNumber:
     type: String, label: ()->TAPi18n.__('vehicles.identificationNumber')
     optional: true
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   engineNumber:
     type: String, label: ()->TAPi18n.__('vehicles.engineNumber')
     optional: true
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   allocatedToFleet:
     type: String, label: ()->TAPi18n.__('vehicles.allocatedToFleet')
     autoform:
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> Fleets.find().map (fleet) -> label: fleet.name, value: fleet._id
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   allocatedToFleetFromDate:
     type: Date, label:()->TAPi18n.__('vehicles.allocatedToFleetFromDate')
     autoform:
       type: "bootstrap-datepicker"
       datePickerOptions: Settings.dpOptions
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   color:
     type: String, optional: true, label:()->TAPi18n.__('vehicles.color')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   odometer:
     type: Number, optional: true, label:()->TAPi18n.__('vehicles.odometer')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   engineHours:
     type: Number, optional: true, label:()->TAPi18n.__('vehicles.engineHours')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   unitId:
     type: Number, optional: true, label:()->TAPi18n.__('vehicles.unitId')
@@ -131,12 +131,12 @@ Schema.vehicle = new SimpleSchema
         v = Vehicles.findOne({"unitId" : @value, "_id": {$ne: @field("_id").value}})
         "unitAlreadyExists" if v
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   phoneNumber:
     type: String, optional: true, label:()->TAPi18n.__('vehicles.phoneNumber')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   nextTechnicalCheck:
     type: Date, label:()->TAPi18n.__('vehicles.nextTechnicalCheck')
@@ -145,18 +145,18 @@ Schema.vehicle = new SimpleSchema
     autoform:
       type: "bootstrap-datepicker"
       datePickerOptions: Settings.dpOptions
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   category:
     type: String, optional: true, label:()->TAPi18n.__('vehicles.category')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   makeAndModel:
     type: String, optional: true, label:()->TAPi18n.__('vehicles.makeAndModel')
     autoform:
       type: "typeahead"
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
       options: ->
         Vehicles.find({}, {fields: makeAndModel: 1}).map (v) ->
           label: v.makeAndModel
@@ -172,12 +172,12 @@ Schema.vehicle = new SimpleSchema
         { label:'Камион' , value: 'truck'},
         { label:'Автобус' , value: 'bus'}
       ]
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   maxPower:
     type: Number, optional: true,label:()->TAPi18n.__('vehicles.maxPower')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   fuelType:
     type: String, optional: true, label:()->TAPi18n.__('vehicles.fuelType')
@@ -191,42 +191,42 @@ Schema.vehicle = new SimpleSchema
         { label:'Electric' , value: 'Electric'},
         { label:'Hybrid' , value: 'Hybrid'}
       ]
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   productionYear:
     type: Number, optional: true, label:()->TAPi18n.__('vehicles.productionYear')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   body:
     type: String, optional: true, label:()->TAPi18n.__('vehicles.body')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   engineDisplacement:
     type: Number, optional: true, label:()->TAPi18n.__('vehicles.engineDisplacement')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   maxFuelCapacity:
     type: Number, optional: true, label:()->TAPi18n.__('vehicles.maxFuelCapacity')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   maxSpeed:
     type: Number, optional: true, label:()->TAPi18n.__('vehicles.maxSpeed')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   maxAllowedSpeed:
     type: Number, optional: true, label:()->TAPi18n.__('vehicles.maxAllowedSpeed')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   mass:
     type: Number, optional: true, label:()->TAPi18n.__('vehicles.mass')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   "alarms.speedingAlarmActive":
     type: Boolean, label: "Speeding", optional: true
@@ -244,7 +244,7 @@ Schema.vehicle = new SimpleSchema
   "alarms.speedingAlarmSpeed":
     type: Number, label:"Speed", optional:true
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-3", "input-col-class": "col-sm-9"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-3", "input-col-class": "col-sm-9 input-group-sm"
 
   "alarms.idleAlarmActive":
     type: Boolean, label: "Idling", optional: true
@@ -257,12 +257,12 @@ Schema.vehicle = new SimpleSchema
           onText: ()->TAPi18n.__('general.yes')
           offText: ()->TAPi18n.__('general.no')
       template: "bootstrap3-horizontal"
-      leftLabel:"true", "label-class": "col-sm-9", "input-col-class": "col-sm-3"
+      leftLabel:"true", "label-class": "col-sm-9", "input-col-class": "col-sm-3 input-group-sm"
 
   "alarms.idleAlarmTime":
     type: Number, label: "Time", optional:true
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-3", "input-col-class": "col-sm-9"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-3", "input-col-class": "col-sm-9 input-group-sm"
 
   driver_id:
     type: String
@@ -279,14 +279,14 @@ Schema.vehicle = new SimpleSchema
     autoform:
       afFieldInput:
         type: "time"
-      template: "bootstrap3-horizontal", "label-class": "col-sm-2", "input-col-class": "col-sm-4"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-2", "input-col-class": "col-sm-4 input-group-sm"
 
   "workHours.$.to":
     type: String, optional: true, label:()->TAPi18n.__('vehicles.workHoursTo')
     autoform:
       afFieldInput:
         type: "time"
-      template: "bootstrap3-horizontal", "label-class": "col-sm-2", "input-col-class": "col-sm-4"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-2", "input-col-class": "col-sm-4 input-group-sm"
 
 
 Schema.odometers = new SimpleSchema
@@ -299,11 +299,11 @@ Schema.odometers = new SimpleSchema
     autoform:
       type: "bootstrap-datepicker"
       datePickerOptions: Settings.dpOptions
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6" 
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm" 
   value:
     type: Number, optional: true, label:()->TAPi18n.__('vehicles.odometers.value')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
   
 
 
