@@ -9,62 +9,46 @@ Tyres.attachSchema new SimpleSchema
     type: String
     label: ()->TAPi18n.__('tyre.brand')
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
   width:
     type: Number
     label: ()->TAPi18n.__('tyre.width')
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
   height:
     type: Number
     label: ()->TAPi18n.__('tyre.height')
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
   innerDiameter:
     type: Number
     label: ()->TAPi18n.__('tyre.innerDiameter')
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
   loadIndex:
     type: Number
     label: ()->TAPi18n.__('tyre.loadIndex')
     optional: true
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
   speedIndex:
     type: String
     label: ()->TAPi18n.__('tyre.speedIndex')
     optional: true
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
   usedKm:
     type: Number
     label: ()->TAPi18n.__('tyre.usedKm')
     optional: true
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
   changeKm:
     type: Number
     label: ()->TAPi18n.__('tyre.changeKm')
     optional: true
     autoform:
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
   active:
     label: ()->TAPi18n.__('tyre.active')
     type: Boolean
@@ -75,9 +59,7 @@ Tyres.attachSchema new SimpleSchema
           size: 'small'
           onColor: 'success'
       leftLabel:"true"
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
   vehicle:
     label: ()->TAPi18n.__('tyre.vehicle')
     type: String
@@ -85,6 +67,4 @@ Tyres.attachSchema new SimpleSchema
     autoform:
       firstOption: "(Изберете)"
       options: -> Vehicles.find().map (vehicle) -> label: vehicle.licensePlate, value: vehicle._id
-      template: "bootstrap3-horizontal"
-      "label-class": "col-sm-5"
-      "input-col-class": "col-sm-7"
+      template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
