@@ -64,8 +64,6 @@
 .light-bootstrap button.close {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  font-family: "Roboto","Helvetica Neue",Arial,sans-serif;
-  font-weight: 400;
 }
 .light-bootstrap h1, .light-bootstrap .h1, .light-bootstrap h2, .light-bootstrap .h2, .light-bootstrap h3, .light-bootstrap .h3, .light-bootstrap h4, .light-bootstrap .h4 {
   font-weight: 300;
