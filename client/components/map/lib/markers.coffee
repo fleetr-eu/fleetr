@@ -85,29 +85,29 @@ Meteor.startup ->
       idleText = if (vehicle.state is "start") and (speed < Settings.minSpeed) then "На място: #{moment.duration(vehicle.idleTime,'milliseconds').humanize()}" else ""
       tripText = if (vehicle.state is "start") and (speed >= Settings.minSpeed) then "В движение: #{moment.duration(vehicle.tripTime,'milliseconds').humanize()}" else ""
       super
-        content: """
-                <div style='width:15em;'>
-                  <p>
-                  <b>#{vehicle.name} (#{vehicle.licensePlate})</b><br/>
-                  Шофьор: #{driverName}<br/>
-                  Скорост: #{speed} км/ч<br/>
-                  Одометър: #{km} км<br/>
-                  #{tripText}
-                  #{idleText}
-                  #{restText}
-                  </p>
-                  <a href='/vehicles/#{vehicle._id}/logbook?minTripDistance=0.05'>Журнал</а>
-                </div>"""
+        content: """<p style="font-family:'Ubuntu', sans-serif; font-size: 12px;">
+            <b>#{vehicle.name} (#{vehicle.licensePlate})</b><br/>
+            Шофьор: #{driverName}<br/>
+            Скорост: #{speed} км/ч<br/>
+            Одометър: #{km} км<br/>
+            #{tripText}
+            #{idleText}
+            #{restText}
+          </p>
+          <a href='/vehicles/#{vehicle._id}/logbook?minTripDistance=0.05'>Журнал</а>
+        """
 
 
   class @SimpleInfoWindow extends google.maps.InfoWindow
     constructor: (data) ->
       super
         content: """
-                  <p>Дата, час: #{moment(data.time).format('DD-MM-YYYY, HH:mm:ss')}<br/>
-                  Скорост: #{data.speed} км/ч<br/>
-                  Километраж: #{data.distance} км</p>
-                """
+          <p style="font-family: 'Ubuntu', sans-serif; font-size: 12px;">
+            Дата, час: #{moment(data.time).format('DD-MM-YYYY, HH:mm:ss')}<br/>
+            Скорост: #{data.speed} км/ч<br/>
+            Километраж: #{data.distance} км
+          </p>
+          """
 
   class @InfoMarker extends google.maps.Marker
     constructor: (opts, info) ->
