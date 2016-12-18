@@ -8,6 +8,12 @@ html, body {
     direction: ltr;
 }
 
+.dropdown-menu {
+    -webkit-box-shadow: 0 5px 10px rgba(100, 255, 255, .5);
+    box-shadow: 0 5px 10px rgba(100, 255, 255, .5);
+    background-color: #111;
+}
+
 .light-bootstrap .main-panel {
     background: none;
 }

@@ -18,9 +18,6 @@
           	  {{> afFieldInput type="hidden" name="_id" value=_id}}
               {{> afQuickField name="name" autofocus=true}}
               {{> afQuickField name="licensePlate"}}
-              {{> afQuickField name="identificationNumber"}}
-              {{> afQuickField name="engineNumber"}}
-              {{> afQuickField name="color"}}
               {{> afQuickField name="tags"}}
               {{> afQuickField name="allocatedToFleet" }}
               {{> afQuickField name="allocatedToFleetFromDate"}}
@@ -29,13 +26,16 @@
               {{> afQuickField name="unitId"}}
               {{> afQuickField name="phoneNumber"}}
               {{> afQuickField name="nextTechnicalCheck"}}
-              {{> afQuickField name="state" readonly=true}}
+              <!-- {{> afQuickField name="state" readonly=true}} -->
               {{> afQuickField name="active"}}
             </fieldset>
         </div>
 
         <div class="tab-pane" id="tab_2">
             <fieldset>
+                {{> afQuickField name="identificationNumber"}}
+                {{> afQuickField name="engineNumber"}}
+                {{> afQuickField name="color"}}
                 {{> afQuickField name="category"}}
                 {{> afQuickField name="makeAndModel"}}
                 {{> afQuickField name="kind"}}
