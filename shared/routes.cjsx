@@ -296,6 +296,11 @@ Meteor.startup ->
       data: ->
         vehicleId: @params.vehicleId
         title: TAPi18n.__('maintenances.listTitle')
+        topnav:
+          <CrudButtons editItemTemplate='maintenance'
+                       i18nRoot='maintenances'
+                       collection=Maintenances
+                       removeItemMethod='removeMaintenance'/>
 
     @route 'listOdometers',
       path: '/vehicle/:vehicleId/odometers/list'
