@@ -1,6 +1,6 @@
 .map-filter {
-	background-color: #000;
-	background: #000;
+	background-color: #222;
+	background: #222;
 }
 
 .table-striped>tbody>tr:nth-of-type(odd) {
@@ -10,7 +10,7 @@
 }
 
 .table-striped>tbody>tr:nth-of-type(even) {
-  background-color: #000;
+  background-color: #222;
   color: #9bc2e6
 }
 
