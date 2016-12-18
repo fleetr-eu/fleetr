@@ -1,0 +1,7 @@
+<template name="headerSettings">
+  {{#if isInRole 'admin,editor'}}
+  <li><a href={{pathFor 'settings'}} title="Settings" style="margin-bottom: 0">
+    <i class="pe-7s-config" style="font-size: 25px"></i>
+  </a></li>
+  {{/if}}
+</template>
