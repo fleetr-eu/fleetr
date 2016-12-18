@@ -16,8 +16,12 @@
           {{_ "menu.admin"}}
         </a>
       </li>
-      {{/if}}
       <li>
+        <a href="{{pathFor 'settings'}}">
+          {{_ "menu.configurationSettings"}}
+        </a>
+      </li>
+      {{/if}}      <li>
         <a href="{{pathFor 'entrySignOut'}}">
           {{_ "menu.signOut"}}
         </a>
