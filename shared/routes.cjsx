@@ -283,8 +283,13 @@ Meteor.startup ->
       template: 'documents'
       waitOn: -> [Meteor.subscribe('documents', @params.driverId), Meteor.subscribe('documentTypes')]
       data: ->
-        title: TAPi18n.__('drivers.listTitle')
+        title: TAPi18n.__('documents.listTitle')
         driverId: @params.driverId
+        topnav:
+          <CrudButtons editItemTemplate='document'
+                       i18nRoot='documents'
+                       collection=Documents
+                       removeItemMethod='removeDocument'/>
 
     @route 'listMaintenances',
       path: '/vehicle/:vehicleId/maintenance/list'
