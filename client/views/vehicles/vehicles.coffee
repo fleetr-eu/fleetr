@@ -8,7 +8,7 @@ timeAgoFormatter = (row, cell, value) ->
     ''
 
 linkFormatter = (report) -> (row, cell, value) ->
-  "<a href='/vehicles/#{value}/#{report}'><img src='/images/#{report}-icon.png' height='22' }'></img></a>"
+  "<a href='/vehicles/#{value}/#{report}' style='background-color:#000'><img src='/images/#{report}-icon.png' height='22' }'></img></a>"
 
 linkLoogbookFormatter = (report, minDistance) -> (row, cell, value) ->
   "<a href='/vehicles/#{value}/#{report}?minTripDistance=#{minDistance}'><img src='/images/#{report}-icon.png' height='22' }'></img></a>"  

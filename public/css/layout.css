@@ -1,6 +1,7 @@
 @media print {
   body {
-    background-color: #fff !important;
+    background-color: #000 !important;
+    color: white;
   }
 
   .page-bar {

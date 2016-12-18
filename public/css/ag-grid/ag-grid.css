@@ -109,7 +109,7 @@ ag-grid-ng2 {
   font-size: 14px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   position: absolute;
-  background: #e5e5e5;
+  background: #000;
   border: 1px solid #000;
   cursor: move;
   -webkit-user-select: none;
@@ -306,7 +306,7 @@ ag-grid-ng2 {
   position: relative;
 }
 .agile-gird-row:hover {
-  background-color: #f0f8ff;
+  background-color: #020202;
 }
 .ag-column-drop {
   width: 100%;

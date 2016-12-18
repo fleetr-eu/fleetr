@@ -1,5 +1,6 @@
-html {
-    color: #333333; 
+html, body {
+    background-color: #000; 
+    color: #3360b7;
     font-family: 'Ubuntu', sans-serif;
     padding: 0px !important;
     margin: 0px !important;
@@ -7,13 +8,69 @@ html {
     direction: ltr;
 }
 
-body {
-    color: #333333; 
-    font-family: 'Ubuntu', sans-serif;
-    padding: 0px !important;
-    margin: 0px !important;
-    font-size: 12px;
-    direction: ltr;
+
+
+.pagination > .disabled > span, .pagination > .disabled > span:hover, .pagination > .disabled > span:focus, .pagination > .disabled > a, .pagination > .disabled > a:hover, .pagination > .disabled > a:focus {
+    background-color: #000;
+}
+
+.pagination > li > a, .pagination > li > span {
+    background-color: #000;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-top-color: rgb(221, 221, 221);
+    border-right-color: rgb(221, 221, 221);
+    border-bottom-color: rgb(221, 221, 221);
+    border-left-color: rgb(221, 221, 221);
+}
+
+.container-fluid {
+   background-color: #000; 
+   color: #b5b5b5; 
+}
+
+.sidebar-wrapper {
+    background-color: #000; 
+    color: #b5b5b5;
+}
+
+.light-bootstrap .sidebar .nav li > a {
+   color: #EE7600;
+}
+
+.light-bootstrap .sidebar .nav li.active > a {
+   color: #DDDDDD;   
+}
+
+.navbar-default .navbar-brand {
+   color: #DDDDDD; 
+}
+
+.calendar-pane {
+   color: #3b9263;
+}
+
+.rbc-toolbar button {
+    background-color: #000; 
+    color: #b5b5b5;
+}
+
+.form-control {
+    background-color: #000; 
+    color: #b5b5b5;
+}
+
+.modal-content {
+    background-color: #000; 
+    color: #b5b5b5;
+    box-shadow: 0 5px 10px rgba(100, 255, 255, .5);
+    border-top-color: rgba(100, 255, 255, .2);
+
 }
 
 .control-label {

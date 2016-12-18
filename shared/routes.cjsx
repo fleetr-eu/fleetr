@@ -197,8 +197,8 @@ Meteor.startup ->
           <ul className="nav navbar-nav navbar-left" style={height:60}>
             <li style={borderLeft:'1px solid #9A9A9A', height: 50, margin: 5} />
             <li><a href={Router.path 'listExpenses'}>{TAPi18n.__("expenses.listTitle")}</a></li>
-            <li><a href={Router.path 'listExpenseTypes'}>{TAPi18n.__("expenseTypes.listTitle")}</a></li>
             <li><a href={Router.path 'listExpenseGroups'}>{TAPi18n.__("expenseGroups.listTitle")}</a></li>
+            <li><a href={Router.path 'listExpenseTypes'}>{TAPi18n.__("expenseTypes.listTitle")}</a></li>
           </ul>
 
     @route 'listExpenseGroups',
@@ -235,8 +235,8 @@ Meteor.startup ->
         title: TAPi18n.__('expenses.listTitle')
         topnav:
           <CrudButtons editItemTemplate='expense' i18nRoot='expenses' collection=Expenses removeItemMethod='removeExpense'>
-            <li><a href={Router.path 'listExpenseTypes'}>{TAPi18n.__("expenseTypes.listTitle")}</a></li>
             <li><a href={Router.path 'listExpenseGroups'}>{TAPi18n.__("expenseGroups.listTitle")}</a></li>
+            <li><a href={Router.path 'listExpenseTypes'}>{TAPi18n.__("expenseTypes.listTitle")}</a></li> 
             <li><a href={Router.path 'importExpenses'}>{TAPi18n.__("expenses.import.title")}</a></li>
           </CrudButtons>
 
