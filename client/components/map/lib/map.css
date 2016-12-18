@@ -1,6 +1,6 @@
 .navy-bold-semitransparent {
 	color: navy; font-weight: bold; 
-	background:rgba(0,0,0,0.6);
+	background:rgba(220,220,220,0.5);
 	display: inline-block;
 	white-space: nowrap;
 }
