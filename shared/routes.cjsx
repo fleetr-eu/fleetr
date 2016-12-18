@@ -69,6 +69,14 @@ Meteor.startup ->
       path: '/settings'
       template: 'configurationSettings'
       waitOn: -> [Meteor.subscribe('configurationSettings')]
+      data: ->
+        title: TAPi18n.__('menu.configurationSettings')
+        topnav:
+          <CrudButtons editItemTemplate='configurationSetting'
+                       i18nRoot='configurationSettings'
+                       collection=ConfigurationSettings
+                       removeItemMethod='removeConfigurationSetting' />
+
 
     @route 'odometers',
       path: '/odometers'
