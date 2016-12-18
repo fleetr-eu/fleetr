@@ -43,13 +43,13 @@ Schema.configurationSettings = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
       firstOption: "(Изберете)"
-      options: ->  
+      options: ->
         [
-          { label: "Текс", value: 0 },
+          { label: "Текст", value: 0 },
           { label: "Число", value: 1 },
           { label: "Дата", value: 2 },
           { label: "JSON", value: 3 }
-        ]      
+        ]
   name:
     type: String, label: ()->TAPi18n.__('configurationSettings.name')
     autoform:
@@ -64,7 +64,7 @@ Schema.customEvents = new SimpleSchema
   _id:
     type: String, optional: true
   sourceId:
-    type: String, optional: true  
+    type: String, optional: true
   name:
     type: String, label: ()->TAPi18n.__('customEvents.name')
     autoform:
@@ -79,7 +79,7 @@ Schema.customEvents = new SimpleSchema
           { label: "Документ", value: "Документ"}
           { label: "Застраховка", value: "Застраховка"}
           { label: "Друго", value: "Друго"}
-        ]      
+        ]
   fleetGroupId:
     type: String, optional: true, label: ()->TAPi18n.__('customEvents.fleetGroup')
     autoform:
