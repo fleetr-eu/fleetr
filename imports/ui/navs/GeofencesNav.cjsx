@@ -46,7 +46,7 @@ GeofencesNav = React.createClass
       {if @props.selectedGeofenceId
         <DeleteButton onClick={@deleteButtonClicked} />
       }
-      <IconButton title='List objects' className='pe-7s-map-marker' onClick={@listObjectsClicked} />
+      <IconButton title='List objects' className='pe-7s-home' onClick={@listObjectsClicked} />
       <div className="form-group" style={paddingTop:10, paddingLeft:10}>
         <input id="pac-input" type="text" className="form-control" placeholder="Enter a location..." />
         <span style=clearStyle className="form-control-clear glyphicon glyphicon-remove form-control-feedback hidden" />
