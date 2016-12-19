@@ -39,14 +39,21 @@ Template.map.helpers
       id: "name"
       field: "name"
       name: TAPi18n.__('vehicles.name')
-      width:80
+      width:55
       sortable: true
       search: where: 'client'
     ,
       id: "licensePlate"
       field: "licensePlate"
       name: TAPi18n.__('vehicles.licensePlate')
-      width:80
+      width:40
+      sortable: true
+      search: where: 'client'
+    ,
+      id: "fleet"
+      field: "fleetName"
+      name: TAPi18n.__('fleet.name')
+      width:60
       sortable: true
       search: where: 'client'
     ,
@@ -69,7 +76,13 @@ Template.map.helpers
       tpl.grid = grid
     )(Template.instance())
 
-    cursor: Vehicles.find {}, sort: name: 1
+    cursor: Vehicles.find {},
+      sort: name: 1
+      transform: (doc) ->
+        fleet = Fleets.findOne _id: doc.allocatedToFleet
+        _.extend doc,
+          fleetName: fleet.name
+
 
 
 Template.map.events

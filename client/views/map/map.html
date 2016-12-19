@@ -2,7 +2,6 @@
   <div class="portlet-body" id="map-container" style="width:100%; height:calc(100vh - 61px)">
     <div class="row">
       <div class="col-md-5 map-filter {{#if showFilterBox}}open{{/if}}" id="vehicle-filter-box">
-        {{> vehicleFilter selectedVehicleIdVar="selectedVehicleId" filterVar="vehicleFilter" options=filterOptions}}
         {{> fleetrGrid id="driversList" config=fleetrGridConfig }}
      </div>
      <div class="col-md-12">

@@ -169,6 +169,7 @@ Meteor.startup ->
           Meteor.subscribe('vehicle', {_id: @params.vehicleId})
           Meteor.subscribe('vehicles')
           Meteor.subscribe('drivers')
+          Meteor.subscribe('fleets')
           Meteor.subscribe('logbook/trip', vehicle?.trip?.id)
         ]
       data: ->
