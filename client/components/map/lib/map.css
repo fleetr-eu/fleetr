@@ -7,3 +7,8 @@
 .navy-bold {
 	color: navy; font-weight: bold; 
 }
+
+#map-canvas {
+	color: #000;
+}
+
