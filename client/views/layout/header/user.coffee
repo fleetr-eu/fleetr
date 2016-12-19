@@ -1,3 +1,7 @@
 Template.user.helpers
-  userEmail: -> Meteor.user()?.emails[0].address
+  userEmail: userEmail = -> Meteor.user()?.emails[0].address
   pathForAdminBoard: -> AdminDashboard.path('/')
+  gravatar: ->
+    Gravatar.imageUrl userEmail(),
+      size: 34,
+      default: 'mm'

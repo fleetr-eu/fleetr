@@ -1,8 +1,9 @@
 <template name="user">
   <li class="dropdown dropdown-user">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-close-others="true">
-    <span class="username username-hide-on-mobile">{{userEmail}}</span>
-    <i class="fa fa-angle-down"></i>
+    <a href="#"  style="padding-bottom:0; padding-top:5px" class="dropdown-toggle" data-toggle="dropdown" data-close-others="true">
+      <img class="gravatar" src="{{gravatar}}" alt="{{userEmail}}">
+      <span class="username username-hide-on-mobile">{{userEmail}}</span>
+      <i class="fa fa-angle-down"></i>
     </a>
     <ul class="dropdown-menu" >
       <li>
@@ -21,7 +22,8 @@
           {{_ "menu.configurationSettings"}}
         </a>
       </li>
-      {{/if}}      <li>
+      {{/if}}
+      <li>
         <a href="{{pathFor 'entrySignOut'}}">
           {{_ "menu.signOut"}}
         </a>
