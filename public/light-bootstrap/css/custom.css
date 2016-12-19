@@ -1,6 +1,6 @@
 html, body {
     background-color: #222; 
-    color: #3360b7;
+    color: #EEEEEE;
     font-family: 'Ubuntu', sans-serif;
     padding: 0px !important;
     margin: 0px !important;
@@ -8,9 +8,35 @@ html, body {
     direction: ltr;
 }
 
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: #DDDDDD;
+    cursor: default;
+    background-color: #444;
+    border: 1px solid #CCC;
+    border-bottom-color: transparent;
+}
+
+.nav-tabs > li > a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+a {
+    color: #EEEEEE;
+    text-decoration: none;
+}
+
 .light-bootstrap .dropdown-menu > li > a {
     padding: 8px 16px;
-    color: #1DC7EA;
+    color: #DDDDDD;
 }
 
 .dropdown-menu {
@@ -63,34 +89,34 @@ html, body {
 }
 
 .light-bootstrap .sidebar .nav li > a {
-   color: #EE7600;
+   color: #EEEEEE;
 }
 
 .light-bootstrap .sidebar .nav li.active > a {
-   color: #DDDDDD;   
+   color: #CCCCCC;   
 }
 
 .navbar-default .navbar-brand {
-   color: #DDDDDD; 
+   color: #EEEEEE; 
 }
 
 .calendar-pane {
-   color: #3b9263;
+   color: #9b9b9b;
 }
 
 .rbc-toolbar button {
     background-color: #222; 
-    color: #b5b5b5;
+    color: #DDDDDD;
 }
 
 .form-control {
     background-color: #222; 
-    color: #b5b5b5;
+    color: #CCCCCC;
 }
 
 .modal-content {
     background-color: #222; 
-    color: #b5b5b5;
+    color: #CCCCCC;
     box-shadow: 0 5px 10px rgba(100, 255, 255, .5);
     border-top-color: rgba(100, 255, 255, .2);
 }
