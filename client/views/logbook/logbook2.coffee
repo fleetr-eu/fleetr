@@ -16,7 +16,6 @@ addressFormatter = (row, cell, value, column, rowObject) ->
 toTime = FleetrGrid.Formatters.timeFormatter
 aggregators = [
   new Slick.Data.Aggregators.Sum 'distance'
-  new Slick.Data.Aggregators.Sum 'consumedFuel'
   new Slick.Data.Aggregators.Sum 'duration'
 ]
 
@@ -163,25 +162,6 @@ Template.logbookGrid.helpers
         val = totals.sum && totals.sum[columnDef.field]
         if val
           "<b>#{moment.duration(val, 'seconds').humanize()}</b>"
-        else ''
-    ,
-      id: 'fuel'
-      field: 'consumedFuel'
-      name: 'Гориво / на 100км'
-      formatter: (row, cell, value, column, rowObject) ->
-        fc = FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.consumedFuel/1000
-        fp100 = FleetrGrid.Formatters.roundFloat(2) row, cell, rowObject.fuelPer100/1000
-        "#{fc or ''}<br />#{fp100 or ''}"
-      width: 30
-      align: 'right'
-      search:
-        where: 'client'
-        filter: (filterText) -> (columnValue) ->
-          if columnValue >= parseFloat(filterText) then columnValue else ''
-      groupTotalsFormatter: (totals, columnDef) ->
-        val = totals.sum && totals.sum[columnDef.field]
-        if val
-          "<b>#{(Math.round(parseFloat(val)*100)/100)/1000}</b>"
         else ''
     ,
       id: 'speed'
