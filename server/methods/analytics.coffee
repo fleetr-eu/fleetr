@@ -1,8 +1,13 @@
 Meteor.methods
   'analytics/month-vehicle-speed': ->
     @unblock()
+
+    devices = Vehicles.find({}, {fields: unitId: 1}).map (v) -> v.unitId
     pipeline =
       [
+        {$match:
+          deviceId: $in: devices
+        }
         {$group:
           _id:
             deviceId: "$deviceId"
