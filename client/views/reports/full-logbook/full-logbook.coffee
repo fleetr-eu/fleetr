@@ -2,35 +2,50 @@ aggregators = [
   new Slick.Data.Aggregators.Sum 'distance'
 ]
 
+speeds = new ReactiveVar
+selectedMonth = new ReactiveVar
 Template.fullLogbookReport.onRendered ->
-  
   Meteor.call "analytics/month-vehicle-speed", (error, result) ->
-    console.log(result)
-    config =  
-      type: 'bar'
-      data: 
-        labels: (r.vehicle for r in result['2016-12'])
-        datasets: [
-          label: 'Максимална скорост'
-          data: (r.maxSpeed for r in result['2016-12']).map(Math.round)
-          backgroundColor: 'rgba(220,99,132,1)'
-        ,
-          label: 'Средна скорост'
-          data: (r.avgSpeed for r in result['2016-12']).map(Math.round)
-          backgroundColor: 'rgba(54, 162, 235, 1)'
-        ]  
+    speeds.set result
 
-      options: 
-        scales: 
-          yAxes: [
-            ticks: 
-              min: 0
+  @autorun =>
+    result = speeds.get()
+    month = selectedMonth.get()
+    if result
+      month ?= Object.keys(result)[0]
+      config =
+        type: 'bar'
+        data:
+          labels: (r.vehicle for r in result[month])
+          datasets: [
+            label: 'Максимална Скорост (км/ч)'
+            data: (r.maxSpeed for r in result[month])
+            backgroundColor: 'rgba(220,99,132,1)'
+          ,
+            label: 'Средна Скорост (км/ч)'
+            data: (r.avgSpeed for r in result[month])
+            backgroundColor: 'rgba(54, 162, 235, 1)'
           ]
 
-    ctx = document.getElementById("chart").getContext("2d")
-    window.myLine = new Chart(ctx, config)
-  
+        options:
+          scales:
+            yAxes: [
+              ticks:
+                min: 0
+            ]
+      ctx = document.getElementById("chart").getContext("2d")
+      @chart = new Chart(ctx, config)
+
+
+Template.fullLogbookReport.events
+  'click a.speed-month': ->
+    selectedMonth.set @
+
 Template.fullLogbookReport.helpers
+  months: ->
+    if speeds?.get()
+      Object.keys speeds.get()
+    else []
   fleetrGridConfig: ->
     columns: [
       id: "date"
