@@ -11,12 +11,12 @@ Template.fullLogbookReport.onRendered ->
       data: 
         labels: (r.vehicle for r in result['2016-12'])
         datasets: [
-          label: 'Максимална Скорост (км/ч)'
-          data: (r.maxSpeed for r in result['2016-12'])
+          label: 'Максимална скорост'
+          data: (r.maxSpeed for r in result['2016-12']).map(Math.round)
           backgroundColor: 'rgba(220,99,132,1)'
         ,
-          label: 'Средна Скорост (км/ч)'
-          data: (r.avgSpeed for r in result['2016-12'])
+          label: 'Средна скорост'
+          data: (r.avgSpeed for r in result['2016-12']).map(Math.round)
           backgroundColor: 'rgba(54, 162, 235, 1)'
         ]  
 
@@ -27,9 +27,9 @@ Template.fullLogbookReport.onRendered ->
               min: 0
           ]
 
-    ctx = document.getElementById("chart").getContext("2d");
-    window.myLine = new Chart(ctx, config);
-
+    ctx = document.getElementById("chart").getContext("2d")
+    window.myLine = new Chart(ctx, config)
+  
 Template.fullLogbookReport.helpers
   fleetrGridConfig: ->
     columns: [

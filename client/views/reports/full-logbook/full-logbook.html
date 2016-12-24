@@ -7,9 +7,8 @@
 	      </li>
 	      <li>
 	        <a href="#tab_2" data-toggle="tab">
-	        Максимална скорост по дни</a>
-	      </li>
-	      
+	        Максимална и средна скорост за месец</a>
+	      </li>	      
 	    </ul>	 
 	    <div class="tab-content">
 	        <div class="tab-pane active" id="tab_1">
@@ -20,8 +19,12 @@
 				</div> 
 	        </div>
 	        <div class="tab-pane" id="tab_2">
-	        	<div class="dropdown">
-				    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Месеци
+	        	<div class="pull-left">
+				    	<label class="radio-inline"><input type="radio" checked name="optradio">Максимална и средна скорост</label>
+						<label class="radio-inline"><input type="radio" name="optradio">Брой превишавания</label>
+					</div>
+	        	<div class="dropdown pull-right">
+				    <button class="btn btn-xs btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Изберете месец
 				    <span class="caret"></span></button>
 				    <ul class="dropdown-menu" role="menu" aria-labelledby="Months">
 				    	<!-- {{#each months} -->
