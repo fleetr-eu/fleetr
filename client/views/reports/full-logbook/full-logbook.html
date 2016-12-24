@@ -1,9 +1,31 @@
 <template name="fullLogbookReport">
-	 <div class="row">
-		<div class="col-md-12">
-			<div class="portlet light">
-	  			{{> fleetrReportGrid id="odometerGrid" config=fleetrGridConfig }}
-	   		</div>
-		</div>
-	</div>
+	<div class="tabbable-custom">
+	    <ul class="nav nav-tabs">
+	      <li class="active">
+	        <a href="#tab_1" data-toggle="tab">
+	        Списък </a>
+	      </li>
+	      <li>
+	        <a href="#tab_2" data-toggle="tab">
+	        Максимална скорост по дни</a>
+	      </li>
+	      
+	    </ul>	 
+	    <div class="tab-content">
+	        <div class="tab-pane active" id="tab_1">
+	         	<div class="col-md-12">
+					<div class="portlet light">
+		  				{{> fleetrReportGrid id="odometerGrid" config=fleetrGridConfig }}
+		   			</div>
+				</div> 
+	        </div>
+	        <div class="tab-pane" id="tab_2">
+	         	<div class="col-md-12">
+					<div class="portlet light">
+        				<canvas id="chart"></canvas>
+		   			</div>
+				</div> 
+	        </div>
+	    </div>
+	 </div>      
 </template>

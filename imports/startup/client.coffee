@@ -7,6 +7,8 @@
 require '../ui/third-party/markerclusterer.js'
 require '../ui/third-party/markerwithlabel.js'
 
+require '../ui/third-party/Chart.bundle.js'
+
 ## JQuery Plugins
 # require '../ui/third-party/jquery-ui-1.10.3.custom.min.js'
 require '../ui/third-party/jquery.slimscroll.min.js'
@@ -31,3 +33,5 @@ require '../ui/third-party/slickgrid/plugins/slick.cellrangedecorator.js'
 require '../ui/third-party/slickgrid/plugins/slick.cellrangeselector.js'
 require '../ui/third-party/slickgrid/controls/slick.columnpicker.js'
 require '../ui/third-party/slickgrid/controls/slick.pager.js'
+require '../ui/third-party/slickgrid/controls/slick.pager.js'
+

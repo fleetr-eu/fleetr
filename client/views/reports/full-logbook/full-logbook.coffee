@@ -2,6 +2,34 @@ aggregators = [
   new Slick.Data.Aggregators.Sum 'distance'
 ]
 
+Template.fullLogbookReport.onRendered ->
+  
+  Meteor.call "analytics/month-vehicle-speed", (error, result) ->
+    console.log(result)
+    config =  
+      type: 'bar'
+      data: 
+        labels: (r.vehicle for r in result['2016-12'])
+        datasets: [
+          label: 'Максимална Скорост (км/ч)'
+          data: (r.maxSpeed for r in result['2016-12'])
+          backgroundColor: 'rgba(220,99,132,1)'
+        ,
+          label: 'Средна Скорост (км/ч)'
+          data: (r.avgSpeed for r in result['2016-12'])
+          backgroundColor: 'rgba(54, 162, 235, 1)'
+        ]  
+
+      options: 
+        scales: 
+          yAxes: [
+            ticks: 
+              min: 0
+          ]
+
+    ctx = document.getElementById("chart").getContext("2d");
+    window.myLine = new Chart(ctx, config);
+
 Template.fullLogbookReport.helpers
   fleetrGridConfig: ->
     columns: [
