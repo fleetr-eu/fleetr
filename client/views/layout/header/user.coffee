@@ -6,3 +6,4 @@ Template.user.helpers
       Gravatar.imageUrl email,
         size: 34,
         default: 'mm'
+        secure: true
