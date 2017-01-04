@@ -75,10 +75,12 @@ Template.fleetrMap.helpers
         lng: 1
       reactive: false
     if selectedVehicle
-      if selectedVehicle.lat
+      if selectedVehicle.lat and selectedVehicle.lng
+        t.map?.selectMarker selectedVehicle._id
+        {lat, lng} = selectedVehicle
         t.map?.map.setCenter
-          lat: selectedVehicle.lat
-          lng: selectedVehicle.lng
+          lat: lat
+          lng: lng
       else
         sAlert.warning 'This vehicle has no known position.'
 

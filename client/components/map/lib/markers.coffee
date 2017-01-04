@@ -71,6 +71,20 @@ Meteor.startup ->
 
       super opts
 
+    select: ->
+      @setIconStyle
+        scale: 7
+        strokeWeight: 3
+
+    unselect: ->
+      @setIconStyle
+        scale: 4
+        strokeWeight: 2
+
+    setIconStyle: (style) ->
+      icon = @getIcon()
+      @setIcon _.extend icon, style
+
   class @FleetrInfoWindow extends google.maps.InfoWindow
     constructor: (vehicle) ->
       vehicle = vehicle || Vehicles.findOne(_id: Session.get('selectedVehicleId'))

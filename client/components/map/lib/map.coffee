@@ -148,3 +148,10 @@ Meteor.startup ->
     removePathMarkers: ->
       @hidePathMarkers()
       @pathMarkers = []
+
+    selectMarker: (id) ->
+      for i, m of @vehicleMarkers
+        if id is i
+          m.select()
+        else
+          m.unselect()
