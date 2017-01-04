@@ -4,6 +4,8 @@ aggregators = [
 
 speeds = new ReactiveVar
 selectedMonth = new ReactiveVar
+speedsOption = new ReactiveVar
+
 Template.fullLogbookReport.onRendered ->
   Meteor.call "analytics/month-vehicle-speed", (error, result) ->
     speeds.set result
@@ -13,26 +15,40 @@ Template.fullLogbookReport.onRendered ->
     month = selectedMonth.get()
     if result
       month ?= Object.keys(result)[0]
-      config =
-        type: 'bar'
-        data:
-          labels: (r.vehicle for r in result[month])
-          datasets: [
-            label: 'Максимална Скорост (км/ч)'
-            data: (r.maxSpeed for r in result[month])
-            backgroundColor: 'rgba(220,99,132,1)'
-          ,
-            label: 'Средна Скорост (км/ч)'
-            data: (r.avgSpeed for r in result[month])
-            backgroundColor: 'rgba(54, 162, 235, 1)'
-          ]
-
-        options:
-          scales:
-            yAxes: [
-              ticks:
-                min: 0
+      if (speedsOption.get()) 
+        config =
+          type: 'bar'
+          data:
+            labels: (r.vehicle for r in result[month])
+            datasets: [
+              label: 'Максимална Скорост (км/ч)'
+              data: (r.maxSpeed for r in result[month])
+              backgroundColor: 'rgba(230, 50, 50,1)'
+            ,
+              label: 'Средна Скорост (км/ч)'
+              data: (r.avgSpeed for r in result[month])
+              backgroundColor: 'rgba(50, 50, 230, 1)' 
             ]
+      else 
+        config =
+          type: 'bar'
+          data:
+            labels: (r.vehicle for r in result[month])
+            datasets: [
+              label: 'Cкорост > 130 км/ч (брой)'
+              data: (r.overspeeding for r in result[month])
+              backgroundColor: 'rgba(230, 50, 50, 1)'  
+            ]
+
+          options:
+            scales:
+              yAxes: [
+                ticks:
+                  min: 0
+              ]    
+
+      $('#chart-container').empty()
+      $('#chart-container').append('<canvas id="chart"><canvas>')
       ctx = document.getElementById("chart").getContext("2d")
       @chart = new Chart(ctx, config)
 
@@ -40,6 +56,10 @@ Template.fullLogbookReport.onRendered ->
 Template.fullLogbookReport.events
   'click a.speed-month': ->
     selectedMonth.set @
+  'change #speedsOption': ->
+    speedsOption.set true
+  'change #overspeedingOption': ->
+    speedsOption.set false
 
 Template.fullLogbookReport.helpers
   months: ->

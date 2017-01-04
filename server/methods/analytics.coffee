@@ -17,6 +17,7 @@ Meteor.methods
                 date: "$recordTime"
           maxSpeed: $max: "$speed"
           avgSpeed: $avg: "$speed"
+          overspeeding: $sum: $cond: [$gt: ['$speed', 130], 1, 0]
         }
         {$lookup:
            {
@@ -31,16 +32,18 @@ Meteor.methods
           month: "$_id.month"
           maxSpeed: 1
           avgSpeed: 1
+          overspeeding: 1
           vehicle: $arrayElemAt: ["$vehicle", 0]
         }
         {$project:
           month: 1
           maxSpeed: 1
           avgSpeed: 1
+          overspeeding: 1
           vehicle:
             $concat: [ "$vehicle.name", " (", "$vehicle.licensePlate", ")" ]
         }
-        {$sort: maxSpeed: -1}
+        {$sort: overspeeding: -1}
       ]
     Logbook.aggregate(pipeline).reduce (result, elem) ->
       result[elem.month] ?= []

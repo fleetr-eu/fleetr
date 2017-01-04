@@ -20,8 +20,8 @@
 	        </div>
 	        <div class="tab-pane" id="tab_2">
 	        	<div class="pull-left">
-				    	<label class="radio-inline"><input type="radio" checked name="optradio">Максимална и средна скорост</label>
-						<label class="radio-inline"><input type="radio" name="optradio">Брой превишавания</label>
+						<label class="radio-inline"><input type="radio" id="overspeedingOption" checked name="optradio">Брой превишавания</label>
+						<label class="radio-inline"><input type="radio" id="speedsOption" name="optradio">Максимална и средна скорост</label>
 					</div>
 	        	<div class="dropdown pull-right">
 				    <button class="btn btn-xs btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Изберете месец
@@ -37,7 +37,7 @@
 				    </ul>
 				</div>
 	         	<div class="col-md-12">
-					<div class="portlet light">
+					<div class="portlet light" id="chart-container">
         				<canvas id="chart"></canvas>
 		   			</div>
 				</div>
