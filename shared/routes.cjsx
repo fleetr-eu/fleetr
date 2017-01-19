@@ -102,7 +102,9 @@ Meteor.startup ->
       data: ->
         fleetName: @params.fleetName
         title: TAPi18n.__('vehicles.listTitle')
-        topnav: <CrudButtons editItemTemplate='vehicle' i18nRoot='vehicles' showMaintenancesButton=true collection=Vehicles removeItemMethod='removeVehicle'/>
+        topnav: <CrudButtons editItemTemplate='vehicle' i18nRoot='vehicles'
+                      showMaintenancesButton=true collection=Vehicles
+                      removeItemMethod='removeVehicle'/>
 
     @route 'listCustomEvents',
       path: '/custom-events/list'
@@ -237,7 +239,7 @@ Meteor.startup ->
         topnav:
           <CrudButtons editItemTemplate='expense' i18nRoot='expenses' collection=Expenses removeItemMethod='removeExpense'>
             <li><a href={Router.path 'listExpenseGroups'}>{TAPi18n.__("expenseGroups.listTitle")}</a></li>
-            <li><a href={Router.path 'listExpenseTypes'}>{TAPi18n.__("expenseTypes.listTitle")}</a></li> 
+            <li><a href={Router.path 'listExpenseTypes'}>{TAPi18n.__("expenseTypes.listTitle")}</a></li>
             <li><a href={Router.path 'importExpenses'}>{TAPi18n.__("expenses.import.title")}</a></li>
           </CrudButtons>
 
@@ -350,18 +352,27 @@ Meteor.startup ->
         Meteor.subscribe('insuranceTypes')]
       data: ->
         title: TAPi18n.__('insurances.listTitle')
-        topnav: <CrudButtons editItemTemplate='insurance' i18nRoot='insurances' collection=Insurances removeItemMethod='removeInsurance'>
+        topnav: <CrudButtons editItemTemplate='insurance' i18nRoot='insurances'
+                  collection=Insurances removeItemMethod='removeInsurance'
+                  showInsurancePaymentsButton=true>
           <li><a href={Router.path 'listInsuranceTypes'}>{TAPi18n.__("menu.listInsuranceTypes")}</a></li>
         </CrudButtons>
 
     @route 'listInsurancePayments',
       path: '/insurance/:insuranceId/payment/list'
       template: 'insurancePayments'
-      data: ->
-        insuranceId : @params.insuranceId
-        title: TAPi18n.__('insurance.listTitle')
       waitOn: ->
         Meteor.subscribe('insurancePayments', @params.insurancePaymentId)
+      data: ->
+        insuranceId : @params.insuranceId
+        title: TAPi18n.__('insurancePayments.listTitle')
+        topnav: <CrudButtons editItemTemplate='insurancePayment'
+                      i18nRoot='insurancePayments'
+                      collection=InsurancePayments
+                      removeItemMethod='removeInsurancePayment'>
+          <li><a href={Router.path 'listInsurances'}>{TAPi18n.__("menu.insurances")}</a></li>
+          <li><a href={Router.path 'listInsuranceTypes'}>{TAPi18n.__("menu.listInsuranceTypes")}</a></li>
+        </CrudButtons>
 
     @route 'geofences',
       path: '/geofences'

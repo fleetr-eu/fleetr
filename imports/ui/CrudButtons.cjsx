@@ -7,6 +7,7 @@ CrudButtons = React.createClass
   getDefaultProps: ->
     showMaintenancesButton: false
     showDocumentsButton: false
+    showInsurancePaymentsButton: false
 
   add: ->
     ModalForm.show @props.editItemTemplate,
@@ -27,31 +28,44 @@ CrudButtons = React.createClass
 
   render: ->
     <ul className="nav navbar-nav navbar-left">
-      <li><a href="#" onClick={@add} style={padding:'5px'} title="New">
+      <li><a href="#" onClick={@add} style={padding:'5px'}
+              title={TAPi18n.__('button.add')}>
         <i className="pe-7s-plus" style={fontSize:'30px'}></i>
       </a></li>
       {if @props.doc
         [
-          <li key='edit'><a href="#" onClick={@edit} style={padding:'5px'} title="Edit">
+          <li key='edit'><a href="#" onClick={@edit} style={padding:'5px'}
+              title={TAPi18n.__('button.edit')}>
             <i className="pe-7s-pen" style={fontSize:'30px'}></i>
           </a></li>
         ,
-          <li key='delete'><a href="#" onClick={@delete} style={padding:'5px'} title="Delete">
+          <li key='delete'><a href="#" onClick={@delete} style={padding:'5px'}
+              title={TAPi18n.__('button.delete')}>
             <i className="pe-7s-trash" style={fontSize:'30px'}></i>
           </a></li>
         ]
       }
       {if @props.doc and @props.showMaintenancesButton
         <li>
-          <a href={Router.path 'listMaintenances', vehicleId: @props.selectedItem} style={padding:'5px'} title="Maintenance">
+          <a href={Router.path 'listMaintenances', vehicleId: @props.selectedItem}
+                  style={padding:'5px'} title={TAPi18n.__('maintenances.listTitle')}>
             <i className="pe-7s-tools" style={fontSize:'30px'}></i>
           </a>
         </li>
       }
       {if @props.doc and @props.showDocumentsButton
         <li>
-          <a href={Router.path 'listDocuments', driverId: @props.selectedItem}  style={padding:'5px'} title="Documents">
+          <a href={Router.path 'listDocuments', driverId: @props.selectedItem}
+                  style={padding:'5px'} title={TAPi18n.__("documentTypes.listTitle")}>
             <i className="pe-7s-news-paper" style={fontSize:'30px'}></i>
+          </a>
+        </li>
+      }
+      {if @props.doc and @props.showInsurancePaymentsButton
+        <li>
+          <a href={Router.path 'listInsurancePayments', insuranceId: @props.selectedItem}
+                  style={padding:'5px'} title={TAPi18n.__('insurancePayments.listTitle')}>
+            <i className="pe-7s-credit" style={fontSize:'30px'}></i>
           </a>
         </li>
       }
