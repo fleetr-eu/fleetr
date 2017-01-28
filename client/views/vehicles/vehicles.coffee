@@ -11,7 +11,7 @@ linkFormatter = (report) -> (row, cell, value) ->
   "<a href='/vehicles/#{value}/#{report}' style='background-color:#000'><img src='/images/#{report}-icon.png' height='22' }'></img></a>"
 
 linkLoogbookFormatter = (report, minDistance) -> (row, cell, value) ->
-  "<a href='/vehicles/#{value}/#{report}?minTripDistance=#{minDistance}'><img src='/images/#{report}-icon.png' height='22' }'></img></a>"  
+  "<a href='/vehicles/#{value}/#{report}?minTripDistance=#{minDistance}'><img src='/images/#{report}-icon.png' height='22' }'></img></a>"
 
 mapLinkFormatter = (row, cell, value) ->
   "<a href='/vehicles/map/#{value}'><img src='/images/Google-Maps-icon.png' height='22'}'></img></a>"
@@ -41,7 +41,7 @@ Template.vehicles.helpers
     removeItemMethod: 'removeVehicle'
     additionalItemActionsTemplate: 'vehicleButtons'
     gridConfig:
-      pagination: true
+      pagination: false
       columns: [
         id: "state"
         field: "state"
@@ -141,7 +141,7 @@ Template.vehicles.helpers
         maxWidth: 31
         formatter: linkFormatter 'history'
         align: 'left'
-      ,  
+      ,
         id: "tags"
         field: "tags"
         name: TAPi18n.__('vehicles.tags')
