@@ -4,6 +4,9 @@ MapAdditionalControls = require '/imports/ui/MapAdditionalControls.cjsx'
 GeofencesNav          = require '/imports/ui/navs/GeofencesNav.cjsx'
 VehiclesLogbookNav    = require '/imports/ui/navs/VehiclesLogbookNav.cjsx'
 ImportExpensesNav     = require '/imports/ui/navs/ImportExpensesNav.cjsx'
+IconButton  = require '/imports/ui/buttons/IconButton.cjsx'
+
+exportVehiclesToCSV = require '/imports/actions/exportVehiclesToCSV.coffee'
 
 Meteor.startup ->
   Accounts.config
@@ -104,7 +107,13 @@ Meteor.startup ->
         title: TAPi18n.__('vehicles.listTitle')
         topnav: <CrudButtons editItemTemplate='vehicle' i18nRoot='vehicles'
                       showMaintenancesButton=true collection=Vehicles
-                      removeItemMethod='removeVehicle'/>
+                      removeItemMethod='removeVehicle'>
+                  <li>
+                    <IconButton title={TAPi18n.__("button.exportToCSV")}
+                                className='pe-7s-download'
+                                onClick={exportVehiclesToCSV} />
+                  </li>
+                </CrudButtons >
 
     @route 'listCustomEvents',
       path: '/custom-events/list'

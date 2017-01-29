@@ -388,7 +388,8 @@
     "edit": "Edit",
     "delete": "Delete",
     "filter": "Filter",
-    "showGeofences": "Show objects"
+    "showGeofences": "Show objects",
+    "exportToCSV": "Export to CSV"
   },
 
   "alarmTypes" : {

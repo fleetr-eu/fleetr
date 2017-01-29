@@ -7,6 +7,10 @@ Drivers.getAssignedVechicle =  (driver, timestamp) ->
   else
     ""
 
+Drivers.helpers
+  fullName: ->
+    "#{@firstName} #{@name}"
+
 Drivers.utils =
   processNotifications: (doc, id) ->
     if doc.validTo

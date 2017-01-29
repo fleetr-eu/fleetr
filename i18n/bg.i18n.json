@@ -389,7 +389,8 @@
     "edit": "Промени",
     "delete": "Изтрий",
     "filter": "Филтър",
-    "showGeofences": "Покажи обекти"
+    "showGeofences": "Покажи обекти",
+    "exportToCSV": "Свали в CSV формат"
   },
 
   "alarmTypes" : {
