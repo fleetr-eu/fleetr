@@ -1,25 +1,26 @@
 React               = require 'react'
 { createContainer } = require 'meteor/react-meteor-data'
 
-{ Map, Marker, Popup, TileLayer } = require 'react-leaflet'
+GoogleMap = (require 'google-map-react').default;
 
 position = [51.505, -0.09]
 
-module.exports  = React.createClass
-  displayName: 'Map'
+defaultProps =
+  center: {lat: 59.938043, lng: 30.337157}
+  zoom: 9
+  greatPlaceCoords: {lat: 59.724465, lng: 30.080121}
+
+MyMarker = React.createClass
+  displayName: 'FleetrMarker'
 
   render: ->
-    <Map ref='map' center={position} zoom={13}  style={height:'calc(100vh - 61px)'}>
-      <TileLayer
-        url='http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}'
-        attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      	minZoom=0
-      	maxZoom=20
-      	ext='png'
-      />
-      <Marker position={position}>
-        <Popup>
-          <span>A pretty CSS3 popup.<br/>Easily customizable.</span>
-        </Popup>
-      </Marker>
-    </Map>
+    <div style={padding:5, backgroundColor:'lightGrey', width:100}>Im a marker at {@props.lat}:{@props.lng}</div>
+
+module.exports  = React.createClass
+  displayName: 'FleetrMap'
+
+  render: ->
+    console.log GoogleMap
+    <GoogleMap defaultCenter={defaultProps.center} defaultZoom={defaultProps.zoom} style={height:'calc(100vh - 61px)'}>
+      <MyMarker style={padding:5} lat={59.955413} lng={30.337844} />
+    </GoogleMap>
