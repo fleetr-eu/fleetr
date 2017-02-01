@@ -21,7 +21,7 @@ Schema.insurance = new SimpleSchema
       firstOption: "(Изберете)"
       options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
-     
+
   insuranceCompany:
     type: String
     label: ()->TAPi18n.__('insurances.insuranceCompany')
@@ -42,6 +42,7 @@ Schema.insurance = new SimpleSchema
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   value:
     type: Number
+    decimal: true
     label: ()->TAPi18n.__('insurances.value')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
@@ -135,7 +136,7 @@ Schema.insurancePayment = new SimpleSchema
     autoform:
       type: "bootstrap-datepicker"
       datePickerOptions: Settings.dpOptions
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"   
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   actualDate:
     type: Date
     label: ()->TAPi18n.__('insurancePayments.actualDate')
@@ -151,7 +152,7 @@ Schema.insurancePayment = new SimpleSchema
     allowedValues: ['EUR', 'BGN']
     autoform:
       firstOption: "(Изберете)"
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm" 
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   amountNoVAT:
     type: Number
     label: ()->TAPi18n.__('insurancePayments.amountNoVAT')
@@ -166,7 +167,7 @@ Schema.insurancePayment = new SimpleSchema
     type: String
     label: ()->TAPi18n.__('insurancePayments.VONumber')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"                 
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   invoiceNo:
     type: String
     label: ()->TAPi18n.__('insurancePayments.invoiceNo')
@@ -176,6 +177,4 @@ Schema.insurancePayment = new SimpleSchema
     type: Number
     label: ()->TAPi18n.__('insurancePayments.balance')
     autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"     
-   
-  
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
