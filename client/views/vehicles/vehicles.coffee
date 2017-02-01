@@ -55,7 +55,7 @@ Template.vehicles.helpers
         id: "speed"
         field: "speed"
         name: TAPi18n.__('vehicles.speedShort')
-        maxWidth: 50
+        maxWidth: 70
         sortable: true
         align: 'right'
         search: where: 'client'
