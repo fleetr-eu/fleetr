@@ -11,6 +11,15 @@ Template.insurances.helpers
     removeItemMethod: 'removeInsurance'
     gridConfig:
       columns: [
+        id: "vehicle"
+        field: "vehicle"
+        name: TAPi18n.__('insurances.vehicle')
+        width:90
+        sortable: true
+        search: where: 'client'
+        groupable:
+          aggregators: aggregators
+      ,
         id: "insuranceCompany"
         field: "insuranceCompany"
         name: TAPi18n.__('insurances.insuranceCompany')
@@ -23,7 +32,7 @@ Template.insurances.helpers
         id: "insuranceType"
         field: "insuranceTypeName"
         name: TAPi18n.__('insurances.insuranceType')
-        width:80
+        width:40
         sortable: true
         search: where: 'client'
         groupable:
@@ -85,5 +94,6 @@ Template.insurances.helpers
         forceFitColumns: true
       cursor: Insurances.find {},
         transform: (doc) -> _.extend doc,
+          vehicle: Vehicles.findOne(_id: doc.vehicle).displayName()
           insuranceTypeName: InsuranceTypes.findOne(_id: doc.insuranceType)?.name,
           remainingDays: if doc.policyValidTo then moment(doc.policyValidTo).diff(moment(), 'days') else -1

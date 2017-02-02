@@ -9,6 +9,8 @@ Vehicles.helpers
     Drivers.findOne _id: @driver_id
   odometerKm: ->
     Math.round(@odometer / 1000)
+  displayName: ->
+    "#{@name} (#{@licensePlate})"
 
 Vehicles.after.update (userId, doc, fieldNames, modifier, options) ->
   if doc.nextTechnicalCheck
