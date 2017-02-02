@@ -4,9 +4,8 @@ mapLinkFormatter = (row, cell, value) ->
       <img src='/images/Google-Maps-icon.png' height='22'}'></img>
     </a>
   """
-addressFormatter = (row, cell, value, column, rowObject) ->
-  from = rowObject.startAddress
-  to = rowObject.stopAddress
+addressFormatter = (row, cell, value) ->
+  [from, to] = value?.split '\n'
   address = """
     #{from or ''}
     <br />
@@ -131,9 +130,16 @@ Template.logbookGrid.helpers
     ,
       id: 'beginEnd'
       name: 'Старт / Финиш'
+      field: 'address'
       formatter: addressFormatter
       width: 80
-      search: where: 'client'
+      search:
+        where: 'client'
+        filter: (filterText) ->
+          (columnValue) ->
+            if columnValue?.indexOf(filterText) isnt -1
+              columnValue
+            else ''
     ,
       id: 'distance'
       field: 'distance'
