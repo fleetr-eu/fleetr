@@ -23,20 +23,21 @@
         </li>
         {{#each fleetGroups}}
         <li>
-          <a data-toggle="collapse" data-target="#{{name}}Menu">
-          <span class="title">{{name}}</span>
-          <span class="arrow"></span>
+          <a data-toggle="collapse" data-target="#{{_id}}-fleets">
+            <span class="title">{{name}}</span>
+            <span class="badge pull-right">{{fleetCount}}</span>
           </a>
-          <ul class="sub-menu nav nav-list collapse" id="{{name}}Menu">
+          {{#if fleetCount}}
+          <ul class="sub-menu nav nav-list collapse" id="{{_id}}-fleets">
             {{#each fleets}}
               <li class="{{isActivePath regex='{{name}}'}}">
                 <a class="show-fleet-vehicles" href="{{pathFor 'listVehicles' fleetName=name}}">
-                <span class="title">{{name}}</span>
-                <span class="arrow"></span>
+                  <span class="title">{{name}}</span>
                 </a>
               </li>
             {{/each}}
           </ul>
+          {{/if}}
         </li>
         {{/each}}
       </ul>

@@ -3,11 +3,7 @@ Template.sidenav.onCreated ->
   Meteor.subscribe 'fleets'
 
 Template.sidenav.helpers
-  fleetGroups: ->
-    FleetGroups.find {},
-      transform: (fg) ->
-        _.extend fg,
-          fleets: -> Fleets.find parent: fg._id
+  fleetGroups: -> FleetGroups.find()
 
 Template.sidenav.events
   'click .show-all-vehicles': ->
