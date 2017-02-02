@@ -2,8 +2,12 @@ Template.insurancePayments.onRendered ->
   Template.insurancePayment.helpers
     insuranceId: => @data.insuranceId
 
+
 Template.insurancePayments.helpers
-  options: (t) ->
+  title: ->
+    insurance: ins = Insurances.findOne(_id: @insuranceId)
+    vehicleName: Vehicles.findOne(_id: ins.vehicle).displayName()
+  options: ->
     i18nRoot: 'insurancePayments'
     collection: InsurancePayments
     editItemTemplate: 'insurancePayment'

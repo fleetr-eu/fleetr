@@ -56,3 +56,10 @@ Meteor.startup ->
       fleetsCursor
       FleetGroups.find _id: fleetsCursor.fetch()[0]?.parent
     ]
+
+  Meteor.publish 'insurance', (insId) ->
+    Insurances.find _id: insId
+
+  Meteor.publish 'vehicleForInsurance', (insId) ->
+    ins = Insurances.findOne _id: insId
+    Vehicles.find _id: ins.vehicle

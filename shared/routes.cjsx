@@ -370,8 +370,11 @@ Meteor.startup ->
     @route 'listInsurancePayments',
       path: '/insurance/:insuranceId/payment/list'
       template: 'insurancePayments'
-      waitOn: ->
-        Meteor.subscribe('insurancePayments', @params.insurancePaymentId)
+      waitOn: -> [
+        Meteor.subscribe('insurance', @params.insuranceId)
+        Meteor.subscribe('vehicleForInsurance', @params.insuranceId)
+        Meteor.subscribe('insurancePayments', @params.insuranceId)
+      ]
       data: ->
         insuranceId : @params.insuranceId
         title: TAPi18n.__('insurancePayments.listTitle')
