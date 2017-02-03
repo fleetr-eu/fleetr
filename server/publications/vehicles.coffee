@@ -67,3 +67,15 @@ Meteor.publish 'vehicles/names', publishVehicleNames
 
 Meteor.publish 'vehicle/name', (vehicleId) ->
   publishVehicleNames _id: vehicleId
+
+
+Meteor.publish 'vehicleInfo', (unitId) ->
+  vehiclesCursor = Vehicles.find unitId: "#{unitId}"
+  v = vehiclesCursor.fetch()[0]
+  fleetsCursor = Fleets.find _id: v?.allocatedToFleet
+  [
+    vehiclesCursor
+    Drivers.find vehicle_id: v?._id
+    fleetsCursor
+    FleetGroups.find _id: fleetsCursor.fetch()[0]?.parent
+  ]

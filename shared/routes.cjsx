@@ -357,7 +357,7 @@ Meteor.startup ->
       template: 'insurances'
       waitOn: ->
         [Meteor.subscribe('insurances', @params.insuranceId)
-        Meteor.subscribe('vehicles')
+        Meteor.subscribe('vehicles/names')
         Meteor.subscribe('insuranceTypes')]
       data: ->
         title: TAPi18n.__('insurances.listTitle')
