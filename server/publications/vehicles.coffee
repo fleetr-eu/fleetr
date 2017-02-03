@@ -56,3 +56,14 @@ Meteor.publish 'vehicle/history', (vehicleId) ->
   if v = Vehicles.findOne(_id: vehicleId)
     VehicleHistory.find {deviceId: v.unitId}, {sort: date: -1}
   else []
+
+publishVehicleNames = (filter = {}) ->
+  Vehicles.find PermissionsManager.augment(filter, 'vehicles'),
+    fields:
+      name: 1
+      licensePlate: 1
+
+Meteor.publish 'vehicles/names', publishVehicleNames
+
+Meteor.publish 'vehicle/name', (vehicleId) ->
+  publishVehicleNames _id: vehicleId

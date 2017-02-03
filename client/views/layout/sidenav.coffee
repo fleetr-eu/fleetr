@@ -1,9 +1,11 @@
 Template.sidenav.onCreated ->
   Meteor.subscribe 'fleetGroups'
   Meteor.subscribe 'fleets'
+  Meteor.subscribe 'vehicles/names'
 
 Template.sidenav.helpers
   fleetGroups: -> FleetGroups.find()
+  allVehiclesCount: -> Vehicles.find().count()
 
 Template.sidenav.events
   'click .show-all-vehicles': ->
