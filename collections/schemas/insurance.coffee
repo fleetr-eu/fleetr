@@ -126,6 +126,7 @@ Schema.insurancePayment = new SimpleSchema
     optional: true
   montlyPayment:
     type: Number
+    decimal: true
     label: ()->TAPi18n.__('insurancePayments.montlyPayment')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
@@ -155,11 +156,13 @@ Schema.insurancePayment = new SimpleSchema
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   amountNoVAT:
     type: Number
+    decimal: true
     label: ()->TAPi18n.__('insurancePayments.amountNoVAT')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   amountWithVAT:
     type: Number
+    decimal: true
     label: ()->TAPi18n.__('insurancePayments.amountWithVAT')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
