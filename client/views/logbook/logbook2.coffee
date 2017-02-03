@@ -133,13 +133,7 @@ Template.logbookGrid.helpers
       field: 'address'
       formatter: addressFormatter
       width: 80
-      search:
-        where: 'client'
-        filter: (filterText) ->
-          (columnValue) ->
-            if columnValue?.indexOf(filterText) isnt -1
-              columnValue
-            else ''
+      search: where: 'client'
     ,
       id: 'distance'
       field: 'distance'
