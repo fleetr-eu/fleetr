@@ -15,7 +15,7 @@ Template.fullLogbookReport.onRendered ->
     month = selectedMonth.get()
     if result
       month ?= Object.keys(result)[0]
-      if (speedsOption.get()) 
+      if (speedsOption.get())
         config =
           type: 'bar'
           data:
@@ -27,9 +27,9 @@ Template.fullLogbookReport.onRendered ->
             ,
               label: 'Средна Скорост (км/ч)'
               data: (r.avgSpeed for r in result[month])
-              backgroundColor: 'rgba(50, 50, 230, 1)' 
+              backgroundColor: 'rgba(50, 50, 230, 1)'
             ]
-      else 
+      else
         config =
           type: 'bar'
           data:
@@ -37,7 +37,7 @@ Template.fullLogbookReport.onRendered ->
             datasets: [
               label: 'Cкорост > 130 км/ч (брой)'
               data: (r.overspeeding for r in result[month])
-              backgroundColor: 'rgba(230, 50, 50, 1)'  
+              backgroundColor: 'rgba(230, 50, 50, 1)'
             ]
 
           options:
@@ -45,7 +45,7 @@ Template.fullLogbookReport.onRendered ->
               yAxes: [
                 ticks:
                   min: 0
-              ]    
+              ]
 
       $('#chart-container').empty()
       $('#chart-container').append('<canvas id="chart"><canvas>')
