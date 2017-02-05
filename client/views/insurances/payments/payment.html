@@ -2,9 +2,11 @@
   {{#autoForm collection="InsurancePayments" doc=doc id="insurancePaymentsForm" type="method-update" meteormethod="submitInsurancePayment"}}
     <fieldset>
   	  {{> afFieldInput type="hidden" name="_id" value=_id}}
+      <legend>Планирано плащане</legend>
       {{> afFieldInput type="hidden" name="insuranceId" value=insuranceId}}
       {{> afQuickField name="montlyPayment" autofocus=true }}
       {{> afQuickField name="plannedDate" }}
+      <legend>Реално плащане</legend>
       {{> afQuickField name="actualDate" }}
       {{> afQuickField name="currency" }}
       {{> afQuickField name="amountNoVAT" }}

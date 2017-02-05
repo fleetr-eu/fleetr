@@ -24,10 +24,11 @@ Template.insurancePayments.helpers
         id: "plannedDate"
         field: "plannedDate"
         name: TAPi18n.__('insurancePayments.plannedDate')
-        hidden: true
+        hidden: false
         width:80
         sortable: true
         search: where: 'client'
+        formatter: FleetrGrid.Formatters.dateFormatter
       ,
         id: "actualDate"
         field: "actualDate"
@@ -35,6 +36,7 @@ Template.insurancePayments.helpers
         width:80
         sortable: true
         search: where: 'client'
+        formatter: FleetrGrid.Formatters.dateFormatter
       ,
         id: "currency"
         field: "currency"

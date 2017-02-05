@@ -150,34 +150,44 @@ Schema.insurancePayment = new SimpleSchema
     type: String
     label: ()->TAPi18n.__('insurancePayments.currency')
     optional: true
-    allowedValues: ['EUR', 'BGN']
+    allowedValues: ['Лев', 'Евро']
     autoform:
       firstOption: "(Изберете)"
+      options: [
+        { label:'Лева' , value: 'Лев'},
+        { label:'Евро' , value: 'Евро'}
+      ]
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
+
   amountNoVAT:
     type: Number
+    optional: true
     decimal: true
     label: ()->TAPi18n.__('insurancePayments.amountNoVAT')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   amountWithVAT:
     type: Number
+    optional: true
     decimal: true
     label: ()->TAPi18n.__('insurancePayments.amountWithVAT')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   VONumber:
     type: String
+    optional: true
     label: ()->TAPi18n.__('insurancePayments.VONumber')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   invoiceNo:
     type: String
+    optional: true
     label: ()->TAPi18n.__('insurancePayments.invoiceNo')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   balance:
     type: Number
+    optional: true
     label: ()->TAPi18n.__('insurancePayments.balance')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
