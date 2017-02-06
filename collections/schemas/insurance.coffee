@@ -50,9 +50,14 @@ Schema.insurance = new SimpleSchema
     type: String
     label: ()->TAPi18n.__('insurances.currency')
     optional: true
-    allowedValues: ['EUR', 'BGN']
+
+    allowedValues: ['Лев', 'Евро']
     autoform:
       firstOption: "(Изберете)"
+      options: [
+        { label:'Лева' , value: 'Лев'},
+        { label:'Евро' , value: 'Евро'}
+      ]
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   policyDate:
     type: Date
@@ -124,12 +129,6 @@ Schema.insurancePayment = new SimpleSchema
   insuranceId:
     type: String
     optional: true
-  montlyPayment:
-    type: Number
-    decimal: true
-    label: ()->TAPi18n.__('insurancePayments.montlyPayment')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   plannedDate:
     type: Date
     label: ()->TAPi18n.__('insurancePayments.plannedDate')
@@ -185,9 +184,4 @@ Schema.insurancePayment = new SimpleSchema
     label: ()->TAPi18n.__('insurancePayments.invoiceNo')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
-  balance:
-    type: Number
-    optional: true
-    label: ()->TAPi18n.__('insurancePayments.balance')
-    autoform:
-      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
+  

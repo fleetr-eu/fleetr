@@ -10,6 +10,8 @@ FleetrGrid.Formatters =
     Number((Number(value)).toFixed(decimals)) if value
   euroFormatter: (row, cell, value) ->
     "&euro; #{if value then parseFloat(value).toFixed(2) else '0.00'}"
+  moneyFormatter: (row, cell, value) ->
+    "#{if value then parseFloat(value).toFixed(2) else '0.00'}"  
   sumTotalsFormatter: (sign = '', decimals = 0) -> (totals, columnDef) ->
     val = totals.sum && totals.sum[columnDef.field]
     if val
@@ -67,5 +69,6 @@ FleetrGrid.Formatters =
 
 
 FleetrGrid.Formatters.sumEuroTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '&euro;', 2
+FleetrGrid.Formatters.sumMoneyTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '', 2 #make BGN
 FleetrGrid.Formatters.sumTotalsFormatterNoSign = FleetrGrid.Formatters.sumTotalsFormatter '', 2
 FleetrGrid.Formatters.sumTotalsQuantity = FleetrGrid.Formatters.sumTotalsFormatter '', 0

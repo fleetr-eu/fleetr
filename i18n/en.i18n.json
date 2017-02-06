@@ -456,6 +456,7 @@
     "policyValidTo" : "Valid To",
     "remainingDays" : "Remaining Days",
     "validityMonths": "Validity (months)",
+    "balance": "Balance",
     "numberOfPayments": "# of Payments",
     "insuredFirstName": "Insurant First Name",
     "insuredLastName" : "Insurant Sirname",
