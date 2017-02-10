@@ -3,7 +3,7 @@ aggregators = [ new Slick.Data.Aggregators.Sum 'distance' ]
 
 Template.proximity.onRendered ->
   Session.set 'proximity report location', null
-  autocomplete = new google.maps.places.Autocomplete(document.getElementById('proximity-address'), {types: ['geocode']})
+  autocomplete = new google.maps.places.Autocomplete(document.getElementById('proximity-address'), {types: []})
 
 Template.proximity.events
   'submit #proximity-location-form': (e, t) ->
