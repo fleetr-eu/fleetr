@@ -60,7 +60,8 @@ Meteor.startup ->
       showGeofences = document.getElementById("custom-map-controls")
       @map.controls[google.maps.ControlPosition.TOP_LEFT].push showGeofences
 
-      Autocomplete.init @map, document.getElementById("pac-input")
+      if pacInput = document.getElementById("pac-input")
+        Autocomplete.init @map, pacInput
 
       @clusterer = FleetrClusterer @map
 
