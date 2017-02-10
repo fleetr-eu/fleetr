@@ -311,7 +311,7 @@ Helpers =
       @_performSort args
 
     searchInputHandler = (e) =>
-      columnId = $(e.target).data("columnId");
+      columnId = $(e.target).data("columnId")
       if columnId
         column = (columns.filter (column) -> Helpers.columnId(column) == columnId)[0]
         where = column.search.where or 'client'
@@ -353,8 +353,8 @@ Helpers =
         else
           $('<span class="glyphicon glyphicon-search searchbox" aria-hidden="true"></span>').appendTo(args.node)
           $("<input id='searchbox-#{Helpers.columnId args.column}' type='text' class='searchbox'>")
-             .data("columnId", Helpers.columnId args.column)
-             .appendTo(args.node)
+          .data("columnId", Helpers.columnId args.column)
+          .appendTo(args.node)
       else
         $("<div class='searchdisabled'>&nbsp;</div>").appendTo args.node
 
