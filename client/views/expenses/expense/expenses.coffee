@@ -110,7 +110,7 @@ Template.expenses.helpers
         align : "right"
         sortable: true
         search: where: 'client'
-        formatter: FleetrGrid.Formatters.euroFormatter
+        formatter: FleetrGrid.Formatters.moneyFormatter
         groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
       ,
         id: "vat"
@@ -121,7 +121,7 @@ Template.expenses.helpers
         align : "right"
         sortable: true
         search: where: 'client'
-        formatter: FleetrGrid.Formatters.euroFormatter
+        formatter: FleetrGrid.Formatters.moneyFormatter
         groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
       ,
         id: "discount"
@@ -132,7 +132,7 @@ Template.expenses.helpers
         align : "right"
         sortable: true
         search: where: 'client'
-        formatter: FleetrGrid.Formatters.euroFormatter
+        formatter: FleetrGrid.Formatters.moneyFormatter
         groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
       ,
         id: "total"
@@ -142,7 +142,7 @@ Template.expenses.helpers
         align : "right"
         sortable: true
         search: where: 'client'
-        formatter: FleetrGrid.Formatters.euroFormatter
+        formatter: FleetrGrid.Formatters.moneyFormatter
         groupTotalsFormatter: FleetrGrid.Formatters.sumEuroTotalsFormatter
       ]
       options:

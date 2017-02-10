@@ -358,7 +358,8 @@ Meteor.startup ->
       waitOn: ->
         [Meteor.subscribe('insurances', @params.insuranceId)
         Meteor.subscribe('vehicles/names')
-        Meteor.subscribe('insuranceTypes')]
+        Meteor.subscribe('vehicles/names')
+        Meteor.subscribe('insurancePayments')]
       data: ->
         title: TAPi18n.__('insurances.listTitle')
         topnav: <CrudButtons editItemTemplate='insurance' i18nRoot='insurances'

@@ -464,6 +464,7 @@
     "policyValidTo" : "Валидна до",
     "remainingDays" : "Дни",
     "validityMonths": "Валидност (месеци)",
+    "balance": "Остатък",
     "numberOfPayments": "Брой плащания",
     "insuredFirstName": "Застрахован: име",
     "insuredLastName" : "Застрахован: фамилия",
