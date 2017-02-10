@@ -1,9 +1,3 @@
-mapLinkFormatter = (row, cell, value) ->
-  """
-    <a href='/vehicles/map/#{value}'>
-      <img src='/images/Google-Maps-icon.png' height='22'}'></img>
-    </a>
-  """
 addressFormatter = (row, cell, value) ->
   [from, to] = value?.split '\n'
   address = """

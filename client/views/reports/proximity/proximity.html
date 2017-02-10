@@ -1,0 +1,21 @@
+<template name="proximity">
+  <form id="proximity-location-form" class="form-inline">
+    <input class="form-control" type="text"
+      style="width: 70%;"
+      placeholder={{_ "reports.proximity.address"}} id="proximity-address">
+    <input class="form-control" type="text"
+      placeholder={{_ "reports.proximity.distance"}} id="proximity-distance">
+    <button type="submit" class="btn btn-primary pull-right">
+      <i class="glyphicon glyphicon-search"></i>
+    </button>
+  </form>
+  {{> proximityGrid location=location}}
+</template>
+
+<template name="proximityGrid">
+  <p>{{locationDisplayName}}</p>
+
+  {{#if render}}
+    {{> fleetrReportGrid id="proximityGrid" config=fleetrGridConfig location=location}}
+  {{/if}}
+</template>

@@ -487,3 +487,10 @@ Meteor.startup ->
       waitOn: -> [ Meteor.subscribe('geofences')
                   Meteor.subscribe('drivers')
                   Meteor.subscribe('vehicle', {unitId: JSON.parse(@params.data).deviceId})]
+
+    @route 'reports/proximity',
+      path: '/reports/proximity'
+      template: 'proximity'
+      data: ->
+        title: TAPi18n.__('reports.proximity.title')
+      waitOn: -> []

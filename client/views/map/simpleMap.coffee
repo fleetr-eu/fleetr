@@ -4,11 +4,7 @@ Template.simpleMap.onCreated ->
 
 Template.simpleMap.onRendered ->
   {deviceId, tripId, start, stop, idle} = @data.parsed
-  start.time = moment(start.time).toDate()
-  stop.time = moment(stop.time).toDate()
-
   @map = FleetrMap.currentMap().map
-
   if idle
     Meteor.subscribe 'idlebook', searchArgs, ->
       idleRec = IdleBook.findOne searchArgs
@@ -25,6 +21,8 @@ Template.simpleMap.onRendered ->
     searchArgs = if tripId
       'attributes.trip': tripId
     else
+      start.time = moment(start.time).toDate() if start.time
+      stop.time = moment(stop.time).toDate() if stop.time
       recordTime:
         $gte: start.time
         $lte: stop.time
