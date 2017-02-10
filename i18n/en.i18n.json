@@ -444,7 +444,9 @@
     },
     "proximity": {
       "address": "Address",
-      "distance": "Distance, м.",
+      "radius" : "Radius",
+      "meters" : "meters",
+      "distance": "Distance 200 m",
       "title": "Address search"
     }
   },
