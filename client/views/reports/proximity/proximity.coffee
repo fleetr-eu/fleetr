@@ -12,7 +12,7 @@ Template.proximity.events
     unless distance
       distance = 200
       t.$('#proximity-distance').val distance
-    HTTP.get "http://nominatim.openstreetmap.org/search/#{address}",
+    HTTP.get "https://nominatim.openstreetmap.org/search/#{address}",
       params:
         format: 'json'
         'accept-language': 'bg'
