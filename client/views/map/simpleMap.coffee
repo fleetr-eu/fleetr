@@ -41,7 +41,7 @@ Template.simpleMap.onRendered ->
 
       @path = Logbook.find(searchArgs, {sort: recordTime: 1}).map (point) ->
         bounds.extend new google.maps.LatLng(point.lat, point.lng)
-        _.pick point, 'lat', 'lng', 'speed', 'odometer', 'recordTime'
+        _.pick point, 'lat', 'lng', 'speed', 'odometer', 'recordTime', 'address'
       @map.fitBounds bounds
 
       [start, ..., stop] = @path

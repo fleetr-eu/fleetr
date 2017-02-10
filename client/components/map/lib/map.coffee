@@ -141,6 +141,7 @@ Meteor.startup ->
             speed: (point.speed or 0).toFixed(0)
             distance: (point.odometer/1000)?.toFixed(0)
             time: point.recordTime
+            address: point.address
           @pathMarkers.push new InfoMarker opts, info
 
     hidePathMarkers: ->
