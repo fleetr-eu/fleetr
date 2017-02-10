@@ -75,6 +75,7 @@ Template.proximityGrid.helpers
       formatter: (row, cell, value) ->
         q = encodeURIComponent EJSON.stringify
           tripId: value
+          addressLoc: location.get().coords
         """
         <a href='/map/#{q}'>
           <img src='/images/Google-Maps-icon.png' height='22'/>

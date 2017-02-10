@@ -3,8 +3,16 @@ Template.simpleMap.onCreated ->
   Session.set 'simpleMapShowInfoMarkers', false
 
 Template.simpleMap.onRendered ->
-  {deviceId, tripId, start, stop, idle} = @data.parsed
+  {deviceId, tripId, start, stop, idle, addressLoc, address} = @data.parsed
   @map = FleetrMap.currentMap().map
+
+  if addressLoc?.length is 2
+    addressLatLng = {lat: addressLoc[1], lng: addressLoc[0]}
+    marker = new google.maps.Marker
+      position: addressLatLng
+      map: @map
+      icon: '/images/address.png'
+
   if idle
     Meteor.subscribe 'idlebook', searchArgs, ->
       idleRec = IdleBook.findOne searchArgs
