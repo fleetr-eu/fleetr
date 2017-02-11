@@ -1,29 +1,35 @@
+placeLocation = undefined
 location = new ReactiveVar {}
 aggregators = [ new Slick.Data.Aggregators.Sum 'distance' ]
 
 Template.proximity.onRendered ->
   Session.set 'proximity report location', null
-  autocomplete = new google.maps.places.Autocomplete(document.getElementById('proximity-address'), {types: []})
+  autocomplete = new google.maps.places.Autocomplete(
+    document.getElementById('proximity-address')
+    types: []
+  )
+  autocomplete.addListener('place_changed', ->
+    place = autocomplete.getPlace();
+    lat = do place.geometry.location.lat
+    lng = do place.geometry.location.lng
+    distance = $('#proximity-distance').val()
+    address = place.formatted_address
+    placeLocation =
+      coords: [lng, lat]
+      address: address
+  )
 
 Template.proximity.events
   'submit #proximity-location-form': (e, t) ->
     e.preventDefault()
-    address = t.$('#proximity-address').val()
-    distance = t.$('#proximity-distance').val()
-    unless distance
-      distance = 200
-      t.$('#proximity-distance').val distance
-    HTTP.get "https://nominatim.openstreetmap.org/search/#{address}",
-      params:
-        format: 'json'
-        'accept-language': 'bg'
-    , (err, result) ->
-      {lat, lon} = result.data[0]
-      console.log lat, lon, distance
+    if placeLocation
+      address = placeLocation.address
       location.set
-        coords: [parseFloat(lon), parseFloat(lat)]
-        distance: parseFloat(distance)
-      Session.set 'proximity report location', result.data[0].display_name
+        coords: placeLocation.coords
+        address: placeLocation.address
+        distance: parseFloat(t.$('#proximity-distance').val())
+        restOnly: t.$('#rest-only').is(':checked')
+      $('#proximity-address').val(address)
 
 Template.proximity.helpers
   location: ->
@@ -38,8 +44,6 @@ Template.proximityGrid.onRendered ->
         Session.set 'render proximity report', true
 
 Template.proximityGrid.helpers
-  locationDisplayName: ->
-    Session.get 'proximity report location'
   render: ->
     Session.get 'render proximity report'
   fleetrGridConfig: ->

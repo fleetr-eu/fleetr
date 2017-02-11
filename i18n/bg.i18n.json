@@ -446,8 +446,8 @@
     "proximity": {
       "address": "Адрес",
       "distance": "200",
-      "radius" : "Радиус",
-      "meters" : "метра",
+      "radius" : "Радиус (м)",
+      "restOnly" : "Само престрой",
       "title": "Търсене по адрес"
     }
   },
