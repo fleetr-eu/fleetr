@@ -357,7 +357,7 @@ Meteor.startup ->
       template: 'insurances'
       waitOn: ->
         [Meteor.subscribe('insurances', @params.insuranceId)
-        Meteor.subscribe('vehicles/names')
+        Meteor.subscribe('insuranceTypes')
         Meteor.subscribe('vehicles/names')
         Meteor.subscribe('insurancePayments')]
       data: ->
