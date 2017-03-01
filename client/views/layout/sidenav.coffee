@@ -6,6 +6,7 @@ Template.sidenav.onCreated ->
 Template.sidenav.helpers
   fleetGroups: -> FleetGroups.find()
   allVehiclesCount: -> Vehicles.find().count()
+  movingVehiclesCount: -> Vehicles.find(state: "start").count()
 
 Template.sidenav.events
   'click .show-all-vehicles': ->

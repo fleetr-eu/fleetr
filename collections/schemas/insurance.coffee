@@ -10,6 +10,27 @@ Schema.insuranceTypes = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
 
+Schema.insuranceCompanies = new SimpleSchema
+  _id:
+    type: String, optional: true
+  name:
+    type: String, label: ()->TAPi18n.__('insuranceCompanies.name')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
+  address:
+    type: String, optional: true, label: ()->TAPi18n.__('insuranceCompanies.address')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
+  phone:
+    type: String, optional: true, label: ()->TAPi18n.__('insuranceCompanies.phone')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
+  email:
+    type: String, optional: true, label: ()->TAPi18n.__('insuranceCompanies.email')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
+
+
 Schema.insurance = new SimpleSchema
   _id:
     type: String
@@ -21,11 +42,12 @@ Schema.insurance = new SimpleSchema
       firstOption: "(Изберете)"
       options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
-
   insuranceCompany:
     type: String
     label: ()->TAPi18n.__('insurances.insuranceCompany')
     autoform:
+      firstOption: "(Изберете)"
+      options: -> InsuranceCompanies.find().map (insuranceCompany) -> label: insuranceCompany.name, value: insuranceCompany._id
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   insuranceType:
     type: String
@@ -184,4 +206,3 @@ Schema.insurancePayment = new SimpleSchema
     label: ()->TAPi18n.__('insurancePayments.invoiceNo')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
-  

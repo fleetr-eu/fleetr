@@ -69,6 +69,9 @@ Meteor.methods
   submitInsuranceType: submitItem InsuranceTypes
   removeInsuranceType: removeItem InsuranceTypes
 
+  submitInsuranceCompany: submitItem InsuranceCompanies
+  removeInsuranceCompany: removeItem InsuranceCompanies
+
   submitInsurance: submitItem Insurances
   removeInsurance: removeItem Insurances
 

@@ -20,9 +20,9 @@ Template.insurances.helpers
         groupable:
           aggregators: aggregators
       ,
-        id: "insuranceCompany"
-        field: "insuranceCompany"
-        name: TAPi18n.__('insurances.insuranceCompany')
+        id: "insuranceCompanyName"
+        field: "insuranceCompanyName"
+        name: TAPi18n.__('insuranceCompanies.name')
         width:80
         sortable: true
         search: where: 'client'
@@ -104,12 +104,13 @@ Template.insurances.helpers
         explicitInitialization: true
         forceFitColumns: true
       cursor: Insurances.find {},
-        transform: (doc) -> 
+        transform: (doc) ->
           payments = InsurancePayments.find(insuranceId: doc._id).fetch()
           addAll = (sum, payment)-> sum + payment.amountWithVAT
           paid = _.reduce(payments, addAll, 0)
           _.extend doc,
           vehicle: Vehicles.findOne(_id: doc.vehicle).displayName()
           insuranceTypeName: InsuranceTypes.findOne(_id: doc.insuranceType)?.name,
+          insuranceCompanyName: InsuranceCompanies.findOne(_id: doc.insuranceCompany)?.name,
           remainingDays: if doc.policyValidTo then moment(doc.policyValidTo).diff(moment(), 'days') else -1
           balance: doc.value - paid
