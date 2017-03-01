@@ -9,7 +9,8 @@
     "week" : "Week",
     "month" : "Month",
     "year" : "Year",
-    "date" : "Date"
+    "date" : "Date",
+    "time": "Time"
   },
 
   "slickgrid": {
@@ -24,7 +25,7 @@
     "admin": "Administration",
     "signOut": "Sign Out",
     "vehicles": {
-      "all": "All"
+      "all": "ALL"
     },
     "configurationSettings": "Settings",
     "userAdmin": "Users",
@@ -55,6 +56,7 @@
     "map": "Map",
     "expenseReport": "Expenses",
     "maintenanceReport": "Maintenance",
+    "proximityReport": "Address search",
     "listTyres": "Tyres",
     "events":"Events",
     "notifications":"Notifications",
@@ -388,7 +390,8 @@
     "edit": "Edit",
     "delete": "Delete",
     "filter": "Filter",
-    "showGeofences": "Show objects"
+    "showGeofences": "Show objects",
+    "exportToCSV": "Export to CSV"
   },
 
   "alarmTypes" : {
@@ -438,6 +441,13 @@
       "distance": "Distance (km)",
       "odometer": "Odometer (end of day)",
       "maxSpeed": "Max speed (km/h)"
+    },
+    "proximity": {
+      "address": "Address",
+      "radius" : "Radius (m)",
+      "distance": "Distance 200 m",
+      "restOnly" : "Rest only",
+      "title": "Address search"
     }
   },
 
@@ -455,6 +465,7 @@
     "policyValidTo" : "Valid To",
     "remainingDays" : "Remaining Days",
     "validityMonths": "Validity (months)",
+    "balance": "Balance",
     "numberOfPayments": "# of Payments",
     "insuredFirstName": "Insurant First Name",
     "insuredLastName" : "Insurant Sirname",

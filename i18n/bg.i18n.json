@@ -5,11 +5,12 @@
   },
 
   "time": {
-    "day" : "Ден",
-    "week" : "Седмица",
-    "month" : "Месец",
-    "year" : "Година",
-    "date" : "Дата"
+    "day": "Ден",
+    "week": "Седмица",
+    "month": "Месец",
+    "year": "Година",
+    "date": "Дата",
+    "time": "Час"
   },
 
   "slickgrid": {
@@ -25,7 +26,7 @@
     "signOut": "Излизане от системата",
     "userAdmin": "Потребители",
     "vehicles": {
-      "all": "Всички"
+      "all": "ВСИЧКИ"
     },
     "configurationSettings": "Настройки",
     "menuBoard": "Главно Меню",
@@ -55,6 +56,7 @@
     "map": "Карта",
     "expenseReport": "Разходи",
     "maintenanceReport": "Поддръжка",
+    "proximityReport": "Търсене по адрес",
     "listTyres": "Гуми",
     "events":"Събития",
     "notifications":"Напомняния",
@@ -389,7 +391,8 @@
     "edit": "Промени",
     "delete": "Изтрий",
     "filter": "Филтър",
-    "showGeofences": "Покажи обекти"
+    "showGeofences": "Покажи обекти",
+    "exportToCSV": "Свали в CSV формат"
   },
 
   "alarmTypes" : {
@@ -439,6 +442,13 @@
       "distance": "Разстояние (км)",
       "odometer": "Одометър (в края на деня)",
       "maxSpeed": "Макс. скорост (км/ч)"
+    },
+    "proximity": {
+      "address": "Адрес",
+      "distance": "200",
+      "radius" : "Радиус (м)",
+      "restOnly" : "Само престрой",
+      "title": "Търсене по адрес"
     }
   },
 
@@ -456,6 +466,7 @@
     "policyValidTo" : "Валидна до",
     "remainingDays" : "Дни",
     "validityMonths": "Валидност (месеци)",
+    "balance": "Остатък",
     "numberOfPayments": "Брой плащания",
     "insuredFirstName": "Застрахован: име",
     "insuredLastName" : "Застрахован: фамилия",

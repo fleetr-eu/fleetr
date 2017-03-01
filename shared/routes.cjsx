@@ -4,6 +4,9 @@ MapAdditionalControls = require '/imports/ui/MapAdditionalControls.cjsx'
 GeofencesNav          = require '/imports/ui/navs/GeofencesNav.cjsx'
 VehiclesLogbookNav    = require '/imports/ui/navs/VehiclesLogbookNav.cjsx'
 ImportExpensesNav     = require '/imports/ui/navs/ImportExpensesNav.cjsx'
+IconButton  = require '/imports/ui/buttons/IconButton.cjsx'
+
+exportVehiclesToCSV = require '/imports/actions/exportVehiclesToCSV.coffee'
 
 Meteor.startup ->
   Accounts.config
@@ -104,7 +107,13 @@ Meteor.startup ->
         title: TAPi18n.__('vehicles.listTitle')
         topnav: <CrudButtons editItemTemplate='vehicle' i18nRoot='vehicles'
                       showMaintenancesButton=true collection=Vehicles
-                      removeItemMethod='removeVehicle'/>
+                      removeItemMethod='removeVehicle'>
+                  <li>
+                    <IconButton title={TAPi18n.__("button.exportToCSV")}
+                                className='pe-7s-download'
+                                onClick={exportVehiclesToCSV} />
+                  </li>
+                </CrudButtons >
 
     @route 'listCustomEvents',
       path: '/custom-events/list'
@@ -348,8 +357,9 @@ Meteor.startup ->
       template: 'insurances'
       waitOn: ->
         [Meteor.subscribe('insurances', @params.insuranceId)
-        Meteor.subscribe('vehicles')
-        Meteor.subscribe('insuranceTypes')]
+        Meteor.subscribe('insuranceTypes')
+        Meteor.subscribe('vehicles/names')
+        Meteor.subscribe('insurancePayments')]
       data: ->
         title: TAPi18n.__('insurances.listTitle')
         topnav: <CrudButtons editItemTemplate='insurance' i18nRoot='insurances'
@@ -361,8 +371,11 @@ Meteor.startup ->
     @route 'listInsurancePayments',
       path: '/insurance/:insuranceId/payment/list'
       template: 'insurancePayments'
-      waitOn: ->
-        Meteor.subscribe('insurancePayments', @params.insurancePaymentId)
+      waitOn: -> [
+        Meteor.subscribe('insurance', @params.insuranceId)
+        Meteor.subscribe('vehicleForInsurance', @params.insuranceId)
+        Meteor.subscribe('insurancePayments', @params.insuranceId)
+      ]
       data: ->
         insuranceId : @params.insuranceId
         title: TAPi18n.__('insurancePayments.listTitle')
@@ -475,3 +488,10 @@ Meteor.startup ->
       waitOn: -> [ Meteor.subscribe('geofences')
                   Meteor.subscribe('drivers')
                   Meteor.subscribe('vehicle', {unitId: JSON.parse(@params.data).deviceId})]
+
+    @route 'reports/proximity',
+      path: '/reports/proximity'
+      template: 'proximity'
+      data: ->
+        title: TAPi18n.__('reports.proximity.title')
+      waitOn: -> []

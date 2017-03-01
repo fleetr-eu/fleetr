@@ -10,8 +10,10 @@ FleetrGrid.Formatters =
     Number((Number(value)).toFixed(decimals)) if value
   euroFormatter: (row, cell, value) ->
     "&euro; #{if value then parseFloat(value).toFixed(2) else '0.00'}"
+  moneyFormatter: (row, cell, value) ->
+    "#{if value then parseFloat(value).toFixed(2) else '0.00'}"  
   sumTotalsFormatter: (sign = '', decimals = 0) -> (totals, columnDef) ->
-    val = totals.sum && totals.sum[columnDef.field];
+    val = totals.sum && totals.sum[columnDef.field]
     if val
       "<b>#{sign} #{parseFloat(val).toFixed(decimals)}</b>"
     else ''
@@ -48,28 +50,25 @@ FleetrGrid.Formatters =
     if value > 0
       v = Number((Number(value)).toFixed(decimals))
       vStr = if v == 0 then "" else v
-      attnIcon = ""
-      if v < numberError
-        attnIcon = "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{vStr}'></i>"
-      else
-         if v < numberWarning
-          attnIcon = "<i class='fa fa-exclamation-triangle' style='color:orange;' title='#{vStr}'></i>"
-
+      attnIcon = if v < numberError
+        "<i class='fa fa-exclamation-triangle pull-left' style='color:red; padding-top:3px;' title='#{vStr}'></i>"
+      else if v < numberWarning
+        "<i class='fa fa-exclamation-triangle pull-left' style='color:orange; padding-top:3px;' title='#{vStr}'></i>"
+      else ""
       "<span>#{attnIcon}<div class='pull-right'>#{vStr}</div></span>"
   decoratedGreaterThanFormatter: (numberError, numberWarning, decimals=0 ) -> (row, cell, value) ->
     if value > 0
       v = Number((Number(value)).toFixed(decimals))
       vStr = if v == 0 then "" else v
-      attnIcon = ""
-      if v > numberError
-        attnIcon = "<i class='fa fa-exclamation-triangle' style='color:red;' title='#{vStr}'></i>"
-      else
-         if v > numberWarning
-          attnIcon = "<i class='fa fa-exclamation-triangle' style='color:orange;' title='#{vStr}'></i>"
-
+      attnIcon = if v > numberError
+        "<i class='fa fa-exclamation-triangle pull-left' style='color:red; padding-top:3px;' title='#{vStr}'></i>"
+      else if v > numberWarning
+        "<i class='fa fa-exclamation-triangle pull-left' style='color:orange; padding-top:3px;' title='#{vStr}'></i>"
+      else ""
       "<span>#{attnIcon}<div class='pull-right'>#{vStr}</div></span>"
 
 
 FleetrGrid.Formatters.sumEuroTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '&euro;', 2
+FleetrGrid.Formatters.sumMoneyTotalsFormatter = FleetrGrid.Formatters.sumTotalsFormatter '', 2 #make BGN
 FleetrGrid.Formatters.sumTotalsFormatterNoSign = FleetrGrid.Formatters.sumTotalsFormatter '', 2
 FleetrGrid.Formatters.sumTotalsQuantity = FleetrGrid.Formatters.sumTotalsFormatter '', 0

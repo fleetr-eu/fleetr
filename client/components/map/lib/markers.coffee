@@ -119,7 +119,8 @@ Meteor.startup ->
           <p style="font-family: 'Ubuntu', sans-serif; font-size: 12px;">
             Дата, час: #{moment(data.time).format('DD-MM-YYYY, HH:mm:ss')}<br/>
             Скорост: #{data.speed} км/ч<br/>
-            Километраж: #{data.distance} км
+            Километраж: #{data.distance} км<br/>
+            Адрес: #{if data.address then data.address else ''}<br/>
           </p>
           """
 

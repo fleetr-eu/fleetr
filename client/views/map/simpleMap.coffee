@@ -3,11 +3,15 @@ Template.simpleMap.onCreated ->
   Session.set 'simpleMapShowInfoMarkers', false
 
 Template.simpleMap.onRendered ->
-  {deviceId, tripId, start, stop, idle} = @data.parsed
-  start.time = moment(start.time).toDate()
-  stop.time = moment(stop.time).toDate()
-
+  {deviceId, tripId, start, stop, idle, addressLoc, address} = @data.parsed
   @map = FleetrMap.currentMap().map
+
+  if addressLoc?.length is 2
+    addressLatLng = {lat: addressLoc[1], lng: addressLoc[0]}
+    marker = new google.maps.Marker
+      position: addressLatLng
+      map: @map
+      icon: '/images/address.png'
 
   if idle
     Meteor.subscribe 'idlebook', searchArgs, ->
@@ -25,6 +29,8 @@ Template.simpleMap.onRendered ->
     searchArgs = if tripId
       'attributes.trip': tripId
     else
+      start.time = moment(start.time).toDate() if start.time
+      stop.time = moment(stop.time).toDate() if stop.time
       recordTime:
         $gte: start.time
         $lte: stop.time
@@ -35,7 +41,7 @@ Template.simpleMap.onRendered ->
 
       @path = Logbook.find(searchArgs, {sort: recordTime: 1}).map (point) ->
         bounds.extend new google.maps.LatLng(point.lat, point.lng)
-        _.pick point, 'lat', 'lng', 'speed', 'odometer', 'recordTime'
+        _.pick point, 'lat', 'lng', 'speed', 'odometer', 'recordTime', 'address'
       @map.fitBounds bounds
 
       [start, ..., stop] = @path

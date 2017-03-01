@@ -17,26 +17,30 @@
       <ul class="sub-menu nav nav-list collapse" id="vehiclesMenu">
         <li>
           <a class="show-all-vehicles" href="/vehicles/list">
-          <p class="title">{{_ "menu.vehicles.all"}}</p>
-          <span class="arrow"></span>
+            <span class="title"><strong>{{_ "menu.vehicles.all"}}</strong></span>
+            <span class="badge pull-right">{{allVehiclesCount}}</span>
           </a>
         </li>
         {{#each fleetGroups}}
         <li>
-          <a data-toggle="collapse" data-target="#{{name}}Menu">
-          <span class="title">{{name}}</span>
-          <span class="arrow"></span>
+          <a data-toggle="collapse" data-target="#{{_id}}-fleets">
+            <span class="title">{{name}}</span>
+            <span class="badge pull-right">{{vehicleCount}}</span>
           </a>
-          <ul class="sub-menu nav nav-list collapse" id="{{name}}Menu">
+          {{#if fleetCount}}
+          <ul class="sub-menu nav nav-list collapse" id="{{_id}}-fleets">
             {{#each fleets}}
               <li class="{{isActivePath regex='{{name}}'}}">
-                <a class="show-fleet-vehicles" href="{{pathFor 'listVehicles' fleetName=name}}">
-                <span class="title">{{name}}</span>
-                <span class="arrow"></span>
+                <a class="show-fleet-vehicles"
+                   href="{{pathFor 'listVehicles' fleetName=name}}"
+                   style="margin-left: 0; padding-left: 0;">
+                  <span class="title">{{name}}</span>
+                  <span class="badge pull-right">{{vehicleCount}}</span>
                 </a>
               </li>
             {{/each}}
           </ul>
+          {{/if}}
         </li>
         {{/each}}
       </ul>
@@ -101,6 +105,9 @@
         </li>
         <li class="{{isActiveRoute regex='maintenanceReport'}}">
           <a href="{{pathFor 'maintenanceReport'}}">{{_ "menu.maintenanceReport"}}</a>
+        </li>
+        <li class="{{isActiveRoute regex='proximity'}}">
+          <a href="{{pathFor 'reports/proximity'}}">{{_ "menu.proximityReport"}}</a>
         </li>
       </ul>
     </li>

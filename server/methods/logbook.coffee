@@ -102,8 +102,8 @@ Meteor.methods
             ]
           startTime: 1
           stopTime: 1
-          startAddress: 1
-          stopAddress: 1
+          address:
+            $concat: ['$startAddress', '\n', '$stopAddress']
           startOdometer: 1
           stopOdometer: 1
           startLat: 1

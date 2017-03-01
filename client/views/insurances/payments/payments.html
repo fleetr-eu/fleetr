@@ -1,3 +1,11 @@
 <template name="insurancePayments">
+  <div style="padding-bottom: 5px;">
+    <h5>
+      <span style="padding-right: 100px;">
+        {{_ "insurances.policyNo"}}: <strong>{{title.insurance.policyNo}}</strong>
+      </span>
+      <span>{{_ "insurances.vehicle"}}: <strong>{{title.vehicleName}}</strong></span>
+    </h5>
+  </div>
   {{> crud options}}
 </template>

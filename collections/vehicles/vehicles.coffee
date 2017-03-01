@@ -2,10 +2,20 @@
 Partitioner.partitionCollection Vehicles
 Vehicles.attachSchema Schema.vehicle
 
+Vehicles.helpers
+  fleet: ->
+    Fleets.findOne _id: @allocatedToFleet
+  driver: ->
+    Drivers.findOne _id: @driver_id
+  odometerKm: ->
+    Math.round(@odometer / 1000)
+  displayName: ->
+    "#{@name} (#{@licensePlate})"
+
 Vehicles.after.update (userId, doc, fieldNames, modifier, options) ->
-   if doc.nextTechnicalCheck
+  if doc.nextTechnicalCheck
     event = CustomEvents.findOne { sourceId: doc._id }
-    if event 
+    if event
       CustomEvents.update(event._id, { $set: { date: doc.nextTechnicalCheck, active: doc.active}} )
     else
       CustomEvents.insert
@@ -15,7 +25,7 @@ Vehicles.after.update (userId, doc, fieldNames, modifier, options) ->
         date: doc.nextTechnicalCheck
         vehicleId: doc._id
         active: doc.active
-        seen: false  
+        seen: false
 
 Vehicles.after.insert (userId, doc) ->
   if doc.nextTechnicalCheck

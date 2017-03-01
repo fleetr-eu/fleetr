@@ -60,7 +60,8 @@ Meteor.startup ->
       showGeofences = document.getElementById("custom-map-controls")
       @map.controls[google.maps.ControlPosition.TOP_LEFT].push showGeofences
 
-      Autocomplete.init @map, document.getElementById("pac-input")
+      if pacInput = document.getElementById("pac-input")
+        Autocomplete.init @map, pacInput
 
       @clusterer = FleetrClusterer @map
 
@@ -140,6 +141,7 @@ Meteor.startup ->
             speed: (point.speed or 0).toFixed(0)
             distance: (point.odometer/1000)?.toFixed(0)
             time: point.recordTime
+            address: point.address
           @pathMarkers.push new InfoMarker opts, info
 
     hidePathMarkers: ->

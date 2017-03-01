@@ -1,0 +1,24 @@
+<template name="proximity">
+  <form id="proximity-location-form" class="form-inline">
+    <input class="form-control input-sm" type="text"
+      style="width: 60%;"
+      placeholder={{_ "reports.proximity.address"}} id="proximity-address">
+      {{_ "reports.proximity.radius"}}&nbsp;
+    <input class="form-control input-sm" type="text" style="width: 10%;"
+      placeholder={{_ "reports.proximity.distance"}} id="proximity-distance" value="200">
+      &nbsp;
+    <!-- &nbsp; {{_ "reports.proximity.restOnly"}}
+    <input type="checkbox" id="rest-only" checked="checked"> -->
+    <button type="submit" class="btn btn-primary btn-sm pull-right">
+      <i class="glyphicon glyphicon-search"></i>
+    </button>
+  </form>
+  {{> proximityGrid location=location}}
+</template>
+
+<template name="proximityGrid">
+  <p></p>
+  {{#if render}}
+    {{> fleetrReportGrid id="proximityGrid" config=fleetrGridConfig location=location}}
+  {{/if}}
+</template>

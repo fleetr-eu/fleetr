@@ -3,6 +3,9 @@ Meteor.startup ->
     loc: '2dsphere'
 
   Logbook._ensureIndex
+    loc: '2dsphere'
+
+  Logbook._ensureIndex
     'attributes.trip': 1
 
   Logbook._ensureIndex

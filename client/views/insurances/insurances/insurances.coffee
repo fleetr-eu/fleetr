@@ -11,6 +11,15 @@ Template.insurances.helpers
     removeItemMethod: 'removeInsurance'
     gridConfig:
       columns: [
+        id: "vehicle"
+        field: "vehicle"
+        name: TAPi18n.__('insurances.vehicle')
+        width:90
+        sortable: true
+        search: where: 'client'
+        groupable:
+          aggregators: aggregators
+      ,
         id: "insuranceCompany"
         field: "insuranceCompany"
         name: TAPi18n.__('insurances.insuranceCompany')
@@ -23,7 +32,7 @@ Template.insurances.helpers
         id: "insuranceType"
         field: "insuranceTypeName"
         name: TAPi18n.__('insurances.insuranceType')
-        width:80
+        width:40
         sortable: true
         search: where: 'client'
         groupable:
@@ -35,15 +44,6 @@ Template.insurances.helpers
         width:80
         sortable: true
         search: where: 'client'
-      ,
-        id: "value"
-        field: "value"
-        name: TAPi18n.__('insurances.value')
-        width:80
-        sortable: true
-        align: 'right'
-        search: where: 'client'
-        groupTotalsFormatter: FleetrGrid.Formatters.sumTotalsFormatterNoSign
       ,
         id: "policyDate"
         field: "policyDate"
@@ -76,6 +76,26 @@ Template.insurances.helpers
         sortable: true
         search: where: 'client'
         formatter: FleetrGrid.Formatters.decoratedLessThanFormatter(2, 16)
+      ,
+        id: "value"
+        field: "value"
+        name: TAPi18n.__('insurances.value')
+        width:50
+        sortable: true
+        align: 'right'
+        search: where: 'client'
+        formatter: FleetrGrid.Formatters.moneyFormatter
+        groupTotalsFormatter: FleetrGrid.Formatters.sumTotalsFormatterNoSign
+      ,
+        id: "balance"
+        field: "balance"
+        name: TAPi18n.__('insurances.balance')
+        width:50
+        sortable: true
+        align: 'right'
+        search: where: 'client'
+        formatter: FleetrGrid.Formatters.moneyFormatter
+        groupTotalsFormatter: FleetrGrid.Formatters.sumTotalsFormatterNoSign
       ]
       options:
         enableCellNavigation: true
@@ -84,6 +104,12 @@ Template.insurances.helpers
         explicitInitialization: true
         forceFitColumns: true
       cursor: Insurances.find {},
-        transform: (doc) -> _.extend doc,
+        transform: (doc) -> 
+          payments = InsurancePayments.find(insuranceId: doc._id).fetch()
+          addAll = (sum, payment)-> sum + payment.amountWithVAT
+          paid = _.reduce(payments, addAll, 0)
+          _.extend doc,
+          vehicle: Vehicles.findOne(_id: doc.vehicle).displayName()
           insuranceTypeName: InsuranceTypes.findOne(_id: doc.insuranceType)?.name,
           remainingDays: if doc.policyValidTo then moment(doc.policyValidTo).diff(moment(), 'days') else -1
+          balance: doc.value - paid
