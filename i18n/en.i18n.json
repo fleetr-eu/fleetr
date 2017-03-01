@@ -48,7 +48,10 @@
     "importExpenses": "Import expenses",
     "maintenances" : "Maintenances",
     "insurances" : "Insurances",
+    "insuranceTypes" : "Insurance Types",
+    "insuranceCompanies" : "Insurance Companies",
     "listInsuranceTypes" : "Insurance Types",
+    "listInsuranceCompanies" : "Insurance Companies",
     "addMaintenanceType" : "Add Maintenance Type",
     "listMaintenanceTypes" : "Maintenance Types",
     "logbook": "Logbook",
@@ -228,6 +231,16 @@
     "name" : "Name",
     "description" : "Description",
     "deleteMessage": "Are you certain you want to delete this Insurance Type?"
+  },
+
+  "insuranceCompanies": {
+    "title" : "Insurance Companies",
+    "listTitle" : "Insurance Companies",
+    "name" : "Name",
+    "address" : "Address",
+    "phone" : "Phone",
+    "email" : "E-mail",
+    "deleteMessage": "Are you certain you want to delete this Insurance Company?"
   },
 
   "expenseTypes": {

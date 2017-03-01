@@ -346,26 +346,44 @@ Meteor.startup ->
       waitOn: ->
         Meteor.subscribe('insuranceTypes')
       data: ->
-        title: TAPi18n.__('insuranceTypes.listTitle')
+        title: TAPi18n.__('menu.insuranceTypes')
         topnav:
           <CrudButtons editItemTemplate='insuranceType' i18nRoot='insuranceTypes' collection=InsuranceTypes removeItemMethod='removeInsuranceTypes'>
             <li><a href={Router.path 'listInsurances'}>{TAPi18n.__("menu.insurances")}</a></li>
+            <li><a href={Router.path 'listInsuranceCompanies'}>{TAPi18n.__("menu.insuranceCompanies")}</a></li>
           </CrudButtons>
+
+    @route 'listInsuranceCompanies',
+        path: '/insurance/companies/list'
+        template: 'insuranceCompanies'
+        waitOn: ->
+          Meteor.subscribe('insuranceCompanies')
+        data: ->
+          title: TAPi18n.__('menu.insuranceCompanies')
+          topnav:
+            <CrudButtons editItemTemplate='insuranceCompany' i18nRoot='InsuranceCompanies' collection=InsuranceCompanies removeItemMethod='removeInsuranceCompany'>
+              <li><a href={Router.path 'listInsurances'}>{TAPi18n.__("menu.insurances")}</a></li>
+              <li><a href={Router.path 'listInsuranceTypes'}>{TAPi18n.__("menu.insuranceTypes")}</a></li>
+            </CrudButtons>
 
     @route 'listInsurances',
       path: '/insurance/list'
       template: 'insurances'
       waitOn: ->
-        [Meteor.subscribe('insurances', @params.insuranceId)
-        Meteor.subscribe('insuranceTypes')
-        Meteor.subscribe('vehicles/names')
-        Meteor.subscribe('insurancePayments')]
+        [
+          Meteor.subscribe('insurances', @params.insuranceId)
+          Meteor.subscribe('insuranceTypes')
+          Meteor.subscribe('insuranceCompanies')
+          Meteor.subscribe('vehicles/names')
+          Meteor.subscribe('insurancePayments')
+        ]
       data: ->
         title: TAPi18n.__('insurances.listTitle')
         topnav: <CrudButtons editItemTemplate='insurance' i18nRoot='insurances'
                   collection=Insurances removeItemMethod='removeInsurance'
                   showInsurancePaymentsButton=true>
-          <li><a href={Router.path 'listInsuranceTypes'}>{TAPi18n.__("menu.listInsuranceTypes")}</a></li>
+          <li><a href={Router.path 'listInsuranceTypes'}>{TAPi18n.__("menu.insuranceTypes")}</a></li>
+          <li><a href={Router.path 'listInsuranceCompanies'}>{TAPi18n.__("menu.insuranceCompanies")}</a></li>
         </CrudButtons>
 
     @route 'listInsurancePayments',

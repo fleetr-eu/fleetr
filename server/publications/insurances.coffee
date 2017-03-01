@@ -1,4 +1,5 @@
 Meteor.publish 'insuranceTypes', -> InsuranceTypes.find {}
+Meteor.publish 'insuranceCompanies', -> InsuranceCompanies.find {}
 Meteor.publish 'insurancePayments', -> InsurancePayments.find {}
 Meteor.publish 'insurances', -> Insurances.find {}
 

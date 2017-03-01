@@ -48,7 +48,10 @@
     "listExpenses": "Разходи",
     "importExpenses": "Качи разходи",
     "insurances" : "Застраховки",
+    "insuranceTypes" : "Видове застраховки",
+    "insuranceCompanies" : "Застрахователни компании",
     "listInsuranceTypes" : "Видове застраховки",
+    "listInsuranceCompanies" : "Застрахователни компании",
     "addMaintenanceType" : "Добави вид поддръжка",
     "listMaintenanceTypes" : "Видове поддръжки",
     "logbook": "Журнал",
@@ -229,6 +232,16 @@
     "name" : "Вид застраховка",
     "description" : "Описание",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете този вид застраховка?"
+  },
+
+  "insuranceCompanies": {
+    "title" : "Застрахователна компания",
+    "listTitle" : "Застрахователна компании",
+    "name" : "Име",
+    "address" : "Адрес",
+    "phone" : "Телефон",
+    "email" : "е-мейл",
+    "deleteMessage": "Сигурен ли сте, че искате да изтриете тази застрахователна компания?"
   },
 
   "expenseTypes": {
