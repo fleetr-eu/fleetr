@@ -1,26 +1,44 @@
 React               = require 'react'
-{ createContainer } = require 'meteor/react-meteor-data'
-
-GoogleMap = (require 'google-map-react').default;
-
-position = [51.505, -0.09]
-
-defaultProps =
-  center: {lat: 59.938043, lng: 30.337157}
-  zoom: 9
-  greatPlaceCoords: {lat: 59.724465, lng: 30.080121}
-
-MyMarker = React.createClass
-  displayName: 'FleetrMarker'
-
-  render: ->
-    <div style={padding:5, backgroundColor:'lightGrey', width:100}>Im a marker at {@props.lat}:{@props.lng}</div>
+ReactDOM            = require 'react-dom'
 
 module.exports  = React.createClass
-  displayName: 'FleetrMap'
+  displayName: 'Map'
+
+  propTypes:
+    initialZoom: React.PropTypes.number
+    initialCenter: React.PropTypes.object
+
+  getDefaultProps: ->
+    initialZoom: 5
+    initialCenter:
+      lat: 46.8029057
+      lng: 11.7545206
+
+  getInitialState: ->
+    zoom: @props.initialZoom
+    center: @props.initialCenter
+
+  componentDidUpdate: (prevProps, prevState) ->
+    if window.google?.maps? then @loadMap()
+
+  componentDidMount: ->
+    if window.google?.maps?
+      @loadMap()
+    else console.error 'Google Maps API not loaded. Is it included in a script tag?'
+
+  loadMap: ->
+    maps = window.google.maps
+    mapRef = @refs.map
+    mapDomNode =  ReactDOM.findDOMNode mapRef
+    zoom = @state.zoom
+    {lat, lng} = @state.center
+    center = new maps.LatLng lat, lng
+    mapConfig = Object.assign {},
+      center: center
+      zoom: zoom
+    @map = new maps.Map mapDomNode, mapConfig
 
   render: ->
-    console.log GoogleMap
-    <GoogleMap defaultCenter={defaultProps.center} defaultZoom={defaultProps.zoom} style={height:'calc(100vh - 61px)'}>
-      <MyMarker style={padding:5} lat={59.955413} lng={30.337844} />
-    </GoogleMap>
+    <div ref='map' style={width:'100vw', height:'100vh'}>
+      Loading Google Maps...
+    </div>

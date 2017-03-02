@@ -1,4 +1,4 @@
-Map = require '/imports/ui/Map.cjsx'
+MapContainer = require '/imports/ui/MapContainer.cjsx'
 
 Session.set 'showFilterBox', false
 
@@ -15,7 +15,7 @@ Template.map.onRendered ->
 
 
 Template.map.helpers
-  Map: -> Map
+  MapContainer: -> MapContainer
   filterOptions: -> vehicleDisplayStyle: 'none'
   selectedVehicleId: -> Session.get('selectedVehicleId')
   showFilterBox: -> Session.get 'showFilterBox'
