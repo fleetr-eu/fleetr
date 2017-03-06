@@ -11,7 +11,7 @@ aldeed:schema-deny@1.1.0
 aldeed:schema-index@1.1.1
 aldeed:simple-schema@1.5.3
 aldeed:tabular@1.6.1
-aldeed:template-extension@4.0.0
+aldeed:template-extension@4.1.0
 allow-deny@1.0.5
 amplify@1.0.0
 anti:fake@0.4.1
@@ -108,7 +108,7 @@ mobile-experience@1.0.4
 mobile-status-bar@1.0.14
 modules@0.7.9
 modules-runtime@0.7.9
-momentjs:moment@2.16.0
+momentjs:moment@2.17.1
 mongo@1.1.15
 mongo-id@1.0.6
 mongo-livedata@1.0.12
