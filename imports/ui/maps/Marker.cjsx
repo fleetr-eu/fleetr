@@ -9,13 +9,14 @@ module.exports  = React.createClass
     map: React.PropTypes.object
 
   componentDidUpdate: (prevProps) ->
-    if (@props.map isnt prevProps.map) or (@props.position isnt prevProps.position)
+    if (@props.map isnt prevProps.map) or (@props.position isnt prevProps.position) or (@props.mapCenter isnt prevProps.mapCenter)
       @renderMarker()
 
   componentWillUnmount: ->
     if marker = @state.marker then marker.setMap null
 
   renderMarker: ->
+    if @state?.marker then @state.marker.setMap null # remove existing marker, if any
     {position, mapCenter, google, map} = @props
     pos = position or mapCenter
     latlng = new google.maps.LatLng pos.lat, pos.lng
