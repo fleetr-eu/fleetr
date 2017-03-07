@@ -29,7 +29,7 @@ Template.driverVehicleAssignments.helpers
         name: "#{TAPi18n.__('driverVehicleAssignments.date')}"
         width:50
         sortable: true
-        search: 
+        search:
           where: 'client'
         formatter: FleetrGrid.Formatters.dateFormatter
       ,
@@ -38,7 +38,7 @@ Template.driverVehicleAssignments.helpers
         name: "#{TAPi18n.__('driverVehicleAssignments.time')}"
         width:50
         sortable: true
-        search: 
+        search:
           where: 'client'
       ,
         id: "eventName"
@@ -46,7 +46,7 @@ Template.driverVehicleAssignments.helpers
         name: "#{TAPi18n.__('driverVehicleAssignments.event')}"
         width:50
         sortable: true
-        search: where: 'client'      
+        search: where: 'client'
       ]
       options:
         enableCellNavigation: true
@@ -57,6 +57,5 @@ Template.driverVehicleAssignments.helpers
       cursor: DriverVehicleAssignments.find {},
         transform: (doc) -> _.extend doc,
           vehicleName : Vehicles.findOne(_id: doc.vehicle)?.name + ' ('+Vehicles.findOne(_id: doc.vehicle)?.licensePlate+')',
-          driverName : Drivers.findOne(_id: doc.driver)?.firstName + ' ('+Drivers.findOne(_id: doc.driver)?.name+')'
+          driverName : Drivers.findOne(_id: doc.driver)?.firstName + ' '+Drivers.findOne(_id: doc.driver)?.name
           eventName: if doc.event is'begin' then "#{TAPi18n.__('driverVehicleAssignments.associate')}" else "#{TAPi18n.__('driverVehicleAssignments.disassociate')}"
-

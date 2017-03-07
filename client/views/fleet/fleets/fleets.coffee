@@ -14,7 +14,7 @@ Template.fleets.helpers
         search: where: 'client'
         groupable:
           aggregators: []
-      ,    
+      ,
         id: "fleet"
         field: "name"
         name: "#{TAPi18n.__('fleet.name')}"
@@ -28,7 +28,7 @@ Template.fleets.helpers
         width:120
         sortable: true
         search: where: 'client'
-      
+
       ]
       options:
         enableCellNavigation: true
@@ -39,3 +39,5 @@ Template.fleets.helpers
       cursor: Fleets.find {},
         transform: (doc) -> _.extend doc,
           groupName: FleetGroups.findOne(_id: doc.parent)?.name
+      customize: (grid) ->
+        grid.addGroupBy 'groupName', TAPi18n.__('fleet.parent'), []
