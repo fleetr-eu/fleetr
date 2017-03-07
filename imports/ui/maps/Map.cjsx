@@ -48,6 +48,7 @@ module.exports  = React.createClass
     @map = new @google.maps.Map mapDomNode, mapConfig
 
     @map.addListener 'dragend', (evt) => @props.onMove @map
+    @forceUpdate()
 
   render: ->
     <div ref='map' style={@props.style}>
