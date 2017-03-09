@@ -48,9 +48,9 @@ row = (vehicle) ->
   r = for k in exportedFields
     switch k
       when 'allocatedToFleet'
-        toCSV vehicle.fleet().name
+        toCSV vehicle.fleet()?.name
       when 'driver_id'
-        toCSV vehicle.driver().fullName()
+        toCSV vehicle.driver()?.fullName()
       when 'odometer'
         vehicle.odometerKm()
       when 'allocatedToFleetFromDate', 'nextTechnicalCheck'

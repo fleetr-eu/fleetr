@@ -169,9 +169,10 @@ Template.vehicles.helpers
             odo: doc.odometer / 1000
             isBusinessTrip: isBusinessTrip(doc, moment())
       customize: (grid) ->
-        Tracker.autorun ->
-          fleetName = Session.get 'vehiclesFleetName'
-          if fleetName
-            grid.setColumnFilterValue {id: 'fleetName'}, fleetName
-          else
-            grid.removeFilter 'client', TAPi18n.__('fleet.name')
+        Meteor.defer ->
+          Tracker.autorun ->
+            fleetName = Session.get 'vehiclesFleetName'
+            if fleetName
+              grid.setColumnFilterValue {id: 'fleetName'}, fleetName
+            else
+              grid.removeFilter 'client', TAPi18n.__('fleet.name')

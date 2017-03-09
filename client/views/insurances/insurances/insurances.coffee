@@ -114,3 +114,5 @@ Template.insurances.helpers
           insuranceCompanyName: InsuranceCompanies.findOne(_id: doc.insuranceCompany)?.name,
           remainingDays: if doc.policyValidTo then moment(doc.policyValidTo).diff(moment(), 'days') else -1
           balance: doc.value - paid
+      customize: (grid) ->
+        grid.addGroupBy 'vehicle', TAPi18n.__('insurances.vehicle'), aggregators
