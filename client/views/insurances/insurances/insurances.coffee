@@ -18,6 +18,7 @@ Template.insurances.helpers
         sortable: true
         search: where: 'client'
         groupable:
+          hideColumn: true
           aggregators: aggregators
           isCollapsedByDefault: true
       ,
