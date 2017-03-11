@@ -1,12 +1,13 @@
 Template.odometers.onRendered ->
   vehicleId = @data.vehicleId
-  console.log vehicleId
   Template.odometer.onRendered ->
     @vehicleId = vehicleId
   Template.odometer.helpers
     vehicleId: vehicleId
 
 Template.odometers.helpers
+  vehicleName: ->
+    Vehicles.findOne(_id: @vehicleId)?.displayName()
   options: ->
     i18nRoot: 'vehicles.odometers'
     collection: Odometers

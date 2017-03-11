@@ -6,6 +6,8 @@ Template.maintenances.onRendered ->
     vehicleId: vehicleId
 
 Template.maintenances.helpers
+  vehicleName: ->
+    Vehicles.findOne(_id: @vehicleId)?.displayName()
   options: ->
     i18nRoot: 'maintenances'
     collection: Maintenances
