@@ -130,7 +130,7 @@ Helpers =
     @_groupings = {}
     @_activeGroupings.remove {}
     @_effectuateGroupings()
-  @addGroupBy = (field, fieldName, aggregators = [], formatter = null) ->
+  @addGroupBy = (field, fieldName, aggregators = [], formatter = null, isCollapsed = false) ->
     if @_activeGroupings.findOne(name: fieldName) then return
     defaultFormatter = (g) ->
       "<strong>#{fieldName}:</strong> " + g.value + "  <span style='color:green'>(" + g.count + " items)</span>"
@@ -138,7 +138,7 @@ Helpers =
       getter: field
       formatter: (group) -> if formatter then formatter group, (-> defaultFormatter group) else defaultFormatter group
       aggregators: aggregators
-      collapsed: Object.keys(@_groupings).length > 0
+      collapsed: isCollapsed
       aggregateCollapsed: true
       lazyTotalsCalculation: true
       comparer: (a, b) =>
