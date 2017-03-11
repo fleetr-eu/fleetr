@@ -285,7 +285,7 @@ Helpers =
           button.cssClass = "icon-highlight-off"
           button.tooltip = "Group table by #{column.name}"
         else
-          @addGroupBy (column.groupable.transform or column.field), column.name, (column.groupable.aggregators or []), (column.groupable.headerFormatter)
+          @addGroupBy (column.groupable.transform or column.field), column.name, (column.groupable.aggregators or []), (column.groupable.headerFormatter), (column.groupable.isCollapsedByDefault or false)
           button.cssClass = "icon-highlight-on"
           button.tooltip = "Remove group #{column.name}"
 
