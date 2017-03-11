@@ -154,6 +154,8 @@ Helpers =
     @_effectuateGroupings()
   @_effectuateGroupings = ->
     @_dataView?.setGrouping (val for key, val of @_groupings)
+    getters = (val.getter for key, val of @_groupings)
+    @grid?.setColumns _.filter columns, (col) -> not col.groupable?.hideColumn or col.field not in getters
     @_ensureCorrectRowSelection()
   # <-- grouping
 
