@@ -26,6 +26,11 @@ Template.odometers.helpers
         field: "value"
         name: TAPi18n.__('vehicles.odometers.value')
         width: 80
+      ,
+        id: "oldValue"
+        field: "value"
+        name: TAPi18n.__('vehicles.odometers.oldValue')
+        width: 80
       ]
       options:
         enableCellNavigation: true
