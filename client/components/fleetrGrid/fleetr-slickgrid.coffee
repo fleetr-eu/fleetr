@@ -21,6 +21,8 @@ Helpers =
   else
     throw new Exception 'Argument serverMethodOrCursor is not a string or cursor'
 
+  window.addEventListener 'resize', _.debounce (=> @resize?()), 200
+
   # populates the data for the grid
   @setGridData = (data, store = true) =>
     @_data = data if store
