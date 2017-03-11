@@ -16,10 +16,11 @@ Template.odometers.helpers
       cursor: Odometers.find()
       columns: [
         id: "date"
-        field: "date"
+        field: "dateTime"
         name: TAPi18n.__('vehicles.odometers.date')
         width:40
         sortable: true
+        formatter: FleetrGrid.Formatters.dateTimeFormatter
         search: where: 'client'
       ,
         id: "value"
