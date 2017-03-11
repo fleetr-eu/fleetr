@@ -338,7 +338,7 @@
       "listTitleShort": "Odometer",
       "date" : "Date and Time",
       "value" : "Odometer (km)",
-      "oldValue" : "Odometer old value (км)"
+      "oldValue" : "Odometer before correction (км)"
     },
     "title" : "Vehicle",
     "listTitle" : "Vehicles",
