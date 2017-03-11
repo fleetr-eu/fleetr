@@ -5,7 +5,12 @@ Template.odometers.onRendered ->
   Template.odometer.helpers
     vehicleId: vehicleId
 
+Template.odometer.helpers
+  pickerOpts:
+    theme: 'dark'
+
 Template.odometers.helpers
+
   vehicleName: ->
     Vehicles.findOne(_id: @vehicleId)?.displayName()
   options: ->
@@ -40,4 +45,3 @@ Template.odometers.helpers
         showHeaderRow: true
         explicitInitialization: true
         forceFitColumns: true
-
