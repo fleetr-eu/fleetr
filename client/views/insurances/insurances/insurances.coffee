@@ -24,7 +24,7 @@ Template.insurances.helpers
       ,
         id: "insuranceCompanyName"
         field: "insuranceCompanyName"
-        name: TAPi18n.__('insuranceCompanies.name')
+        name: TAPi18n.__('insurances.insuranceCompany')
         width:80
         sortable: true
         search: where: 'client'
