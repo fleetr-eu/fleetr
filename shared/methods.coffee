@@ -51,8 +51,8 @@ Meteor.methods
   submitVehicle: submitItem Vehicles
   removeVehicle: removeItem Vehicles
 
-  submitOdometers: submitItem Odometers
-  removeOdometers: removeItem Odometers
+  submitOdometer: submitItem Odometers
+  removeOdometer: removeItem Odometers
 
   submitFleetGroup: submitItem FleetGroups
   removeFleetGroup: removeItem FleetGroups
