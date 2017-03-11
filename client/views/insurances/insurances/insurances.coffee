@@ -19,6 +19,7 @@ Template.insurances.helpers
         search: where: 'client'
         groupable:
           aggregators: aggregators
+          isCollapsedByDefault: true
       ,
         id: "insuranceCompanyName"
         field: "insuranceCompanyName"
