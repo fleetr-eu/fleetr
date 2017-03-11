@@ -100,7 +100,9 @@ Meteor.startup ->
         fleetName: @params.fleetName
         title: TAPi18n.__('vehicles.listTitle')
         topnav: <CrudButtons editItemTemplate='vehicle' i18nRoot='vehicles'
-                      showMaintenancesButton=true collection=Vehicles
+                      showMaintenancesButton=true
+                      showOdometerCorrectionButton=true
+                      collection=Vehicles
                       removeItemMethod='removeVehicle'>
                   <li>
                     <IconButton title={TAPi18n.__("button.exportToCSV")}

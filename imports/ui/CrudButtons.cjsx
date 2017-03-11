@@ -6,6 +6,7 @@ CrudButtons = React.createClass
 
   getDefaultProps: ->
     showMaintenancesButton: false
+    showOdometerCorrectionButton: false
     showDocumentsButton: false
     showInsurancePaymentsButton: false
 
@@ -50,6 +51,14 @@ CrudButtons = React.createClass
           <a href={Router.path 'listMaintenances', vehicleId: @props.selectedItem}
                   style={padding:'5px'} title={TAPi18n.__('maintenances.listTitle')}>
             <i className="pe-7s-tools" style={fontSize:'30px'}></i>
+          </a>
+        </li>
+      }
+      {if @props.doc and @props.showOdometerCorrectionButton
+        <li>
+          <a href={Router.path 'listOdometers', vehicleId: @props.selectedItem}
+                  style={padding:'5px'} title={TAPi18n.__('vehicles.odometers.listTitleShort')}>
+            <i className="pe-7s-timer" style={fontSize:'30px'}></i>
           </a>
         </li>
       }
