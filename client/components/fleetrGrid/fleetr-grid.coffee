@@ -39,7 +39,7 @@ Meteor.startup ->
     displayGrouping: -> grid()?.hasGroupableColumns()
     displayFilters:  -> grid()?.hasFilterableColumns()
     grid:            -> grid()
-    height:          -> Template.currentData().height or '500px'
+    height:          -> Template.currentData().height or 'calc(100vh - 150px)'
     paginationConfig:-> Template.currentData().config.pagination
 
 
