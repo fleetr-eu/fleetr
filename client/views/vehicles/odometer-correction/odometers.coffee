@@ -30,7 +30,7 @@ Template.odometers.helpers
         width: 80
       ,
         id: "oldValue"
-        field: "value"
+        field: "oldValue"
         name: TAPi18n.__('vehicles.odometers.oldValue')
         width: 80
       ]
@@ -40,4 +40,3 @@ Template.odometers.helpers
         showHeaderRow: true
         explicitInitialization: true
         forceFitColumns: true
-

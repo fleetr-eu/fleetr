@@ -299,11 +299,16 @@ Schema.odometers = new SimpleSchema
     autoform:
       type: "bootstrap-datepicker"
       datePickerOptions: Settings.dpOptions
-      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm" 
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
   value:
     type: Number, optional: true, label:()->TAPi18n.__('vehicles.odometers.value')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
-  
-
-
+  oldValue:
+    type: Number, optional: true, label:()->TAPi18n.__('vehicles.odometers.oldValue')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
+  correction:
+    type: Number, optional: true, label:()->TAPi18n.__('vehicles.odometers.correction')
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
