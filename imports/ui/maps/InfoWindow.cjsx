@@ -1,5 +1,6 @@
 React           = require 'react'
 ReactDOMServer  = require 'react-dom/server'
+{ installListeners } = require './Utils.coffee'
 
 module.exports  = React.createClass
   displayName: 'InfoWindow'
@@ -26,6 +27,7 @@ module.exports  = React.createClass
   renderInfoWindow: ->
     {marker, google, map} = @props
     @infoWindow = new google.maps.InfoWindow content: ''
+    installListeners @, @infoWindow
     @updateContent()
     marker?.addListener 'click', (evt) =>
       @infoWindow.open map, marker

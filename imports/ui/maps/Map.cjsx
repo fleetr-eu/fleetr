@@ -1,5 +1,6 @@
 React               = require 'react'
 ReactDOM            = require 'react-dom'
+{ installListeners } = require './Utils.coffee'
 
 module.exports  = React.createClass
   displayName: 'Map'
@@ -46,7 +47,7 @@ module.exports  = React.createClass
       center: center
       zoom: zoom
     @map = new @google.maps.Map mapDomNode, mapConfig
-
+    installListeners @, @map
     @map.addListener 'dragend', (evt) => @props.onMove @map
     @forceUpdate()
 

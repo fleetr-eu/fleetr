@@ -1,4 +1,5 @@
 React   = require 'react'
+{ installListeners } = require './Utils.coffee'
 
 module.exports  = React.createClass
   displayName: 'Marker'
@@ -20,7 +21,9 @@ module.exports  = React.createClass
     {position, mapCenter, google, map} = @props
     pos = position or mapCenter
     latlng = new google.maps.LatLng pos.lat, pos.lng
-    @setState marker: new google.maps.Marker map: map, position: latlng
+    marker = new google.maps.Marker map: map, position: latlng
+    installListeners @, marker
+    @setState marker: marker
 
   render: ->
     <span>{@renderChildren()}</span>
