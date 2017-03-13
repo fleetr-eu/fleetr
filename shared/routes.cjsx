@@ -80,12 +80,6 @@ Meteor.startup ->
                        collection=ConfigurationSettings
                        removeItemMethod='removeConfigurationSetting' />
 
-
-    @route 'odometers',
-      path: '/odometers'
-      template: 'odometerCorrections'
-      waitOn: -> [Meteor.subscribe('vehicles')]
-
     @route 'listAlarms',
       path: '/alarms/list'
       template: 'alarms'
@@ -106,7 +100,9 @@ Meteor.startup ->
         fleetName: @params.fleetName
         title: TAPi18n.__('vehicles.listTitle')
         topnav: <CrudButtons editItemTemplate='vehicle' i18nRoot='vehicles'
-                      showMaintenancesButton=true collection=Vehicles
+                      showMaintenancesButton=true
+                      showOdometerCorrectionButton=true
+                      collection=Vehicles
                       removeItemMethod='removeVehicle'>
                   <li>
                     <IconButton title={TAPi18n.__("button.exportToCSV")}
@@ -322,7 +318,14 @@ Meteor.startup ->
     @route 'listOdometers',
       path: '/vehicle/:vehicleId/odometers/list'
       template: 'odometers'
-      data: -> {'vehicleId' : @params.vehicleId}
+      data: ->
+        'vehicleId' : @params.vehicleId
+        title: TAPi18n.__('vehicles.odometers.listTitle')
+        topnav:
+          <CrudButtons editItemTemplate='odometer'
+                       i18nRoot='vehicles.odometers'
+                       collection=Odometers
+                       removeItemMethod='removeOdometer'/>
       waitOn: ->
         [ Meteor.subscribe('vehicle', _id: @params.vehicleId)
           Meteor.subscribe('vehicleOdometers', @params.vehicleId) ]

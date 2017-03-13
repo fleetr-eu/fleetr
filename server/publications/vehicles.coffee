@@ -62,6 +62,7 @@ publishVehicleNames = (filter = {}) ->
     fields:
       name: 1
       licensePlate: 1
+      allocatedToFleet: 1
 
 Meteor.publish 'vehicles/names', publishVehicleNames
 

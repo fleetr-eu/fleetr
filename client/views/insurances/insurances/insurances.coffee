@@ -18,11 +18,13 @@ Template.insurances.helpers
         sortable: true
         search: where: 'client'
         groupable:
+          hideColumn: true
           aggregators: aggregators
+          isCollapsedByDefault: true
       ,
         id: "insuranceCompanyName"
         field: "insuranceCompanyName"
-        name: TAPi18n.__('insuranceCompanies.name')
+        name: TAPi18n.__('insurances.insuranceCompany')
         width:80
         sortable: true
         search: where: 'client'
@@ -115,4 +117,4 @@ Template.insurances.helpers
           remainingDays: if doc.policyValidTo then moment(doc.policyValidTo).diff(moment(), 'days') else -1
           balance: doc.value - paid
       customize: (grid) ->
-        grid.addGroupBy 'vehicle', TAPi18n.__('insurances.vehicle'), aggregators
+        grid.addGroupBy 'vehicle', TAPi18n.__('insurances.vehicle'), aggregators, null, true

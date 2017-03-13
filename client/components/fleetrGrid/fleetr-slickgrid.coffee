@@ -21,6 +21,8 @@ Helpers =
   else
     throw new Exception 'Argument serverMethodOrCursor is not a string or cursor'
 
+  window.addEventListener 'resize', _.debounce (=> @resize?()), 200
+
   # populates the data for the grid
   @setGridData = (data, store = true) =>
     @_data = data if store
@@ -128,7 +130,7 @@ Helpers =
     @_groupings = {}
     @_activeGroupings.remove {}
     @_effectuateGroupings()
-  @addGroupBy = (field, fieldName, aggregators = [], formatter = null) ->
+  @addGroupBy = (field, fieldName, aggregators = [], formatter = null, isCollapsed = false) ->
     if @_activeGroupings.findOne(name: fieldName) then return
     defaultFormatter = (g) ->
       "<strong>#{fieldName}:</strong> " + g.value + "  <span style='color:green'>(" + g.count + " items)</span>"
@@ -136,7 +138,7 @@ Helpers =
       getter: field
       formatter: (group) -> if formatter then formatter group, (-> defaultFormatter group) else defaultFormatter group
       aggregators: aggregators
-      collapsed: Object.keys(@_groupings).length > 0
+      collapsed: isCollapsed
       aggregateCollapsed: true
       lazyTotalsCalculation: true
       comparer: (a, b) =>
@@ -152,6 +154,8 @@ Helpers =
     @_effectuateGroupings()
   @_effectuateGroupings = ->
     @_dataView?.setGrouping (val for key, val of @_groupings)
+    getters = (val.getter for key, val of @_groupings)
+    @grid?.setColumns _.filter columns, (col) -> not col.groupable?.hideColumn or col.field not in getters
     @_ensureCorrectRowSelection()
   # <-- grouping
 
@@ -283,7 +287,7 @@ Helpers =
           button.cssClass = "icon-highlight-off"
           button.tooltip = "Group table by #{column.name}"
         else
-          @addGroupBy (column.groupable.transform or column.field), column.name, (column.groupable.aggregators or []), (column.groupable.headerFormatter)
+          @addGroupBy (column.groupable.transform or column.field), column.name, (column.groupable.aggregators or []), (column.groupable.headerFormatter), (column.groupable.isCollapsedByDefault or false)
           button.cssClass = "icon-highlight-on"
           button.tooltip = "Remove group #{column.name}"
 
