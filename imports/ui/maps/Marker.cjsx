@@ -13,7 +13,7 @@ module.exports  = React.createClass
       @renderMarker()
 
   componentWillUnmount: ->
-    if marker = @state.marker then marker.setMap null
+    @state?.marker?.setMap null
 
   renderMarker: ->
     if @state?.marker then @state.marker.setMap null # remove existing marker, if any
