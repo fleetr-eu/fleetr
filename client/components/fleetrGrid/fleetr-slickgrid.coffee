@@ -114,10 +114,6 @@ Helpers =
         else if filter.spec[field].regex
           regex = new RegExp filter.spec[field].regex, 'i'
           return false if !"#{item[field]}".match regex
-        else if filter.spec[field].date
-          filterDates = filter.spec[field].date
-          itemDate = moment item[field]
-          return false if not (itemDate.isAfter(filterDates.min) and itemDate.isBefore(filterDates.max))
     true
   # <-- column filters
 
@@ -335,30 +331,10 @@ Helpers =
     @grid.onHeaderRowCellRendered.subscribe (e, args) =>
       $(args.node).empty()
       if args.column.search
-        where = args.column.search.where or 'client'
-        if args.column.search.dateRange
-          $("<input id=\"searchbox-#{Helpers.columnId args.column}\" class=\"searchbox\" type=\"text\" placeholder=\"Търсене по дата\">").appendTo args.node
-          # DateRangeFilter.install $("#searchbox-#{Helpers.columnId args.column}"), args.column.search.dateRange
-          $("#searchbox-#{Helpers.columnId args.column}").on 'apply.daterangepicker', (e, daterangepicker) =>
-            startDate = daterangepicker.startDate
-            endDate = daterangepicker.endDate
-            start = startDate.format('YYYY-MM-DD')
-            stop = endDate.format('YYYY-MM-DD')
-            @addFilter where, args.column.name, "#{start} - #{stop}",
-              fltr = {}
-              dateObject = date:
-                min: startDate
-                max: endDate
-              if args.column.search.filter and where is 'client'
-                fltr[args.column.field] = filter: args.column.search.filter dateObject
-              else
-                fltr[args.column.field] = dateObject
-              fltr
-        else
-          $('<span class="glyphicon glyphicon-search searchbox" aria-hidden="true"></span>').appendTo(args.node)
-          $("<input id='searchbox-#{Helpers.columnId args.column}' type='text' class='searchbox'>")
-          .data("columnId", Helpers.columnId args.column)
-          .appendTo(args.node)
+        $('<span class="glyphicon glyphicon-search searchbox" aria-hidden="true"></span>').appendTo(args.node)
+        $("<input id='searchbox-#{Helpers.columnId args.column}' type='text' class='searchbox'>")
+        .data("columnId", Helpers.columnId args.column)
+        .appendTo(args.node)
       else
         $("<div class='searchdisabled'>&nbsp;</div>").appendTo args.node
 
