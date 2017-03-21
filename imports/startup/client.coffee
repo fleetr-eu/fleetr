@@ -16,7 +16,6 @@ require '../ui/third-party/typeahead.bundle.js'
 
 ## Bootstrap Plugins
 require '../ui/third-party/bootstrap-switch.min.js'
-require '../ui/third-party/bootstrap-datepicker.bg.js'
 
 ## Metronic theme dependencies
 
@@ -34,4 +33,3 @@ require '../ui/third-party/slickgrid/plugins/slick.cellrangeselector.js'
 require '../ui/third-party/slickgrid/controls/slick.columnpicker.js'
 require '../ui/third-party/slickgrid/controls/slick.pager.js'
 require '../ui/third-party/slickgrid/controls/slick.pager.js'
-

@@ -22,8 +22,6 @@ anti:fake
 mrt:flash-messages
 matb33:collection-hooks
 dburles:collection-helpers
-rajit:bootstrap3-datepicker
-tsega:bootstrap3-datetimepicker
 mizzao:partitioner
 
 tap:i18n
