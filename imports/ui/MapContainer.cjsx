@@ -17,7 +17,7 @@ MapContainer = React.createClass
       <Marker position={lat:46.8029057, lng:11.7545206} onDblClick={-> console.log 'dblclick'}>
         <InfoWindow oncloseclick={-> console.log 'info window closed'}>Andere content</InfoWindow>
       </Marker>
-      {@props.vehicles.map (v) -> <VehicleMarker vehicle={v} /> }
+      {@props.vehicles.map (v) -> <VehicleMarker key={v._id} vehicle={v} /> }
     </Map>
 
 module.exports = createContainer (props) ->
