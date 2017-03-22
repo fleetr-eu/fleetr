@@ -1,9 +1,12 @@
-React       = require 'react'
-Map         = require './maps/Map.cjsx'
-Marker      = require './maps/Marker.cjsx'
-InfoWindow  = require './maps/InfoWindow.cjsx'
+React               = require 'react'
+{ createContainer } = require 'meteor/react-meteor-data'
+Map                 = require './maps/Map.cjsx'
+Marker              = require './maps/Marker.cjsx'
+InfoWindow          = require './maps/InfoWindow.cjsx'
 
-module.exports  = React.createClass
+VehicleMarker       = require './maps/fleetr/VehicleMarker.cjsx'
+
+MapContainer = React.createClass
   displayName: 'MapContainer'
 
   render: ->
@@ -14,4 +17,23 @@ module.exports  = React.createClass
       <Marker position={lat:46.8029057, lng:11.7545206} onDblClick={-> console.log 'dblclick'}>
         <InfoWindow oncloseclick={-> console.log 'info window closed'}>Andere content</InfoWindow>
       </Marker>
+      {@props.vehicles.map (v) -> <VehicleMarker vehicle={v} /> }
     </Map>
+
+module.exports = createContainer (props) ->
+  vehicles: Vehicles.find {},
+    fields:
+      state: 1
+      name: 1
+      lat: 1
+      lng: 1
+      speed: 1
+      odometer: 1
+      licensePlate: 1
+      course: 1
+      courseCorrection: 1
+      driver_id: 1
+      tripTime: 1
+      idleTime: 1
+      restTime: 1
+, MapContainer
