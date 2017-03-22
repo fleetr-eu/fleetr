@@ -20,8 +20,11 @@ module.exports  = React.createClass
     if @state?.marker then @state.marker.setMap null # remove existing marker, if any
     {position, mapCenter, google, map} = @props
     pos = position or mapCenter
-    latlng = new google.maps.LatLng pos.lat, pos.lng
-    marker = new google.maps.Marker map: map, position: latlng
+    options =
+      map: map
+      position: new google.maps.LatLng pos.lat, pos.lng
+      title: @props.title
+    marker = new google.maps.Marker options
     installListeners @, marker
     @setState marker: marker
 
