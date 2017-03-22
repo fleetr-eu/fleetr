@@ -21,7 +21,7 @@ MapContainer = React.createClass
     </Map>
 
 module.exports = createContainer (props) ->
-  vehicles: Vehicles.find {},
+  vehicles = Vehicles.find {},
     fields:
       state: 1
       name: 1
@@ -36,4 +36,6 @@ module.exports = createContainer (props) ->
       tripTime: 1
       idleTime: 1
       restTime: 1
+
+  vehicles: vehicles.fetch()
 , MapContainer
