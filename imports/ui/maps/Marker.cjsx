@@ -24,6 +24,7 @@ module.exports  = React.createClass
       map: map
       position: new google.maps.LatLng pos.lat, pos.lng
       title: @props.title
+      icon: @props.icon
     marker = new google.maps.Marker options
     installListeners @, marker
     @setState marker: marker
