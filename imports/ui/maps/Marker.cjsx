@@ -1,4 +1,5 @@
 React   = require 'react'
+equal   = require('deep-equal')
 { installListeners } = require './Utils.coffee'
 
 module.exports  = React.createClass
@@ -10,13 +11,14 @@ module.exports  = React.createClass
     map: React.PropTypes.object
 
   componentDidUpdate: (prevProps) ->
-    if (@props.map isnt prevProps.map) or (@props.position isnt prevProps.position) or (@props.mapCenter isnt prevProps.mapCenter)
+    if (@props.map isnt prevProps.map) or (not equal(@props.position, prevProps.position)) or (@props.mapCenter isnt prevProps.mapCenter)
       @renderMarker()
 
   componentWillUnmount: ->
     @state?.marker?.setMap null
 
   renderMarker: ->
+    console.log 'renderMarker'
     if @state?.marker then @state.marker.setMap null # remove existing marker, if any
     {position, mapCenter, google, map} = @props
     pos = position or mapCenter
