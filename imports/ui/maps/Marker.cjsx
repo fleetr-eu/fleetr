@@ -14,11 +14,13 @@ module.exports  = React.createClass
     if (@props.map isnt prevProps.map) or (not equal(@props.position, prevProps.position)) or (@props.mapCenter isnt prevProps.mapCenter)
       @renderMarker()
 
+  componentWillMount: ->
+    if @props.map? and (@props.position? or @props.mapCenter?) then @renderMarker()
+
   componentWillUnmount: ->
     @state?.marker?.setMap null
 
   renderMarker: ->
-    console.log 'renderMarker'
     if @state?.marker then @state.marker.setMap null # remove existing marker, if any
     {position, mapCenter, google, map} = @props
     pos = position or mapCenter
