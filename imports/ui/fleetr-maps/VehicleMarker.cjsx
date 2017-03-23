@@ -1,5 +1,5 @@
 React   = require 'react'
-Marker  = require '../Marker.cjsx'
+Marker  = require '../maps/Marker.cjsx'
 
 module.exports  = React.createClass
   displayName: 'VehicleMarker'
