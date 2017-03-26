@@ -1,29 +1,6 @@
-doIfInRoles = (roles, cb) ->
-  if Roles.userIsInRole Meteor.user(), roles
-    cb?()
-  else
-    if Meteor.isClient
-      sAlert.error
-        sAlertIcon: 'exclamation'
-        sAlertTitle: TAPi18n.__ 'alerts.error.title'
-        message: TAPi18n.__ 'alerts.unauthorized.message'
-    else
-      throw new Meteor.Error TAPi18n.__('alerts.unauthorized.message')
-
-doIfEditor = (cb) -> doIfInRoles ['editor'], cb
-
-submitItem = (collection) -> (doc, id) ->
-  @unblock()
-  doIfEditor ->
-    collection.submit doc, id
-
-removeItem = (collection) -> (doc) ->
-  @unblock()
-  doIfEditor ->
-    collection.remove _id: doc
+{ submitItem, removeItem } = require '/imports/lib/db.coffee'
 
 Meteor.methods
-
   submitGeofence: (doc) ->
     doIfEditor ->
       if Geofences.findOne(_id: doc._id)
@@ -50,24 +27,6 @@ Meteor.methods
 
   submitVehicle: submitItem Vehicles
   removeVehicle: removeItem Vehicles
-
-  submitOdometer: (doc, id) ->
-    if Meteor.isServer
-      data = doc.$set
-      Meteor.call 'corrections/odometer', data.vehicleId, data.value, data.dateTime, (err, result) =>
-        if err
-          console.error "Error while trying to correct odometer: #{err}"
-        else
-          doc.$set.value = result.odometer
-          doc.$set.correction = result.correction
-          doc.$set.oldValue = result.previousOdometer
-          submitItem(Odometers).call @, doc, id
-    else
-      doc.$set.value = doc.$set.value * 1000 # convert to meters
-      submitItem(Odometers).call @, doc, id
-  # removeOdometer: ->
-  #   throw new Meteor.Error "Method not implemented"
-  removeOdometer: removeItem Odometers
 
   submitFleetGroup: submitItem FleetGroups
   removeFleetGroup: removeItem FleetGroups

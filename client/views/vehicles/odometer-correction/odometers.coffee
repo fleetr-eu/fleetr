@@ -41,7 +41,7 @@ Template.odometers.helpers
         width: 80
       ]
       options:
-        enableCellNavigation: true
+        enableCellNavigation: false
         enableColumnReorder: false
         showHeaderRow: true
         explicitInitialization: true
