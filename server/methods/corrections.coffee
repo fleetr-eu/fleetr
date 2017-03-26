@@ -20,5 +20,6 @@ Meteor.methods
     # Logbook.update recordsToUpdate, {$inc: odometer: correction}, {multi: true}
     # Vehicles.update {_id: vehicleId}, {$inc: odometer: correction}
 
+    odometer: odoInMeters
     correction: correction
     previousOdometer: rec.odometer

@@ -58,10 +58,12 @@ Meteor.methods
         if err
           console.error "Error while trying to correct odometer: #{err}"
         else
+          doc.$set.value = result.odometer
           doc.$set.correction = result.correction
           doc.$set.oldValue = result.previousOdometer
           submitItem(Odometers).call @, doc, id
     else
+      doc.$set.value = doc.$set.value * 1000 # convert to meters
       submitItem(Odometers).call @, doc, id
   # removeOdometer: ->
   #   throw new Meteor.Error "Method not implemented"
