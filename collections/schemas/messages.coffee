@@ -33,4 +33,3 @@ SimpleSchema.messages
     exp: SimpleSchema.RegEx.Url, msg: "'[label]' трябва да бъде валиден URL"
     exp: SimpleSchema.RegEx.Id, msg: "'[label]' трябва да съдържа само букви и чифри"
   ]
-  

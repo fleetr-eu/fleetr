@@ -8,7 +8,7 @@ Schema.alarms = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   timestamp:
-    type: Date, label: ()->TAPi18n.__('alarms.timestamp')
+    type: String, label: ()->TAPi18n.__('alarms.timestamp')
     autoform:
       type: "datetime-local"
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
@@ -109,10 +109,10 @@ Schema.customEvents = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   date:
-    type: Date, optional: true, label: ()->TAPi18n.__('customEvents.date')
+    type: String, optional: true, label: ()->TAPi18n.__('customEvents.date')
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   odometer:
     optional: true
@@ -339,20 +339,20 @@ Schema.documents = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   validFrom:
-    type: Date, label: ()->TAPi18n.__('documents.validFrom')
+    type: String, label: ()->TAPi18n.__('documents.validFrom')
     custom: ->
       "invalidFromToDates" if (@value and @field('validTo').value) and (@value > @field('validTo').value)
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   validTo:
-    type: Date, label: ()->TAPi18n.__('documents.validTo')
+    type: String, label: ()->TAPi18n.__('documents.validTo')
     custom: ->
       "invalidFromToDates" if (@value and @field('validFrom').value) and (@value < @field('validFrom').value)
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   issuedBy:
     type: String, label: ()->TAPi18n.__('documents.issuedBy')
@@ -413,12 +413,12 @@ Schema.maintenances = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   maintenanceDate:
-    type:Date, label: ()-> TAPi18n.__('maintenances.maintenanceDate')
+    type:String, label: ()-> TAPi18n.__('maintenances.maintenanceDate')
     custom: ->
       "invalidFromToDates" if (@value and @field('nextMaintenanceDate').value) and (@value > @field('nextMaintenanceDate').value)
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   odometer:
     type: Number, decimal:true, label: ()-> TAPi18n.__('maintenances.odometer')
@@ -434,12 +434,12 @@ Schema.maintenances = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   nextMaintenanceDate:
-    type:Date, optional: true, label: ()-> TAPi18n.__('maintenances.nextMaintenanceDate')
+    type:String, optional: true, label: ()-> TAPi18n.__('maintenances.nextMaintenanceDate')
     custom: ->
       "invalidFromToDates" if (@value and @field('maintenanceDate').value) and (@value < @field('maintenanceDate').value)
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   nextMaintenanceOdometer:
     type: Number
@@ -487,11 +487,11 @@ Schema.driverEvents = new SimpleSchema
       firstOption: "(Изберете)"
       options: -> EventTypes.find().map (event) -> label: event.name, value: event._id
   date:
-    type:Date
+    type:String
     label: "Дата"
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
   description:
     type:String
     label: "Описание"
@@ -517,13 +517,13 @@ Schema.driverVehicleAssignments = new SimpleSchema
         options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
         template: "bootstrap3-horizontal", "label-class":"col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
    date:
-      type: Date
+      type: String
       defaultValue: moment().format('DD.MM.YYYY')
       label: ()->TAPi18n.__('driverVehicleAssignments.date')
       optional: true
       autoform:
-        type: "bootstrap-datepicker"
-        datePickerOptions: Settings.dpOptions
+        type: "datetimepicker"
+        opts: Settings.dpOptions
         template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
    time:
       type: String

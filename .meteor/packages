@@ -54,7 +54,6 @@ jquery@1.11.10
 stevezhu:lodash
 zimme:iron-router-active
 aldeed:autoform
-aldeed:autoform-bs-datepicker
 comerc:autoform-typeahead
 fleetr:autoform-bootstrap-switch
 yogiben:admin
@@ -70,9 +69,9 @@ dbarrett:dropzonejs
 chfritz:filedrop
 hinas:meteor-bootstrap-confirmation
 aldeed:simple-schema
-dangrossman:bootstrap-daterangepicker
 rzymek:moment-locale-bg
 email@1.1.18
 jparker:gravatar
 pfafman:filesaver
 http@1.2.11
+drewy:datetimepicker

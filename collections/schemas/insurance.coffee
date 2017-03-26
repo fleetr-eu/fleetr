@@ -82,30 +82,30 @@ Schema.insurance = new SimpleSchema
       ]
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   policyDate:
-    type: Date
+    type: String
     label: ()->TAPi18n.__('insurances.policyDate')
     optional: true
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   policyValidFrom:
-    type: Date
+    type: String
     label: ()->TAPi18n.__('insurances.policyValidFrom')
     custom: ->
       "invalidFromToDates" if (@value and @field('policyValidTo').value) and (@value > @field('policyValidTo').value)
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   policyValidTo:
-    type: Date
+    type: String
     label: ()->TAPi18n.__('insurances.policyValidTo')
     custom: ->
       "invalidFromToDates" if (@value and @field('policyValidFrom').value) and (@value < @field('policyValidFrom').value)
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   validityMonths:
     type: Number
@@ -152,20 +152,20 @@ Schema.insurancePayment = new SimpleSchema
     type: String
     optional: true
   plannedDate:
-    type: Date
+    type: String
     label: ()->TAPi18n.__('insurancePayments.plannedDate')
     optional: true
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   actualDate:
-    type: Date
+    type: String
     label: ()->TAPi18n.__('insurancePayments.actualDate')
     optional: true
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   currency:
     type: String

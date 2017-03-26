@@ -2,6 +2,7 @@ Template.odometers.onRendered ->
   vehicleId = @data.vehicleId
   Template.odometer.onRendered ->
     @vehicleId = vehicleId
+
   Template.odometer.helpers
     vehicleId: vehicleId
 

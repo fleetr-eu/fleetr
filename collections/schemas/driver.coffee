@@ -33,12 +33,12 @@ Schema.driver = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
   birthDate:
-    type: Date
+    type: String
     label: "Дата на раждане"
     optional: true
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
   sex:
     type: String
@@ -64,7 +64,7 @@ Schema.driver = new SimpleSchema
     optional: true
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
@@ -95,22 +95,22 @@ Schema.driver = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
   validFrom:
-    type: Date
+    type: String
     label: "Валиден от"
     optional: true
     custom: -> 'invalidFromToDates' if (@value and @field('validTo').value) and (@value > @field('validTo').value)
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
   validTo:
-    type: Date
+    type: String
     label: "Валиден до"
     optional: true
-    custom: -> 'invalidFromToDates' if (@value and @field('validFrom').value) and (@value < @field('validFrom').value) 
+    custom: -> 'invalidFromToDates' if (@value and @field('validFrom').value) and (@value < @field('validFrom').value)
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
   issuedBy:
     type: String
@@ -191,22 +191,22 @@ Schema.driver = new SimpleSchema
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7 input-group-sm"
   licenseIssueDate:
-    type: Date
+    type: String
     label: "Дата на издаване"
     optional: true
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7 input-group-sm"
   licenseExpieryDate:
-    type: Date
+    type: String
     label: "Валидно до"
     optional: true
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7 input-group-sm"
@@ -216,7 +216,7 @@ Schema.driver = new SimpleSchema
     label: 'A'
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
@@ -226,12 +226,12 @@ Schema.driver = new SimpleSchema
       "label-class": "col-sm-1"
       "input-col-class": "col-sm-2 input-group-sm"
   categoryAIssueDate:
-    type: Date
+    type: String
     optional: true
     label: 'от дата'
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-2"
       "input-col-class": "col-sm-7 input-group-sm"
@@ -241,7 +241,7 @@ Schema.driver = new SimpleSchema
     label: 'B'
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
@@ -252,12 +252,12 @@ Schema.driver = new SimpleSchema
       "label-class": "col-sm-1"
       "input-col-class": "col-sm-2 input-group-sm"
   categoryBIssueDate:
-    type: Date
+    type: String
     optional: true
     label: 'от дата'
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-2"
       "input-col-class": "col-sm-7 input-group-sm"
@@ -267,7 +267,7 @@ Schema.driver = new SimpleSchema
     label: 'C'
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
@@ -278,12 +278,12 @@ Schema.driver = new SimpleSchema
       "label-class": "col-sm-1"
       "input-col-class": "col-sm-2 input-group-sm"
   categoryCIssueDate:
-    type: Date
+    type: String
     optional: true
     label: 'от дата'
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-2"
       "input-col-class": "col-sm-7 input-group-sm"
@@ -293,7 +293,7 @@ Schema.driver = new SimpleSchema
     label: 'D'
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
@@ -304,12 +304,12 @@ Schema.driver = new SimpleSchema
       "label-class": "col-sm-1"
       "input-col-class": "col-sm-2 input-group-sm"
   categoryDIssueDate:
-    type: Date
+    type: String
     optional: true
     label: 'от дата'
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-2"
       "input-col-class": "col-sm-7 input-group-sm"
@@ -319,7 +319,7 @@ Schema.driver = new SimpleSchema
     label: 'E'
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
@@ -330,43 +330,43 @@ Schema.driver = new SimpleSchema
       "label-class": "col-sm-1"
       "input-col-class": "col-sm-2 input-group-sm"
   categoryEIssueDate:
-    type: Date
+    type: String
     optional: true
     label: 'от дата'
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-2"
       "input-col-class": "col-sm-7 input-group-sm"
 
   medEvalExpieryDate:
-    type: Date
+    type: String
     label: "Медицинско свидетелство: "
     optional: true
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7 input-group-sm"
   profCertExpieryDate:
-    type: Date
+    type: String
     label: "Професионален сертификат: "
     optional: true
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7 input-group-sm"
   psychApprovalExpieryDate:
-    type: Date
+    type: String
     label: "У-ние за психо годност: "
     optional: true
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal"
       "label-class": "col-sm-5"
       "input-col-class": "col-sm-7 input-group-sm"
@@ -384,7 +384,7 @@ Schema.driver = new SimpleSchema
     optional: true
     autoform:
       type: 'bootstrap-switch'
-      afFieldInput: 
+      afFieldInput:
         switchOptions:
           size: 'normal'
           onColor: 'success'
