@@ -7,7 +7,7 @@ VehicleLayer = React.createClass
 
   render: ->
     <span>
-      {@props.vehicles.map (v) => <VehicleMarker key={v._id} vehicle={v} {...@props} /> }\
+      {@props.vehicles.map (v) => <VehicleMarker key={v._id} vehicle={v} {...@props} /> }
     </span>
 
 module.exports = createContainer (props) ->
