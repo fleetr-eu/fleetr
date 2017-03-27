@@ -105,8 +105,8 @@ Schema.vehicle = new SimpleSchema
   allocatedToFleetFromDate:
     type: Date, label:()->TAPi18n.__('vehicles.allocatedToFleetFromDate')
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   color:
@@ -139,12 +139,12 @@ Schema.vehicle = new SimpleSchema
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   nextTechnicalCheck:
-    type: Date, label:()->TAPi18n.__('vehicles.nextTechnicalCheck')
+    type: String, label:()->TAPi18n.__('vehicles.nextTechnicalCheck')
     custom: ->
       "invalidFromToDates" if (@value and @value < (new Date()))
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
   category:
@@ -297,8 +297,8 @@ Schema.odometers = new SimpleSchema
   dateTime:
     type: Date, label:()->TAPi18n.__('vehicles.odometers.date')
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dtpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
   value:
     type: Number, optional: true, label:()->TAPi18n.__('vehicles.odometers.value')

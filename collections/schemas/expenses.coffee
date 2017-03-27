@@ -55,11 +55,11 @@ Schema.expenses = new SimpleSchema
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   date:
-    type: Date
+    type: String
     label: ()->TAPi18n.__('expenses.date')
     autoform:
-      type: "bootstrap-datepicker"
-      datePickerOptions: Settings.dpOptions
+      type: "datetimepicker"
+      opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   quantity:
     type: Number

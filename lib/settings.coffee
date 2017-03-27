@@ -11,14 +11,31 @@
   zeroSpeed: 0.1
   locale: 'bg'
   longDateFormat: 'Do MMMM YYYY'
-  shortDateFormat: 'dd.mm.yyyy'
-  timeFormat: 'HH:mm'
+  shortDateFormat: 'DD.MM.YYYY'
+  timeFormat: 'hh:mm'
   longDateTimeFormat: 'Do MMMM YYYY, HH:mm'
+  shortDateTimeFormat: 'DD.MM.YYYY, HH:mm'
   unitTimezone: '+0300'
+  dtpOptions:
+    theme: 'dark'
+    lang:'bg'
+    format:'DD.MM.YYYY HH:mm'
+    formatTime:'HH:mm'
+    formatDate:'DD.MM.YYYY'
+    todayButton: true
+    timepickerScrollbar: true
   dpOptions:
-    format: "dd.mm.yyyy"
-    language: "bg-BG"
-    autoclose: true
-    todayHighlight: true
-    todayBtn: true
-    weekStart: 1
+    theme: 'dark'
+    lang:'bg'
+    timepicker:false
+    format:'DD.MM.YYYY'
+    formatDate:'DD.MM.YYYY'
+    todayButton: true
+    scrollMonth: true
+  tpOptions:
+    theme: 'dark'
+    lang:'bg'
+    datepicker:false
+    format:'HH:mm'
+    formatTime:'HH:mm'
+    timepickerScrollbar: true
