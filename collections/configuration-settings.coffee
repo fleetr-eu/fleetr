@@ -1,3 +1,2 @@
 @ConfigurationSettings = new Mongo.Collection 'configurationSettings'
-Partitioner.partitionCollection ConfigurationSettings
 ConfigurationSettings.attachSchema Schema.configurationSettings

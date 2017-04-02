@@ -3,16 +3,15 @@ observers =
   gf: {}
 
 Meteor.startup ->
-  Partitioner.directOperation ->
-    gfeCursor = GeofenceEvents.find
-      active: true
-    ,
-      fields:
-        active: 1
-        geofenceId: 1
-        vehicleId: 1
-        enter: 1
-        exit: 1
+  gfeCursor = GeofenceEvents.find
+    active: true
+  ,
+    fields:
+      active: 1
+      geofenceId: 1
+      vehicleId: 1
+      enter: 1
+      exit: 1
 
     gfeCursor.observe
       added: (gfe) ->
@@ -32,15 +31,14 @@ createGfObserver = (gfe) ->
       console.log """
         Event '#{type}' occurred (geofence event id #{gfe._id}):
         vehicle id '#{v._id}', geofence id '#{gf._id}'"""
-      Partitioner.bindGroup gf._groupId, ->
-        Alarms.add
-          type: type
-          data:
-            geofenceEventId: gfe._id
-            geofenceId: gf._id
-            vehicleId: v._id
+      Alarms.add
+        type: type
+        data:
+          geofenceEventId: gfe._id
+          geofenceId: gf._id
+          vehicleId: v._id
 
-    vehiclesCursor = Partitioner.bindGroup gf._groupId, -> Vehicles.find
+    vehiclesCursor = Vehicles.find
       _id: gfe.vehicleId
       lastUpdate: $gte: new Date()
       loc:

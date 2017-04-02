@@ -98,7 +98,6 @@ mfactory:admin-lte@0.0.2
 minifier-css@1.2.16
 minifier-js@1.2.18
 minimongo@1.0.20
-mizzao:partitioner@0.5.9
 mkarliner:mqtt@0.3.0
 mobile-experience@1.0.4
 mobile-status-bar@1.0.14

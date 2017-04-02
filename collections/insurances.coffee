@@ -1,9 +1,8 @@
 @Insurances = new Mongo.Collection 'insurances'
-Partitioner.partitionCollection Insurances
 Insurances.attachSchema Schema.insurance
 
 Insurances.after.update (userId, doc, fieldNames, modifier, options) ->
-  if doc.policyValidTo	
+  if doc.policyValidTo
   	insuranceType = InsuranceTypes.findOne {_id: doc.insuranceType}
   	insuranceName = insuranceType?.name
   	event = CustomEvents.findOne { sourceId: doc._id }
@@ -17,7 +16,7 @@ Insurances.after.update (userId, doc, fieldNames, modifier, options) ->
   	    date: doc.policyValidTo
   	    vehicleId: doc.vehicle
   	    active: true
-  	    seen: false  
+  	    seen: false
 
 Insurances.after.insert (userId, doc) ->
   if doc.policyValidTo
@@ -27,7 +26,7 @@ Insurances.after.insert (userId, doc) ->
       sourceId: doc._id
       name: "Застраховка: " + insuranceName
       kind: "Застраховка"
-      date: doc.policyValidTo   
+      date: doc.policyValidTo
       vehicleId: doc.vehicle
       active: true
       seen: false
