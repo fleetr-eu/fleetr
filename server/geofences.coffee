@@ -13,15 +13,15 @@ Meteor.startup ->
       enter: 1
       exit: 1
 
-    gfeCursor.observe
-      added: (gfe) ->
-        observers.gfe[gfe._id] = createGfObserver gfe
-      removed: (gfe) ->
-        observers.gfe[gfe._id].stop()
-        delete observers.gfe[gfe._id]
-      changed: (gfe) ->
-        observers.gfe[gfe._id].stop()
-        observers.gfe[gfe._id] = createGfObserver gfe
+  gfeCursor.observe
+    added: (gfe) ->
+      observers.gfe[gfe._id] = createGfObserver gfe
+    removed: (gfe) ->
+      observers.gfe[gfe._id].stop()
+      delete observers.gfe[gfe._id]
+    changed: (gfe) ->
+      observers.gfe[gfe._id].stop()
+      observers.gfe[gfe._id] = createGfObserver gfe
 
 
 createGfObserver = (gfe) ->
