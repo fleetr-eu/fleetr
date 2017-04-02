@@ -104,7 +104,7 @@ mobile-experience@1.0.4
 mobile-status-bar@1.0.14
 modules@0.7.9
 modules-runtime@0.7.9
-momentjs:moment@2.17.1
+momentjs:moment@2.18.1
 mongo@1.1.16
 mongo-id@1.0.6
 mongo-livedata@1.0.12
@@ -131,7 +131,7 @@ reactive-dict@1.1.8
 reactive-var@1.0.11
 reload@1.1.11
 retry@1.0.9
-reywood:publish-composite@1.4.2
+reywood:publish-composite@1.5.1
 routepolicy@1.0.12
 rzymek:moment-locale-bg@2.14.1
 sacha:spin@2.3.1
