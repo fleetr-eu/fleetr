@@ -17,6 +17,10 @@
     <small class="pull-right">{{startTime}} - {{stopTime}}</small>
   </h2>
   {{/if}}
-  {{> fleetrMap showVehicles=false enableVehicleSelection=false}}
+  <div>
+    {{> React component=TripMap data=parsed }}
+  </div>
   {{showInfoMarkers}}
 </template>
+
+<!-- {{> fleetrMap showVehicles=false enableVehicleSelection=false}} -->
