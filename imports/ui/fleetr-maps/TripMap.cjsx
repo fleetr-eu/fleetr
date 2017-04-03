@@ -24,9 +24,9 @@ module.exports = createContainer (props) ->
   path = []
   console.log 'searchArgs',searchArgs
   if searchArgs
-    Meteor.subscribe 'logbook', searchArgs, =>
-      path = Logbook.find(searchArgs, {sort: recordTime: 1}).fetch()
-      console.log 'path', path
+    Meteor.subscribe 'logbook', searchArgs
+    path = Logbook.find(searchArgs, {sort: recordTime: 1}).map (point) -> lat: point.lat, lng: point.lng
+    console.log 'path', path
 
   path: path
 , TripMap
