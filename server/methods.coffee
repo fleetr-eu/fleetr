@@ -39,11 +39,11 @@ Meteor.methods
         InsurancePayments.insert
           insuranceId: doc._id
           plannedDate: paymentDate
-          currency: "Лев"
+          currency: doc.currency
           amountWithVAT: payment
           VONumber: i
           paid: false
-          i++
+        i++
 
   detailedTotals: (date)->
     StartStop.aggregate [

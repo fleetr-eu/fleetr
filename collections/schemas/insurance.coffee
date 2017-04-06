@@ -77,7 +77,7 @@ Schema.insurance = new SimpleSchema
     autoform:
       firstOption: "(Изберете)"
       options: [
-        { label:'Лева' , value: 'Лев'},
+        { label:'Лев' , value: 'Лев'},
         { label:'Евро' , value: 'Евро'}
       ]
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
@@ -175,7 +175,7 @@ Schema.insurancePayment = new SimpleSchema
     autoform:
       firstOption: "(Изберете)"
       options: [
-        { label:'Лева' , value: 'Лев'},
+        { label:'Лев' , value: 'Лев'},
         { label:'Евро' , value: 'Евро'}
       ]
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"

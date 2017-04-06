@@ -20,7 +20,11 @@ Insurances.after.update (userId, doc, fieldNames, modifier, options) ->
   	    seen: false
 
 Insurances.after.insert (userId, doc) ->
-  Meteor.call "createPayments", doc  
+  doc.policyDate = doc.policyDate.valueOf()
+  doc.policyValidFrom = doc.policyValidFrom.valueOf()
+  doc.policyValidTo = doc.policyValidTo.valueOf()
+  console.log(doc)
+  Meteor.call "createPayments", doc
   if doc.policyValidTo
   	insuranceType = InsuranceTypes.findOne {_id: doc.insuranceType}
   	insuranceName = insuranceType?.name
