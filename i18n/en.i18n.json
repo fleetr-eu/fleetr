@@ -499,6 +499,7 @@
     "amountWithVAT" : "Amount (VAT incl)",
     "VONumber" : "VO No",
     "invoiceNo" : "Invoice No",
+    "paid" : "Paid",
     "balance" : "Balance",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете това плащане?"
   },

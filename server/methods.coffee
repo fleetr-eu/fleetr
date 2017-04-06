@@ -26,6 +26,25 @@ Meteor.methods
         fuel      : {$sum: "$sumFuel"}
     ]
 
+  createPayments: (doc) ->
+    if doc.policyValidFrom and doc.policyValidTo and doc.numberOfPayments and doc.value
+      days = moment(doc.policyValidTo).diff(moment(doc.policyValidFrom) - moment(doc.policyValidTo), "days")
+      period = Math.round(days / doc.numberOfPayments)
+      amount = Math.round(100 * (doc.value / doc.numberOfPayments)) / 100
+      paymentDate = moment(doc.policyValidFrom)
+      i = 0
+      while i < doc.numberOfPayments
+        if i == (doc.numberOfPayments - 1) then payment = doc.value - Math.round((doc.numberOfPayments - 1)*amount*100)/100 else payment = amount
+        paymentDate.add(period, "days")
+        InsurancePayments.insert
+          insuranceId: doc._id
+          plannedDate: paymentDate
+          currency: "Лев"
+          amountWithVAT: payment
+          VONumber: i
+          paid: false
+          i++
+
   detailedTotals: (date)->
     StartStop.aggregate [
       {$match: {date: date}}

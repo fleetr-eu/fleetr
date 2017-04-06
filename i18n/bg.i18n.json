@@ -500,6 +500,7 @@
     "amountWithVAT" : "Сума (с ДДС)",
     "VONumber" : "ВО No",
     "invoiceNo" : "Фактура No",
+    "paid" : "Платена",
     "balance" : "Баланс",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете това плащане?"
   },
