@@ -1,9 +1,22 @@
 BigCalendar = require '/imports/ui/BigCalendar.cjsx'
 
 Template.customEvents.helpers
+  content: ->
+    if Session.get('selectedItemId')
+      eventId = Session.get('selectedItemId')
+      doc = CustomEvents.findOne {_id: eventId }
+      extendedEvent = _.extend doc,
+        vehicleName: do ->
+          v = Vehicles.findOne(_id: doc.vehicleId)
+          if v then v.name + " (" +v.licensePlate+ ")" else ""
+        driverName: do ->
+          d = Drivers.findOne(_id: doc.driverId)
+          if d then d.firstName+" "+d.name else ""
+      extendedEvent.name + ": "+ moment(doc.date).format(Settings.shortDateFormat) + ", "+extendedEvent.vehicleName + " " + extendedEvent.driverName
+
   BigCalendar: -> BigCalendar
   onSelectEvent: -> (event) -> Session.set 'selectedItemId', event.id
-  onSelectSlot: -> (event) -> 
+  onSelectSlot: -> (event) ->
     console.log (event.start + "," + event.end)
   actions: ->
     i18nRoot: 'customEvents'
