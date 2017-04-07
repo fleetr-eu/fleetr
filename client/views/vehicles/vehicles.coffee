@@ -2,10 +2,17 @@ hiddenOnMobile = () ->
   Session.get('device-screensize') is 'small'
 
 timeAgoFormatter = (row, cell, value) ->
-  if value
-    moment(value).from(moment.utc())
-  else
-    ''
+  attnIcon =""
+  vStr = ""
+  formattedValue = moment(value).format(Settings.shortDateTimeFormat)
+  if value then vStr = moment(value).from(moment())
+  hoursAgo = moment().diff(moment(value), "hours")
+  if hoursAgo > 1
+      attnIcon =  "<i class='fa fa-exclamation-triangle pull-left' style='color:orange; padding-top:3px;' title='#{formattedValue}'></i>"
+  if hoursAgo > 24
+      attnIcon = "<i class='fa fa-exclamation-triangle pull-left' style='color:red; padding-top:3px;' title='#{formattedValue}'></i>"
+  "<span>#{attnIcon}<div>#{vStr}</div></span>"
+
 
 linkFormatter = (report) -> (row, cell, value) ->
   "<a href='/vehicles/#{value}/#{report}' style='background-color:#000'><img src='/images/#{report}-icon.png' height='22' }'></img></a>"
@@ -81,22 +88,23 @@ Template.vehicles.helpers
         hidden: hiddenOnMobile()
         sortable: true
         search: where: 'client'
-      ,
-        id: "unitId"
-        field: "unitId"
-        name: TAPi18n.__('vehicles.unitId')
-        width:50
-        hidden: true
-        sortable: true
-        search: where: 'client'
-      ,
-        id: "phoneNumber"
-        field: "phoneNumber"
-        name: TAPi18n.__('vehicles.phoneNumber')
-        width:50
-        hidden: true
-        sortable: true
-        search: where: 'client'
+      # ,
+      #   id: "unitId"
+      #   field: "unitId"
+      #   name: TAPi18n.__('vehicles.unitId')
+      #   width: 50
+      #   hidden: true
+      #   sortable: true
+      #   search: where: 'client'
+      #   hidden:true
+      # ,
+      #   id: "phoneNumber"
+      #   field: "phoneNumber"
+      #   name: TAPi18n.__('vehicles.phoneNumber')
+      #   width: 50
+      #   hidden: true
+      #   sortable: true
+      #   search: where: 'client'
       ,
         id: "odometer"
         field: "odo"
