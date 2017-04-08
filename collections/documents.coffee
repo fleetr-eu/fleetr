@@ -1,5 +1,4 @@
 @Documents = new Mongo.Collection 'documents'
-Partitioner.partitionCollection Documents
 Documents.attachSchema Schema.documents
 
 Documents.after.update (userId, doc, fieldNames, modifier, options) ->
@@ -7,7 +6,7 @@ Documents.after.update (userId, doc, fieldNames, modifier, options) ->
    	documentType = DocumentTypes.findOne {_id: doc.type}
    	documentName = documentType?.name
     event = CustomEvents.findOne { sourceId: doc._id }
-    if event 
+    if event
       CustomEvents.update(event._id, { $set: { date: doc.validTo, name: "Документ: " + documentName}} )
     else
       CustomEvents.insert

@@ -1,5 +1,4 @@
 @Insurances = new Mongo.Collection 'insurances'
-Partitioner.partitionCollection Insurances
 Insurances.attachSchema Schema.insurance
 
 Insurances.after.update (userId, doc, fieldNames, modifier, options) ->

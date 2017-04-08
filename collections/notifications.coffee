@@ -1,5 +1,4 @@
 @Notifications = new Mongo.Collection 'notifications'
-Partitioner.partitionCollection Notifications
 Notifications.daysToExpireStyle = (expieryDate) ->
 
   if expieryDate < moment().add(2, 'days').toDate()

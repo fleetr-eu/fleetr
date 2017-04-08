@@ -22,7 +22,6 @@ anti:fake
 mrt:flash-messages
 matb33:collection-hooks
 dburles:collection-helpers
-mizzao:partitioner
 
 tap:i18n
 tap:i18n-ui

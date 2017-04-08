@@ -1,5 +1,4 @@
 @Vehicles = new Mongo.Collection 'vehicles'
-Partitioner.partitionCollection Vehicles
 Vehicles.attachSchema Schema.vehicle
 
 Vehicles.helpers

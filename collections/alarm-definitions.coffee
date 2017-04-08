@@ -1,5 +1,4 @@
 @AlarmDefinitions = new Mongo.Collection 'alarmDefinitions'
-Partitioner.partitionCollection AlarmDefinitions
 
 AlarmDefinitions.removeAll = () -> AlarmDefinitions.remove {}
 

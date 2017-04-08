@@ -1,5 +1,4 @@
 @FleetGroups = new Mongo.Collection 'fleetGroups'
-Partitioner.partitionCollection FleetGroups
 FleetGroups.attachSchema Schema.fleetGroups
 
 addVehicles = (sum, fleet) -> sum + fleet.vehicleCount()
