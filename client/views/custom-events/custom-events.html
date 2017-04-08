@@ -11,8 +11,18 @@
 					{{_ "customEvents.tabs.list"}}</a>
 				</li>
 
+				<button type="button" class="pull-right btn btn-info btn-xs glyphicon glyphicon-triangle-bottom" data-toggle="collapse" data-target="#details"></button>
+
 			</ul>
+
 			<div class="tab-content">
+				<div class="container">
+				  <div id="details" class="collapse">
+						<p>
+				    {{ content }}
+						</p>
+				  </div>
+				</div>
 				<div class="tab-pane active calendar-pane" id="tab_1">
 					{{> React component=BigCalendar onSelectEvent=onSelectEvent onSelectSlot=onSelectSlot}}
 				</div>

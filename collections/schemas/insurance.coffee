@@ -77,12 +77,12 @@ Schema.insurance = new SimpleSchema
     autoform:
       firstOption: "(Изберете)"
       options: [
-        { label:'Лева' , value: 'Лев'},
+        { label:'Лев' , value: 'Лев'},
         { label:'Евро' , value: 'Евро'}
       ]
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   policyDate:
-    type: String
+    type: Date
     label: ()->TAPi18n.__('insurances.policyDate')
     optional: true
     autoform:
@@ -90,7 +90,7 @@ Schema.insurance = new SimpleSchema
       opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   policyValidFrom:
-    type: String
+    type: Date
     label: ()->TAPi18n.__('insurances.policyValidFrom')
     custom: ->
       "invalidFromToDates" if (@value and @field('policyValidTo').value) and (@value > @field('policyValidTo').value)
@@ -99,7 +99,7 @@ Schema.insurance = new SimpleSchema
       opts: Settings.dpOptions
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
   policyValidTo:
-    type: String
+    type: Date
     label: ()->TAPi18n.__('insurances.policyValidTo')
     custom: ->
       "invalidFromToDates" if (@value and @field('policyValidFrom').value) and (@value < @field('policyValidFrom').value)
@@ -175,11 +175,10 @@ Schema.insurancePayment = new SimpleSchema
     autoform:
       firstOption: "(Изберете)"
       options: [
-        { label:'Лева' , value: 'Лев'},
+        { label:'Лев' , value: 'Лев'},
         { label:'Евро' , value: 'Евро'}
       ]
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
-
   amountNoVAT:
     type: Number
     optional: true
@@ -206,3 +205,15 @@ Schema.insurancePayment = new SimpleSchema
     label: ()->TAPi18n.__('insurancePayments.invoiceNo')
     autoform:
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
+  paid:
+    type: Boolean, optional: true, label: ()->TAPi18n.__('insurancePayments.paid')
+    autoform:
+      type: 'bootstrap-switch'
+      afFieldInput:
+        switchOptions:
+          size: 'normal'
+          onColor: 'success'
+          onText: ()->TAPi18n.__('general.yes')
+          offText: ()->TAPi18n.__('general.no')
+      template: "bootstrap3-horizontal"
+      leftLabel:"true", "label-class": "col-sm-6", "input-col-class": "col-sm-6"

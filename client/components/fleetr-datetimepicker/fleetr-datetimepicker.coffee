@@ -7,6 +7,9 @@ Template.datetimepicker.helpers atts: ->
 AutoForm.addInputType 'datetimepicker',
   template: 'datetimepicker'
   valueOut: ->
-    moment(@val(), Settings.shortDateTimeFormat).toDate()
+    new Date(moment(@val(), Settings.shortDateTimeFormat).toDate())
   valueIn: (val)->
-    moment(val).format(Settings.shortDateTimeFormat)
+    if val
+      moment(val).format(Settings.shortDateTimeFormat)
+    else
+      ''
