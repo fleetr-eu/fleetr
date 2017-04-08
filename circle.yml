@@ -16,8 +16,8 @@ test:
 
 deployment:
   hub:
-    branch: single-tenant
+    branch: master
     commands:
-      - docker build -t fleetr/web:single-tenant ../target
+      - docker build -t fleetr/web ../target
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push fleetr/web:single-tenant
+      - docker push fleetr/web
