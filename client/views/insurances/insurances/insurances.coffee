@@ -20,7 +20,6 @@ Template.insurances.helpers
         groupable:
           hideColumn: true
           aggregators: aggregators
-          isCollapsedByDefault: true
       ,
         id: "insuranceCompanyName"
         field: "insuranceCompanyName"
