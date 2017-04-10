@@ -127,7 +127,6 @@ Meteor.methods
     @unblock()
     vehicles = {}
     deviceIds = Vehicles.aggregate [
-      {$match: _groupId: Meteor.user().group}
       {$lookup:
         from: "fleets"
         localField: "allocatedToFleet"

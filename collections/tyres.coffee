@@ -1,5 +1,4 @@
 @Tyres = new Mongo.Collection 'tyres'
-Partitioner.partitionCollection Tyres
 
 Tyres.attachSchema new SimpleSchema
   _id:

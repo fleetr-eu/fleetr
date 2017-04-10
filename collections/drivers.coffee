@@ -1,5 +1,4 @@
 @Drivers = new Mongo.Collection 'drivers'
-Partitioner.partitionCollection Drivers
 Drivers.getAssignedVechicle =  (driver, timestamp) ->
   dvAssignment = DriverVehicleAssignments.findOne {driver:driver},  {sort: {moment: -1}}
   if (dvAssignment?.moment <= timestamp) and (dvAssignment?.event=='begin')
