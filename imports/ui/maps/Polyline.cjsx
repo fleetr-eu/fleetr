@@ -1,4 +1,5 @@
 React   = require 'react'
+_       = require 'lodash'
 equal   = require('deep-equal')
 { installListeners } = require './Utils.coffee'
 
@@ -11,7 +12,7 @@ module.exports  = React.createClass
     map: React.PropTypes.object
 
   componentDidUpdate: (prevProps) ->
-    if (@props.map isnt prevProps.map) or (not equal(@props.path, prevProps.path))
+    if (@props.map isnt prevProps.map) or (not equal(@props.path, prevProps.path)) or (not equal(@props.options, prevProps.options))
       @renderPath()
 
   componentWillMount: ->
@@ -22,26 +23,13 @@ module.exports  = React.createClass
 
   renderPath: ->
     if @state?.polyline then @state.polyline.setMap null # remove existing polyline, if any
-    {path, google, map} = @props
-    options =
-      icons: [
-        icon:
-          path: google.maps.SymbolPath.FORWARD_OPEN_ARROW
-          strokeWeight: 2
-          strokeColor: 'white'
-          scale: 1
-        offset: '30px'
-        repeat: '30px'
-      ]
+    {path, google, map, options} = @props
+    opts =
       map: map
       path: path
-      strokeColor: 'blue'
-      strokeOpacity: 0.6
-      strokeWeight: 7
-    polyline = new google.maps.Polyline options
+    polyline = new google.maps.Polyline _.extend opts, options
     bounds = new google.maps.LatLngBounds()
-    path.forEach (coord) -> console.log 'extend bounds', coord; bounds.extend(new google.maps.LatLng coord.lat, coord.lng)
-    path.forEach (coord) -> console.log 'extend bounds', coord; bounds.extend(new google.maps.LatLng coord.lat, coord.lng)
+    path.forEach (coord) -> bounds.extend(new google.maps.LatLng coord.lat, coord.lng)
     console.log 'bounds', bounds
     map.fitBounds bounds
     installListeners @, polyline
