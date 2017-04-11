@@ -2,7 +2,7 @@ React               = require 'react'
 {createContainer}   = require 'meteor/react-meteor-data'
 Map                 = require '../maps/Map.cjsx'
 Marker              = require '../maps/Marker.cjsx'
-Polyline            = require '../maps/Polyline.cjsx'
+RoutePolyline       = require '../fleetr-maps/RoutePolyline.cjsx'
 InfoWindow          = require '../maps/InfoWindow.cjsx'
 
 VehicleLayer        = require '../fleetr-maps/VehicleLayer.cjsx'
@@ -13,7 +13,7 @@ TripMap = React.createClass
   render: ->
     console.log 'TripMap', @props
     <Map centerAroundCurrentLocation=true style={height:'calc(100vh - 60px)'} onMove={-> console.log 'map moved'} onClick={(a,b,c)-> console.log 'clicked on map',a} >
-      <Polyline path={@props.path} />
+      <RoutePolyline path={@props.path} />
     </Map>
 
 module.exports = createContainer (props) ->
