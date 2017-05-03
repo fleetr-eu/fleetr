@@ -1,4 +1,4 @@
-{ submitItem, removeItem } = require '/imports/lib/db.coffee'
+{ submitItem, removeItem, doIfEditor } = require '/imports/lib/db.coffee'
 
 Meteor.methods
   submitGeofence: (doc) ->
@@ -76,15 +76,16 @@ Meteor.methods
         tripId: id
         isBusinessTrip: doc.$set.isBusinessTrip
 
-  submitDriverVehicleAssignment: (doc) ->
+  submitDriverVehicleAssignment: (doc, id) ->
     @unblock
     doIfEditor ->
-      DriverVehicleAssignments.submit doc
-      Drivers.update {_id: doc.driver}, {$set: vehicle_id: doc.vehicle}
-      Vehicles.update {_id: doc.vehicle}, {$set: driver_id: doc.driver}
-  removeDriverVehicleAssignment: (doc) ->
+      DriverVehicleAssignments.submit doc, id
+      Drivers.update {_id: doc.$set.driver}, {$set: vehicle_id: doc.$set.vehicle}
+      Vehicles.update {_id: doc.$set.vehicle}, {$set: driver_id: doc.$set.driver}
+  removeDriverVehicleAssignment: (id) ->
     @unblock
     doIfEditor ->
-      DriverVehicleAssignments.remove _id: doc
-      Drivers.update {_id: doc.driver}, {$unset: vehicle_id: ""}
-      Vehicles.update {_id: doc.vehicle}, {$unset: driver_id: ""}
+      dva = DriverVehicleAssignments.findOne _id: id
+      Drivers.update {_id: dva.driver}, {$unset: vehicle_id: ""}
+      Vehicles.update {_id: dva.vehicle}, {$unset: driver_id: ""}
+      DriverVehicleAssignments.remove _id: id

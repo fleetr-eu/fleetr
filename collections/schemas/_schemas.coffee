@@ -497,49 +497,48 @@ Schema.driverEvents = new SimpleSchema
     label: "Описание"
 
 Schema.driverVehicleAssignments = new SimpleSchema
-   _id:
-      type: String
-      optional: true
-   driver:
-      type: String
-      label: ()->TAPi18n.__('driverVehicleAssignments.driverName')
-      autoform:
-        firstOption: "(Изберете)"
-        options: -> Drivers.find().map (driver) ->
-          label: driver.firstName+" "+driver.name
-          value: driver._id
-        template: "bootstrap3-horizontal", "label-class":"col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
-   vehicle:
-      type:String
-      label: ()->TAPi18n.__('driverVehicleAssignments.vehicleName')
-      autoform:
-        firstOption: "(Изберете)"
-        options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
-        template: "bootstrap3-horizontal", "label-class":"col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
-   date:
-      type: String
-      defaultValue: moment().format('DD.MM.YYYY')
-      label: ()->TAPi18n.__('driverVehicleAssignments.date')
-      optional: true
-      autoform:
-        type: "datetimepicker"
-        opts: Settings.dpOptions
-        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
-   time:
-      type: String
-      defaultValue: moment().format('HH:mm')
-      label: ()->TAPi18n.__('driverVehicleAssignments.time')
-      optional: true
-      autoform:
-        template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
-
-   event:
-      type:String
-      label: ()->TAPi18n.__('driverVehicleAssignments.event')
-      autoform:
-        type: "select-radio-inline"
-        template: "bootstrap3-horizontal", "label-class":"col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
-        options: () -> [
-          { label: TAPi18n.__('driverVehicleAssignments.associate'), value: "begin"},
-          { label: TAPi18n.__('driverVehicleAssignments.disassociate'), value: "end"}
-        ]
+  _id:
+    type: String
+    optional: true
+  driver:
+    type: String
+    label: ()->TAPi18n.__('driverVehicleAssignments.driverName')
+    autoform:
+      firstOption: "(Изберете)"
+      options: -> Drivers.find().map (driver) ->
+        label: driver.fullName()
+        value: driver._id
+      template: "bootstrap3-horizontal", "label-class":"col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
+  vehicle:
+    type:String
+    label: ()->TAPi18n.__('driverVehicleAssignments.vehicleName')
+    autoform:
+      firstOption: "(Изберете)"
+      options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
+      template: "bootstrap3-horizontal", "label-class":"col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
+  date:
+    type: String
+    defaultValue: moment().format('DD.MM.YYYY')
+    label: ()->TAPi18n.__('driverVehicleAssignments.date')
+    optional: true
+    autoform:
+      type: "datetimepicker"
+      opts: Settings.dpOptions
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
+  time:
+    type: String
+    defaultValue: moment().format('HH:mm')
+    label: ()->TAPi18n.__('driverVehicleAssignments.time')
+    optional: true
+    autoform:
+      template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
+  event:
+    type:String
+    label: ()->TAPi18n.__('driverVehicleAssignments.event')
+    autoform:
+      type: "select-radio-inline"
+      template: "bootstrap3-horizontal", "label-class":"col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
+      options: () -> [
+        { label: TAPi18n.__('driverVehicleAssignments.associate'), value: "begin"},
+        { label: TAPi18n.__('driverVehicleAssignments.disassociate'), value: "end"}
+      ]
