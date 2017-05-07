@@ -13,6 +13,7 @@ doIfInRoles = (roles, cb) ->
 doIfEditor = (cb) -> doIfInRoles ['editor'], cb
 
 module.exports =
+  doIfEditor: doIfEditor
   submitItem: (collection) -> (doc, id) ->
     @unblock()
     doIfEditor ->

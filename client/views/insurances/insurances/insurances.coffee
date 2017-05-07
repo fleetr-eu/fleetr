@@ -110,7 +110,7 @@ Template.insurances.helpers
           addAll = (sum, payment)-> sum + payment.amountWithVAT
           paid = _.reduce(payments, addAll, 0)
           _.extend doc,
-          vehicle: Vehicles.findOne(_id: doc.vehicle).displayName()
+          vehicle: Vehicles.findOne(_id: doc.vehicle)?.displayName()
           insuranceTypeName: InsuranceTypes.findOne(_id: doc.insuranceType)?.name,
           insuranceCompanyName: InsuranceCompanies.findOne(_id: doc.insuranceCompany)?.name,
           remainingDays: if doc.policyValidTo then moment(doc.policyValidTo).diff(moment(), 'days') else -1
