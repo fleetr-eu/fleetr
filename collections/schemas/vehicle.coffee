@@ -181,15 +181,16 @@ Schema.vehicle = new SimpleSchema
 
   fuelType:
     type: String, optional: true, label:()->TAPi18n.__('vehicles.fuelType')
-    allowedValues: ['Gas', 'Gasoline', 'Diesel', 'Electric', 'Hybrid']
+    allowedValues: ['Diesel', 'Electric', 'Gas', 'Gasoline', 'Hybrid', 'Methane']
     autoform:
       firstOption: "(Select)"
       options: [
-        { label:'Gas' , value: 'Gas'},
-        { label:'Gasoline' , value: 'Gasoline'},
         { label:'Diesel' , value: 'Diesel'},
         { label:'Electric' , value: 'Electric'},
-        { label:'Hybrid' , value: 'Hybrid'}
+        { label:'Gas' , value: 'Gas'},
+        { label:'Gasoline' , value: 'Gasoline'},
+        { label:'Hybrid' , value: 'Hybrid'},
+        { label:'Methane' , value: 'Methane'}
       ]
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
 
