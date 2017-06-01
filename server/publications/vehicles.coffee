@@ -42,11 +42,15 @@ opts =
     maxAllowedSpeed: 1
     workHours: 1
 
-findVehicles = (filter = {}) ->
-  Vehicles.find PermissionsManager.augment(filter, 'vehicles'), opts
+findVehicles = (filter = {}, opts = {}) ->
+  mods = PermissionsManager.modifiers
+    vehicles: '_id'
+    fleets: 'allocatedToFleet'
+  lodash.merge filter, mods
+  Vehicles.find filter, opts
 
 Meteor.publish 'vehicles/licensePlates', ->
-  Vehicles.find {}, fields:
+  findVehicles {}, fields:
     licensePlate: 1
 Meteor.publish 'vehicles', findVehicles
 Meteor.publish 'vehicle', (filter) ->
@@ -58,7 +62,7 @@ Meteor.publish 'vehicle/history', (vehicleId) ->
   else []
 
 publishVehicleNames = (filter = {}) ->
-  Vehicles.find PermissionsManager.augment(filter, 'vehicles'),
+  findVehicles filter,
     fields:
       name: 1
       licensePlate: 1
