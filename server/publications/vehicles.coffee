@@ -53,8 +53,8 @@ Meteor.publish 'vehicles/licensePlates', ->
   findVehicles {}, fields:
     licensePlate: 1
 Meteor.publish 'vehicles', findVehicles
-Meteor.publish 'vehicle', (filter) ->
-  if filter then Vehicles.find(filter) else []
+Meteor.publish 'vehicle', (filter = {}) ->
+  if filter isnt {} then findVehicles(filter) else []
 Meteor.publish 'vehicles/list', findVehicles
 Meteor.publish 'vehicle/history', (vehicleId) ->
   if v = Vehicles.findOne(_id: vehicleId)
