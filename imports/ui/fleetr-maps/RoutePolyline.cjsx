@@ -4,7 +4,7 @@ Polyline = require '../maps/Polyline.cjsx'
 module.exports  = React.createClass
   displayName: 'RoutePolyline'
 
-  getOptions: ->
+  getOptions: (path)->
     options =
       icons: [
         icon:
@@ -15,9 +15,35 @@ module.exports  = React.createClass
         offset: '30px'
         repeat: '30px'
       ]
-      strokeColor: 'blue'
+      strokeColor: if path[0].speeding then 'red' else 'blue'
       strokeOpacity: 0.6
       strokeWeight: 7
 
   render: ->
-    <Polyline options={@getOptions()} {...@props} />
+    paths = []
+
+    path = []
+
+    x = @props.points.map (p) -> p.speeding = p.speed > 100; p
+
+    for point in x
+      if path.length is 0
+        path.push point
+      else
+        [..., l] = path
+        if l.speeding is point.speeding
+          path.push point
+        else
+          path.push point
+          paths.push path
+          path = []
+          path.push point
+
+    if path.length then paths.push path
+
+
+    <span>
+    {paths.map (path, i) =>
+      <Polyline key={i} options={@getOptions(path)} path={path} {...@props} />
+    }
+    </span>

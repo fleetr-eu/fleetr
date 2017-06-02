@@ -14,9 +14,9 @@ TripMap = React.createClass
 
   render: ->
     console.log 'TripMap', @props
-    [start, ..., stop] = @props.path
+    [start, ..., stop] = @props.points
     <Map centerAroundCurrentLocation=true style={height:'calc(100vh - 60px)'} onMove={-> console.log 'map moved'} onClick={(a,b,c)-> console.log 'clicked on map',a} >
-      <RoutePolyline path={@props.path} />
+      <RoutePolyline points={@props.points} />
       <StartMarker position={start}/>
       <StopMarker position={stop}/>
     </Map>
@@ -26,12 +26,12 @@ module.exports = createContainer (props) ->
   { tripId } = props.data
   searchArgs = if tripId
     'attributes.trip': tripId
-  path = []
+  points = []
   console.log 'searchArgs',searchArgs
   if searchArgs
     Meteor.subscribe 'logbook', searchArgs
-    path = Logbook.find(searchArgs, {sort: recordTime: 1}).map (point) -> lat: point.lat, lng: point.lng
-    console.log 'path', path
+    points = Logbook.find(searchArgs, {sort: recordTime: 1}).fetch()
+    console.log 'points', points
 
-  path: path
+  points: points
 , TripMap
