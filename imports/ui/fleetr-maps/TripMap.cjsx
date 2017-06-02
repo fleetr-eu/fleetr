@@ -2,6 +2,8 @@ React               = require 'react'
 {createContainer}   = require 'meteor/react-meteor-data'
 Map                 = require '../maps/Map.cjsx'
 Marker              = require '../maps/Marker.cjsx'
+StartMarker         = require '../fleetr-maps/markers/StartMarker.cjsx'
+StopMarker         = require '../fleetr-maps/markers/StopMarker.cjsx'
 RoutePolyline       = require '../fleetr-maps/RoutePolyline.cjsx'
 InfoWindow          = require '../maps/InfoWindow.cjsx'
 
@@ -12,8 +14,11 @@ TripMap = React.createClass
 
   render: ->
     console.log 'TripMap', @props
+    [start, ..., stop] = @props.path
     <Map centerAroundCurrentLocation=true style={height:'calc(100vh - 60px)'} onMove={-> console.log 'map moved'} onClick={(a,b,c)-> console.log 'clicked on map',a} >
       <RoutePolyline path={@props.path} />
+      <StartMarker position={start}/>
+      <StopMarker position={stop}/>
     </Map>
 
 module.exports = createContainer (props) ->

@@ -1,6 +1,6 @@
 React               = require 'react'
 { createContainer } = require 'meteor/react-meteor-data'
-VehicleMarker       = require './VehicleMarker.cjsx'
+VehicleMarker       = require './markers/VehicleMarker.cjsx'
 
 VehicleLayer = React.createClass
   displayName: 'VehicleLayer'
