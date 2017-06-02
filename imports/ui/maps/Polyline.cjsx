@@ -30,7 +30,6 @@ module.exports  = React.createClass
     polyline = new google.maps.Polyline _.extend opts, options
     bounds = new google.maps.LatLngBounds()
     path.forEach (coord) -> bounds.extend(new google.maps.LatLng coord.lat, coord.lng)
-    console.log 'bounds', bounds
     map.fitBounds bounds
     installListeners @, polyline
     @setState polyline: polyline
