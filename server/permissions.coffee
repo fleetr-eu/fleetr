@@ -1,17 +1,28 @@
+hasValue = (item) -> item isnt null and item isnt undefined
+
 @PermissionsManager =
-  augment: (filter, subject, field = '_id') ->
+  modifiers: (subjects, field = '_id') ->
     permissions = Permissions.findOne userId: Meteor.userId()
-    if permissions?[subject]?.allow or permissions?[subject]?.deny
-      modifier = []
-      if permissions[subject]?.allow
-        allowModifier = {}; allowModifier[field] = $in: permissions[subject].allow
-        modifier.push allowModifier
-      if permissions[subject]?.deny
-        denyModifier = {}; denyModifier[field] = $nin: permissions[subject].deny
-        modifier.push denyModifier
-      lodash.merge filter, $and: modifier
-    else
-      filter
+
+    if permissions
+      allowModifiers = for subject, field of subjects
+        if permissions?.allow?[subject]
+          "#{field}": $in: permissions?.allow[subject]
+      allowModifiers = allowModifiers.filter hasValue
+      allowModifier = if allowModifiers?.length
+        $or: allowModifiers
+      else {}
+
+      denyModifiers = for subject, field of subjects
+        if permissions?.deny?[subject]
+          "#{field}": $nin: permissions?.deny[subject]
+      denyModifiers = denyModifiers.filter hasValue
+      denyModifier = if denyModifiers?.length
+        $and: denyModifiers
+      else {}
+
+      $and: [allowModifier, denyModifier]
+    else {}
 
 findUserByEmail = (email) ->
   Meteor.users.findOne

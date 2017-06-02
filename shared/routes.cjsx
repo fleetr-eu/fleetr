@@ -62,12 +62,6 @@ Meteor.startup ->
     @route '/', ->
       @redirect '/vehicles/map'
 
-    # @route 'dashboard',
-    #   path: '/'
-    #   template: 'menuBoard'
-    #   fastRender: true
-    #   waitOn: -> Meteor.subscribe('vehicles')
-
     @route 'settings',
       path: '/settings'
       template: 'configurationSettings'
