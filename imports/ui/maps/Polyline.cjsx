@@ -28,9 +28,10 @@ module.exports  = React.createClass
       map: map
       path: path
     polyline = new google.maps.Polyline _.extend opts, options
-    bounds = new google.maps.LatLngBounds()
-    path.forEach (coord) -> bounds.extend(new google.maps.LatLng coord.lat, coord.lng)
-    map.fitBounds bounds
+    if @props.centerOnScreen
+      bounds = new google.maps.LatLngBounds()
+      path.forEach (coord) -> bounds.extend(new google.maps.LatLng coord.lat, coord.lng)
+      map.fitBounds bounds
     installListeners @, polyline
     @setState polyline: polyline
 

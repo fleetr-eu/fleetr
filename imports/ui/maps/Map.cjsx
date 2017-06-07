@@ -27,6 +27,7 @@ module.exports  = React.createClass
     if prevState.center isnt @state.center then @recenterMap()
 
   componentDidMount: ->
+    console.log 'maps did mount'
     if @props.centerAroundCurrentLocation and geoloc = navigator?.geolocation
       geoloc.getCurrentPosition (pos) =>
         @setState center:

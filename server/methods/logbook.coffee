@@ -61,6 +61,7 @@ Meteor.methods
 
 
   'vehicle/trips': (filter, aggParams) ->
+    console.log 'TRIPS!', filter, aggParams
     pipeline =
       [
         {$match:

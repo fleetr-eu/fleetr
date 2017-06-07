@@ -26,7 +26,10 @@ module.exports  = React.createClass
 
     x = @props.points.map (p) -> p.speeding = p.speed > 100; p
 
+    bounds = new google.maps.LatLngBounds()
+
     for point in x
+      bounds.extend(new google.maps.LatLng point.lat, point.lng)
       if path.length is 0
         path.push point
       else
@@ -41,6 +44,7 @@ module.exports  = React.createClass
 
     if path.length then paths.push path
 
+    @props.map?.fitBounds bounds
 
     <span>
     {paths.map (path, i) =>
