@@ -1,4 +1,4 @@
-TripMap = require '/imports/ui/fleetr-maps/TripMap.cjsx'
+TripMapWithInfo = require '/imports/ui/fleetr-maps/TripMapWithInfo.cjsx'
 
 
 unitId = null
@@ -62,7 +62,7 @@ formatTime = (time) ->
   moment(time).format('DD/MM/YYYY, HH:mm:ss')
 
 Template.simpleMap.helpers
-  TripMap: -> TripMap
+  TripMapWithInfo: -> TripMapWithInfo
   data: data = ->
     Template.instance().data.parsed
   vehicle: ->
