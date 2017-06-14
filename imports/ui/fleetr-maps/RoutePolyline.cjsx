@@ -24,27 +24,29 @@ module.exports  = React.createClass
   render: ->
     paths = []
 
-    path = []
+    if @props.selected
+      path = []
 
-    x = @props.points.map (p) -> p.speeding = p.speed > 100; p
+      x = @props.points.map (p) -> p.speeding = p.speed > 100; p
 
-    bounds = new google.maps.LatLngBounds()
+      bounds = new google.maps.LatLngBounds()
 
-    for point in x
-      bounds.extend(new google.maps.LatLng point.lat, point.lng)
-      if path.length is 0
-        path.push point
-      else
-        [..., l] = path
-        if l.speeding is point.speeding
+      for point in x
+        bounds.extend(new google.maps.LatLng point.lat, point.lng)
+        if path.length is 0
           path.push point
         else
-          path.push point
-          paths.push path
-          path = []
-          path.push point
+          [..., l] = path
+          if l.speeding is point.speeding
+            path.push point
+          else
+            path.push point
+            paths.push path
+            path = []
+            path.push point
 
-    if path.length then paths.push path
+      if path.length then paths.push path
+    else paths.push @props.points
 
     # @props.map?.fitBounds bounds if @props.selected
 
