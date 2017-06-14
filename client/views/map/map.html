@@ -12,11 +12,6 @@
 </template>
 
 <template name="simpleMap">
-  {{#if data.start.time}}
-  <h2 style="position: absolute;top: 30px;right: 0px;z-index: 100;background: white;padding: 10px;">
-    <small class="pull-right">{{startTime}} - {{stopTime}}</small>
-  </h2>
-  {{/if}}
   <div>
     {{> React component=TripMapWithInfo data=parsed }}
   </div>

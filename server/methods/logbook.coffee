@@ -59,14 +59,26 @@ Meteor.methods
         fines: expenses.fines[item.date] or {}
       item
 
+  'trips/single/day': (deviceId, date) ->
+    console.log 'trips/single/day', date
+    getVehicleTrips({}, {deviceId: deviceId, date: date}).map (trip) ->
+      trip.logbook = Logbook.find('attributes.trip': trip._id, {sort: recordTime: 1}).fetch()
+      trip
 
-  'vehicle/trips': (filter, aggParams) ->
+  'vehicle/trips': getVehicleTrips = (filter, aggParams) ->
     console.log 'TRIPS!', filter, aggParams
+    recordTimeFilter = if tr = aggParams.timeRange
+      $gte: moment().startOf(tr).toDate()
+    else if date = aggParams.date
+      $gte: moment(date).startOf('day').toDate()
+      $lte: moment(date).endOf('day').toDate()
+    else throw Meteor.Error 'No params set, expected one of [timeRange, date]'
+    console.log 'recordTimeFilter', recordTimeFilter
     pipeline =
       [
         {$match:
           deviceId: aggParams.deviceId
-          recordTime: $gt: moment().startOf(aggParams.timeRange).toDate()
+          recordTime: recordTimeFilter
           'attributes.trip': $exists: true
         }
         {$group:
