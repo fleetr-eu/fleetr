@@ -60,13 +60,14 @@ Meteor.methods
       item
 
   'trips/single/day': (deviceId, date) ->
+    @unblock()
     console.log 'trips/single/day', date
     getVehicleTrips({}, {deviceId: deviceId, date: date}).map (trip) ->
       trip.logbook = Logbook.find('attributes.trip': trip._id, {sort: recordTime: 1}).fetch()
       trip
 
   'vehicle/trips': getVehicleTrips = (filter, aggParams) ->
-    console.log 'TRIPS!', filter, aggParams
+    @unblock()
     recordTimeFilter = if tr = aggParams.timeRange
       $gte: moment().startOf(tr).toDate()
     else if date = aggParams.date

@@ -13,9 +13,8 @@
 
 <template name="simpleMap">
   <div>
-    {{> React component=TripMapWithInfo data=parsed }}
+    {{> React component=TripMapWithInfo tripId=tripId date=date deviceId=deviceId }}
   </div>
-  {{showInfoMarkers}}
 </template>
 
 <!-- {{> fleetrMap showVehicles=false enableVehicleSelection=false}} -->

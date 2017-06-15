@@ -192,22 +192,8 @@ Template.logbookGrid.helpers
       maxWidth: 31
       align: 'center'
       formatter: (row, cell, value, column, rowObject) ->
-        q = encodeURIComponent EJSON.stringify
-          tripId: value
-          deviceId: rowObject.deviceId
-          start:
-            time: moment(rowObject.startTime).valueOf()
-            position:
-              lat: rowObject.startLat
-              lng: rowObject.startLng
-          stop:
-            time: moment(rowObject.stopTime).valueOf()
-            position:
-              lat: rowObject.stopLat
-              lng: rowObject.stopLng
-
         """
-        <a href='/map/#{q}'>
+        <a href='/map/#{rowObject.deviceId}/#{value}/#{moment(rowObject.startTime).toISOString()}/'>
           <img src='/images/Google-Maps-icon.png' height='22'/>
         </a>
         """

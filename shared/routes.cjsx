@@ -493,6 +493,18 @@ Meteor.startup ->
                   Meteor.subscribe('drivers')
                   Meteor.subscribe('vehicle', {unitId: JSON.parse(@params.data).deviceId})]
 
+    @route 'tripMap',
+      path: '/map/:deviceId/:tripId/:date'
+      template: 'simpleMap'
+      data: ->
+        vehicle = Vehicles.findOne unitId: @params.deviceId
+        deviceId: parseInt @params.deviceId
+        tripId: @params.tripId
+        date: @params.date
+        contentClass: 'noPadding'
+        title: "#{vehicle.name} - #{vehicle.licensePlate}" if vehicle
+      waitOn: -> [Meteor.subscribe('vehicle', {unitId: @params.deviceId})]
+
     @route 'reports/proximity',
       path: '/reports/proximity'
       template: 'proximity'
