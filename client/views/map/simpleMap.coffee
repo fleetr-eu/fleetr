@@ -63,11 +63,3 @@ formatTime = (time) ->
 
 Template.simpleMap.helpers
   TripMapWithInfo: -> TripMapWithInfo
-  data: data = ->
-    Template.instance().data.parsed
-  vehicle: ->
-    Vehicles.findOne unitId: data().deviceId
-  startTime: ->
-    formatTime data().start.time
-  stopTime: ->
-    formatTime data().stop.time

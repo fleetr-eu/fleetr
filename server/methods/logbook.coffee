@@ -63,18 +63,17 @@ Meteor.methods
     @unblock()
     console.log 'trips/single/day', date
     getVehicleTrips({}, {deviceId: deviceId, date: date}).map (trip) ->
-      trip.logbook = Logbook.find('attributes.trip': trip._id, {sort: recordTime: 1}).fetch()
+      trip.logbook = Logbook.find('attributes.trip': trip._id, {sort: recordTime: -1}).fetch()
       trip
 
   'vehicle/trips': getVehicleTrips = (filter, aggParams) ->
-    @unblock()
+    @unblock?()
     recordTimeFilter = if tr = aggParams.timeRange
       $gte: moment().startOf(tr).toDate()
     else if date = aggParams.date
       $gte: moment(date).startOf('day').toDate()
       $lte: moment(date).endOf('day').toDate()
     else throw Meteor.Error 'No params set, expected one of [timeRange, date]'
-    console.log 'recordTimeFilter', recordTimeFilter
     pipeline =
       [
         {$match:

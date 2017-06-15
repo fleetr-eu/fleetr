@@ -10,7 +10,7 @@ module.exports = MultiTripMap = React.createClass
 
   render: ->
     console.log 'MultiTripMap', @props
-    <Map style={height:'calc(100vh - 60px)', width:'calc(100% - 400px)', float: 'left'}>
+    <Map style={height:'calc(100vh - 61px)', width:'calc(100% - 400px)', float: 'left'}>
       {@props.tripsPoints.map (points, i) =>
         [start, ..., stop] = points
         selected = start.attributes.trip is @props.selectedTripId
