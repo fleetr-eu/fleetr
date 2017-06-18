@@ -17,11 +17,13 @@ selectedStyle =
 TripMapWithInfo = React.createClass
   displayName: 'TripMapWithInfo'
 
+  componentDidUpdate: ->
+    if selectedRow = @refs.selectedRow
+      selectedRow.scrollIntoView()
+
   render: ->
-    tripsPoints = @props.trips.map (t) -> t.logbook
-    console.log 'tripsPoints!', tripsPoints
     <div>
-      <MultiTripMap tripsPoints={tripsPoints} selectedTripId={@props.tripId} />
+      <MultiTripMap trips={@props.trips} selectedTripId={@props.tripId} onTripSelected={@props.onTripSelected} />
       <div style={width: 400, height: 'calc(100vh - 61px)', float:'right', backgroundColor: 'white', padding: 10, paddingTop: 0, overflowY: 'scroll'}>
         <h2 style={textAlign:'center', marginTop: 15, marginBottom: 0}><small>{@props.trips?[0]?.date}</small></h2>
         <h3 style={textAlign:'center', marginTop: 0, fontSize: 20}><small>{@props.vehicle?.name} &mdash; {@props.vehicle?.licensePlate}</small></h3>
@@ -36,7 +38,8 @@ TripMapWithInfo = React.createClass
           </tr>
           {@props.trips.map (trip, i) =>
             style = if trip._id is @props.tripId then selectedStyle else {padding: 10, cursor: 'pointer'}
-            <tr key={i} style={style} onClick={=> @props.onTripSelected trip}>
+            ref = if trip._id is @props.tripId then 'selectedRow' else null
+            <tr ref={ref} key={i} style={style} onClick={=> @props.onTripSelected trip}>
               <td style=tdStyle>{format trip.startTime}</td>
               <td style=tdStyle>&#8249; {trip.distance} km &#8250;</td>
               <td style=tdStyle>{format trip.stopTime}</td>

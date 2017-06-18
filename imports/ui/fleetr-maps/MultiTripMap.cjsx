@@ -11,9 +11,9 @@ module.exports = MultiTripMap = React.createClass
   render: ->
     console.log 'MultiTripMap', @props
     <Map style={height:'calc(100vh - 61px)', width:'calc(100% - 400px)', float: 'left'}>
-      {@props.tripsPoints.map (points, i) =>
-        [start, ..., stop] = points
-        selected = start.attributes.trip is @props.selectedTripId
+      {@props.trips.map (trip, i) =>
+        [start, ..., stop] = trip.logbook
+        selected = trip._id is @props.selectedTripId
         <MapItems key={i}>
           {if selected
             <MapItems>
@@ -21,7 +21,7 @@ module.exports = MultiTripMap = React.createClass
               <StopMarker position={stop}/>
             </MapItems>
           }
-          <RoutePolyline points={points} selected={selected} />
+          <RoutePolyline points={trip.logbook} selected={selected} onClick={=> @props.onTripSelected trip} />
         </MapItems>
       }
     </Map>
