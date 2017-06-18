@@ -1,5 +1,6 @@
-React               = require 'react'
-ReactDOM            = require 'react-dom'
+React                = require 'react'
+ReactDOM             = require 'react-dom'
+equal                = require('deep-equal')
 { installListeners } = require './Utils.coffee'
 
 module.exports  = React.createClass
@@ -24,7 +25,9 @@ module.exports  = React.createClass
     center: @props.initialCenter
 
   componentDidUpdate: (prevProps, prevState) ->
-    if prevState.center isnt @state.center then @recenterMap()
+    propChanged = (prop) => prevState[prop] isnt @state[prop]
+    if propChanged 'center' then @recenterMap()
+    if not equal(prevProps.fitBounds, @props.fitBounds) then @fitBounds()
 
   componentDidMount: ->
     console.log 'maps did mount'
@@ -50,6 +53,7 @@ module.exports  = React.createClass
     @map = new @google.maps.Map mapDomNode, mapConfig
     installListeners @, @map
     @map.addListener 'dragend', (evt) => @props.onMove @map
+    @fitBounds()
     @forceUpdate()
 
   render: ->
@@ -66,5 +70,7 @@ module.exports  = React.createClass
           google: @google
           mapCenter: @state.center
 
+  fitBounds: ->
+    @map?.fitBounds @props.fitBounds if @props.fitBounds
   recenterMap: ->
     @map?.panTo new @google.maps?.LatLng @state.center.lat, @state.center.lng

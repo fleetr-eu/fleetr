@@ -48,7 +48,7 @@ module.exports  = React.createClass
       if path.length then paths.push path
     else paths.push @props.points
 
-    # @props.map?.fitBounds bounds if @props.selected
+    @props.map?.fitBounds bounds if @props.selected and not @props.map?.getBounds().intersects bounds
 
     <span>
     {paths.map (path, i) =>
