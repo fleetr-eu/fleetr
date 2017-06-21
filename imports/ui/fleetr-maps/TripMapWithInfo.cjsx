@@ -22,6 +22,23 @@ TripMapWithInfo = React.createClass
       selectedRow.scrollIntoView()
 
   render: ->
+    tripUi = []
+    @props.trips.forEach (trip, i) =>
+      style = if trip._id is @props.tripId then selectedStyle else {padding: 10, cursor: 'pointer'}
+      ref = if trip._id is @props.tripId then 'selectedRow' else null
+      tripUi.push <tr ref={ref} key={i} style={style} onClick={=> @props.onTripSelected trip}>
+        <td style=tdStyle>{format trip.startTime}</td>
+        <td style=tdStyle>&#8249; {trip.distance} km &#8250;</td>
+        <td style=tdStyle>{format trip.stopTime}</td>
+      </tr>
+      if trip._id is @props.tripId
+        [a, ..., z] = trip.logbook
+        tripUi.push <tr style={selectedStyle}>
+          <td key='info' colSpan={3} style={paddingLeft: 5, paddingRight: 5}>
+            <div style={float:'left'}>{a.address}</div>
+            <div style={float:'right'}>{z.address}</div>
+          </td>
+        </tr>
     <div>
       <MultiTripMap trips={@props.trips} selectedTripId={@props.tripId} onTripSelected={@props.onTripSelected} />
       <div style={width: 400, height: 'calc(100vh - 61px)', float:'right', backgroundColor: 'white', padding: 10, paddingTop: 0, overflowY: 'scroll'}>
@@ -36,15 +53,7 @@ TripMapWithInfo = React.createClass
           <tr>
             <td colSpan=3 style=beginFinishStyle>&mdash; Start &mdash;</td>
           </tr>
-          {@props.trips.map (trip, i) =>
-            style = if trip._id is @props.tripId then selectedStyle else {padding: 10, cursor: 'pointer'}
-            ref = if trip._id is @props.tripId then 'selectedRow' else null
-            <tr ref={ref} key={i} style={style} onClick={=> @props.onTripSelected trip}>
-              <td style=tdStyle>{format trip.startTime}</td>
-              <td style=tdStyle>&#8249; {trip.distance} km &#8250;</td>
-              <td style=tdStyle>{format trip.stopTime}</td>
-            </tr>
-          }
+          {tripUi}
           <tr>
             <td colSpan=3 style=beginFinishStyle>&mdash; Finish &mdash;</td>
           </tr>
