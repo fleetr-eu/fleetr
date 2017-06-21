@@ -22,14 +22,15 @@
           </a>
         </li>
         {{#each fleetGroups}}
+        {{#if vehicleCount}}
         <li>
           <a data-toggle="collapse" data-target="#{{_id}}-fleets">
             <span class="title">{{name}}</span>
             <span class="badge pull-right">{{vehicleCount}}</span>
           </a>
-          {{#if fleetCount}}
           <ul class="sub-menu nav nav-list collapse" id="{{_id}}-fleets">
             {{#each fleets}}
+              {{#if vehicleCount}}
               <li class="{{isActivePath regex='{{name}}'}}">
                 <a class="show-fleet-vehicles"
                    href="{{pathFor 'listVehicles' fleetName=name}}"
@@ -38,10 +39,11 @@
                   <span class="badge pull-right">{{vehicleCount}}</span>
                 </a>
               </li>
+              {{/if}}
             {{/each}}
           </ul>
-          {{/if}}
         </li>
+        {{/if}}
         {{/each}}
       </ul>
     </li>
