@@ -14,6 +14,8 @@ selectedStyle =
   backgroundColor: '#5387c8'
   padding: 20
 
+speeding = <span className="glyphicon glyphicon-exclamation-sign" style={color: 'red'}></span>
+
 TripMapWithInfo = React.createClass
   displayName: 'TripMapWithInfo'
 
@@ -28,35 +30,43 @@ TripMapWithInfo = React.createClass
       ref = if trip._id is @props.tripId then 'selectedRow' else null
       tripUi.push <tr ref={ref} key={i} style={style} onClick={=> @props.onTripSelected trip}>
         <td style=tdStyle>{format trip.startTime}</td>
-        <td style=tdStyle>&#8249; {trip.distance} km &#8250;</td>
+        <td style=tdStyle>&#8249; {trip.distance} km &#8250; {if trip.speeding then speeding}</td>
         <td style=tdStyle>{format trip.stopTime}</td>
       </tr>
       if trip._id is @props.tripId
         [a, ..., z] = trip.logbook
-        tripUi.push <tr style={selectedStyle}>
-          <td key='info' colSpan={3} style={paddingLeft: 5, paddingRight: 5}>
+        tripUi.push <tr style={selectedStyle} key='info'>
+          <td colSpan={3} style={paddingLeft: 5, paddingRight: 5}>
             <div style={float:'left'}>{a.address}</div>
             <div style={float:'right'}>{z.address}</div>
           </td>
         </tr>
+    unless @props.trips.length
+      tripUi.push <tr key='loading'><td colSpan={3} style={textAlign: 'center'}>
+        <div className="spinner"></div>
+      </td></tr>
     <div>
       <MultiTripMap trips={@props.trips} selectedTripId={@props.tripId} onTripSelected={@props.onTripSelected} />
       <div style={width: 400, height: 'calc(100vh - 61px)', float:'right', backgroundColor: 'white', padding: 10, paddingTop: 0, overflowY: 'scroll'}>
         <h2 style={textAlign:'center', marginTop: 15, marginBottom: 0}><small>{@props.trips?[0]?.date}</small></h2>
         <h3 style={textAlign:'center', marginTop: 0, fontSize: 20}><small>{@props.vehicle?.name} &mdash; {@props.vehicle?.licensePlate}</small></h3>
         <table style={color: '#222', width: '100%', fontSize: 16}>
-          <tr>
-            <th style=centered50W>Start</th>
-            <th style=centeredStyle></th>
-            <th style=centered50W>Stop</th>
-          </tr>
-          <tr>
-            <td colSpan=3 style=beginFinishStyle>&mdash; Start &mdash;</td>
-          </tr>
-          {tripUi}
-          <tr>
-            <td colSpan=3 style=beginFinishStyle>&mdash; Finish &mdash;</td>
-          </tr>
+          <thead>
+            <tr>
+              <th style=centered50W>Start</th>
+              <th style=centeredStyle></th>
+              <th style=centered50W>Stop</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colSpan=3 style=beginFinishStyle>&mdash; Start &mdash;</td>
+            </tr>
+            {tripUi}
+            <tr>
+              <td colSpan=3 style=beginFinishStyle>&mdash; Finish &mdash;</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
@@ -64,10 +74,8 @@ TripMapWithInfo = React.createClass
 trips = new ReactiveVar null
 selectedTripId = new ReactiveVar null
 module.exports = createContainer (props) ->
-  console.log 'props', props
   unless trips.get()
     Meteor.call 'trips/single/day', props.deviceId, props.date, (err,data) ->
-      console.log 'trips/single/day', err, data
       trips.set data
 
   trips: trips.get() or []

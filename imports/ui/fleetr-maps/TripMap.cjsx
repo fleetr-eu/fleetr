@@ -8,7 +8,6 @@ module.exports = TripMap = React.createClass
   displayName: 'TripMap'
 
   render: ->
-    console.log 'TripMap', @props
     [start, ..., stop] = @props.points
     <Map style={height:'calc(100vh - 60px)', width:'calc(100% - 400px)', float: 'left'} onMove={-> console.log 'map moved'} onClick={(a,b,c)-> console.log 'clicked on map',a} >
       <RoutePolyline points={@props.points} />

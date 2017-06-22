@@ -30,7 +30,6 @@ module.exports  = React.createClass
     if not equal(prevProps.fitBounds, @props.fitBounds) then @fitBounds()
 
   componentDidMount: ->
-    console.log 'maps did mount'
     if @props.centerAroundCurrentLocation and geoloc = navigator?.geolocation
       geoloc.getCurrentPosition (pos) =>
         @setState center:
@@ -53,7 +52,6 @@ module.exports  = React.createClass
     @map = new @google.maps.Map mapDomNode, mapConfig
     installListeners @, @map
     @map.addListener 'dragend', (evt) => @props.onMove @map
-    @fitBounds()
     @forceUpdate()
 
   render: ->

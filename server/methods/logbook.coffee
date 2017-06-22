@@ -61,9 +61,9 @@ Meteor.methods
 
   'trips/single/day': (deviceId, date) ->
     @unblock()
-    console.log 'trips/single/day', date
-    getVehicleTrips({}, {deviceId: deviceId, date: date}).map (trip) ->
+    getVehicleTrips({}, {deviceId: deviceId, date: date}).reverse().map (trip) ->
       trip.logbook = Logbook.find('attributes.trip': trip._id, {sort: recordTime: -1}).fetch()
+      trip.speeding = (_.find trip.logbook, (path) -> path.speed > Settings.maxSpeed)?
       trip
 
   'vehicle/trips': getVehicleTrips = (filter, aggParams) ->
