@@ -62,13 +62,8 @@ Template.logbook.helpers
       maxWidth: 31
       align: 'center'
       formatter: (row, cell, value, column, rowObject) =>
-        m = moment value
-        q = encodeURIComponent EJSON.stringify
-          deviceId: @vehicle.unitId
-          start: time: m.startOf('day').valueOf()
-          stop: time: m.endOf('day').valueOf()
         """
-        <a href='/map/#{q}'>
+        <a href='/map/#{@vehicle.unitId}/#{value}/'>
           <img src='/images/Google-Maps-icon.png' height='22'/>
         </a>
         """
