@@ -53,6 +53,7 @@ module.exports  = React.createClass
     installListeners @, @map
     @map.addListener 'dragend', (evt) => @props.onMove @map
     @forceUpdate()
+    @fitBounds()
 
   render: ->
     <div ref='map' style={@props.style}>
@@ -69,6 +70,9 @@ module.exports  = React.createClass
           mapCenter: @state.center
 
   fitBounds: ->
-    @map?.fitBounds @props.fitBounds if @props.fitBounds
+    if @props.fitBounds?.length
+      bounds = new google.maps.LatLngBounds()
+      @props.fitBounds.forEach (point) -> bounds.extend(new google.maps.LatLng point.lat, point.lng)
+      @map?.fitBounds bounds
   recenterMap: ->
     @map?.panTo new @google.maps?.LatLng @state.center.lat, @state.center.lng

@@ -10,9 +10,8 @@ module.exports = MultiTripMap = React.createClass
   displayName: 'MultiTripMap'
 
   render: ->
-    bounds = new google.maps.LatLngBounds()
-    points = _.union.apply({}, @props.trips.map (t) -> t.logbook).forEach (point) -> bounds.extend(new google.maps.LatLng point.lat, point.lng)
-    <Map style={height:'calc(100vh - 61px)', width:'calc(100% - 400px)', float: 'left'} fitBounds={bounds}>
+    points = _.union.apply({}, @props.trips.map (t) -> t.logbook)
+    <Map style={height:'calc(100vh - 61px)', width:'calc(100% - 400px)', float: 'left'} fitBounds={points}>
       {@props.trips.map (trip, i) =>
         [start, ..., stop] = trip.logbook
         selected = trip._id is @props.selectedTripId
