@@ -73,8 +73,11 @@ TripMapWithInfo = React.createClass
 
 trips = new ReactiveVar null
 selectedTripId = new ReactiveVar null
+mapIdentity = null
 module.exports = createContainer (props) ->
-  unless trips.get()
+  unless trips.get() and mapIdentity is props.date
+    mapIdentity = props.date
+    trips.set []
     Meteor.call 'trips/single/day', props.deviceId, props.date, (err,data) ->
       trips.set data
 
