@@ -48,7 +48,7 @@ TripMapWithInfo = React.createClass
     <div>
       <MultiTripMap trips={@props.trips} selectedTripId={@props.tripId} onTripSelected={@props.onTripSelected} />
       <div style={width: 400, height: 'calc(100vh - 61px)', float:'right', backgroundColor: 'white', padding: 10, paddingTop: 0, overflowY: 'scroll'}>
-        <h2 style={textAlign:'center', marginTop: 15, marginBottom: 0}><small>{@props.trips?[0]?.date}</small></h2>
+        <h2 style={textAlign:'center', marginTop: 15, marginBottom: 0}><small>{@props.date}</small></h2>
         <h3 style={textAlign:'center', marginTop: 0, fontSize: 20}><small>{@props.vehicle?.name} &mdash; {@props.vehicle?.licensePlate}</small></h3>
         <table style={color: '#222', width: '100%', fontSize: 16}>
           <thead>
