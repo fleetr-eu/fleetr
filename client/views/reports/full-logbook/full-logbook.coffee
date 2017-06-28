@@ -66,6 +66,8 @@ Template.fullLogbookReport.helpers
     if speeds?.get()
       Object.keys speeds.get()
     else []
+  selectedMonth: ->
+    moment(selectedMonth.get()).format "MMMM YYYY"
   fleetrGridConfig: ->
     columns: [
       id: "date"
