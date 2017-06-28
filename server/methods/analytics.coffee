@@ -44,6 +44,7 @@ Meteor.methods
             $concat: [ "$vehicle.name", " (", "$vehicle.licensePlate", ")" ]
         }
         {$sort: overspeeding: -1}
+        {$sort: month: -1}
       ]
     Logbook.aggregate(pipeline).reduce (result, elem) ->
       result[elem.month] ?= []
