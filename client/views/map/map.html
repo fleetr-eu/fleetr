@@ -5,7 +5,9 @@
         {{> fleetrGrid id="driversList" config=fleetrGridConfig }}
      </div>
      <div class="col-md-12">
-       {{> React component=MapContainer }}
+       <section class="content">
+         {{> fleetrMap vehicleId=selectedVehicleId}}
+       </section>
      </div>
    </div>
  </div>
