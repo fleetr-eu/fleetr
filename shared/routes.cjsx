@@ -494,7 +494,7 @@ Meteor.startup ->
                   Meteor.subscribe('vehicle', {unitId: JSON.parse(@params.data).deviceId})]
 
     @route 'tripMap',
-      path: '/map/:deviceId/:tripId/:date'
+      path: '/map/:deviceId/:date/:tripId?'
       template: 'simpleMap'
       data: ->
         deviceId = parseInt @params.deviceId
