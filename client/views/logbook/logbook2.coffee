@@ -193,7 +193,7 @@ Template.logbookGrid.helpers
       align: 'center'
       formatter: (row, cell, value, column, rowObject) ->
         """
-        <a href='/map/#{rowObject.deviceId}/#{moment(rowObject.startTime).toISOString()}/#{value}'>
+        <a href='/map/#{rowObject.deviceId}/#{moment(rowObject.startTime).format('YYYY-MM-DD')}/#{value}'>
           <img src='/images/Google-Maps-icon.png' height='22'/>
         </a>
         """
