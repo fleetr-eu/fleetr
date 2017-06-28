@@ -20,7 +20,7 @@ TripMapWithInfo = React.createClass
   displayName: 'TripMapWithInfo'
 
   componentDidUpdate: ->
-    if selectedRow = @refs.selectedRow
+    if @props.scrollIntoView and selectedRow = @refs.selectedRow
       selectedRow.scrollIntoView()
 
   render: ->
@@ -28,7 +28,7 @@ TripMapWithInfo = React.createClass
     @props.trips.forEach (trip, i) =>
       style = if trip._id is @props.tripId then selectedStyle else {padding: 10, cursor: 'pointer'}
       ref = if trip._id is @props.tripId then 'selectedRow' else null
-      tripUi.push <tr ref={ref} key={i} style={style} onClick={=> @props.onTripSelected trip}>
+      tripUi.push <tr ref={ref} key={i} style={style} onClick={=> @props.onTripSelected trip, false}>
         <td style=tdStyle>{format trip.startTime}</td>
         <td style=tdStyle>&#8249; {trip.distance} km &#8250; {if trip.speeding then speeding}</td>
         <td style=tdStyle>{format trip.stopTime}</td>
@@ -73,15 +73,20 @@ TripMapWithInfo = React.createClass
 
 trips = new ReactiveVar null
 selectedTripId = new ReactiveVar null
+scrollIntoView = new ReactiveVar true
 mapIdentity = null
 module.exports = createContainer (props) ->
   unless trips.get() and mapIdentity is props.date
     mapIdentity = props.date
     trips.set []
+    scrollIntoView.set true
     Meteor.call 'trips/single/day', props.deviceId, props.date, (err,data) ->
       trips.set data
 
   trips: trips.get() or []
+  scrollIntoView: scrollIntoView.get()
   tripId: selectedTripId.get() or props.tripId
-  onTripSelected: (trip) -> selectedTripId.set trip._id
+  onTripSelected: (trip, scroll = true) ->
+    selectedTripId.set trip._id
+    scrollIntoView.set scroll
 , TripMapWithInfo
