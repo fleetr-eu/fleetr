@@ -76,8 +76,8 @@ selectedTripId = new ReactiveVar null
 scrollIntoView = new ReactiveVar true
 mapIdentity = null
 module.exports = createContainer (props) ->
-  unless trips.get() and mapIdentity is props.date
-    mapIdentity = props.date
+  unless trips.get() and mapIdentity is "#{props.date}#{props.deviceId}"
+    mapIdentity = "#{props.date}#{props.deviceId}"
     trips.set []
     scrollIntoView.set true
     Meteor.call 'trips/single/day', props.deviceId, props.date, (err,data) ->
