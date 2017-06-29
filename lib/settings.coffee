@@ -7,6 +7,7 @@
   VAT: 0.2
   maxSpeed: 100
   minSpeed: 0.1
+  minTripDistance: 0.05
   maxStay: 30
   zeroSpeed: 0.1
   locale: 'bg'

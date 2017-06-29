@@ -63,7 +63,7 @@ Meteor.methods
     @unblock()
     getVehicleTrips({}, {deviceId: deviceId, date: date}).reverse().map (trip) ->
       trip.logbook = Logbook.find('attributes.trip': trip._id, {sort: recordTime: -1}).fetch()
-      trip.speeding = (_.find trip.logbook, (path) -> path.speed > Settings.maxSpeed)?
+      trip.speeding = (_.find trip.logbook, (point) -> point.speed > Settings.maxSpeed)?
       trip
 
   'vehicle/trips': getVehicleTrips = (filter, aggParams) ->
@@ -125,6 +125,9 @@ Meteor.methods
           stopLng: 1
           maxSpeed: 1
           avgSpeed: 1
+        }
+        {$match:
+          distance: $gte: Settings.minTripDistance
         }
         {$sort: startTime: -1}
       ]
