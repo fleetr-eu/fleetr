@@ -1,8 +1,12 @@
+TripMapWithInfo = require '/imports/ui/fleetr-maps/TripMapWithInfo.cjsx'
+
+
 unitId = null
 Template.simpleMap.onCreated ->
   Session.set 'simpleMapShowInfoMarkers', false
 
 Template.simpleMap.onRendered ->
+  return
   {deviceId, tripId, start, stop, idle, addressLoc, address} = @data.parsed
   @map = FleetrMap.currentMap().map
 
@@ -58,11 +62,4 @@ formatTime = (time) ->
   moment(time).format('DD/MM/YYYY, HH:mm:ss')
 
 Template.simpleMap.helpers
-  data: data = ->
-    Template.instance().data.parsed
-  vehicle: ->
-    Vehicles.findOne unitId: data().deviceId
-  startTime: ->
-    formatTime data().start.time
-  stopTime: ->
-    formatTime data().stop.time
+  TripMapWithInfo: -> TripMapWithInfo

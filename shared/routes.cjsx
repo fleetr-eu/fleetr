@@ -436,17 +436,6 @@ Meteor.startup ->
         title: "Logbook for #{vehicle?.name} - #{vehicle?.licensePlate}" if vehicle
         topnav: <VehiclesLogbookNav />
 
-    @route 'vehicleLogbookReact',
-      path: '/vehicles/:vehicleId/logbook-react'
-      template: 'logbook-react'
-      waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
-      data: ->
-        vehicle = Vehicles.findOne(_id: @params.vehicleId)
-        vehicleId: @params.vehicleId
-        minTripDistance: @params.query.minTripDistance
-        title: "Logbook for #{vehicle?.name} - #{vehicle?.licensePlate}" if vehicle
-        topnav: <VehiclesLogbookNav />
-
     @route 'vehicleRests',
       path: '/vehicles/:vehicleId/rests'
       template: 'logbookRests'
@@ -503,6 +492,20 @@ Meteor.startup ->
       waitOn: -> [ Meteor.subscribe('geofences')
                   Meteor.subscribe('drivers')
                   Meteor.subscribe('vehicle', {unitId: JSON.parse(@params.data).deviceId})]
+
+    @route 'tripMap',
+      path: '/map/:deviceId/:date/:tripId?'
+      template: 'simpleMap'
+      data: ->
+        deviceId = parseInt @params.deviceId
+        vehicle = Vehicles.findOne unitId: deviceId
+        deviceId: deviceId
+        tripId: @params.tripId
+        date: @params.date
+        vehicle: vehicle
+        contentClass: 'noPadding'
+        title: "#{vehicle.name} - #{vehicle.licensePlate}" if vehicle
+      waitOn: -> [Meteor.subscribe('vehicle', {unitId: parseInt @params.deviceId})]
 
     @route 'reports/proximity',
       path: '/reports/proximity'

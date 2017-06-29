@@ -7,14 +7,18 @@
     "babel-runtime": "^6.18.0",
     "bcrypt": "^0.8.7",
     "core-js": "^2.4.1",
+    "deep-equal": "^1.0.1",
     "jquery": "^2.0.0",
+    "leaflet": "^1.0.3",
+    "lodash": "^4.17.4",
     "meteor-node-stubs": "^0.2.3",
     "moment": "^2.18.1",
     "orb": "^1.0.9",
     "react": "^15.1.0",
     "react-addons-pure-render-mixin": "^15.1.0",
     "react-big-calendar": "^0.11.1",
-    "react-dom": "^15.1.0"
+    "react-dom": "^15.1.0",
+    "react-google-maps": "^4.11.0"
   },
   "devDependencies": {},
   "scripts": {
