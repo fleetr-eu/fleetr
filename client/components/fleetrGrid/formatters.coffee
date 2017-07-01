@@ -11,7 +11,7 @@ FleetrGrid.Formatters =
   euroFormatter: (row, cell, value) ->
     "&euro; #{if value then parseFloat(value).toFixed(2) else '0.00'}"
   moneyFormatter: (row, cell, value) ->
-    "#{if value then parseFloat(value).toFixed(2) else '0.00'}"  
+    "#{if value then parseFloat(value).toFixed(2) else '0.00'}"
   sumTotalsFormatter: (sign = '', decimals = 0) -> (totals, columnDef) ->
     val = totals.sum && totals.sum[columnDef.field]
     if val
@@ -45,6 +45,10 @@ FleetrGrid.Formatters =
         if rowObject.speed < Settings.minSpeed
           color = 'yellow'
           title = "Работещ на място"
+    if rowObject.lastUpdate
+      if  moment().diff(moment(rowObject.lastUpdate), "hours") > 1
+        color = 'greyw'
+
     "<img src='/images/cars/#{kind}-#{color}.png' rel='tooltip' title='#{title}' style='width:28px;'></img>"
   decoratedLessThanFormatter: (numberError, numberWarning, decimals=0 ) -> (row, cell, value) ->
     if value > 0

@@ -62,7 +62,7 @@ Template.vehicles.helpers
         sortable: true
         align: 'right'
         search: where: 'client'
-        formatter: FleetrGrid.Formatters.decoratedGreaterThanFormatter(120, 110, 0)
+        formatter: FleetrGrid.Formatters.decoratedGreaterThanFormatter(130, 115, 0)
       ,
         id: "fleetName"
         field: "fleetName"
