@@ -43,7 +43,7 @@ FleetrGrid.Formatters =
         title = "В движение с превишена скорост"
       else
         if rowObject.speed < Settings.minSpeed
-          color = 'yellow'
+          color = 'cyan'
           title = "Работещ на място"
     if rowObject.lastUpdate
       if  moment().diff(moment(rowObject.lastUpdate), "hours") > 1
