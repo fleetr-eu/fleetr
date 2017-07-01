@@ -69,7 +69,7 @@ Meteor.methods
   'vehicle/trips': getVehicleTrips = (filter, aggParams) ->
     @unblock?()
     recordTimeFilter = if tr = aggParams.timeRange
-      $gte: moment().startOf(tr).toDate()
+      $gte: moment().subtract(tr.offset, tr.unit).startOf(tr.unit).toDate()
     else if date = aggParams.date
       $gte: moment(date).startOf('day').toDate()
       $lte: moment(date).endOf('day').toDate()
@@ -153,9 +153,15 @@ Meteor.methods
     .map (v) ->
       vehicles[v.unitId] = v
       v.unitId
+    # start from the beginning of previous month
+    # to make the aggregation more performant
+    fromStartOfPrevMonth = moment().subtract(1, 'month').startOf('month').toDate()
     pipeline =
       [
-        {$match: deviceId: $in: deviceIds}
+        {$match:
+          deviceId: $in: deviceIds
+          recordTime: $gt: fromStartOfPrevMonth
+        }
         {$group:
           _id:
             deviceId: "$deviceId"

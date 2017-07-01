@@ -24,20 +24,22 @@ Template.logbook2.events
   'rowsSelected': (e, t) ->
     unless e.rowIndex is -1
       Router.go 'vehicleLogbook', vehicleId: e.fleetrGrid.getItemByRowId(e.rowIndex)?._id
-  'change input[name="dateFilter"]': (e, t) ->
-    Session.set 'logbookDateFilterPeriod', e.target.id
+  # 'change input[name="dateFilter"]': (e, t) ->
+  #   Session.set 'logbookDateFilterPeriod', e.target.id
 
 Template.logbook2.onCreated ->
   vid = Template.instance().data.vehicleId
   Session.set 'selectedVehicleId', vid
-  Session.set 'logbookDateFilterPeriod', 'year'
+  Session.set 'logbookDateFilterPeriod',
+    unit: 'month'
+    offset: 1
 
 Template.logbook2.helpers
   vehicle: -> Vehicles.findOne(_id: Template.instance().data.vehicleId)
   filterOptions: -> vehicleDisplayStyle: 'none'
   selectedVehicleId: -> Session.get('selectedVehicleId')
   showFilterBox: -> Session.get 'showFilterBox'
-  timeRange: -> console.log Session.get 'logbookDateFilterPeriod'; Session.get 'logbookDateFilterPeriod'
+  timeRange: -> Session.get 'logbookDateFilterPeriod'
 
   filterVehiclesGridConfig: ->
     columns: [
