@@ -5,7 +5,7 @@
       lng: 23.3198662
     initialZoom: 12
   VAT: 0.2
-  maxSpeed: 100
+  maxSpeed: 130
   minSpeed: 0.1
   minTripDistance: 0.015
   maxStay: 30
