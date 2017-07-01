@@ -30,7 +30,7 @@ TripMapWithInfo = React.createClass
       ref = if trip._id is @props.tripId then 'selectedRow' else null
       tripUi.push <tr ref={ref} key={i} style={style} onClick={=> @props.onTripSelected trip, false}>
         <td style=tdStyle>{format trip.startTime}</td>
-        <td style=tdStyle>&#8249; {trip.distance} km &#8250; {if trip.speeding then speeding}</td>
+        <td style=tdStyle>&#8249; {Number((Number(trip.distance)).toFixed(0))} км {if trip.speeding then speeding} &#8250;</td>
         <td style=tdStyle>{format trip.stopTime}</td>
       </tr>
       if trip._id is @props.tripId
@@ -38,7 +38,9 @@ TripMapWithInfo = React.createClass
         tripUi.push <tr style={selectedStyle} key='info'>
           <td colSpan={3} style={paddingLeft: 5, paddingRight: 5}>
             <div style={float:'left'}>{a.address}</div>
-            <div style={float:'right'}>{z.address}</div>
+            <div style={float:'right'}>{z.address}</div><br/>
+            <div style={float:'left'}>Средна: {Number((Number(trip.avgSpeed)).toFixed(0))} км/ч</div>
+            <div style={float:'right'}>&nbsp;Максимална: {Number((Number(trip.maxSpeed)).toFixed(0))} км/ч</div>
           </td>
         </tr>
     unless @props.trips.length
@@ -50,7 +52,7 @@ TripMapWithInfo = React.createClass
       <div style={width: 400, height: 'calc(100vh - 61px)', float:'right', backgroundColor: 'white', padding: 10, paddingTop: 0, overflowY: 'scroll'}>
         <h2 style={textAlign:'center', marginTop: 15, marginBottom: 0}><small>{@props.date}</small></h2>
         <h3 style={textAlign:'center', marginTop: 0, fontSize: 20}><small>{@props.vehicle?.name} &mdash; {@props.vehicle?.licensePlate}</small></h3>
-        <table style={color: '#222', width: '100%', fontSize: 16}>
+        <table style={color: '#222', width: '100%', fontSize: 13}>
           <thead>
             <tr>
               <th style=centered50W>Start</th>
