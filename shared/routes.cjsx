@@ -432,7 +432,6 @@ Meteor.startup ->
       data: ->
         vehicle = Vehicles.findOne(_id: @params.vehicleId)
         vehicleId: @params.vehicleId
-        minTripDistance: @params.query.minTripDistance
         title: "Logbook for #{vehicle?.name} - #{vehicle?.licensePlate}" if vehicle
         topnav: <VehiclesLogbookNav />
 
