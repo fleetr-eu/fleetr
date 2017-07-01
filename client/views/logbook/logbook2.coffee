@@ -14,7 +14,6 @@ aggregators = [
 
 Template.logbook2.onRendered ->
   Session.set 'showFilterBox', false
-  Session.set 'minTripDistance', @data.minTripDistance
 
 Template.logbook2.events
   'click #toggle-filter': (e, t) ->
@@ -214,10 +213,4 @@ Template.logbookGrid.helpers
         direction: 'desc'
       ]
     customize: (grid) ->
-      Tracker.autorun ->
-        minTripDistance = Session.get 'minTripDistance'
-        if minTripDistance
-          grid.setColumnFilterValue {id: 'distance'}, minTripDistance
-        else
-          grid.removeFilter 'client', 'Разстояние (км)'
       grid.addGroupBy 'date', 'Дата', aggregators
