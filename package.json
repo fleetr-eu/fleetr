@@ -18,7 +18,8 @@
     "react-addons-pure-render-mixin": "^15.1.0",
     "react-big-calendar": "^0.11.1",
     "react-dom": "^15.1.0",
-    "react-google-maps": "^4.11.0"
+    "react-google-maps": "^4.11.0",
+    "xlsx": "^0.11.3"
   },
   "devDependencies": {},
   "scripts": {

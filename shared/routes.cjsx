@@ -7,6 +7,7 @@ ImportExpensesNav     = require '/imports/ui/navs/ImportExpensesNav.cjsx'
 IconButton  = require '/imports/ui/buttons/IconButton.cjsx'
 
 exportVehiclesToCSV = require '/imports/actions/exportVehiclesToCSV.coffee'
+exportVehiclesToXLSX = require '/imports/actions/exportVehiclesToXLSX.coffee'
 
 Meteor.startup ->
   Accounts.config
@@ -102,6 +103,9 @@ Meteor.startup ->
                     <IconButton title={TAPi18n.__("button.exportToCSV")}
                                 className='pe-7s-download'
                                 onClick={exportVehiclesToCSV} />
+                    <IconButton title='XLSX'
+                                className='pe-7s-download'
+                                onClick={exportVehiclesToXLSX} />
                   </li>
                 </CrudButtons >
 
