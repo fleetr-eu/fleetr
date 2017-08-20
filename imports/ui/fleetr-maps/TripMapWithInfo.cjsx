@@ -13,6 +13,15 @@ selectedStyle =
   fontWeight: 'bold'
   backgroundColor: '#5387c8'
   padding: 20
+infoWindowStyle =
+  width: '100%'
+  height: 150
+  padding: 10
+  color: '#222222'
+  boxShadow: '0 4px 8px 0 rgba(0,0,0,0.3)'
+infoWindowPropTitle =
+  width: 120
+  fontWeight: 'bold'
 
 speeding = <span className="glyphicon glyphicon-exclamation-sign" style={color: 'red'}></span>
 
@@ -23,8 +32,21 @@ TripMapWithInfo = React.createClass
     if @props.scrollIntoView and selectedRow = @refs.selectedRow
       selectedRow.scrollIntoView()
 
+  renderInfoWindow: (trip) ->
+    [a, ..., z] = trip.logbook
+    <div style={infoWindowStyle}>
+      <table>
+        <tr><td style={infoWindowPropTitle}>Стартирайте адреса</td><td>{a.address}</td></tr>
+        <tr><td style={infoWindowPropTitle}>Попълнете адреса</td><td>{z.address}</td></tr>
+        <tr><td style={infoWindowPropTitle}>разстояние</td><td>{Number(trip.distance).toFixed(2)} km</td></tr>
+        <tr><td style={infoWindowPropTitle}>Speeding</td><td>{if trip.speeding then 'да' else 'Не'}</td></tr>
+        <tr><td style={infoWindowPropTitle}>Средна</td><td>{Number((Number(trip.avgSpeed)).toFixed(0))} км/ч</td></tr>
+        <tr><td style={infoWindowPropTitle}>Максимална</td><td>{Number((Number(trip.maxSpeed)).toFixed(0))} км/ч</td></tr>
+      </table>
+    </div>
   render: ->
     tripUi = []
+    tripDetailsUi = null
     @props.trips.forEach (trip, i) =>
       style = if trip._id is @props.tripId then selectedStyle else {padding: 10, cursor: 'pointer'}
       ref = if trip._id is @props.tripId then 'selectedRow' else null
@@ -33,43 +55,39 @@ TripMapWithInfo = React.createClass
         <td style=tdStyle>&#8249; {Number((Number(trip.distance)).toFixed(0))} км {if trip.speeding then speeding} &#8250;</td>
         <td style=tdStyle>{format trip.stopTime}</td>
       </tr>
-      if trip._id is @props.tripId
-        [a, ..., z] = trip.logbook
-        tripUi.push <tr style={selectedStyle} key='info'>
-          <td colSpan={3} style={paddingLeft: 5, paddingRight: 5}>
-            <div style={float:'left'}>{a.address}</div>
-            <div style={float:'right'}>{z.address}</div><br/>
-            <div style={float:'left'}>Средна: {Number((Number(trip.avgSpeed)).toFixed(0))} км/ч</div>
-            <div style={float:'right'}>&nbsp;Максимална: {Number((Number(trip.maxSpeed)).toFixed(0))} км/ч</div>
-          </td>
-        </tr>
+      if trip._id is @props.tripId then tripDetailsUi = @renderInfoWindow trip
     unless @props.trips.length
       tripUi.push <tr key='loading'><td colSpan={3} style={textAlign: 'center'}>
         <div className="spinner"></div>
       </td></tr>
+    tripListHeightDeducter = if tripDetailsUi then 300 else 151
     <div>
       <MultiTripMap trips={@props.trips} selectedTripId={@props.tripId} onTripSelected={@props.onTripSelected} />
-      <div style={width: 400, height: 'calc(100vh - 61px)', float:'right', backgroundColor: 'white', padding: 10, paddingTop: 0, overflowY: 'scroll'}>
+      <div style={width: 400, height: 'calc(100vh - 61px)', float:'right', backgroundColor: 'white', paddingTop: 0}>
         <h2 style={textAlign:'center', marginTop: 15, marginBottom: 0}><small>{@props.date}</small></h2>
         <h3 style={textAlign:'center', marginTop: 0, fontSize: 20}><small>{@props.vehicle?.name} &mdash; {@props.vehicle?.licensePlate}</small></h3>
-        <table style={color: '#222', width: '100%', fontSize: 13}>
-          <thead>
-            <tr>
-              <th style=centered50W>Start</th>
-              <th style=centeredStyle></th>
-              <th style=centered50W>Stop</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td colSpan=3 style=beginFinishStyle>&mdash; Start &mdash;</td>
-            </tr>
-            {tripUi}
-            <tr>
-              <td colSpan=3 style=beginFinishStyle>&mdash; Finish &mdash;</td>
-            </tr>
-          </tbody>
-        </table>
+        <div style={height: "calc(100vh - #{tripListHeightDeducter}px)", overflowY: 'scroll', padding: 10}>
+
+          <table style={color: '#222', width: '100%', fontSize: 13}>
+            <thead>
+              <tr>
+                <th style=centered50W>Start</th>
+                <th style=centeredStyle></th>
+                <th style=centered50W>Stop</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colSpan=3 style=beginFinishStyle>&mdash; Start &mdash;</td>
+              </tr>
+              {tripUi}
+              <tr>
+                <td colSpan=3 style=beginFinishStyle>&mdash; Finish &mdash;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        {tripDetailsUi}
       </div>
     </div>
 
