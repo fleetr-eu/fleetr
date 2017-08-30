@@ -1,4 +1,5 @@
-XLSX = require 'xlsx'
+XLSX  = require 'xlsx'
+_     = require 'lodash'
 
 exportedFields = [
   'name'
@@ -39,26 +40,25 @@ s2ab = (s) ->
     ++i
   buf
 
-module.exports = ->
-  vehicles = Vehicles.find {},
-    fields: fields
-  .map (v) ->
-    v_ = {}
-    for f in exportedFields
-      v_[f] = if v[f] is null or v[f] is undefined then '' else v[f]
-    v_
+module.exports = (fleetrGrid) ->
 
+  # get filtered data from the grid
+  data = fleetrGrid.grid.getData()
+  # get active columns (in order)
+  fields = fleetrGrid.grid.getColumns().map (c) -> c.field
+  fields = _.difference fields, ['_id'] #omit id field
 
+  # create array with only fields from visible columns
+  i = 0
+  mappedData = []
+  while i < data.getLength()
+    item = data.getItem i++
+    mappedData.push _.pick item, fields
 
-  console.log vehicles
-  sheet = XLSX.utils.json_to_sheet vehicles
-
-
+  sheet = XLSX.utils.json_to_sheet mappedData, headers: fields
   wb =
-    SheetNames: ['Sheet1']
-    Sheets: Sheet1: sheet
-
-  console.log(wb);
+    SheetNames: ['Vehicles']
+    Sheets: Vehicles: sheet
 
   wbout = XLSX.write(wb, {bookType:'xlsx', bookSST:true, type: 'binary'})
   blob = new Blob [s2ab(wbout)], type: "application/vnd.ms-excel;charset=utf-8"
