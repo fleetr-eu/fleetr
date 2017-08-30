@@ -40,7 +40,9 @@ s2ab = (s) ->
     ++i
   buf
 
-module.exports = (fleetrGrid) ->
+fleetrGrid = null
+module.exports = (grid = fleetrGrid) ->
+  fleetrGrid = grid
 
   # get filtered data from the grid
   data = fleetrGrid.grid.getData()
