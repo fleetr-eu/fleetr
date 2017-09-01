@@ -3,7 +3,7 @@ equal   = require('deep-equal')
 { installListeners } = require './Utils.coffee'
 
 module.exports  = React.createClass
-  displayName: 'Marker'
+  displayName: 'Circle'
 
   propTypes:
     position: React.PropTypes.object
@@ -11,27 +11,32 @@ module.exports  = React.createClass
     map: React.PropTypes.object
 
   componentDidUpdate: (prevProps) ->
-    if (@props.map isnt prevProps.map) or (not equal(@props.position, prevProps.position)) or (@props.mapCenter isnt prevProps.mapCenter)
+    if (@props.map isnt prevProps.map) or (not equal(@props.position, prevProps.position))
       @renderMarker()
 
   componentWillMount: ->
-    if @props.map? and (@props.position? or @props.mapCenter?) then @renderMarker()
+    if @props.map? and (@props.position?) then @renderMarker()
 
   componentWillUnmount: ->
-    @state?.marker?.setMap null
+    @state?.circle?.setMap null
 
   renderMarker: ->
-    if @state?.marker then @state.marker.setMap null # remove existing marker, if any
-    {position, mapCenter, google, map} = @props
-    pos = position or mapCenter
-    options =
+    if @state?.circle then @state.circle.setMap null # remove existing marker, if any
+    {position, google, map} = @props
+    pos = position
+
+    circle = new google.maps.Circle
+      strokeColor: '#FF0000'
+      strokeOpacity: 0.8
+      strokeWeight: 2
+      fillColor: '#FF0000'
+      fillOpacity: 0.35
       map: map
-      position: new google.maps.LatLng pos.lat, pos.lng
-    console.log google
-    options = _.extend options, @props
-    marker = new google.maps.Marker options
-    installListeners @, marker
-    @setState marker: marker
+      center: new google.maps.LatLng pos.lat, pos.lng
+      radius: 100
+
+    installListeners @, circle
+    @setState circle: circle
 
   render: ->
     <span>{@renderChildren()}</span>
