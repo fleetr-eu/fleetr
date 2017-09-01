@@ -52,12 +52,13 @@ module.exports = (grid = fleetrGrid) ->
 
   # create array with only fields from visible columns
   i = 0
-  mappedData = []
+  rowData = []
   while i < data.getLength()
     item = data.getItem i++
-    mappedData.push _.pick item, fields
+    rowData.push _.pick item, fields
 
-  sheet = XLSX.utils.json_to_sheet mappedData, headers: fields
+  sheet = XLSX.utils.json_to_sheet rowData, headers: fields
+  sheet['!cols'] = fields.map (field) -> wch: _.max rowData.map (row) -> "#{row[field]}".length
   wb =
     SheetNames: ['Vehicles']
     Sheets: Vehicles: sheet
