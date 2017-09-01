@@ -47,6 +47,8 @@ module.exports = (grid = fleetrGrid) ->
   # get filtered data from the grid
   data = fleetrGrid.grid.getData()
   # get active columns (in order)
+  fieldNameLookupTable = _.extend.apply @, fleetrGrid.grid.getColumns().map (c) -> "#{c.field}": c.name
+  fieldNames = fleetrGrid.grid.getColumns().map (c) -> c.name
   fields = fleetrGrid.grid.getColumns().map (c) -> c.field
   fields = _.difference fields, ['_id'] #omit id field
 
@@ -55,9 +57,11 @@ module.exports = (grid = fleetrGrid) ->
   rowData = []
   while i < data.getLength()
     item = data.getItem i++
-    rowData.push _.pick item, fields
+    item = _.pick item, fields
+    item = _.mapKeys item, (v, key) -> fieldNameLookupTable[key]
+    rowData.push item
 
-  sheet = XLSX.utils.json_to_sheet rowData, headers: fields
+  sheet = XLSX.utils.json_to_sheet rowData, headers: fieldNames
   sheet['!cols'] = fields.map (field) -> wch: _.max rowData.map (row) -> "#{row[field]}".length
   wb =
     SheetNames: ['Vehicles']
