@@ -62,7 +62,7 @@ module.exports = (grid = fleetrGrid) ->
     rowData.push item
 
   sheet = XLSX.utils.json_to_sheet rowData, headers: fieldNames
-  sheet['!cols'] = fields.map (field) -> wch: _.max rowData.map (row) -> "#{row[field]}".length
+  sheet['!cols'] = fieldNames.map (field) -> wch: _.max rowData.map (row) -> "#{row[field]}".length
   wb =
     SheetNames: ['Vehicles']
     Sheets: Vehicles: sheet
