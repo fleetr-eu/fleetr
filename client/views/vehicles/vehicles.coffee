@@ -172,8 +172,9 @@ Template.vehicles.helpers
             vehicleShowName: doc.name + ' (' + doc.licensePlate + ')'
             odo: doc.odometer / 1000
             isBusinessTrip: isBusinessTrip(doc, moment())
-      customize: (grid) ->
-        Meteor.defer ->
+      onInstall: @fleetgridCallback
+      customize: (grid) =>
+        Meteor.defer =>
           Tracker.autorun ->
             fleetName = Session.get 'vehiclesFleetName'
             if fleetName

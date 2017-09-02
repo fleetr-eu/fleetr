@@ -7,6 +7,13 @@ ImportExpensesNav     = require '/imports/ui/navs/ImportExpensesNav.cjsx'
 IconButton  = require '/imports/ui/buttons/IconButton.cjsx'
 
 exportVehiclesToCSV = require '/imports/actions/exportVehiclesToCSV.coffee'
+exportVehiclesToXLSX = require '/imports/actions/exportVehiclesToXLSX.coffee'
+
+excelButtonStyle =
+  width: 25
+  color: 'white'
+  filter: 'invert(55%)'
+  marginTop: 3
 
 Meteor.startup ->
   Accounts.config
@@ -91,8 +98,13 @@ Meteor.startup ->
         Meteor.subscribe('drivers')
       ]
       data: ->
+        fleetrGrid = null
+        fleetgridCallback = (grid) ->
+          fleetrGrid = grid
+        exportExcel = -> exportVehiclesToXLSX fleetrGrid
         fleetName: @params.fleetName
         title: TAPi18n.__('vehicles.listTitle')
+        fleetgridCallback: fleetgridCallback
         topnav: <CrudButtons editItemTemplate='vehicle' i18nRoot='vehicles'
                       showMaintenancesButton=true
                       showOdometerCorrectionButton=true
@@ -102,6 +114,11 @@ Meteor.startup ->
                     <IconButton title={TAPi18n.__("button.exportToCSV")}
                                 className='pe-7s-download'
                                 onClick={exportVehiclesToCSV} />
+                  </li>
+                  <li>
+                    <a href="#" onClick={exportExcel} style={padding:'5px'} title='XLSX'>
+                      <img style={excelButtonStyle} src='/images/excel-icon.png' />
+                    </a>
                   </li>
                 </CrudButtons >
 
