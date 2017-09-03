@@ -18,7 +18,7 @@
     "filteredBy": "Филтриране по",
     "noGrouping": "Без групиране",
     "noFiltering": "Без филтриране",
-    "filterByDate" : "Търсене по дата"
+    "filterByDate": "Търсене по дата"
   },
 
   "menu": {
@@ -40,20 +40,20 @@
     "drivers_vehicles": "Шофьори и автомобили",
     "listDocumentTypes": "Видове документи",
     "objects": "Обекти",
-    "maintenances" : "Поддръжки",
+    "maintenances": "Поддръжки",
     "expenses": "Разходи",
     "listExpenseGroups": "Групи разходи",
     "addExpenseGroup": "Добави група разходи",
     "listExpenseTypes": "Видове разходи",
     "listExpenses": "Разходи",
     "importExpenses": "Качи разходи",
-    "insurances" : "Застраховки",
-    "insuranceTypes" : "Видове застраховки",
-    "insuranceCompanies" : "Застрахователни компании",
-    "listInsuranceTypes" : "Видове застраховки",
-    "listInsuranceCompanies" : "Застрахователни компании",
-    "addMaintenanceType" : "Добави вид поддръжка",
-    "listMaintenanceTypes" : "Видове поддръжки",
+    "insurances": "Застраховки",
+    "insuranceTypes": "Видове застраховки",
+    "insuranceCompanies": "Застрахователни компании",
+    "listInsuranceTypes": "Видове застраховки",
+    "listInsuranceCompanies": "Застрахователни компании",
+    "addMaintenanceType": "Добави вид поддръжка",
+    "listMaintenanceTypes": "Видове поддръжки",
     "logbook": "Журнал",
     "reports": "Отчети",
     "map": "Карта",
@@ -61,10 +61,10 @@
     "maintenanceReport": "Поддръжка",
     "proximityReport": "Търсене по адрес",
     "listTyres": "Гуми",
-    "events":"Събития",
-    "notifications":"Напомняния",
-    "geofenceNotifications":"Напомняния за обекти",
-    "alarms":"Аларми"
+    "events": "Събития",
+    "notifications": "Напомняния",
+    "geofenceNotifications": "Напомняния за обекти",
+    "alarms": "Аларми"
   },
 
   "map": {
@@ -73,14 +73,13 @@
 
   "configurationSettings": {
     "title": "Настройка",
-    "listTitle" : "Настройки",
-    "category" : "Категория",
-    "type" : "Тип",
-    "name" : "Име",
-    "value" : "Стойност",
+    "listTitle": "Настройки",
+    "category": "Категория",
+    "type": "Тип",
+    "name": "Име",
+    "value": "Стойност",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете тази настройка?"
   },
-
 
   "geofences": {
     "title": "Обекти",
@@ -91,7 +90,7 @@
   "simpleMap": {
     "showMarkers": "Покажи инфо точки",
     "showLabels": "Покажи имена на автомобили",
-    "showTraffic" : "Покажи трафик"
+    "showTraffic": "Покажи трафик"
   },
 
   "customEvents": {
@@ -100,179 +99,182 @@
       "calendar": "Календар"
     },
     "title": "Събитие",
-    "listTitle" : "Събития",
-    "fleetGroup" : "Група",
-    "fleet" : "Автопарк",
-    "vehicle" : "Автомобил",
+    "listTitle": "Събития",
+    "fleetGroup": "Група",
+    "fleet": "Автопарк",
+    "vehicle": "Автомобил",
     "driver": "Шофьор",
     "name": "Име",
     "description": "Описание",
-    "date" : "Дата",
+    "date": "Дата",
     "remainingDays": "Дни",
-    "odometer" : "Одометър",
+    "odometer": "Одометър",
     "remainingKm": "Км",
     "engineHours": "Двг. часове",
     "speed": "Скорост",
-    "seen" : "Видяна",
-    "seenTime" : "Дата/час",
-    "active" : "Активно",
+    "seen": "Видяна",
+    "seenTime": "Дата/час",
+    "active": "Активно",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете това събитие?"
   },
 
   "geofenceEvents": {
     "title": "Събитие за обект",
-    "listTitle" : "Събития по обекти",
-    "fleetGroup" : "Група",
-    "fleet" : "Автопарк",
-    "vehicle" : "Автомобил",
+    "listTitle": "Събития по обекти",
+    "fleetGroup": "Група",
+    "fleet": "Автопарк",
+    "vehicle": "Автомобил",
     "driver": "Шофьор",
     "geofence": "Обект",
     "description": "Описание",
-    "enter" : "Влизане",
+    "enter": "Влизане",
     "exit": "Излизане",
     "stay": "Престой",
     "minutes": "Минути",
-    "seen" : "Видяна",
-    "seenTime" : "Дата/час",
-    "active" : "Активно",
+    "seen": "Видяна",
+    "seenTime": "Дата/час",
+    "active": "Активно",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете това събитие?"
   },
 
   "drivers": {
     "title": "Шофьор",
-    "listTitle" : "Шофьори",
-    "fullName" :"Име и фамилия",
-    "address":"Адрес",
-    "name" : "Фамилия",
+    "listTitle": "Шофьори",
+    "fullName": "Име и фамилия",
+    "address": "Адрес",
+    "name": "Фамилия",
     "firstName": "Име",
-    "mobile":"Мобилен",
-    "phone":"Домашен",
-    "officePhone" :"Служебен",
-    "email" :"Имейл",
+    "mobile": "Мобилен",
+    "phone": "Домашен",
+    "officePhone": "Служебен",
+    "email": "Имейл",
     "tags": "Етикети",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете този шофьор?"
   },
 
-  "driverVehicleAssignments" : {
+  "driverVehicleAssignments": {
     "title": "Асоцииране на шофьор и кола",
-    "listTitle" : "Асоциирани коли и шофьори",
+    "listTitle": "Асоциирани коли и шофьори",
     "driverName": "Шофьор",
-    "vehicleName" : "Автомобил",
-    "date" :"Дата",
-    "time":"Час",
-    "event" : "Събитие",
-    "associate" : "Асоцииране",
-    "disassociate" : "Деасоцииране",
+    "vehicleName": "Автомобил",
+    "date": "Дата",
+    "time": "Час",
+    "event": "Събитие",
+    "associate": "Асоцииране",
+    "disassociate": "Деасоцииране",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете тази асоциация?"
   },
 
   "fleetGroups": {
-    "title" : "Група автопаркове",
-    "listTitle" : "Групи автопаркове",
-    "name" : "Група",
-    "description" : "Описание",
-    "deleteMessage": "Сигурен ли сте, че искате да изтриете тази група автопаркове?"
+    "title": "Група автопаркове",
+    "listTitle": "Групи автопаркове",
+    "name": "Група",
+    "description": "Описание",
+    "deleteMessage":
+      "Сигурен ли сте, че искате да изтриете тази група автопаркове?"
   },
 
   "fleet": {
-    "title" : "Автопарк",
-    "listTitle" : "Автопаркове",
-    "name" : "Автопарк",
-    "description" : "Описание",
-    "parent" : "Група",
+    "title": "Автопарк",
+    "listTitle": "Автопаркове",
+    "name": "Автопарк",
+    "description": "Описание",
+    "parent": "Група",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете този автопарк?"
   },
 
   "documentTypes": {
-    "title" : "Вид документ",
-    "listTitle" : "Видове документи",
-    "name" : "Име",
-    "description" : "Описание",
+    "title": "Вид документ",
+    "listTitle": "Видове документи",
+    "name": "Име",
+    "description": "Описание",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете този вид документ?"
   },
 
   "documents": {
-    "title" : "Документ",
-    "listTitle" : "Документи",
-    "type" : "Вид",
-    "number" : "Номер",
-    "validFrom" : "Валиден от",
-    "validTo" : "Валиден до",
-    "issuedBy" : "Издаден от",
+    "title": "Документ",
+    "listTitle": "Документи",
+    "type": "Вид",
+    "number": "Номер",
+    "validFrom": "Валиден от",
+    "validTo": "Валиден до",
+    "issuedBy": "Издаден от",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете този документ?"
   },
 
   "tyre": {
-    "title" : "Гума",
-    "listTitle" : "Гуми",
-    "brand" : "Марка",
-    "width" : "Широчина",
-    "height" : "Височина",
-    "innerDiameter" : "Вътрешен диаметър",
-    "loadIndex" : "Индекс натоварване",
-    "speedIndex" : "Индекс скорост",
-    "usedKm" : "Изминати км",
-    "changeKm" : "Живот (км)",
-    "vehicle" : "Автомобил",
-    "active" : "В употреба",
+    "title": "Гума",
+    "listTitle": "Гуми",
+    "brand": "Марка",
+    "width": "Широчина",
+    "height": "Височина",
+    "innerDiameter": "Вътрешен диаметър",
+    "loadIndex": "Индекс натоварване",
+    "speedIndex": "Индекс скорост",
+    "usedKm": "Изминати км",
+    "changeKm": "Живот (км)",
+    "vehicle": "Автомобил",
+    "active": "В употреба",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете тази гума?"
   },
 
   "expenseGroups": {
-    "title" :"Група разходи",
-    "listTitle" : "Групи разходи",
-    "name" : "Име",
-    "description" : "Описание",
+    "title": "Група разходи",
+    "listTitle": "Групи разходи",
+    "name": "Име",
+    "description": "Описание",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете тази група раходи?"
   },
 
   "insuranceTypes": {
-    "title" : "Вид застраховка",
-    "listTitle" : "Видове застраховки",
-    "name" : "Вид застраховка",
-    "description" : "Описание",
-    "deleteMessage": "Сигурен ли сте, че искате да изтриете този вид застраховка?"
+    "title": "Вид застраховка",
+    "listTitle": "Видове застраховки",
+    "name": "Вид застраховка",
+    "description": "Описание",
+    "deleteMessage":
+      "Сигурен ли сте, че искате да изтриете този вид застраховка?"
   },
 
   "insuranceCompanies": {
-    "title" : "Застрахователна компания",
-    "listTitle" : "Застрахователна компании",
-    "name" : "Име",
-    "address" : "Адрес",
-    "phone" : "Телефон",
-    "email" : "е-мейл",
-    "deleteMessage": "Сигурен ли сте, че искате да изтриете тази застрахователна компания?"
+    "title": "Застрахователна компания",
+    "listTitle": "Застрахователна компании",
+    "name": "Име",
+    "address": "Адрес",
+    "phone": "Телефон",
+    "email": "е-мейл",
+    "deleteMessage":
+      "Сигурен ли сте, че искате да изтриете тази застрахователна компания?"
   },
 
   "expenseTypes": {
-    "title" : "Вид разход",
-    "listTitle" : "Видове разходи",
-    "name" : "Име",
-    "unitOfMeasure":"Мярка",
-    "fuels" : "Горива",
-    "fines" : "Глоби",
-    "description" : "Описание",
+    "title": "Вид разход",
+    "listTitle": "Видове разходи",
+    "name": "Име",
+    "unitOfMeasure": "Мярка",
+    "fuels": "Горива",
+    "fines": "Глоби",
+    "description": "Описание",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете този вид разход?"
   },
 
   "expenses": {
-    "title" :"Разход",
-    "listTitle" : "Разходи",
-    "expenseType" : "Вид",
-    "expenseGroup" : "Група",
-    "vehicle" : "Автомобил",
-    "location" : "Локация",
-    "odometer" : "Одометър",
-    "driver" : "Шофьор",
-    "invoiceNr" : "Фактура No",
-    "date" : "Дата",
-    "quantity" : "Количество",
-    "totalVATIncluded" : "Обща сума с ДДС",
-    "vat" : "Сума ДДС",
-    "VATIncluded" : "Сумата е с ДДС",
-    "discount" : "Сума отстъпка",
-    "total" : "Обща сума",
-    "description" : "Описание",
+    "title": "Разход",
+    "listTitle": "Разходи",
+    "expenseType": "Вид",
+    "expenseGroup": "Група",
+    "vehicle": "Автомобил",
+    "location": "Локация",
+    "odometer": "Одометър",
+    "driver": "Шофьор",
+    "invoiceNr": "Фактура No",
+    "date": "Дата",
+    "quantity": "Количество",
+    "totalVATIncluded": "Обща сума с ДДС",
+    "vat": "Сума ДДС",
+    "VATIncluded": "Сумата е с ДДС",
+    "discount": "Сума отстъпка",
+    "total": "Обща сума",
+    "description": "Описание",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете този разход?",
     "import": {
       "title": "Качване на разходи",
@@ -289,114 +291,115 @@
   },
 
   "maintenanceTypes": {
-    "title" :"Вид поддръжка",
-    "listTitle" : "Видове поддръжки",
-    "nextMaintenanceAfter" : "Следваща поддръжка след",
-    "name" : "Вид",
-    "technicalCheck" : "Технически преглед",
-    "description" : "Описание",
-    "nextMaintenanceMonths" : "Месеци",
-    "nextMaintenanceKMs" : "Километри",
-    "nextMaintenanceEngineHours" : "Двигателни часове",
-    "nextMaintenanceEngineHoursShort" : "Часове",
+    "title": "Вид поддръжка",
+    "listTitle": "Видове поддръжки",
+    "nextMaintenanceAfter": "Следваща поддръжка след",
+    "name": "Вид",
+    "technicalCheck": "Технически преглед",
+    "description": "Описание",
+    "nextMaintenanceMonths": "Месеци",
+    "nextMaintenanceKMs": "Километри",
+    "nextMaintenanceEngineHours": "Двигателни часове",
+    "nextMaintenanceEngineHoursShort": "Часове",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете този вид поддръжка?"
   },
 
   "maintenances": {
-    "title" :"Поддръжка",
-    "listTitle" : "Поддръжки",
-    "nextMaintenance" : "Следваща поддръжка",
-    "currentMaintenance" : "Текуща поддръжка",
-    "maintenanceType" : "Вид",
-    "description" : "Описание",
-    "vehicle" : "Автомобил",
-    "maintenanceDate" : "Дата",
-    "odometer" : "Одометър",
-    "nextKm" : "След км",
-    "engineHours" : "Часове",
-    "nextMaintenanceDate" : "Следваща дата",
-    "daysToMaintenance" : "Оставащи дни",
-    "nextMaintenanceOdometer" : "Следваш одометър",
-    "odometerToMaintenance" : "Оставащи км",
-    "nextMaintenanceEngineHours" : "Следващи часове",
-    "engineHoursToMaintenance" : "Оставащи часове",
-    "performed" : "Извършена",
+    "title": "Поддръжка",
+    "listTitle": "Поддръжки",
+    "nextMaintenance": "Следваща поддръжка",
+    "currentMaintenance": "Текуща поддръжка",
+    "maintenanceType": "Вид",
+    "description": "Описание",
+    "vehicle": "Автомобил",
+    "maintenanceDate": "Дата",
+    "odometer": "Одометър",
+    "nextKm": "След км",
+    "engineHours": "Часове",
+    "nextMaintenanceDate": "Следваща дата",
+    "daysToMaintenance": "Оставащи дни",
+    "nextMaintenanceOdometer": "Следваш одометър",
+    "odometerToMaintenance": "Оставащи км",
+    "nextMaintenanceEngineHours": "Следващи часове",
+    "engineHoursToMaintenance": "Оставащи часове",
+    "performed": "Извършена",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете тази поддръжка?"
   },
 
   "vehicles": {
-    "title" : "Автомобил",
-    "listTitle" : "Автомобили",
-    "active" : "Активен",
-    "state" : "Състояние",
-    "tags" : "Етикети",
-    "tab" : {
-      "basicData" :"Основни данни",
-      "vinData" :"VIN данни",
-      "workSchedule" : "Работни часове",
-      "alarmsConfiguration" : "Настройка на аларми",
-      "workHours" : "Работни часове"
+    "title": "Автомобил",
+    "listTitle": "Автомобили",
+    "active": "Активен",
+    "state": "Състояние",
+    "tags": "Етикети",
+    "tab": {
+      "basicData": "Основни данни",
+      "vinData": "VIN данни",
+      "workSchedule": "Работни часове",
+      "alarmsConfiguration": "Настройка на аларми",
+      "workHours": "Работни часове"
     },
-    "odometers" : {
-      "title" : "Корекция на одометър",
+    "odometers": {
+      "title": "Корекция на одометър",
       "listTitle": "Корекции на одометър",
       "listTitleShort": "Одометър",
-      "date" : "Дата и час",
-      "value" : "Одометър (км)",
-      "oldValue" : "Одометър преди корекцията (км)"
+      "date": "Дата и час",
+      "value": "Одометър (км)",
+      "oldValue": "Одометър преди корекцията (км)"
     },
     "name": "Наименование",
-    "licensePlate" :"Рег. No",
-    "identificationNumber":"Идентификационен No (VIN)",
-    "engineNumber":"Двигател No",
-    "allocatedToFleet":"Автопарк",
-    "allocatedToFleetFromDate":"В автопарка от",
-    "allocatedToFleet":"Автопарк",
-    "color":"Цвят",
-    "odometer":"Одометър (км)",
+    "licensePlate": "Рег. No",
+    "identificationNumber": "Идентификационен No (VIN)",
+    "engineNumber": "Двигател No",
+    "allocatedToFleet": "Автопарк",
+    "allocatedToFleetFromDate": "В автопарка от",
+    "allocatedToFleet": "Автопарк",
+    "color": "Цвят",
+    "odometer": "Одометър (км)",
     "engineHours": "Двигател часове",
-    "unitId":"У-во",
-    "lastUpdate":"Комуникация",
-    "lastUpdateTooLongAgoWarning":"От последната комуникация е изминал твърде дълъг период!",
-    "lastUpdateNoDataWarning":"Няма комуникационни данни!",
-    "phoneNumber" : "Телефон",
-    "nextTechnicalCheck":"Следващ тех. преглед",
-    "category":"Категория",
-    "make":"Марка",
-    "model":"Модел",
-    "makeAndModel":"Марка/Модел",
-    "kind":"Вид",
-    "maxPower":"Макс мощност (kW)",
-    "fuelType":"Вид гориво",
-    "productionYear" : "Година на производство",
-    "body":"Тяло",
-    "engineDisplacement":"Обем на двигателя (куб.см)",
-    "maxFuelCapacity":"Макс обем на резервоара (л)",
-    "speed":"Cкорост",
+    "unitId": "У-во",
+    "lastUpdate": "Комуникация",
+    "lastUpdateTooLongAgoWarning":
+      "От последната комуникация е изминал твърде дълъг период!",
+    "lastUpdateNoDataWarning": "Няма комуникационни данни!",
+    "phoneNumber": "Телефон",
+    "nextTechnicalCheck": "Следващ тех. преглед",
+    "category": "Категория",
+    "make": "Марка",
+    "model": "Модел",
+    "makeAndModel": "Марка/Модел",
+    "kind": "Вид",
+    "maxPower": "Макс мощност (kW)",
+    "fuelType": "Вид гориво",
+    "productionYear": "Година на производство",
+    "body": "Тяло",
+    "engineDisplacement": "Обем на двигателя (куб.см)",
+    "maxFuelCapacity": "Макс обем на резервоара (л)",
+    "speed": "Cкорост",
     "stateShort": "С",
     "speedShort": "км/ч",
     "mapShort": "К",
     "logbookShort": "Ж",
     "historyShort": "И",
-    "maxSpeed":"Макс скорост (км/ч)",
-    "maxAllowedSpeed":"Разрешена скорост (км/ч)",
-    "mass" : "Маса (кг)",
+    "maxSpeed": "Макс скорост (км/ч)",
+    "maxAllowedSpeed": "Разрешена скорост (км/ч)",
+    "mass": "Маса (кг)",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете този автомобил?",
     "courseCorrection": "Корекция на курса",
-    "driverName" : "Шофьор",
-    "workHoursTo" : "До",
-    "workHoursFrom" : "От",
-    "isBusinessTrip" : "Б?"
+    "driverName": "Шофьор",
+    "workHoursTo": "До",
+    "workHoursFrom": "От",
+    "isBusinessTrip": "Б?"
   },
 
   "dropdown": {
     "select": "(Изберете)",
-    "allFleetGrous" : "Всички групи",
+    "allFleetGrous": "Всички групи",
     "allFleets": "Всички автопаркове"
   },
 
-  "button" : {
-    "save":"Запиши",
+  "button": {
+    "save": "Запиши",
     "reset": "Изчисти",
     "cancel": "Анулирай",
     "calculate": "Изчисли",
@@ -409,30 +412,30 @@
     "exportToCSV": "Свали в CSV формат"
   },
 
-  "alarmTypes" : {
+  "alarmTypes": {
     "geofence": {
       "enter": "Влизане в обект",
       "exit": "Излизане от обект"
     }
   },
 
-  "alarms" : {
-    "title":"Аларма",
-    "listTitle":"Аларми",
-    "type":"Вид",
-    "description":"Описание",
+  "alarms": {
+    "title": "Аларма",
+    "listTitle": "Аларми",
+    "type": "Вид",
+    "description": "Описание",
     "timeAgo": "От",
     "timestamp": "Дата",
     "timestampTime": "Час",
-    "seen" : "Видяна",
-    "seenShort" : "В",
-    "data" : "Данни"
+    "seen": "Видяна",
+    "seenShort": "В",
+    "data": "Данни"
   },
 
-  "general" : {
-    "search":"Търси ...",
+  "general": {
+    "search": "Търси ...",
     "yes": "да",
-    "no" : "не"
+    "no": "не"
   },
 
   "reports": {
@@ -442,15 +445,15 @@
     },
     "maintenance": {
       "title": "Предстоящи поддръжки",
-      "nextMaintenanceDate" : "Дата",
-      "daysToMaintenance" : "Оставащи дни",
-      "nextMaintenanceOdometer" : "Одометър",
-      "odometerToMaintenance" : "Оставащи км",
-      "nextMaintenanceEngineHours" : "Д-ни часове",
-      "engineHoursToMaintenance" : "Оставащи часове"
+      "nextMaintenanceDate": "Дата",
+      "daysToMaintenance": "Оставащи дни",
+      "nextMaintenanceOdometer": "Одометър",
+      "odometerToMaintenance": "Оставащи км",
+      "nextMaintenanceEngineHours": "Д-ни часове",
+      "engineHoursToMaintenance": "Оставащи часове"
     },
     "upcomingEvents": {
-        "title" : "Предстоящи събития"
+      "title": "Предстоящи събития"
     },
     "logbook": {
       "distance": "Разстояние (км)",
@@ -460,48 +463,48 @@
     "proximity": {
       "address": "Адрес",
       "distance": "200",
-      "radius" : "Радиус (м)",
-      "restOnly" : "Само престрой",
+      "radius": "Радиус (м)",
+      "restOnly": "Само престрой",
       "title": "Търсене по адрес"
     }
   },
 
   "insurances": {
-    "title" : "Застраховка",
-    "listTitle" : "Застраховки",
+    "title": "Застраховка",
+    "listTitle": "Застраховки",
     "vehicle": "Автомобил",
     "insuranceCompany": "Застраховател",
-    "insuranceType" : "Вид",
-    "policyNo" : "Полица No",
+    "insuranceType": "Вид",
+    "policyNo": "Полица No",
     "value": "Стойност",
     "currency": "Валута",
     "policyDate": "Дата",
-    "policyValidFrom" : "Валидна от",
-    "policyValidTo" : "Валидна до",
-    "remainingDays" : "Дни",
+    "policyValidFrom": "Валидна от",
+    "policyValidTo": "Валидна до",
+    "remainingDays": "Дни",
     "validityMonths": "Валидност (месеци)",
     "balance": "Остатък",
     "numberOfPayments": "Брой плащания",
     "insuredFirstName": "Застрахован: име",
-    "insuredLastName" : "Застрахован: фамилия",
-    "notes" : "Допълнително инфо",
+    "insuredLastName": "Застрахован: фамилия",
+    "notes": "Допълнително инфо",
     "tags": "Етикети",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете тази застраховка?"
   },
 
   "insurancePayments": {
-    "title" : "Вноска по застраховка",
-    "listTitle" : "Вноски по застраховка",
-    "montlyPayment" : "Месечна вноска",
-    "plannedDate" : "Планирана дата",
-    "actualDate" : "Реална дата",
-    "currency" : "Валута",
-    "amountNoVAT" : "Сума (без ДДС)",
-    "amountWithVAT" : "Сума (с ДДС)",
-    "VONumber" : "ВО No",
-    "invoiceNo" : "Фактура No",
-    "paid" : "Платена",
-    "balance" : "Баланс",
+    "title": "Вноска по застраховка",
+    "listTitle": "Вноски по застраховка",
+    "montlyPayment": "Месечна вноска",
+    "plannedDate": "Планирана дата",
+    "actualDate": "Реална дата",
+    "currency": "Валута",
+    "amountNoVAT": "Сума (без ДДС)",
+    "amountWithVAT": "Сума (с ДДС)",
+    "VONumber": "ВО No",
+    "invoiceNo": "Фактура No",
+    "paid": "Платена",
+    "balance": "Баланс",
     "deleteMessage": "Сигурен ли сте, че искате да изтриете това плащане?"
   },
 
@@ -520,6 +523,17 @@
     },
     "unauthorized": {
       "message": "Нямате необходимите права за тази операция."
+    }
+  },
+
+  "trip": {
+    "details": {
+      "startAddress": "Начален адрес",
+      "endAddress": "Краен адрес",
+      "distance": "Разстояние",
+      "speeding": "Превишена скорост",
+      "avgSpeed": "Средна скорост",
+      "maxSpeed": "Максимална скорост"
     }
   }
 }

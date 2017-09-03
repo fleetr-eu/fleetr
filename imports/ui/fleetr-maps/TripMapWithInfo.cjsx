@@ -36,12 +36,12 @@ TripMapWithInfo = React.createClass
     [a, ..., z] = trip.logbook
     <div style={infoWindowStyle}>
       <table>
-        <tr><td style={infoWindowPropTitle}>Стартирайте адреса</td><td>{a.address}</td></tr>
-        <tr><td style={infoWindowPropTitle}>Попълнете адреса</td><td>{z.address}</td></tr>
-        <tr><td style={infoWindowPropTitle}>разстояние</td><td>{Number(trip.distance).toFixed(2)} km</td></tr>
-        <tr><td style={infoWindowPropTitle}>Speeding</td><td>{if trip.speeding then 'да' else 'Не'}</td></tr>
-        <tr><td style={infoWindowPropTitle}>Средна</td><td>{Number((Number(trip.avgSpeed)).toFixed(0))} км/ч</td></tr>
-        <tr><td style={infoWindowPropTitle}>Максимална</td><td>{Number((Number(trip.maxSpeed)).toFixed(0))} км/ч</td></tr>
+        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.startAddress')}</td><td>{a.address}</td></tr>
+        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.endAddress')}</td><td>{z.address}</td></tr>
+        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.distance')}</td><td>{Number(trip.distance).toFixed(2)} km</td></tr>
+        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.speeding')}</td><td>{if trip.speeding then TAPi18n.__('general.yes') else TAPi18n.__('general.no')}</td></tr>
+        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.avgSpeed')}</td><td>{Number((Number(trip.avgSpeed)).toFixed(0))} км/ч</td></tr>
+        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.maxSpeed')}</td><td>{Number((Number(trip.maxSpeed)).toFixed(0))} км/ч</td></tr>
       </table>
     </div>
   render: ->
