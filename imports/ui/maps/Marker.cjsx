@@ -11,7 +11,7 @@ module.exports  = React.createClass
     map: React.PropTypes.object
 
   componentDidUpdate: (prevProps) ->
-    if (@props.map isnt prevProps.map) or (not equal(@props.position, prevProps.position)) or (@props.mapCenter isnt prevProps.mapCenter)
+    if (@props.map isnt prevProps.map) or (not equal(@props.position, prevProps.position)) or (@props.mapCenter isnt prevProps.mapCenter) or @props.selected != prevProps.selected
       @renderMarker()
 
   componentWillMount: ->
@@ -27,7 +27,7 @@ module.exports  = React.createClass
     options =
       map: map
       position: new google.maps.LatLng pos.lat, pos.lng
-    console.log google
+      animation: if @props.selected then google.maps.Animation.BOUNCE
     options = _.extend options, @props
     marker = new google.maps.Marker options
     installListeners @, marker

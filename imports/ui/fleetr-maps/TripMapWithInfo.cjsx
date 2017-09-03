@@ -51,6 +51,7 @@ TripMapWithInfo = React.createClass
       style = if trip._id is @props.tripId then selectedStyle else {padding: 10, cursor: 'pointer'}
       ref = if trip._id is @props.tripId then 'selectedRow' else null
       tripUi.push <tr ref={ref} key={i} style={style} onClick={=> @props.onTripSelected trip, false}>
+        <td style=tdStyle>{i+1}</td>
         <td style=tdStyle>{format trip.startTime}</td>
         <td style=tdStyle>&#8249; {Number((Number(trip.distance)).toFixed(0))} км {if trip.speeding then speeding} &#8250;</td>
         <td style=tdStyle>{format trip.stopTime}</td>
@@ -69,21 +70,18 @@ TripMapWithInfo = React.createClass
         <div style={height: "calc(100vh - #{tripListHeightDeducter}px)", overflowY: 'scroll', padding: 10}>
 
           <table style={color: '#222', width: '100%', fontSize: 13}>
-            <thead>
-              <tr>
-                <th style=centered50W>Start</th>
-                <th style=centeredStyle></th>
-                <th style=centered50W>Stop</th>
-              </tr>
-            </thead>
+            {if @props.trips.length
+              <thead>
+                <tr>
+                  <th style=centeredStyle>&#35;</th>
+                  <th style=centered50W>Start</th>
+                  <th style=centeredStyle></th>
+                  <th style=centered50W>Stop</th>
+                </tr>
+              </thead>
+            }
             <tbody>
-              <tr>
-                <td colSpan=3 style=beginFinishStyle>&mdash; Start &mdash;</td>
-              </tr>
               {tripUi}
-              <tr>
-                <td colSpan=3 style=beginFinishStyle>&mdash; Finish &mdash;</td>
-              </tr>
             </tbody>
           </table>
         </div>

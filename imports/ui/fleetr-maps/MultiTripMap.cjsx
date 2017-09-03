@@ -2,10 +2,7 @@ React               = require 'react'
 _                   = require 'lodash'
 Map                 = require '../maps/Map.cjsx'
 MapItems            = require '../maps/MapItems.cjsx'
-MapLabel            = require '../maps/MapLabel.cjsx'
-CircleMarker        = require '../maps/CircleMarker.cjsx'
-StartMarker         = require '../fleetr-maps/markers/StartMarker.cjsx'
-StopMarker          = require '../fleetr-maps/markers/StopMarker.cjsx'
+Marker              = require '../maps/Marker.cjsx'
 RoutePolyline       = require '../fleetr-maps/RoutePolyline.cjsx'
 
 module.exports = MultiTripMap = React.createClass
@@ -17,16 +14,10 @@ module.exports = MultiTripMap = React.createClass
       {@props.trips.map (trip, i) =>
         [start, ..., stop] = trip.logbook
         selected = trip._id is @props.selectedTripId
+        color = if selected then '25B477|000' else '737372|FFFFFF'
         <MapItems key={i}>
-          <MapLabel position={start} label={i} />
-          {if selected
-            <MapItems>
-              <StartMarker position={start}/>
-              <StopMarker position={stop}/>
-            </MapItems>
-          }
+          <Marker position={start} icon="https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=#{i+1}|#{color}" selected={selected} onClick={=> @props.onTripSelected trip} />
           <RoutePolyline points={trip.logbook} selected={selected} onClick={=> @props.onTripSelected trip} />
-
         </MapItems>
       }
     </Map>
