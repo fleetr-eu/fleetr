@@ -37,6 +37,7 @@ Meteor.methods
           }
           {$sort: recordTime: 1}
           {$project:
+            deviceId: 1
             tripId: 1
             distance: 1
             vehicle: $arrayElemAt: ["$vehicle", 0]
@@ -52,6 +53,7 @@ Meteor.methods
           }
           {$project:
             _id: $concat: ["$tripId", "@", "$date", "T", "$time", ".", "$ms"]
+            deviceId: 1
             date: 1
             time: 1
             tripId: 1
