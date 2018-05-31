@@ -456,6 +456,9 @@
       "odometer": "Odometer (end of day)",
       "maxSpeed": "Max speed (km/h)"
     },
+    "vehicleLogbook": {
+      "title": "Logbook of"
+    },
     "proximity": {
       "address": "Address",
       "radius": "Radius (m)",

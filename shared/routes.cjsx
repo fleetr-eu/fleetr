@@ -449,7 +449,7 @@ Meteor.startup ->
       data: ->
         vehicle = Vehicles.findOne(_id: @params.vehicleId)
         vehicleId: @params.vehicleId
-        title: "Logbook for #{vehicle?.name} - #{vehicle?.licensePlate}" if vehicle
+        title: "#{TAPi18n.__('reports.vehicleLogbook.title')} #{vehicle?.name} - #{vehicle?.licensePlate}" if vehicle
         topnav: <VehiclesLogbookNav />
 
     @route 'vehicleRests',

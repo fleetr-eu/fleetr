@@ -460,6 +460,9 @@
       "odometer": "Одометър (в края на деня)",
       "maxSpeed": "Макс. скорост (км/ч)"
     },
+    "vehicleLogbook": {
+      "title": "История на"
+    },
     "proximity": {
       "address": "Адрес",
       "distance": "200",
