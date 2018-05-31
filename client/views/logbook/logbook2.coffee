@@ -133,9 +133,16 @@ Template.logbookGrid.helpers
       id: 'distance'
       field: 'distance'
       name: 'Разстояние (км)'
-      formatter: FleetrGrid.Formatters.roundFloat 2
       width: 20
       align: 'right'
+      formatter: (row, cell, value, column, rowObject) ->
+        start = Number(rowObject.startOdometer / 1000).toFixed(0)
+        stop = Number(rowObject.stopOdometer / 1000).toFixed(0)
+        """
+          #{Number(value).toFixed(2)}
+          <br/>
+          #{start} - #{stop}
+        """
       search:
         where: 'client'
         filter: (filterText) -> (columnValue) ->
