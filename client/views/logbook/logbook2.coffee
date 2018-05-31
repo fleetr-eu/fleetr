@@ -132,7 +132,7 @@ Template.logbookGrid.helpers
     ,
       id: 'distance'
       field: 'distance'
-      name: 'Разстояние (км)'
+      name: "Разст. / Одометър (км)"
       width: 20
       align: 'right'
       formatter: (row, cell, value, column, rowObject) ->
