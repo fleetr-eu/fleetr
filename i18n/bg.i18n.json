@@ -409,7 +409,8 @@
     "delete": "Изтрий",
     "filter": "Филтър",
     "showGeofences": "Покажи обекти",
-    "exportToCSV": "Свали в CSV формат"
+    "exportToCSV": "Свали в CSV формат",
+    "exportToXLS": "Свали в Excel формат"
   },
 
   "alarmTypes": {
