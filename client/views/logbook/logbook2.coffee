@@ -221,5 +221,8 @@ Template.logbookGrid.helpers
         columnId: 'fromTo'
         direction: 'desc'
       ]
+    onInstall: (grid) ->
+      window.fleetrGrid = null
+      Meteor.defer -> window.fleetrGrid = grid
     customize: (grid) ->
       grid.addGroupBy 'date', 'Дата', aggregators
