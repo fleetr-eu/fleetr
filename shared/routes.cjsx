@@ -6,6 +6,7 @@ VehiclesLogbookNav    = require '/imports/ui/navs/VehiclesLogbookNav.cjsx'
 ImportExpensesNav     = require '/imports/ui/navs/ImportExpensesNav.cjsx'
 IconButton  = require '/imports/ui/buttons/IconButton.cjsx'
 
+exportGridData = require '/imports/actions/exportGridData.coffee'
 exportVehiclesToCSV = require '/imports/actions/exportVehiclesToCSV.coffee'
 exportVehiclesToXLSX = require '/imports/actions/exportVehiclesToXLSX.coffee'
 
@@ -116,11 +117,11 @@ Meteor.startup ->
                                 onClick={exportVehiclesToCSV} />
                   </li>
                   <li>
-                    <a href="#" onClick={exportExcel} style={padding:'5px'} title='XLSX'>
+                    <a href="#" onClick={exportExcel} style={padding:'5px'}  title={TAPi18n.__("button.exportToXLS")}>
                       <img style={excelButtonStyle} src='/images/excel-icon.png' />
                     </a>
                   </li>
-                </CrudButtons >
+                </CrudButtons>
 
     @route 'listCustomEvents',
       path: '/custom-events/list'
@@ -448,9 +449,28 @@ Meteor.startup ->
       waitOn: -> Meteor.subscribe('vehicle', _id: @params.vehicleId)
       data: ->
         vehicle = Vehicles.findOne(_id: @params.vehicleId)
+        exportData = (format) ->
+          exportGridData "history-#{vehicle.name}-#{vehicle.licensePlate}", format, window.fleetrGrid
+
         vehicleId: @params.vehicleId
         title: "#{TAPi18n.__('reports.vehicleLogbook.title')} #{vehicle?.name} - #{vehicle?.licensePlate}" if vehicle
-        topnav: <VehiclesLogbookNav />
+        topnav:
+          <div>
+            <CrudButtons>
+                      <li>
+                        <IconButton title={TAPi18n.__("button.exportToCSV")}
+                                    className='pe-7s-download'
+                                    onClick={exportData.bind @, "csv"} />
+                      </li>
+                      <li>
+                        <a href="#" onClick={exportData.bind @, "xlsx"}
+                          style={padding:'5px'} title={TAPi18n.__("button.exportToXLS")}>
+                          <img style={excelButtonStyle} src='/images/excel-icon.png' />
+                        </a>
+                      </li>
+              </CrudButtons>
+              <VehiclesLogbookNav />
+          </div>
 
     @route 'vehicleRests',
       path: '/vehicles/:vehicleId/rests'
