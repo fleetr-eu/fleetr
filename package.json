@@ -19,7 +19,8 @@
     "react-big-calendar": "^0.11.1",
     "react-dom": "^15.1.0",
     "react-google-maps": "^4.11.0",
-    "xlsx": "^0.11.3"
+    "select2": "^4.0.6-rc.1",
+    "xlsx": "^0.11.19"
   },
   "devDependencies": {},
   "scripts": {

@@ -2,6 +2,10 @@
   width: 0px;
 }
 
+.select2.select2-container {
+  width: 100% !important;
+}
+
 .content {
   min-height: calc(100% - 61px) !important;
 }
@@ -13,8 +17,17 @@ input[type='checkbox'] {
 .i18n-container {
   margin-top: 5px;
 }
+.select2-results__option {
+  background-color: #222;
+  color: #DDD;
+}
 
-.tap-i18n-dropdown select {
+.select2-selection__rendered {
+  background-color: #222;
+  color: #DDD;
+}
+
+.tap-i18n-dropdown select  {
   background: transparent;
   border: none;
   font-size: 14px;
@@ -42,4 +55,8 @@ input[type='checkbox'] {
     display: inline;
     margin: 0;
     font-size: 1.5em;
+}
+
+legend {
+  color: #999;
 }

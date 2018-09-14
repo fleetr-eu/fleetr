@@ -41,6 +41,7 @@ Schema.configurationSettings = new SimpleSchema
   type:
     type: String, label: ()->TAPi18n.__('configurationSettings.type')
     autoform:
+      type: 'select2'
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
       firstOption: "(Изберете)"
       options: ->
@@ -72,6 +73,7 @@ Schema.customEvents = new SimpleSchema
   kind:
     type: String, optional: true, label: ()->TAPi18n.__('customEvents.kind')
     autoform:
+      type: 'select2'
       template: "bootstrap3-horizontal", "label-class": "col-sm-4"
       options: () -> [
           { label: "Технически преглед", value: "Технически преглед"}
@@ -83,24 +85,28 @@ Schema.customEvents = new SimpleSchema
   fleetGroupId:
     type: String, optional: true, label: ()->TAPi18n.__('customEvents.fleetGroup')
     autoform:
+      type: 'select2'
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> FleetGroups.find().map (group) -> label: group.name, value: group._id
   fleetId:
     type: String, optional: true, label: ()->TAPi18n.__('customEvents.fleet')
     autoform:
+      type: 'select2'
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> Fleets.find().map (fleet) -> label: fleet.name, value: fleet._id
   vehicleId:
     type: String, optional: true, label: ()->TAPi18n.__('customEvents.vehicle')
     autoform:
+      type: 'select2'
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
   driverId:
     type: String, optional: true, label: ()->TAPi18n.__('customEvents.driver')
     autoform:
+      type: 'select2'
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> Drivers.find().map (driver) -> label: driver.name, value: driver._id
@@ -170,30 +176,35 @@ Schema.geofenceEvents = new SimpleSchema
   fleetGroupId:
     type: String, optional: true, label: ()->TAPi18n.__('geofenceEvents.fleetGroup')
     autoform:
+      type: 'select2'
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> FleetGroups.find().map (group) -> label: group.name, value: group._id
   fleetId:
     type: String, optional: true, label: ()->TAPi18n.__('geofenceEvents.fleet')
     autoform:
+      type: 'select2'
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> Fleets.find().map (fleet) -> label: fleet.name, value: fleet._id
   vehicleId:
     type: String, optional: true, label: ()->TAPi18n.__('geofenceEvents.vehicle')
     autoform:
+      type: 'select2'
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
   driverId:
     type: String, optional: true, label: ()->TAPi18n.__('geofenceEvents.driver')
     autoform:
+      type: 'select2'
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> Drivers.find().map (driver) -> label: driver.name, value: driver._id
   geofenceId:
     type: String, label: ()->TAPi18n.__('geofenceEvents.geofence')
     autoform:
+      type: 'select2'
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> Geofences.find().map (geofence) -> label: geofence.name, value: geofence._id
@@ -305,6 +316,7 @@ Schema.fleet = new SimpleSchema
   parent:
     type:String, label: ()->TAPi18n.__('fleet.parent')
     autoform:
+      type: 'select2'
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> FleetGroups.find().map (group) -> label: group.name, value: group._id
@@ -330,6 +342,7 @@ Schema.documents = new SimpleSchema
     type: String
     label: ()->TAPi18n.__('documents.type')
     autoform:
+      type: 'select2'
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> DocumentTypes.find().map (documentType) -> label: documentType.name, value: documentType._id
       allowOptions: "true"
@@ -404,6 +417,7 @@ Schema.maintenances = new SimpleSchema
     type: String
     label: ()-> TAPi18n.__('maintenances.maintenanceType')
     autoform:
+      type: 'select2'
       firstOption: "(Изберете)"
       options: -> MaintenanceTypes.find().map (maintenanceType) -> label: maintenanceType.name, value: maintenanceType._id
       allowOptions: "true"
@@ -476,6 +490,7 @@ Schema.driverEvents = new SimpleSchema
     type: String
     label: 'Шофьор'
     autoform:
+      type: 'select2'
       firstOption: "(Изберете)"
       options: -> Drivers.find().map (driver) ->
         label: driver.firstName+" "+driver.name
@@ -484,6 +499,7 @@ Schema.driverEvents = new SimpleSchema
     type:String
     label: "Събитие"
     autoform:
+      type: 'select2'
       firstOption: "(Изберете)"
       options: -> EventTypes.find().map (event) -> label: event.name, value: event._id
   date:
@@ -504,6 +520,7 @@ Schema.driverVehicleAssignments = new SimpleSchema
     type: String
     label: ()->TAPi18n.__('driverVehicleAssignments.driverName')
     autoform:
+      type: 'select2'
       firstOption: "(Изберете)"
       options: -> Drivers.find().map (driver) ->
         label: driver.fullName()
@@ -513,6 +530,7 @@ Schema.driverVehicleAssignments = new SimpleSchema
     type:String
     label: ()->TAPi18n.__('driverVehicleAssignments.vehicleName')
     autoform:
+      type: 'select2'
       firstOption: "(Изберете)"
       options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
       template: "bootstrap3-horizontal", "label-class":"col-sm-4", "input-col-class": "col-sm-8 input-group-sm"

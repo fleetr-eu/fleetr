@@ -1,7 +1,6 @@
 <template name="expense">
   {{#autoForm collection="Expenses" doc=doc id="expenseForm" type="method-update" meteormethod="submitExpense"}}
      <fieldset>
-        <legend></legend>
         {{> afFieldInput type="hidden" name="_id" value=_id}}
         {{> afQuickField name="expenseType" }}
         {{> afQuickField name="expenseGroup" autofocus=true}}

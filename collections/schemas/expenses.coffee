@@ -5,6 +5,7 @@ Schema.expenses = new SimpleSchema
     type: String
     label: () -> TAPi18n.__('expenses.expenseType')
     autoform:
+      type: 'select2'
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> ExpenseTypes.find().map (expenseType) -> label: expenseType.name, value: expenseType._id
       allowOptions: "true"
@@ -13,6 +14,7 @@ Schema.expenses = new SimpleSchema
     type: String
     label: ()->TAPi18n.__('expenses.expenseGroup')
     autoform:
+      type: 'select2'
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> ExpenseGroups.find().map (expenseGroup) -> label: expenseGroup.name, value: expenseGroup._id
       allowOptions: "true"
@@ -21,6 +23,7 @@ Schema.expenses = new SimpleSchema
     type: String
     label: ()->TAPi18n.__('expenses.vehicle')
     autoform:
+      type: 'select2'
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
       optional: true
@@ -44,6 +47,7 @@ Schema.expenses = new SimpleSchema
     label: ()->TAPi18n.__('expenses.driver')
     optional: true
     autoform:
+      type: 'select2'
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> Drivers.find().map (driver) -> label: driver.firstName+" "+driver.name, value: driver._id
       allowOptions: "true"

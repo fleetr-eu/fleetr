@@ -98,6 +98,7 @@ Schema.vehicle = new SimpleSchema
   allocatedToFleet:
     type: String, label: ()->TAPi18n.__('vehicles.allocatedToFleet')
     autoform:
+      type: 'select2'
       firstOption: ()->TAPi18n.__('dropdown.select')
       options: -> Fleets.find().map (fleet) -> label: fleet.name, value: fleet._id
       template: "bootstrap3-horizontal", "label-class": "col-sm-6", "input-col-class": "col-sm-6 input-group-sm"
@@ -166,6 +167,7 @@ Schema.vehicle = new SimpleSchema
     type: String, optional: true, label:()->TAPi18n.__('vehicles.kind')
     autoform:
       firstOption: "(Изберете)"
+      type: 'select2'
       options: [
         { label:'Кола' , value: 'car'},
         { label:'Ван' , value: 'van'},
@@ -184,6 +186,7 @@ Schema.vehicle = new SimpleSchema
     allowedValues: ['Diesel', 'Electric', 'Gas', 'Gasoline', 'Hybrid', 'Methane']
     autoform:
       firstOption: "(Select)"
+      type: 'select2'
       options: [
         { label:'Diesel' , value: 'Diesel'},
         { label:'Electric' , value: 'Electric'},

@@ -399,6 +399,7 @@ Schema.driver = new SimpleSchema
     label: "Собствено МПС"
     optional: true
     autoform:
+      type: 'select2'
       firstOption: "(Изберете)"
       options: -> Vehicles.find({}, {$sort: {"name": 1}}).map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
       template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"

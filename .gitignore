@@ -1,5 +1,6 @@
 .idea/
 .meteor/local
+.DS_Store
 fleetr.sublime-project
 fleetr.sublime-workspace
 all.data

@@ -39,6 +39,7 @@ Schema.insurance = new SimpleSchema
     type: String
     label: ()->TAPi18n.__('insurances.vehicle')
     autoform:
+      type: 'select2'
       firstOption: "(Изберете)"
       options: -> Vehicles.find().map (vehicle) -> label: vehicle.name+" ("+vehicle.licensePlate+")", value: vehicle._id
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
@@ -46,6 +47,7 @@ Schema.insurance = new SimpleSchema
     type: String
     label: ()->TAPi18n.__('insurances.insuranceCompany')
     autoform:
+      type: 'select2'
       firstOption: "(Изберете)"
       options: -> InsuranceCompanies.find().map (insuranceCompany) -> label: insuranceCompany.name, value: insuranceCompany._id
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
@@ -54,6 +56,7 @@ Schema.insurance = new SimpleSchema
     label: ()->TAPi18n.__('insurances.insuranceType')
     optional: true
     autoform:
+      type: 'select2'
       firstOption: "(Изберете)"
       options: -> InsuranceTypes.find().map (insurance) -> label: insurance.name, value: insurance._id
       template: "bootstrap3-horizontal", "label-class": "col-sm-4", "input-col-class": "col-sm-8 input-group-sm"
@@ -75,6 +78,7 @@ Schema.insurance = new SimpleSchema
 
     allowedValues: ['Лев', 'Евро']
     autoform:
+      type: 'select2'
       firstOption: "(Изберете)"
       options: [
         { label:'Лев' , value: 'Лев'},
@@ -173,6 +177,7 @@ Schema.insurancePayment = new SimpleSchema
     optional: true
     allowedValues: ['Лев', 'Евро']
     autoform:
+      type: 'select2'
       firstOption: "(Изберете)"
       options: [
         { label:'Лев' , value: 'Лев'},
