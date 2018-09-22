@@ -15,7 +15,7 @@ timeAgoFormatter = (row, cell, value) ->
 
 
 linkFormatter = (report) -> (row, cell, value) ->
-  "<a href='/vehicles/#{value}/#{report}' style='background-color:#000'><img src='/images/#{report}-icon.png' height='22' }'></img></a>"
+  "<a href='/vehicles/#{value}/#{report}'><img src='/images/#{report}-icon.png' height='22' }'></img></a>"
 
 linkLoogbookFormatter = (report, minDistance) -> (row, cell, value) ->
   "<a href='/vehicles/#{value}/#{report}'><img src='/images/#{report}-icon.png' height='22' }'></img></a>"
@@ -69,7 +69,7 @@ Template.vehicles.helpers
         name: TAPi18n.__('fleet.name')
         width:80
         sortable: true
-        # hidden:true
+        hidden:true
         search: where: 'client'
         groupable:
           aggregators: []
@@ -145,15 +145,15 @@ Template.vehicles.helpers
         maxWidth: 31
         formatter: linkFormatter 'history'
         align: 'left'
-      ,
-        id: "tags"
-        field: "tags"
-        name: TAPi18n.__('vehicles.tags')
-        width:60
-        sortable: true
-        hidden: hiddenOnMobile()
-        search: where: 'client'
-        formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags
+      # ,
+      #   id: "tags"
+      #   field: "tags"
+      #   name: TAPi18n.__('vehicles.tags')
+      #   width:60
+      #   sortable: true
+      #   hidden: true
+      #   search: where: 'client'
+      #   formatter: FleetrGrid.Formatters.blazeFormatter Template.columnTags
       ]
       options:
         enableCellNavigation: true

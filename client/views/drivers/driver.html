@@ -9,10 +9,10 @@
         <a href="#tab_2" data-toggle="tab">
         Kонтакт</a>
       </li>
-      <li>
+      <!-- <li>
         <a href="#tab_3" data-toggle="tab">
         Допълнителни</a>
-      </li>
+      </li> -->
     </ul>
     {{#autoForm collection="Drivers" doc=doc id="driverForm" type="method-update" meteormethod="submitDriver"}}
       <div class="tab-content">
@@ -46,15 +46,14 @@
             {{> afQuickField name="phone"}}
           </fieldset>
         </div>
-        <div class="tab-pane" id="tab_3">
+        <!-- <div class="tab-pane" id="tab_3">
           <fieldset>
              <legend>&nbsp;</legend>
-            {{> afQuickField name="bloodGroup" }}
             {{> afQuickField name="transportLicense"}}
             {{> afQuickField name="ownsPersonalLicense"}}
             {{> afQuickField name="ownVehicle" }}
           </fieldset>
-        </div>
+        </div> -->
       </div>
     {{/autoForm}}
   </div>

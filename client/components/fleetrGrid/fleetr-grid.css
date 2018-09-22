@@ -1,27 +1,37 @@
 .slickfleetr {
-  background-color: rgba(2, 2, 2, 0);
+  background-color: #eee;
+  color: #444;
+  font-size: 12px;
+  font-family: 'Play', sans-serif;
+  border: 0px;
 }
-
+.slick-columnpicker {
+  list-style-type: none;
+  border-radius: 3px;
+  background-color: #eee;
+  color: #555;
+  font-size: 10px;
+  padding: 5px 5px 5px 5px;
+}
 .slick-header-column {
-  background: none;
-  color: #AAAAAA;
+  color: #999;
+  background-image: none;
 }
 
 .slick-header-column:hover {
-  background: none;
-  color: #CCCCCC;
+  background-color: #999;
 }
 
 .slickfleetr .slick-headerrow {
-  background-color: #222; 
+  background-color: #eee;
 }
 
 .slickfleetr .slick-headerrow-column {
-  background-color: #222;
+  background-color: #eee;
 }
 
 .slickfleetr .slick-header-columns {
-  background-color: #222;
+  background-color: #eee;
 }
 
 .slickfleetr .slick-header-column {
@@ -29,9 +39,9 @@
   padding: 10px !important;
   padding-left:0;
   font-weight: bold;
-  border: 0 !important;
-  background-color: rgb(41, 41, 41);
-  border-right: 1px dotted darkgrey;
+  border: 0px !important;
+  background-color: #eee;
+  /* border-right: 1px dotted darkgrey; */
 }
 
 .slick-header-button {
@@ -48,25 +58,25 @@
 }
 
 .slickfleetr .ui-state-default {
-  background-color: #222;
+  background-color: #eee;
 }
 
 .slick-row.even {
-  background-color: #222;
-  color: #9bc2e6
+  background-color: #eee;
+   color: #555;
 }
 
 .slick-row.odd {
-  background-color: #222222;
-  color: #9bc2e6
+  background-color: #ddd;
+   color: #555;
 }
 
 .ui-widget-content .slick-row .even {
-  background-color: #222; 
+  background-color: #eee;
 }
 
 .slick-row .ui-widget-content, .slick-row .ui-state-active {
-  border-bottom-color: rgb(41, 41, 41);
+  /* border-bottom-color: rgb(41, 41, 41); */
 }
 
 .slickfleetr .slick-header-column.ui-state-default {
@@ -83,19 +93,17 @@
 .slickfleetr .slick-cell {
   height: 30px !important;
   padding:5px;
-  line-height: 1.5 !important;
-  border-left: 0;
-  border-top: 0;
+  border: 0px;
 }
 
 .slickfleetr .slick-cell.selected > a {
-   background-color: rgba(18, 36, 76, 0.91);
+   background-color: rgba(128, 128, 128, 0.91);
 }
 
 .slickfleetr .slick-cell.selected {
-   color: #FFFFFF; 
-   background-color: rgba(18, 36, 76, 0.91);
-} 
+   color: #FFFFFF;
+   background-color: rgba(128, 128, 128, 0.91);
+}
 
 .slickfleetr .alignment-left {
   text-align: left;
@@ -110,12 +118,12 @@
 .slickfleetr input.searchbox {
   width: 100%;
   border: 0;
-  background-color: #222;
-  color: #959595
+  background-color: #eee;
+  color: #555;
 }
 
 .slickfleetr .glyphicon.searchbox {
-  color: #9b9595
+  color: #555;
   font-size:10px;
   padding-right:5px;
   padding-bottom:10px;
@@ -142,8 +150,8 @@
 
 /* Header menu specifics */
 .slickfleetr .slick-header-menu {
-  border: 1px solid #718BB7;
-  background-color: #222;
+  /* border: 1px solid #718BB7; */
+  background-color: #eee;
   padding: 2px;
   -moz-box-shadow: 2px 2px 2px black;
   -webkit-box-shadow: 2px 2px 2px black;
@@ -152,14 +160,14 @@
 }
 .slickfleetr .slick-header-menuitem {
   padding: 2px 4px;
-  border: 1px solid transparent;
+  border: 0px solid transparent;
   border-radius: 3px;
-  background-color: #222;
+  background-color: #eee;
 }
 
 .slickfleetr .slick-header-menuitem:hover {
   border-color: black;
-  background-color: #222;
+  background-color: #eee;
 }
 
 /* Header Button plugin specifics */
@@ -179,7 +187,7 @@
   bottom: 0px;
   right: 0;
   padding-top: 20%;
-  background-color: rgba(2, 2, 2, .8);
+  /* background-color: rgba(2, 2, 2, .8); */
   z-index: 10000;
 }
 
@@ -192,7 +200,7 @@
 #fleetrGridSpinner > .spinner > div {
   width: 18px;
   height: 18px;
-  background-color: #333;
+  background-color: #eee;
 
   border-radius: 100%;
   display: inline-block;

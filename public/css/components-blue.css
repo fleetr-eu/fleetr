@@ -6,11 +6,11 @@ General reset
 ***/
 /* Set default body */
 body {
-    color: #333333; 
+    color: #333333;
     font-family: 'Play', sans-serif;
     padding: 0px !important;
     margin: 0px !important;
-    font-size: 13px;
+    font-size: 12px;
     direction: ltr;
 }
 
@@ -118,8 +118,8 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Play', sans-serif;
-    font-weight: 300;
+  font-family: 'Play', sans-serif;
+  font-weight: 300;
 }
 
 h1 {
@@ -274,7 +274,7 @@ Utilities
 }
 
 .primary-font {
-    font-family: 'Play', sans-serif; !important;
+    font-family: 'Play', sans-serif;
 }
 
 .bold {
@@ -1679,7 +1679,7 @@ Charts and statistics
     overflow: hidden;
     height: 300px;
     width: 100%;
-    font-family: 'Play', sans-serif; !important;
+    font-family: 'Play', sans-serif;
     font-size: 14px;
 }
 
@@ -1913,7 +1913,7 @@ Dropdown Menu
     background-color: #fffff;
     box-shadow: 5px 5px rgba(102, 102, 102, 0.1);
     border: 1px solid #eee;
-    font-family: 'Play', sans-serif;;
+    font-family: 'Play', sans-serif;
 }
 
 .dropdown-menu li.divider {

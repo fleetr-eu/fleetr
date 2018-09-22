@@ -44,18 +44,29 @@ Schema.driver = new SimpleSchema
     type: String
     label: "Пол"
     optional: true
-    allowedValues: ['Мъж', 'Жена']
     autoform:
-      firstOption: "(Изберете)"
+      type: 'select2'
+      firstOption: ()->TAPi18n.__('dropdown.select')
+      options:[
+        { label:'Мъж' , value: 'male'},
+        { label:'Жена' , value: 'female'}
+      ]
       template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
 
   education:
     type: String
     label: "Образование"
     optional: true
-    allowedValues: ['', 'Предучилищно', 'Основно', 'Средно', 'Висше']
     autoform:
-      firstOption: "(Изберете)"
+      type: 'select2'
+      firstOption: ()-> TAPi18n.__('dropdown.select')
+      options:[
+        { label:'Без' , value: 'none'},
+        { label:'Предучилищно' , value: 'preliminary'},
+        { label:'Основно' , value: 'lower-secondary'},
+        { label:'Средно' , value: 'upper-secondary'},
+        { label:'Висше' , value: 'high'}
+      ]
       template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
 
   active:
@@ -79,8 +90,9 @@ Schema.driver = new SimpleSchema
     optional: true
     allowedValues: ['Лична карта', 'Паспорт']
     autoform:
-      firstOption: "(Изберете)"
-      options: "allowed"
+      type: 'select2'
+      firstOption: ()-> TAPi18n.__('dropdown.select')
+      options: ()-> ['Лична карта', 'Паспорт']
       template: "bootstrap3-horizontal", "label-class": "col-sm-5", "input-col-class": "col-sm-7 input-group-sm"
   idSerial:
     type: String

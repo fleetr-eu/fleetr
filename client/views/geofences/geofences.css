@@ -1,19 +1,18 @@
 .map-filter {
-	background-color: #222;
-	background: #222;
+	background: rgba(128, 128, 128, 0.91);
 }
 
-.table-striped>tbody>tr:nth-of-type(odd) {
-  background-color: #222222;
+/* .table-striped>tbody>tr:nth-of-type(odd) {
+  background-color: rgba(128, 128, 128, 0.91);
   color: #9bc2e6
 
 }
 
 .table-striped>tbody>tr:nth-of-type(even) {
-  background-color: #222;
+  background-color: rgba(245, 245, 245, 0.91);
   color: #9bc2e6
 }
 
 .table > thead > tr > td.active, .table > tbody > tr > td.active, .table > tfoot > tr > td.active, .table > thead > tr > th.active, .table > tbody > tr > th.active, .table > tfoot > tr > th.active, .table > thead > tr.active > td, .table > tbody > tr.active > td, .table > tfoot > tr.active > td, .table > thead > tr.active > th, .table > tbody > tr.active > th, .table > tfoot > tr.active > th {
    background-color: rgba(18, 36, 76, 0.91);
-}
+} */
