@@ -4,7 +4,7 @@ moment              = require 'moment'
 MultiTripMap        = require './MultiTripMap.cjsx'
 
 format = (value) -> moment(value).format('HH:mm')
-tdStyle = paddingBottom: 'inherit', paddingTop: 'inherit', textAlign: 'center'
+tdStyle = paddingBottom: 'inherit', paddingTop: 'inherit', textAlign: 'center';
 centeredStyle = textAlign: 'center', paddingBottom: 10
 centered50W = Object.assign {}, centeredStyle, {width: 50}
 beginFinishStyle = Object.assign {}, centeredStyle, {paddingBottom: 15},  {color: 'grey'}, {fontSize: 18}
@@ -22,6 +22,9 @@ infoWindowStyle =
 infoWindowPropTitle =
   width: 120
   fontWeight: 'bold'
+  fontSize: 10
+infoWindowPropData =
+  fontSize: 10
 
 speeding = <span className="glyphicon glyphicon-exclamation-sign" style={color: 'red'}></span>
 
@@ -36,12 +39,12 @@ TripMapWithInfo = React.createClass
     [a, ..., z] = trip.logbook
     <div style={infoWindowStyle}>
       <table>
-        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.startAddress')}</td><td>{a.address}</td></tr>
-        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.endAddress')}</td><td>{z.address}</td></tr>
-        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.distance')}</td><td>{Number(trip.distance).toFixed(2)} km</td></tr>
-        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.speeding')}</td><td>{if trip.speeding then TAPi18n.__('general.yes') else TAPi18n.__('general.no')}</td></tr>
-        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.avgSpeed')}</td><td>{Number((Number(trip.avgSpeed)).toFixed(0))} км/ч</td></tr>
-        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.maxSpeed')}</td><td>{Number((Number(trip.maxSpeed)).toFixed(0))} км/ч</td></tr>
+        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.startAddress')}</td><td style={infoWindowPropData}>{a.address}</td></tr>
+        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.endAddress')}</td><td style={infoWindowPropData}>{z.address}</td></tr>
+        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.distance')}</td><td style={infoWindowPropData}>{Number(trip.distance).toFixed(2)} km</td></tr>
+        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.speeding')}</td><td style={infoWindowPropData}>{if trip.speeding then TAPi18n.__('general.yes') else TAPi18n.__('general.no')}</td></tr>
+        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.avgSpeed')}</td><td style={infoWindowPropData}>{Number((Number(trip.avgSpeed)).toFixed(0))} км/ч</td></tr>
+        <tr><td style={infoWindowPropTitle}>{TAPi18n.__('trip.details.maxSpeed')}</td><td style={infoWindowPropData}>{Number((Number(trip.maxSpeed)).toFixed(0))} км/ч</td></tr>
       </table>
     </div>
   render: ->
@@ -69,7 +72,7 @@ TripMapWithInfo = React.createClass
         <h3 style={textAlign:'center', marginTop: 0, fontSize: 20}><small>{@props.vehicle?.name} &mdash; {@props.vehicle?.licensePlate}</small></h3>
         <div style={height: "calc(100vh - #{tripListHeightDeducter}px)", overflowY: 'scroll', padding: 10}>
 
-          <table style={color: '#222', width: '100%', fontSize: 13}>
+          <table style={color: '#222', width: '100%', fontSize: 12}>
             {if @props.trips.length
               <thead>
                 <tr>

@@ -108,7 +108,7 @@ Meteor.startup ->
             #{idleText}
             #{restText}
           </p>
-          <a href='/vehicles/#{vehicle._id}/logbook'>Журнал</а>
+          <a href='/vehicles/#{vehicle._id}/logbook'>История</а>
         """
 
 
