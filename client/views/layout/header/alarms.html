@@ -3,7 +3,7 @@
 
   <li class="dropdown dropdown-alarms" id="header_alarm_bar">
     <a style="margin-bottom: 0px;" href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-      <i class="pe-7s-bell" style="font-size: 25px;"></i>
+      <img src="{{alarmSnoozeImageSrc}}" height="20">
       <b class="caret"></b>
       {{#if unseenAlarmsExist }}
         <span class="notification">{{unseenAlarmsCount}}</span>
@@ -14,6 +14,13 @@
       {{#each unseenAlarms}}
         {{> headerAlarm}}
       {{/each}}
+      <li>
+        <a href="#" class="snooze">
+          <img src="{{alarmSnoozeActionImageSrc}}" height="18">
+          {{alarmSnoozeText}}
+        </a>
+      </li>
+
     </ul>
   </li>
 
@@ -23,7 +30,7 @@
 <template name="headerAlarm">
   <li>
     <a href="/alarms/list" style="white-space: normal;">
-    <i class="pe-7s-bell" style='font-size: 120%'></i>
+    <i class="pe-7s-bell" style='font-size: 80%'></i>
     {{alarmText}}
     <span class="time" style="{{style}};"><small>{{timeAgo}}</small>
     </span>
