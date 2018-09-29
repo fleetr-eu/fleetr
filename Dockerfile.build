@@ -1,4 +1,4 @@
-FROM node:4.4.7
+FROM node:4
 MAINTAINER Fleetr
 
 RUN curl https://install.meteor.com/ | sh
