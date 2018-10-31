@@ -37,7 +37,7 @@ Meteor.startup ->
         zIndex: 15
 
   class @VehicleMarker extends FleetrMarker
-    constructor: (vehicle, showLabel) ->
+    constructor: (vehicle, showLabel, map) ->
       color = 'grey'
       if vehicle.state is "stop"
         color = "blue"
@@ -51,6 +51,7 @@ Meteor.startup ->
       truckIcon = "/images/truck-#{color}.png"
 
       opts =
+        map: map
         position: new FleetrLatLng [vehicle.lat, vehicle.lng]
         title: "#{vehicle?.name} (#{vehicle?.licensePlate})"
         icon:

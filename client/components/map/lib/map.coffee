@@ -63,8 +63,6 @@ Meteor.startup ->
       if pacInput = document.getElementById("pac-input")
         Autocomplete.init @map, pacInput
 
-      @clusterer = FleetrClusterer @map
-
       if options?.showVehicles
         @vehicleObserver = Vehicles.find {},
           fields:
@@ -91,22 +89,21 @@ Meteor.startup ->
     destroy: ->
       @vehicleObserver?.stop()
       @removeAllMarkers()
-      @clusterer = null
 
     addVehicleMarker: (vehicle) ->
-      # Tracker.autorun =>
       @removeVehicleMarker(vehicle) if @vehicleMarkers[vehicle._id]
-      marker = new VehicleMarker(vehicle, Session.get('FleetrMap.showMarkerLabels')).withInfo(vehicle, @map)
-      @vehicleMarkers[vehicle._id] = marker
-      @clusterer.addMarker marker
+      if vehicle.lat and vehicle.lng
+        marker = new VehicleMarker vehicle, Session.get('FleetrMap.showMarkerLabels'), @map
+        marker.withInfo vehicle, @map
+        @vehicleMarkers[vehicle._id] = marker
 
     removeVehicleMarker: (vehicle) ->
-      marker = _.findWhere @clusterer.getMarkers(), id: vehicle._id
-      @clusterer.removeMarker marker
+      @vehicleMarkers[vehicle._id]?.setMap(null)
       delete @vehicleMarkers[vehicle._id]
 
     removeAllMarkers: ->
-      @clusterer.removeAllMarkers()
+      m.setMap(null) for m in @vehicleMarkers
+      @vehicleMarkers = []
       @removePathMarkers()
 
     moveVehicleMarker: (vehicle) ->
